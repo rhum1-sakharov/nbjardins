@@ -52,10 +52,26 @@
         <div class="p-grid p-fluid">
           <div class="p-col-12 p-md-4">
             <div class="p-inputgroup">
-              <span class="p-inputgroup-addon">  <fa-icon [icon]="faEnvelope"></fa-icon></span>
-              <input type="text" pInputText placeholder="Adresse mail">
+              <span class="p-inputgroup-addon">  <fa-icon [icon]="faAt"></fa-icon></span>
+              <input type="text" pInputText placeholder="renseigner une adresse mail...">
             </div>
           </div>
+
+          <div class="p-col-12 p-md-4 mg-t-10">
+            <div class="p-inputgroup">
+              <span class="p-inputgroup-addon">  <fa-icon [icon]="faPenFancy"></fa-icon></span>
+              <textarea pInputTextarea [(ngModel)]="devisMessage" [rows]="10" [cols]="30" placeholder="rédiger un message..."></textarea>
+            </div>
+          </div>
+
+          <div class="d-flex mg-t-10">
+            <div class="mr-auto">
+            </div>
+            <div>
+              <button pButton pRipple type="button" label="Envoyer" class="p-button-rounded"></button>
+            </div>
+          </div>
+
         </div>
 
       </p-card>

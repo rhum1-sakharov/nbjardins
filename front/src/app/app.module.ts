@@ -6,6 +6,9 @@ import {AppComponent} from './app.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {CardModule} from "primeng/card";
 import {InputTextModule} from "primeng/inputtext";
+import {InputTextareaModule} from "primeng/inputtextarea";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {ButtonModule} from "primeng/button";
 
 @NgModule({
   declarations: [
@@ -14,9 +17,13 @@ import {InputTextModule} from "primeng/inputtext";
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
     FontAwesomeModule,
     CardModule,
-    InputTextModule
+    InputTextModule,
+    InputTextareaModule,
+    ButtonModule
 
   ],
   providers: [],

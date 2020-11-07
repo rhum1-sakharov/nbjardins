@@ -4,6 +4,8 @@ import {faEnvelope} from "@fortawesome/free-regular-svg-icons/faEnvelope";
 import {faPhone} from "@fortawesome/free-solid-svg-icons/faPhone";
 import {faMobileAlt} from "@fortawesome/free-solid-svg-icons";
 import {faMapMarkerAlt} from "@fortawesome/free-solid-svg-icons/faMapMarkerAlt";
+import {faAt} from "@fortawesome/free-solid-svg-icons/faAt";
+import {faPenFancy} from "@fortawesome/free-solid-svg-icons/faPenFancy";
 
 declare var ol: any;
 
@@ -19,13 +21,13 @@ export class AppComponent {
   faEnvelope = faEnvelope;
   faMobile = faMobileAlt;
   faMapMarkerAlt = faMapMarkerAlt;
+  faAt = faAt;
+  faPenFancy = faPenFancy;
 
-  window;
-
+  devisMessage: string;
 
   ngOnInit() {
-    this.window = window;
-    console.log(window.innerWidth);
+
   }
 
 
