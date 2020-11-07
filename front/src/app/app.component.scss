@@ -1,25 +1,59 @@
 
+body{
+
+}
+
+.shadow{
+  box-shadow: 0 0 4px rgba(0,0,0,.25);
+}
+
 .toolbar{
   height:70px;
   line-height: 70px;
   background-color: var(--surface-a);
   z-index: 997;
-  box-shadow: 0 0 4px rgba(0,0,0,.25);
+
   border-bottom: 1px solid var(--surface-d);
   display: -ms-flexbox;
   display: flex;
   -ms-flex-align: center;
   align-items: center;
-  padding: 0 35px;
+  padding: 0 14px;
+  position:fixed;
+  top: 0;
+  overflow: hidden;
+  width:100%;
+  max-width: 1024px;
+}
+
+.body{
+  margin:auto;
+  max-width:1024px;
 }
 
 .main{
+  margin-top:70px;
   min-height:calc(100vh - 70px);
+  max-width:100vw;
+  overflow-y: auto;
+
+  color:#495057;
+  background-image: url('../assets/bg.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
 }
 
 .footer{
   background-color: #34495e;
   color: white;
+}
+
+.title{
+  animation: zoomIn; /* referring directly to the animation's @keyframe declaration */
+  animation-duration: 0.5s; /* don't forget to set a duration! */
+  font-size: 18px;
+  font-weight:500;
 }
 
 a {

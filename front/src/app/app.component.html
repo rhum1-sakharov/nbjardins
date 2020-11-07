@@ -1,21 +1,88 @@
-<div class="toolbar">
-  {{title}}
-</div>
+<div class="body">
 
+  <div class="toolbar shadow">
 
-<div class="d-flex flex-column main">
+    <div class="d-flex">
+      <div class="mr-auto">
+        <div class="d-flex">
+          <div class="mg-r-20 ">
+            <img class="ht-50 wh-50 rounded-image shadow" src="assets/nicolas.jpg">
+          </div>
+          <div class="title">{{title}}</div>
+        </div>
+      </div>
 
-  <!--content-->
-  <div class="d-flex flex-grow-1">
-    tomate
+    </div>
+
   </div>
 
-  <!--footer-->
-  <div class="d-flex ht-150 pg-40 footer">
-    <div class="mr-auto"></div>
-    <div>
-      <a href="mailto:nicolas.boetsch@laposte.net">nicolas.boetsch@laposte.net</a>
+
+  <div class="d-flex flex-column main shadow">
+
+    <!--content-->
+    <div class="flex-grow-1 pg-14">
+      <p-card class="pg-28">
+        <ng-template pTemplate="header">
+          <h6 class="pg-10">Me connaître</h6>
+        </ng-template>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae
+          numquam
+          deserunt
+          quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
+          quas!</p>
+
+      </p-card>
+      <p-card class="pg-28">
+        <ng-template pTemplate="header">
+          <h6 class="pg-10">Mes prestations</h6>
+        </ng-template>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae
+          numquam
+          deserunt
+          quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
+          quas!</p>
+      </p-card>
+
+      <p-card class="pg-28">
+        <ng-template pTemplate="header">
+          <h6 class="pg-10">Demander un devis</h6>
+        </ng-template>
+
+
+        <div class="p-grid p-fluid">
+          <div class="p-col-12 p-md-4">
+            <div class="p-inputgroup">
+              <span class="p-inputgroup-addon">  <fa-icon [icon]="faEnvelope"></fa-icon></span>
+              <input type="text" pInputText placeholder="Adresse mail">
+            </div>
+          </div>
+        </div>
+
+      </p-card>
+    </div>
+
+    <!--footer-->
+    <div class="d-flex ht-120 pg-14 footer">
+      <div class="mr-auto">
+
+      </div>
+      <div class="d-flex flex-column">
+        <a href="tel:0699235428">
+          <fa-icon [icon]="faMobile" class="mg-r-10 "></fa-icon>
+          06 99 23 54 28
+        </a>
+        <a class="mg-t-10" href="mailto:nicolas.boetsch@laposte.net">
+          <fa-icon [icon]="faEnvelope" class="mg-r-5"></fa-icon>
+          nicolas.boetsch@laposte.net
+        </a>
+        <span class="mg-t-10">
+        <fa-icon [icon]="faMapMarkerAlt" class="mg-r-10"></fa-icon>366 chemin de fontblanque, 84210 Pernes
+      </span>
+      </div>
     </div>
   </div>
+
+
 </div>
+
 

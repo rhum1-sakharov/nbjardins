@@ -5,7 +5,49 @@
     height: #{$i}px;
   }
 
+  .max-ht-#{$i} {
+    max-height: #{$i}px;
+  }
+
+  .wh-#{$i} {
+    width: #{$i}px;
+  }
+
+  .max-wh-#{$i} {
+    max-width: #{$i}px;
+  }
+
   .pg-#{$i} {
     padding: #{$i}px;
   }
+
+  .mg-#{$i} {
+    margin: #{$i}px;
+  }
+
+  .mg-r-#{$i} {
+    margin-right: #{$i}px;
+  }
+
+  .mg-l-#{$i} {
+    margin-left: #{$i}px;
+  }
+
+  .mg-b-#{$i} {
+    margin-bottom: #{$i}px;
+  }
+
+  .mg-t-#{$i} {
+    margin-top: #{$i}px;
+  }
+
+}
+
+.rounded-image{
+  overflow:hidden;
+  -webkit-border-radius:50%;
+  -moz-border-radius:50%;
+  border-radius:50%;
+
+
 }
