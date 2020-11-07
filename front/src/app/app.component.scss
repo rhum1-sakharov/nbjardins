@@ -1,0 +1,28 @@
+
+.toolbar{
+  height:70px;
+  line-height: 70px;
+  background-color: var(--surface-a);
+  z-index: 997;
+  box-shadow: 0 0 4px rgba(0,0,0,.25);
+  border-bottom: 1px solid var(--surface-d);
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0 35px;
+}
+
+.main{
+  min-height:calc(100vh - 70px);
+}
+
+.footer{
+  background-color: #34495e;
+  color: white;
+}
+
+a {
+  text-decoration: none;
+  color:white;
+}
