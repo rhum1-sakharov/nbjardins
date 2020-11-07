@@ -6,6 +6,7 @@ import {faMobileAlt} from "@fortawesome/free-solid-svg-icons";
 import {faMapMarkerAlt} from "@fortawesome/free-solid-svg-icons/faMapMarkerAlt";
 import {faAt} from "@fortawesome/free-solid-svg-icons/faAt";
 import {faPenFancy} from "@fortawesome/free-solid-svg-icons/faPenFancy";
+import {faCarrot} from "@fortawesome/free-solid-svg-icons/faCarrot";
 
 declare var ol: any;
 
@@ -23,6 +24,7 @@ export class AppComponent {
   faMapMarkerAlt = faMapMarkerAlt;
   faAt = faAt;
   faPenFancy = faPenFancy;
+  faCarrot=faCarrot;
 
   devisMessage: string;
 
