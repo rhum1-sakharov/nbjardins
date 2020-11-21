@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/adapter/adapter.iml" filepath="$PROJECT_DIR$/adapter/adapter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/config/config.iml" filepath="$PROJECT_DIR$/config/config.iml" />
+      <module fileurl="file://$PROJECT_DIR$/domain/domain.iml" filepath="$PROJECT_DIR$/domain/domain.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/nbjardins.iml" filepath="$PROJECT_DIR$/.idea/nbjardins.iml" />
+      <module fileurl="file://$PROJECT_DIR$/application/springapp/spring-app.iml" filepath="$PROJECT_DIR$/application/springapp/spring-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/usecase/usecase.iml" filepath="$PROJECT_DIR$/usecase/usecase.iml" />
     </modules>
   </component>
 </project>

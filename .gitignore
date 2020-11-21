@@ -1,5 +1,6 @@
 .idea/vcs.xml
 .idea/*.xml
+.idea/*.iml
 .idea/workspace.xml
 application/springapp/src/main/resoures/application.properties
 */target
