@@ -2,8 +2,8 @@ package com.nbjardins.adatpers.secondaries.mails;
 
 import com.sun.mail.smtp.SMTPTransport;
 import domain.entities.Mail;
-import domain.entities.ServerMail;
 import domain.entityresponse.Response;
+import lombok.AllArgsConstructor;
 import usecase.ports.PMailService;
 
 import javax.activation.DataHandler;
@@ -20,9 +20,13 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Properties;
 
+
+@AllArgsConstructor
 public class AJavaMail implements PMailService {
 
-    public Response<Mail> send(final ServerMail serverMail, Mail mail) {
+    ServerMail serverMail;
+
+    public Response<Mail> send( Mail mail) {
 
         Response<Mail> responseMail = new Response<Mail>();
         responseMail.setOne(mail);

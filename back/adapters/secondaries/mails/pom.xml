@@ -8,7 +8,7 @@
         <groupId>com.nbjardins</groupId>
         <artifactId>parent</artifactId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../../../..</relativePath>
+        <relativePath>../../../</relativePath>
     </parent>
 
     <groupId>com.nbjardins.adapters.secondaries</groupId>
@@ -24,8 +24,10 @@
         <dependency>
             <groupId>com.sun.mail</groupId>
             <artifactId>javax.mail</artifactId>
-            <version>RELEASE</version>
-            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
     </dependencies>
 
