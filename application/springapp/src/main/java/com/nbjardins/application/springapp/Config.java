@@ -1,11 +1,10 @@
 package com.nbjardins.application.springapp;
 
-import com.nbjardins.config.SpringConfig;
-import com.nbjardins.domain.entities.ServerMail;
-import com.nbjardins.usecase.RealiserDevis;
+import domain.entities.ServerMail;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import usecase.RealiserDevis;
 
 @Configuration
 public class Config {

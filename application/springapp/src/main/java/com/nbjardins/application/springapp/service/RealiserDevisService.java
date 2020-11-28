@@ -1,11 +1,11 @@
 package com.nbjardins.application.springapp.service;
 
-import com.nbjardins.domain.entities.Mail;
-import com.nbjardins.domain.entities.ServerMail;
-import com.nbjardins.domain.entityresponse.Response;
-import com.nbjardins.usecase.RealiserDevis;
+import domain.entities.Mail;
+import domain.entities.ServerMail;
+import domain.entityresponse.Response;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import usecase.RealiserDevis;
 
 @Service
 public class RealiserDevisService {
