@@ -4,11 +4,11 @@
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/adapter" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/adapters" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/adapters/secondaries" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/adapters/secondaries/mails" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/application/springapp" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/back/adapters/secondaries" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/back/adapters/secondaries/mails" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/back/application/springapp" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/back/core" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/config" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/core" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/domain" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/usecase" charset="UTF-8" />
   </component>

@@ -18,9 +18,9 @@ export _F_FORCE=${_F_FORCE-0}
 case "$1" in
 
 	bs) #  generer le livrable du back spring
-	    cd "${curdir}"
+	    cd "${curdir}/back"
 	    mvn clean install
-		cd "${curdir}/application/springapp"
+		cd "${curdir}/back/application/springapp"
 		mvn clean package spring-boot:repackage
 		;;
 
