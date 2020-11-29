@@ -8,11 +8,7 @@ L'application doit présenter les activités du jardinier aux internautes et env
 
 ```bash
 
-mvn clean install
-
-cd application/springapp
-
-mvn clean package spring-boot:repackage
+./tool bs
 
 ```
 
