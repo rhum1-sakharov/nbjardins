@@ -16,7 +16,7 @@ mvn clean package spring-boot:repackage
 
 ```
 
-###Back, réalisé en clean architecture
+### Back, réalisé en clean architecture
 
 * core
 
@@ -35,7 +35,7 @@ mvn clean package spring-boot:repackage
 
 
 
-###Front, angular
+### Front, angular
 
-####Remarque
+#### Remarque
 Les fichiers finissant par **-dist** doivent être copiés et renommé sans le **-dist**.
