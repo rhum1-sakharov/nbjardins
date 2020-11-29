@@ -58,6 +58,11 @@ public class LocalizeResourceBundleAR extends AbstractLocalize implements Locali
         return enLocale;
     }
 
+    @Override
+    public Locale getWorkerLocale() {
+        return workerLocale;
+    }
+
 
     /**
      * On charge le resourceBundle s'il n'est pas déjà chargé

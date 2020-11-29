@@ -2,25 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="97b7d6a3-1f11-4446-a7dc-7d42b0594d31" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/back/adapters/secondaries/localization/src/main/java/com/nbjardins/adapters/secondaries/localization/AbstractLocalize.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/adapters/primaries/application/springapp/src/main/java/com/nbjardins/adapters/primaries/application/springapp/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/adapters/primaries/application/springapp/src/main/java/com/nbjardins/adapters/primaries/application/springapp/Config.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/adapters/primaries/application/springapp/src/main/java/com/nbjardins/adapters/primaries/application/springapp/controller/RealiserDevisController.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/adapters/primaries/application/springapp/src/main/java/com/nbjardins/adapters/primaries/application/springapp/controller/RealiserDevisController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/adapters/primaries/application/springapp/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/back/adapters/primaries/application/springapp/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/adapters/secondaries/localization/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/back/adapters/secondaries/localization/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/adapters/secondaries/localization/src/main/java/com/nbjardins/adapters/secondaries/localization/AbstractLocalize.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/adapters/secondaries/localization/src/main/java/com/nbjardins/adapters/secondaries/localization/AbstractLocalize.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back/adapters/secondaries/localization/src/main/java/com/nbjardins/adapters/secondaries/localization/LocalizeResourceBundleAR.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/adapters/secondaries/localization/src/main/java/com/nbjardins/adapters/secondaries/localization/LocalizeResourceBundleAR.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/adapters/secondaries/localization/src/main/resources/messages_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/back/adapters/secondaries/localization/src/main/resources/messages_en.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/adapters/secondaries/localization/src/main/resources/messages_fr.properties" beforeDir="false" afterPath="$PROJECT_DIR$/back/adapters/secondaries/localization/src/main/resources/messages_fr.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/adapters/secondaries/mails/src/main/java/com/nbjardins/adatpers/secondaries/mails/JavaMailAR.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/adapters/secondaries/mails/src/main/java/com/nbjardins/adatpers/secondaries/mails/JavaMailAR.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/core/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/back/core/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/core/src/main/java/domain/entities/DemandeDeDevis.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/core/src/main/java/domain/entities/DemandeDeDevis.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back/core/src/main/java/usecase/RealiserDevisUC.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/core/src/main/java/usecase/RealiserDevisUC.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back/core/src/main/java/usecase/ports/LocalizeServicePT.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/core/src/main/java/usecase/ports/LocalizeServicePT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/back/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/app/app.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/app/app.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/app/app.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/styles.scss" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/usecase/target/" />
     <ignored path="$PROJECT_DIR$/domain/target/" />
@@ -68,8 +54,8 @@
       <file leaf-file-name="RealiserDevisUC.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/back/core/src/main/java/usecase/RealiserDevisUC.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="226">
-              <caret line="36" lean-forward="true" selection-start-line="36" selection-end-line="36" />
+            <state relative-caret-position="230">
+              <caret line="20" column="57" selection-start-line="20" selection-start-column="57" selection-end-line="20" selection-end-column="57" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -77,11 +63,30 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="application.properties" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/back/adapters/primaries/application/springapp/src/main/resources/application.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="2" selection-start-line="2" selection-end-line="2" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="messages_fr.properties" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/back/adapters/secondaries/localization/src/main/resources/messages_fr.properties">
+          <provider editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="2" column="10" selection-start-line="2" selection-start-column="10" selection-end-line="2" selection-end-column="10" />
+            </state>
+          </provider>
+          <provider selected="true" editor-type-id="ResourceBundle" />
+        </entry>
+      </file>
       <file leaf-file-name="LocalizeServicePT.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/back/core/src/main/java/usecase/ports/LocalizeServicePT.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="187">
-              <caret line="11" column="30" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="30" />
+              <caret line="11" column="30" lean-forward="true" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -101,8 +106,8 @@
       <file leaf-file-name="LocalizeResourceBundleAR.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/back/adapters/secondaries/localization/src/main/java/com/nbjardins/adapters/secondaries/localization/LocalizeResourceBundleAR.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="325">
-              <caret line="49" column="5" lean-forward="true" selection-start-line="49" selection-start-column="5" selection-end-line="49" selection-end-column="5" />
+            <state relative-caret-position="272">
+              <caret line="58" column="5" lean-forward="true" selection-start-line="58" selection-start-column="5" selection-end-line="58" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1262#1263#0" expanded="true" />
@@ -111,6 +116,8 @@
                 <element signature="e#1442#1443#0" expanded="true" />
                 <element signature="e#1496#1497#0" expanded="true" />
                 <element signature="e#1523#1524#0" expanded="true" />
+                <element signature="e#1558#1559#0" expanded="true" />
+                <element signature="e#1589#1590#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -119,8 +126,8 @@
       <file leaf-file-name="AbstractLocalize.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/back/adapters/secondaries/localization/src/main/java/com/nbjardins/adapters/secondaries/localization/AbstractLocalize.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" selection-start-line="11" selection-end-line="11" />
+            <state relative-caret-position="204">
+              <caret line="12" selection-start-line="12" selection-end-line="12" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -143,32 +150,11 @@
           <provider selected="true" editor-type-id="ResourceBundle" />
         </entry>
       </file>
-      <file leaf-file-name="JavaMailAR.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/back/adapters/secondaries/mails/src/main/java/com/nbjardins/adatpers/secondaries/mails/JavaMailAR.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="185">
-              <caret line="51" selection-start-line="51" selection-end-line="51" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/back/adapters/secondaries/mails/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="454">
               <caret line="28" column="21" selection-start-line="28" selection-start-column="21" selection-end-line="28" selection-end-column="21" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/back/core/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="21" column="21" selection-start-line="18" selection-start-column="8" selection-end-line="21" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -234,7 +220,6 @@
         <option value="$PROJECT_DIR$/front/src/app/app.component.ts" />
         <option value="$PROJECT_DIR$/front/src/styles.scss" />
         <option value="$PROJECT_DIR$/front/src/app/app.component.html" />
-        <option value="$PROJECT_DIR$/back/adapters/primaries/application/springapp/src/main/resources/application.properties" />
         <option value="$PROJECT_DIR$/back/adapters/primaries/application/springapp/src/main/java/com/nbjardins/adapters/primaries/application/springapp/Config.java" />
         <option value="$PROJECT_DIR$/back/adapters/secondaries/localization/src/main/resources/messages_fr.properties" />
         <option value="$PROJECT_DIR$/back/adapters/primaries/application/springapp/src/main/java/com/nbjardins/adapters/primaries/application/springapp/controller/RealiserDevisController.java" />
@@ -248,6 +233,7 @@
         <option value="$PROJECT_DIR$/back/core/src/main/java/usecase/ports/LocalizeServicePT.java" />
         <option value="$PROJECT_DIR$/back/adapters/secondaries/localization/src/main/java/com/nbjardins/adapters/secondaries/localization/LocalizeResourceBundleAR.java" />
         <option value="$PROJECT_DIR$/back/core/src/main/java/usecase/RealiserDevisUC.java" />
+        <option value="$PROJECT_DIR$/back/adapters/primaries/application/springapp/src/main/resources/application.properties" />
       </list>
     </option>
   </component>
@@ -719,7 +705,7 @@
       <workItem from="1606583292988" duration="1315000" />
       <workItem from="1606586934607" duration="4089000" />
       <workItem from="1606640275085" duration="4895000" />
-      <workItem from="1606645228818" duration="21918000" />
+      <workItem from="1606645228818" duration="22952000" />
     </task>
     <task id="LOCAL-00001" summary="import">
       <created>1604746986338</created>
@@ -875,14 +861,22 @@
       <option name="project" value="LOCAL" />
       <updated>1606670933451</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="import">
+      <created>1606683054426</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1606683054426</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="59542000" />
+    <option name="totallyTimeSpent" value="60576000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1928" y="-42" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
@@ -1293,13 +1287,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/back/adapters/primaries/application/springapp/src/main/resources/application.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="24" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/5.0.6.RELEASE/spring-web-5.0.6.RELEASE.jar!/org/springframework/web/method/support/InvocableHandlerMethod.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
@@ -1325,14 +1312,6 @@
           </folding>
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/back/adapters/secondaries/localization/src/main/resources/messages_fr.properties">
-      <provider editor-type-id="text-editor">
-        <state>
-          <caret line="2" column="10" selection-start-line="2" selection-start-column="10" selection-end-line="2" selection-end-column="10" />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="ResourceBundle" />
     </entry>
     <entry file="file://$PROJECT_DIR$/back/adapters/primaries/application/springapp/src/main/java/com/nbjardins/adapters/primaries/application/springapp/controller/RealiserDevisController.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -1396,27 +1375,35 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/back/adapters/secondaries/localization/src/main/java/com/nbjardins/adapters/secondaries/localization/AbstractLocalize.java">
+    <entry file="file://$PROJECT_DIR$/back/adapters/secondaries/localization/src/main/resources/messages_fr.properties">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="10" selection-start-line="2" selection-start-column="10" selection-end-line="2" selection-end-column="10" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="ResourceBundle" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/back/core/src/main/java/usecase/ports/LocalizeServicePT.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
-          <caret line="11" selection-start-line="11" selection-end-line="11" />
+          <caret line="11" column="30" lean-forward="true" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/back/adapters/secondaries/localization/src/main/java/com/nbjardins/adapters/secondaries/localization/AbstractLocalize.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" selection-start-line="12" selection-end-line="12" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/back/core/src/main/java/usecase/ports/LocalizeServicePT.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="30" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/back/adapters/secondaries/localization/src/main/java/com/nbjardins/adapters/secondaries/localization/LocalizeResourceBundleAR.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="49" column="5" lean-forward="true" selection-start-line="49" selection-start-column="5" selection-end-line="49" selection-end-column="5" />
+        <state relative-caret-position="272">
+          <caret line="58" column="5" lean-forward="true" selection-start-line="58" selection-start-column="5" selection-end-line="58" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1262#1263#0" expanded="true" />
@@ -1425,14 +1412,23 @@
             <element signature="e#1442#1443#0" expanded="true" />
             <element signature="e#1496#1497#0" expanded="true" />
             <element signature="e#1523#1524#0" expanded="true" />
+            <element signature="e#1558#1559#0" expanded="true" />
+            <element signature="e#1589#1590#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/back/adapters/primaries/application/springapp/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/back/core/src/main/java/usecase/RealiserDevisUC.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="36" lean-forward="true" selection-start-line="36" selection-end-line="36" />
+        <state relative-caret-position="230">
+          <caret line="20" column="57" selection-start-line="20" selection-start-column="57" selection-end-line="20" selection-end-column="57" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

@@ -26,6 +26,7 @@ public final class RealiserDevisUC {
     public Response<DemandeDeDevis> demanderDevis(DemandeDeDevis demandeDeDevis) {
 
         Locale currentLocale = demandeDeDevis.getLocale();
+        Locale workerLocale = localizeServicePT.getWorkerLocale();
 
         Map<String, Boolean> preconditions = new HashMap<>();
         preconditions.put(localizeServicePT.getMsg("prenom.obligatoire",currentLocale), Objects.isNull(demandeDeDevis.getPrenom()));
@@ -37,7 +38,7 @@ public final class RealiserDevisUC {
 
         if (!entityResponse.isError()) {
 
-            String sujet=MessageFormat.format(localizeServicePT.getMsg("sujet.devis",localizeServicePT.getFrenchLocale()),StringUtils.capitalize(demandeDeDevis.getPrenom().toLowerCase()),StringUtils.capitalize(demandeDeDevis.getNom().toLowerCase()));
+            String sujet=MessageFormat.format(localizeServicePT.getMsg("sujet.devis",workerLocale),StringUtils.capitalize(demandeDeDevis.getPrenom().toLowerCase()),StringUtils.capitalize(demandeDeDevis.getNom().toLowerCase()));
             demandeDeDevis.setSujet(sujet);
             entityResponse = mailServicePT.send(demandeDeDevis);
         }

@@ -10,5 +10,6 @@ public interface LocalizeServicePT {
 
     Locale getFrenchLocale();
     Locale getEnglishLocale();
+    Locale getWorkerLocale();
 
 }
