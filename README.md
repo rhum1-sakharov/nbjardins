@@ -1,6 +1,6 @@
 # nbjardins 
 
-Application pour un jardinier qui démarrer son activité.
+Application pour un jardinier qui démarre son activité.
 
 L'application doit présenter les activités du jardinier aux internautes et envoyer les demandes de devis au jardinier.
 
