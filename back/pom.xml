@@ -11,6 +11,7 @@
 
     <modules>
         <module>core</module>
+        <module>adapters/secondaries/localization</module>
         <module>adapters/secondaries/mails</module>
         <module>adapters/primaries/application/springapp</module>
     </modules>
@@ -33,6 +34,30 @@
                 <groupId>com.sun.mail</groupId>
                 <artifactId>javax.mail</artifactId>
                 <version>1.6.2</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.nbjardins</groupId>
+                <artifactId>core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.nbjardins.adapters.primaries.application</groupId>
+                <artifactId>spring-app</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.nbjardins.adapters.secondaries</groupId>
+                <artifactId>mails</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.nbjardins.adapters.secondaries</groupId>
+                <artifactId>localization</artifactId>
+                <version>${project.version}</version>
             </dependency>
 
 

@@ -3,8 +3,8 @@ package com.nbjardins.adatpers.secondaries.mails;
 import com.sun.mail.smtp.SMTPTransport;
 import domain.entities.DemandeDeDevis;
 import domain.entityresponse.Response;
-import domain.utils.Localization;
 import domain.utils.Utils;
+import usecase.ports.LocalizeServicePT;
 import usecase.ports.MailServicePT;
 
 import javax.activation.DataHandler;
@@ -26,8 +26,8 @@ import java.util.Properties;
 public class JavaMailAR extends AbstractMail implements MailServicePT {
 
 
-    public JavaMailAR(ServerMail serverMail) {
-        super(serverMail);
+    public JavaMailAR(ServerMail serverMail, LocalizeServicePT localize) {
+        super(serverMail, localize);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class JavaMailAR extends AbstractMail implements MailServicePT {
 
         Mail mail = new Mail(demandeDeDevis.getSujet(), demandeDeDevis.getEmailEmetteur(), demandeDeDevis.getEmailDestinataire(), demandeDeDevis.getMessage());
         Response<Mail> mailResponse = send(mail);
-        Response<DemandeDeDevis> demandeDeDevisResponse = Utils.initResponse(Localization.getMsg("mail.error",locale), mailResponse.isError());
+        Response<DemandeDeDevis> demandeDeDevisResponse = Utils.initResponse(localize.getMsg("mail.error",locale), mailResponse.isError());
 
         return demandeDeDevisResponse;
     }

@@ -13,6 +13,8 @@
         <option value="$PROJECT_DIR$/adapters/secondaries/mails/pom.xml" />
         <option value="$PROJECT_DIR$/back/adapters/primaries/application/springapp/pom.xml" />
         <option value="$PROJECT_DIR$/back/adapters/secondaries/mails/pom.xml" />
+        <option value="$PROJECT_DIR$/back/adapters/secondaries/pom.xml" />
+        <option value="$PROJECT_DIR$/back/adapters/secondaries/localization/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

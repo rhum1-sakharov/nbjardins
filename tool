@@ -39,6 +39,7 @@ case "$1" in
 	*)
 		echo "Utilisation : $0"
 		echo "	bs : generer le livrable du back spring"
+		echo "	bcore : generer le core du back"
 		echo "	fa : generer le livrable du front angular"
 		;;
 esac

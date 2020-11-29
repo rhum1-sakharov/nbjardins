@@ -1,19 +1,21 @@
-package domain.utils;
+package com.nbjardins.adapters.secondaries.localization;
+
+import usecase.ports.LocalizeServicePT;
 
 import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class Localization {
+public class LocalizeResourceBundleAR implements LocalizeServicePT {
 
-    public static ResourceBundle rbFrench;
-    public static ResourceBundle rbDefault;
-    public static ResourceBundle rbEnglish;
+    ResourceBundle rbFrench;
+    ResourceBundle rbDefault;
+    ResourceBundle rbEnglish;
 
-    public static String getMsg(String key, Locale locale) {
+    @Override
+    public String getMsg(String key, Locale locale) {
 
         ResourceBundle resourceBundle;
-
 
         if (Objects.isNull(locale)) {
             resourceBundle = loadResourceBundle(rbDefault, null);
@@ -35,6 +37,12 @@ public class Localization {
         }
 
         return resourceBundle.getString(key);
+
+    }
+
+    @Override
+    public String getMsg(String key) {
+        return getMsg(key, null);
     }
 
 
@@ -45,7 +53,7 @@ public class Localization {
      * @param locale
      * @return
      */
-    private static ResourceBundle loadResourceBundle(ResourceBundle resourceBundle, Locale locale) {
+    private ResourceBundle loadResourceBundle(ResourceBundle resourceBundle, Locale locale) {
 
         if (Objects.isNull(resourceBundle)) {
 
@@ -58,5 +66,4 @@ public class Localization {
 
         return resourceBundle;
     }
-
 }

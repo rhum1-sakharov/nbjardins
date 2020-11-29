@@ -1,11 +1,13 @@
 package com.nbjardins.adapters.primaries.application.springapp;
 
+import com.nbjardins.adapters.secondaries.localization.LocalizeResourceBundleAR;
 import com.nbjardins.adatpers.secondaries.mails.JavaMailAR;
 import com.nbjardins.adatpers.secondaries.mails.ServerMail;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import usecase.RealiserDevisUC;
+import usecase.ports.LocalizeServicePT;
 import usecase.ports.MailServicePT;
 
 @Configuration
@@ -18,9 +20,16 @@ public class Config {
         this.env = env;
     }
 
+
     @Bean
-    public MailServicePT mailServicePT(ServerMail serverMail) {
-        return new JavaMailAR(serverMail);
+    public LocalizeServicePT localizeServicePT() {
+        return new LocalizeResourceBundleAR();
+    }
+
+
+    @Bean
+    public MailServicePT mailServicePT(ServerMail serverMail, LocalizeServicePT localizeServicePT) {
+        return new JavaMailAR(serverMail, localizeServicePT);
     }
 
     @Bean
