@@ -1,10 +1,10 @@
-package com.nbjardins.application.springapp;
+package com.nbjardins.adapters.primaries.application.springapp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 
-@ComponentScan(value = {"com.nbjardins.application.springapp"})
+@ComponentScan(value = {"com.nbjardins.adapters.primaries.application.springapp"})
 @EnableAutoConfiguration
 public class Application {
     public static void main(String[] args) {

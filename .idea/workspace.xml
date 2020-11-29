@@ -1,17 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="97b7d6a3-1f11-4446-a7dc-7d42b0594d31" name="Default" comment="import">
+    <list default="true" id="97b7d6a3-1f11-4446-a7dc-7d42b0594d31" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/back/core/src/main/java/domain/entities/DemandeDeDevis.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/core/src/main/java/domain/utils/Utils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/core/src/main/java/usecase/ChargerLocaleUC.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/core/src/main/java/usecase/ports/LocalizationServicePT.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/core/src/main/java/usecase/ports/MailServicePT.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/core/src/main/resources/messages.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/core/src/main/resources/messages_ut_UT.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/adapters/secondaries/mails/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/back/adapters/secondaries/mails/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/adapters/secondaries/mails/src/main/java/com/nbjardins/adatpers/secondaries/mails/AJavaMail.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/adapters/secondaries/mails/src/main/java/com/nbjardins/adatpers/secondaries/mails/AJavaMail.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/application/springapp/src/main/java/com/nbjardins/application/springapp/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/application/springapp/src/main/java/com/nbjardins/application/springapp/Config.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/application/springapp/src/main/java/com/nbjardins/application/springapp/SpringConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/application/springapp/src/main/java/com/nbjardins/application/springapp/service/RealiserDevisService.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/application/springapp/src/main/java/com/nbjardins/application/springapp/service/RealiserDevisService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/core/src/main/java/domain/entities/ServerMail.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/adapters/secondaries/mails/src/main/java/com/nbjardins/adatpers/secondaries/mails/ServerMail.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/core/src/main/java/usecase/RealiserDevis.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/core/src/main/java/usecase/RealiserDevis.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/core/src/main/java/usecase/ports/PMailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/core/src/main/java/usecase/ports/PMailService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/adapters/secondaries/mails/src/main/java/com/nbjardins/adatpers/secondaries/mails/AJavaMail.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/adapters/secondaries/mails/src/main/java/com/nbjardins/adatpers/secondaries/mails/JavaMailAR.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/application/springapp/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/back/adapters/primaries/application/springapp/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/application/springapp/src/main/java/com/nbjardins/application/springapp/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/adapters/primaries/application/springapp/src/main/java/com/nbjardins/adapters/primaries/application/springapp/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/application/springapp/src/main/java/com/nbjardins/application/springapp/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/adapters/primaries/application/springapp/src/main/java/com/nbjardins/adapters/primaries/application/springapp/Config.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/application/springapp/src/main/java/com/nbjardins/application/springapp/controller/RealiserDevisController.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/adapters/primaries/application/springapp/src/main/java/com/nbjardins/adapters/primaries/application/springapp/controller/RealiserDevisController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/application/springapp/src/main/java/com/nbjardins/application/springapp/service/RealiserDevisService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/application/springapp/src/main/resources/application-dist.properties" beforeDir="false" afterPath="$PROJECT_DIR$/back/adapters/primaries/application/springapp/src/main/resources/application-dist.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/application/springapp/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/back/adapters/primaries/application/springapp/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/core/src/main/java/domain/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/core/src/main/java/domain/entities/Mail.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/adapters/secondaries/mails/src/main/java/com/nbjardins/adatpers/secondaries/mails/Mail.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/core/src/main/java/domain/entityresponse/Response.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/core/src/main/java/domain/entityresponse/Response.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/core/src/main/java/usecase/RealiserDevis.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/core/src/main/java/usecase/RealiserDevisUC.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/core/src/main/java/usecase/ports/PMailService.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/back/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/back/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tool" beforeDir="false" afterPath="$PROJECT_DIR$/tool" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/usecase/target/" />
     <ignored path="$PROJECT_DIR$/domain/target/" />
@@ -24,6 +40,7 @@
     <ignored path="$PROJECT_DIR$/adapters/secondaries/target/" />
     <ignored path="$PROJECT_DIR$/adapters/secondaries/mails/target/" />
     <ignored path="$PROJECT_DIR$/back/adapters/secondaries/mails/target/" />
+    <ignored path="$PROJECT_DIR$/back/adapters/primaries/application/springapp/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -33,47 +50,42 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/back/core/src/main/java/domain/Main.java">
+      <file leaf-file-name="JavaMailAR.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/back/adapters/secondaries/mails/src/main/java/com/nbjardins/adatpers/secondaries/mails/JavaMailAR.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+            <state relative-caret-position="216">
+              <caret line="34" column="78" selection-start-line="34" selection-start-column="78" selection-end-line="34" selection-end-column="78" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1429#1435#0" expanded="true" />
+                <element signature="e#1825#2069#0" expanded="true" />
+                <element signature="e#2068#2069#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ServerMail.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/back/adapters/secondaries/mails/src/main/java/com/nbjardins/adatpers/secondaries/mails/ServerMail.java">
+      <file leaf-file-name="Utils.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/back/core/src/main/java/domain/utils/Utils.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="8" column="16" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
+            <state relative-caret-position="255">
+              <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1044#1045#0" expanded="true" />
+                <element signature="e#1121#1122#0" expanded="true" />
+                <element signature="e#1085#1086#0" expanded="true" />
+                <element signature="e#1137#1138#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/back/pom.xml">
+      <file leaf-file-name="RealiserDevisUC.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/back/core/src/main/java/usecase/RealiserDevisUC.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="312">
-              <caret line="35" column="25" selection-start-line="31" selection-start-column="11" selection-end-line="35" selection-end-column="25" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/back/adapters/secondaries/mails/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="31" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="31" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PMailService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/back/core/src/main/java/usecase/ports/PMailService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+            <state relative-caret-position="136">
+              <caret line="8" column="46" lean-forward="true" selection-start-line="8" selection-start-column="3" selection-end-line="8" selection-end-column="46" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -81,11 +93,60 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RealiserDevis.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/back/core/src/main/java/usecase/RealiserDevis.java">
+      <file leaf-file-name="LocalizationServicePT.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/back/core/src/main/java/usecase/ports/LocalizationServicePT.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
+            <state relative-caret-position="51">
+              <caret line="3" selection-start-line="3" selection-end-line="3" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="messages.properties" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/back/core/src/main/resources/messages.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="28" lean-forward="true" selection-start-column="28" selection-end-column="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="messages_ut_UT.properties" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/back/core/src/main/resources/messages_ut_UT.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="43" selection-start-column="43" selection-end-column="43" />
+            </state>
+          </provider>
+          <provider editor-type-id="ResourceBundle" />
+        </entry>
+      </file>
+      <file leaf-file-name="ChargerLocaleUC.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/back/core/src/main/java/usecase/ChargerLocaleUC.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="7" column="17" lean-forward="true" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Response.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/back/core/src/main/java/domain/entityresponse/Response.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="289">
               <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MailServicePT.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/back/core/src/main/java/usecase/ports/MailServicePT.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="10" column="1" lean-forward="true" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -93,47 +154,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Config.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/back/application/springapp/src/main/java/com/nbjardins/application/springapp/Config.java">
+      <file leaf-file-name="JavaMailAR.class" pinned="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/com/nbjardins/adapters/secondaries/mails/1.0-SNAPSHOT/mails-1.0-SNAPSHOT.jar!/com/nbjardins/adatpers/secondaries/mails/JavaMailAR.class">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="14" column="20" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
-              <folding>
-                <element signature="e#815#816#0" expanded="true" />
-                <element signature="e#863#864#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RealiserDevisService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/back/application/springapp/src/main/java/com/nbjardins/application/springapp/service/RealiserDevisService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="14" column="30" selection-start-line="14" selection-start-column="30" selection-end-line="14" selection-end-column="30" />
-              <folding>
-                <element signature="e#377#427#1" expanded="true" />
-                <element signature="e#493#494#0" expanded="true" />
-                <element signature="e#551#552#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RealiserDevisController.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/back/application/springapp/src/main/java/com/nbjardins/application/springapp/controller/RealiserDevisController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="11" column="32" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="32" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AJavaMail.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/back/adapters/secondaries/mails/src/main/java/com/nbjardins/adatpers/secondaries/mails/AJavaMail.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="13" column="26" selection-start-line="13" selection-start-column="26" selection-end-line="13" selection-end-column="26" />
+            <state relative-caret-position="125">
+              <caret line="55" selection-start-line="55" selection-end-line="55" />
             </state>
           </provider>
         </entry>
@@ -144,6 +169,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="TypeScript File" />
+        <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -183,17 +210,33 @@
         <option value="$PROJECT_DIR$/application/springapp/src/main/java/com/nbjardins/application/springapp/service/RealiserDevisService.java" />
         <option value="$PROJECT_DIR$/application/springapp/src/main/java/com/nbjardins/application/springapp/Config.java" />
         <option value="$PROJECT_DIR$/application/springapp/src/main/java/com/nbjardins/application/springapp/controller/RealiserDevisController.java" />
-        <option value="$PROJECT_DIR$/tool" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/back/adapters/secondaries/mails/src/main/java/com/nbjardins/adatpers/secondaries/mails/ServerMail.java" />
-        <option value="$PROJECT_DIR$/back/pom.xml" />
         <option value="$PROJECT_DIR$/back/adapters/secondaries/mails/pom.xml" />
-        <option value="$PROJECT_DIR$/back/core/src/main/java/usecase/ports/PMailService.java" />
-        <option value="$PROJECT_DIR$/back/core/src/main/java/usecase/RealiserDevis.java" />
-        <option value="$PROJECT_DIR$/back/adapters/secondaries/mails/src/main/java/com/nbjardins/adatpers/secondaries/mails/AJavaMail.java" />
         <option value="$PROJECT_DIR$/back/application/springapp/src/main/java/com/nbjardins/application/springapp/SpringConfig.java" />
         <option value="$PROJECT_DIR$/back/application/springapp/src/main/java/com/nbjardins/application/springapp/Config.java" />
         <option value="$PROJECT_DIR$/back/application/springapp/src/main/java/com/nbjardins/application/springapp/service/RealiserDevisService.java" />
+        <option value="$PROJECT_DIR$/back/application/springapp/src/main/resources/application.properties" />
+        <option value="$PROJECT_DIR$/back/pom.xml" />
+        <option value="$PROJECT_DIR$/back/core/src/main/java/usecase/RealiserDevis.java" />
+        <option value="$PROJECT_DIR$/back/core/src/main/java/usecase/ports/PMailService.java" />
+        <option value="$PROJECT_DIR$/back/adapters/secondaries/mails/src/main/java/com/nbjardins/adatpers/secondaries/mails/Mail.java" />
+        <option value="$PROJECT_DIR$/tool" />
+        <option value="$PROJECT_DIR$/back/core/src/main/java/domain/entities/DemandeDeDevis.java" />
+        <option value="$PROJECT_DIR$/back/adapters/secondaries/mails/src/main/java/com/nbjardins/adatpers/secondaries/mails/AJavaMail.java" />
+        <option value="$PROJECT_DIR$/back/adapters/primaries/application/springapp/src/main/java/com/nbjardins/adapters/primaries/application/springapp/controller/RealiserDevisController.java" />
+        <option value="$PROJECT_DIR$/back/adapters/primaries/application/springapp/src/main/java/com/nbjardins/adapters/primaries/application/springapp/Config.java" />
+        <option value="$PROJECT_DIR$/back/adapters/primaries/application/springapp/pom.xml" />
+        <option value="$PROJECT_DIR$/back/adapters/primaries/application/springapp/src/main/java/com/nbjardins/adapters/primaries/application/springapp/Application.java" />
+        <option value="$PROJECT_DIR$/back/core/src/main/java/domain/entityresponse/Response.java" />
+        <option value="$PROJECT_DIR$/back/core/src/main/java/usecase/ChargerLocale.java" />
+        <option value="$PROJECT_DIR$/back/core/src/main/java/usecase/ports/LocalizationServicePT.java" />
+        <option value="$PROJECT_DIR$/back/core/src/main/java/usecase/ChargerLocaleUS.java" />
+        <option value="$PROJECT_DIR$/back/core/src/main/java/usecase/ChargerLocaleUC.java" />
+        <option value="$PROJECT_DIR$/back/adapters/secondaries/mails/src/main/java/com/nbjardins/adatpers/secondaries/mails/JavaMailAR.java" />
+        <option value="$PROJECT_DIR$/back/core/src/main/resources/messages_fr_FR.properties" />
+        <option value="$PROJECT_DIR$/back/core/src/main/resources/messages.properties" />
+        <option value="$PROJECT_DIR$/back/core/src/main/java/domain/utils/Utils.java" />
       </list>
     </option>
   </component>
@@ -221,7 +264,7 @@
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-1495" />
     <option name="y" value="108" />
-    <option name="width" value="976" />
+    <option name="width" value="1936" />
     <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -230,9 +273,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -312,81 +355,6 @@
               <item name="nbjardins" type="b2602c69:ProjectViewProjectNode" />
               <item name="nbjardins" type="462c0819:PsiDirectoryNode" />
               <item name="back" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="nbjardins" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nbjardins" type="462c0819:PsiDirectoryNode" />
-              <item name="back" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
-              <item name="springapp" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="nbjardins" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nbjardins" type="462c0819:PsiDirectoryNode" />
-              <item name="back" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
-              <item name="springapp" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="nbjardins" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nbjardins" type="462c0819:PsiDirectoryNode" />
-              <item name="back" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
-              <item name="springapp" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="nbjardins" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nbjardins" type="462c0819:PsiDirectoryNode" />
-              <item name="back" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
-              <item name="springapp" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="nbjardins" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nbjardins" type="462c0819:PsiDirectoryNode" />
-              <item name="back" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
-              <item name="springapp" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="springapp" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="nbjardins" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nbjardins" type="462c0819:PsiDirectoryNode" />
-              <item name="back" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
-              <item name="springapp" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="springapp" type="462c0819:PsiDirectoryNode" />
-              <item name="controller" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="nbjardins" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nbjardins" type="462c0819:PsiDirectoryNode" />
-              <item name="back" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
-              <item name="springapp" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="springapp" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="nbjardins" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nbjardins" type="462c0819:PsiDirectoryNode" />
-              <item name="back" type="462c0819:PsiDirectoryNode" />
               <item name="core" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -442,7 +410,19 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="usecase" type="462c0819:PsiDirectoryNode" />
+              <item name="domain" type="462c0819:PsiDirectoryNode" />
+              <item name="entityresponse" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nbjardins" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nbjardins" type="462c0819:PsiDirectoryNode" />
+              <item name="back" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="domain" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="nbjardins" type="b2602c69:ProjectViewProjectNode" />
@@ -453,7 +433,15 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="usecase" type="462c0819:PsiDirectoryNode" />
-              <item name="ports" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nbjardins" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nbjardins" type="462c0819:PsiDirectoryNode" />
+              <item name="back" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -462,32 +450,38 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="SearchEverywhereHistoryKey" value="Config&#9;PSI&#9;JAVA://com.nbjardins.application.springapp.SpringConfig" />
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="SearchEverywhereHistoryKey" value="DemandeDe&#9;FILE&#9;file://E:/WORK_SHARE/dev/nbjardins2/nbjardins/back/core/src/main/java/domain/entities/DemandeDeDevis.java&#10;Config&#9;PSI&#9;JAVA://com.nbjardins.application.springapp.SpringConfig" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/back/core" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="ts.external.directory.path" value="F:\WORK_SHARE\dev\nbjardins\front\node_modules\typescript\lib" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="E:\WORK_SHARE\dev\nbjardins2\nbjardins\back" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.nbjardins.adatpers.secondaries.mails" />
-      <recent name="com.nbjardins.application.springapp" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\WORK_SHARE\dev\nbjardins2\nbjardins\adapters\secondaries\mails\src\main\java" />
       <recent name="E:\WORK_SHARE\dev\nbjardins2\nbjardins\core\src\main\java" />
       <recent name="F:\WORK_SHARE\dev\nbjardins2\nbjardins\application\springapp\src\main\resources" />
       <recent name="F:\WORK_SHARE\dev\nbjardins\front\src\assets" />
       <recent name="F:\WORK_SHARE\dev\nbjardins" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.nbjardins.adatpers.secondaries.mails" />
+      <recent name="domain.entities" />
+      <recent name="com.nbjardins.application.springapp" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\WORK_SHARE\dev\nbjardins2\nbjardins\back\adapters\primaries" />
+      <recent name="E:\WORK_SHARE\dev\nbjardins2\nbjardins\back" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -502,7 +496,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Spring Boot.Unnamed">
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
     </configuration>
@@ -524,7 +518,13 @@
     </configuration>
     <configuration name="Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="spring-app" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.nbjardins.application.springapp.Application" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.nbjardins.adapters.primaries.application.springapp.Application" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+    </configuration>
+    <configuration name="Unnamed" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="spring-app" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.nbjardins.adapters.primaries.application.springapp.Application" />
+      <option name="ALTERNATIVE_JRE_PATH" />
     </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -548,6 +548,10 @@
       <properties />
       <listeners />
     </configuration>
+    <list>
+      <item itemvalue="Spring Boot.Application" />
+      <item itemvalue="Spring Boot.Unnamed" />
+    </list>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -567,7 +571,9 @@
       <workItem from="1606064224347" duration="2052000" />
       <workItem from="1606583110993" duration="165000" />
       <workItem from="1606583292988" duration="1315000" />
-      <workItem from="1606586934607" duration="3071000" />
+      <workItem from="1606586934607" duration="4089000" />
+      <workItem from="1606640275085" duration="4895000" />
+      <workItem from="1606645228818" duration="3922000" />
     </task>
     <task id="LOCAL-00001" summary="import">
       <created>1604746986338</created>
@@ -660,14 +666,21 @@
       <option name="project" value="LOCAL" />
       <updated>1606588920976</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="import">
+      <created>1606590240202</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1606590240202</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="31711000" />
+    <option name="totallyTimeSpent" value="41546000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1928" y="-40" width="1936" height="1056" extended-state="6" />
+    <frame x="-1928" y="-42" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
@@ -680,8 +693,9 @@
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="2" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3982684" />
       <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Messages" order="8" weight="0.32900432" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="bottom" id="Java Enterprise" order="8" />
@@ -689,8 +703,8 @@
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Spring" order="8" />
-      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.31784582" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.225" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.31709957" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.28837952" />
       <window_info anchor="right" id="Bean Validation" order="4" />
       <window_info id="Web" order="3" side_tool="true" />
       <window_info anchor="right" id="Theme Preview" order="3" />
@@ -722,140 +736,19 @@
     <option name="LAST_COMMIT_MESSAGE" value="import" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/back/adapters/primaries/application/springapp/src/main/java/com/nbjardins/adapters/primaries/application/springapp/service/RealiserDevisService.java</url>
+          <line>22</line>
+          <properties />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="9" />
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/front/src/styles.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="884">
-          <caret line="52" selection-start-line="52" selection-end-line="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/app/app.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="697">
-          <caret line="49" selection-start-line="49" selection-end-line="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="7" selection-start-line="15" selection-start-column="7" selection-end-line="15" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/app/app.component.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="25" column="16" selection-start-line="25" selection-start-column="16" selection-end-line="25" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/front/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="27" column="22" selection-start-line="27" selection-start-column="22" selection-end-line="27" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/app/app.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="8" selection-start-line="16" selection-start-column="8" selection-end-line="16" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/styles.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" selection-start-line="6" selection-end-line="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/app/app.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="13" selection-start-line="13" selection-end-line="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/app/constants.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="19" selection-start-line="1" selection-start-column="19" selection-end-line="1" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/app/app.component.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="26" column="14" selection-start-line="26" selection-start-column="14" selection-end-line="26" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="23" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/front/angular.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="39" selection-start-line="19" selection-start-column="39" selection-end-line="19" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="19" selection-start-line="1" selection-start-column="19" selection-end-line="1" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/front/.gitignore" />
-    <entry file="file://$PROJECT_DIR$/front/src/app/constants.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="19" selection-start-line="1" selection-start-column="19" selection-end-line="1" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/front/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="35" column="49" selection-start-line="35" selection-start-column="49" selection-end-line="35" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/front/angular.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="28" column="14" selection-start-line="28" selection-start-column="14" selection-end-line="28" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="7" selection-start-line="15" selection-start-column="7" selection-end-line="15" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/app/app.module.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="25" column="16" selection-start-line="25" selection-start-column="16" selection-end-line="25" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/front/.browserslistrc">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/front/karma.conf.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/front/tsconfig.app.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -897,17 +790,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/back/application/springapp/src/main/resources/application-dist.properties">
+    <entry file="file://$PROJECT_DIR$/back/adapters/primaries/application/springapp/src/main/resources/application-dist.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret column="46" selection-start-column="46" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/back/application/springapp/src/main/resources/application.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="35" selection-start-line="9" selection-start-column="35" selection-end-line="9" selection-end-column="35" />
         </state>
       </provider>
     </entry>
@@ -921,43 +807,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/src/main/java/com/nbjardins/config/SpringConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="14" column="1" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/adapter/pom.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/adapters/pom.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/adapters/secondaries/pom.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/back/core/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="13" selection-start-line="4" selection-start-column="3" selection-end-line="8" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/back/application/springapp/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="16" column="13" selection-start-line="11" selection-start-column="3" selection-end-line="16" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tool">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="19" column="45" lean-forward="true" selection-start-line="19" selection-start-column="45" selection-end-line="19" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/config/src/main/java/com/nbjardins/config/SpringConfig.java" />
+    <entry file="file://$PROJECT_DIR$/adapter/pom.xml" />
+    <entry file="file://$PROJECT_DIR$/adapters/pom.xml" />
+    <entry file="file://$PROJECT_DIR$/adapters/secondaries/pom.xml" />
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
@@ -965,20 +818,71 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/back/core/src/main/java/domain/Main.java">
+    <entry file="file://$PROJECT_DIR$/back/core/src/main/java/domain/entities/ServerMail.java" />
+    <entry file="file://$PROJECT_DIR$/back/application/springapp/src/main/java/com/nbjardins/application/springapp/SpringConfig.java" />
+    <entry file="jar://$MAVEN_REPOSITORY$/com/nbjardins/core/1.0-SNAPSHOT/core-1.0-SNAPSHOT.jar!/domain/entities/Mail.class" />
+    <entry file="file://$PROJECT_DIR$/back/adapters/primaries/application/springapp/src/main/resources/application.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        <state relative-caret-position="153">
+          <caret line="9" column="48" selection-start-line="9" selection-start-column="48" selection-end-line="9" selection-end-column="48" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/back/core/src/main/java/domain/entities/ServerMail.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+    <entry file="uml://JavaScript-modules-diagram/E:/WORK_SHARE/dev/nbjardins2/nbjardins/back/adapters/secondaries">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>JavaScript-modules-diagram</ID>
+          <OriginalElement>$PROJECT_DIR$/back/adapters/secondaries</OriginalElement>
+          <nodes />
+          <notes />
+          <edges />
+          <settings layout="Hierarchic Group" zoom="1.0" x="240.0" y="240.0" />
+          <SelectedNodes />
+          <Categories>
+            <Category>All</Category>
+          </Categories>
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>Details</VISIBILITY>
         </state>
       </provider>
     </entry>
+    <entry file="uml://MODULES/mdl-mails">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>MODULES</ID>
+          <OriginalElement>mdl-mails</OriginalElement>
+          <nodes>
+            <node x="" y="">mdl-mails</node>
+          </nodes>
+          <notes />
+          <edges />
+          <settings layout="Hierarchic Group" zoom="1.0" x="55.0" y="15.0" />
+          <SelectedNodes />
+          <Categories />
+          <SCOPE>All</SCOPE>
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://JavaScript-modules-diagram/E:/WORK_SHARE/dev/nbjardins2/nbjardins/back">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>JavaScript-modules-diagram</ID>
+          <OriginalElement>$PROJECT_DIR$/back</OriginalElement>
+          <nodes />
+          <notes />
+          <edges />
+          <settings layout="Hierarchic Group" zoom="1.0" x="744.0" y="257.0" />
+          <SelectedNodes />
+          <Categories>
+            <Category>All</Category>
+          </Categories>
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>Details</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/back/adapters/primaries/application/springapp/src/main/java/com/nbjardins/adapters/primaries/application/springapp/service/RealiserDevisService.java" />
+    <entry file="file://$PROJECT_DIR$/back/core/src/main/java/domain/entities/Mail.java" />
     <entry file="file://$PROJECT_DIR$/back/adapters/secondaries/mails/src/main/java/com/nbjardins/adatpers/secondaries/mails/ServerMail.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -986,93 +890,295 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/back/core/src/main/java/domain/Main.java" />
+    <entry file="file://$PROJECT_DIR$/tool">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="27" column="35" selection-start-line="27" selection-start-column="35" selection-end-line="27" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/nbjardins/core/1.0-SNAPSHOT/core-1.0-SNAPSHOT.jar!/domain/entities/DemandeDeDevis.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="15" column="19" lean-forward="true" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.16/lombok-1.18.16.jar!/lombok/Data.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="14" column="18" selection-start-line="14" selection-start-column="18" selection-end-line="14" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ideaLibSources/lombok-1.18.16-sources.jar!/lombok/Data.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="274">
+          <caret line="43" column="25" selection-start-line="43" selection-start-column="25" selection-end-line="43" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/nbjardins/core/1.0-SNAPSHOT/core-1.0-SNAPSHOT.jar!/domain/utils/Utils.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="25" column="49" selection-start-line="25" selection-start-column="49" selection-end-line="25" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/back/adapters/secondaries/mails/src/main/java/com/nbjardins/adatpers/secondaries/mails/Mail.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/back/core/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="20" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/back/adapters/primaries/application/springapp/src/main/java/com/nbjardins/adapters/primaries/application/springapp/Config.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="19" selection-start-line="19" selection-end-line="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/back/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="35" column="25" selection-start-line="31" selection-start-column="11" selection-end-line="35" selection-end-column="25" />
+        <state relative-caret-position="238">
+          <caret line="14" column="56" selection-start-line="14" selection-start-column="56" selection-end-line="14" selection-end-column="56" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/back/adapters/secondaries/mails/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="31" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="31" />
+        <state relative-caret-position="221">
+          <caret line="13" column="47" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="47" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/back/core/src/main/java/usecase/ports/PMailService.java">
+    <entry file="file://$PROJECT_DIR$/back/adapters/primaries/application/springapp/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="272">
+          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/back/core/src/main/java/usecase/RealiserDevis.java">
+    <entry file="file://$PROJECT_DIR$/back/adapters/primaries/application/springapp/src/main/java/com/nbjardins/adapters/primaries/application/springapp/Application.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="153">
+          <caret line="13" selection-start-line="13" selection-end-line="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/back/adapters/secondaries/mails/src/main/java/com/nbjardins/adatpers/secondaries/mails/AJavaMail.java">
+    <entry file="file://$PROJECT_DIR$/back/core/src/main/java/domain/entities/DemandeDeDevis.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
-          <caret line="13" column="26" selection-start-line="13" selection-start-column="26" selection-end-line="13" selection-end-column="26" />
+          <caret line="15" column="19" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="19" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/back/application/springapp/src/main/java/com/nbjardins/application/springapp/SpringConfig.java">
+    <entry file="file://$PROJECT_DIR$/back/adapters/primaries/application/springapp/src/main/java/com/nbjardins/adapters/primaries/application/springapp/controller/RealiserDevisController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" selection-start-line="8" selection-end-line="8" />
+        <state relative-caret-position="255">
+          <caret line="23" selection-start-line="23" selection-end-line="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/nbjardins/adapters/secondaries/mails/1.0-SNAPSHOT/mails-1.0-SNAPSHOT.jar!/com/nbjardins/adatpers/secondaries/mails/JavaMailAR.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="55" selection-start-line="55" selection-end-line="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/nbjardins/core/1.0-SNAPSHOT/core-1.0-SNAPSHOT.jar!/domain/entityresponse/Response.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="167">
+          <caret line="18" column="16" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/5.0.6.RELEASE/spring-web-5.0.6.RELEASE.jar!/org/springframework/web/method/support/InvocableHandlerMethod.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="127" selection-start-line="127" selection-end-line="127" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/back/core/src/main/java/usecase/ports/MailServicePT.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="1" lean-forward="true" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/back/application/springapp/src/main/java/com/nbjardins/application/springapp/Config.java">
+    <entry file="file://$PROJECT_DIR$/back/core/src/main/java/usecase/RealiserDevisUC.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="14" column="20" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
+        <state relative-caret-position="136">
+          <caret line="8" column="46" lean-forward="true" selection-start-line="8" selection-start-column="3" selection-end-line="8" selection-end-column="46" />
           <folding>
-            <element signature="e#815#816#0" expanded="true" />
-            <element signature="e#863#864#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/back/application/springapp/src/main/java/com/nbjardins/application/springapp/service/RealiserDevisService.java">
+    <entry file="file://$PROJECT_DIR$/back/adapters/secondaries/mails/src/main/java/com/nbjardins/adatpers/secondaries/mails/JavaMailAR.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="14" column="30" selection-start-line="14" selection-start-column="30" selection-end-line="14" selection-end-column="30" />
+        <state relative-caret-position="216">
+          <caret line="34" column="78" selection-start-line="34" selection-start-column="78" selection-end-line="34" selection-end-column="78" />
           <folding>
-            <element signature="e#377#427#1" expanded="true" />
-            <element signature="e#493#494#0" expanded="true" />
-            <element signature="e#551#552#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#1429#1435#0" expanded="true" />
+            <element signature="e#1825#2069#0" expanded="true" />
+            <element signature="e#2068#2069#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/back/application/springapp/src/main/java/com/nbjardins/application/springapp/controller/RealiserDevisController.java">
+    <entry file="file://$PROJECT_DIR$/back/core/src/main/java/usecase/ports/LocalizationServicePT.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="11" column="32" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="32" />
+        <state relative-caret-position="51">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/back/core/src/main/resources/messages_ut_UT.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="43" selection-start-column="43" selection-end-column="43" />
+        </state>
+      </provider>
+      <provider editor-type-id="ResourceBundle" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/back/core/src/main/resources/messages.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="28" lean-forward="true" selection-start-column="28" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/back/core/src/main/java/usecase/ChargerLocaleUC.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="17" lean-forward="true" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/back/core/src/main/java/domain/entityresponse/Response.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/back/core/src/main/java/domain/utils/Utils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1044#1045#0" expanded="true" />
+            <element signature="e#1121#1122#0" expanded="true" />
+            <element signature="e#1085#1086#0" expanded="true" />
+            <element signature="e#1137#1138#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
   </component>
   <component name="masterDetails">
     <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <last-edited>spring-app:war</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.5" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>Spring</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>15</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>mails</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
       <state key="ProjectJDKs.UI">
         <settings>
           <last-edited>15</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>Maven: ch.qos.logback:logback-classic:1.2.3</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

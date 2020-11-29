@@ -1,12 +1,12 @@
-package com.nbjardins.application.springapp;
+package com.nbjardins.adapters.primaries.application.springapp;
 
-import com.nbjardins.adatpers.secondaries.mails.AJavaMail;
+import com.nbjardins.adatpers.secondaries.mails.JavaMailAR;
 import com.nbjardins.adatpers.secondaries.mails.ServerMail;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
-import usecase.RealiserDevis;
-import usecase.ports.PMailService;
+import usecase.RealiserDevisUC;
+import usecase.ports.MailServicePT;
 
 @Configuration
 public class Config {
@@ -19,13 +19,13 @@ public class Config {
     }
 
     @Bean
-    public PMailService pMailService(ServerMail serverMail) {
-        return new AJavaMail(serverMail);
+    public MailServicePT mailServicePT(ServerMail serverMail) {
+        return new JavaMailAR(serverMail);
     }
 
     @Bean
-    public RealiserDevis realiserDevis(PMailService pMailService) {
-        return new RealiserDevis(pMailService);
+    public RealiserDevisUC realiserDevis(MailServicePT mailServicePT) {
+        return new RealiserDevisUC(mailServicePT);
     }
 
     @Bean

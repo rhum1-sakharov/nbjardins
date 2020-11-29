@@ -10,28 +10,25 @@ import java.util.List;
 @Data
 public class Response<T extends Entity> {
 
-    boolean isError;
-    List<String> errorMessages;
-    List<T> resultList;
+    boolean isError = false;
+    List<String> errorMessages = new ArrayList<>();
+    List<T> resultList = new ArrayList<>();
     T one;
-    String message;
+    String message = "";
 
-   public List<String> addMessage(String message) {
+    public void addErrorMessage(String message) {
 
         String[] messages = new String[1];
-        messages[0]=message;
+        messages[0] = message;
 
-        return addMessage(messages);
+        addErrorMessage(messages);
     }
 
-    public List<String> addMessage(String... messages) {
-        List<String> messageList = new ArrayList<String>();
+    public void addErrorMessage(String... messages) {
 
         if (messages != null) {
-            messageList.addAll(Arrays.asList(messages));
+            errorMessages.addAll(Arrays.asList(messages));
         }
-
-        return messageList;
     }
 
 }

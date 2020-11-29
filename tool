@@ -20,9 +20,14 @@ case "$1" in
 	bs) #  generer le livrable du back spring
 	    cd "${curdir}/back"
 	    mvn clean install
-		cd "${curdir}/back/application/springapp"
+		cd "${curdir}/back/adapters/primaries/application/springapp"
 		mvn clean package spring-boot:repackage
 		;;
+
+	bcore) #  generer le core du back
+    	    cd "${curdir}/back/core"
+    	    mvn clean install
+    		;;
 
 	fa) # generer le livrable du front angular
 	    cd "${curdir}/front"

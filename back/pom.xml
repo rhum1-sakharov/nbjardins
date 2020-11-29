@@ -12,7 +12,7 @@
     <modules>
         <module>core</module>
         <module>adapters/secondaries/mails</module>
-        <module>application/springapp</module>
+        <module>adapters/primaries/application/springapp</module>
     </modules>
 
 

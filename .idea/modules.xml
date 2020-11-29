@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/back/core/core.iml" filepath="$PROJECT_DIR$/back/core/core.iml" />
       <module fileurl="file://$PROJECT_DIR$/back/adapters/secondaries/mails/mails.iml" filepath="$PROJECT_DIR$/back/adapters/secondaries/mails/mails.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/nbjardins.iml" filepath="$PROJECT_DIR$/.idea/nbjardins.iml" />
+      <module fileurl="file://$PROJECT_DIR$/back/adapters/primaries/application/springapp/spring-app.iml" filepath="$PROJECT_DIR$/back/adapters/primaries/application/springapp/spring-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/back/application/springapp/spring-app.iml" filepath="$PROJECT_DIR$/back/application/springapp/spring-app.iml" />
     </modules>
   </component>

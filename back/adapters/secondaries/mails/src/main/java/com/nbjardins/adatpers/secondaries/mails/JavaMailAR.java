@@ -1,10 +1,11 @@
 package com.nbjardins.adatpers.secondaries.mails;
 
 import com.sun.mail.smtp.SMTPTransport;
-import domain.entities.Mail;
+import domain.entities.DemandeDeDevis;
 import domain.entityresponse.Response;
-import lombok.AllArgsConstructor;
-import usecase.ports.PMailService;
+import domain.utils.Localization;
+import domain.utils.Utils;
+import usecase.ports.MailServicePT;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -21,12 +22,26 @@ import java.io.OutputStream;
 import java.util.Properties;
 
 
-@AllArgsConstructor
-public class AJavaMail implements PMailService {
+public class JavaMailAR implements MailServicePT {
 
     ServerMail serverMail;
 
-    public Response<Mail> send( Mail mail) {
+    public JavaMailAR(ServerMail serverMail) {
+        this.serverMail = serverMail;
+    }
+
+    @Override
+    public Response<DemandeDeDevis> send(DemandeDeDevis demandeDeDevis) {
+
+        Mail mail = new Mail(demandeDeDevis.getSujet(), demandeDeDevis.getEmailEmetteur(), demandeDeDevis.getEmailDestinataire(), demandeDeDevis.getMessage());
+        Response<Mail> mailResponse = send(mail);
+        Response<DemandeDeDevis> demandeDeDevisResponse = Utils.initResponse(Localization.getMsg("mail.error"), mailResponse.isError());
+
+        return demandeDeDevisResponse;
+    }
+
+
+    private Response<Mail> send(Mail mail) {
 
         Response<Mail> responseMail = new Response<Mail>();
         responseMail.setOne(mail);
@@ -71,7 +86,7 @@ public class AJavaMail implements PMailService {
         } catch (MessagingException e) {
             e.printStackTrace();
             responseMail.setError(true);
-            responseMail.setErrorMessages(responseMail.addMessage(e.getMessage()));
+            responseMail.addErrorMessage(e.getMessage());
         }
 
 

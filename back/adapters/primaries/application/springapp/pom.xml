@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
 
-    <groupId>com.nbjardins.application</groupId>
+    <groupId>com.nbjardins.adapters.primaries.application</groupId>
     <artifactId>spring-app</artifactId>
     <version>1.0-SNAPSHOT</version>
 
@@ -13,7 +13,7 @@
         <groupId>com.nbjardins</groupId>
         <artifactId>parent</artifactId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../../..</relativePath>
+        <relativePath>../../../../</relativePath>
     </parent>
 
     <properties>
@@ -48,7 +48,6 @@
                         <goals>
                             <goal>build-info</goal>
                         </goals>
-
                     </execution>
                 </executions>
             </plugin>
