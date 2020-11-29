@@ -18,22 +18,22 @@ mvn clean package spring-boot:repackage
 
 ###Back, réalisé en clean architecture
 
-* domain
-* usecase
-* adapter
-* config
-* application
+* core
 
-L'application dépend de la config.
+      domain        
+      usecase
 
-La config dépend de l'adapter.
+* adapters  
+    
+      primaries
+         application
+           springapp
+                    
+      secondaries
+         mails
 
-L'adapter dépend du usecase.
-
-Le usecase dépend du domain.
 
 
-**Toute dépendance dans le sens inverse est interdite !!!**
 
 ###Front, angular
 
