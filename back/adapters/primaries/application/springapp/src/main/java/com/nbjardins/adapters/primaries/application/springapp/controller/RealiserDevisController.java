@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import usecase.RealiserDevisUC;
 
+import java.util.Locale;
+
 @RestController
 @RequestMapping("/realiser-devis")
 public class RealiserDevisController {
@@ -20,7 +22,10 @@ public class RealiserDevisController {
 
 
     @PostMapping(value = "/demander-devis")
-    public Response<DemandeDeDevis> demanderDevis(@RequestBody DemandeDeDevis demandeDeDevis) {
+    public Response<DemandeDeDevis> demanderDevis(@RequestBody DemandeDeDevis demandeDeDevis, Locale locale) {
+
+        demandeDeDevis.setLocale(locale);
+
         return realiserDevisUC.demanderDevis(demandeDeDevis);
     }
 

@@ -4,6 +4,8 @@ import domain.entities.DemandeDeDevis;
 import domain.entityresponse.Response;
 import usecase.ports.MailServicePT;
 
+import java.util.Locale;
+
 public final class RealiserDevisUC {
 
     private final MailServicePT mailServicePT;
@@ -14,9 +16,9 @@ public final class RealiserDevisUC {
 
     public Response<DemandeDeDevis> demanderDevis(DemandeDeDevis demandeDeDevis) {
 
-        Response<DemandeDeDevis> demandeDevis = mailServicePT.send(demandeDeDevis);
+        Response<DemandeDeDevis> responseDemandeDeDevis = mailServicePT.send(demandeDeDevis);
 
-        return demandeDevis;
+        return responseDemandeDeDevis;
     }
 
 }

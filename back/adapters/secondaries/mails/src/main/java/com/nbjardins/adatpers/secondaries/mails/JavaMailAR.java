@@ -19,23 +19,25 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Locale;
 import java.util.Properties;
 
 
-public class JavaMailAR implements MailServicePT {
+public class JavaMailAR extends AbstractMail implements MailServicePT {
 
-    ServerMail serverMail;
 
     public JavaMailAR(ServerMail serverMail) {
-        this.serverMail = serverMail;
+        super(serverMail);
     }
 
     @Override
     public Response<DemandeDeDevis> send(DemandeDeDevis demandeDeDevis) {
 
+        Locale locale = demandeDeDevis.getLocale();
+
         Mail mail = new Mail(demandeDeDevis.getSujet(), demandeDeDevis.getEmailEmetteur(), demandeDeDevis.getEmailDestinataire(), demandeDeDevis.getMessage());
         Response<Mail> mailResponse = send(mail);
-        Response<DemandeDeDevis> demandeDeDevisResponse = Utils.initResponse(Localization.getMsg("mail.error"), mailResponse.isError());
+        Response<DemandeDeDevis> demandeDeDevisResponse = Utils.initResponse(Localization.getMsg("mail.error",locale), mailResponse.isError());
 
         return demandeDeDevisResponse;
     }
