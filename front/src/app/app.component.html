@@ -69,25 +69,84 @@
         <ng-template pTemplate="header">
           <h6 class="pg-10">Demander un devis</h6>
         </ng-template>
+        <div class=" font-12">
+          Les champs avec une astérisque <span style="color:red;">*</span> sont obligatoires.
+        </div>
 
+        <div class="p-grid p-fluid mg-t-10">
 
-        <div class="p-grid p-fluid">
           <div class="p-col-12">
             <div class="p-inputgroup">
-              <span class="p-inputgroup-addon">  <fa-icon [icon]="faAt"></fa-icon></span>
-              <input type="text" pInputText placeholder="renseigner une adresse mail...">
+              <span class="p-inputgroup-addon"> <div class="wh-100">Nom<span style="color:red;">*</span></div> </span>
+              <input type="text" pInputText placeholder="">
+            </div>
+          </div>
+
+          <div class="p-col-12 mg-t-10">
+            <div class="p-inputgroup ">
+              <span class="p-inputgroup-addon">   <div class="wh-100">Prénom<span style="color:red;">*</span></div></span>
+              <input type="text" pInputText placeholder="">
             </div>
           </div>
 
           <div class="p-col-12 mg-t-10">
             <div class="p-inputgroup">
-              <span class="p-inputgroup-addon">  <fa-icon [icon]="faPenFancy"></fa-icon></span>
+              <span class="p-inputgroup-addon"> <div class="wh-100">Société</div></span>
+              <input type="text" pInputText placeholder="">
+            </div>
+          </div>
+
+          <div class="p-col-12 mg-t-10">
+            <div class="p-inputgroup">
+              <span class="p-inputgroup-addon">  <div class="wh-100">Fonction</div></span>
+              <input type="text" pInputText placeholder="">
+            </div>
+          </div>
+
+          <div class="p-col-12 mg-t-10">
+            <div class="p-inputgroup">
+              <span class="p-inputgroup-addon"> <div class="wh-100">Adresse</div></span>
+              <input type="text" pInputText placeholder="">
+            </div>
+          </div>
+
+          <div class="p-col-12 mg-t-10">
+            <div class="p-inputgroup">
+              <span class="p-inputgroup-addon"> <div class="wh-100">Ville</div></span>
+              <input class="max-wh-400" type="text" pInputText placeholder="">
+            </div>
+          </div>
+
+          <div class="p-col-12 mg-t-10">
+            <div class="p-inputgroup">
+              <span class="p-inputgroup-addon">  <div class="wh-100">Code postal</div></span>
+              <input class="max-wh-200" type="text" pInputText placeholder="">
+            </div>
+          </div>
+
+          <div class="p-col-12 mg-t-10">
+            <div class="p-inputgroup">
+              <span class="p-inputgroup-addon"> <div class="wh-100">Téléphone</div></span>
+              <input class="max-wh-200" type="tel" pInputText placeholder="">
+            </div>
+          </div>
+
+          <div class="p-col-12 mg-t-10">
+            <div class="p-inputgroup">
+              <span class="p-inputgroup-addon"> <div class="wh-100">Email <span style="color:red;">*</span></div></span>
+              <input class="max-wh-400" type="text" pInputText placeholder="">
+            </div>
+          </div>
+
+          <div class="p-col-12 mg-t-10">
+            <div class="p-inputgroup">
+              <span class="p-inputgroup-addon">  <fa-icon [icon]="faPenFancy"></fa-icon> <span style="color:red;">*</span></span>
               <textarea pInputTextarea [(ngModel)]="devisMessage" [rows]="10" [cols]="30" placeholder="rédiger un message..."></textarea>
             </div>
           </div>
 
           <div class="d-flex mg-t-10">
-            <div class="mr-auto">
+            <div class="mr-auto ">
             </div>
             <div>
               <button pButton pRipple type="button" label="Envoyer" class="p-button-rounded"></button>

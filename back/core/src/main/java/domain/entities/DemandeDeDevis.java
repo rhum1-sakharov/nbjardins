@@ -16,6 +16,8 @@ public class DemandeDeDevis extends Entity {
     String societe;
     String fonction;
     String adresse;
+    String ville;
+    String codePostal;
     String sujet;
     String emailEmetteur;
     String emailDestinataire;

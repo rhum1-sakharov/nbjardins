@@ -6,11 +6,14 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class LocalizeResourceBundleAR implements LocalizeServicePT {
+public class LocalizeResourceBundleAR extends AbstractLocalize implements LocalizeServicePT {
 
     ResourceBundle rbFrench;
     ResourceBundle rbDefault;
     ResourceBundle rbEnglish;
+
+
+
 
     @Override
     public String getMsg(String key, Locale locale) {
@@ -43,6 +46,16 @@ public class LocalizeResourceBundleAR implements LocalizeServicePT {
     @Override
     public String getMsg(String key) {
         return getMsg(key, null);
+    }
+
+    @Override
+    public Locale getFrenchLocale() {
+        return frLocale;
+    }
+
+    @Override
+    public Locale getEnglishLocale() {
+        return enLocale;
     }
 
 

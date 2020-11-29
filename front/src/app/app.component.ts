@@ -1,12 +1,17 @@
 import {AfterViewInit, ChangeDetectorRef, Component} from '@angular/core';
 import {TITLE_APP} from "./constants";
 import {faEnvelope} from "@fortawesome/free-regular-svg-icons/faEnvelope";
-import {faPhone} from "@fortawesome/free-solid-svg-icons/faPhone";
 import {faMobileAlt} from "@fortawesome/free-solid-svg-icons";
 import {faMapMarkerAlt} from "@fortawesome/free-solid-svg-icons/faMapMarkerAlt";
 import {faAt} from "@fortawesome/free-solid-svg-icons/faAt";
 import {faPenFancy} from "@fortawesome/free-solid-svg-icons/faPenFancy";
 import {faCarrot} from "@fortawesome/free-solid-svg-icons/faCarrot";
+import {faUserCheck} from "@fortawesome/free-solid-svg-icons/faUserCheck";
+import {faBuilding} from "@fortawesome/free-solid-svg-icons/faBuilding";
+import {faTasks} from "@fortawesome/free-solid-svg-icons/faTasks";
+import {faAddressCard} from "@fortawesome/free-solid-svg-icons/faAddressCard";
+import {faCity} from "@fortawesome/free-solid-svg-icons/faCity";
+import {faCode} from "@fortawesome/free-solid-svg-icons/faCode";
 
 declare var ol: any;
 
@@ -25,6 +30,14 @@ export class AppComponent implements AfterViewInit {
   faAt = faAt;
   faPenFancy = faPenFancy;
   faCarrot = faCarrot;
+  faFirstname=faUserCheck;
+  faLastname=faUserCheck;
+  faBuilding=faBuilding;
+  faFunction=faTasks;
+  faAddress=faAddressCard;
+  faPostalCode=faCode;
+  faCity=faCity;
+
 
   intersectionPrestation = false;
 

@@ -33,8 +33,8 @@ public class Config {
     }
 
     @Bean
-    public RealiserDevisUC realiserDevis(MailServicePT mailServicePT) {
-        return new RealiserDevisUC(mailServicePT);
+    public RealiserDevisUC realiserDevis(MailServicePT mailServicePT, LocalizeServicePT localizeServicePT) {
+        return new RealiserDevisUC(mailServicePT,localizeServicePT);
     }
 
     @Bean

@@ -1,7 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 
 @for $i from 1 through 1000 {
-   .ht-#{$i} {
+
+  @if ($i < 60) {
+    .font-#{$i}{
+      font-size: #{$i}px;
+    }
+  }
+
+  .ht-#{$i} {
     height: #{$i}px;
   }
 
@@ -43,10 +50,10 @@
 
 }
 
-.rounded-image{
-  overflow:hidden;
-  -webkit-border-radius:50%;
-  -moz-border-radius:50%;
-  border-radius:50%;
+.rounded-image {
+  overflow: hidden;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
 }
 

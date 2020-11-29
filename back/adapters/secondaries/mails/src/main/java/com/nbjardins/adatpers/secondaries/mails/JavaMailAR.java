@@ -39,6 +39,8 @@ public class JavaMailAR extends AbstractMail implements MailServicePT {
         Response<Mail> mailResponse = send(mail);
         Response<DemandeDeDevis> demandeDeDevisResponse = Utils.initResponse(localize.getMsg("mail.error",locale), mailResponse.isError());
 
+        demandeDeDevisResponse.setOne(demandeDeDevis);
+
         return demandeDeDevisResponse;
     }
 

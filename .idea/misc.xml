@@ -15,6 +15,7 @@
         <option value="$PROJECT_DIR$/back/adapters/secondaries/mails/pom.xml" />
         <option value="$PROJECT_DIR$/back/adapters/secondaries/pom.xml" />
         <option value="$PROJECT_DIR$/back/adapters/secondaries/localization/pom.xml" />
+        <option value="$PROJECT_DIR$/back/core/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

@@ -8,4 +8,7 @@ public interface LocalizeServicePT {
 
     String getMsg(String key);
 
+    Locale getFrenchLocale();
+    Locale getEnglishLocale();
+
 }

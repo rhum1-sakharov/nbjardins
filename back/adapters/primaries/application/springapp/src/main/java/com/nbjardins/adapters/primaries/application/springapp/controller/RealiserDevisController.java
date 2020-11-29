@@ -2,6 +2,7 @@ package com.nbjardins.adapters.primaries.application.springapp.controller;
 
 import domain.entities.DemandeDeDevis;
 import domain.entityresponse.Response;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,9 @@ public class RealiserDevisController {
 
     RealiserDevisUC realiserDevisUC;
 
+    @Value("${springapp.realiserdevis.demanderdevis.mail.to}")
+    String emailDestinataire;
+
     public RealiserDevisController(RealiserDevisUC realiserDevisUC) {
         this.realiserDevisUC = realiserDevisUC;
     }
@@ -25,6 +29,8 @@ public class RealiserDevisController {
     public Response<DemandeDeDevis> demanderDevis(@RequestBody DemandeDeDevis demandeDeDevis, Locale locale) {
 
         demandeDeDevis.setLocale(locale);
+        demandeDeDevis.setEmailDestinataire(emailDestinataire);
+
 
         return realiserDevisUC.demanderDevis(demandeDeDevis);
     }
