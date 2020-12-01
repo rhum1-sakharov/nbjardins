@@ -25,15 +25,16 @@
         <ng-template pTemplate="header">
           <h6 class="pg-10">Me connaître</h6>
         </ng-template>
-        <p>Originaire de Pernes les Fontaines, Je suis un adepte de la beauté. J'aime dessiner les paysages et entretenir nos charmants jardins provençaux.</p>
+        <p>Originaire de Pernes les Fontaines, Je suis un adepte de la beauté. J'aime dessiner les paysages et
+          entretenir nos charmants jardins provençaux.</p>
 
       </p-card>
-      <p-card class="pg-28 " >
+      <p-card class="pg-28 ">
         <ng-template pTemplate="header">
-          <h6 class="pg-10"  >Mes prestations</h6>
+          <h6 class="pg-10">Mes prestations</h6>
         </ng-template>
 
-        <p >
+        <p>
           <fa-icon [icon]="faCarrot" class="mg-r-5"></fa-icon>
           Préparer les sols
         </p>
@@ -84,7 +85,8 @@
 
           <div class="p-col-12 mg-t-10">
             <div class="p-inputgroup ">
-              <span class="p-inputgroup-addon">   <div class="wh-100">Prénom<span style="color:red;">*</span></div></span>
+              <span class="p-inputgroup-addon">   <div class="wh-100">Prénom<span
+                style="color:red;">*</span></div></span>
               <input type="text" pInputText placeholder="">
             </div>
           </div>
@@ -113,21 +115,29 @@
           <div class="p-col-12 mg-t-10">
             <div class="p-inputgroup">
               <span class="p-inputgroup-addon"> <div class="wh-100">Ville</div></span>
-              <input class="max-wh-400" type="text" pInputText placeholder="">
-            </div>
-          </div>
+              <p-autoComplete field="nom"  [(ngModel)]="ville"
+                              [forceSelection]="true"
+                              [suggestions]="villes" (completeMethod)="search($event)">
 
-          <div class="p-col-12 mg-t-10">
-            <div class="p-inputgroup">
-              <span class="p-inputgroup-addon">  <div class="wh-100">Code postal</div></span>
-              <input class="max-wh-200" type="text" pInputText placeholder="">
+                <ng-template let-item pTemplate="item">
+                  <div class="d-flex">
+                    <div class="mr-auto">
+                      {{item.nom}}
+                    </div>
+                    <div>
+                      {{item.codePostal}}
+                    </div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+              <span class="mg-l-10 lh-40">{{ville?.codePostal}}</span>
             </div>
           </div>
 
           <div class="p-col-12 mg-t-10">
             <div class="p-inputgroup">
               <span class="p-inputgroup-addon"> <div class="wh-100">Téléphone</div></span>
-              <input class="max-wh-200" type="tel" pInputText placeholder="">
+              <input class="max-wh-400" type="tel" pInputText placeholder="">
             </div>
           </div>
 
@@ -140,8 +150,10 @@
 
           <div class="p-col-12 mg-t-10">
             <div class="p-inputgroup">
-              <span class="p-inputgroup-addon">  <fa-icon [icon]="faPenFancy"></fa-icon> <span style="color:red;">*</span></span>
-              <textarea pInputTextarea [(ngModel)]="devisMessage" [rows]="10" [cols]="30" placeholder="rédiger un message..."></textarea>
+              <span class="p-inputgroup-addon">  <fa-icon [icon]="faPenFancy"></fa-icon> <span
+                style="color:red;">*</span></span>
+              <textarea pInputTextarea [(ngModel)]="devisMessage" [rows]="10" [cols]="30"
+                        placeholder="rédiger un message..."></textarea>
             </div>
           </div>
 

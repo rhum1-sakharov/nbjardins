@@ -9,15 +9,22 @@ import {InputTextModule} from "primeng/inputtext";
 import {InputTextareaModule} from "primeng/inputtextarea";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ButtonModule} from "primeng/button";
+import {CoreModule} from "./core/core.module";
+import {AutoCompleteModule} from "primeng/autocomplete";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
+    CoreModule,
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     ReactiveFormsModule,
+
+    AutoCompleteModule,
     FormsModule,
     FontAwesomeModule,
     CardModule,

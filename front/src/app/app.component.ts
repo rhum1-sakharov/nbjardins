@@ -12,6 +12,8 @@ import {faTasks} from "@fortawesome/free-solid-svg-icons/faTasks";
 import {faAddressCard} from "@fortawesome/free-solid-svg-icons/faAddressCard";
 import {faCity} from "@fortawesome/free-solid-svg-icons/faCity";
 import {faCode} from "@fortawesome/free-solid-svg-icons/faCode";
+import {VillesService} from "./core/services/villes.service";
+import {MVille} from "./core/models/m-ville";
 
 declare var ol: any;
 
@@ -30,16 +32,17 @@ export class AppComponent implements AfterViewInit {
   faAt = faAt;
   faPenFancy = faPenFancy;
   faCarrot = faCarrot;
-  faFirstname=faUserCheck;
-  faLastname=faUserCheck;
-  faBuilding=faBuilding;
-  faFunction=faTasks;
-  faAddress=faAddressCard;
-  faPostalCode=faCode;
-  faCity=faCity;
+  faFirstname = faUserCheck;
+  faLastname = faUserCheck;
+  faBuilding = faBuilding;
+  faFunction = faTasks;
+  faAddress = faAddressCard;
+  faPostalCode = faCode;
+  faCity = faCity;
 
 
-  intersectionPrestation = false;
+  villes: MVille[];
+  ville: MVille ;
 
   devisMessage: string;
 
@@ -50,7 +53,7 @@ export class AppComponent implements AfterViewInit {
     threshold: 0.7,
   };
 
-  constructor(private cd: ChangeDetectorRef) {
+  constructor(private cd: ChangeDetectorRef, private villesSvc: VillesService) {
 
   }
 
@@ -63,37 +66,11 @@ export class AppComponent implements AfterViewInit {
 
   }
 
-  createObserver(idElement: string) {
-    const prestations = document.getElementById(idElement);
-    let prevRatio = 0;
-    let increasingColor = "rgba(40, 40, 190, ratio)";
-    let decreasingColor = "rgba(190, 40, 40, ratio)";
-    console.log('onInit', prestations);
+  search($event) {
 
-
-    // Callback function executed during observe.
-    const callback = function (entries, observer) {
-// Target the first entry available.
-      let entry = entries[0];
-
-
-      if (entry.intersectionRatio > prevRatio) {
-        entry.target.style.backgroundColor = increasingColor.replace("ratio", entry.intersectionRatio);
-      } else {
-        entry.target.style.backgroundColor = decreasingColor.replace("ratio", entry.intersectionRatio);
-      }
-
-      prevRatio = entry.intersectionRatio;
-
-    };
-
-// Construct Intersection Observer.
-    const observer = new IntersectionObserver(callback, this.options);
-
-// Observe if element is present.
-    if (prestations) {
-      observer.observe(prestations);
-    }
+    this.villesSvc.search($event.query).subscribe(response => {
+      this.villes = response.map(item => new MVille(item.nom, item.codesPostaux[0]));
+    });
   }
 
 

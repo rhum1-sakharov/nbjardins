@@ -6,6 +6,10 @@
     .font-#{$i}{
       font-size: #{$i}px;
     }
+
+    .lh-#{$i}{
+      line-height:#{$i}px;
+    }
   }
 
   .ht-#{$i} {
