@@ -116,7 +116,6 @@
             <div class="p-inputgroup">
               <span class="p-inputgroup-addon"> <div class="wh-100">Ville</div></span>
               <p-autoComplete field="nom"  [(ngModel)]="ville"
-                              [forceSelection]="true"
                               [suggestions]="villes" (completeMethod)="search($event)">
 
                 <ng-template let-item pTemplate="item">
