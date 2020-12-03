@@ -12,10 +12,14 @@ import {ButtonModule} from "primeng/button";
 import {CoreModule} from "./core/core.module";
 import {AutoCompleteModule} from "primeng/autocomplete";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {AccueilComponent} from './accueil/accueil.component';
+import {DemandeDeDevisComponent} from './demande-de-devis/demande-de-devis.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AccueilComponent,
+    DemandeDeDevisComponent
   ],
   imports: [
     CoreModule,

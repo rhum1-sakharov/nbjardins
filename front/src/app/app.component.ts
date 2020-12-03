@@ -13,7 +13,8 @@ import {faAddressCard} from "@fortawesome/free-solid-svg-icons/faAddressCard";
 import {faCity} from "@fortawesome/free-solid-svg-icons/faCity";
 import {faCode} from "@fortawesome/free-solid-svg-icons/faCode";
 import {VillesService} from "./core/services/villes.service";
-import {MVille} from "./core/models/m-ville";
+import {faHome} from "@fortawesome/free-solid-svg-icons/faHome";
+import {faFileInvoice} from "@fortawesome/free-solid-svg-icons/faFileInvoice";
 
 declare var ol: any;
 
@@ -39,19 +40,9 @@ export class AppComponent implements AfterViewInit {
   faAddress = faAddressCard;
   faPostalCode = faCode;
   faCity = faCity;
+  faHome = faHome;
+  faFileInvoice=faFileInvoice;
 
-
-  villes: MVille[];
-  ville: MVille ;
-
-  devisMessage: string;
-
-  // Observer options.
-  options = {
-    root: null,
-    rootMargin: '0px',
-    threshold: 0.7,
-  };
 
   constructor(private cd: ChangeDetectorRef, private villesSvc: VillesService) {
 
@@ -65,14 +56,6 @@ export class AppComponent implements AfterViewInit {
   ngAfterViewInit(): void {
 
   }
-
-  search($event) {
-
-    this.villesSvc.search($event.query).subscribe(response => {
-      this.villes = response.map(item => new MVille(item.nom, item.codesPostaux[0]));
-    });
-  }
-
 
 
 }

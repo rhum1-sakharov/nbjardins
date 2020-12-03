@@ -3,12 +3,12 @@
 @for $i from 1 through 1000 {
 
   @if ($i < 60) {
-    .font-#{$i}{
+    .font-#{$i} {
       font-size: #{$i}px;
     }
 
-    .lh-#{$i}{
-      line-height:#{$i}px;
+    .lh-#{$i} {
+      line-height: #{$i}px;
     }
   }
 
@@ -54,6 +54,10 @@
 
 }
 
+.cursor {
+  cursor: pointer;
+}
+
 .rounded-image {
   overflow: hidden;
   -webkit-border-radius: 50%;
@@ -61,3 +65,6 @@
   border-radius: 50%;
 }
 
+.color-white{
+  color:white !important;
+}

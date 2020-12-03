@@ -1,8 +1,7 @@
 <div class="body">
 
-  <div class="toolbar shadow">
-
-    <div class="d-flex">
+  <div class="toolbar ">
+    <div class="d-flex ">
       <div class="mr-auto">
         <div class="d-flex">
           <div class="mg-r-20 ">
@@ -11,186 +10,51 @@
           <div class="title">{{title}}</div>
         </div>
       </div>
-
     </div>
+  </div>
 
+  <div class="second-level-menu shadow">
+    <div class="d-flex">
+      <div class="mg-r-20 mg-l-40 cursor item-menu">
+        <a routerLink="accueil" routerLinkActive="active-menu">
+          <fa-icon [icon]="faHome" class=" mg-r-5"></fa-icon>
+          Accueil</a>
+      </div>
+      <div class="cursor item-menu">
+        <a routerLink="demander-un-devis" routerLinkActive="active-menu">
+          <fa-icon [icon]="faFileInvoice" class="mg-r-5"></fa-icon>
+          Demander un devis</a>
+      </div>
+    </div>
   </div>
 
 
   <div class="d-flex flex-column main shadow">
-
-    <!--content-->
     <div class="flex-grow-1 pg-20">
-      <p-card class="pg-28">
-        <ng-template pTemplate="header">
-          <h6 class="pg-10">Me connaître</h6>
-        </ng-template>
-        <p>Originaire de Pernes les Fontaines, Je suis un adepte de la beauté. J'aime dessiner les paysages et
-          entretenir nos charmants jardins provençaux.</p>
-
-      </p-card>
-      <p-card class="pg-28 ">
-        <ng-template pTemplate="header">
-          <h6 class="pg-10">Mes prestations</h6>
-        </ng-template>
-
-        <p>
-          <fa-icon [icon]="faCarrot" class="mg-r-5"></fa-icon>
-          Préparer les sols
-        </p>
-        <p>
-          <fa-icon [icon]="faCarrot" class="mg-r-5"></fa-icon>
-          Effectuer les semis
-        </p>
-        <p>
-          <fa-icon [icon]="faCarrot" class="mg-r-5"></fa-icon>
-          Protéger les plantations
-        </p>
-        <p>
-          <fa-icon [icon]="faCarrot" class="mg-r-5"></fa-icon>
-          Entretenir les pelouses et le gazon
-        </p>
-        <p>
-          <fa-icon [icon]="faCarrot" class="mg-r-5"></fa-icon>
-          Débroussailler
-        </p>
-        <p>
-          <fa-icon [icon]="faCarrot" class="mg-r-5"></fa-icon>
-          Tailler les arbres et les arbustes
-        </p>
-        <p>
-          <fa-icon [icon]="faCarrot" class="mg-r-5"></fa-icon>
-          Evacuer et recycler les déchets verts
-        </p>
-
-
-      </p-card>
-
-      <p-card class="pg-28 ">
-        <ng-template pTemplate="header">
-          <h6 class="pg-10">Demander un devis</h6>
-        </ng-template>
-        <div class=" font-12">
-          Les champs avec une astérisque <span style="color:red;">*</span> sont obligatoires.
-        </div>
-
-        <div class="p-grid p-fluid mg-t-10">
-
-          <div class="p-col-12">
-            <div class="p-inputgroup">
-              <span class="p-inputgroup-addon"> <div class="wh-100">Nom<span style="color:red;">*</span></div> </span>
-              <input type="text" pInputText placeholder="">
-            </div>
-          </div>
-
-          <div class="p-col-12 mg-t-10">
-            <div class="p-inputgroup ">
-              <span class="p-inputgroup-addon">   <div class="wh-100">Prénom<span
-                style="color:red;">*</span></div></span>
-              <input type="text" pInputText placeholder="">
-            </div>
-          </div>
-
-          <div class="p-col-12 mg-t-10">
-            <div class="p-inputgroup">
-              <span class="p-inputgroup-addon"> <div class="wh-100">Société</div></span>
-              <input type="text" pInputText placeholder="">
-            </div>
-          </div>
-
-          <div class="p-col-12 mg-t-10">
-            <div class="p-inputgroup">
-              <span class="p-inputgroup-addon">  <div class="wh-100">Fonction</div></span>
-              <input type="text" pInputText placeholder="">
-            </div>
-          </div>
-
-          <div class="p-col-12 mg-t-10">
-            <div class="p-inputgroup">
-              <span class="p-inputgroup-addon"> <div class="wh-100">Adresse</div></span>
-              <input type="text" pInputText placeholder="">
-            </div>
-          </div>
-
-          <div class="p-col-12 mg-t-10">
-            <div class="p-inputgroup">
-              <span class="p-inputgroup-addon"> <div class="wh-100">Ville</div></span>
-              <p-autoComplete field="nom"  [(ngModel)]="ville"
-                              [suggestions]="villes" (completeMethod)="search($event)">
-
-                <ng-template let-item pTemplate="item">
-                  <div class="d-flex">
-                    <div class="mr-auto">
-                      {{item.nom}}
-                    </div>
-                    <div>
-                      {{item.codePostal}}
-                    </div>
-                  </div>
-                </ng-template>
-              </p-autoComplete>
-              <span class="mg-l-10 lh-40">{{ville?.codePostal}}</span>
-            </div>
-          </div>
-
-          <div class="p-col-12 mg-t-10">
-            <div class="p-inputgroup">
-              <span class="p-inputgroup-addon"> <div class="wh-100">Téléphone</div></span>
-              <input class="max-wh-400" type="tel" pInputText placeholder="">
-            </div>
-          </div>
-
-          <div class="p-col-12 mg-t-10">
-            <div class="p-inputgroup">
-              <span class="p-inputgroup-addon"> <div class="wh-100">Email <span style="color:red;">*</span></div></span>
-              <input class="max-wh-400" type="text" pInputText placeholder="">
-            </div>
-          </div>
-
-          <div class="p-col-12 mg-t-10">
-            <div class="p-inputgroup">
-              <span class="p-inputgroup-addon">  <fa-icon [icon]="faPenFancy"></fa-icon> <span
-                style="color:red;">*</span></span>
-              <textarea pInputTextarea [(ngModel)]="devisMessage" [rows]="10" [cols]="30"
-                        placeholder="rédiger un message..."></textarea>
-            </div>
-          </div>
-
-          <div class="d-flex mg-t-10">
-            <div class="mr-auto ">
-            </div>
-            <div>
-              <button pButton pRipple type="button" label="Envoyer" class="p-button-rounded"></button>
-            </div>
-          </div>
-
-        </div>
-
-      </p-card>
-    </div>
-
-    <!--footer-->
-    <div class="d-flex ht-120 pg-14 footer">
-      <div class="mr-auto">
-
-      </div>
-      <div class="d-flex flex-column">
-        <a href="tel:0699235428">
-          <fa-icon [icon]="faMobile" class="mg-r-10 "></fa-icon>
-          06 99 23 54 28
-        </a>
-        <a class="mg-t-10" href="mailto:nicolas.boetsch@laposte.net">
-          <fa-icon [icon]="faEnvelope" class="mg-r-5"></fa-icon>
-          nicolas.boetsch@laposte.net
-        </a>
-        <span class="mg-t-10">
-        <fa-icon [icon]="faMapMarkerAlt" class="mg-r-10"></fa-icon>366 chemin de fontblanque, 84210 Pernes
-      </span>
-      </div>
+      <router-outlet></router-outlet>
     </div>
   </div>
 
+  <!--footer-->
+  <div class="d-flex ht-120 pg-14 footer">
+    <div class="mr-auto">
 
+    </div>
+    <div class="d-flex flex-column">
+      <a href="tel:0699235428" class="color-white">
+        <fa-icon [icon]="faMobile" class="mg-r-10 "></fa-icon>
+        06 99 23 54 28
+      </a>
+      <a class="mg-t-10 color-white" href="mailto:nicolas.boetsch@laposte.net" >
+        <fa-icon [icon]="faEnvelope" class="mg-r-5"></fa-icon>
+        nicolas.boetsch@laposte.net
+      </a>
+      <span class="mg-t-10">
+        <fa-icon [icon]="faMapMarkerAlt" class="mg-r-10"></fa-icon>366 chemin de fontblanque, 84210 Pernes
+      </span>
+    </div>
+  </div>
 </div>
+
 
 

@@ -1,0 +1,95 @@
+<p-card >
+  <ng-template pTemplate="header">
+    <h6 class="pg-10">Demander un devis</h6>
+  </ng-template>
+  <div class=" font-12">
+    Les champs avec une astérisque <span style="color:red;">*</span> sont obligatoires.
+  </div>
+
+  <div class="p-grid p-fluid mg-t-10">
+
+    <div class="p-col-12">
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon"> <div class="wh-70">Nom<span style="color:red;">*</span></div> </span>
+        <input type="text"  pInputText placeholder="">
+      </div>
+    </div>
+
+    <div class="p-col-12 mg-t-10">
+      <div class="p-inputgroup ">
+              <span class="p-inputgroup-addon">   <div class="wh-70">Prénom<span
+                style="color:red;">*</span></div></span>
+        <input type="text" pInputText placeholder="">
+      </div>
+    </div>
+
+    <div class="p-col-12 mg-t-10">
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon"> <div class="wh-70">Société</div></span>
+        <input type="text" pInputText placeholder="">
+      </div>
+    </div>
+
+
+    <div class="p-col-12 mg-t-10">
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon"> <div class="wh-70">Adresse</div></span>
+        <input type="text" pInputText placeholder="">
+      </div>
+    </div>
+
+    <div class="p-col-12 mg-t-10">
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon"> <div class="wh-70">Ville</div></span>
+        <p-autoComplete field="nom"  [(ngModel)]="ville"
+                        [suggestions]="villes" (completeMethod)="search($event)">
+
+          <ng-template let-item pTemplate="item">
+            <div class="d-flex">
+              <div class="mr-auto">
+                {{item.nom}}
+              </div>
+              <div>
+                {{item.codePostal}}
+              </div>
+            </div>
+          </ng-template>
+        </p-autoComplete>
+        <span class="mg-l-10 lh-40">{{ville?.codePostal}}</span>
+      </div>
+    </div>
+
+    <div class="p-col-12 mg-t-10">
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon"> <div class="wh-70">Téléphone</div></span>
+        <input class="max-wh-400" type="tel" pInputText placeholder="">
+      </div>
+    </div>
+
+    <div class="p-col-12 mg-t-10">
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon"> <div class="wh-70">Email <span style="color:red;">*</span></div></span>
+        <input class="max-wh-400" type="text" pInputText placeholder="">
+      </div>
+    </div>
+
+    <div class="p-col-12 mg-t-10">
+      <div class="p-inputgroup">
+              <span class="p-inputgroup-addon">  <fa-icon [icon]="faPenFancy"></fa-icon> <span
+                style="color:red;">*</span></span>
+        <textarea pInputTextarea [(ngModel)]="devisMessage" [rows]="6" [cols]="30"
+                  placeholder="rédiger un message..."></textarea>
+      </div>
+    </div>
+
+    <div class="d-flex mg-t-10">
+      <div class="mr-auto ">
+      </div>
+      <div>
+        <button pButton pRipple type="button" label="Envoyer" class="p-button-rounded"></button>
+      </div>
+    </div>
+
+  </div>
+
+</p-card>
