@@ -16,9 +16,9 @@
           <input type="text" formControlName="nomCtl" pInputText placeholder="">
         </div>
       </div>
-      <div *ngIf="shouldShowRequiredError('nomCtl')" class="color-danger">Le nom est obligatoire.</div>
-      <div *ngIf="shouldShowMinLengthError('nomCtl')" class="color-danger">{{displayMinLengthError('nomCtl','nom')}}</div>
-      <div *ngIf="shouldShowMaxLengthError('nomCtl')" class="color-danger">{{displayMaxLengthError('nomCtl','nom')}}</div>
+      <div *ngIf="validatorsSvc.shouldShowRequiredError(form,'nomCtl')" class="color-danger">Le nom est obligatoire.</div>
+      <div *ngIf="validatorsSvc.shouldShowMinLengthError(form,'nomCtl')" class="color-danger">{{validatorsSvc.displayMinLengthError(form,'nomCtl','nom')}}</div>
+      <div *ngIf="validatorsSvc.shouldShowMaxLengthError(form,'nomCtl')" class="color-danger">{{validatorsSvc.displayMaxLengthError(form,'nomCtl','nom')}}</div>
 
       <div class="p-col-12 mg-t-10">
         <div class="p-inputgroup ">
@@ -27,9 +27,9 @@
           <input type="text" formControlName="prenomCtl" pInputText placeholder="">
         </div>
       </div>
-      <div *ngIf="shouldShowRequiredError('prenomCtl')" class="color-danger">Le prénom est obligatoire.</div>
-      <div *ngIf="shouldShowMinLengthError('prenomCtl')" class="color-danger">{{displayMinLengthError('prenomCtl','prénom')}}</div>
-      <div *ngIf="shouldShowMaxLengthError('prenomCtl')" class="color-danger">{{displayMaxLengthError('prenomCtl','prénom')}}</div>
+      <div *ngIf="validatorsSvc.shouldShowRequiredError(form,'prenomCtl')" class="color-danger">Le prénom est obligatoire.</div>
+      <div *ngIf="validatorsSvc.shouldShowMinLengthError(form,'prenomCtl')" class="color-danger">{{validatorsSvc.displayMinLengthError(form,'prenomCtl','prénom')}}</div>
+      <div *ngIf="validatorsSvc.shouldShowMaxLengthError(form,'prenomCtl')" class="color-danger">{{validatorsSvc.displayMaxLengthError(form,'prenomCtl','prénom')}}</div>
 
       <div class="p-col-12 mg-t-10">
         <div class="p-inputgroup">
@@ -80,10 +80,10 @@
           <input class="max-wh-400" formControlName="emailCtl" type="email"  pInputText placeholder="">
         </div>
       </div>
-      <div *ngIf="shouldShowRequiredError('emailCtl')" class="color-danger">L'email est obligatoire.</div>
-      <div *ngIf="shouldShowMinLengthError('emailCtl')" class="color-danger">{{displayMinLengthError('emailCtl','email')}}</div>
-      <div *ngIf="shouldShowMaxLengthError('emailCtl')" class="color-danger">{{displayMaxLengthError('emailCtl','email')}}</div>
-      <div *ngIf="shouldShowEmailPatternError('emailCtl')" class="color-danger">{{displayEmailPatternError('emailCtl')}}</div>
+      <div *ngIf="validatorsSvc.shouldShowRequiredError(form,'emailCtl')" class="color-danger">L'email est obligatoire.</div>
+      <div *ngIf="validatorsSvc.shouldShowMinLengthError(form,'emailCtl')" class="color-danger">{{validatorsSvc.displayMinLengthError(form,'emailCtl','email')}}</div>
+      <div *ngIf="validatorsSvc.shouldShowMaxLengthError(form,'emailCtl')" class="color-danger">{{validatorsSvc.displayMaxLengthError(form,'emailCtl','email')}}</div>
+      <div *ngIf="validatorsSvc.shouldShowEmailPatternError(form,'emailCtl')" class="color-danger">{{validatorsSvc.displayEmailPatternError(form,'emailCtl')}}</div>
 
       <div class="p-col-12 mg-t-10">
         <div class="p-inputgroup">
@@ -93,12 +93,9 @@
                     placeholder="rédiger un message..."></textarea>
         </div>
       </div>
-      <div *ngIf="shouldShowRequiredError('messageCtl')" class="color-danger">Le message est obligatoire.</div>
-      <div *ngIf="shouldShowMinLengthError('messageCtl')" class="color-danger">{{displayMinLengthError('messageCtl','message')}}</div>
-      <div *ngIf="shouldShowMaxLengthError('messageCtl')" class="color-danger">{{displayMaxLengthError('messageCtl','message')}}</div>
-
-
-
+      <div *ngIf="validatorsSvc.shouldShowRequiredError(form,'messageCtl')" class="color-danger">Le message est obligatoire.</div>
+      <div *ngIf="validatorsSvc.shouldShowMinLengthError(form,'messageCtl')" class="color-danger">{{validatorsSvc.displayMinLengthError(form,'messageCtl','message')}}</div>
+      <div *ngIf="validatorsSvc.shouldShowMaxLengthError(form,'messageCtl')" class="color-danger">{{validatorsSvc.displayMaxLengthError(form,'messageCtl','message')}}</div>
 
       <div class="d-flex mg-t-10">
         <div class="mr-auto ">

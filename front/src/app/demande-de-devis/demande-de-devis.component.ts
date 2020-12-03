@@ -3,6 +3,7 @@ import {MVille} from "../core/models/m-ville";
 import {VillesService} from "../core/services/villes.service";
 import {faPenFancy} from "@fortawesome/free-solid-svg-icons/faPenFancy";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {ValidatorsService} from "../core/services/validators.service";
 
 @Component({
   selector: 'app-demande-de-devis',
@@ -19,7 +20,7 @@ export class DemandeDeDevisComponent implements OnInit {
 
   form: FormGroup;
 
-  constructor(private villesSvc: VillesService) {
+  constructor(private villesSvc: VillesService, public validatorsSvc:ValidatorsService) {
   }
 
   ngOnInit(): void {
@@ -53,50 +54,6 @@ export class DemandeDeDevisComponent implements OnInit {
     } else {
       console.log('form not valid');
     }
-  }
-
-  shouldShowRequiredError(ctlName: string) {
-
-    const ctl = this.form.controls[ctlName];
-
-    return ctl.invalid &&  ctl.touched && ctl.hasError('required');
-
-  }
-
-  shouldShowMinLengthError(ctlName: string) {
-
-    const ctl = this.form.controls[ctlName];
-
-    return ctl.invalid && ctl.touched && ctl.hasError('minlength');
-
-  }
-
-  shouldShowMaxLengthError(ctlName: string) {
-
-    const ctl = this.form.controls[ctlName];
-
-    return ctl.invalid &&  ctl.touched && ctl.hasError('maxlength');
-  }
-
-  shouldShowEmailPatternError(ctlName: string) {
-
-    const ctl = this.form.controls[ctlName];
-    return ctl.invalid && ctl.touched && ctl.hasError('pattern');
-  }
-
-  displayMinLengthError(ctlName: string, name: string) {
-    const ctl = this.form.controls[ctlName];
-    return `Le ${name} doit avoir au moins ${ctl.errors.minlength.requiredLength} caractères.`;
-  }
-
-  displayMaxLengthError(ctlName: string, name: string) {
-    const ctl = this.form.controls[ctlName];
-    return `Le ${name} ne doit pas dépasser ${ctl.errors.maxlength.requiredLength} caractères.`;
-  }
-
-  displayEmailPatternError(ctlName: string) {
-    const ctl = this.form.controls[ctlName];
-    return `La valeur saisie ne respecte pas le format d'une adresse email. Veillez à ne pas oublier le @.`;
   }
 
 }
