@@ -35,7 +35,7 @@ export class DemandeDeDevisComponent implements OnInit {
       adresseCtl: new FormControl(''),
       villeCtl: new FormControl(''),
       telephoneCtl: new FormControl(''),
-      emailCtl: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
+      emailCtl: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50), Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       messageCtl: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(800)]),
     });
   }
@@ -47,12 +47,56 @@ export class DemandeDeDevisComponent implements OnInit {
     });
   }
 
-  onSubmit(){
-    if(this.form.valid){
+  onSubmit() {
+    if (this.form.valid) {
       console.log('submitting');
-    }else{
+    } else {
       console.log('form not valid');
     }
+  }
+
+  shouldShowRequiredError(ctlName: string) {
+
+    const ctl = this.form.controls[ctlName];
+
+    return ctl.invalid &&  ctl.touched && ctl.hasError('required');
+
+  }
+
+  shouldShowMinLengthError(ctlName: string) {
+
+    const ctl = this.form.controls[ctlName];
+
+    return ctl.invalid && ctl.touched && ctl.hasError('minlength');
+
+  }
+
+  shouldShowMaxLengthError(ctlName: string) {
+
+    const ctl = this.form.controls[ctlName];
+
+    return ctl.invalid &&  ctl.touched && ctl.hasError('maxlength');
+  }
+
+  shouldShowEmailPatternError(ctlName: string) {
+
+    const ctl = this.form.controls[ctlName];
+    return ctl.invalid && ctl.touched && ctl.hasError('pattern');
+  }
+
+  displayMinLengthError(ctlName: string, name: string) {
+    const ctl = this.form.controls[ctlName];
+    return `Le ${name} doit avoir au moins ${ctl.errors.minlength.requiredLength} caractères.`;
+  }
+
+  displayMaxLengthError(ctlName: string, name: string) {
+    const ctl = this.form.controls[ctlName];
+    return `Le ${name} ne doit pas dépasser ${ctl.errors.maxlength.requiredLength} caractères.`;
+  }
+
+  displayEmailPatternError(ctlName: string) {
+    const ctl = this.form.controls[ctlName];
+    return `La valeur saisie ne respecte pas le format d'une adresse email. Veillez à ne pas oublier le @.`;
   }
 
 }
