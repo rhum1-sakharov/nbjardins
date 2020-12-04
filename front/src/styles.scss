@@ -1,4 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'scss/variables';
+
+
 
 @for $i from 1 through 1000 {
 
@@ -70,5 +73,10 @@
 }
 
 .color-danger{
-  color: #ff4a16;
+  color: $color-danger;
 }
+
+.color-nature{
+  color: $color-nature;
+}
+

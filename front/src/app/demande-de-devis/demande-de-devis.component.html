@@ -5,14 +5,14 @@
 
   <form [formGroup]="form" (ngSubmit)="onSubmit()" >
     <div class=" font-12">
-      Les champs avec une astérisque <span style="color:red;">*</span> sont obligatoires.
+      Les champs avec une astérisque <span class="color-nature font-16"><b>*</b></span> sont obligatoires.
     </div>
 
     <div class="p-grid p-fluid mg-t-10">
 
       <div class="p-col-12">
         <div class="p-inputgroup">
-          <span class="p-inputgroup-addon"> <div class="wh-70">Nom<span style="color:red;">*</span></div> </span>
+          <span class="p-inputgroup-addon"> <div class="wh-80">Nom<span class="color-nature font-16"><b>*</b></span></div> </span>
           <input type="text" formControlName="nomCtl" pInputText placeholder="">
         </div>
       </div>
@@ -22,8 +22,7 @@
 
       <div class="p-col-12 mg-t-10">
         <div class="p-inputgroup ">
-              <span class="p-inputgroup-addon">   <div class="wh-70">Prénom<span
-                style="color:red;">*</span></div></span>
+              <span class="p-inputgroup-addon">   <div class="wh-80">Prénom<span class="color-nature font-16"><b>*</b></span></div></span>
           <input type="text" formControlName="prenomCtl" pInputText placeholder="">
         </div>
       </div>
@@ -33,7 +32,7 @@
 
       <div class="p-col-12 mg-t-10">
         <div class="p-inputgroup">
-          <span class="p-inputgroup-addon"> <div class="wh-70">Société</div></span>
+          <span class="p-inputgroup-addon"> <div class="wh-80">Société</div></span>
           <input type="text" formControlName="societeCtl" pInputText placeholder="">
         </div>
       </div>
@@ -41,14 +40,14 @@
 
       <div class="p-col-12 mg-t-10">
         <div class="p-inputgroup">
-          <span class="p-inputgroup-addon"> <div class="wh-70">Adresse</div></span>
+          <span class="p-inputgroup-addon"> <div class="wh-80">Adresse</div></span>
           <input type="text" formControlName="adresseCtl" pInputText placeholder="">
         </div>
       </div>
 
       <div class="p-col-12 mg-t-10">
         <div class="p-inputgroup">
-          <span class="p-inputgroup-addon"> <div class="wh-70">Ville</div></span>
+          <span class="p-inputgroup-addon"> <div class="wh-80">Ville</div></span>
           <p-autoComplete field="nom" formControlName="villeCtl"
                           [suggestions]="villes" (completeMethod)="search($event)">
 
@@ -69,14 +68,14 @@
 
       <div class="p-col-12 mg-t-10">
         <div class="p-inputgroup">
-          <span class="p-inputgroup-addon"> <div class="wh-70">Téléphone</div></span>
+          <span class="p-inputgroup-addon"> <div class="wh-80">Téléphone</div></span>
           <input class="max-wh-400"  formControlName="telephoneCtl" type="tel" pInputText placeholder="">
         </div>
       </div>
 
       <div class="p-col-12 mg-t-10">
         <div class="p-inputgroup">
-          <span class="p-inputgroup-addon"> <div class="wh-70">Email <span style="color:red;">*</span></div></span>
+          <span class="p-inputgroup-addon"> <div class="wh-80">Email <span class="color-nature font-16"><b>*</b></span></div></span>
           <input class="max-wh-400" formControlName="emailCtl" type="email"  pInputText placeholder="">
         </div>
       </div>
@@ -87,10 +86,9 @@
 
       <div class="p-col-12 mg-t-10">
         <div class="p-inputgroup">
-              <span class="p-inputgroup-addon">  <fa-icon [icon]="faPenFancy"></fa-icon> <span
-                style="color:red;">*</span></span>
+              <span class="p-inputgroup-addon "><div class="wh-80"> Rédiger un message <span class="color-nature font-16"><b>*</b></span></div></span>
           <textarea pInputTextarea formControlName="messageCtl"[rows]="6" [cols]="30"
-                    placeholder="rédiger un message..."></textarea>
+                    placeholder=""></textarea>
         </div>
       </div>
       <div *ngIf="validatorsSvc.shouldShowRequiredError(form.get('messageCtl'))" class="color-danger">Le message est obligatoire.</div>

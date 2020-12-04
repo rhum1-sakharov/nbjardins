@@ -54,10 +54,10 @@ export class DemandeDeDevisComponent implements OnInit {
 
   onSubmit() {
     if (this.form.valid) {
-      console.log('submitting');
+      this.toasterSvc.showMsg(MSG_KEY.ROOT,MSG_SEVERITY.SUCCESS, 'Votre demande a été envoyé avec succès. Je vous répondrai sous 48 heures.');
     } else {
-      console.log('form not valid');
-      this.toasterSvc.showMsg(MSG_KEY.ROOT,MSG_SEVERITY.SUCCESS, 'Veuillez renseigner les champs obligatoires correctement.');
+
+      this.toasterSvc.showMsg(MSG_KEY.ROOT,MSG_SEVERITY.WARN, 'Veuillez renseigner les champs obligatoires correctement.');
     }
   }
 
