@@ -62,7 +62,7 @@
               </div>
             </ng-template>
           </p-autoComplete>
-          <span class="mg-l-10 lh-40">{{form.get('villeCtl').value.codePostal}}</span>
+          <span class="mg-l-10 lh-40" *ngIf="form.get('villeCtl').value">{{form.get('villeCtl').value.codePostal}}</span>
         </div>
       </div>
 

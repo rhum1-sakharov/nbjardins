@@ -55,6 +55,7 @@ export class DemandeDeDevisComponent implements OnInit {
   onSubmit() {
     if (this.form.valid) {
       this.toasterSvc.showMsg(MSG_KEY.ROOT,MSG_SEVERITY.SUCCESS, 'Votre demande a été envoyé avec succès. Je vous répondrai sous 48 heures.');
+      this.form.reset();
     } else {
 
       this.toasterSvc.showMsg(MSG_KEY.ROOT,MSG_SEVERITY.WARN, 'Veuillez renseigner les champs obligatoires correctement.');
