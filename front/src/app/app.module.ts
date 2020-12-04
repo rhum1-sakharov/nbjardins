@@ -14,6 +14,10 @@ import {AutoCompleteModule} from "primeng/autocomplete";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {AccueilComponent} from './accueil/accueil.component';
 import {DemandeDeDevisComponent} from './demande-de-devis/demande-de-devis.component';
+import {ToastModule} from "primeng/toast";
+import {MessagesModule} from "primeng/messages";
+import {MessageModule} from "primeng/message";
+import {MessageService} from "primeng/api";
 
 @NgModule({
   declarations: [
@@ -27,17 +31,22 @@ import {DemandeDeDevisComponent} from './demande-de-devis/demande-de-devis.compo
     BrowserAnimationsModule,
     AppRoutingModule,
     ReactiveFormsModule,
-
     AutoCompleteModule,
     FormsModule,
     FontAwesomeModule,
     CardModule,
     InputTextModule,
     InputTextareaModule,
-    ButtonModule
+    ButtonModule,
+    ToastModule,
+    MessageModule,
+    MessagesModule
 
   ],
-  providers: [],
+  providers: [
+    MessageService,
+    MessageService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

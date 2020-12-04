@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpParams} from "@angular/common/http";
-import {HttpService} from "./http.service";
+import {HttpService} from "../techniques/http.service";
 
 export const URL_GET_API_GEOPORTAIL_SEARCH_COMMUNES = `https://geo.api.gouv.fr/communes`;
 

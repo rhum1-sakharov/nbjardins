@@ -12,9 +12,10 @@ import {faTasks} from "@fortawesome/free-solid-svg-icons/faTasks";
 import {faAddressCard} from "@fortawesome/free-solid-svg-icons/faAddressCard";
 import {faCity} from "@fortawesome/free-solid-svg-icons/faCity";
 import {faCode} from "@fortawesome/free-solid-svg-icons/faCode";
-import {VillesService} from "./core/services/villes.service";
+import {VillesService} from "./core/services/metiers/villes.service";
 import {faHome} from "@fortawesome/free-solid-svg-icons/faHome";
 import {faFileInvoice} from "@fortawesome/free-solid-svg-icons/faFileInvoice";
+import {MSG_KEY, MSG_POSITION} from "./core/services/techniques/toaster.service";
 
 declare var ol: any;
 
@@ -42,6 +43,8 @@ export class AppComponent implements AfterViewInit {
   faCity = faCity;
   faHome = faHome;
   faFileInvoice=faFileInvoice;
+  readonly ROOT_KEY=MSG_KEY.ROOT;
+  readonly MSG_POSITION=MSG_POSITION.BOTTOM_CENTER;
 
 
   constructor(private cd: ChangeDetectorRef, private villesSvc: VillesService) {
