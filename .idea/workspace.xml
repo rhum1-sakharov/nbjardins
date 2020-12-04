@@ -3,8 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="97b7d6a3-1f11-4446-a7dc-7d42b0594d31" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/adapters/primaries/application/springapp/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/back/adapters/primaries/application/springapp/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/src/app/demande-de-devis/demande-de-devis.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/app/demande-de-devis/demande-de-devis.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/scss/_variables.scss" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/scss/_variables.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/app/demande-de-devis/demande-de-devis.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/app/demande-de-devis/demande-de-devis.component.ts" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/usecase/target/" />
     <ignored path="$PROJECT_DIR$/domain/target/" />
@@ -30,20 +31,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="demande-de-devis.component.ts" pinned="false" current-in-tab="false">
+      <file leaf-file-name="demande-de-devis.component.ts" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/front/src/app/demande-de-devis/demande-de-devis.component.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="56" column="27" lean-forward="true" selection-start-line="56" selection-start-column="27" selection-end-line="56" selection-end-column="27" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app.module.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/front/src/app/app.module.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="32" column="22" selection-start-line="32" selection-start-column="22" selection-end-line="32" selection-end-column="22" />
+            <state relative-caret-position="440">
+              <caret line="60" column="110" lean-forward="true" selection-start-line="60" selection-start-column="110" selection-end-line="60" selection-end-column="110" />
+              <folding>
+                <element signature="e#0#48#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -53,6 +48,9 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="255">
               <caret line="16" column="5" lean-forward="true" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
+              <folding>
+                <element signature="e#0#41#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -66,20 +64,32 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app.component.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/front/src/app/app.component.html">
+      <file leaf-file-name="demande-de-devis.component.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/front/src/app/demande-de-devis/demande-de-devis.component.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="16" column="25" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
+            <state relative-caret-position="229">
+              <caret line="50" column="64" lean-forward="true" selection-start-line="50" selection-start-column="64" selection-end-line="50" selection-end-column="64" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="demande-de-devis.component.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/front/src/app/demande-de-devis/demande-de-devis.component.html">
+      <file leaf-file-name="application.properties" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/back/adapters/primaries/application/springapp/src/main/resources/application.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="95" column="101" selection-start-line="95" selection-start-column="89" selection-end-line="95" selection-end-column="101" />
+            <state relative-caret-position="153">
+              <caret line="9" column="49" lean-forward="true" selection-start-line="9" selection-start-column="49" selection-end-line="9" selection-end-column="49" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RealiserDevisUC.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/back/core/src/main/java/usecase/RealiserDevisUC.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="425">
+              <caret line="36" selection-start-line="36" selection-end-line="36" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -111,11 +121,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="_variables.scss" pinned="false" current-in-tab="true">
+      <file leaf-file-name="_variables.scss" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/front/src/scss/_variables.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="488">
-              <caret line="36" column="3" lean-forward="true" selection-start-line="36" selection-start-column="3" selection-end-line="36" selection-end-column="3" />
+            <state relative-caret-position="216">
+              <caret line="20" column="30" lean-forward="true" selection-start-line="20" selection-start-column="30" selection-end-line="20" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -186,7 +196,6 @@
         <option value="$PROJECT_DIR$/back/adapters/secondaries/localization/src/main/java/com/nbjardins/adapters/secondaries/localization/AbstractLocalize.java" />
         <option value="$PROJECT_DIR$/back/core/src/main/java/usecase/ports/LocalizeServicePT.java" />
         <option value="$PROJECT_DIR$/back/core/src/main/java/usecase/RealiserDevisUC.java" />
-        <option value="$PROJECT_DIR$/back/adapters/primaries/application/springapp/src/main/resources/application.properties" />
         <option value="$PROJECT_DIR$/back/adapters/secondaries/localization/src/main/java/com/nbjardins/adapters/secondaries/localization/LocalizeResourceBundleAR.java" />
         <option value="$PROJECT_DIR$/back/core/src/main/java/domain/entities/Ville.java" />
         <option value="$PROJECT_DIR$/back/core/src/main/java/domain/entities/DemandeDeDevis.java" />
@@ -209,11 +218,12 @@
         <option value="$PROJECT_DIR$/front/src/styles.scss" />
         <option value="$PROJECT_DIR$/front/src/app/app.component.html" />
         <option value="$PROJECT_DIR$/front/src/app/app.component.scss" />
-        <option value="$PROJECT_DIR$/front/src/app/demande-de-devis/demande-de-devis.component.ts" />
         <option value="$PROJECT_DIR$/front/src/app/core/services/techniques/toaster.service.ts" />
         <option value="$PROJECT_DIR$/front/src/app/demande-de-devis/demande-de-devis.component.scss" />
-        <option value="$PROJECT_DIR$/front/src/app/demande-de-devis/demande-de-devis.component.html" />
         <option value="$PROJECT_DIR$/front/src/scss/_variables.scss" />
+        <option value="$PROJECT_DIR$/back/adapters/primaries/application/springapp/src/main/resources/application.properties" />
+        <option value="$PROJECT_DIR$/front/src/app/demande-de-devis/demande-de-devis.component.html" />
+        <option value="$PROJECT_DIR$/front/src/app/demande-de-devis/demande-de-devis.component.ts" />
       </list>
     </option>
   </component>
@@ -269,55 +279,134 @@
             <path>
               <item name="nbjardins" type="b2602c69:ProjectViewProjectNode" />
               <item name="nbjardins" type="462c0819:PsiDirectoryNode" />
-              <item name="front" type="462c0819:PsiDirectoryNode" />
+              <item name="back" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="nbjardins" type="b2602c69:ProjectViewProjectNode" />
               <item name="nbjardins" type="462c0819:PsiDirectoryNode" />
-              <item name="front" type="462c0819:PsiDirectoryNode" />
-              <item name="node_modules" type="462c0819:PsiDirectoryNode" />
+              <item name="back" type="462c0819:PsiDirectoryNode" />
+              <item name="adapters" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="nbjardins" type="b2602c69:ProjectViewProjectNode" />
               <item name="nbjardins" type="462c0819:PsiDirectoryNode" />
-              <item name="front" type="462c0819:PsiDirectoryNode" />
-              <item name="node_modules" type="462c0819:PsiDirectoryNode" />
-              <item name="primeng" type="462c0819:PsiDirectoryNode" />
+              <item name="back" type="462c0819:PsiDirectoryNode" />
+              <item name="adapters" type="462c0819:PsiDirectoryNode" />
+              <item name="primaries" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="nbjardins" type="b2602c69:ProjectViewProjectNode" />
               <item name="nbjardins" type="462c0819:PsiDirectoryNode" />
-              <item name="front" type="462c0819:PsiDirectoryNode" />
-              <item name="node_modules" type="462c0819:PsiDirectoryNode" />
-              <item name="primeng" type="462c0819:PsiDirectoryNode" />
-              <item name="api" type="462c0819:PsiDirectoryNode" />
+              <item name="back" type="462c0819:PsiDirectoryNode" />
+              <item name="adapters" type="462c0819:PsiDirectoryNode" />
+              <item name="primaries" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="nbjardins" type="b2602c69:ProjectViewProjectNode" />
               <item name="nbjardins" type="462c0819:PsiDirectoryNode" />
-              <item name="front" type="462c0819:PsiDirectoryNode" />
-              <item name="node_modules" type="462c0819:PsiDirectoryNode" />
-              <item name="primeng" type="462c0819:PsiDirectoryNode" />
+              <item name="back" type="462c0819:PsiDirectoryNode" />
+              <item name="adapters" type="462c0819:PsiDirectoryNode" />
+              <item name="primaries" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="springapp" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nbjardins" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nbjardins" type="462c0819:PsiDirectoryNode" />
+              <item name="back" type="462c0819:PsiDirectoryNode" />
+              <item name="adapters" type="462c0819:PsiDirectoryNode" />
+              <item name="primaries" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="springapp" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nbjardins" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nbjardins" type="462c0819:PsiDirectoryNode" />
+              <item name="back" type="462c0819:PsiDirectoryNode" />
+              <item name="adapters" type="462c0819:PsiDirectoryNode" />
+              <item name="primaries" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="springapp" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nbjardins" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nbjardins" type="462c0819:PsiDirectoryNode" />
+              <item name="back" type="462c0819:PsiDirectoryNode" />
+              <item name="adapters" type="462c0819:PsiDirectoryNode" />
+              <item name="primaries" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="springapp" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nbjardins" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nbjardins" type="462c0819:PsiDirectoryNode" />
+              <item name="back" type="462c0819:PsiDirectoryNode" />
+              <item name="adapters" type="462c0819:PsiDirectoryNode" />
+              <item name="primaries" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="springapp" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="nbjardins" type="b2602c69:ProjectViewProjectNode" />
               <item name="nbjardins" type="462c0819:PsiDirectoryNode" />
-              <item name="front" type="462c0819:PsiDirectoryNode" />
-              <item name="node_modules" type="462c0819:PsiDirectoryNode" />
-              <item name="primeng" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="themes" type="462c0819:PsiDirectoryNode" />
+              <item name="back" type="462c0819:PsiDirectoryNode" />
+              <item name="adapters" type="462c0819:PsiDirectoryNode" />
+              <item name="secondaries" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nbjardins" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nbjardins" type="462c0819:PsiDirectoryNode" />
+              <item name="back" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nbjardins" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nbjardins" type="462c0819:PsiDirectoryNode" />
+              <item name="back" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nbjardins" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nbjardins" type="462c0819:PsiDirectoryNode" />
+              <item name="back" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nbjardins" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nbjardins" type="462c0819:PsiDirectoryNode" />
+              <item name="back" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nbjardins" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nbjardins" type="462c0819:PsiDirectoryNode" />
+              <item name="back" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="usecase" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="nbjardins" type="b2602c69:ProjectViewProjectNode" />
               <item name="nbjardins" type="462c0819:PsiDirectoryNode" />
               <item name="front" type="462c0819:PsiDirectoryNode" />
-              <item name="node_modules" type="462c0819:PsiDirectoryNode" />
-              <item name="primeng" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="themes" type="462c0819:PsiDirectoryNode" />
-              <item name="saga-purple" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="nbjardins" type="b2602c69:ProjectViewProjectNode" />
@@ -366,13 +455,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="demande-de-devis" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="nbjardins" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nbjardins" type="462c0819:PsiDirectoryNode" />
-              <item name="front" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="scss" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -611,7 +693,7 @@
       <workItem from="1606935015536" duration="595000" />
       <workItem from="1607018809730" duration="10345000" />
       <workItem from="1607104840908" duration="2540000" />
-      <workItem from="1607110938374" duration="4665000" />
+      <workItem from="1607110938374" duration="6502000" />
     </task>
     <task id="LOCAL-00001" summary="import">
       <created>1604746986338</created>
@@ -837,7 +919,21 @@
       <option name="project" value="LOCAL" />
       <updated>1607114285114</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="import">
+      <created>1607115668268</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1607115668269</updated>
+    </task>
+    <task id="LOCAL-00034" summary="import">
+      <created>1607115948057</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1607115948057</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -873,7 +969,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="92874000" />
+    <option name="totallyTimeSpent" value="94711000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1928" y="-42" width="1936" height="1056" extended-state="6" />
@@ -890,8 +986,9 @@
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="4" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.3982684" />
+      <window_info anchor="bottom" id="Debug" order="3" visible="true" weight="0.3982684" />
       <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Messages" order="14" weight="0.32900432" />
       <window_info anchor="right" id="Palette&#9;" order="6" />
       <window_info id="Image Layers" order="3" />
       <window_info anchor="bottom" id="Java Enterprise" order="13" />
@@ -899,15 +996,14 @@
       <window_info anchor="bottom" id="Version Control" order="9" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32900432" />
       <window_info anchor="bottom" id="Spring" order="11" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.30627707" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22228146" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.30627707" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22228146" />
       <window_info anchor="right" id="Bean Validation" order="8" />
       <window_info id="Web" order="6" side_tool="true" />
       <window_info anchor="right" id="Theme Preview" order="7" />
       <window_info id="Favorites" order="5" side_tool="true" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="bottom" id="Messages" order="14" weight="0.32900432" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -939,12 +1035,6 @@
           <url>file://$PROJECT_DIR$/back/adapters/primaries/application/springapp/src/main/java/com/nbjardins/adapters/primaries/application/springapp/service/RealiserDevisService.java</url>
           <line>22</line>
           <properties />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/back/core/src/main/java/usecase/RealiserDevisUC.java</url>
-          <line>36</line>
-          <properties />
-          <option name="timeStamp" value="31" />
         </line-breakpoint>
       </breakpoints>
       <option name="time" value="32" />
@@ -1040,13 +1130,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/back/adapters/primaries/application/springapp/src/main/resources/application.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" selection-start-line="2" selection-end-line="2" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/back/adapters/secondaries/mails/src/main/java/com/nbjardins/adatpers/secondaries/mails/JavaMailAR.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -1117,16 +1200,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="17" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/back/core/src/main/java/usecase/RealiserDevisUC.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="36" selection-start-line="36" selection-end-line="36" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1251,24 +1324,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/app/demande-de-devis/demande-de-devis.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="56" column="27" lean-forward="true" selection-start-line="56" selection-start-column="27" selection-end-line="56" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/front/node_modules/primeng/api/message.d.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret column="17" selection-start-column="17" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/app/core/services/techniques/toaster.service.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="16" column="5" lean-forward="true" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
         </state>
       </provider>
     </entry>
@@ -1286,17 +1345,54 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/app/demande-de-devis/demande-de-devis.component.html">
+    <entry file="file://$PROJECT_DIR$/front/src/scss/_variables.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="95" column="101" selection-start-line="95" selection-start-column="89" selection-end-line="95" selection-end-column="101" />
+        <state relative-caret-position="216">
+          <caret line="20" column="30" lean-forward="true" selection-start-line="20" selection-start-column="30" selection-end-line="20" selection-end-column="30" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/scss/_variables.scss">
+    <entry file="file://$PROJECT_DIR$/back/adapters/primaries/application/springapp/src/main/resources/application.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="488">
-          <caret line="36" column="3" lean-forward="true" selection-start-line="36" selection-start-column="3" selection-end-line="36" selection-end-column="3" />
+        <state relative-caret-position="153">
+          <caret line="9" column="49" lean-forward="true" selection-start-line="9" selection-start-column="49" selection-end-line="9" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/back/core/src/main/java/usecase/RealiserDevisUC.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="36" selection-start-line="36" selection-end-line="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/front/src/app/core/services/techniques/toaster.service.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="16" column="5" lean-forward="true" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/front/src/app/demande-de-devis/demande-de-devis.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="229">
+          <caret line="50" column="64" lean-forward="true" selection-start-line="50" selection-start-column="64" selection-end-line="50" selection-end-column="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/front/src/app/demande-de-devis/demande-de-devis.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="440">
+          <caret line="60" column="110" lean-forward="true" selection-start-line="60" selection-start-column="110" selection-end-line="60" selection-end-column="110" />
+          <folding>
+            <element signature="e#0#48#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -50,7 +50,6 @@
           <span class="p-inputgroup-addon"> <div class="wh-80">Ville</div></span>
           <p-autoComplete field="nom" formControlName="villeCtl"
                           [suggestions]="villes" (completeMethod)="search($event)">
-
             <ng-template let-item pTemplate="item">
               <div class="d-flex">
                 <div class="mr-auto">
@@ -86,7 +85,7 @@
 
       <div class="p-col-12 mg-t-10">
         <div class="p-inputgroup">
-              <span class="p-inputgroup-addon "><div class="wh-80"> Rédiger un message <span class="color-nature font-16"><b>*</b></span></div></span>
+              <span class="p-inputgroup-addon "><div class="wh-80">Rédiger un message <span class="color-nature font-16"><b>*</b></span></div></span>
           <textarea pInputTextarea formControlName="messageCtl"[rows]="6" [cols]="30"
                     placeholder=""></textarea>
         </div>

@@ -58,7 +58,7 @@ export class DemandeDeDevisComponent implements OnInit {
       this.form.reset();
     } else {
 
-      this.toasterSvc.showMsg(MSG_KEY.ROOT,MSG_SEVERITY.WARN, 'Veuillez renseigner les champs obligatoires correctement.');
+      this.toasterSvc.showMsg(MSG_KEY.ROOT,MSG_SEVERITY.WARN, 'Veuillez renseigner les champs obligatoires.');
     }
   }
 
