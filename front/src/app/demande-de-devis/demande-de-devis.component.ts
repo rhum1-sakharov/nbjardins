@@ -47,7 +47,7 @@ export class DemandeDeDevisComponent implements OnInit {
 
   search($event) {
 
-    this.villesSvc.search($event.query).subscribe((response:any[]) => {
+    this.villesSvc.search($event.query).subscribe((response: any[]) => {
       this.villes = response.map(item => new MVille(item.nom, item.codesPostaux[0]));
     });
   }

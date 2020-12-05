@@ -42,7 +42,7 @@ export class HttpService {
   handleServerError(response: any) {
 
     if (response.error) {
-      this.toastSvc.showMsg(MSG_KEY.ROOT, MSG_SEVERITY.ERROR, response.errorMessages.map(item => item).join('<br>'));
+      this.toastSvc.showMsg(MSG_KEY.ROOT, MSG_SEVERITY.ERROR, response.errorMessages.map(item => item).join(' '));
     }
     return of(response);
 
