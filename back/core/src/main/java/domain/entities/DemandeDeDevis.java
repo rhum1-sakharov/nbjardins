@@ -20,5 +20,6 @@ public class DemandeDeDevis extends Entity {
     String sujet;
     String emailEmetteur;
     String emailDestinataire;
+    String application;
 
 }

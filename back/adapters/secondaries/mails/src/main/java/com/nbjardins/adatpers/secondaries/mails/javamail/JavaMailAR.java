@@ -1,9 +1,10 @@
-package com.nbjardins.adatpers.secondaries.mails;
+package com.nbjardins.adatpers.secondaries.mails.javamail;
 
+import com.nbjardins.adatpers.secondaries.mails.AbstractMail;
+import com.nbjardins.adatpers.secondaries.mails.ServerMail;
 import com.sun.mail.smtp.SMTPTransport;
-import domain.entities.DemandeDeDevis;
+import domain.entities.Mail;
 import domain.entityresponse.Response;
-import domain.utils.Utils;
 import usecase.ports.LocalizeServicePT;
 import usecase.ports.MailServicePT;
 
@@ -19,7 +20,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Locale;
 import java.util.Properties;
 
 
@@ -31,21 +31,7 @@ public class JavaMailAR extends AbstractMail implements MailServicePT {
     }
 
     @Override
-    public Response<DemandeDeDevis> send(DemandeDeDevis demandeDeDevis) {
-
-        Locale locale = demandeDeDevis.getLocale();
-
-        Mail mail = new Mail(demandeDeDevis.getSujet(), demandeDeDevis.getEmailEmetteur(), demandeDeDevis.getEmailDestinataire(), demandeDeDevis.getMessage());
-        Response<Mail> mailResponse = send(mail);
-        Response<DemandeDeDevis> demandeDeDevisResponse = Utils.initResponse(localize.getMsg("mail.error",locale), mailResponse.isError());
-
-        demandeDeDevisResponse.setOne(demandeDeDevis);
-
-        return demandeDeDevisResponse;
-    }
-
-
-    private Response<Mail> send(Mail mail) {
+    public Response<Mail> send(Mail mail) {
 
         Response<Mail> responseMail = new Response<Mail>();
         responseMail.setOne(mail);
@@ -95,6 +81,17 @@ public class JavaMailAR extends AbstractMail implements MailServicePT {
 
 
         return responseMail;
+
+    }
+
+    @Override
+    public Response<Mail> sendToWorker(Mail mail) {
+        return null;
+    }
+
+    @Override
+    public Response<Mail> sendAcknowledgementToSender(Mail mail) {
+        return null;
     }
 
 

@@ -1,6 +1,5 @@
-package com.nbjardins.adatpers.secondaries.mails;
+package domain.entities;
 
-import domain.entities.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

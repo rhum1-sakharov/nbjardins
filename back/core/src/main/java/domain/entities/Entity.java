@@ -7,6 +7,7 @@ import java.util.Locale;
 
 @Getter
 @Setter
+
 public class Entity {
 
     Locale locale;

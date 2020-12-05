@@ -2,6 +2,7 @@ package domain.entityresponse;
 
 import domain.entities.Entity;
 import lombok.Data;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,6 +29,13 @@ public class Response<T extends Entity> {
 
         if (messages != null) {
             errorMessages.addAll(Arrays.asList(messages));
+        }
+    }
+
+    public void addErrorMessage(List<String> messages) {
+
+        if (CollectionUtils.isNotEmpty(messages)) {
+            errorMessages.addAll(messages);
         }
     }
 
