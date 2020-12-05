@@ -1,7 +1,6 @@
 package usecase.devis;
 
 import domain.entities.DemandeDeDevis;
-import domain.entities.Mail;
 import domain.entityresponse.Response;
 import domain.utils.Utils;
 import org.apache.commons.lang3.StringUtils;
@@ -60,42 +59,24 @@ public final class RealiserDevisUC {
     private Response<DemandeDeDevis> sendToWorker(Response<DemandeDeDevis> demandeDeDevisResponse, Locale workerLocale) {
 
         DemandeDeDevis demandeDeDevis = demandeDeDevisResponse.getOne();
-
         String sujet = MessageFormat.format(localizeServicePT.getMsg("sujet.devis", workerLocale), StringUtils.capitalize(demandeDeDevis.getPrenom().toLowerCase()), StringUtils.capitalize(demandeDeDevis.getNom().toLowerCase()));
         demandeDeDevis.setSujet(sujet);
-        Mail mail = new Mail(demandeDeDevis.getSujet(), demandeDeDevis.getEmailEmetteur(), demandeDeDevis.getEmailEmetteur(), demandeDeDevis.getMessage());
-        mail.setLocale(workerLocale);
+        demandeDeDevis.setLocale(workerLocale);
 
-        Response<Mail> mailResponse = mailServicePT.sendToWorker(mail);
-
-        if (mailResponse.isError()) {
-            demandeDeDevisResponse.setError(true);
-            demandeDeDevisResponse.addErrorMessage(mailResponse.getErrorMessages());
-        }
-
-        return demandeDeDevisResponse;
+        return mailServicePT.sendToWorker(demandeDeDevis);
     }
 
     private Response<DemandeDeDevis> sendAcknowledgementToSender(Response<DemandeDeDevis> demandeDeDevisResponse, Locale workerLocale) {
 
         DemandeDeDevis demandeDeDevis = demandeDeDevisResponse.getOne();
-
         String sujet = MessageFormat.format(localizeServicePT.getMsg("ack.devis", workerLocale), demandeDeDevis.getApplication());
         demandeDeDevis.setSujet(sujet);
         String sender = demandeDeDevis.getEmailDestinataire();
         String receiver = demandeDeDevis.getEmailEmetteur();
-        Mail mail = new Mail(demandeDeDevis.getSujet(), sender, receiver, demandeDeDevis.getMessage());
-        mail.setLocale(workerLocale);
+        demandeDeDevis.setEmailEmetteur(sender);
+        demandeDeDevis.setEmailDestinataire(receiver);
 
-        Response<Mail> mailResponse = mailServicePT.sendAcknowledgementToSender(mail);
-
-
-        if (mailResponse.isError()) {
-            demandeDeDevisResponse.setError(true);
-            demandeDeDevisResponse.addErrorMessage(mailResponse.getErrorMessages());
-        }
-
-        return demandeDeDevisResponse;
+        return  mailServicePT.sendAcknowledgementToSender(demandeDeDevis);
     }
 
 }

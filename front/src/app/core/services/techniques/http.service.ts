@@ -16,7 +16,12 @@ export class HttpService {
     catchError(err => this.handleTechnicalError(err)),
     filter(response => !(response instanceof MError)),
     switchMap(response => this.handleServerError(response)),
-    filter((response: any) =>  response.error === false)
+    filter((response: any) =>  {
+      if(response && response.error){
+        return response.error=false;
+      }
+      return response;
+    })
   );
 
   constructor(private http: HttpClient, private toastSvc: ToasterService) {

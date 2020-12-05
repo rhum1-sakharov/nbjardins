@@ -1,10 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title></title>
 </head>
 <body>
-Votre demande de devis a bien été prise en compte. Je reviendrai vers vous sous 48 heures.
+Bonjour <span th:text="${prenom}"></span> <span th:text="${nom}"></span>,
+
+Merci pour votre demande de devis 😊.
+
+Je vais traiter votre demande et vous répondre dans les 48 heures.
+
+A bientôt
+
+
 </body>
 </html>

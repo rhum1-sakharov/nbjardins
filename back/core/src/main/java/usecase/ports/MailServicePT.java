@@ -1,5 +1,6 @@
 package usecase.ports;
 
+import domain.entities.DemandeDeDevis;
 import domain.entities.Mail;
 import domain.entityresponse.Response;
 
@@ -8,8 +9,8 @@ public interface MailServicePT {
 
     Response<Mail> send(Mail mail);
 
-    Response<Mail> sendToWorker(Mail mail);
+    Response<DemandeDeDevis> sendToWorker(DemandeDeDevis demandeDeDevis);
 
-    Response<Mail> sendAcknowledgementToSender(Mail mail);
+    Response<DemandeDeDevis> sendAcknowledgementToSender(DemandeDeDevis demandeDeDevis);
 
 }

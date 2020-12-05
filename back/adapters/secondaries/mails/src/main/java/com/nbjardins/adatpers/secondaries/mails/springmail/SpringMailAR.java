@@ -2,6 +2,7 @@ package com.nbjardins.adatpers.secondaries.mails.springmail;
 
 import com.nbjardins.adatpers.secondaries.mails.AbstractMail;
 import com.nbjardins.adatpers.secondaries.mails.ServerMail;
+import domain.entities.DemandeDeDevis;
 import domain.entities.Mail;
 import domain.entityresponse.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +13,11 @@ import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
+import org.thymeleaf.util.StringUtils;
 import usecase.ports.LocalizeServicePT;
 import usecase.ports.MailServicePT;
+
+import java.util.Objects;
 
 @Service
 public class SpringMailAR extends AbstractMail implements MailServicePT {
@@ -36,48 +40,57 @@ public class SpringMailAR extends AbstractMail implements MailServicePT {
     }
 
     @Override
-    public Response<Mail> sendToWorker(Mail mail) {
-        return prepareAndSend(mail,TemplateLocation.DEMANDE_DEVIS_TO_WORKER);
+    public Response<DemandeDeDevis> sendToWorker(DemandeDeDevis demandeDeDevis) {
+        return prepareAndSend(demandeDeDevis,TemplateLocation.DEMANDE_DEVIS_TO_WORKER);
     }
 
     @Override
-    public Response<Mail> sendAcknowledgementToSender(Mail mail) {
-        return prepareAndSend(mail,TemplateLocation.ACKNOWLEDGEMENT_DEMANDE_DEVIS_TO_SENDER);
+    public Response<DemandeDeDevis> sendAcknowledgementToSender(DemandeDeDevis demandeDeDevis) {
+        return prepareAndSend(demandeDeDevis,TemplateLocation.ACKNOWLEDGEMENT_DEMANDE_DEVIS_TO_SENDER);
     }
 
-    private Response<Mail> prepareAndSend(Mail mail, TemplateLocation templateLocation) {
+    private Response<DemandeDeDevis> prepareAndSend(DemandeDeDevis demandeDeDevis, TemplateLocation templateLocation) {
 
-        Response<Mail> mailResponse = new Response<>();
+        Response<DemandeDeDevis> demandeDeDevisResponse = new Response<>();
+        demandeDeDevisResponse.setOne(demandeDeDevis);
 
         MimeMessagePreparator messagePreparator = mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
-            messageHelper.setFrom(mail.getFrom());
-            messageHelper.setTo(mail.getTo());
-            messageHelper.setSubject(mail.getSubject());
-            String content = build(mail, templateLocation);
+            messageHelper.setFrom(demandeDeDevis.getEmailEmetteur());
+            messageHelper.setTo(demandeDeDevis.getEmailDestinataire());
+            messageHelper.setSubject(demandeDeDevis.getSujet());
+            String content = buildDemandeDeDevis(demandeDeDevis, templateLocation);
             messageHelper.setText(content);
         };
         try {
             mailSender.send(messagePreparator);
         } catch (MailException e) {
-            mailResponse.setError(true);
-            mailResponse.addErrorMessage(e.getMessage());
+            demandeDeDevisResponse.setError(true);
+            demandeDeDevisResponse.addErrorMessage(e.getMessage());
             e.printStackTrace();
         }
 
-        return mailResponse;
+
+
+        return demandeDeDevisResponse;
     }
 
-    private String build(Mail mail, TemplateLocation templateLocation) {
+    private String buildDemandeDeDevis(DemandeDeDevis demandeDeDevis, TemplateLocation templateLocation) {
 
         Context context = new Context();
+        context.setVariable("nom", StringUtils.capitalize(demandeDeDevis.getNom().toLowerCase()));
+        context.setVariable("prenom", StringUtils.capitalize(demandeDeDevis.getPrenom().toLowerCase()));
 
         switch (templateLocation) {
 
             case ACKNOWLEDGEMENT_DEMANDE_DEVIS_TO_SENDER:
                 break;
             case DEMANDE_DEVIS_TO_WORKER:
-                context.setVariable("message", mail.getMessage());
+                context.setVariable("message", demandeDeDevis.getMessage());
+                context.setVariable("adresse", demandeDeDevis.getAdresse());
+                context.setVariable("nomVille", Objects.nonNull(demandeDeDevis.getVille())?demandeDeDevis.getVille().getNom():"");
+                context.setVariable("codePostal", Objects.nonNull(demandeDeDevis.getVille())?demandeDeDevis.getVille().getCodePostal():"");
+                context.setVariable("telephone", demandeDeDevis.getNumeroTelephone());
                 break;
             default:
                 break;

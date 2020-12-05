@@ -13,9 +13,10 @@ export class MDemandeDeDevis {
   sujet: string;
   emailEmetteur: string;
   emailDestinataire: string;
+  application:string;
 
 
-  constructor(nom: string, prenom: string, numeroTelephone: string, message: string, societe: string, fonction: string, adresse: string, ville: MVille, sujet: string, emailEmetteur: string, emailDestinataire: string) {
+  constructor(nom: string, prenom: string, numeroTelephone: string, message: string, societe: string, fonction: string, adresse: string, ville: MVille, sujet: string, emailEmetteur: string, emailDestinataire: string, application:string) {
     this.nom = nom;
     this.prenom = prenom;
     this.numeroTelephone = numeroTelephone;
@@ -27,5 +28,6 @@ export class MDemandeDeDevis {
     this.sujet = sujet;
     this.emailEmetteur = emailEmetteur;
     this.emailDestinataire = emailDestinataire;
+    this.application=application;
   }
 }

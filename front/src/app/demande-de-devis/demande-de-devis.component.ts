@@ -6,6 +6,7 @@ import {ValidatorsService} from "../core/services/techniques/validators.service"
 import {MSG_KEY, MSG_SEVERITY, ToasterService} from "../core/services/techniques/toaster.service";
 import {MDemandeDeDevis} from "../core/models/m-demande-de-devis";
 import {DemandeDeDevisService} from "../core/services/metiers/demande-de-devis.service";
+import {TITLE_APP} from "../constants";
 
 @Component({
   selector: 'app-demande-de-devis',
@@ -64,11 +65,11 @@ export class DemandeDeDevisComponent implements OnInit {
       const email = this.form.get('emailCtl').value;
       const message = this.form.get('messageCtl').value;
 
-      const demandeDeDevis = new MDemandeDeDevis(nom, prenom, telephone, message, societe, null, adresse, ville, null, email, null);
+      const demandeDeDevis = new MDemandeDeDevis(nom, prenom, telephone, message, societe, null, adresse, ville, null, email, null,TITLE_APP);
       this.demandeDeDevisSvc.send(demandeDeDevis).subscribe(response => {
 
         this.toasterSvc.showMsg(MSG_KEY.ROOT, MSG_SEVERITY.SUCCESS, 'Votre demande a été envoyé avec succès. Je vous répondrai sous 48 heures.');
-        this.form.reset();
+        // this.form.reset();
       });
 
 

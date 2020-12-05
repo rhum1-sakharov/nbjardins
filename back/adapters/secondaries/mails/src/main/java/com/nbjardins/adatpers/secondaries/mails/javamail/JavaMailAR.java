@@ -3,6 +3,7 @@ package com.nbjardins.adatpers.secondaries.mails.javamail;
 import com.nbjardins.adatpers.secondaries.mails.AbstractMail;
 import com.nbjardins.adatpers.secondaries.mails.ServerMail;
 import com.sun.mail.smtp.SMTPTransport;
+import domain.entities.DemandeDeDevis;
 import domain.entities.Mail;
 import domain.entityresponse.Response;
 import usecase.ports.LocalizeServicePT;
@@ -85,12 +86,12 @@ public class JavaMailAR extends AbstractMail implements MailServicePT {
     }
 
     @Override
-    public Response<Mail> sendToWorker(Mail mail) {
+    public Response<DemandeDeDevis> sendToWorker(DemandeDeDevis demandeDeDevis) {
         return null;
     }
 
     @Override
-    public Response<Mail> sendAcknowledgementToSender(Mail mail) {
+    public Response<DemandeDeDevis> sendAcknowledgementToSender(DemandeDeDevis demandeDeDevis) {
         return null;
     }
 
