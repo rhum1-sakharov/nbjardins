@@ -12,15 +12,15 @@ import usecase.RealiserDevisUC;
 import java.util.Locale;
 
 @RestController
-@RequestMapping("/realiser-devis")
-public class RealiserDevisController {
+@RequestMapping("/devis")
+public class DevisController {
 
     RealiserDevisUC realiserDevisUC;
 
     @Value("${springapp.realiserdevis.demanderdevis.mail.to}")
     String emailDestinataire;
 
-    public RealiserDevisController(RealiserDevisUC realiserDevisUC) {
+    public DevisController(RealiserDevisUC realiserDevisUC) {
         this.realiserDevisUC = realiserDevisUC;
     }
 

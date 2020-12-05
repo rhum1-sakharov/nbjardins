@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {MVille} from "../core/models/m-ville";
 import {VillesService} from "../core/services/metiers/villes.service";
-import {faPenFancy} from "@fortawesome/free-solid-svg-icons/faPenFancy";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ValidatorsService} from "../core/services/techniques/validators.service";
 import {MSG_KEY, MSG_SEVERITY, ToasterService} from "../core/services/techniques/toaster.service";
+import {MDemandeDeDevis} from "../core/models/m-demande-de-devis";
+import {DemandeDeDevisService} from "../core/services/metiers/demande-de-devis.service";
 
 @Component({
   selector: 'app-demande-de-devis',
@@ -14,14 +15,13 @@ import {MSG_KEY, MSG_SEVERITY, ToasterService} from "../core/services/techniques
 export class DemandeDeDevisComponent implements OnInit {
 
   villes: MVille[];
-  ville: MVille;
-  faPenFancy = faPenFancy;
-
-  devisMessage: string;
 
   form: FormGroup;
 
-  constructor(private villesSvc: VillesService, public validatorsSvc:ValidatorsService, private toasterSvc:ToasterService) {
+  constructor(private villesSvc: VillesService,
+              public validatorsSvc: ValidatorsService,
+              private demandeDeDevisSvc: DemandeDeDevisService,
+              private toasterSvc: ToasterService) {
   }
 
   ngOnInit(): void {
@@ -47,18 +47,34 @@ export class DemandeDeDevisComponent implements OnInit {
 
   search($event) {
 
-    this.villesSvc.search($event.query).subscribe(response => {
+    this.villesSvc.search($event.query).subscribe((response:any[]) => {
       this.villes = response.map(item => new MVille(item.nom, item.codesPostaux[0]));
     });
   }
 
   onSubmit() {
     if (this.form.valid) {
-      this.toasterSvc.showMsg(MSG_KEY.ROOT,MSG_SEVERITY.SUCCESS, 'Votre demande a été envoyé avec succès. Je vous répondrai sous 48 heures.');
-      this.form.reset();
+
+      const nom = this.form.get('nomCtl').value;
+      const prenom = this.form.get('prenomCtl').value;
+      const societe = this.form.get('societeCtl').value;
+      const adresse = this.form.get('adresseCtl').value;
+      const ville = this.form.get('villeCtl').value ? this.form.get('villeCtl').value : null;
+      const telephone = this.form.get('telephoneCtl').value;
+      const email = this.form.get('emailCtl').value;
+      const message = this.form.get('messageCtl').value;
+
+      const demandeDeDevis = new MDemandeDeDevis(nom, prenom, telephone, message, societe, null, adresse, ville, null, email, null);
+      this.demandeDeDevisSvc.send(demandeDeDevis).subscribe(response => {
+
+        this.toasterSvc.showMsg(MSG_KEY.ROOT, MSG_SEVERITY.SUCCESS, 'Votre demande a été envoyé avec succès. Je vous répondrai sous 48 heures.');
+        this.form.reset();
+      });
+
+
     } else {
 
-      this.toasterSvc.showMsg(MSG_KEY.ROOT,MSG_SEVERITY.WARN, 'Veuillez renseigner les champs obligatoires.');
+      this.toasterSvc.showMsg(MSG_KEY.ROOT, MSG_SEVERITY.WARN, 'Veuillez renseigner les champs obligatoires.');
     }
   }
 

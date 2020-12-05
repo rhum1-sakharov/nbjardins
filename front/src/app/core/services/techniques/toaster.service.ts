@@ -10,7 +10,6 @@ export class ToasterService {
   }
 
   showMsg(key: MSG_KEY, severity: MSG_SEVERITY, msg: string, detail: string = '', life:number = 8000) {
-    this.msgSvc.clear();
 
     if (MSG_SEVERITY.SUCCESS === severity) {
       msg = '😊 ' + msg;
