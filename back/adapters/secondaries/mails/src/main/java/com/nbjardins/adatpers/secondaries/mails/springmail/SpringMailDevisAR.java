@@ -14,11 +14,10 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
-import org.thymeleaf.util.StringUtils;
 import usecase.ports.localization.LocalizeServicePT;
 import usecase.ports.mails.MailDevisServicePT;
 
-import java.util.Objects;
+import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
 
@@ -45,6 +44,7 @@ public class SpringMailDevisAR extends AbstractMail implements MailDevisServiceP
         templateResolver.setCacheable(false);
         templateResolver.setPrefix("templates/");
         templateResolver.setSuffix(".html");
+        templateResolver.setCharacterEncoding(StandardCharsets.UTF_8.name());
         templateResolver.setCheckExistence(true);
         TemplateEngine templateEngine = new TemplateEngine();
         templateEngine.setTemplateResolver(templateResolver);
@@ -77,26 +77,27 @@ public class SpringMailDevisAR extends AbstractMail implements MailDevisServiceP
 
     @Override
     public Response<DemandeDeDevis> sendToWorker(DemandeDeDevis demandeDeDevis) {
-        return prepareAndSend(demandeDeDevis, TemplateLocation.DEMANDE_DEVIS_TO_WORKER);
+        return prepareAndSend(demandeDeDevis, demandeDeDevis.getAsker().getEmail(), demandeDeDevis.getWorker().getEmail(), TemplateLocation.DEMANDE_DEVIS_TO_WORKER);
     }
 
     @Override
     public Response<DemandeDeDevis> sendAcknowledgementToSender(DemandeDeDevis demandeDeDevis) {
-        return prepareAndSend(demandeDeDevis, TemplateLocation.ACKNOWLEDGEMENT_DEMANDE_DEVIS_TO_SENDER);
+        return prepareAndSend(demandeDeDevis, demandeDeDevis.getWorker().getEmail(), demandeDeDevis.getAsker().getEmail(), TemplateLocation.ACKNOWLEDGEMENT_DEMANDE_DEVIS_TO_SENDER);
     }
 
-    private Response<DemandeDeDevis> prepareAndSend(DemandeDeDevis demandeDeDevis, TemplateLocation templateLocation) {
+    private Response<DemandeDeDevis> prepareAndSend(DemandeDeDevis demandeDeDevis, String emailEmetteur, String emailDestinataire, TemplateLocation templateLocation) {
 
         Response<DemandeDeDevis> demandeDeDevisResponse = new Response<>();
         demandeDeDevisResponse.setOne(demandeDeDevis);
 
         MimeMessagePreparator messagePreparator = mimeMessage -> {
-            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
-            messageHelper.setFrom(demandeDeDevis.getEmailEmetteur());
-            messageHelper.setTo(demandeDeDevis.getEmailDestinataire());
+            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+            messageHelper.setFrom(emailEmetteur);
+            messageHelper.setTo(emailDestinataire);
             messageHelper.setSubject(demandeDeDevis.getSujet());
             String content = buildDemandeDeDevis(demandeDeDevis, templateLocation);
-            messageHelper.setText(content);
+            messageHelper.setText(content, true);
+
         };
         try {
             mailSender.send(messagePreparator);
@@ -113,8 +114,8 @@ public class SpringMailDevisAR extends AbstractMail implements MailDevisServiceP
     private String buildDemandeDeDevis(DemandeDeDevis demandeDeDevis, TemplateLocation templateLocation) {
 
         Context context = new Context();
-        context.setVariable("nom", StringUtils.capitalize(demandeDeDevis.getNom().toLowerCase()));
-        context.setVariable("prenom", StringUtils.capitalize(demandeDeDevis.getPrenom().toLowerCase()));
+        context.setVariable("asker",demandeDeDevis.getAsker());
+        context.setVariable("worker",demandeDeDevis.getWorker());
         context.setVariable("application", demandeDeDevis.getApplication());
         context.setVariable("resourceUrl", serverMail.getResourceUrl());
 
@@ -124,12 +125,6 @@ public class SpringMailDevisAR extends AbstractMail implements MailDevisServiceP
                 break;
             case DEMANDE_DEVIS_TO_WORKER:
                 context.setVariable("message", demandeDeDevis.getMessage());
-                context.setVariable("societe", demandeDeDevis.getSociete().toUpperCase());
-                context.setVariable("fonction", demandeDeDevis.getFonction());
-                context.setVariable("adresse", demandeDeDevis.getAdresse());
-                context.setVariable("nomVille", Objects.nonNull(demandeDeDevis.getVille()) ? demandeDeDevis.getVille().getNom() : "");
-                context.setVariable("codePostal", Objects.nonNull(demandeDeDevis.getVille()) ? demandeDeDevis.getVille().getCodePostal() : "");
-                context.setVariable("telephone", demandeDeDevis.getNumeroTelephone());
                 break;
             default:
                 break;

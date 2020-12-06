@@ -29,9 +29,9 @@ public final class RealiserDevisUC {
         Locale workerLocale = localizeServicePT.getWorkerLocale();
 
         Map<String, Boolean> preconditions = new HashMap<>();
-        preconditions.put(localizeServicePT.getMsg("prenom.obligatoire", currentLocale), Objects.isNull(demandeDeDevis.getPrenom()));
-        preconditions.put(localizeServicePT.getMsg("nom.obligatoire", currentLocale), Objects.isNull(demandeDeDevis.getNom()));
-        preconditions.put(localizeServicePT.getMsg("email.obligatoire", currentLocale), Objects.isNull(demandeDeDevis.getEmailEmetteur()));
+        preconditions.put(localizeServicePT.getMsg("prenom.obligatoire", currentLocale), Objects.isNull(demandeDeDevis.getAsker().getPrenom()));
+        preconditions.put(localizeServicePT.getMsg("nom.obligatoire", currentLocale), Objects.isNull(demandeDeDevis.getAsker().getNom()));
+        preconditions.put(localizeServicePT.getMsg("email.obligatoire", currentLocale), Objects.isNull(demandeDeDevis.getAsker().getEmail()));
         preconditions.put(localizeServicePT.getMsg("devis.message.obligatoire", currentLocale), Objects.isNull(demandeDeDevis.getMessage()));
 
         Response<DemandeDeDevis> entityResponse = Utils.initResponse(preconditions);
@@ -59,7 +59,7 @@ public final class RealiserDevisUC {
     private Response<DemandeDeDevis> sendToWorker(Response<DemandeDeDevis> demandeDeDevisResponse, Locale workerLocale) {
 
         DemandeDeDevis demandeDeDevis = demandeDeDevisResponse.getOne();
-        String sujet = MessageFormat.format(localizeServicePT.getMsg("sujet.devis", workerLocale), StringUtils.capitalize(demandeDeDevis.getPrenom().toLowerCase()), StringUtils.capitalize(demandeDeDevis.getNom().toLowerCase()));
+        String sujet = MessageFormat.format(localizeServicePT.getMsg("sujet.devis", workerLocale), StringUtils.capitalize(demandeDeDevis.getAsker().getPrenom().toLowerCase()), StringUtils.capitalize(demandeDeDevis.getAsker().getNom().toLowerCase()));
         demandeDeDevis.setSujet(sujet);
         demandeDeDevis.setLocale(workerLocale);
 
@@ -71,10 +71,7 @@ public final class RealiserDevisUC {
         DemandeDeDevis demandeDeDevis = demandeDeDevisResponse.getOne();
         String sujet = MessageFormat.format(localizeServicePT.getMsg("ack.devis", workerLocale), demandeDeDevis.getApplication());
         demandeDeDevis.setSujet(sujet);
-        String sender = demandeDeDevis.getEmailDestinataire();
-        String receiver = demandeDeDevis.getEmailEmetteur();
-        demandeDeDevis.setEmailEmetteur(sender);
-        demandeDeDevis.setEmailDestinataire(receiver);
+
 
         return  mailDevisServicePT.sendAcknowledgementToSender(demandeDeDevis);
     }

@@ -3,6 +3,8 @@ package com.nbjardins.adapters.primaries.application.springapp;
 import com.nbjardins.adapters.secondaries.localization.LocalizeResourceBundleAR;
 import com.nbjardins.adatpers.secondaries.mails.ServerMail;
 import com.nbjardins.adatpers.secondaries.mails.springmail.SpringMailDevisAR;
+import domain.entities.Personne;
+import domain.entities.Ville;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -35,6 +37,25 @@ public class Config {
     @Bean
     public RealiserDevisUC realiserDevis(MailDevisServicePT mailDevisServicePT, LocalizeServicePT localizeServicePT) {
         return new RealiserDevisUC(mailDevisServicePT,localizeServicePT);
+    }
+
+    @Bean
+    public Personne getWorker(){
+
+        String workerNom = env.getProperty("worker.nom");
+        String workerPrenom  = env.getProperty("worker.prenom");
+        String workerTelephone = env.getProperty("worker.telephone");
+        String workerSociete = env.getProperty("worker.societe");
+        String workerFonction = env.getProperty("worker.fonction");
+        String workerVille = env.getProperty("worker.ville");
+        String workerCodePostal = env.getProperty("worker.codePostal");
+        String workerAdresse = env.getProperty("worker.adresse");
+        String workerEmail = env.getProperty("worker.email");
+        Ville ville = new Ville(workerVille,workerCodePostal);
+
+        Personne worker = new Personne(workerNom,workerPrenom,workerTelephone,workerSociete,workerFonction,workerAdresse,ville,workerEmail);
+
+        return worker;
     }
 
     @Bean

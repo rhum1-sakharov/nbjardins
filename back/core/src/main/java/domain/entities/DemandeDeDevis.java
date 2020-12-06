@@ -9,17 +9,9 @@ import lombok.NoArgsConstructor;
 @Data
 public class DemandeDeDevis extends Entity {
 
-    String nom;
-    String prenom;
-    String numeroTelephone;
-    String message;
-    String societe;
-    String fonction;
-    String adresse;
-    Ville ville;
+    Personne asker;
     String sujet;
-    String emailEmetteur;
-    String emailDestinataire;
+    String message;
     String application;
-
+    Personne worker;
 }

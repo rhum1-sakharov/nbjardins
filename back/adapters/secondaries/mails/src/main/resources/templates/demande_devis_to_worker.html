@@ -4,12 +4,24 @@
 <body>
 <span th:text="${message}"></span>
 
-<span th:text="${societe}"></span>
-<span th:text="${fonction}"></span>
-<span th:text="${prenom}"></span> <span th:text="${nom}"></span>
-<span th:text="${codePostal}"></span> <span th:text="${nomVille}"></span>
-<span th:text="${adresse}"></span>
-<span th:text="${telephone}"></span>
+<p>
+<span th:text="${asker.societe}"></span>
+</p>
+<p>
+<span th:text="${asker.fonction}"></span>
+</p>
+<p>
+<span th:text="${asker.prenom}"></span> <span th:text="${asker.nom}"></span>
+</p>
+<p>
+<span th:text="${asker.ville.codePostal}"></span> <span th:text="${asker.ville.nomVille}"></span>
+</p>
+<p>
+<span th:text="${asker.adresse}"></span>
+</p>
+<p>
+<span th:text="${asker.numeroTelephone}"></span>
+</p>
 
 <footer th:replace="fragments/general.html :: footer"></footer>
 

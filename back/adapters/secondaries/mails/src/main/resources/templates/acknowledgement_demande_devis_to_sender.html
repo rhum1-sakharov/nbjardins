@@ -2,13 +2,21 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <header th:replace="fragments/general.html :: headerfiles"></header>
 <body>
-Bonjour <span th:text="${prenom}"></span> <span th:text="${nom}"></span>,
+<p>
+Bonjour <span th:text="${asker.prenom}"></span> <span th:text="${asker.nom}"></span>,
+</p>
 
+<p>
 Merci pour votre demande de devis 😊.
+</p>
 
+<p>
 Je vais traiter votre demande et vous répondre dans les 48 heures.
+</p>
 
+<p>
 A bientôt
+</p>
 
 <footer th:replace="fragments/general.html :: footer"></footer>
 

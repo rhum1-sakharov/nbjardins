@@ -1,33 +1,19 @@
-import {MVille} from "./m-ville";
+import {MPersonne} from "./m-personne";
 
 export class MDemandeDeDevis {
 
-  nom: string;
-  prenom: string;
-  numeroTelephone: string;
-  message: string;
-  societe: string;
-  fonction: string;
-  adresse: string;
-  ville: MVille;
+  asker: MPersonne;
+  worker: MPersonne;
   sujet: string;
-  emailEmetteur: string;
-  emailDestinataire: string;
-  application:string;
+  message: string;
+  application: string;
 
 
-  constructor(nom: string, prenom: string, numeroTelephone: string, message: string, societe: string, fonction: string, adresse: string, ville: MVille, sujet: string, emailEmetteur: string, emailDestinataire: string, application:string) {
-    this.nom = nom;
-    this.prenom = prenom;
-    this.numeroTelephone = numeroTelephone;
-    this.message = message;
-    this.societe = societe;
-    this.fonction = fonction;
-    this.adresse = adresse;
-    this.ville = ville;
+  constructor(asker: MPersonne, worker: MPersonne, sujet: string, message: string, application: string) {
+    this.asker = asker;
+    this.worker = worker;
     this.sujet = sujet;
-    this.emailEmetteur = emailEmetteur;
-    this.emailDestinataire = emailDestinataire;
-    this.application=application;
+    this.message = message;
+    this.application = application;
   }
 }
