@@ -52,7 +52,9 @@ public class Config {
                 env.getProperty("spring.mail.username"),
                 env.getProperty("spring.mail.password"),
                 enableTts,
-                requiredTts);
+                requiredTts,
+                env.getProperty("springapp.resourceurl")
+                );
     }
 
 }

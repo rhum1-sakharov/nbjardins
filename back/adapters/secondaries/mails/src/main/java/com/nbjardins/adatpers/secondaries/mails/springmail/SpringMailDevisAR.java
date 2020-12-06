@@ -115,6 +115,8 @@ public class SpringMailDevisAR extends AbstractMail implements MailDevisServiceP
         Context context = new Context();
         context.setVariable("nom", StringUtils.capitalize(demandeDeDevis.getNom().toLowerCase()));
         context.setVariable("prenom", StringUtils.capitalize(demandeDeDevis.getPrenom().toLowerCase()));
+        context.setVariable("application", demandeDeDevis.getApplication());
+        context.setVariable("resourceUrl", serverMail.getResourceUrl());
 
         switch (templateLocation) {
 

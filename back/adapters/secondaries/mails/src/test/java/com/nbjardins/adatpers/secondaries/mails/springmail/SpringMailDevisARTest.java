@@ -21,7 +21,7 @@ class SpringMailDevisARTest {
     @BeforeEach
     public void setUp() {
 
-        ServerMail serverMail = new ServerMail("localhost", false, 25, null, null, false, false);
+        ServerMail serverMail = new ServerMail("localhost", false, 25, null, null, false, false,"");
         smtpServer = new GreenMail(new ServerSetup(serverMail.getPort(), null, "smtp"));
         smtpServer.start();
 

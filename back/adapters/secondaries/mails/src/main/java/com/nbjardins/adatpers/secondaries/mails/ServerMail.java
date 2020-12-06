@@ -17,5 +17,6 @@ public class ServerMail extends Entity {
     String passwordAccount;
     boolean enableTls;
     boolean requiredTls;
+    String resourceUrl;
 
 }

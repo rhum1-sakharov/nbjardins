@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
+<header th:replace="fragments/general.html :: headerfiles"></header>
 <body>
 Bonjour <span th:text="${prenom}"></span> <span th:text="${nom}"></span>,
 
@@ -13,6 +10,7 @@ Je vais traiter votre demande et vous répondre dans les 48 heures.
 
 A bientôt
 
+<footer th:replace="fragments/general.html :: footer"></footer>
 
 </body>
 </html>

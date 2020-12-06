@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
+<header th:replace="fragments/general.html :: headerfiles"></header>
 <body>
 <span th:text="${message}"></span>
 
@@ -13,5 +10,8 @@
 <span th:text="${codePostal}"></span> <span th:text="${nomVille}"></span>
 <span th:text="${adresse}"></span>
 <span th:text="${telephone}"></span>
+
+<footer th:replace="fragments/general.html :: footer"></footer>
+
 </body>
 </html>
