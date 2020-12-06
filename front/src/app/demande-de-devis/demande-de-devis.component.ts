@@ -36,6 +36,7 @@ export class DemandeDeDevisComponent implements OnInit {
       nomCtl: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
       prenomCtl: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
       societeCtl: new FormControl(''),
+      fonctionCtl: new FormControl(''),
       adresseCtl: new FormControl(''),
       villeCtl: new FormControl(''),
       telephoneCtl: new FormControl(''),
@@ -59,13 +60,14 @@ export class DemandeDeDevisComponent implements OnInit {
       const nom = this.form.get('nomCtl').value;
       const prenom = this.form.get('prenomCtl').value;
       const societe = this.form.get('societeCtl').value;
+      const fonction = this.form.get('fonctionCtl').value;
       const adresse = this.form.get('adresseCtl').value;
       const ville = this.form.get('villeCtl').value ? this.form.get('villeCtl').value : null;
       const telephone = this.form.get('telephoneCtl').value;
       const email = this.form.get('emailCtl').value;
       const message = this.form.get('messageCtl').value;
 
-      const demandeDeDevis = new MDemandeDeDevis(nom, prenom, telephone, message, societe, null, adresse, ville, null, email, null,TITLE_APP);
+      const demandeDeDevis = new MDemandeDeDevis(nom, prenom, telephone, message, societe, fonction, adresse, ville, null, email, null,TITLE_APP);
       this.demandeDeDevisSvc.send(demandeDeDevis).subscribe(response => {
 
         this.toasterSvc.showMsg(MSG_KEY.ROOT, MSG_SEVERITY.SUCCESS, 'Votre demande a été envoyé avec succès. Je vous répondrai sous 48 heures.');

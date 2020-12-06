@@ -2,13 +2,13 @@ package com.nbjardins.adapters.primaries.application.springapp;
 
 import com.nbjardins.adapters.secondaries.localization.LocalizeResourceBundleAR;
 import com.nbjardins.adatpers.secondaries.mails.ServerMail;
-import com.nbjardins.adatpers.secondaries.mails.springmail.SpringMailAR;
+import com.nbjardins.adatpers.secondaries.mails.springmail.SpringMailDevisAR;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import usecase.devis.RealiserDevisUC;
-import usecase.ports.LocalizeServicePT;
-import usecase.ports.MailServicePT;
+import usecase.ports.localization.LocalizeServicePT;
+import usecase.ports.mails.MailDevisServicePT;
 
 @Configuration
 public class Config {
@@ -28,13 +28,13 @@ public class Config {
 
 
     @Bean
-    public MailServicePT mailServicePT(ServerMail serverMail, LocalizeServicePT localizeServicePT) {
-        return new SpringMailAR(serverMail, localizeServicePT);
+    public MailDevisServicePT mailServicePT(ServerMail serverMail, LocalizeServicePT localizeServicePT) {
+        return new SpringMailDevisAR(serverMail, localizeServicePT);
     }
 
     @Bean
-    public RealiserDevisUC realiserDevis(MailServicePT mailServicePT, LocalizeServicePT localizeServicePT) {
-        return new RealiserDevisUC(mailServicePT,localizeServicePT);
+    public RealiserDevisUC realiserDevis(MailDevisServicePT mailDevisServicePT, LocalizeServicePT localizeServicePT) {
+        return new RealiserDevisUC(mailDevisServicePT,localizeServicePT);
     }
 
     @Bean

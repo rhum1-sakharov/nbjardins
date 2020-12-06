@@ -4,8 +4,8 @@ import domain.entities.DemandeDeDevis;
 import domain.entityresponse.Response;
 import domain.utils.Utils;
 import org.apache.commons.lang3.StringUtils;
-import usecase.ports.LocalizeServicePT;
-import usecase.ports.MailServicePT;
+import usecase.ports.localization.LocalizeServicePT;
+import usecase.ports.mails.MailDevisServicePT;
 
 import java.text.MessageFormat;
 import java.util.HashMap;
@@ -15,11 +15,11 @@ import java.util.Objects;
 
 public final class RealiserDevisUC {
 
-    private final MailServicePT mailServicePT;
+    private final MailDevisServicePT mailDevisServicePT;
     private final LocalizeServicePT localizeServicePT;
 
-    public RealiserDevisUC(final MailServicePT mailServicePT, LocalizeServicePT localizeServicePT) {
-        this.mailServicePT = mailServicePT;
+    public RealiserDevisUC(final MailDevisServicePT mailDevisServicePT, LocalizeServicePT localizeServicePT) {
+        this.mailDevisServicePT = mailDevisServicePT;
         this.localizeServicePT = localizeServicePT;
     }
 
@@ -63,7 +63,7 @@ public final class RealiserDevisUC {
         demandeDeDevis.setSujet(sujet);
         demandeDeDevis.setLocale(workerLocale);
 
-        return mailServicePT.sendToWorker(demandeDeDevis);
+        return mailDevisServicePT.sendToWorker(demandeDeDevis);
     }
 
     private Response<DemandeDeDevis> sendAcknowledgementToSender(Response<DemandeDeDevis> demandeDeDevisResponse, Locale workerLocale) {
@@ -76,7 +76,7 @@ public final class RealiserDevisUC {
         demandeDeDevis.setEmailEmetteur(sender);
         demandeDeDevis.setEmailDestinataire(receiver);
 
-        return  mailServicePT.sendAcknowledgementToSender(demandeDeDevis);
+        return  mailDevisServicePT.sendAcknowledgementToSender(demandeDeDevis);
     }
 
 }

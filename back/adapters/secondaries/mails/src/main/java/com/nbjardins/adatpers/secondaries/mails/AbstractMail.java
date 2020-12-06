@@ -1,6 +1,6 @@
 package com.nbjardins.adatpers.secondaries.mails;
 
-import usecase.ports.LocalizeServicePT;
+import usecase.ports.localization.LocalizeServicePT;
 
 public class AbstractMail {
 

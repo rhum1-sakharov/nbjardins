@@ -1,4 +1,4 @@
-package usecase.ports;
+package usecase.ports.localization;
 
 import java.util.Locale;
 

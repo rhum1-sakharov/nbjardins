@@ -6,8 +6,8 @@ import com.sun.mail.smtp.SMTPTransport;
 import domain.entities.DemandeDeDevis;
 import domain.entities.Mail;
 import domain.entityresponse.Response;
-import usecase.ports.LocalizeServicePT;
-import usecase.ports.MailServicePT;
+import usecase.ports.localization.LocalizeServicePT;
+import usecase.ports.mails.MailDevisServicePT;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -24,10 +24,10 @@ import java.io.OutputStream;
 import java.util.Properties;
 
 
-public class JavaMailAR extends AbstractMail implements MailServicePT {
+public class JavaMailDevisAR extends AbstractMail implements MailDevisServicePT {
 
 
-    public JavaMailAR(ServerMail serverMail, LocalizeServicePT localize) {
+    public JavaMailDevisAR(ServerMail serverMail, LocalizeServicePT localize) {
         super(serverMail, localize);
     }
 

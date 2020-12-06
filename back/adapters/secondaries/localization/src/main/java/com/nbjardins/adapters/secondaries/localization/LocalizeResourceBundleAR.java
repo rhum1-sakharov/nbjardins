@@ -1,6 +1,6 @@
 package com.nbjardins.adapters.secondaries.localization;
 
-import usecase.ports.LocalizeServicePT;
+import usecase.ports.localization.LocalizeServicePT;
 
 import java.util.Locale;
 import java.util.Objects;
