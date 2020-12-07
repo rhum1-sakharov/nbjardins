@@ -23,6 +23,7 @@
       <module name="nbjardins" target="1.8" />
       <module name="spring-app" target="1.8" />
       <module name="usecase" target="1.8" />
+      <module name="xmlprovider" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

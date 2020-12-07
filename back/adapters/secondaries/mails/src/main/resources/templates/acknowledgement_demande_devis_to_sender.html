@@ -2,23 +2,47 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <header th:replace="fragments/general.html :: headerfiles"></header>
 <body>
+<div class="alert alert-primary width-500" role="alert">
 <p>
 Bonjour <span th:text="${asker.prenom}"></span> <span th:text="${asker.nom}"></span>,
 </p>
+<br>
 
 <p>
 Merci pour votre demande de devis 😊.
 </p>
 
 <p>
-Je vais traiter votre demande et vous répondre dans les 48 heures.
+Je traite votre demande au plus vite.
+</p>
+<p>
+    Vous aurez une réponse par mail ou téléphone dans les 48 heures.
 </p>
 
+<br>
 <p>
 A bientôt
 </p>
+</div>
+<br>
 
-<footer th:replace="fragments/general.html :: footer"></footer>
+<div class="alert alert-success width-500" role="alert">
+<p>
+    <span class="font-14" th:text="${worker.societe}"></span>
+</p>
 
+<p >
+    <span class="font-12" th:text="${worker.prenom}"></span> <span  class="font-12" th:text="${worker.nom}"></span>
+</p>
+<p>
+    <span class="font-12" th:text="${worker.adresse}"></span>
+</p>
+<p>
+    <span class="font-12" th:text="${worker.ville.codePostal}"></span> <span  class="font-12"  th:text="${worker.ville.nom}"></span>
+</p>
+<p>
+    <span class="font-12" th:text="${worker.numeroTelephone}"></span>
+</p>
+</div>
 </body>
 </html>

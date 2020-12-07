@@ -4,6 +4,7 @@
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/back/adapters/primaries/application/springapp" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/back/adapters/secondaries" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/back/adapters/secondaries/dataproviders" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/back/adapters/secondaries/localization" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/back/adapters/secondaries/mails" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/back/core" charset="UTF-8" />

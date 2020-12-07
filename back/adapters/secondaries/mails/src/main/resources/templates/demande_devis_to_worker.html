@@ -2,28 +2,35 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <header th:replace="fragments/general.html :: headerfiles"></header>
 <body>
+
+<div class="alert alert-primary width-500" role="alert">
 <span th:text="${message}"></span>
+</div>
+<br>
 
+<div class="alert alert-primary width-500" role="alert">
 <p>
-<span th:text="${asker.societe}"></span>
+<span class="font-12" th:text="${asker.societe}"></span>
 </p>
 <p>
-<span th:text="${asker.fonction}"></span>
+<span class="font-12" th:text="${asker.fonction}"></span>
 </p>
 <p>
-<span th:text="${asker.prenom}"></span> <span th:text="${asker.nom}"></span>
+<span class="font-12" th:text="${asker.prenom}"></span> <span class="font-12" th:text="${asker.nom}"></span>
 </p>
 <p>
-<span th:text="${asker.ville.codePostal}"></span> <span th:text="${asker.ville.nomVille}"></span>
-</p>
-<p>
-<span th:text="${asker.adresse}"></span>
-</p>
-<p>
-<span th:text="${asker.numeroTelephone}"></span>
-</p>
+    <th:block th:if="${asker.ville != null}">
+        <span class="font-12" th:text="${asker.ville.codePostal}"></span> <span class="font-12" th:text="${asker.ville.nom}"></span>
+    </th:block>
 
-<footer th:replace="fragments/general.html :: footer"></footer>
+</p>
+<p>
+<span class="font-12" th:text="${asker.adresse}"></span>
+</p>
+<p>
+<span class="font-12" th:text="${asker.numeroTelephone}"></span>
+</p>
+</div>
 
 </body>
 </html>
