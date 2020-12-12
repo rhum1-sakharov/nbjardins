@@ -1,4 +1,4 @@
-package domain.entities;
+package domain.models;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,7 +8,7 @@ import java.util.Locale;
 @Getter
 @Setter
 
-public class Entity {
+public class EntityDN {
 
     Locale locale;
 

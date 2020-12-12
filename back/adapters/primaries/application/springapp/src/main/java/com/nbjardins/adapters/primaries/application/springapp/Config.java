@@ -3,12 +3,12 @@ package com.nbjardins.adapters.primaries.application.springapp;
 import com.nbjardins.adapters.secondaries.localization.LocalizeResourceBundleAR;
 import com.nbjardins.adatpers.secondaries.mails.ServerMail;
 import com.nbjardins.adatpers.secondaries.mails.springmail.SpringMailDevisAR;
-import domain.entities.Personne;
-import domain.entities.Ville;
+import domain.models.PersonneDN;
+import domain.models.VilleDN;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
-import usecase.devis.RealiserDevisUC;
+import usecase.devis.RealiserDevisUE;
 import usecase.ports.localization.LocalizeServicePT;
 import usecase.ports.mails.MailDevisServicePT;
 
@@ -35,12 +35,12 @@ public class Config {
     }
 
     @Bean
-    public RealiserDevisUC realiserDevis(MailDevisServicePT mailDevisServicePT, LocalizeServicePT localizeServicePT) {
-        return new RealiserDevisUC(mailDevisServicePT,localizeServicePT);
+    public RealiserDevisUE realiserDevis(MailDevisServicePT mailDevisServicePT, LocalizeServicePT localizeServicePT) {
+        return new RealiserDevisUE(mailDevisServicePT,localizeServicePT);
     }
 
     @Bean
-    public Personne getWorker(){
+    public PersonneDN getWorker(){
 
         String workerNom = env.getProperty("worker.nom");
         String workerPrenom  = env.getProperty("worker.prenom");
@@ -51,9 +51,9 @@ public class Config {
         String workerCodePostal = env.getProperty("worker.codePostal");
         String workerAdresse = env.getProperty("worker.adresse");
         String workerEmail = env.getProperty("worker.email");
-        Ville ville = new Ville(workerVille,workerCodePostal);
+        VilleDN villeDN = new VilleDN(workerVille,workerCodePostal);
 
-        Personne worker = new Personne(workerNom,workerPrenom,workerTelephone,workerSociete,workerFonction,workerAdresse,ville,workerEmail);
+        PersonneDN worker = new PersonneDN(workerNom,workerPrenom,workerTelephone,workerSociete,workerFonction,workerAdresse, villeDN,workerEmail);
 
         return worker;
     }

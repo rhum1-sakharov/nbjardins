@@ -1,6 +1,6 @@
-package domain.entityresponse;
+package domain.response;
 
-import domain.entities.Entity;
+import domain.models.EntityDN;
 import lombok.Data;
 import org.apache.commons.collections4.CollectionUtils;
 
@@ -9,9 +9,9 @@ import java.util.Arrays;
 import java.util.List;
 
 @Data
-public class Response<T extends Entity> {
+public class ResponseDN<T extends EntityDN> {
 
-    boolean isError = false;
+
     List<String> errorMessages = new ArrayList<>();
     List<T> resultList = new ArrayList<>();
     T one;
@@ -37,6 +37,10 @@ public class Response<T extends Entity> {
         if (CollectionUtils.isNotEmpty(messages)) {
             errorMessages.addAll(messages);
         }
+    }
+
+    public boolean hasError() {
+        return CollectionUtils.isNotEmpty(this.errorMessages);
     }
 
 }

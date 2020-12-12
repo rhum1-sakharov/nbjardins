@@ -1,4 +1,4 @@
-package domain.entities;
+package domain.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Personne {
+public class PersonneDN {
 
     String nom;
     String prenom;
@@ -16,7 +16,7 @@ public class Personne {
     String societe;
     String fonction;
     String adresse;
-    Ville ville;
+    VilleDN villeDN;
     String email;
 
 }

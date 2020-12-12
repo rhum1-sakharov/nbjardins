@@ -1,17 +1,16 @@
-package domain.entities;
+package domain.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Mail extends Entity{
+public class VilleDN extends EntityDN {
 
-     String subject;
-     String from;
-     String to;
-     String message;
+    String nom;
+    String codePostal;
 
 }

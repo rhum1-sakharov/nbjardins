@@ -3,9 +3,9 @@ package com.nbjardins.adatpers.secondaries.mails.javamail;
 import com.nbjardins.adatpers.secondaries.mails.AbstractMail;
 import com.nbjardins.adatpers.secondaries.mails.ServerMail;
 import com.sun.mail.smtp.SMTPTransport;
-import domain.entities.DemandeDeDevis;
-import domain.entities.Mail;
-import domain.entityresponse.Response;
+import domain.models.DemandeDeDevisDN;
+import domain.models.MailDN;
+import domain.response.ResponseDN;
 import usecase.ports.localization.LocalizeServicePT;
 import usecase.ports.mails.MailDevisServicePT;
 
@@ -32,10 +32,10 @@ public class JavaMailDevisAR extends AbstractMail implements MailDevisServicePT 
     }
 
     @Override
-    public Response<Mail> send(Mail mail) {
+    public ResponseDN<MailDN> send(MailDN mailDN) {
 
-        Response<Mail> responseMail = new Response<Mail>();
-        responseMail.setOne(mail);
+        ResponseDN<MailDN> responseDNMail = new ResponseDN<MailDN>();
+        responseDNMail.setOne(mailDN);
 
         Properties prop = System.getProperties();
         prop.put("mail.smtp.host", serverMail.getHost());
@@ -53,15 +53,15 @@ public class JavaMailDevisAR extends AbstractMail implements MailDevisServicePT 
 
         try {
 
-            msg.setFrom(new InternetAddress(mail.getFrom()));
+            msg.setFrom(new InternetAddress(mailDN.getFrom()));
 
             msg.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse(mail.getTo(), false));
+                    InternetAddress.parse(mailDN.getTo(), false));
 
-            msg.setSubject(mail.getSubject());
+            msg.setSubject(mailDN.getSubject());
 
             // HTML email
-            msg.setDataHandler(new DataHandler(new HTMLDataSource(mail.getMessage())));
+            msg.setDataHandler(new DataHandler(new HTMLDataSource(mailDN.getMessage())));
 
 
             SMTPTransport t = (SMTPTransport) session.getTransport("smtp");
@@ -76,22 +76,21 @@ public class JavaMailDevisAR extends AbstractMail implements MailDevisServicePT 
 
         } catch (MessagingException e) {
             e.printStackTrace();
-            responseMail.setError(true);
-            responseMail.addErrorMessage(e.getMessage());
+            responseDNMail.addErrorMessage(e.getMessage());
         }
 
 
-        return responseMail;
+        return responseDNMail;
 
     }
 
     @Override
-    public Response<DemandeDeDevis> sendToWorker(DemandeDeDevis demandeDeDevis) {
+    public ResponseDN<DemandeDeDevisDN> sendToWorker(DemandeDeDevisDN demandeDeDevisDN) {
         return null;
     }
 
     @Override
-    public Response<DemandeDeDevis> sendAcknowledgementToSender(DemandeDeDevis demandeDeDevis) {
+    public ResponseDN<DemandeDeDevisDN> sendAcknowledgementToSender(DemandeDeDevisDN demandeDeDevisDN) {
         return null;
     }
 

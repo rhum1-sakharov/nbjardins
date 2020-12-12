@@ -1,13 +1,13 @@
 package usecase.ports.mails;
 
-import domain.entities.DemandeDeDevis;
-import domain.entityresponse.Response;
+import domain.models.DemandeDeDevisDN;
+import domain.response.ResponseDN;
 
 public interface MailDevisServicePT extends MailServicePT {
 
 
-    Response<DemandeDeDevis> sendToWorker(DemandeDeDevis demandeDeDevis);
+    ResponseDN<DemandeDeDevisDN> sendToWorker(DemandeDeDevisDN demandeDeDevisDN);
 
-    Response<DemandeDeDevis> sendAcknowledgementToSender(DemandeDeDevis demandeDeDevis);
+    ResponseDN<DemandeDeDevisDN> sendAcknowledgementToSender(DemandeDeDevisDN demandeDeDevisDN);
 
 }

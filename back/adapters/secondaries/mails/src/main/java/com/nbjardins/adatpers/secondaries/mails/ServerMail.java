@@ -1,6 +1,6 @@
 package com.nbjardins.adatpers.secondaries.mails;
 
-import domain.entities.Entity;
+import domain.models.EntityDN;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class ServerMail extends Entity {
+public class ServerMail extends EntityDN {
 
     String host;
     boolean isAuth;

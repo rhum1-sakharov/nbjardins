@@ -1,13 +1,13 @@
 package com.nbjardins.adapters.primaries.application.springapp.controller;
 
-import domain.entities.DemandeDeDevis;
-import domain.entities.Personne;
-import domain.entityresponse.Response;
+import domain.models.DemandeDeDevisDN;
+import domain.models.PersonneDN;
+import domain.response.ResponseDN;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import usecase.devis.RealiserDevisUC;
+import usecase.devis.RealiserDevisUE;
 
 import java.util.Locale;
 
@@ -15,22 +15,22 @@ import java.util.Locale;
 @RequestMapping("/devis")
 public class DevisController {
 
-    Personne worker;
-    RealiserDevisUC realiserDevisUC;
+    PersonneDN worker;
+    RealiserDevisUE realiserDevisUE;
 
-    public DevisController(RealiserDevisUC realiserDevisUC, Personne worker) {
-        this.realiserDevisUC = realiserDevisUC;
+    public DevisController(RealiserDevisUE realiserDevisUE, PersonneDN worker) {
+        this.realiserDevisUE = realiserDevisUE;
         this.worker = worker;
     }
 
 
     @PostMapping(value = "/demander-devis")
-    public Response<DemandeDeDevis> demanderDevis(@RequestBody DemandeDeDevis demandeDeDevis, Locale locale) {
+    public ResponseDN<DemandeDeDevisDN> demanderDevis(@RequestBody DemandeDeDevisDN demandeDeDevisDN, Locale locale) {
 
-        demandeDeDevis.setLocale(locale);
-        demandeDeDevis.setWorker(worker);
+        demandeDeDevisDN.setLocale(locale);
+        demandeDeDevisDN.setWorker(worker);
 
-        return realiserDevisUC.demanderDevis(demandeDeDevis);
+        return realiserDevisUE.demanderDevis(demandeDeDevisDN);
     }
 
 
