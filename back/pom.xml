@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.nbjardins</groupId>
+    <groupId>org.rlsv</groupId>
     <artifactId>parent</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
@@ -13,6 +13,7 @@
         <module>core</module>
         <module>adapters/secondaries/localization</module>
         <module>adapters/secondaries/mails</module>
+        <module>adapters/secondaries/dataproviderjpa</module>
         <module>adapters/primaries/application/springapp</module>
     </modules>
 
@@ -37,25 +38,25 @@
             </dependency>
 
             <dependency>
-                <groupId>com.nbjardins</groupId>
+                <groupId>org.rlsv</groupId>
                 <artifactId>core</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>com.nbjardins.adapters.primaries.application</groupId>
+                <groupId>org.rlsv.adapters.primaries.application</groupId>
                 <artifactId>spring-app</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>com.nbjardins.adapters.secondaries</groupId>
+                <groupId>org.rlsv.adapters.secondaries</groupId>
                 <artifactId>mails</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>com.nbjardins.adapters.secondaries</groupId>
+                <groupId>org.rlsv.adapters.secondaries</groupId>
                 <artifactId>localization</artifactId>
                 <version>${project.version}</version>
             </dependency>
