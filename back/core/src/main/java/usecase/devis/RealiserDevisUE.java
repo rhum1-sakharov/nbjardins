@@ -1,6 +1,7 @@
 package usecase.devis;
 
 import domain.models.DemandeDeDevisDN;
+import domain.models.PersonneDN;
 import domain.response.ResponseDN;
 import domain.utils.Utils;
 import org.apache.commons.lang3.StringUtils;
@@ -44,7 +45,7 @@ public final class RealiserDevisUE implements IUsecase<DemandeDeDevisDN> {
         if (!responseDN.hasError()) {
 
             // enregistrer le client
-            clientRepoPT.save(instance.getAsker());
+            saveClient(instance.getAsker());
 
             // envoyer la demande de devis à l'artisan
             responseDN = sendToWorker(responseDN, workerLocale);
@@ -61,6 +62,10 @@ public final class RealiserDevisUE implements IUsecase<DemandeDeDevisDN> {
         responseDN.setOne(instance);
 
         return responseDN;
+    }
+
+    private void saveClient(PersonneDN client){
+        clientRepoPT.save(client);
     }
 
     private ResponseDN<DemandeDeDevisDN> sendToWorker(ResponseDN<DemandeDeDevisDN> demandeDeDevisResponseDN, Locale workerLocale) {

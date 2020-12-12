@@ -1,7 +1,10 @@
-package org.rlsv.adapters.primaries.application.springapp;
+package org.rlsv.adapters.primaries.application.springapp.config;
 
 import domain.models.PersonneDN;
 import domain.models.VilleDN;
+import org.rlsv.adapters.secondaries.dataproviderjpa.config.JpaConfig;
+import org.rlsv.adapters.secondaries.dataproviderjpa.config.PersistenceConfig;
+import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.ClientRepoAR;
 import org.rlsv.adapters.secondaries.localization.LocalizeResourceBundleAR;
 import org.rlsv.adatpers.secondaries.mails.ServerMail;
 import org.rlsv.adatpers.secondaries.mails.springmail.SpringMailDevisAR;
@@ -13,6 +16,9 @@ import usecase.ports.localization.LocalizeServicePT;
 import usecase.ports.mails.MailDevisServicePT;
 import usecase.ports.repositories.ClientRepoPT;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Configuration
 public class Config {
 
@@ -20,8 +26,24 @@ public class Config {
     Environment env;
 
     public Config(Environment env) {
+
         this.env = env;
+
+        Map<String, String> propertiesMap = new HashMap();
+        propertiesMap.put("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
+        propertiesMap.put("javax.persistence.jdbc.url", "jdbc:mysql://localhost:3306/nbjardins?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
+        propertiesMap.put("javax.persistence.jdbc.user", "root");
+        propertiesMap.put("javax.persistence.jdbc.password", "");
+        propertiesMap.put("javax.persistence.jdbc.driver", "com.mysql.cj.jdbc.Driver");
+        propertiesMap.put("hibernate.hikari.connectionTimeout", "20000");
+        propertiesMap.put("hibernate.hikari.minimumIdle", "10");
+        propertiesMap.put("hibernate.hikari.maximumPoolSize", "20");
+        propertiesMap.put("hibernate.hikari.idleTimeout", "300000");
+        JpaConfig.persistenceConfig = new PersistenceConfig("PERSISTENCE_UNIT_NB_JARDINS", propertiesMap);
+
     }
+
+
 
 
     @Bean
@@ -31,7 +53,7 @@ public class Config {
 
     @Bean
     public ClientRepoPT clientRepoPT() {
-        return null;
+        return new ClientRepoAR();
     }
 
 

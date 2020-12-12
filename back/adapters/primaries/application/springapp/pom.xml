@@ -27,11 +27,19 @@
         <dependency>
             <groupId>org.rlsv.adapters.secondaries</groupId>
             <artifactId>localization</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.rlsv.adapters.secondaries</groupId>
             <artifactId>mails</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.rlsv.adapters.secondaries</groupId>
+            <artifactId>data-provider-jpa</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
 

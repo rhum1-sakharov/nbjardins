@@ -3,7 +3,7 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <changeSet id="202012121823-1" author="rvl" failOnError="true">
+    <changeSet id="202012121823-4" author="rvl" failOnError="true">
         <preConditions onFail="MARK_RAN">
            <not>
                <tableExists tableName="clients"></tableExists>
@@ -11,20 +11,20 @@
         </preConditions>
         <sql>
             CREATE TABLE `clients` (
-            `ID` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
-            `NOM` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
-            `ADRESSE` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci',
-            `CODEPOSTAL` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci',
-            `EMAIL` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
-            `FONCTION` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci',
-            `PRENOM` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
-            `SOCIETE` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci',
+            `ID` VARCHAR(50) NOT NULL  ,
+            `NOM` VARCHAR(50) NOT NULL  ,
+            `PRENOM` VARCHAR(50) NOT NULL  ,
+            `EMAIL` VARCHAR(50) NOT NULL  ,
             `TELEPHONE` INT(10) NULL DEFAULT NULL,
-            `VILLE` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci',
+            `ADRESSE` VARCHAR(50) NULL DEFAULT NULL  ,
+            `CODEPOSTAL` VARCHAR(50) NULL DEFAULT NULL  ,
+            `VILLE` VARCHAR(50) NULL DEFAULT NULL  ,
+            `FONCTION` VARCHAR(50) NULL DEFAULT NULL  ,
+            `SOCIETE` VARCHAR(50) NULL DEFAULT NULL  ,
             PRIMARY KEY (`ID`) USING BTREE,
-            UNIQUE INDEX `unique_email_idx` (`email`) USING BTREE
+            UNIQUE INDEX `unique_email_idx` (`EMAIL`) USING BTREE
             )
-            COLLATE='utf8mb4_0900_ai_ci'
+            COLLATE='utf8_general_ci'
             ENGINE=InnoDB
             ;
         </sql>
