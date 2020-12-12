@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class PersonneDN {
+public class PersonneDN extends Domain {
 
     String nom;
     String prenom;

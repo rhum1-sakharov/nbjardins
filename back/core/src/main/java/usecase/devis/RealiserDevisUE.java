@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import usecase.IUsecase;
 import usecase.ports.localization.LocalizeServicePT;
 import usecase.ports.mails.MailDevisServicePT;
+import usecase.ports.repositories.ClientRepoPT;
 
 import java.text.MessageFormat;
 import java.util.HashMap;
@@ -18,10 +19,12 @@ public final class RealiserDevisUE implements IUsecase<DemandeDeDevisDN> {
 
     private final MailDevisServicePT mailDevisServicePT;
     private final LocalizeServicePT localizeServicePT;
+    private final ClientRepoPT clientRepoPT;
 
-    public RealiserDevisUE(final MailDevisServicePT mailDevisServicePT, LocalizeServicePT localizeServicePT) {
+    public RealiserDevisUE(final MailDevisServicePT mailDevisServicePT, LocalizeServicePT localizeServicePT, ClientRepoPT clientRepoPT) {
         this.mailDevisServicePT = mailDevisServicePT;
         this.localizeServicePT = localizeServicePT;
+        this.clientRepoPT = clientRepoPT;
     }
 
     @Override
@@ -39,6 +42,9 @@ public final class RealiserDevisUE implements IUsecase<DemandeDeDevisDN> {
         responseDN.setOne(instance);
 
         if (!responseDN.hasError()) {
+
+            // enregistrer le client
+            clientRepoPT.save(instance.getAsker());
 
             // envoyer la demande de devis à l'artisan
             responseDN = sendToWorker(responseDN, workerLocale);

@@ -11,6 +11,7 @@ import org.springframework.core.env.Environment;
 import usecase.devis.RealiserDevisUE;
 import usecase.ports.localization.LocalizeServicePT;
 import usecase.ports.mails.MailDevisServicePT;
+import usecase.ports.repositories.ClientRepoPT;
 
 @Configuration
 public class Config {
@@ -28,6 +29,11 @@ public class Config {
         return new LocalizeResourceBundleAR();
     }
 
+    @Bean
+    public ClientRepoPT clientRepoPT() {
+        return null;
+    }
+
 
     @Bean
     public MailDevisServicePT mailServicePT(ServerMail serverMail, LocalizeServicePT localizeServicePT) {
@@ -35,15 +41,15 @@ public class Config {
     }
 
     @Bean
-    public RealiserDevisUE realiserDevis(MailDevisServicePT mailDevisServicePT, LocalizeServicePT localizeServicePT) {
-        return new RealiserDevisUE(mailDevisServicePT,localizeServicePT);
+    public RealiserDevisUE realiserDevis(MailDevisServicePT mailDevisServicePT, LocalizeServicePT localizeServicePT, ClientRepoPT clientRepoPT) {
+        return new RealiserDevisUE(mailDevisServicePT, localizeServicePT, clientRepoPT);
     }
 
     @Bean
-    public PersonneDN getWorker(){
+    public PersonneDN getWorker() {
 
         String workerNom = env.getProperty("worker.nom");
-        String workerPrenom  = env.getProperty("worker.prenom");
+        String workerPrenom = env.getProperty("worker.prenom");
         String workerTelephone = env.getProperty("worker.telephone");
         String workerSociete = env.getProperty("worker.societe");
         String workerFonction = env.getProperty("worker.fonction");
@@ -51,9 +57,9 @@ public class Config {
         String workerCodePostal = env.getProperty("worker.codePostal");
         String workerAdresse = env.getProperty("worker.adresse");
         String workerEmail = env.getProperty("worker.email");
-        VilleDN villeDN = new VilleDN(workerVille,workerCodePostal);
+        VilleDN villeDN = new VilleDN(workerVille, workerCodePostal);
 
-        PersonneDN worker = new PersonneDN(workerNom,workerPrenom,workerTelephone,workerSociete,workerFonction,workerAdresse, villeDN,workerEmail);
+        PersonneDN worker = new PersonneDN(workerNom, workerPrenom, workerTelephone, workerSociete, workerFonction, workerAdresse, villeDN, workerEmail);
 
         return worker;
     }
@@ -75,7 +81,7 @@ public class Config {
                 enableTts,
                 requiredTts,
                 env.getProperty("springapp.resourceurl")
-                );
+        );
     }
 
 }
