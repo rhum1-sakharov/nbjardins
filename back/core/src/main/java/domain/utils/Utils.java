@@ -1,6 +1,6 @@
 package domain.utils;
 
-import domain.models.EntityDN;
+import domain.models.Domain;
 import domain.response.ResponseDN;
 
 import java.util.HashMap;
@@ -11,7 +11,7 @@ public class Utils {
 
 
 
-    public static <T extends EntityDN> ResponseDN<T> initResponse(String message, boolean precondition) {
+    public static <T extends Domain> ResponseDN<T> initResponse(String message, boolean precondition) {
 
         Map<String, Boolean> preconditions = new HashMap<>();
         preconditions.put(message, precondition);
@@ -19,7 +19,7 @@ public class Utils {
         return initResponse(preconditions);
     }
 
-    public static <T extends EntityDN> ResponseDN<T> initResponse(Map<String, Boolean> preconditions) {
+    public static <T extends Domain> ResponseDN<T> initResponse(Map<String, Boolean> preconditions) {
         ResponseDN<T> responseDN = new ResponseDN<>();
 
         if (Objects.nonNull(preconditions)) {

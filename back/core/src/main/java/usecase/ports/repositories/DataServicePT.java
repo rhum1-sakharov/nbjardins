@@ -1,10 +1,10 @@
 package usecase.ports.repositories;
 
-import domain.models.EntityDN;
+import domain.models.Domain;
 
 import java.util.Set;
 
-public interface DataServicePT<T extends EntityDN> {
+public interface DataServicePT<T extends Domain> {
 
     T find(String id);
 

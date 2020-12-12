@@ -1,6 +1,6 @@
 package org.rlsv.adatpers.secondaries.mails;
 
-import domain.models.EntityDN;
+import domain.models.Domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class ServerMail extends EntityDN {
+public class ServerMail extends Domain {
 
     String host;
     boolean isAuth;

@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class DemandeDeDevisDN extends EntityDN {
+public class DemandeDeDevisDN extends Domain {
 
     PersonneDN asker;
     String sujet;

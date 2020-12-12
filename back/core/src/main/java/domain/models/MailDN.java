@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class MailDN extends EntityDN {
+public class MailDN extends Domain {
 
      String subject;
      String from;

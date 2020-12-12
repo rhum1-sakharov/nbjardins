@@ -1,6 +1,6 @@
 package domain.response;
 
-import domain.models.EntityDN;
+import domain.models.Domain;
 import lombok.Data;
 import org.apache.commons.collections4.CollectionUtils;
 
@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Data
-public class ResponseDN<T extends EntityDN> {
+public class ResponseDN<T extends Domain> {
 
 
     List<String> errorMessages = new ArrayList<>();

@@ -7,7 +7,7 @@ import java.util.Locale;
 
 @Getter
 @Setter
-public class EntityDN {
+public class Domain {
 
     Locale locale;
 

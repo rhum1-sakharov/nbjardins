@@ -30,7 +30,7 @@ public class DevisController {
         demandeDeDevisDN.setLocale(locale);
         demandeDeDevisDN.setWorker(worker);
 
-        return realiserDevisUE.demanderDevis(demandeDeDevisDN);
+        return realiserDevisUE.execute(demandeDeDevisDN);
     }
 
 
