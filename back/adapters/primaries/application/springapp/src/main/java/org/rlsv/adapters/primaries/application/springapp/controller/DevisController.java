@@ -24,6 +24,7 @@ public class DevisController {
     }
 
 
+
     @PostMapping(value = "/demander-devis")
     public ResponseDN<DemandeDeDevisDN> demanderDevis(@RequestBody DemandeDeDevisDN demandeDeDevisDN, Locale locale) {
 

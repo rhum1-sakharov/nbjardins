@@ -30,15 +30,15 @@ public class Config {
         this.env = env;
 
         Map<String, String> propertiesMap = new HashMap();
-        propertiesMap.put("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
-        propertiesMap.put("javax.persistence.jdbc.url", "jdbc:mysql://localhost:3306/nbjardins?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
-        propertiesMap.put("javax.persistence.jdbc.user", "root");
-        propertiesMap.put("javax.persistence.jdbc.password", "");
-        propertiesMap.put("javax.persistence.jdbc.driver", "com.mysql.cj.jdbc.Driver");
-        propertiesMap.put("hibernate.hikari.connectionTimeout", "20000");
-        propertiesMap.put("hibernate.hikari.minimumIdle", "10");
-        propertiesMap.put("hibernate.hikari.maximumPoolSize", "20");
-        propertiesMap.put("hibernate.hikari.idleTimeout", "300000");
+        propertiesMap.put("hibernate.dialect", env.getProperty("hibernate.dialect"));
+        propertiesMap.put("javax.persistence.jdbc.url", env.getProperty("javax.persistence.jdbc.url"));
+        propertiesMap.put("javax.persistence.jdbc.user", env.getProperty("javax.persistence.jdbc.user"));
+        propertiesMap.put("javax.persistence.jdbc.password", env.getProperty("javax.persistence.jdbc.password"));
+        propertiesMap.put("javax.persistence.jdbc.driver", env.getProperty("javax.persistence.jdbc.driver"));
+        propertiesMap.put("hibernate.hikari.connectionTimeout", env.getProperty("hibernate.hikari.connectionTimeout"));
+        propertiesMap.put("hibernate.hikari.minimumIdle", env.getProperty("hibernate.hikari.minimumIdle"));
+        propertiesMap.put("hibernate.hikari.maximumPoolSize", env.getProperty("hibernate.hikari.maximumPoolSize"));
+        propertiesMap.put("hibernate.hikari.idleTimeout", env.getProperty("hibernate.hikari.idleTimeout"));
         JpaConfig.persistenceConfig = new PersistenceConfig("PERSISTENCE_UNIT_NB_JARDINS", propertiesMap);
 
     }
