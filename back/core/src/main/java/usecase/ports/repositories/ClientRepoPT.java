@@ -1,6 +1,9 @@
 package usecase.ports.repositories;
 
-public interface ClientRepoPT extends DataServicePT {
+import domain.models.PersonneDN;
 
+public interface ClientRepoPT {
+
+    PersonneDN save(PersonneDN personneDN);
 
 }

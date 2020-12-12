@@ -9,6 +9,7 @@ import java.util.Locale;
 @Setter
 public class Domain {
 
+    String id;
     Locale locale;
 
 }
