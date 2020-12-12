@@ -1,9 +1,4 @@
 .idea/*
-.idea/vcs.xml
-.idea/*.xml
-.idea/*.iml
-.idea/workspace.xml
-.idea
 application/springapp/src/main/resoures/application.properties
 */target
 ### Java template 
