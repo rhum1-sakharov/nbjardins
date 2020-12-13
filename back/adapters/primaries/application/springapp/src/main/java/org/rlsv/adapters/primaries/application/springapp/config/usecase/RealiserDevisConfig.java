@@ -3,7 +3,6 @@ package org.rlsv.adapters.primaries.application.springapp.config.usecase;
 import domain.models.PersonneDN;
 import domain.models.VilleDN;
 import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.ClientRepoAR;
-import org.rlsv.adatpers.secondaries.mails.ServerMail;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
@@ -20,15 +19,9 @@ public class RealiserDevisConfig {
     Environment env;
 
 
-    ServerMail serverMail;
-
-
-    public RealiserDevisConfig(Environment env, ServerMail serverMail) {
+    public RealiserDevisConfig(Environment env) {
         this.env = env;
-        this.serverMail = serverMail;
     }
-
-
 
 
     @Bean
