@@ -2,9 +2,6 @@ package org.rlsv.adapters.primaries.application.springapp.config;
 
 import domain.models.PersonneDN;
 import domain.models.VilleDN;
-import org.rlsv.adapters.secondaries.dataproviderjpa.config.JpaConfig;
-import org.rlsv.adapters.secondaries.dataproviderjpa.config.PersistenceConfig;
-import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.ClientRepoAR;
 import org.rlsv.adapters.secondaries.localization.LocalizeResourceBundleAR;
 import org.rlsv.adatpers.secondaries.mails.ServerMail;
 import org.rlsv.adatpers.secondaries.mails.springmail.SpringMailDevisAR;
@@ -14,10 +11,6 @@ import org.springframework.core.env.Environment;
 import usecase.devis.RealiserDevisUE;
 import usecase.ports.localization.LocalizeServicePT;
 import usecase.ports.mails.MailDevisServicePT;
-import usecase.ports.repositories.ClientRepoPT;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Configuration
 public class Config {
@@ -26,20 +19,7 @@ public class Config {
     Environment env;
 
     public Config(Environment env) {
-
-        this.env = env;
-
-        Map<String, String> propertiesMap = new HashMap();
-        propertiesMap.put("hibernate.dialect", env.getProperty("hibernate.dialect"));
-        propertiesMap.put("javax.persistence.jdbc.url", env.getProperty("javax.persistence.jdbc.url"));
-        propertiesMap.put("javax.persistence.jdbc.user", env.getProperty("javax.persistence.jdbc.user"));
-        propertiesMap.put("javax.persistence.jdbc.password", env.getProperty("javax.persistence.jdbc.password"));
-        propertiesMap.put("javax.persistence.jdbc.driver", env.getProperty("javax.persistence.jdbc.driver"));
-        propertiesMap.put("hibernate.hikari.connectionTimeout", env.getProperty("hibernate.hikari.connectionTimeout"));
-        propertiesMap.put("hibernate.hikari.minimumIdle", env.getProperty("hibernate.hikari.minimumIdle"));
-        propertiesMap.put("hibernate.hikari.maximumPoolSize", env.getProperty("hibernate.hikari.maximumPoolSize"));
-        propertiesMap.put("hibernate.hikari.idleTimeout", env.getProperty("hibernate.hikari.idleTimeout"));
-        JpaConfig.persistenceConfig = new PersistenceConfig("PERSISTENCE_UNIT_NB_JARDINS", propertiesMap);
+       this.env = env;
 
     }
 
@@ -51,10 +31,10 @@ public class Config {
         return new LocalizeResourceBundleAR();
     }
 
-    @Bean
-    public ClientRepoPT clientRepoPT() {
-        return new ClientRepoAR();
-    }
+//    @Bean
+//    public ClientRepoPT clientRepoPT() {
+//        return null;
+//    }
 
 
     @Bean
@@ -63,8 +43,8 @@ public class Config {
     }
 
     @Bean
-    public RealiserDevisUE realiserDevis(MailDevisServicePT mailDevisServicePT, LocalizeServicePT localizeServicePT, ClientRepoPT clientRepoPT) {
-        return new RealiserDevisUE(mailDevisServicePT, localizeServicePT, clientRepoPT);
+    public RealiserDevisUE realiserDevis(MailDevisServicePT mailDevisServicePT, LocalizeServicePT localizeServicePT) {
+        return new RealiserDevisUE(mailDevisServicePT, localizeServicePT);
     }
 
     @Bean
