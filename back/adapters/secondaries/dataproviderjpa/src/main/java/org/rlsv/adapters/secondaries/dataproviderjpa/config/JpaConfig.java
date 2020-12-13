@@ -2,6 +2,8 @@ package org.rlsv.adapters.secondaries.dataproviderjpa.config;
 
 import lombok.Getter;
 import org.hibernate.jpa.HibernatePersistenceProvider;
+import org.rlsv.adapters.secondaries.dataproviderjpa.entities.ClientEY;
+import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Entity;
 
 import javax.persistence.*;
 import javax.persistence.spi.ClassTransformer;
@@ -79,7 +81,7 @@ public class JpaConfig {
 
             @Override
             public List<URL> getJarFileUrls() {
-                return  Collections.emptyList();
+                return Collections.emptyList();
             }
 
             @Override
@@ -89,7 +91,12 @@ public class JpaConfig {
 
             @Override
             public List<String> getManagedClassNames() {
-                return Collections.emptyList();
+
+                List<String> managedList = new ArrayList<>();
+                managedList.add(ClientEY.class.getCanonicalName());
+                managedList.add(Entity.class.getCanonicalName());
+
+                return managedList;
             }
 
             @Override
