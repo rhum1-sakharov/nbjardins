@@ -1,12 +1,14 @@
 package usecase.devis;
 
 import domain.models.DemandeDeDevisDN;
+import domain.models.PersonneDN;
 import domain.response.ResponseDN;
 import domain.utils.Utils;
 import org.apache.commons.lang3.StringUtils;
 import usecase.IUsecase;
 import usecase.ports.localization.LocalizeServicePT;
 import usecase.ports.mails.MailDevisServicePT;
+import usecase.ports.repositories.ClientRepoPT;
 
 import java.text.MessageFormat;
 import java.util.HashMap;
@@ -18,11 +20,12 @@ public final class RealiserDevisUE implements IUsecase<DemandeDeDevisDN> {
 
     private final MailDevisServicePT mailDevisServicePT;
     private final LocalizeServicePT localizeServicePT;
-//    private final ClientRepoPT clientRepoPT;
+    private final ClientRepoPT clientRepoPT;
 
-    public RealiserDevisUE(final MailDevisServicePT mailDevisServicePT, LocalizeServicePT localizeServicePT) {
+    public RealiserDevisUE(final MailDevisServicePT mailDevisServicePT, LocalizeServicePT localizeServicePT, ClientRepoPT clientRepoPT) {
         this.mailDevisServicePT = mailDevisServicePT;
         this.localizeServicePT = localizeServicePT;
+        this.clientRepoPT = clientRepoPT;
 
     }
 
@@ -43,7 +46,7 @@ public final class RealiserDevisUE implements IUsecase<DemandeDeDevisDN> {
         if (!responseDN.hasError()) {
 
             // enregistrer le client
-//            saveClient(instance.getAsker());
+            saveClient(instance.getAsker());
 
             // envoyer la demande de devis à l'artisan
             responseDN = sendToWorker(responseDN, workerLocale);
@@ -62,9 +65,9 @@ public final class RealiserDevisUE implements IUsecase<DemandeDeDevisDN> {
         return responseDN;
     }
 
-//    private void saveClient(PersonneDN client){
-//        clientRepoPT.save(client);
-//    }
+    private void saveClient(PersonneDN client) {
+        clientRepoPT.save(client);
+    }
 
     private ResponseDN<DemandeDeDevisDN> sendToWorker(ResponseDN<DemandeDeDevisDN> demandeDeDevisResponseDN, Locale workerLocale) {
 
@@ -83,6 +86,6 @@ public final class RealiserDevisUE implements IUsecase<DemandeDeDevisDN> {
         demandeDeDevisDN.setSujet(sujet);
 
 
-        return  mailDevisServicePT.sendAcknowledgementToSender(demandeDeDevisDN);
+        return mailDevisServicePT.sendAcknowledgementToSender(demandeDeDevisDN);
     }
 }

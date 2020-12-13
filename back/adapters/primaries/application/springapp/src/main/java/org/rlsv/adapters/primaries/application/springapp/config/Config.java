@@ -2,6 +2,7 @@ package org.rlsv.adapters.primaries.application.springapp.config;
 
 import domain.models.PersonneDN;
 import domain.models.VilleDN;
+import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.ClientRepoAR;
 import org.rlsv.adapters.secondaries.localization.LocalizeResourceBundleAR;
 import org.rlsv.adatpers.secondaries.mails.ServerMail;
 import org.rlsv.adatpers.secondaries.mails.springmail.SpringMailDevisAR;
@@ -11,6 +12,7 @@ import org.springframework.core.env.Environment;
 import usecase.devis.RealiserDevisUE;
 import usecase.ports.localization.LocalizeServicePT;
 import usecase.ports.mails.MailDevisServicePT;
+import usecase.ports.repositories.ClientRepoPT;
 
 @Configuration
 public class Config {
@@ -20,10 +22,7 @@ public class Config {
 
     public Config(Environment env) {
        this.env = env;
-
     }
-
-
 
 
     @Bean
@@ -31,10 +30,10 @@ public class Config {
         return new LocalizeResourceBundleAR();
     }
 
-//    @Bean
-//    public ClientRepoPT clientRepoPT() {
-//        return null;
-//    }
+    @Bean
+    public ClientRepoPT clientRepoPT() {
+        return new ClientRepoAR();
+    }
 
 
     @Bean
@@ -43,8 +42,8 @@ public class Config {
     }
 
     @Bean
-    public RealiserDevisUE realiserDevis(MailDevisServicePT mailDevisServicePT, LocalizeServicePT localizeServicePT) {
-        return new RealiserDevisUE(mailDevisServicePT, localizeServicePT);
+    public RealiserDevisUE realiserDevis(MailDevisServicePT mailDevisServicePT, LocalizeServicePT localizeServicePT, ClientRepoPT clientRepoPT) {
+        return new RealiserDevisUE(mailDevisServicePT, localizeServicePT, clientRepoPT);
     }
 
     @Bean

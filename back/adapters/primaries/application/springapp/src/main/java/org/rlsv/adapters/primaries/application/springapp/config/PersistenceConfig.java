@@ -1,10 +1,12 @@
 package org.rlsv.adapters.primaries.application.springapp.config;
 
+import org.rlsv.adapters.secondaries.dataproviderjpa.config.JpaConfig;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
 import java.util.HashMap;
 import java.util.Map;
+
 
 @Configuration
 public class PersistenceConfig {
@@ -25,7 +27,7 @@ public class PersistenceConfig {
         propertiesMap.put("hibernate.hikari.minimumIdle", env.getProperty("hibernate.hikari.minimumIdle"));
         propertiesMap.put("hibernate.hikari.maximumPoolSize", env.getProperty("hibernate.hikari.maximumPoolSize"));
         propertiesMap.put("hibernate.hikari.idleTimeout", env.getProperty("hibernate.hikari.idleTimeout"));
-//        JpaConfig.persistenceConfig = new org.rlsv.adapters.secondaries.dataproviderjpa.config.PersistenceConfig("PERSISTENCE_UNIT_NB_JARDINS", propertiesMap);
+        JpaConfig.persistenceConfig = new org.rlsv.adapters.secondaries.dataproviderjpa.config.PersistenceConfig("PERSISTENCE_UNIT_NB_JARDINS", propertiesMap);
 
     }
 

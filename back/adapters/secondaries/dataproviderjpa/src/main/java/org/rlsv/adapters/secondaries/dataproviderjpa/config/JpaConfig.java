@@ -8,8 +8,6 @@ import javax.persistence.spi.ClassTransformer;
 import javax.persistence.spi.PersistenceUnitInfo;
 import javax.persistence.spi.PersistenceUnitTransactionType;
 import javax.sql.DataSource;
-import java.io.IOException;
-import java.io.UncheckedIOException;
 import java.net.URL;
 import java.util.*;
 
@@ -17,7 +15,7 @@ import java.util.*;
 public class JpaConfig {
 
     @Getter
-    private  static EntityManager entityManager;
+    private static EntityManager entityManager;
 
     private static EntityManagerFactory entityManagerFactory;
 
@@ -43,6 +41,7 @@ public class JpaConfig {
 
         this.entityManagerFactory = new HibernatePersistenceProvider().createContainerEntityManagerFactory(persistenceUnitInfo(puName), mapPersistenceConfig);
         this.entityManager = this.entityManagerFactory.createEntityManager();
+
     }
 
 
@@ -80,13 +79,7 @@ public class JpaConfig {
 
             @Override
             public List<URL> getJarFileUrls() {
-                try {
-                    return Collections.list(this.getClass()
-                            .getClassLoader()
-                            .getResources(""));
-                } catch (IOException e) {
-                    throw new UncheckedIOException(e);
-                }
+                return  Collections.emptyList();
             }
 
             @Override
