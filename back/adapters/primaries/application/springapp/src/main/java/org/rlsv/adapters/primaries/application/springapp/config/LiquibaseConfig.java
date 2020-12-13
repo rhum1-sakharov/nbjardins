@@ -5,8 +5,10 @@ import org.rlsv.adapters.secondaries.dataproviderjpa.config.JpaConfig;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 
 import javax.sql.DataSource;
+
 
 @Configuration
 public class LiquibaseConfig {
@@ -22,6 +24,7 @@ public class LiquibaseConfig {
 
 
     @Bean
+    @DependsOn("persistenceConfig")
     public SpringLiquibase liquibase() {
         SpringLiquibase liquibase = new SpringLiquibase();
         liquibase.setChangeLog("classpath:liquibase/liquibase-changelog.xml");
