@@ -8,6 +8,7 @@ import {MDemandeDeDevis} from "../core/models/m-demande-de-devis";
 import {DemandeDeDevisService} from "../core/services/metiers/demande-de-devis.service";
 import {MPersonne} from "../core/models/m-personne";
 import {LoadingService} from "../core/services/techniques/loading.service";
+import {faSync} from "@fortawesome/free-solid-svg-icons/faSync";
 
 @Component({
   selector: 'app-demande-de-devis',
@@ -19,6 +20,7 @@ export class DemandeDeDevisComponent implements OnInit {
   villes: MVille[];
 
   form: FormGroup;
+  faSync = faSync;
 
   constructor(private villesSvc: VillesService,
               public validatorsSvc: ValidatorsService,
@@ -57,7 +59,7 @@ export class DemandeDeDevisComponent implements OnInit {
   }
 
   onSubmit() {
-    // if (this.form.valid) {
+    if (this.form.valid) {
 
       const nom = this.form.get('nomCtl').value;
       const prenom = this.form.get('prenomCtl').value;
@@ -79,10 +81,10 @@ export class DemandeDeDevisComponent implements OnInit {
       });
 
 
-    // } else {
-    //
-    //   this.toasterSvc.showMsg(MSG_KEY.ROOT, MSG_SEVERITY.WARN, 'Veuillez renseigner les champs obligatoires.');
-    // }
+    } else {
+
+      this.toasterSvc.showMsg(MSG_KEY.ROOT, MSG_SEVERITY.WARN, 'Veuillez renseigner les champs obligatoires.');
+    }
   }
 
 }

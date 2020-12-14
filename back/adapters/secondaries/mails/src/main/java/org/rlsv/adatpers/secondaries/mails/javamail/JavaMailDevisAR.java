@@ -3,6 +3,7 @@ package org.rlsv.adatpers.secondaries.mails.javamail;
 import com.sun.mail.smtp.SMTPTransport;
 import domain.models.DemandeDeDevisDN;
 import domain.models.MailDN;
+import domain.response.RequestDN;
 import domain.response.ResponseDN;
 import org.rlsv.adatpers.secondaries.mails.AbstractMail;
 import org.rlsv.adatpers.secondaries.mails.ServerMail;
@@ -85,12 +86,12 @@ public class JavaMailDevisAR extends AbstractMail implements MailDevisServicePT 
     }
 
     @Override
-    public ResponseDN<DemandeDeDevisDN> sendToWorker(DemandeDeDevisDN demandeDeDevisDN) {
+    public ResponseDN<DemandeDeDevisDN> sendToWorker(RequestDN<DemandeDeDevisDN> request) {
         return null;
     }
 
     @Override
-    public ResponseDN<DemandeDeDevisDN> sendAcknowledgementToSender(DemandeDeDevisDN demandeDeDevisDN) {
+    public ResponseDN<DemandeDeDevisDN> sendAcknowledgementToSender(RequestDN<DemandeDeDevisDN> request) {
         return null;
     }
 

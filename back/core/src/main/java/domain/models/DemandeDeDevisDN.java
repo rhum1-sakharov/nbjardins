@@ -12,6 +12,4 @@ public class DemandeDeDevisDN extends Domain {
     PersonneDN asker;
     String sujet;
     String message;
-    String application;
-    PersonneDN worker;
 }

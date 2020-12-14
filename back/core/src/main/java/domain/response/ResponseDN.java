@@ -16,6 +16,7 @@ public class ResponseDN<T extends Domain> {
     List<T> resultList = new ArrayList<>();
     T one;
     String message = "";
+    boolean error=false;
 
     public void addErrorMessage(String message) {
 
@@ -39,8 +40,9 @@ public class ResponseDN<T extends Domain> {
         }
     }
 
-    public boolean hasError() {
+    public boolean isError() {
         return CollectionUtils.isNotEmpty(this.errorMessages);
     }
+
 
 }

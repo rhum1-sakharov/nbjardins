@@ -14,6 +14,6 @@ export class DemandeDeDevisService {
   }
 
   send(demandeDeDevis: MDemandeDeDevis) {
-    return this.httpSvc.post(URL_POST_DEVIS_DEMANDER_DEVIS,demandeDeDevis);
+    return this.httpSvc.post(URL_POST_DEVIS_DEMANDER_DEVIS, demandeDeDevis, null, true);
   }
 }

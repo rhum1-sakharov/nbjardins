@@ -2,6 +2,7 @@ package usecase.devis;
 
 import domain.models.DemandeDeDevisDN;
 import domain.models.PersonneDN;
+import domain.response.RequestDN;
 import domain.response.ResponseDN;
 import domain.utils.Utils;
 import org.apache.commons.lang3.StringUtils;
@@ -30,37 +31,39 @@ public final class RealiserDevisUE implements IUsecase<DemandeDeDevisDN> {
     }
 
     @Override
-    public ResponseDN<DemandeDeDevisDN> execute(DemandeDeDevisDN instance) {
-        Locale currentLocale = instance.getLocale();
-        Locale workerLocale = localizeServicePT.getWorkerLocale();
+    public ResponseDN<DemandeDeDevisDN> execute(RequestDN<DemandeDeDevisDN> request) {
+        Locale currentLocale = request.getLocale();
+
+
+        DemandeDeDevisDN demandeDeDevisDN = request.getOne();
 
         Map<String, Boolean> preconditions = new HashMap<>();
-        preconditions.put(localizeServicePT.getMsg("prenom.obligatoire", currentLocale), Objects.isNull(instance.getAsker().getPrenom()));
-        preconditions.put(localizeServicePT.getMsg("nom.obligatoire", currentLocale), Objects.isNull(instance.getAsker().getNom()));
-        preconditions.put(localizeServicePT.getMsg("email.obligatoire", currentLocale), Objects.isNull(instance.getAsker().getEmail()));
-        preconditions.put(localizeServicePT.getMsg("devis.message.obligatoire", currentLocale), Objects.isNull(instance.getMessage()));
+        preconditions.put(localizeServicePT.getMsg("prenom.obligatoire", currentLocale), Objects.isNull(demandeDeDevisDN.getAsker().getPrenom()));
+        preconditions.put(localizeServicePT.getMsg("nom.obligatoire", currentLocale), Objects.isNull(demandeDeDevisDN.getAsker().getNom()));
+        preconditions.put(localizeServicePT.getMsg("email.obligatoire", currentLocale), Objects.isNull(demandeDeDevisDN.getAsker().getEmail()));
+        preconditions.put(localizeServicePT.getMsg("devis.message.obligatoire", currentLocale), Objects.isNull(demandeDeDevisDN.getMessage()));
 
         ResponseDN<DemandeDeDevisDN> responseDN = Utils.initResponse(preconditions);
-        responseDN.setOne(instance);
+        responseDN.setOne(demandeDeDevisDN);
 
-        if (!responseDN.hasError()) {
+        if (!responseDN.isError()) {
 
             // enregistrer le client
-            saveClient(instance.getAsker());
+            saveClient(demandeDeDevisDN.getAsker());
 
             // envoyer la demande de devis à l'artisan
-            responseDN = sendToWorker(responseDN, workerLocale);
+            responseDN = sendToWorker(request);
 
 
-            if (!responseDN.hasError()) {
+            if (!responseDN.isError()) {
                 // envoyer l'accusé réception au client
-                responseDN = sendAcknowledgementToSender(responseDN, currentLocale);
+                responseDN = sendAcknowledgementToSender(request);
 
             }
 
         }
 
-        responseDN.setOne(instance);
+        responseDN.setOne(demandeDeDevisDN);
 
         return responseDN;
     }
@@ -69,23 +72,24 @@ public final class RealiserDevisUE implements IUsecase<DemandeDeDevisDN> {
         clientRepoPT.save(client);
     }
 
-    private ResponseDN<DemandeDeDevisDN> sendToWorker(ResponseDN<DemandeDeDevisDN> demandeDeDevisResponseDN, Locale workerLocale) {
-
-        DemandeDeDevisDN demandeDeDevisDN = demandeDeDevisResponseDN.getOne();
+    private ResponseDN<DemandeDeDevisDN> sendToWorker(RequestDN<DemandeDeDevisDN> wrapper) {
+        Locale workerLocale = localizeServicePT.getWorkerLocale();
+        DemandeDeDevisDN demandeDeDevisDN = wrapper.getOne();
         String sujet = MessageFormat.format(localizeServicePT.getMsg("sujet.devis", workerLocale), StringUtils.capitalize(demandeDeDevisDN.getAsker().getPrenom().toLowerCase()), StringUtils.capitalize(demandeDeDevisDN.getAsker().getNom().toLowerCase()));
         demandeDeDevisDN.setSujet(sujet);
         demandeDeDevisDN.setLocale(workerLocale);
 
-        return mailDevisServicePT.sendToWorker(demandeDeDevisDN);
+        return mailDevisServicePT.sendToWorker(wrapper);
     }
 
-    private ResponseDN<DemandeDeDevisDN> sendAcknowledgementToSender(ResponseDN<DemandeDeDevisDN> demandeDeDevisResponseDN, Locale workerLocale) {
+    private ResponseDN<DemandeDeDevisDN> sendAcknowledgementToSender(RequestDN<DemandeDeDevisDN> wrapper) {
 
-        DemandeDeDevisDN demandeDeDevisDN = demandeDeDevisResponseDN.getOne();
-        String sujet = MessageFormat.format(localizeServicePT.getMsg("ack.devis", workerLocale), demandeDeDevisDN.getApplication());
+        DemandeDeDevisDN demandeDeDevisDN = wrapper.getOne();
+        String sujet = MessageFormat.format(localizeServicePT.getMsg("ack.devis", localizeServicePT.getWorkerLocale()), wrapper.getApplication());
         demandeDeDevisDN.setSujet(sujet);
+        wrapper.setOne(demandeDeDevisDN);
 
 
-        return mailDevisServicePT.sendAcknowledgementToSender(demandeDeDevisDN);
+        return mailDevisServicePT.sendAcknowledgementToSender(wrapper);
     }
 }

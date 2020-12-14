@@ -137,11 +137,12 @@
           <table>
             <tr>
               <td>
-                <button pButton pRipple type="submit" [icon]="loadingSvc.loading ? 'fas fa-sync fa-spin':'' "
+                <button pButton pRipple type="submit"
+                        [disabled]="loadingSvc.loading"
                         label="Envoyer" class="p-button-rounded"></button>
               </td>
               <td width="34">
-                {{loadingSvc.loading}}
+                <fa-icon *ngIf="loadingSvc.loading" [icon]="faSync"  [spin]="true" class="mg-l-5" ></fa-icon>
               </td>
             </tr>
           </table>

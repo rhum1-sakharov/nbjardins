@@ -2,6 +2,8 @@ package org.rlsv.adatpers.secondaries.mails.springmail;
 
 import domain.models.DemandeDeDevisDN;
 import domain.models.MailDN;
+import domain.models.PersonneDN;
+import domain.response.RequestDN;
 import domain.response.ResponseDN;
 import org.rlsv.adatpers.secondaries.mails.AbstractMail;
 import org.rlsv.adatpers.secondaries.mails.ServerMail;
@@ -76,16 +78,25 @@ public class SpringMailDevisAR extends AbstractMail implements MailDevisServiceP
     }
 
     @Override
-    public ResponseDN<DemandeDeDevisDN> sendToWorker(DemandeDeDevisDN demandeDeDevisDN) {
-        return prepareAndSend(demandeDeDevisDN, demandeDeDevisDN.getAsker().getEmail(), demandeDeDevisDN.getWorker().getEmail(), TemplateLocation.DEMANDE_DEVIS_TO_WORKER);
+    public ResponseDN<DemandeDeDevisDN> sendToWorker(RequestDN<DemandeDeDevisDN> request) {
+
+        DemandeDeDevisDN demandeDeDevisDN = request.getOne();
+        PersonneDN worker = (PersonneDN) request.getAdditionalProperties().get("worker");
+
+        return prepareAndSend(demandeDeDevisDN, demandeDeDevisDN.getAsker().getEmail(), worker.getEmail(), TemplateLocation.DEMANDE_DEVIS_TO_WORKER, worker, request.getApplication());
     }
 
     @Override
-    public ResponseDN<DemandeDeDevisDN> sendAcknowledgementToSender(DemandeDeDevisDN demandeDeDevisDN) {
-        return prepareAndSend(demandeDeDevisDN, demandeDeDevisDN.getWorker().getEmail(), demandeDeDevisDN.getAsker().getEmail(), TemplateLocation.ACKNOWLEDGEMENT_DEMANDE_DEVIS_TO_SENDER);
+    public ResponseDN<DemandeDeDevisDN> sendAcknowledgementToSender(RequestDN<DemandeDeDevisDN> request) {
+
+        DemandeDeDevisDN demandeDeDevisDN = request.getOne();
+        PersonneDN worker = (PersonneDN) request.getAdditionalProperties().get("worker");
+        String application = request.getApplication();
+
+        return prepareAndSend(demandeDeDevisDN, worker.getEmail(), demandeDeDevisDN.getAsker().getEmail(), TemplateLocation.ACKNOWLEDGEMENT_DEMANDE_DEVIS_TO_SENDER, worker, application);
     }
 
-    private ResponseDN<DemandeDeDevisDN> prepareAndSend(DemandeDeDevisDN demandeDeDevisDN, String emailEmetteur, String emailDestinataire, TemplateLocation templateLocation) {
+    private ResponseDN<DemandeDeDevisDN> prepareAndSend(DemandeDeDevisDN demandeDeDevisDN, String emailEmetteur, String emailDestinataire, TemplateLocation templateLocation, PersonneDN worker, String application) {
 
         ResponseDN<DemandeDeDevisDN> demandeDeDevisResponseDN = new ResponseDN<>();
         demandeDeDevisResponseDN.setOne(demandeDeDevisDN);
@@ -95,7 +106,7 @@ public class SpringMailDevisAR extends AbstractMail implements MailDevisServiceP
             messageHelper.setFrom(emailEmetteur);
             messageHelper.setTo(emailDestinataire);
             messageHelper.setSubject(demandeDeDevisDN.getSujet());
-            String content = buildDemandeDeDevis(demandeDeDevisDN, templateLocation);
+            String content = buildDemandeDeDevis(demandeDeDevisDN, templateLocation, worker, application);
             messageHelper.setText(content, true);
 
         };
@@ -110,12 +121,12 @@ public class SpringMailDevisAR extends AbstractMail implements MailDevisServiceP
         return demandeDeDevisResponseDN;
     }
 
-    private String buildDemandeDeDevis(DemandeDeDevisDN demandeDeDevisDN, TemplateLocation templateLocation) {
+    private String buildDemandeDeDevis(DemandeDeDevisDN demandeDeDevisDN, TemplateLocation templateLocation, PersonneDN worker, String application) {
 
         Context context = new Context();
         context.setVariable("asker", demandeDeDevisDN.getAsker());
-        context.setVariable("worker", demandeDeDevisDN.getWorker());
-        context.setVariable("application", demandeDeDevisDN.getApplication());
+        context.setVariable("worker", worker);
+        context.setVariable("application", application);
         context.setVariable("resourceUrl", serverMail.getResourceUrl());
 
         switch (templateLocation) {
