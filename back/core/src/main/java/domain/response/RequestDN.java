@@ -12,9 +12,6 @@ public class RequestDN<T extends Domain> {
     T one;
     Locale locale;
     String application;
-    Map<String,Object> additionalProperties = new HashMap<>();
-
-
-
+    Map<String, Object> additionalProperties = new HashMap<>();
 
 }

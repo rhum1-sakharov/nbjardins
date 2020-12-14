@@ -49,7 +49,7 @@ public final class RealiserDevisUE implements IUsecase<DemandeDeDevisDN> {
         if (!responseDN.isError()) {
 
             // enregistrer le client
-            saveClient(demandeDeDevisDN.getAsker());
+            saveAsker(demandeDeDevisDN.getAsker());
 
             // envoyer la demande de devis à l'artisan
             responseDN = sendToWorker(request);
@@ -68,8 +68,8 @@ public final class RealiserDevisUE implements IUsecase<DemandeDeDevisDN> {
         return responseDN;
     }
 
-    private void saveClient(PersonneDN client) {
-        clientRepoPT.save(client);
+    private void saveAsker(PersonneDN asker) {
+        clientRepoPT.save(asker);
     }
 
     private ResponseDN<DemandeDeDevisDN> sendToWorker(RequestDN<DemandeDeDevisDN> wrapper) {
