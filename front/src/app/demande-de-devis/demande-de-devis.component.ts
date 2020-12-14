@@ -6,8 +6,8 @@ import {ValidatorsService} from "../core/services/techniques/validators.service"
 import {MSG_KEY, MSG_SEVERITY, ToasterService} from "../core/services/techniques/toaster.service";
 import {MDemandeDeDevis} from "../core/models/m-demande-de-devis";
 import {DemandeDeDevisService} from "../core/services/metiers/demande-de-devis.service";
-import {TITLE_APP} from "../constants";
 import {MPersonne} from "../core/models/m-personne";
+import {LoadingService} from "../core/services/techniques/loading.service";
 
 @Component({
   selector: 'app-demande-de-devis',
@@ -23,6 +23,7 @@ export class DemandeDeDevisComponent implements OnInit {
   constructor(private villesSvc: VillesService,
               public validatorsSvc: ValidatorsService,
               private demandeDeDevisSvc: DemandeDeDevisService,
+              public loadingSvc:LoadingService,
               private toasterSvc: ToasterService) {
   }
 
@@ -56,7 +57,7 @@ export class DemandeDeDevisComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.form.valid) {
+    // if (this.form.valid) {
 
       const nom = this.form.get('nomCtl').value;
       const prenom = this.form.get('prenomCtl').value;
@@ -68,9 +69,9 @@ export class DemandeDeDevisComponent implements OnInit {
       const email = this.form.get('emailCtl').value;
       const message = this.form.get('messageCtl').value;
 
-      const asker = new MPersonne(nom, prenom, telephone, societe, "", adresse, ville, email);
+      const asker = new MPersonne(nom, prenom, telephone, societe, fonction, adresse, ville, email);
 
-      const demandeDeDevis = new MDemandeDeDevis(asker, null, "", message, TITLE_APP);
+      const demandeDeDevis = new MDemandeDeDevis(asker, null, message);
       this.demandeDeDevisSvc.send(demandeDeDevis).subscribe(response => {
 
         this.toasterSvc.showMsg(MSG_KEY.ROOT, MSG_SEVERITY.SUCCESS, 'Votre demande a été envoyé avec succès. Je vous répondrai sous 48 heures.');
@@ -78,10 +79,10 @@ export class DemandeDeDevisComponent implements OnInit {
       });
 
 
-    } else {
-
-      this.toasterSvc.showMsg(MSG_KEY.ROOT, MSG_SEVERITY.WARN, 'Veuillez renseigner les champs obligatoires.');
-    }
+    // } else {
+    //
+    //   this.toasterSvc.showMsg(MSG_KEY.ROOT, MSG_SEVERITY.WARN, 'Veuillez renseigner les champs obligatoires.');
+    // }
   }
 
 }
