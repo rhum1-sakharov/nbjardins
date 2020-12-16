@@ -18,6 +18,7 @@ public abstract class CleanException extends Exception {
     public CleanException(String message, Throwable cause, String msgKey) {
         super(message, cause);
         this.msgKey = msgKey;
+
     }
 
     public CleanException(String message, Throwable cause, String msgKey, String[] args) {

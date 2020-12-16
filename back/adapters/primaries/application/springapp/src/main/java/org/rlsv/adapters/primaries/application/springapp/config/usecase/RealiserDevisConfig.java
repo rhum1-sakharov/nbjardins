@@ -1,5 +1,6 @@
 package org.rlsv.adapters.primaries.application.springapp.config.usecase;
 
+import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.DemandeDeDevisRepoAR;
 import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.PersonneRepoAR;
 import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.PersonneRoleRepoAR;
 import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.RoleRepoAR;
@@ -10,6 +11,7 @@ import org.springframework.core.env.Environment;
 import usecase.devis.DemandeDeDevisUE;
 import usecase.ports.localization.LocalizeServicePT;
 import usecase.ports.mails.MailDevisServicePT;
+import usecase.ports.repositories.DemandeDeDevisRepoPT;
 import usecase.ports.repositories.PersonneRepoPT;
 import usecase.ports.repositories.PersonneRoleRepoPT;
 import usecase.ports.repositories.RoleRepoPT;
@@ -36,6 +38,12 @@ public class RealiserDevisConfig {
         return new RoleRepoAR();
     }
 
+    @Bean
+    @DependsOn("persistenceConfig")
+    public DemandeDeDevisRepoPT demandeDeDevisRepoPT(PersonneRepoPT personneRepo) {
+        return new DemandeDeDevisRepoAR(personneRepo);
+    }
+
 
     @Bean
     @DependsOn("persistenceConfig")
@@ -45,8 +53,8 @@ public class RealiserDevisConfig {
 
 
     @Bean
-    public DemandeDeDevisUE realiserDevis(MailDevisServicePT mailDevisServicePT, LocalizeServicePT localizeServicePT, PersonneRepoPT personneRepoPT, PersonneRoleRepoPT personneRoleRepoPT) {
-        return new DemandeDeDevisUE(mailDevisServicePT, localizeServicePT, personneRepoPT, personneRoleRepoPT);
+    public DemandeDeDevisUE realiserDevis(MailDevisServicePT mailDevisService, LocalizeServicePT localizeService, PersonneRepoPT personneRepo, PersonneRoleRepoPT personneRoleRepo, DemandeDeDevisRepoPT demandeDeDevisRepo) {
+        return new DemandeDeDevisUE(mailDevisService, localizeService, personneRepo, personneRoleRepo,demandeDeDevisRepo);
     }
 
 

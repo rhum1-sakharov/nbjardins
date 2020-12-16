@@ -8,6 +8,7 @@ public class MessageKeys {
     public static final String DEVIS_MESSAGE_OBLIGATOIRE = "devis.message.obligatoire";
     public static final String EMAIL_OBLIGATOIRE = "email.obligatoire";
     public static final String JPA_ERREUR_SAUVEGARDE_CLIENT = "jpa.erreur.sauvegarde.client";
+    public static final String JPA_ERREUR_SAUVEGARDE_DEMANDEDEDEVIS = "jpa.erreur.sauvegarde.demandededevis";
     public static final String MAIL_ERROR = "mail.error";
     public static final String NOM_OBLIGATOIRE = "nom.obligatoire";
     public static final String PRENOM_OBLIGATOIRE = "prenom.obligatoire";

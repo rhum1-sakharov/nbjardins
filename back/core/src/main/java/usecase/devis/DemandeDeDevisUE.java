@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import usecase.IUsecase;
 import usecase.ports.localization.LocalizeServicePT;
 import usecase.ports.mails.MailDevisServicePT;
+import usecase.ports.repositories.DemandeDeDevisRepoPT;
 import usecase.ports.repositories.PersonneRepoPT;
 import usecase.ports.repositories.PersonneRoleRepoPT;
 
@@ -34,12 +35,14 @@ public final class DemandeDeDevisUE implements IUsecase<DemandeDeDevisDN> {
     private final LocalizeServicePT localizeService;
     private final PersonneRepoPT personneRepo;
     private final PersonneRoleRepoPT personneRoleRepo;
+    private final DemandeDeDevisRepoPT demandeDeDevisRepo;
 
-    public DemandeDeDevisUE(final MailDevisServicePT mailDevisService, LocalizeServicePT localizeService, PersonneRepoPT personneRepo, PersonneRoleRepoPT personneRoleRepo) {
+    public DemandeDeDevisUE(final MailDevisServicePT mailDevisService, LocalizeServicePT localizeService, PersonneRepoPT personneRepo, PersonneRoleRepoPT personneRoleRepo, DemandeDeDevisRepoPT demandeDeDevisRepo) {
         this.mailDevisService = mailDevisService;
         this.localizeService = localizeService;
         this.personneRepo = personneRepo;
         this.personneRoleRepo = personneRoleRepo;
+        this.demandeDeDevisRepo = demandeDeDevisRepo;
 
     }
 
@@ -47,6 +50,7 @@ public final class DemandeDeDevisUE implements IUsecase<DemandeDeDevisDN> {
     public ResponseDN<DemandeDeDevisDN> execute(RequestDN<DemandeDeDevisDN> request) {
         Locale currentLocale = request.getLocale();
         DemandeDeDevisDN demandeDeDevisDN = request.getOne();
+
 
         Map<String, Boolean> preconditions = new HashMap<>();
         preconditions.put(localizeService.getMsg(PRENOM_OBLIGATOIRE, currentLocale), Objects.isNull(demandeDeDevisDN.getAsker().getPrenom()));
@@ -61,13 +65,18 @@ public final class DemandeDeDevisUE implements IUsecase<DemandeDeDevisDN> {
 
             try {
 
+                // sujet de la demande de devis
+                String sujet = MessageFormat.format(localizeService.getMsg(SUJET_DEVIS, localizeService.getWorkerLocale()), StringUtils.capitalize(demandeDeDevisDN.getAsker().getPrenom().toLowerCase()), StringUtils.capitalize(demandeDeDevisDN.getAsker().getNom().toLowerCase()));
+                demandeDeDevisDN.setSujet(sujet);
+
                 // recuperer l'artisan et le mettre dans la demande de devis
                 request = addArtisanToDemandeDeDevis(request);
 
                 // enregistrer le client
                 saveClient(demandeDeDevisDN.getAsker());
 
-                //TODO enregistrer la demande de devis
+                //enregistrer la demande de devis
+                saveDemandeDeDevis(request);
 
                 // envoyer la demande de devis à l'artisan
                 responseDN = sendToWorker(request);
@@ -91,12 +100,20 @@ public final class DemandeDeDevisUE implements IUsecase<DemandeDeDevisDN> {
         return responseDN;
     }
 
+    private void saveDemandeDeDevis(RequestDN<DemandeDeDevisDN> request) throws DemandeDeDevisException {
+        try {
+            demandeDeDevisRepo.save(request.getOne());
+        } catch (PersistenceException pe) {
+            throw new DemandeDeDevisException(pe.getMessage(), pe, pe.getMsgKey(), pe.getArgs());
+        }
+    }
+
     private RequestDN<DemandeDeDevisDN> addArtisanToDemandeDeDevis(RequestDN<DemandeDeDevisDN> request) throws DemandeDeDevisException {
         try {
             PersonneDN artisan = personneRepo.findArtisanByApplicationToken(request.getApplication().getToken());
             request.getOne().setWorker(artisan);
             return request;
-        }catch (PersistenceException pe){
+        } catch (PersistenceException pe) {
             throw new DemandeDeDevisException(pe.getMessage(), pe, AUCUN_ARTISAN_APPLICATION, new String[]{request.getApplication().getToken()});
         }
 
@@ -116,8 +133,6 @@ public final class DemandeDeDevisUE implements IUsecase<DemandeDeDevisDN> {
     private ResponseDN<DemandeDeDevisDN> sendToWorker(RequestDN<DemandeDeDevisDN> wrapper) {
         Locale workerLocale = localizeService.getWorkerLocale();
         DemandeDeDevisDN demandeDeDevisDN = wrapper.getOne();
-        String sujet = MessageFormat.format(localizeService.getMsg(SUJET_DEVIS, workerLocale), StringUtils.capitalize(demandeDeDevisDN.getAsker().getPrenom().toLowerCase()), StringUtils.capitalize(demandeDeDevisDN.getAsker().getNom().toLowerCase()));
-        demandeDeDevisDN.setSujet(sujet);
         demandeDeDevisDN.setLocale(workerLocale);
 
         return mailDevisService.sendToWorker(wrapper);
