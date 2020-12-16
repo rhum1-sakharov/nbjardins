@@ -14,11 +14,11 @@ import javax.persistence.Table;
 public class Personne__Role extends Entity {
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "ID_PERSONNE")
+    @JoinColumn(name = "ID_PERSONNE")
     private Personne personne;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "ID_ROLE")
+    @JoinColumn(name = "ID_ROLE")
     private Role role;
 
 }

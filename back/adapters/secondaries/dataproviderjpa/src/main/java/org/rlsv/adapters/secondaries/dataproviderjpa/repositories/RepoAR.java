@@ -31,7 +31,7 @@ public abstract class RepoAR<T extends Entity> {
 
         em.getTransaction().begin();
 
-        if (em.contains(instance)) {
+        if (instance.getId() == null) {
             em.persist(instance);
 
         } else {

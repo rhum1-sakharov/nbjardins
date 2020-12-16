@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class DemandeDeDevisDN extends Domain {
 
     PersonneDN asker;
+    PersonneDN worker;
     String sujet;
     String message;
 }

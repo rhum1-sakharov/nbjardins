@@ -10,12 +10,12 @@ import java.util.Objects;
 
 public class PersonneRepoARTest extends JpaConfigTest {
 
-    ClientRepoAR clientRepoAR;
+    PersonneRepoAR personneRepoAR;
 
     @Before
     public void setUp() {
         super.setUp();
-        this.clientRepoAR = new ClientRepoAR();
+        this.personneRepoAR = new PersonneRepoAR();
     }
 
     @Test
@@ -23,7 +23,7 @@ public class PersonneRepoARTest extends JpaConfigTest {
 
         PersonneDN personneDN = new PersonneDN("romain","vermorellccco","1","1","r","a",null,"emagghil");
 
-        personneDN = this.clientRepoAR.save(personneDN);
+        personneDN = this.personneRepoAR.saveClient(personneDN);
 
         Assertions.assertThat(Objects.nonNull(personneDN)).isTrue();
 

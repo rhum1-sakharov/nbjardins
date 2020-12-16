@@ -98,6 +98,7 @@ public class JpaConfig {
                 managedList.add(DemandeDeDevis.class.getCanonicalName());
                 managedList.add(Personne__Role.class.getCanonicalName());
                 managedList.add(Role.class.getCanonicalName());
+                managedList.add(Application.class.getCanonicalName());
 
                 return managedList;
             }

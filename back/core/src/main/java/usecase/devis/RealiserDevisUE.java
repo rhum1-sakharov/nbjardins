@@ -9,7 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import usecase.IUsecase;
 import usecase.ports.localization.LocalizeServicePT;
 import usecase.ports.mails.MailDevisServicePT;
-import usecase.ports.repositories.ClientRepoPT;
+import usecase.ports.repositories.PersonneRepoPT;
 
 import java.text.MessageFormat;
 import java.util.HashMap;
@@ -21,12 +21,12 @@ public final class RealiserDevisUE implements IUsecase<DemandeDeDevisDN> {
 
     private final MailDevisServicePT mailDevisServicePT;
     private final LocalizeServicePT localizeServicePT;
-    private final ClientRepoPT clientRepoPT;
+    private final PersonneRepoPT personneRepoPT;
 
-    public RealiserDevisUE(final MailDevisServicePT mailDevisServicePT, LocalizeServicePT localizeServicePT, ClientRepoPT clientRepoPT) {
+    public RealiserDevisUE(final MailDevisServicePT mailDevisServicePT, LocalizeServicePT localizeServicePT, PersonneRepoPT personneRepoPT) {
         this.mailDevisServicePT = mailDevisServicePT;
         this.localizeServicePT = localizeServicePT;
-        this.clientRepoPT = clientRepoPT;
+        this.personneRepoPT = personneRepoPT;
 
     }
 
@@ -69,7 +69,7 @@ public final class RealiserDevisUE implements IUsecase<DemandeDeDevisDN> {
     }
 
     private void saveAsker(PersonneDN asker) {
-        clientRepoPT.save(asker);
+        personneRepoPT.saveClient(asker);
     }
 
     private ResponseDN<DemandeDeDevisDN> sendToWorker(RequestDN<DemandeDeDevisDN> wrapper) {

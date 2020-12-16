@@ -169,5 +169,43 @@
         </comment>
     </changeSet>
 
+    <changeSet id="202012161206" author="rvl" >
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="applications"></tableExists>
+            </not>
+        </preConditions>
+        <sql>
+            CREATE TABLE `applications` (
+            `ID` VARCHAR(50) NOT NULL DEFAULT '',
+            `ID_WORKER` VARCHAR(50) NOT NULL,
+            `NOM` VARCHAR(50) NOT NULL,
+            `TOKEN` VARCHAR(50) NOT NULL,
+            PRIMARY KEY (`ID`),
+            INDEX `ID_WORKER` (`ID_WORKER`),
+            UNIQUE INDEX `unique_ID_WORKER_idx` (`ID_WORKER`),
+            UNIQUE INDEX `unique_TOKEN_idx` (`TOKEN`),
+            CONSTRAINT `FK__applications__personnes` FOREIGN KEY (`ID_WORKER`) REFERENCES `personnes` (`ID`) ON UPDATE CASCADE ON DELETE CASCADE
+            )
+            COLLATE='utf8_general_ci'
+            ;
+        </sql>
+        <comment>
+           Créer la table applications
+        </comment>
+    </changeSet>
+
+    <changeSet id="202012161227-1" author="rvl" runAlways="true">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">select count(*) from applications where token='NB_JARDINS'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO `applications` (`ID`, `ID_WORKER`, `NOM`, `TOKEN`) VALUES ('0f2e86da-9c25-4695-b0c5-c3d5a1e47729', '08747d89-0c85-492b-b71a-cb6d244a9a00', 'Les jardins de Nicolas', 'NB_JARDINS');
+        </sql>
+        <comment>
+            Ajouter l'application NB_JARDINS
+        </comment>
+    </changeSet>
+
 
 </databaseChangeLog>

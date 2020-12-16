@@ -3,17 +3,27 @@ package org.rlsv.adapters.secondaries.dataproviderjpa.repositories;
 import domain.models.PersonneDN;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Personne;
 import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.PersonneMapper;
-import usecase.ports.repositories.ClientRepoPT;
+import usecase.ports.repositories.PersonneRepoPT;
 
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.util.Objects;
 
-public class ClientRepoAR extends RepoAR implements ClientRepoPT {
+public class PersonneRepoAR extends RepoAR implements PersonneRepoPT {
 
 
     @Override
-    public PersonneDN save(PersonneDN personneDN) {
+    public PersonneDN findArtisanByApplicationToken(String applicationName) {
+        return null;
+    }
+
+    @Override
+    public PersonneDN findClientByEmail(String email) {
+        return null;
+    }
+
+    @Override
+    public PersonneDN saveClient(PersonneDN personneDN) {
 
         Personne personne = PersonneMapper.INSTANCE.domainToEntity(personneDN);
 
@@ -26,6 +36,11 @@ public class ClientRepoAR extends RepoAR implements ClientRepoPT {
         save(personne);
 
         return PersonneMapper.INSTANCE.entityToDomain(personne);
+    }
+
+    @Override
+    public PersonneDN saveArtisan(PersonneDN personneDN) {
+        return null;
     }
 
 

@@ -2,7 +2,7 @@ package org.rlsv.adapters.primaries.application.springapp.config.usecase;
 
 import domain.models.PersonneDN;
 import domain.models.VilleDN;
-import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.ClientRepoAR;
+import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.PersonneRepoAR;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
@@ -10,7 +10,7 @@ import org.springframework.core.env.Environment;
 import usecase.devis.RealiserDevisUE;
 import usecase.ports.localization.LocalizeServicePT;
 import usecase.ports.mails.MailDevisServicePT;
-import usecase.ports.repositories.ClientRepoPT;
+import usecase.ports.repositories.PersonneRepoPT;
 
 
 @Configuration
@@ -26,16 +26,16 @@ public class RealiserDevisConfig {
 
     @Bean
     @DependsOn("persistenceConfig")
-    public ClientRepoPT clientRepoPT() {
-        return new ClientRepoAR();
+    public PersonneRepoPT clientRepoPT() {
+        return new PersonneRepoAR();
     }
 
 
 
 
     @Bean
-    public RealiserDevisUE realiserDevis(MailDevisServicePT mailDevisServicePT, LocalizeServicePT localizeServicePT, ClientRepoPT clientRepoPT) {
-        return new RealiserDevisUE(mailDevisServicePT, localizeServicePT, clientRepoPT);
+    public RealiserDevisUE realiserDevis(MailDevisServicePT mailDevisServicePT, LocalizeServicePT localizeServicePT, PersonneRepoPT personneRepoPT) {
+        return new RealiserDevisUE(mailDevisServicePT, localizeServicePT, personneRepoPT);
     }
 
     @Bean

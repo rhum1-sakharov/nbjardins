@@ -11,21 +11,17 @@ import javax.persistence.Table;
 @Getter
 @Setter
 @javax.persistence.Entity
-@Table(name="demandes_de_devis")
-public class DemandeDeDevis extends Entity {
+@Table(name="applications")
+public class Application extends Entity {
 
     @ManyToOne
-    @JoinColumn(name = "ID_ASKER")
-    private Personne asker;
-
-    @ManyToOne
-    @JoinColumn(name= "ID_WORKER")
+    @JoinColumn(name = "ID_WORKER")
     private Personne worker;
 
-    @Column(name="SUJET")
-    private String sujet;
+    @Column(name="NOM")
+    private String nom;
 
-    @Column(name="MESSAGE")
-    private String message;
+    @Column(name="TOKEN")
+    private String token;
 
 }
