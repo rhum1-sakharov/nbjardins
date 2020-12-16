@@ -1,4 +1,4 @@
-package domain.response;
+package domain.wrapper;
 
 import domain.models.ApplicationDN;
 import domain.models.Domain;
@@ -9,7 +9,7 @@ import java.util.*;
 @Data
 public class RequestDN<T extends Domain> {
 
-    List<T> resultList = new ArrayList<>();
+    List<T> list = new ArrayList<>();
     T one;
     Locale locale;
     ApplicationDN application;

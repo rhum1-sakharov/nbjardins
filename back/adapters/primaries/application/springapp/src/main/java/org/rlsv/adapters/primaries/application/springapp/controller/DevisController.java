@@ -1,8 +1,8 @@
 package org.rlsv.adapters.primaries.application.springapp.controller;
 
 import domain.models.DemandeDeDevisDN;
-import domain.response.RequestDN;
-import domain.response.ResponseDN;
+import domain.wrapper.RequestDN;
+import domain.wrapper.ResponseDN;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

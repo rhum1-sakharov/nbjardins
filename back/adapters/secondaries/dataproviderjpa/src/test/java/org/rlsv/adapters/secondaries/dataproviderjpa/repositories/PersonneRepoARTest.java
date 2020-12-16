@@ -25,7 +25,7 @@ public class PersonneRepoARTest extends JpaConfigTest {
         PersonneDN personneDN = new PersonneDN("romain", "vermorellccco", "1", "1", "r", "a", "","", "emagghil");
 
         try {
-            personneDN = this.personneRepoAR.save(personneDN);
+            personneDN = this.personneRepoAR.saveClient(personneDN);
         } catch (PersistenceException e) {
             e.printStackTrace();
             Assertions.assertThat(true).isFalse();

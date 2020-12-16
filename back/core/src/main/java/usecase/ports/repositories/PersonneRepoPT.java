@@ -7,7 +7,7 @@ public interface PersonneRepoPT {
 
     PersonneDN findArtisanByApplicationToken(String applicationToken) throws PersistenceException;
 
-    PersonneDN save(PersonneDN personneDN) throws PersistenceException;
+    PersonneDN saveClient(PersonneDN personneDN) throws PersistenceException;
 
     PersonneDN findByEmail(String email) throws PersistenceException;
 

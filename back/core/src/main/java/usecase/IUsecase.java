@@ -1,8 +1,8 @@
 package usecase;
 
 import domain.models.Domain;
-import domain.response.RequestDN;
-import domain.response.ResponseDN;
+import domain.wrapper.RequestDN;
+import domain.wrapper.ResponseDN;
 
 public interface IUsecase<T extends Domain> {
 

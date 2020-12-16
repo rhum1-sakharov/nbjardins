@@ -1,7 +1,7 @@
 package domain.utils;
 
 import domain.models.Domain;
-import domain.response.ResponseDN;
+import domain.wrapper.ResponseDN;
 
 import java.util.HashMap;
 import java.util.Map;

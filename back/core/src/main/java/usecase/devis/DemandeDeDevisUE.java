@@ -5,9 +5,9 @@ import domain.exceptions.DemandeDeDevisException;
 import domain.exceptions.PersistenceException;
 import domain.models.DemandeDeDevisDN;
 import domain.models.PersonneDN;
-import domain.response.RequestDN;
-import domain.response.ResponseDN;
 import domain.utils.Utils;
+import domain.wrapper.RequestDN;
+import domain.wrapper.ResponseDN;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -105,7 +105,7 @@ public final class DemandeDeDevisUE implements IUsecase<DemandeDeDevisDN> {
     private void saveClient(PersonneDN asker) throws DemandeDeDevisException {
 
         try {
-            asker = personneRepo.save(asker);
+            asker = personneRepo.saveClient(asker);
             personneRoleRepo.saveRoleClient(asker);
         } catch (PersistenceException pe) {
             throw new DemandeDeDevisException(pe.getMessage(), pe, pe.getMsgKey(), pe.getArgs());

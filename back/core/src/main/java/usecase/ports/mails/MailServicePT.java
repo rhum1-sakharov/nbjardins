@@ -1,7 +1,7 @@
 package usecase.ports.mails;
 
 import domain.models.MailDN;
-import domain.response.ResponseDN;
+import domain.wrapper.ResponseDN;
 
 public interface MailServicePT {
 

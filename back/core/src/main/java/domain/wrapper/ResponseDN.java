@@ -1,4 +1,4 @@
-package domain.response;
+package domain.wrapper;
 
 import domain.models.Domain;
 import lombok.Data;

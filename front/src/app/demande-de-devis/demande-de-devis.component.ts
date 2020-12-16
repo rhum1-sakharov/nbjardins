@@ -9,6 +9,7 @@ import {DemandeDeDevisService} from "../core/services/metiers/demande-de-devis.s
 import {MPersonne} from "../core/models/m-personne";
 import {LoadingService} from "../core/services/techniques/loading.service";
 import {faSync} from "@fortawesome/free-solid-svg-icons/faSync";
+import {MRequest} from "../core/models/m-request";
 
 @Component({
   selector: 'app-demande-de-devis',
@@ -25,7 +26,7 @@ export class DemandeDeDevisComponent implements OnInit {
   constructor(private villesSvc: VillesService,
               public validatorsSvc: ValidatorsService,
               private demandeDeDevisSvc: DemandeDeDevisService,
-              public loadingSvc:LoadingService,
+              public loadingSvc: LoadingService,
               private toasterSvc: ToasterService) {
   }
 
@@ -73,8 +74,10 @@ export class DemandeDeDevisComponent implements OnInit {
 
       const asker = new MPersonne(nom, prenom, telephone, societe, fonction, adresse, ville, email);
 
-      const demandeDeDevis = new MDemandeDeDevis(asker, null, message);
-      this.demandeDeDevisSvc.send(demandeDeDevis).subscribe(response => {
+      const request: MRequest<MDemandeDeDevis> = new MRequest();
+      request.one = new MDemandeDeDevis(asker, null, message);
+
+      this.demandeDeDevisSvc.send(request).subscribe(response => {
 
         this.toasterSvc.showMsg(MSG_KEY.ROOT, MSG_SEVERITY.SUCCESS, 'Votre demande a été envoyé avec succès. Je vous répondrai sous 48 heures.');
         this.form.reset();

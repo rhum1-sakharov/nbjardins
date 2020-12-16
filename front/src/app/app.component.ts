@@ -1,5 +1,5 @@
 import {AfterViewInit, ChangeDetectorRef, Component} from '@angular/core';
-import {TITLE_APP} from "./constants";
+import {TOKEN_APP} from "./constants";
 import {faEnvelope} from "@fortawesome/free-regular-svg-icons/faEnvelope";
 import {faMobileAlt} from "@fortawesome/free-solid-svg-icons";
 import {faMapMarkerAlt} from "@fortawesome/free-solid-svg-icons/faMapMarkerAlt";
@@ -26,7 +26,7 @@ declare var ol: any;
 })
 export class AppComponent implements AfterViewInit {
 
-  title = TITLE_APP;
+  title = TOKEN_APP;
 
   faEnvelope = faEnvelope;
   faMobile = faMobileAlt;

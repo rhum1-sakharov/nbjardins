@@ -1,6 +1,7 @@
 import {MVille} from "./m-ville";
+import {Model} from "./model";
 
-export class MPersonne {
+export class MPersonne  extends Model {
 
   nom: string;
   prenom: string;
@@ -13,6 +14,7 @@ export class MPersonne {
 
 
   constructor(nom: string, prenom: string, numeroTelephone: string, societe: string, fonction: string, adresse: string, ville: MVille, email: string) {
+    super();
     this.nom = nom;
     this.prenom = prenom;
     this.numeroTelephone = numeroTelephone;

@@ -1,2 +1,2 @@
 
-export const TITLE_APP = "Les jardins de Nicolas Boetsch";
+export const TOKEN_APP = "NB_JARDINS";
