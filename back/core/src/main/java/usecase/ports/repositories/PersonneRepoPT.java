@@ -1,5 +1,6 @@
 package usecase.ports.repositories;
 
+import domain.exceptions.PersistenceException;
 import domain.models.PersonneDN;
 
 public interface PersonneRepoPT {
@@ -8,7 +9,7 @@ public interface PersonneRepoPT {
 
     PersonneDN findClientByEmail(String email);
 
-    PersonneDN saveClient(PersonneDN personneDN);
+    PersonneDN save(PersonneDN personneDN) throws PersistenceException;
 
     PersonneDN saveArtisan(PersonneDN personneDN);
 

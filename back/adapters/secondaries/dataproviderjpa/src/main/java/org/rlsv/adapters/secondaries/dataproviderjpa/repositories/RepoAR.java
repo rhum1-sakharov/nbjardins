@@ -3,6 +3,7 @@ package org.rlsv.adapters.secondaries.dataproviderjpa.repositories;
 import domain.models.Domain;
 import org.rlsv.adapters.secondaries.dataproviderjpa.config.JpaConfig;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Entity;
+import usecase.ports.localization.LocalizeServicePT;
 
 import javax.persistence.EntityManager;
 import java.util.Set;
@@ -10,6 +11,7 @@ import java.util.Set;
 public abstract class RepoAR<T extends Entity> {
 
     protected EntityManager em;
+    protected LocalizeServicePT localizeService;
 
     public RepoAR() {
         JpaConfig jpaConfig = JpaConfig.getSingleton();

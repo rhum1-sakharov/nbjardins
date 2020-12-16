@@ -81,22 +81,24 @@ public class SpringMailDevisAR extends AbstractMail implements MailDevisServiceP
     public ResponseDN<DemandeDeDevisDN> sendToWorker(RequestDN<DemandeDeDevisDN> request) {
 
         DemandeDeDevisDN demandeDeDevisDN = request.getOne();
-        PersonneDN worker = (PersonneDN) request.getAdditionalProperties().get("worker");
+        PersonneDN asker = demandeDeDevisDN.getAsker();
+        PersonneDN worker = demandeDeDevisDN.getWorker();
 
-        return prepareAndSend(demandeDeDevisDN, demandeDeDevisDN.getAsker().getEmail(), worker.getEmail(), TemplateLocation.DEMANDE_DEVIS_TO_WORKER, worker, request.getApplication());
+        return prepareAndSend(demandeDeDevisDN, asker.getEmail(), worker.getEmail(), TemplateLocation.DEMANDE_DEVIS_TO_WORKER,  request.getApplication().getNom());
     }
 
     @Override
     public ResponseDN<DemandeDeDevisDN> sendAcknowledgementToSender(RequestDN<DemandeDeDevisDN> request) {
 
         DemandeDeDevisDN demandeDeDevisDN = request.getOne();
-        PersonneDN worker = (PersonneDN) request.getAdditionalProperties().get("worker");
-        String application = request.getApplication();
+        PersonneDN asker = demandeDeDevisDN.getAsker();
+        PersonneDN worker = demandeDeDevisDN.getWorker();
+        String application = request.getApplication().getNom();
 
-        return prepareAndSend(demandeDeDevisDN, worker.getEmail(), demandeDeDevisDN.getAsker().getEmail(), TemplateLocation.ACKNOWLEDGEMENT_DEMANDE_DEVIS_TO_SENDER, worker, application);
+        return prepareAndSend(demandeDeDevisDN, worker.getEmail(), asker.getEmail(), TemplateLocation.ACKNOWLEDGEMENT_DEMANDE_DEVIS_TO_SENDER,  application);
     }
 
-    private ResponseDN<DemandeDeDevisDN> prepareAndSend(DemandeDeDevisDN demandeDeDevisDN, String emailEmetteur, String emailDestinataire, TemplateLocation templateLocation, PersonneDN worker, String application) {
+    private ResponseDN<DemandeDeDevisDN> prepareAndSend(DemandeDeDevisDN demandeDeDevisDN, String emailEmetteur, String emailDestinataire, TemplateLocation templateLocation,  String application) {
 
         ResponseDN<DemandeDeDevisDN> demandeDeDevisResponseDN = new ResponseDN<>();
         demandeDeDevisResponseDN.setOne(demandeDeDevisDN);
@@ -106,7 +108,7 @@ public class SpringMailDevisAR extends AbstractMail implements MailDevisServiceP
             messageHelper.setFrom(emailEmetteur);
             messageHelper.setTo(emailDestinataire);
             messageHelper.setSubject(demandeDeDevisDN.getSujet());
-            String content = buildDemandeDeDevis(demandeDeDevisDN, templateLocation, worker, application);
+            String content = buildDemandeDeDevis(demandeDeDevisDN, templateLocation, application);
             messageHelper.setText(content, true);
 
         };
@@ -121,11 +123,11 @@ public class SpringMailDevisAR extends AbstractMail implements MailDevisServiceP
         return demandeDeDevisResponseDN;
     }
 
-    private String buildDemandeDeDevis(DemandeDeDevisDN demandeDeDevisDN, TemplateLocation templateLocation, PersonneDN worker, String application) {
+    private String buildDemandeDeDevis(DemandeDeDevisDN demandeDeDevisDN, TemplateLocation templateLocation,  String application) {
 
         Context context = new Context();
         context.setVariable("asker", demandeDeDevisDN.getAsker());
-        context.setVariable("worker", worker);
+        context.setVariable("worker", demandeDeDevisDN.getWorker());
         context.setVariable("application", application);
         context.setVariable("resourceUrl", serverMail.getResourceUrl());
 

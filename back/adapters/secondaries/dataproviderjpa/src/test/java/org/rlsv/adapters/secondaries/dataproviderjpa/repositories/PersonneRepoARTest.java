@@ -1,5 +1,6 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.repositories;
 
+import domain.exceptions.PersistenceException;
 import domain.models.PersonneDN;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
@@ -21,9 +22,14 @@ public class PersonneRepoARTest extends JpaConfigTest {
     @Test
     public void save_should_return_client() {
 
-        PersonneDN personneDN = new PersonneDN("romain","vermorellccco","1","1","r","a",null,"emagghil");
+        PersonneDN personneDN = new PersonneDN("romain", "vermorellccco", "1", "1", "r", "a", null, "emagghil");
 
-        personneDN = this.personneRepoAR.saveClient(personneDN);
+        try {
+            personneDN = this.personneRepoAR.save(personneDN);
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+            Assertions.assertThat(true).isFalse();
+        }
 
         Assertions.assertThat(Objects.nonNull(personneDN)).isTrue();
 
