@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Setter
 @javax.persistence.Entity
 @Table(name="personnes__roles")
-public class Personne__Roles extends Entity {
+public class Personne__Role extends Entity {
 
     @ManyToOne
     @JoinColumn(referencedColumnName = "ID_PERSONNE")

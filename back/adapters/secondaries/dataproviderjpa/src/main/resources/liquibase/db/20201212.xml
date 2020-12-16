@@ -45,6 +45,19 @@
         </comment>
     </changeSet>
 
+    <changeSet id="202012160956" author="rvl" >
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="personnes" columnName="TELEPHONE"></columnExists>
+        </preConditions>
+        <sql>
+            ALTER TABLE `personnes`
+            CHANGE COLUMN `TELEPHONE` `TELEPHONE` VARCHAR(10) NULL DEFAULT NULL AFTER `EMAIL`;
+        </sql>
+        <comment>
+            La colonne telephone doit être un VARCHAR dans la table personnes
+        </comment>
+    </changeSet>
+
     <changeSet id="202012160959" author="rvl" >
         <preConditions onFail="MARK_RAN">
             <not>
@@ -94,5 +107,67 @@
             Creer la table personnes__roles
         </comment>
     </changeSet>
+
+    <changeSet id="202012161045" author="rvl" >
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="demandes_de_devis"></tableExists>
+            </not>
+        </preConditions>
+        <sql>
+            CREATE TABLE demandes_de_devis
+            (
+            ID varchar(50) PRIMARY KEY NOT NULL,
+            ID_ASKER varchar(50) NOT NULL,
+            ID_WORKER varchar(50) NOT NULL,
+            SUJET VARCHAR(50) NOT NULL,
+            MESSAGE VARCHAR(500) NOT NULL,
+            CONSTRAINT fk__dd__askerpersonne FOREIGN KEY (ID_ASKER) REFERENCES personnes (ID) ON DELETE CASCADE ON UPDATE CASCADE,
+            CONSTRAINT fk__dd__workerpersonne FOREIGN KEY (ID_WORKER) REFERENCES personnes (ID) ON DELETE CASCADE ON UPDATE CASCADE
+            )
+            COLLATE='utf8_general_ci'
+            ;
+        </sql>
+        <comment>
+            Creer la table demandes_de_devis
+        </comment>
+    </changeSet>
+
+    <changeSet id="202012161051" author="rvl" runAlways="true">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">select count(*) from roles where nom='ROLE_ARTISAN'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO `roles` (`ID`, `NOM`, `DESCRIPTION`) VALUES ('1', 'ROLE_ARTISAN', 'Artisan');
+        </sql>
+        <comment>
+            Ajouter le role ROLE_ARTISAN s'il n'existe pas
+        </comment>
+    </changeSet>
+
+    <changeSet id="202012161055" author="rvl" runAlways="true">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">select count(*) from roles where nom='ROLE_CLIENT'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO `roles` (`ID`, `NOM`, `DESCRIPTION`) VALUES ('2', 'ROLE_CLIENT', 'Client');
+        </sql>
+        <comment>
+            Ajouter le role ROLE_CLIENT s'il n'existe pas
+        </comment>
+    </changeSet>
+
+    <changeSet id="202012161056-1" author="rvl" runAlways="true">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">select count(*) from personnes where email='rvermo3402@gmail.com'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO `personnes` (`ID`, `NOM`, `PRENOM`, `EMAIL`, `TELEPHONE`, `ADRESSE`, `CODEPOSTAL`, `VILLE`, `FONCTION`, `SOCIETE`) VALUES ('08747d89-0c85-492b-b71a-cb6d244a9a00', 'BOETSCH', 'NICOLAS', 'rvermo3402@gmail.com', '061234567', '366, chemin des castanes', '84210', 'Pernes les Fontaines', 'Jardinier', 'Les jardins de Nicolas');
+        </sql>
+        <comment>
+            Ajouter l'artisan nb
+        </comment>
+    </changeSet>
+
 
 </databaseChangeLog>

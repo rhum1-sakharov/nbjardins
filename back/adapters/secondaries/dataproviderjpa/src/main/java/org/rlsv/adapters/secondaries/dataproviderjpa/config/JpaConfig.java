@@ -2,8 +2,8 @@ package org.rlsv.adapters.secondaries.dataproviderjpa.config;
 
 import lombok.Getter;
 import org.hibernate.jpa.HibernatePersistenceProvider;
+import org.rlsv.adapters.secondaries.dataproviderjpa.entities.*;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Entity;
-import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Personne;
 
 import javax.persistence.*;
 import javax.persistence.spi.ClassTransformer;
@@ -95,6 +95,9 @@ public class JpaConfig {
                 List<String> managedList = new ArrayList<>();
                 managedList.add(Personne.class.getCanonicalName());
                 managedList.add(Entity.class.getCanonicalName());
+                managedList.add(DemandeDeDevis.class.getCanonicalName());
+                managedList.add(Personne__Role.class.getCanonicalName());
+                managedList.add(Role.class.getCanonicalName());
 
                 return managedList;
             }
