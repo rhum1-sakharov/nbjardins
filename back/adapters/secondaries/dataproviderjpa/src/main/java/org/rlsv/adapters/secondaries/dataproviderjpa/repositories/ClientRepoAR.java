@@ -1,8 +1,8 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.repositories;
 
 import domain.models.PersonneDN;
-import org.rlsv.adapters.secondaries.dataproviderjpa.entities.ClientEY;
-import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.ClientMapper;
+import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Personne;
+import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.PersonneMapper;
 import usecase.ports.repositories.ClientRepoPT;
 
 import javax.persistence.NoResultException;
@@ -15,32 +15,32 @@ public class ClientRepoAR extends RepoAR implements ClientRepoPT {
     @Override
     public PersonneDN save(PersonneDN personneDN) {
 
-        ClientEY clientEY = ClientMapper.INSTANCE.domainToEntity(personneDN);
+        Personne personne = PersonneMapper.INSTANCE.domainToEntity(personneDN);
 
-        ClientEY clientEYDb = findByEmail(personneDN.getEmail());
+        Personne personneDb = findByEmail(personneDN.getEmail());
 
-        if (Objects.nonNull(clientEYDb)) {
-            clientEY.setId(clientEYDb.getId());
+        if (Objects.nonNull(personneDb)) {
+            personne.setId(personneDb.getId());
         }
 
-        save(clientEY);
+        save(personne);
 
-        return ClientMapper.INSTANCE.entityToDomain(clientEY);
+        return PersonneMapper.INSTANCE.entityToDomain(personne);
     }
 
 
-    private ClientEY findByEmail(String email) {
+    private Personne findByEmail(String email) {
 
-        ClientEY  clientEY= null;
+        Personne personne = null;
 
         try {
-            TypedQuery<ClientEY> query = em.createQuery("SELECT c from ClientEY c where c.email=:email", ClientEY.class);
-            clientEY = query.setParameter("email", email).getSingleResult();
+            TypedQuery<Personne> query = em.createQuery("SELECT c from Personne c where c.email=:email", Personne.class);
+            personne = query.setParameter("email", email).getSingleResult();
         }catch (NoResultException nre){
 
         }
 
-        return clientEY;
+        return personne;
 
     }
 }

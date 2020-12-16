@@ -8,7 +8,7 @@ import org.rlsv.adapters.secondaries.dataproviderjpa.config.JpaConfigTest;
 
 import java.util.Objects;
 
-public class ClientRepoARTest extends JpaConfigTest {
+public class PersonneRepoARTest extends JpaConfigTest {
 
     ClientRepoAR clientRepoAR;
 

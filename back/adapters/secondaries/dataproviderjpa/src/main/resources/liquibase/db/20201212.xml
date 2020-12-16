@@ -3,24 +3,24 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <changeSet id="202012121823-4" author="rvl" failOnError="true">
+    <changeSet id="202012121823-4" author="rvl" >
         <preConditions onFail="MARK_RAN">
-           <not>
-               <tableExists tableName="clients"></tableExists>
-           </not>
+            <not>
+                <tableExists tableName="clients"></tableExists>
+            </not>
         </preConditions>
         <sql>
             CREATE TABLE `clients` (
-            `ID` VARCHAR(50) NOT NULL  ,
-            `NOM` VARCHAR(50) NOT NULL  ,
-            `PRENOM` VARCHAR(50) NOT NULL  ,
-            `EMAIL` VARCHAR(50) NOT NULL  ,
+            `ID` VARCHAR(50) NOT NULL ,
+            `NOM` VARCHAR(50) NOT NULL ,
+            `PRENOM` VARCHAR(50) NOT NULL ,
+            `EMAIL` VARCHAR(50) NOT NULL ,
             `TELEPHONE` INT(10) NULL DEFAULT NULL,
-            `ADRESSE` VARCHAR(50) NULL DEFAULT NULL  ,
-            `CODEPOSTAL` VARCHAR(50) NULL DEFAULT NULL  ,
-            `VILLE` VARCHAR(50) NULL DEFAULT NULL  ,
-            `FONCTION` VARCHAR(50) NULL DEFAULT NULL  ,
-            `SOCIETE` VARCHAR(50) NULL DEFAULT NULL  ,
+            `ADRESSE` VARCHAR(50) NULL DEFAULT NULL ,
+            `CODEPOSTAL` VARCHAR(50) NULL DEFAULT NULL ,
+            `VILLE` VARCHAR(50) NULL DEFAULT NULL ,
+            `FONCTION` VARCHAR(50) NULL DEFAULT NULL ,
+            `SOCIETE` VARCHAR(50) NULL DEFAULT NULL ,
             PRIMARY KEY (`ID`) USING BTREE,
             UNIQUE INDEX `unique_email_idx` (`EMAIL`) USING BTREE
             )
@@ -30,6 +30,68 @@
         </sql>
         <comment>
             Creation de la table clients
+        </comment>
+    </changeSet>
+
+    <changeSet id="202012160955" author="rvl" >
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="clients"></tableExists>
+        </preConditions>
+        <sql>
+            RENAME TABLE clients TO personnes
+        </sql>
+        <comment>
+            Renommer la table clients en personnes
+        </comment>
+    </changeSet>
+
+    <changeSet id="202012160959" author="rvl" >
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="roles"></tableExists>
+            </not>
+        </preConditions>
+        <sql>
+            CREATE TABLE `roles` (
+            `ID` VARCHAR(50) NOT NULL,
+            `NOM` VARCHAR(50) NOT NULL,
+            `DESCRIPTION` VARCHAR(50) NOT NULL,
+            PRIMARY KEY (`ID`),
+            UNIQUE INDEX `unique_nom_idx` (`NOM`)
+            )
+            COLLATE='utf8_general_ci'
+            ;
+        </sql>
+        <comment>
+           Creer la table roles
+        </comment>
+    </changeSet>
+
+
+    <changeSet id="202012161007" author="rvl" >
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="personnes__roles"></tableExists>
+            </not>
+        </preConditions>
+        <sql>
+            CREATE TABLE `personnes__roles` (
+            `ID` VARCHAR(50) NOT NULL,
+            `ID_PERSONNE` VARCHAR(50) NOT NULL,
+            `ID_ROLE` VARCHAR(50) NOT NULL,
+            PRIMARY KEY (`ID`),
+            UNIQUE INDEX `unique_personne_role_idx` (`ID_PERSONNE`, `ID_ROLE`),
+            INDEX `ID_PERSONNE` (`ID_PERSONNE`),
+            INDEX `ID_ROLE` (`ID_ROLE`),
+            CONSTRAINT `FK__pr__personnes` FOREIGN KEY (`ID_PERSONNE`) REFERENCES `personnes` (`ID`) ON UPDATE CASCADE ON DELETE CASCADE,
+            CONSTRAINT `FK__pr__roles` FOREIGN KEY (`ID_ROLE`) REFERENCES `roles` (`ID`) ON UPDATE CASCADE ON DELETE RESTRICT
+            )
+            COLLATE='utf8_general_ci'
+            ;
+
+        </sql>
+        <comment>
+            Creer la table personnes__roles
         </comment>
     </changeSet>
 
