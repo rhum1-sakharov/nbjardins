@@ -12,5 +12,6 @@ public class MessageKeys {
     public static final String NOM_OBLIGATOIRE = "nom.obligatoire";
     public static final String PRENOM_OBLIGATOIRE = "prenom.obligatoire";
     public static final String SUJET_DEVIS = "sujet.devis";
+    public static final String AUCUN_ARTISAN_APPLICATION= "aucun.artisan.application";
 
 }

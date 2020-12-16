@@ -169,6 +169,18 @@
         </comment>
     </changeSet>
 
+    <changeSet id="202012161056-2" author="rvl" runAlways="true">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">select count(*) from personnes__roles where ID='5c5e43b3-6ce5-4578-921a-d4eb5ce6f9d9'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO `personnes__roles` (`ID`, `ID_PERSONNE`, `ID_ROLE`) VALUES ('5c5e43b3-6ce5-4578-921a-d4eb5ce6f9d9', '08747d89-0c85-492b-b71a-cb6d244a9a00', '1');
+        </sql>
+        <comment>
+            Ajouter l'artisan nb
+        </comment>
+    </changeSet>
+
     <changeSet id="202012161206" author="rvl" >
         <preConditions onFail="MARK_RAN">
             <not>

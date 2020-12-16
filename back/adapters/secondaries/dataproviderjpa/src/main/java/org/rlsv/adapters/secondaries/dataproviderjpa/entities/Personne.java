@@ -3,6 +3,7 @@ package org.rlsv.adapters.secondaries.dataproviderjpa.entities;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Getter
@@ -20,5 +21,8 @@ public class Personne extends Entity {
     private String fonction;
     private String societe;
     private String email;
+
+    @OneToOne(mappedBy = "worker")
+    private Application application;
 
 }

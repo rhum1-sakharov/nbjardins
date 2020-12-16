@@ -5,7 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Getter
@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @Table(name="applications")
 public class Application extends Entity {
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "ID_WORKER")
     private Personne worker;
 

@@ -19,8 +19,8 @@
 <span class="font-12" th:text="${asker.prenom}"></span> <span class="font-12" th:text="${asker.nom}"></span>
 </p>
 <p>
-    <th:block th:if="${asker.getVilleDN != null}">
-        <span class="font-12" th:text="${asker.getVilleDN.codePostal}"></span> <span class="font-12" th:text="${asker.getVilleDN.nom}"></span>
+    <th:block th:if="${asker.getVille != null}">
+        <span class="font-12" th:text="${asker.codePostal}"></span> <span class="font-12" th:text="${asker.ville}"></span>
     </th:block>
 
 </p>

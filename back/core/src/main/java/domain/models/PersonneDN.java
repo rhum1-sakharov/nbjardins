@@ -12,11 +12,11 @@ public class PersonneDN extends Domain {
     String nom;
     String prenom;
     String numeroTelephone;
-
     String societe;
     String fonction;
     String adresse;
-    VilleDN villeDN;
+    String ville;
+    String codePostal;
     String email;
 
 }

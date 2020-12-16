@@ -1,6 +1,7 @@
 package usecase.devis;
 
 
+import domain.exceptions.DemandeDeDevisException;
 import domain.exceptions.PersistenceException;
 import domain.models.DemandeDeDevisDN;
 import domain.models.PersonneDN;
@@ -60,6 +61,9 @@ public final class DemandeDeDevisUE implements IUsecase<DemandeDeDevisDN> {
 
             try {
 
+                // recuperer l'artisan et le mettre dans la demande de devis
+                request = addArtisanToDemandeDeDevis(request);
+
                 // enregistrer le client
                 saveClient(demandeDeDevisDN.getAsker());
 
@@ -74,21 +78,38 @@ public final class DemandeDeDevisUE implements IUsecase<DemandeDeDevisDN> {
                     responseDN = sendAcknowledgementToSender(request);
                 }
 
-            } catch (PersistenceException pe) {
-                responseDN.addErrorMessage(pe.displayMessage(localizeService));
+            } catch (DemandeDeDevisException de) {
+                responseDN.addErrorMessage(de.displayMessage(localizeService));
             }
-
         }
+
+        // ne pas renvoyer le worker à l'appelant
+        demandeDeDevisDN.setWorker(null);
 
         responseDN.setOne(demandeDeDevisDN);
 
         return responseDN;
     }
 
-    private void saveClient(PersonneDN asker) throws PersistenceException {
+    private RequestDN<DemandeDeDevisDN> addArtisanToDemandeDeDevis(RequestDN<DemandeDeDevisDN> request) throws DemandeDeDevisException {
+        try {
+            PersonneDN artisan = personneRepo.findArtisanByApplicationToken(request.getApplication().getToken());
+            request.getOne().setWorker(artisan);
+            return request;
+        }catch (PersistenceException pe){
+            throw new DemandeDeDevisException(pe.getMessage(), pe, AUCUN_ARTISAN_APPLICATION, new String[]{request.getApplication().getToken()});
+        }
 
-        asker = personneRepo.save(asker);
-        personneRoleRepo.saveRoleClient(asker);
+    }
+
+    private void saveClient(PersonneDN asker) throws DemandeDeDevisException {
+
+        try {
+            asker = personneRepo.save(asker);
+            personneRoleRepo.saveRoleClient(asker);
+        } catch (PersistenceException pe) {
+            throw new DemandeDeDevisException(pe.getMessage(), pe, pe.getMsgKey(), pe.getArgs());
+        }
 
     }
 
@@ -105,7 +126,7 @@ public final class DemandeDeDevisUE implements IUsecase<DemandeDeDevisDN> {
     private ResponseDN<DemandeDeDevisDN> sendAcknowledgementToSender(RequestDN<DemandeDeDevisDN> wrapper) {
 
         DemandeDeDevisDN demandeDeDevisDN = wrapper.getOne();
-        String sujet = MessageFormat.format(localizeService.getMsg(ACK_DEVIS, localizeService.getWorkerLocale()), wrapper.getApplication());
+        String sujet = MessageFormat.format(localizeService.getMsg(ACK_DEVIS, localizeService.getWorkerLocale()), wrapper.getApplication().getNom());
         demandeDeDevisDN.setSujet(sujet);
         wrapper.setOne(demandeDeDevisDN);
 

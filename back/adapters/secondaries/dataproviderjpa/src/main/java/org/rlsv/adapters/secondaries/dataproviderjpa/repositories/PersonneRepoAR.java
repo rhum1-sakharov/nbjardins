@@ -12,6 +12,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.util.Objects;
 
+import static domain.localization.MessageKeys.AUCUN_RESULTAT;
 import static domain.localization.MessageKeys.JPA_ERREUR_SAUVEGARDE_CLIENT;
 
 public class PersonneRepoAR extends RepoAR implements PersonneRepoPT {
@@ -19,14 +20,24 @@ public class PersonneRepoAR extends RepoAR implements PersonneRepoPT {
     private static final Logger LOG = LoggerFactory.getLogger(PersonneRepoAR.class);
 
     @Override
-    public PersonneDN findArtisanByApplicationToken(String applicationName) {
-        return null;
+    public PersonneDN findArtisanByApplicationToken(String token) throws PersistenceException {
+
+        try {
+            Personne artisan = null;
+
+            TypedQuery<Personne> query = em.createQuery("SELECT p from Personne p " +
+                    " join p.application app " +
+                    " where app.token=:token", Personne.class);
+            artisan = query.setParameter("token", token).getSingleResult();
+
+            return PersonneMapper.INSTANCE.entityToDomain(artisan);
+
+        } catch (NoResultException nre) {
+            throw new PersistenceException(nre.getMessage(), nre, AUCUN_RESULTAT);
+        }
+
     }
 
-    @Override
-    public PersonneDN findClientByEmail(String email) {
-        return null;
-    }
 
     @Override
     public PersonneDN save(PersonneDN personneDN) throws PersistenceException {
@@ -35,10 +46,10 @@ public class PersonneRepoAR extends RepoAR implements PersonneRepoPT {
 
             Personne personne = PersonneMapper.INSTANCE.domainToEntity(personneDN);
 
-            Personne personneDb = findByEmail(personneDN.getEmail());
+            PersonneDN personneDbDN = findByEmail(personneDN.getEmail());
 
-            if (Objects.nonNull(personneDb)) {
-                personne.setId(personneDb.getId());
+            if (Objects.nonNull(personneDbDN)) {
+                personne.setId(personneDbDN.getId());
             }
 
             save(personne);
@@ -52,25 +63,34 @@ public class PersonneRepoAR extends RepoAR implements PersonneRepoPT {
     }
 
     @Override
-    public PersonneDN saveArtisan(PersonneDN personneDN) {
-        return null;
-    }
-
-
-    private Personne findByEmail(String email) {
-
-        Personne personne = null;
+    public PersonneDN findByEmail(String email) throws PersistenceException {
 
         try {
             TypedQuery<Personne> query = em.createQuery("SELECT c from Personne c where c.email=:email", Personne.class);
-            personne = query.setParameter("email", email).getSingleResult();
+            Personne personne = query.setParameter("email", email).getSingleResult();
+            return PersonneMapper.INSTANCE.entityToDomain(personne);
         } catch (NoResultException nre) {
 
         }
 
-        return personne;
-
+        return null;
     }
+
+
+//    private Personne findByEmail(String email) {
+//
+//        Personne personne = null;
+//
+//        try {
+//            TypedQuery<Personne> query = em.createQuery("SELECT c from Personne c where c.email=:email", Personne.class);
+//            personne = query.setParameter("email", email).getSingleResult();
+//        } catch (NoResultException nre) {
+//
+//        }
+//
+//        return personne;
+//
+//    }
 
 
 }

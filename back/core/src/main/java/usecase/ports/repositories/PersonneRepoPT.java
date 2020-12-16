@@ -5,13 +5,11 @@ import domain.models.PersonneDN;
 
 public interface PersonneRepoPT {
 
-    PersonneDN findArtisanByApplicationToken(String applicationToken);
-
-    PersonneDN findClientByEmail(String email);
+    PersonneDN findArtisanByApplicationToken(String applicationToken) throws PersistenceException;
 
     PersonneDN save(PersonneDN personneDN) throws PersistenceException;
 
-    PersonneDN saveArtisan(PersonneDN personneDN);
+    PersonneDN findByEmail(String email) throws PersistenceException;
 
 
 }
