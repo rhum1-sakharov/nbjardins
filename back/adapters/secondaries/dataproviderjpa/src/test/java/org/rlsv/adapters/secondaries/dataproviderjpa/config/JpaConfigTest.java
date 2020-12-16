@@ -19,7 +19,7 @@ public class JpaConfigTest {
 
         Map<String, String> propertiesMap = new HashMap();
         propertiesMap.put("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
-        propertiesMap.put("javax.persistence.jdbc.url", "jdbc:mysql://localhost:3306/test_nbjardins?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
+        propertiesMap.put("javax.persistence.jdbc.url", "jdbc:mysql://localhost:3306/unit_tests_nbjardins?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
         propertiesMap.put("javax.persistence.jdbc.user", "root");
         propertiesMap.put("javax.persistence.jdbc.password", "");
         propertiesMap.put("javax.persistence.jdbc.driver", "com.mysql.cj.jdbc.Driver");
