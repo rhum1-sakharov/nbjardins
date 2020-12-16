@@ -19,7 +19,7 @@ case "$1" in
 
 	bs) #  generer le livrable du back spring
 	    cd "${curdir}/back"
-	    mvn clean install -DskipTests=true
+	    mvn clean install -Pdeploy
 		cd "${curdir}/back/adapters/primaries/application/springapp"
 		mvn clean package spring-boot:repackage
 		;;

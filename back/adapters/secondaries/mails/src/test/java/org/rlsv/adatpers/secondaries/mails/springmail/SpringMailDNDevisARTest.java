@@ -3,18 +3,19 @@ package org.rlsv.adatpers.secondaries.mails.springmail;
 import com.icegreen.greenmail.util.GreenMail;
 import com.icegreen.greenmail.util.ServerSetup;
 import domain.models.DemandeDeDevisDN;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.rlsv.adatpers.secondaries.mails.ServerMail;
 
-class SpringMailDNDevisARTest {
+
+public class SpringMailDNDevisARTest {
 
     DemandeDeDevisDN demandeDeDevisDN;
     SpringMailDevisAR springMailDevisAR;
     GreenMail smtpServer;
 
-    @BeforeEach
+    @Before
     public void setUp() {
 
         ServerMail serverMail = new ServerMail("localhost", false, 25, null, null, false, false,"");
@@ -27,14 +28,15 @@ class SpringMailDNDevisARTest {
     }
 
     @Test
-    void should_send_to_worker() {
+    public void should_send_to_worker() {
 //        Response<DemandeDeDevisDN> demandeDeDevisResponse = springMailDevisAR.sendToWorker(demandeDeDevisDN);
 //        Assertions.assertThat(Objects.nonNull(demandeDeDevisResponse)).isTrue();
 //        Assertions.assertThat(demandeDeDevisResponse.isError()).isFalse();
     }
 
-    @AfterEach
+    @After
     public void tearDown() {
+
         smtpServer.stop();
     }
 }

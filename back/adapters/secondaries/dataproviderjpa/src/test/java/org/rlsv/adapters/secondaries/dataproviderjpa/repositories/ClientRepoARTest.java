@@ -2,17 +2,17 @@ package org.rlsv.adapters.secondaries.dataproviderjpa.repositories;
 
 import domain.models.PersonneDN;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 import org.rlsv.adapters.secondaries.dataproviderjpa.config.JpaConfigTest;
 
 import java.util.Objects;
 
-class ClientRepoARTest extends JpaConfigTest {
+public class ClientRepoARTest extends JpaConfigTest {
 
     ClientRepoAR clientRepoAR;
 
-    @BeforeEach
+    @Before
     public void setUp() {
         super.setUp();
         this.clientRepoAR = new ClientRepoAR();

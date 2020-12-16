@@ -1,6 +1,7 @@
 .idea/*
 back/application/springapp/src/main/resoures/application.properties
 back/adapters/secondaries/dataproviderjpa/src/main/resources/liquibase/liquibase.properties
+back/adapters/secondaries/dataproviderjpa/src/test/resources/liquibase/liquibase.properties
 */target
 ### Java template 
 # Compiled class file
