@@ -11,12 +11,13 @@ import domain.wrapper.ResponseDN;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ports.localization.LocalizeServicePT;
+import ports.mails.MailDevisServicePT;
+import ports.repositories.DemandeDeDevisRepoPT;
+import ports.repositories.PersonneRepoPT;
+import usecase.AbstractUsecase;
 import usecase.IUsecase;
-import usecase.ports.localization.LocalizeServicePT;
-import usecase.ports.mails.MailDevisServicePT;
-import usecase.ports.repositories.DemandeDeDevisRepoPT;
-import usecase.ports.repositories.PersonneRepoPT;
-import usecase.ports.repositories.PersonneRoleRepoPT;
+import usecase.clients.EnregistrerClientUE;
 
 import java.text.MessageFormat;
 import java.util.HashMap;
@@ -27,22 +28,22 @@ import java.util.Objects;
 import static domain.localization.MessageKeys.*;
 
 
-public final class DemandeDeDevisUE implements IUsecase<DemandeDeDevisDN> {
+public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase<DemandeDeDevisDN> {
 
     private static final Logger LOG = LoggerFactory.getLogger(DemandeDeDevisUE.class);
 
     private final MailDevisServicePT mailDevisService;
-    private final LocalizeServicePT localizeService;
     private final PersonneRepoPT personneRepo;
-    private final PersonneRoleRepoPT personneRoleRepo;
-    private final DemandeDeDevisRepoPT demandeDeDevisRepo;
 
-    public DemandeDeDevisUE(final MailDevisServicePT mailDevisService, LocalizeServicePT localizeService, PersonneRepoPT personneRepo, PersonneRoleRepoPT personneRoleRepo, DemandeDeDevisRepoPT demandeDeDevisRepo) {
+    private final DemandeDeDevisRepoPT demandeDeDevisRepo;
+    private final EnregistrerClientUE enregistrerClientUE;
+
+    public DemandeDeDevisUE(MailDevisServicePT mailDevisService, LocalizeServicePT localizeService, PersonneRepoPT personneRepo,  DemandeDeDevisRepoPT demandeDeDevisRepo, EnregistrerClientUE enregistrerClientUE) {
+        super(localizeService);
         this.mailDevisService = mailDevisService;
-        this.localizeService = localizeService;
         this.personneRepo = personneRepo;
-        this.personneRoleRepo = personneRoleRepo;
         this.demandeDeDevisRepo = demandeDeDevisRepo;
+        this.enregistrerClientUE = enregistrerClientUE;
 
     }
 
@@ -73,7 +74,8 @@ public final class DemandeDeDevisUE implements IUsecase<DemandeDeDevisDN> {
                 request = addArtisanToDemandeDeDevis(request);
 
                 // enregistrer le client
-                saveClient(demandeDeDevisDN.getAsker());
+                PersonneDN client = demandeDeDevisDN.getAsker();
+                enregistrerClientUE.execute(Utils.initRequest(client));
 
                 //enregistrer la demande de devis
                 saveDemandeDeDevis(request);
@@ -119,16 +121,7 @@ public final class DemandeDeDevisUE implements IUsecase<DemandeDeDevisDN> {
 
     }
 
-    private void saveClient(PersonneDN asker) throws DemandeDeDevisException {
 
-        try {
-            asker = personneRepo.saveClient(asker);
-            personneRoleRepo.saveRoleClient(asker);
-        } catch (PersistenceException pe) {
-            throw new DemandeDeDevisException(pe.getMessage(), pe, pe.getMsgKey(), pe.getArgs());
-        }
-
-    }
 
     private ResponseDN<DemandeDeDevisDN> sendToWorker(RequestDN<DemandeDeDevisDN> wrapper) {
         Locale workerLocale = localizeService.getWorkerLocale();

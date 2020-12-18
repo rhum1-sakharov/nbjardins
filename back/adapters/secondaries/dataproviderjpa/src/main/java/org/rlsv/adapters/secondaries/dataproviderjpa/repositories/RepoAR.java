@@ -3,9 +3,10 @@ package org.rlsv.adapters.secondaries.dataproviderjpa.repositories;
 import domain.models.Domain;
 import org.rlsv.adapters.secondaries.dataproviderjpa.config.JpaConfig;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Entity;
-import usecase.ports.localization.LocalizeServicePT;
+import ports.localization.LocalizeServicePT;
 
 import javax.persistence.EntityManager;
+import java.util.Objects;
 import java.util.Set;
 
 public abstract class RepoAR<T extends Entity> {
@@ -18,6 +19,9 @@ public abstract class RepoAR<T extends Entity> {
         em = jpaConfig.getEntityManager();
     }
 
+    private boolean isNew(String id) {
+        return Objects.isNull(id);
+    }
 
     public T find(String id) {
         return null;
@@ -33,13 +37,11 @@ public abstract class RepoAR<T extends Entity> {
 
         em.getTransaction().begin();
 
-        if (instance.getId() == null) {
+        if (isNew(instance.getId())) {
             em.persist(instance);
-
         } else {
             em.merge(instance);
         }
-
 
         em.getTransaction().commit();
 

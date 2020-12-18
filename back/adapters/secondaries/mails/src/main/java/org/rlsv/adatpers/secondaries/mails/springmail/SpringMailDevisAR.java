@@ -16,8 +16,8 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
-import usecase.ports.localization.LocalizeServicePT;
-import usecase.ports.mails.MailDevisServicePT;
+import ports.localization.LocalizeServicePT;
+import ports.mails.MailDevisServicePT;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;

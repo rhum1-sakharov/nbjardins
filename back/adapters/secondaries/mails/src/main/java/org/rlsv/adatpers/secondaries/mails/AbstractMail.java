@@ -1,6 +1,6 @@
 package org.rlsv.adatpers.secondaries.mails;
 
-import usecase.ports.localization.LocalizeServicePT;
+import ports.localization.LocalizeServicePT;
 
 public class AbstractMail {
 

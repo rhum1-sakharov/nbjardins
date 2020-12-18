@@ -1,14 +1,14 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.repositories;
 
+import domain.enums.ROLES;
 import domain.exceptions.PersistenceException;
 import domain.models.PersonneDN;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Personne;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Personne__Role;
-import org.rlsv.adapters.secondaries.dataproviderjpa.enums.ROLES;
 import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.PersonneMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import usecase.ports.repositories.PersonneRepoPT;
+import ports.repositories.PersonneRepoPT;
 
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
@@ -81,6 +81,20 @@ public class PersonneRepoAR extends RepoAR implements PersonneRepoPT {
         }
 
         return null;
+    }
+
+    @Override
+    public String findIdByEmail(String email) throws PersistenceException {
+        String id = null;
+
+        try {
+            TypedQuery<String> query = em.createQuery("SELECT p.id from Personne p " +
+                    " where p.email=:email", String.class);
+            id = query.setParameter("email", email).getSingleResult();
+        } catch (NoResultException nre) {
+
+        }
+        return id;
     }
 
 

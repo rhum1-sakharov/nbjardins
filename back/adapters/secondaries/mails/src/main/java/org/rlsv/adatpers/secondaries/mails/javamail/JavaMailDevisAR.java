@@ -7,8 +7,8 @@ import domain.wrapper.RequestDN;
 import domain.wrapper.ResponseDN;
 import org.rlsv.adatpers.secondaries.mails.AbstractMail;
 import org.rlsv.adatpers.secondaries.mails.ServerMail;
-import usecase.ports.localization.LocalizeServicePT;
-import usecase.ports.mails.MailDevisServicePT;
+import ports.localization.LocalizeServicePT;
+import ports.mails.MailDevisServicePT;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;

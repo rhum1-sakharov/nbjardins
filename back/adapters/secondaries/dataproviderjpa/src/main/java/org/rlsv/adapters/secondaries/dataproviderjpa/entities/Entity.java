@@ -13,8 +13,8 @@ import java.util.Objects;
 public class Entity {
 
 
-    @Id @GeneratedValue(generator="system-uuid")
-    @GenericGenerator(name="system-uuid", strategy = "uuid2")
+    @Id @GeneratedValue(generator="uuid2")
+    @GenericGenerator(name="uuid2", strategy = "uuid2")
     private String id;
 
     @Override

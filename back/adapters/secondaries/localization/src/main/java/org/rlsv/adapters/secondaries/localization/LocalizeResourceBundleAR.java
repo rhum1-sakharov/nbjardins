@@ -1,6 +1,6 @@
 package org.rlsv.adapters.secondaries.localization;
 
-import usecase.ports.localization.LocalizeServicePT;
+import ports.localization.LocalizeServicePT;
 
 import java.util.Locale;
 import java.util.Objects;

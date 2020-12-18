@@ -19,4 +19,5 @@ public class PersonneDN extends Domain {
     String codePostal;
     String email;
 
+
 }

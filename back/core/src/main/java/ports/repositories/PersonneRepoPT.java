@@ -1,4 +1,4 @@
-package usecase.ports.repositories;
+package ports.repositories;
 
 import domain.exceptions.PersistenceException;
 import domain.models.PersonneDN;
@@ -10,6 +10,8 @@ public interface PersonneRepoPT {
     PersonneDN saveClient(PersonneDN personneDN) throws PersistenceException;
 
     PersonneDN findByEmail(String email) throws PersistenceException;
+
+    String findIdByEmail(String email) throws PersistenceException;
 
 
 }

@@ -1,4 +1,4 @@
-package org.rlsv.adapters.secondaries.dataproviderjpa.enums;
+package domain.enums;
 
 import lombok.Getter;
 

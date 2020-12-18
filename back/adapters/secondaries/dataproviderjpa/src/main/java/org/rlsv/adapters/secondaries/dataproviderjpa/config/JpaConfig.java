@@ -2,8 +2,7 @@ package org.rlsv.adapters.secondaries.dataproviderjpa.config;
 
 import lombok.Getter;
 import org.hibernate.jpa.HibernatePersistenceProvider;
-import org.rlsv.adapters.secondaries.dataproviderjpa.entities.*;
-import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Entity;
+import org.reflections.Reflections;
 
 import javax.persistence.*;
 import javax.persistence.spi.ClassTransformer;
@@ -12,21 +11,36 @@ import javax.persistence.spi.PersistenceUnitTransactionType;
 import javax.sql.DataSource;
 import java.net.URL;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 public class JpaConfig {
+
+    private final static String PACKAGE_NAME_ENTITIES = "org.rlsv.adapters.secondaries.dataproviderjpa.entities";
 
     @Getter
     private static EntityManager entityManager;
 
     private static EntityManagerFactory entityManagerFactory;
-
-    private static JpaConfig jpaConfig;
     public static PersistenceConfig persistenceConfig;
+    private static volatile  JpaConfig jpaConfig;
+    private static Object mutex = new Object();
 
+
+    /**
+     * https://www.journaldev.com/171/thread-safety-in-java-singleton-classes
+     * https://medium.com/@cancerian0684/singleton-design-pattern-and-how-to-make-it-thread-safe-b207c0e7e368
+     * @return singleton
+     */
     public static JpaConfig getSingleton() {
-        if (Objects.isNull(jpaConfig)) {
-            jpaConfig = new JpaConfig();
+        JpaConfig localRef = jpaConfig;
+        if (Objects.isNull(localRef)) {
+            synchronized (mutex) {
+                localRef = jpaConfig;
+                if (localRef == null) {
+                    jpaConfig = new JpaConfig();
+                }
+            }
         }
         return jpaConfig;
     }
@@ -92,15 +106,16 @@ public class JpaConfig {
             @Override
             public List<String> getManagedClassNames() {
 
-                List<String> managedList = new ArrayList<>();
-                managedList.add(Personne.class.getCanonicalName());
-                managedList.add(Entity.class.getCanonicalName());
-                managedList.add(DemandeDeDevis.class.getCanonicalName());
-                managedList.add(Personne__Role.class.getCanonicalName());
-                managedList.add(Role.class.getCanonicalName());
-                managedList.add(Application.class.getCanonicalName());
+                Reflections reflections = new Reflections(PACKAGE_NAME_ENTITIES);
+
+                Set<Class<?>> clazzList = reflections.getTypesAnnotatedWith(javax.persistence.Entity.class);
+
+                List<String> managedList = clazzList.stream()
+                        .map(clazz -> clazz.getCanonicalName())
+                        .collect(Collectors.toList());
 
                 return managedList;
+
             }
 
             @Override

@@ -1,4 +1,4 @@
-package usecase.ports.mails;
+package ports.mails;
 
 import domain.models.DemandeDeDevisDN;
 import domain.wrapper.RequestDN;

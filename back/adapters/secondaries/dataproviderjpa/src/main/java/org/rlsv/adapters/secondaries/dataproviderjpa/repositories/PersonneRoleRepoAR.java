@@ -1,20 +1,16 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.repositories;
 
-import domain.models.PersonneDN;
+import domain.enums.ROLES;
 import domain.models.Personne__RoleDN;
-import domain.models.RoleDN;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Personne;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Personne__Role;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Role;
-import org.rlsv.adapters.secondaries.dataproviderjpa.enums.ROLES;
-import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.PersonneMapper;
 import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.Personne__RoleMapper;
-import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.RoleMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import usecase.ports.repositories.PersonneRepoPT;
-import usecase.ports.repositories.PersonneRoleRepoPT;
-import usecase.ports.repositories.RoleRepoPT;
+import ports.repositories.PersonneRepoPT;
+import ports.repositories.PersonneRoleRepoPT;
+import ports.repositories.RoleRepoPT;
 
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
@@ -26,6 +22,7 @@ import static domain.localization.MessageKeys.JPA_ERREUR_SAUVEGARDE_CLIENT;
 public class PersonneRoleRepoAR extends RepoAR implements PersonneRoleRepoPT {
 
     private static final Logger LOG = LoggerFactory.getLogger(PersonneRoleRepoAR.class);
+
     PersonneRepoPT personneRepo;
     RoleRepoPT roleRepo;
 
@@ -36,37 +33,17 @@ public class PersonneRoleRepoAR extends RepoAR implements PersonneRoleRepoPT {
         this.roleRepo = roleRepo;
     }
 
+
     @Override
-    public Personne__RoleDN saveRoleClient(PersonneDN personne) throws domain.exceptions.PersistenceException {
-        return savePersonneRole(ROLES.ROLE_CLIENT.getValue(),personne);
+    public Personne__RoleDN saveRoleClient(String idPersonne) throws domain.exceptions.PersistenceException {
+        String idRole = roleRepo.findIdByNom(ROLES.ROLE_CLIENT.getValue());
+        return savePersonneRole(idRole, idPersonne);
     }
 
     @Override
-    public Personne__RoleDN saveRoleArtisan(PersonneDN personne)throws domain.exceptions.PersistenceException {
-        return savePersonneRole(ROLES.ROLE_ARTISAN.getValue(),personne);
-    }
-
-    private Personne__RoleDN savePersonneRole(String nomRole, PersonneDN personneDN) throws domain.exceptions.PersistenceException {
-        try {
-            RoleDN roleDN = roleRepo.findByNom(nomRole);
-            Role role = RoleMapper.INSTANCE.domainToEntity(roleDN);
-            personneDN = personneRepo.findByEmail(personneDN.getEmail());
-            Personne personne = PersonneMapper.INSTANCE.domainToEntity(personneDN);
-
-            Personne__Role personne__role = new Personne__Role(personne, role);
-
-            Personne__RoleDN personne__roleDN = findByEmailAndRole(personneDN.getEmail(), nomRole);
-            if (!Objects.isNull(personne__roleDN)) {
-                personne__role.setId(personne__roleDN.getId());
-            }
-
-            save(personne__role);
-
-            return Personne__RoleMapper.INSTANCE.entityToDomain(personne__role);
-        } catch (PersistenceException pe) {
-            LOG.error(pe.getMessage(), pe);
-            throw new domain.exceptions.PersistenceException(pe.getMessage(), pe, JPA_ERREUR_SAUVEGARDE_CLIENT, new String[]{personneDN.getEmail()});
-        }
+    public Personne__RoleDN saveRoleArtisan(String idPersonne) throws domain.exceptions.PersistenceException {
+        String idRole = roleRepo.findIdByNom(ROLES.ROLE_ARTISAN.getValue());
+        return savePersonneRole(idRole, idPersonne);
     }
 
     @Override
@@ -88,5 +65,49 @@ public class PersonneRoleRepoAR extends RepoAR implements PersonneRoleRepoPT {
         return null;
     }
 
+    @Override
+    public Personne__RoleDN findByIdPersonneAndIdRole(String idPersonne, String idRole) {
+
+        try {
+            TypedQuery<Personne__Role> query = em.createQuery("SELECT pr from Personne__Role pr " +
+                    " join pr.personne p " +
+                    " join pr.role r " +
+                    "where p.id=:idPersonne and r.nom=:idRole", Personne__Role.class);
+            Personne__Role personne__role = query
+                    .setParameter("idPersonne", idPersonne)
+                    .setParameter("idRole", idRole).getSingleResult();
+            return Personne__RoleMapper.INSTANCE.entityToDomain(personne__role);
+        } catch (NoResultException nre) {
+
+        }
+
+        return null;
+    }
+
+
+    private Personne__RoleDN savePersonneRole(String idRole, String idPersonne) throws domain.exceptions.PersistenceException {
+        try {
+
+            Role role = new Role();
+            role.setId(idRole);
+
+            Personne personne = new Personne();
+            personne.setId(idPersonne);
+
+            Personne__Role personne__role = new Personne__Role(personne, role);
+
+            Personne__RoleDN personne__roleDN = findByIdPersonneAndIdRole(idPersonne, idRole);
+            if (!Objects.isNull(personne__roleDN)) {
+                personne__role.setId(personne__roleDN.getId());
+            }
+
+            save(personne__role);
+
+            return Personne__RoleMapper.INSTANCE.entityToDomain(personne__role);
+        } catch (PersistenceException pe) {
+            LOG.error(pe.getMessage(), pe);
+            throw new domain.exceptions.PersistenceException(pe.getMessage(), pe, JPA_ERREUR_SAUVEGARDE_CLIENT, new String[]{idPersonne});
+        }
+    }
 
 }

@@ -1,7 +1,7 @@
 package domain.exceptions;
 
 import lombok.Getter;
-import usecase.ports.localization.LocalizeServicePT;
+import ports.localization.LocalizeServicePT;
 
 import java.text.MessageFormat;
 
