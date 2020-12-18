@@ -1,4 +1,4 @@
-package usecase.devis;
+package usecase.clients;
 
 import domain.enums.ROLES;
 import domain.exceptions.PersistenceException;
@@ -17,7 +17,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 import ports.localization.LocalizeServicePT;
 import ports.repositories.PersonneRepoPT;
 import ports.repositories.PersonneRoleRepoPT;
-import usecase.clients.EnregistrerClientUE;
 
 import java.util.Objects;
 
