@@ -18,7 +18,7 @@ export class HttpService {
     catchError(err => this.handleTechnicalError(err)),
     filter(response => !(response instanceof MError)),
     switchMap(response => this.handleServerError(response)),
-    filter((response: any) => response.errorMessages.length===0),
+    filter((response: any) => !response.hasOwnProperty('errorMessages') || response.errorMessages.length===0),
     finalize(()=>this.loadingSvc.loading=false)
   );
 
