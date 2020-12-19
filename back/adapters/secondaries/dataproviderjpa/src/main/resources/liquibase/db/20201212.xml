@@ -11,7 +11,7 @@
         </preConditions>
         <sql>
             CREATE TABLE `clients` (
-            `ID` VARCHAR(50) NOT NULL ,
+            `ID` varchar(36) NOT NULL ,
             `NOM` VARCHAR(50) NOT NULL ,
             `PRENOM` VARCHAR(50) NOT NULL ,
             `EMAIL` VARCHAR(50) NOT NULL ,
@@ -66,8 +66,8 @@
         </preConditions>
         <sql>
             CREATE TABLE `roles` (
-            `ID` VARCHAR(50) NOT NULL,
-            `NOM` VARCHAR(50) NOT NULL,
+            `ID` varchar(36) NOT NULL,
+            `NOM` varchar(50) NOT NULL,
             `DESCRIPTION` VARCHAR(50) NOT NULL,
             PRIMARY KEY (`ID`),
             UNIQUE INDEX `unique_nom_idx` (`NOM`)
@@ -89,9 +89,9 @@
         </preConditions>
         <sql>
             CREATE TABLE `personnes__roles` (
-            `ID` VARCHAR(50) NOT NULL,
-            `ID_PERSONNE` VARCHAR(50) NOT NULL,
-            `ID_ROLE` VARCHAR(50) NOT NULL,
+            `ID` varchar(36) NOT NULL,
+            `ID_PERSONNE` varchar(36) NOT NULL,
+            `ID_ROLE` varchar(36) NOT NULL,
             PRIMARY KEY (`ID`),
             UNIQUE INDEX `unique_personne_role_idx` (`ID_PERSONNE`, `ID_ROLE`),
             INDEX `ID_PERSONNE` (`ID_PERSONNE`),
@@ -117,9 +117,9 @@
         <sql>
             CREATE TABLE demandes_de_devis
             (
-            ID varchar(50) PRIMARY KEY NOT NULL,
-            ID_ASKER varchar(50) NOT NULL,
-            ID_WORKER varchar(50) NOT NULL,
+            ID varchar(36) PRIMARY KEY NOT NULL,
+            ID_ASKER varchar(36) NOT NULL,
+            ID_WORKER varchar(36) NOT NULL,
             SUJET VARCHAR(50) NOT NULL,
             MESSAGE VARCHAR(500) NOT NULL,
             CONSTRAINT fk__dd__askerpersonne FOREIGN KEY (ID_ASKER) REFERENCES personnes (ID) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -169,7 +169,7 @@
         </comment>
     </changeSet>
 
-    <changeSet id="202012161056-2" author="rvl" runAlways="true">
+    <changeSet id="202012161056-2" author="rvl" >
         <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="0">select count(*) from personnes__roles where ID='5c5e43b3-6ce5-4578-921a-d4eb5ce6f9d9'</sqlCheck>
         </preConditions>
@@ -189,8 +189,8 @@
         </preConditions>
         <sql>
             CREATE TABLE `applications` (
-            `ID` VARCHAR(50) NOT NULL DEFAULT '',
-            `ID_WORKER` VARCHAR(50) NOT NULL,
+            `ID` varchar(36) NOT NULL DEFAULT '',
+            `ID_WORKER` varchar(36) NOT NULL,
             `NOM` VARCHAR(50) NOT NULL,
             `TOKEN` VARCHAR(50) NOT NULL,
             PRIMARY KEY (`ID`),
@@ -207,17 +207,149 @@
         </comment>
     </changeSet>
 
-    <changeSet id="202012161227-1" author="rvl" runAlways="true">
+    <changeSet id="202012190846" author="rvl" >
         <preConditions onFail="MARK_RAN">
-            <sqlCheck expectedResult="0">select count(*) from applications where token='NB_JARDINS'</sqlCheck>
+            <not>
+                <tableExists tableName="artisans"></tableExists>
+            </not>
         </preConditions>
         <sql>
-            INSERT INTO `applications` (`ID`, `ID_WORKER`, `NOM`, `TOKEN`) VALUES ('0f2e86da-9c25-4695-b0c5-c3d5a1e47729', '08747d89-0c85-492b-b71a-cb6d244a9a00', 'Les jardins de Nicolas', 'NB_JARDINS');
+            CREATE TABLE artisans
+            (
+            ID varchar(36) PRIMARY KEY NOT NULL,
+            ID_PERSONNE varchar(36) NOT NULL,
+            CONSTRAINT artisans_personnes_ID_fk FOREIGN KEY (ID_PERSONNE) REFERENCES personnes (ID) ON DELETE CASCADE ON UPDATE CASCADE
+            )
+            COLLATE='utf8_general_ci'
+            ;
+            CREATE UNIQUE INDEX artisans_ID_PERSONNE_uindex ON artisans (ID_PERSONNE);
+            CREATE INDEX artisans_ID_PERSONNE_index ON artisans (ID_PERSONNE);
         </sql>
         <comment>
-            Ajouter l'application NB_JARDINS
+            créer la table artisans
         </comment>
     </changeSet>
 
+    <changeSet id="202012190847" author="rvl" >
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">select count(*) from artisans where ID_PERSONNE='08747d89-0c85-492b-b71a-cb6d244a9a00'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO `artisans` (`ID`, `ID_PERSONNE`) VALUES ('38ecc009-b643-4d14-bed0-a7f29ea9d345','08747d89-0c85-492b-b71a-cb6d244a9a00');
+        </sql>
+        <comment>
+            Ajouter l'artisan nb
+        </comment>
+    </changeSet>
+
+    <changeSet id="202012190848" author="rvl">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">select count(*) from applications where ID_WORKER='08747d89-0c85-492b-b71a-cb6d244a9a00'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO `applications` (`ID`, `ID_WORKER`,`NOM`,`TOKEN`) VALUES ('d60065ee-d018-4629-8794-25cd2eeb0187','08747d89-0c85-492b-b71a-cb6d244a9a00','Les jardins de Nicolas','NB_JARDINS');
+        </sql>
+        <comment>
+            Ajouter l'application de l'artisan nb
+        </comment>
+    </changeSet>
+
+    <changeSet id="202012190852" author="rvl" >
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="clients"></tableExists>
+            </not>
+        </preConditions>
+        <sql>
+            CREATE TABLE clients
+            (
+            ID varchar(36) PRIMARY KEY NOT NULL,
+            ID_PERSONNE varchar(36) NOT NULL,
+            CONSTRAINT clients_personnes_ID_fk FOREIGN KEY (ID_PERSONNE) REFERENCES personnes (ID) ON DELETE CASCADE ON UPDATE CASCADE
+            )
+            COLLATE='utf8_general_ci'
+            ;
+            CREATE UNIQUE INDEX clients_ID_PERSONNE_uindex ON clients (ID_PERSONNE);
+            CREATE INDEX clients_ID_PERSONNE_index ON clients (ID_PERSONNE);
+        </sql>
+        <comment>
+            créer la table clients
+        </comment>
+    </changeSet>
+
+    <changeSet id="202012190913" author="rvl" >
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="taxes"></tableExists>
+            </not>
+        </preConditions>
+        <sql>
+            CREATE TABLE taxes
+            (
+            ID varchar(36) PRIMARY KEY NOT NULL,
+            NOM VARCHAR(50) NOT NULL,
+            TAUX decimal(4,2) NOT NULL
+            )
+            COLLATE='utf8_general_ci'
+            ;
+            CREATE UNIQUE INDEX taxes_NOM_uindex ON taxes (NOM)
+        </sql>
+        <comment>
+            créer la table taxes
+        </comment>
+    </changeSet>
+
+    <changeSet id="202012190914" author="rvl" runAlways="true">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">select count(*) from taxes</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO `taxes` (`ID`, `NOM`,`TAUX`) VALUES ('4232afa5-d33d-409a-a36c-85648b45a13a','NORMAL',20);
+            INSERT INTO `taxes` (`ID`, `NOM`,`TAUX`) VALUES ('2dc642a6-9396-4e51-a2b6-ff75a3330684','BIENS ET SERVICES',10);
+            INSERT INTO `taxes` (`ID`, `NOM`,`TAUX`) VALUES ('06171a47-59a9-45af-b7d7-8b9effd96d0f','PRODUITS ET SERVICES DE PREMIÈRE NÉCESSITÉ',5.5);
+            INSERT INTO `taxes` (`ID`, `NOM`,`TAUX`) VALUES ('531078a9-9402-455a-9fa1-f9b23d85edb8','PRESSE, MÉDICAMENTS REMBOURSABLES, SPECTACLES, ...',2.1);
+        </sql>
+        <comment>
+            Ajouter les taxes par defaut
+        </comment>
+    </changeSet>
+
+    <changeSet id="202012190920" author="rvl" >
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="artisans__taxes"></tableExists>
+            </not>
+        </preConditions>
+        <sql>
+            CREATE TABLE artisans__taxes
+            (
+            ID varchar(36) PRIMARY KEY NOT NULL,
+            ID_ARTISAN varchar(36) NOT NULL,
+            ID_TAXE varchar(36) NOT NULL,
+            CONSTRAINT artisans_taxes_taxes_ID_fk FOREIGN KEY (ID_TAXE) REFERENCES taxes (ID) ON UPDATE CASCADE ON DELETE RESTRICT,
+            CONSTRAINT artisans_taxes_artisans_ID_fk FOREIGN KEY (ID_ARTISAN) REFERENCES artisans (ID) ON DELETE CASCADE ON UPDATE CASCADE
+            )
+            COLLATE='utf8_general_ci'
+            ;
+            CREATE UNIQUE INDEX artisans_taxes_ID_ARTISAN_uindex ON artisans__taxes (ID_ARTISAN);
+            CREATE INDEX artisans_taxes_ID_ARTISAN_index ON artisans__taxes (ID_ARTISAN);
+            CREATE INDEX artisans_taxes_ID_TAXE_index ON artisans__taxes (ID_TAXE);
+        </sql>
+        <comment>
+            créer la table artisans__taxes
+        </comment>
+    </changeSet>
+
+    <changeSet id="202012190931" author="rvl" runAlways="true">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">select count(*) from artisans__taxes where ID_ARTISAN='38ecc009-b643-4d14-bed0-a7f29ea9d345'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO `artisans__taxes` (`ID`, `ID_ARTISAN`,`ID_TAXE`) VALUES ('0afc2070-9dc4-46e0-9660-36f09b72b237','38ecc009-b643-4d14-bed0-a7f29ea9d345','2dc642a6-9396-4e51-a2b6-ff75a3330684');
+        </sql>
+        <comment>
+            Ajouter les artisans__taxes par defaut
+        </comment>
+    </changeSet>
 
 </databaseChangeLog>
