@@ -39,7 +39,7 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase<
     private final PersonneRepoPT personneRepo;
     private final DemandeDeDevisRepoPT demandeDeDevisRepo;
     private final EnregistrerClientUE enregistrerClientUE;
-    private  DataProviderManager dpm;
+
 
     public DemandeDeDevisUE(MailDevisServicePT mailDevisService, LocalizeServicePT localizeService, PersonneRepoPT personneRepo, DemandeDeDevisRepoPT demandeDeDevisRepo, EnregistrerClientUE enregistrerClientUE, TransactionManagerPT transactionManager) {
         super(localizeService, transactionManager);
@@ -63,7 +63,7 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase<
     public ResponseDN<DemandeDeDevisDN> execute(RequestDN<DemandeDeDevisDN> request) {
         Locale currentLocale = request.getLocale();
         DemandeDeDevisDN demandeDeDevisDN = request.getOne();
-
+        DataProviderManager dpm = this.transactionManager.createTransactionManager();
 
         Map<String, Boolean> preconditions = new HashMap<>();
         preconditions.put(localizeService.getMsg(PRENOM_OBLIGATOIRE, currentLocale), Objects.isNull(demandeDeDevisDN.getAsker().getPrenom()));
@@ -74,24 +74,25 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase<
         ResponseDN<DemandeDeDevisDN> responseDN = Utils.initResponse(preconditions);
         responseDN.setOne(demandeDeDevisDN);
 
+
         if (!responseDN.isError()) {
 
             try {
-                this.dpm = this.transactionManager.createTransactionManager();
-                this.transactionManager.begin(this.dpm);
+
+                this.transactionManager.begin(dpm);
 
                 // sujet de la demande de devis
                 String sujet = MessageFormat.format(localizeService.getMsg(SUJET_DEVIS, localizeService.getWorkerLocale()), StringUtils.capitalize(demandeDeDevisDN.getAsker().getPrenom().toLowerCase()), StringUtils.capitalize(demandeDeDevisDN.getAsker().getNom().toLowerCase()));
                 demandeDeDevisDN.setSujet(sujet);
 
                 // recuperer l'artisan et le mettre dans la demande de devis
-                request = addArtisanToDemandeDeDevis(request);
+                request = addArtisanToDemandeDeDevis(dpm,request);
 
                 // enregistrer le client
                 saveClient(request);
 
                 //enregistrer la demande de devis
-                //saveDemandeDeDevis(request);
+                saveDemandeDeDevis(dpm,request);
 
                 // envoyer la demande de devis à l'artisan
                 responseDN = sendToWorker(request);
@@ -103,11 +104,11 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase<
                 }
 
 
-                this.transactionManager.commit(this.dpm);
+                this.transactionManager.commit(dpm);
 
             } catch (DemandeDeDevisException de) {
                 responseDN.addErrorMessage(de.displayMessage(localizeService));
-                this.transactionManager.rollback(this.dpm);
+                this.transactionManager.rollback(dpm);
             } finally {
                 this.transactionManager.close(dpm);
             }
@@ -130,17 +131,17 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase<
 
     }
 
-    private void saveDemandeDeDevis(RequestDN<DemandeDeDevisDN> request) throws DemandeDeDevisException {
+    private void saveDemandeDeDevis(DataProviderManager dpm,RequestDN<DemandeDeDevisDN> request) throws DemandeDeDevisException {
         try {
-            demandeDeDevisRepo.save(this.dpm, request.getOne());
+            demandeDeDevisRepo.save(dpm, request.getOne());
         } catch (PersistenceException pe) {
             throw new DemandeDeDevisException(pe.getMessage(), pe, pe.getMsgKey(), pe.getArgs());
         }
     }
 
-    private RequestDN<DemandeDeDevisDN> addArtisanToDemandeDeDevis(RequestDN<DemandeDeDevisDN> request) throws DemandeDeDevisException {
+    private RequestDN<DemandeDeDevisDN> addArtisanToDemandeDeDevis(DataProviderManager dpm,RequestDN<DemandeDeDevisDN> request) throws DemandeDeDevisException {
         try {
-            PersonneDN artisan = personneRepo.findArtisanByApplicationToken(this.dpm, request.getApplication().getToken());
+            PersonneDN artisan = personneRepo.findArtisanByApplicationToken(dpm, request.getApplication().getToken());
             request.getOne().setWorker(artisan);
             return request;
         } catch (PersistenceException pe) {

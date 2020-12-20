@@ -31,8 +31,6 @@ public final class EnregistrerClientUE extends AbstractUsecase implements IUseca
     PersonneRoleRepoPT personneRoleRepo;
     ClientRepoPT clientRepo;
 
-    DataProviderManager dpm;
-
 
     public EnregistrerClientUE(PersonneRepoPT personneRepo, PersonneRoleRepoPT personneRoleRepo, LocalizeServicePT localizeService, ClientRepoPT clientRepo, TransactionManagerPT transactionManager) {
         super(localizeService, transactionManager);
@@ -53,19 +51,20 @@ public final class EnregistrerClientUE extends AbstractUsecase implements IUseca
     public ResponseDN<ClientDN> execute(RequestDN<ClientDN> instance) {
 
         ResponseDN<ClientDN> responseDN = new ResponseDN<>();
+        DataProviderManager dpm = this.transactionManager.createTransactionManager();
 
         try {
-            this.dpm = this.transactionManager.createTransactionManager();
-            transactionManager.begin(this.dpm);
+
+            transactionManager.begin(dpm);
 
             boolean isArtisan = false;
             PersonneDN client = instance.getOne().getClient();
 
-            String idPersonne = personneRepo.findIdByEmail(this.dpm, client.getEmail());
+            String idPersonne = personneRepo.findIdByEmail(dpm, client.getEmail());
 
             // si la personne existe
             if (Objects.nonNull(idPersonne)) {
-                Personne__RoleDN personne__role = personneRoleRepo.findByEmailAndRole(this.dpm, client.getEmail(), ROLES.ROLE_ARTISAN.getValue());
+                Personne__RoleDN personne__role = personneRoleRepo.findByEmailAndRole(dpm, client.getEmail(), ROLES.ROLE_ARTISAN.getValue());
 
                 // si c'est un artisan
                 if (Objects.nonNull(personne__role)) {
@@ -76,15 +75,15 @@ public final class EnregistrerClientUE extends AbstractUsecase implements IUseca
 
             // si ce n'est pas un artisan, on l'enregistre en tant que client
             if (!isArtisan) {
-                ClientDN clientDN = saveClient(client);
+                ClientDN clientDN = saveClient(dpm,client);
                 responseDN.setOne(clientDN);
             }
 
-            this.transactionManager.commit(this.dpm);
+            this.transactionManager.commit(dpm);
 
         } catch (PersistenceException e) {
             responseDN.addErrorMessage(localizeService.getMsg(JPA_ERREUR_SAUVEGARDE_CLIENT));
-            this.transactionManager.rollback(this.dpm);
+            this.transactionManager.rollback(dpm);
             LOG.error(e.getMessage(), e);
         } finally {
             this.transactionManager.close(dpm);
@@ -94,9 +93,9 @@ public final class EnregistrerClientUE extends AbstractUsecase implements IUseca
         return responseDN;
     }
 
-    private ClientDN saveClient(PersonneDN client) throws PersistenceException {
-        PersonneDN personne = personneRepo.saveClient(this.dpm, client);
-        personneRoleRepo.saveRoleClient(this.dpm, personne.getId());
-        return clientRepo.saveByIdPersonne(this.dpm, personne.getId());
+    private ClientDN saveClient(DataProviderManager dpm, PersonneDN client) throws PersistenceException {
+        PersonneDN personne = personneRepo.saveClient(dpm, client);
+        personneRoleRepo.saveRoleClient(dpm, personne.getId());
+        return clientRepo.saveByIdPersonne(dpm, personne.getId());
     }
 }
