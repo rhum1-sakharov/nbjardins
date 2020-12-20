@@ -56,9 +56,9 @@ public class TransactionManagerAR implements TransactionManagerPT {
 
             EntityManager entityManager = getEntityManager(dpm);
 
-            LOG.info("begin jta transaction for entityManager {} {}", entityManager.toString(), tx.toString());
+            LOG.debug("begin jta transaction for entityManager {} {}", entityManager.toString(), tx.toString());
         } else {
-            LOG.info("begin, jta transaction is already started");
+            LOG.debug("begin, jta transaction is already started");
         }
 
 
@@ -72,13 +72,13 @@ public class TransactionManagerAR implements TransactionManagerPT {
             UserTransaction tx = getUserTransaction(dpm);
             EntityManager entityManager = getEntityManager(dpm);
 
-            LOG.info("trying to commit jta transaction for entityManager {} {}", entityManager.toString(), tx.toString());
+            LOG.debug("trying to commit jta transaction for entityManager {} {}", entityManager.toString(), tx.toString());
 
             tx.commit();
 
-            LOG.info("jta transaction commited for entityManager {}", entityManager.toString());
+            LOG.debug("jta transaction commited for entityManager {}", entityManager.toString());
         } else {
-            LOG.info("commit, jta transaction is already started");
+            LOG.debug("commit, jta transaction is already started");
         }
 
     }
@@ -89,11 +89,11 @@ public class TransactionManagerAR implements TransactionManagerPT {
         UserTransaction tx = getUserTransaction(dpm);
         EntityManager entityManager = getEntityManager(dpm);
 
-        LOG.info("trying to rollback jta transaction for entityManager {} {}", entityManager.toString(), tx.toString());
+        LOG.debug("trying to rollback jta transaction for entityManager {} {}", entityManager.toString(), tx.toString());
 
         tx.rollback();
 
-        LOG.info("jta transaction rollbacked for entityManager {}", entityManager.toString());
+        LOG.debug("jta transaction rollbacked for entityManager {}", entityManager.toString());
     }
 
     @Override
@@ -102,6 +102,6 @@ public class TransactionManagerAR implements TransactionManagerPT {
 
         entityManager.close();
 
-        LOG.info("close {}", entityManager.toString());
+        LOG.debug("close {}", entityManager.toString());
     }
 }

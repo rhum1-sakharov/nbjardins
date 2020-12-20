@@ -20,6 +20,7 @@ public class JtaConfig {
 
     public static final String DATASOURCE_NAME = "myDS";
     public static final String PERSISTENCE_UNIT_RLSV = "PERSISTENCE_UNIT_RLSV";
+    private static final String SERVER_ID = "CLEAN_SERVER_1";
 
     private static final Logger LOG = LoggerFactory.getLogger(ClientRepoAR.class);
     protected final PoolingDataSource datasource;
@@ -50,13 +51,13 @@ public class JtaConfig {
         LOG.info("Starting database connection pool");
 
         LOG.info("Setting stable unique identifier for transaction recovery");
-        TransactionManagerServices.getConfiguration().setServerId("myServer1234");
+        TransactionManagerServices.getConfiguration().setServerId(SERVER_ID);
 
         LOG.info("Disabling JMX binding of manager in unit tests");
         TransactionManagerServices.getConfiguration().setDisableJmx(true);
 
-        LOG.info("Disabling transaction logging for unit tests");
-        TransactionManagerServices.getConfiguration().setJournal("null");
+//        LOG.info("Disabling transaction logging for unit tests");
+//        TransactionManagerServices.getConfiguration().setJournal("null");
 
         LOG.info("Disabling warnings when the database isn't accessed in a transaction");
         TransactionManagerServices.getConfiguration().setWarnAboutZeroResourceTransaction(false);
