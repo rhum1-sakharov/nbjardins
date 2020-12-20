@@ -23,13 +23,14 @@ public class JpaConfig {
 
     public static EntityManagerFactory entityManagerFactory;
     public static PersistenceConfig persistenceConfig;
-    private static volatile  JpaConfig jpaConfig;
+    private static volatile JpaConfig jpaConfig;
     private static Object mutex = new Object();
 
 
     /**
      * https://www.journaldev.com/171/thread-safety-in-java-singleton-classes
      * https://medium.com/@cancerian0684/singleton-design-pattern-and-how-to-make-it-thread-safe-b207c0e7e368
+     *
      * @return singleton
      */
     public static JpaConfig getSingleton() {
