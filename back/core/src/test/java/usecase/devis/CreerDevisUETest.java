@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import ports.localization.LocalizeServicePT;
+import ports.transactions.TransactionManagerPT;
 
 public class CreerDevisUETest {
 
@@ -12,9 +13,12 @@ public class CreerDevisUETest {
     @Mock
     LocalizeServicePT localizeService;
 
+    @Mock
+    TransactionManagerPT transactionManager;
+
     @Before
     public void setUp() {
-        creerDevisUE = new CreerDevisUE(localizeService);
+        creerDevisUE = new CreerDevisUE(localizeService,transactionManager);
     }
 
     @Test

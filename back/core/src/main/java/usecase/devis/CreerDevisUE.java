@@ -5,6 +5,7 @@ import domain.models.DevisDN;
 import domain.wrapper.RequestDN;
 import domain.wrapper.ResponseDN;
 import ports.localization.LocalizeServicePT;
+import ports.transactions.TransactionManagerPT;
 import usecase.AbstractUsecase;
 import usecase.IUsecase;
 
@@ -12,8 +13,8 @@ public class CreerDevisUE extends AbstractUsecase implements IUsecase<DevisDN> {
 
     private static final String KEY_TYPE_CREATION_DEVIS = "key.type.creation.devis";
 
-    public CreerDevisUE(LocalizeServicePT localizeService) {
-        super(localizeService);
+    public CreerDevisUE(LocalizeServicePT localizeService, TransactionManagerPT transactionManager) {
+        super(localizeService, transactionManager);
     }
 
     /**

@@ -91,7 +91,7 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase<
                 saveClient(request);
 
                 //enregistrer la demande de devis
-                saveDemandeDeDevis(request);
+                //saveDemandeDeDevis(request);
 
                 // envoyer la demande de devis à l'artisan
                 responseDN = sendToWorker(request);

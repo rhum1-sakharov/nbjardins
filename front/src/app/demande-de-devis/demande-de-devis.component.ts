@@ -68,11 +68,13 @@ export class DemandeDeDevisComponent implements OnInit {
       const fonction = this.form.get('fonctionCtl').value;
       const adresse = this.form.get('adresseCtl').value;
       const ville = this.form.get('villeCtl').value ? this.form.get('villeCtl').value : null;
+      const nomVille = ville ? ville.nom:null;
+      const codePostal = ville ? ville.codePostal:null;
       const telephone = this.form.get('telephoneCtl').value;
       const email = this.form.get('emailCtl').value;
       const message = this.form.get('messageCtl').value;
 
-      const asker = new MPersonne(nom, prenom, telephone, societe, fonction, adresse, ville.nom,ville.codePostal, email);
+      const asker = new MPersonne(nom, prenom, telephone, societe, fonction, adresse, nomVille,codePostal, email);
 
       const request: MRequest<MDemandeDeDevis> = new MRequest();
       request.one = new MDemandeDeDevis(asker, null, message);
