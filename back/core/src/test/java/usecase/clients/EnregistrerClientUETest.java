@@ -1,7 +1,6 @@
 package usecase.clients;
 
 import domain.enums.ROLES;
-import domain.exceptions.PersistenceException;
 import domain.models.ClientDN;
 import domain.models.PersonneDN;
 import domain.models.Personne__RoleDN;
@@ -61,7 +60,7 @@ public class EnregistrerClientUETest {
 
 
     @Test
-    public void execute_should_return_error_when_personne_is_artisan() throws PersistenceException {
+    public void execute_should_return_error_when_personne_is_artisan() throws Exception {
 
         String errorMessage = "On ne peut pas enregistrer un client qui a un email qui est déjà utilisé par un artisan.";
         Mockito.when(this.personneRepo.findIdByEmail(null,this.request.getOne().getClient().getEmail())).thenReturn("1");
@@ -76,7 +75,7 @@ public class EnregistrerClientUETest {
     }
 
     @Test
-    public void execute_should_return_new_personne_when_personne_is_client() throws PersistenceException {
+    public void execute_should_return_new_personne_when_personne_is_client() throws Exception {
 
         Mockito.when(personneRepo.saveClient(null,initPersonneStub())).thenReturn(initPersonneStub());
         Mockito.when(this.personneRepo.findIdByEmail(null,this.request.getOne().getClient().getEmail())).thenReturn("1");

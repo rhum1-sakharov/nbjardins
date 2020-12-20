@@ -1,67 +1,99 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.transactions;
 
 import domain.transactions.DataProviderManager;
-import org.rlsv.adapters.secondaries.dataproviderjpa.config.JpaConfig;
+import org.rlsv.adapters.secondaries.dataproviderjpa.config.JtaConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ports.transactions.TransactionManagerPT;
 
 import javax.persistence.EntityManager;
-import javax.persistence.RollbackException;
+import javax.transaction.Status;
+import javax.transaction.UserTransaction;
+import java.util.Objects;
 
 public class TransactionManagerAR implements TransactionManagerPT {
 
     private static final Logger LOG = LoggerFactory.getLogger(TransactionManagerAR.class);
 
-
     public static EntityManager getEntityManager(DataProviderManager dpm) {
         return (EntityManager) dpm.getManager();
     }
 
-    @Override
-    public DataProviderManager createTransactionManager() {
-
-        JpaConfig.getSingleton();
-        return new DataProviderManager(JpaConfig.entityManagerFactory.createEntityManager());
+    public static UserTransaction getUserTransaction(DataProviderManager dpm) {
+        return (UserTransaction) dpm.getTransactionManager();
     }
 
     @Override
-    public void begin(DataProviderManager dpm) {
+    public DataProviderManager createDataProviderManager(DataProviderManager dpm) throws Exception {
 
-        EntityManager entityManager = getEntityManager(dpm);
+        JtaConfig jtaConfig = JtaConfig.getInstance();
+        EntityManager em = jtaConfig.createEntityManager();
+        boolean nestedTransaction = false;
 
-        if (!entityManager.getTransaction().isActive()) {
-            entityManager.getTransaction().begin();
-            LOG.info("begin transaction  {}", entityManager.toString());
+        UserTransaction tx;
+        if (Objects.isNull(dpm)) {
+            tx = jtaConfig.getUserTransaction();
         } else {
-            LOG.info("begin transaction already active {}", entityManager.toString());
+            tx = (UserTransaction) dpm.getTransactionManager();
+            nestedTransaction = true;
+        }
+
+        dpm = new DataProviderManager(em, tx, nestedTransaction);
+
+        return dpm;
+    }
+
+    @Override
+    public void begin(DataProviderManager dpm) throws Exception {
+
+        if (!dpm.isNestedTransaction()) {
+
+            UserTransaction tx = getUserTransaction(dpm);
+
+            if (tx.getStatus() != Status.STATUS_ACTIVE) {
+                tx.begin();
+            }
+
+            EntityManager entityManager = getEntityManager(dpm);
+
+            LOG.info("begin jta transaction for entityManager {} {}", entityManager.toString(), tx.toString());
+        } else {
+            LOG.info("begin, jta transaction is already started");
         }
 
 
     }
 
     @Override
-    public void commit(DataProviderManager dpm) {
-        EntityManager entityManager = getEntityManager(dpm);
+    public void commit(DataProviderManager dpm) throws Exception {
 
-        try {
-            entityManager.getTransaction().commit();
-            LOG.info("commit {}", entityManager.toString());
-        } catch (RollbackException re) {
-            LOG.error("commit {}", entityManager.toString(), re.getMessage());
-            re.printStackTrace();
+        if (!dpm.isNestedTransaction()) {
+
+            UserTransaction tx = getUserTransaction(dpm);
+            EntityManager entityManager = getEntityManager(dpm);
+
+            LOG.info("trying to commit jta transaction for entityManager {} {}", entityManager.toString(), tx.toString());
+
+            tx.commit();
+
+            LOG.info("jta transaction commited for entityManager {}", entityManager.toString());
+        } else {
+            LOG.info("commit, jta transaction is already started");
         }
 
     }
 
     @Override
-    public void rollback(DataProviderManager dpm) {
+    public void rollback(DataProviderManager dpm) throws Exception {
 
+        UserTransaction tx = getUserTransaction(dpm);
         EntityManager entityManager = getEntityManager(dpm);
 
-        entityManager.getTransaction().rollback();
+        LOG.info("trying to rollback jta transaction for entityManager {} {}", entityManager.toString(), tx.toString());
 
-        LOG.info("rollback {}", entityManager.toString());
+        tx.rollback();
+
+        LOG.info("jta transaction rollbacked for entityManager {}", entityManager.toString());
     }
 
     @Override

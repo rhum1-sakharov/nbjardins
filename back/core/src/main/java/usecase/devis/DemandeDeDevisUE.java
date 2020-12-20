@@ -60,10 +60,11 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase<
      * @return
      */
     @Override
-    public ResponseDN<DemandeDeDevisDN> execute(RequestDN<DemandeDeDevisDN> request) {
+    public ResponseDN<DemandeDeDevisDN> execute(RequestDN<DemandeDeDevisDN> request) throws Exception {
         Locale currentLocale = request.getLocale();
         DemandeDeDevisDN demandeDeDevisDN = request.getOne();
-        DataProviderManager dpm = this.transactionManager.createTransactionManager();
+        DataProviderManager dpm = this.transactionManager.createDataProviderManager(request.getDataProviderManager());
+        request.setDataProviderManager(dpm);
 
         Map<String, Boolean> preconditions = new HashMap<>();
         preconditions.put(localizeService.getMsg(PRENOM_OBLIGATOIRE, currentLocale), Objects.isNull(demandeDeDevisDN.getAsker().getPrenom()));
@@ -86,13 +87,13 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase<
                 demandeDeDevisDN.setSujet(sujet);
 
                 // recuperer l'artisan et le mettre dans la demande de devis
-                request = addArtisanToDemandeDeDevis(dpm,request);
+                request = addArtisanToDemandeDeDevis( request);
 
                 // enregistrer le client
                 saveClient(request);
 
                 //enregistrer la demande de devis
-                saveDemandeDeDevis(dpm,request);
+                saveDemandeDeDevis( request);
 
                 // envoyer la demande de devis à l'artisan
                 responseDN = sendToWorker(request);
@@ -123,25 +124,30 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase<
         return responseDN;
     }
 
-    private void saveClient(RequestDN<DemandeDeDevisDN> request) {
+    private void saveClient(RequestDN<DemandeDeDevisDN> request) throws Exception {
 
         PersonneDN client = request.getOne().getAsker();
         ClientDN clientDN = new ClientDN(client);
-        enregistrerClientUE.execute(Utils.initRequest(clientDN));
+
+
+        RequestDN<ClientDN> clientRequest = Utils.initRequest(clientDN);
+        clientRequest.setDataProviderManager(request.getDataProviderManager());
+
+        enregistrerClientUE.execute(clientRequest);
 
     }
 
-    private void saveDemandeDeDevis(DataProviderManager dpm,RequestDN<DemandeDeDevisDN> request) throws DemandeDeDevisException {
+    private void saveDemandeDeDevis( RequestDN<DemandeDeDevisDN> request) throws DemandeDeDevisException {
         try {
-            demandeDeDevisRepo.save(dpm, request.getOne());
+            demandeDeDevisRepo.save(request.getDataProviderManager(), request.getOne());
         } catch (PersistenceException pe) {
             throw new DemandeDeDevisException(pe.getMessage(), pe, pe.getMsgKey(), pe.getArgs());
         }
     }
 
-    private RequestDN<DemandeDeDevisDN> addArtisanToDemandeDeDevis(DataProviderManager dpm,RequestDN<DemandeDeDevisDN> request) throws DemandeDeDevisException {
+    private RequestDN<DemandeDeDevisDN> addArtisanToDemandeDeDevis(RequestDN<DemandeDeDevisDN> request) throws DemandeDeDevisException {
         try {
-            PersonneDN artisan = personneRepo.findArtisanByApplicationToken(dpm, request.getApplication().getToken());
+            PersonneDN artisan = personneRepo.findArtisanByApplicationToken(request.getDataProviderManager(), request.getApplication().getToken());
             request.getOne().setWorker(artisan);
             return request;
         } catch (PersistenceException pe) {

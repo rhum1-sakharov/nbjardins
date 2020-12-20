@@ -48,10 +48,10 @@ public final class EnregistrerClientUE extends AbstractUsecase implements IUseca
      * Si non, enregistrer la personne, l'associer au role client et au type client
      */
     @Override
-    public ResponseDN<ClientDN> execute(RequestDN<ClientDN> instance) {
+    public ResponseDN<ClientDN> execute(RequestDN<ClientDN> instance) throws Exception {
 
         ResponseDN<ClientDN> responseDN = new ResponseDN<>();
-        DataProviderManager dpm = this.transactionManager.createTransactionManager();
+        DataProviderManager dpm = this.transactionManager.createDataProviderManager(instance.getDataProviderManager());
 
         try {
 

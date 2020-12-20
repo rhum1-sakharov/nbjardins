@@ -12,5 +12,7 @@ import lombok.Setter;
 public class DataProviderManager {
 
     private Object manager;
+    private Object transactionManager;
+    private boolean nestedTransaction;
 
 }

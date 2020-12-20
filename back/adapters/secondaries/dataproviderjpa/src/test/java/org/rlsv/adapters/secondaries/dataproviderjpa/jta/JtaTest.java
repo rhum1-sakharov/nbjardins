@@ -1,45 +1,41 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.jta;
 
+import org.junit.Before;
 import org.junit.Test;
-import org.rlsv.adapters.secondaries.dataproviderjpa.config.JpaConfig;
-import org.rlsv.adapters.secondaries.dataproviderjpa.config.PersistenceConfig;
+import org.rlsv.adapters.secondaries.dataproviderjpa.config.DatabaseConnectionConfig;
+import org.rlsv.adapters.secondaries.dataproviderjpa.config.JtaConfig;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Personne;
+import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Role;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.transaction.Status;
 import javax.transaction.UserTransaction;
-import java.util.HashMap;
-import java.util.Map;
+
+import static org.rlsv.adapters.secondaries.dataproviderjpa.config.JtaConfig.PERSISTENCE_UNIT_RLSV;
 
 public class JtaTest {
 
 
-    public static void setUp() {
+    @Before
+    public void setUp() {
 
-        Map<String, String> propertiesMap = new HashMap();
-        propertiesMap.put("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
-        propertiesMap.put("javax.persistence.jdbc.url", "jdbc:mysql://localhost:3306/unit_tests_nbjardins?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
-        propertiesMap.put("javax.persistence.jdbc.user", "root");
-        propertiesMap.put("javax.persistence.jdbc.password", "");
-        propertiesMap.put("javax.persistence.jdbc.driver", "com.mysql.cj.jdbc.Driver");
-        propertiesMap.put("hibernate.hikari.connectionTimeout", "20000");
-        propertiesMap.put("hibernate.hikari.minimumIdle", "10");
-        propertiesMap.put("hibernate.hikari.maximumPoolSize", "20");
-        propertiesMap.put("hibernate.hikari.idleTimeout", "300000");
+        String user = "root";
+        String password = "";
+        String url = "jdbc:mysql://localhost:3306/unit_tests_nbjardins?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+        String driver = "com.mysql.cj.jdbc.Driver";
 
-        JpaConfig.persistenceConfig = new PersistenceConfig("PERSISTENCE_UNIT_NB_JARDINS", propertiesMap);
-
+        JtaConfig.databaseConnectionConfig = new DatabaseConnectionConfig(user, password, url, driver, PERSISTENCE_UNIT_RLSV);
     }
 
     @Test
     public void testBitronix() throws Exception {
 
 
-        TransactionManagerSetup tm = new TransactionManagerSetup(DatabaseProduct.MYSQL, "jdbc:mysql://localhost:3306/unit_tests_nbjardins?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
+        JtaConfig tm = JtaConfig.getInstance();
 
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("HelloWorldPU");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_RLSV);
 
         UserTransaction tx = tm.getUserTransaction();
 
@@ -49,12 +45,17 @@ public class JtaTest {
         try {
             tx.begin();
 
+            Role role = new Role();
+            role.setNom("TEST_ROLE");
+            role.setDescription("test");
+            em.persist(role);
+
             Personne personne = new Personne();
             personne.setNom("test");
-            personne.setEmail("email");
+            personne.setEmail("email2");
             personne.setPrenom("prenom");
-
             em.persist(personne);
+
             tx.commit();
         } catch (Exception ex) {
             ex.printStackTrace();

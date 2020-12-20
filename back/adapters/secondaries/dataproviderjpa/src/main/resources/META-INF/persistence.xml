@@ -5,35 +5,19 @@
         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
                             http://xmlns.jcp.org/xml/ns/persistence_2_1.xsd">
 
-    <persistence-unit name="HelloWorldPU">
+    <persistence-unit name="PERSISTENCE_UNIT_RLSV">
 
-        <!--
-             Each persistence unit must have a database connection. Here you delegate to
-             an existing <code>java.sql.DataSource</code>. Hibernate will find the data source
-             by name with a JNDI lookup on startup.
-        -->
+
         <jta-data-source>myDS</jta-data-source>
 
-        <!--
-            A persistent unit has persistent (mapped) classes, you list them here.
-        -->
         <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.Personne</class>
         <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.Application</class>
         <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.Artisan</class>
         <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.Client</class>
         <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.Personne__Role</class>
         <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.Role</class>
-        <!--
-            Hibernate can scan your classpath for mapped classes and add them automatically
-            to your persistence unit. This setting disables that feature.
-        -->
+        <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.DemandeDeDevis</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
-
-        <!--
-            Standard or vendor-specific options can be set as properties on a persistence unit.
-            Any standard properties have the <code>javax.persistence</code> name prefix, Hibernate's
-            settings use <code>hibernate</code>
-        -->
         <properties>
 
             <!--

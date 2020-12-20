@@ -1,4 +1,4 @@
-package org.rlsv.adapters.secondaries.dataproviderjpa.jta;
+package org.rlsv.adapters.secondaries.dataproviderjpa.config;
 
 import bitronix.tm.TransactionManagerServices;
 import bitronix.tm.resource.jdbc.PoolingDataSource;
@@ -8,40 +8,60 @@ import org.slf4j.LoggerFactory;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.sql.DataSource;
 import javax.transaction.Status;
 import javax.transaction.UserTransaction;
+import java.util.Objects;
 
-public class TransactionManagerSetup {
+public class JtaConfig {
 
     public static final String DATASOURCE_NAME = "myDS";
-    private static final Logger logger = LoggerFactory.getLogger(ClientRepoAR.class);
-    protected final PoolingDataSource datasource;
-    public final DatabaseProduct databaseProduct;
-    protected final Context context = new InitialContext();
+    public static final String PERSISTENCE_UNIT_RLSV = "PERSISTENCE_UNIT_RLSV";
 
-    public TransactionManagerSetup(DatabaseProduct databaseProduct) throws Exception {
-        this(databaseProduct, null);
+    private static final Logger LOG = LoggerFactory.getLogger(ClientRepoAR.class);
+    protected final PoolingDataSource datasource;
+    protected final Context context = new InitialContext();
+    private static EntityManagerFactory emf;
+
+    public static DatabaseConnectionConfig databaseConnectionConfig;
+    private static volatile JtaConfig instance;
+    private static Object mutex = new Object();
+
+    public static JtaConfig getInstance() throws Exception {
+        JtaConfig result = instance;
+        if (Objects.isNull(result)) {
+            synchronized (mutex) {
+                result = instance;
+                if (Objects.isNull(result)) {
+                    instance = result = new JtaConfig(databaseConnectionConfig);
+                }
+            }
+        }
+
+        return result;
     }
 
-    public TransactionManagerSetup(DatabaseProduct databaseProduct,
-                                   String connectionURL) throws Exception {
 
-        logger.info("Starting database connection pool");
+    private JtaConfig(DatabaseConnectionConfig databaseConnectionConfig) throws Exception {
 
-        logger.info("Setting stable unique identifier for transaction recovery");
+        LOG.info("Starting database connection pool");
+
+        LOG.info("Setting stable unique identifier for transaction recovery");
         TransactionManagerServices.getConfiguration().setServerId("myServer1234");
 
-        logger.info("Disabling JMX binding of manager in unit tests");
-        //TransactionManagerServices.getConfiguration().setDisableJmx(true);
+        LOG.info("Disabling JMX binding of manager in unit tests");
+        TransactionManagerServices.getConfiguration().setDisableJmx(true);
 
-        logger.info("Disabling transaction logging for unit tests");
-        //TransactionManagerServices.getConfiguration().setJournal("null");
+        LOG.info("Disabling transaction logging for unit tests");
+        TransactionManagerServices.getConfiguration().setJournal("null");
 
-        logger.info("Disabling warnings when the database isn't accessed in a transaction");
+        LOG.info("Disabling warnings when the database isn't accessed in a transaction");
         TransactionManagerServices.getConfiguration().setWarnAboutZeroResourceTransaction(false);
 
-        logger.info("Creating connection pool");
+        LOG.info("Creating connection pool");
         datasource = new PoolingDataSource();
         datasource.setUniqueName(DATASOURCE_NAME);
         datasource.setMinPoolSize(1);
@@ -58,12 +78,18 @@ public class TransactionManagerSetup {
         // mode and not joined with a transaction.
         datasource.setAllowLocalTransactions(true);
 
-        logger.info("Setting up database connection: " + databaseProduct);
-        this.databaseProduct = databaseProduct;
-        databaseProduct.configuration.configure(datasource, connectionURL);
 
-        logger.info("Initializing transaction and resource management");
+        LOG.info("Setting up database connection: ");
+        datasource.setClassName("bitronix.tm.resource.jdbc.lrc.LrcXADataSource");
+        datasource.getDriverProperties().put("url", databaseConnectionConfig.getUrl());
+        datasource.getDriverProperties().put("driverClassName", databaseConnectionConfig.getDriver());
+        datasource.getDriverProperties().put("user", databaseConnectionConfig.getUser());
+        datasource.getDriverProperties().put("password", databaseConnectionConfig.getPassword());
+
+        LOG.info("Initializing transaction and resource management");
         datasource.init();
+
+        emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_RLSV);
     }
 
     public Context getNamingContext() {
@@ -100,9 +126,13 @@ public class TransactionManagerSetup {
     }
 
     public void stop() throws Exception {
-        logger.info("Stopping database connection pool");
+        LOG.info("Stopping database connection pool");
         datasource.close();
         TransactionManagerServices.getTransactionManager().shutdown();
     }
 
+    public EntityManager createEntityManager() {
+
+        return emf.createEntityManager();
+    }
 }

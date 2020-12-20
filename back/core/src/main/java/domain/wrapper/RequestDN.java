@@ -2,6 +2,7 @@ package domain.wrapper;
 
 import domain.models.ApplicationDN;
 import domain.models.Domain;
+import domain.transactions.DataProviderManager;
 import lombok.Data;
 
 import java.util.*;
@@ -13,6 +14,7 @@ public class RequestDN<T extends Domain> {
     T one;
     Locale locale;
     ApplicationDN application;
+    DataProviderManager dataProviderManager;
     Map<String, Object> additionalProperties = new HashMap<>();
 
 }

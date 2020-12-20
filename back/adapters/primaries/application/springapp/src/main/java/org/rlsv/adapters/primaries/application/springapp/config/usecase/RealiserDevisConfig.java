@@ -24,38 +24,38 @@ public class RealiserDevisConfig {
     }
 
     @Bean
-    @DependsOn("persistenceConfig")
+    @DependsOn("databaseConnectionConfig")
     public PersonneRepoPT personneRepoPT() {
         return new PersonneRepoAR();
     }
 
     @Bean
-    @DependsOn("persistenceConfig")
+    @DependsOn("databaseConnectionConfig")
     public RoleRepoPT roleRepoPT() {
         return new RoleRepoAR();
     }
 
     @Bean
-    @DependsOn("persistenceConfig")
+    @DependsOn("databaseConnectionConfig")
     public DemandeDeDevisRepoPT demandeDeDevisRepoPT(PersonneRepoPT personneRepo) {
         return new DemandeDeDevisRepoAR(personneRepo);
     }
 
 
     @Bean
-    @DependsOn("persistenceConfig")
+    @DependsOn("databaseConnectionConfig")
     public PersonneRoleRepoPT personneRoleRepoPT(PersonneRepoPT personneRepo, RoleRepoPT roleRepo) {
         return new PersonneRoleRepoAR(personneRepo, roleRepo);
     }
 
     @Bean
-    @DependsOn("persistenceConfig")
+    @DependsOn("databaseConnectionConfig")
     public TransactionManagerPT transactionManagerPT() {
         return new TransactionManagerAR();
     }
 
     @Bean
-    @DependsOn("persistenceConfig")
+    @DependsOn("databaseConnectionConfig")
     public ClientRepoPT clientRepoPT() {
         return new ClientRepoAR();
     }

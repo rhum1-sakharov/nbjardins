@@ -24,7 +24,7 @@ public class DevisController {
 
 
     @PostMapping(value = "/demander-devis")
-    public ResponseDN<DemandeDeDevisDN> demanderDevis(@RequestBody RequestDN<DemandeDeDevisDN> request, Locale locale) {
+    public ResponseDN<DemandeDeDevisDN> demanderDevis(@RequestBody RequestDN<DemandeDeDevisDN> request, Locale locale) throws Exception {
 
         request.setLocale(locale);
 
