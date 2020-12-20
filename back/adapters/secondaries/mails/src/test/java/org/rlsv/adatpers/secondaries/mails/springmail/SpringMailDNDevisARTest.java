@@ -1,12 +1,10 @@
 package org.rlsv.adatpers.secondaries.mails.springmail;
 
 import com.icegreen.greenmail.util.GreenMail;
-import com.icegreen.greenmail.util.ServerSetup;
 import domain.models.DemandeDeDevisDN;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.rlsv.adatpers.secondaries.mails.ServerMail;
 
 
 public class SpringMailDNDevisARTest {
@@ -18,9 +16,9 @@ public class SpringMailDNDevisARTest {
     @Before
     public void setUp() {
 
-        ServerMail serverMail = new ServerMail("localhost", false, 25, null, null, false, false,"");
-        smtpServer = new GreenMail(new ServerSetup(serverMail.getPort(), null, "smtp"));
-        smtpServer.start();
+//        ServerMail serverMail = new ServerMail("localhost", false, 25, null, null, false, false,"");
+//        smtpServer = new GreenMail(new ServerSetup(serverMail.getPort(), null, "smtp"));
+//        smtpServer.start();
 
 //        demandeDeDevisDN = new DemandeDeDevisDN("nomEmetteur", "prenomEmetteur", "0699457899", "blelezfz0", "", "", "360 route de londres", null, "[Demande de devis]", "from@test.fr", "to@test.fr", "nbjardins",null,null,null,null,null);
 
@@ -37,6 +35,6 @@ public class SpringMailDNDevisARTest {
     @After
     public void tearDown() {
 
-        smtpServer.stop();
+//        smtpServer.stop();
     }
 }
