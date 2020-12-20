@@ -2,6 +2,7 @@ package org.rlsv.adapters.secondaries.dataproviderjpa.repositories;
 
 import domain.exceptions.PersistenceException;
 import domain.models.DemandeDeDevisDN;
+import domain.transactions.DataProviderManager;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.DemandeDeDevis;
 import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.DemandeDeDevisMapper;
 import org.slf4j.Logger;
@@ -24,18 +25,18 @@ public class DemandeDeDevisRepoAR extends RepoAR implements DemandeDeDevisRepoPT
 
 
     @Override
-    public DemandeDeDevisDN save(DemandeDeDevisDN demandeDeDevis) throws PersistenceException {
+    public DemandeDeDevisDN save(DataProviderManager dpm, DemandeDeDevisDN demandeDeDevis) throws PersistenceException {
 
         try {
 
             DemandeDeDevis dd = DemandeDeDevisMapper.INSTANCE.domainToEntity(demandeDeDevis);
-            String idArtisan = personneRepo.findIdByEmail(demandeDeDevis.getWorker().getEmail());
-            String idClient = personneRepo.findIdByEmail(demandeDeDevis.getAsker().getEmail());
+            String idArtisan = personneRepo.findIdByEmail(dpm,demandeDeDevis.getWorker().getEmail());
+            String idClient = personneRepo.findIdByEmail(dpm,demandeDeDevis.getAsker().getEmail());
 
             dd.getWorker().setId(idArtisan);
             dd.getAsker().setId(idClient);
 
-            save(dd);
+            save(dpm,dd);
 
             return DemandeDeDevisMapper.INSTANCE.entityToDomain(dd);
         } catch (Exception ex) {

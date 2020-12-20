@@ -2,10 +2,11 @@ package ports.repositories;
 
 import domain.exceptions.PersistenceException;
 import domain.models.RoleDN;
+import domain.transactions.DataProviderManager;
 
-public interface RoleRepoPT {
+public interface RoleRepoPT  {
 
-    RoleDN findByNom(String nom) throws PersistenceException;
+    RoleDN findByNom(DataProviderManager dpm, String nom) throws PersistenceException;
 
-    String findIdByNom(String nom) throws PersistenceException;
+    String findIdByNom(DataProviderManager dpm,String nom) throws PersistenceException;
 }

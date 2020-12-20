@@ -27,6 +27,12 @@ public class Personne extends Entity {
     @OneToOne(mappedBy = "worker")
     private Application application;
 
+    @OneToOne(mappedBy = "artisan")
+    private Artisan artisan;
+
+    @OneToOne(mappedBy = "client")
+    private Client client;
+
     @OneToMany(mappedBy = "personne")
     private List<Personne__Role> personne__roleList;
 

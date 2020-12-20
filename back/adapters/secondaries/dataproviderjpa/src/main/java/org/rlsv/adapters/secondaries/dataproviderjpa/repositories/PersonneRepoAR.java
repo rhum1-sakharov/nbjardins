@@ -3,13 +3,16 @@ package org.rlsv.adapters.secondaries.dataproviderjpa.repositories;
 import domain.enums.ROLES;
 import domain.exceptions.PersistenceException;
 import domain.models.PersonneDN;
+import domain.transactions.DataProviderManager;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Personne;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Personne__Role;
 import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.PersonneMapper;
+import org.rlsv.adapters.secondaries.dataproviderjpa.transactions.TransactionManagerAR;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ports.repositories.PersonneRepoPT;
 
+import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.util.Objects;
@@ -22,10 +25,11 @@ public class PersonneRepoAR extends RepoAR implements PersonneRepoPT {
     private static final Logger LOG = LoggerFactory.getLogger(PersonneRepoAR.class);
 
     @Override
-    public PersonneDN findArtisanByApplicationToken(String token) throws PersistenceException {
+    public PersonneDN findArtisanByApplicationToken(DataProviderManager dpm, String token) throws PersistenceException {
 
         try {
             Personne artisan = null;
+            EntityManager em = TransactionManagerAR.getEntityManager(dpm);
 
             TypedQuery<Personne> query = em.createQuery("SELECT p from Personne p " +
                     " join p.application app " +
@@ -42,17 +46,17 @@ public class PersonneRepoAR extends RepoAR implements PersonneRepoPT {
 
 
     @Override
-    public PersonneDN saveClient(PersonneDN personneDN) throws PersistenceException {
+    public PersonneDN saveClient(DataProviderManager dpm, PersonneDN personneDN) throws PersistenceException {
 
         try {
 
             Personne personne = PersonneMapper.INSTANCE.domainToEntity(personneDN);
 
-            Personne personneDb = findEntityByEmail(personneDN.getEmail());
+            Personne personneDb = findEntityByEmail(dpm, personneDN.getEmail());
 
             if (Objects.nonNull(personneDb)) {
 
-                Personne__Role prDb = findByEmailAndNomRole(personneDb.getEmail(), ROLES.ROLE_ARTISAN.getValue());
+                Personne__Role prDb = findByEmailAndNomRole(dpm, personneDb.getEmail(), ROLES.ROLE_ARTISAN.getValue());
                 if (Objects.nonNull(prDb)) {
                     throw new PersistenceException(String.format("Impossible de modifier l'artisan %s, alors qu'on veut enregistrer un client !", personneDb.getEmail()), null);
                 }
@@ -60,7 +64,7 @@ public class PersonneRepoAR extends RepoAR implements PersonneRepoPT {
                 personne.setId(personneDb.getId());
             }
 
-            save(personne);
+            save(dpm, personne);
 
             return PersonneMapper.INSTANCE.entityToDomain(personne);
 
@@ -71,10 +75,10 @@ public class PersonneRepoAR extends RepoAR implements PersonneRepoPT {
     }
 
     @Override
-    public PersonneDN findByEmail(String email) throws PersistenceException {
+    public PersonneDN findByEmail(DataProviderManager dpm, String email) throws PersistenceException {
 
         try {
-            Personne personne = findEntityByEmail(email);
+            Personne personne = findEntityByEmail(dpm, email);
             return PersonneMapper.INSTANCE.entityToDomain(personne);
         } catch (NoResultException nre) {
 
@@ -84,10 +88,11 @@ public class PersonneRepoAR extends RepoAR implements PersonneRepoPT {
     }
 
     @Override
-    public String findIdByEmail(String email) throws PersistenceException {
+    public String findIdByEmail(DataProviderManager dpm, String email) throws PersistenceException {
         String id = null;
 
         try {
+            EntityManager em = TransactionManagerAR.getEntityManager(dpm);
             TypedQuery<String> query = em.createQuery("SELECT p.id from Personne p " +
                     " where p.email=:email", String.class);
             id = query.setParameter("email", email).getSingleResult();
@@ -98,10 +103,11 @@ public class PersonneRepoAR extends RepoAR implements PersonneRepoPT {
     }
 
 
-    private Personne__Role findByEmailAndNomRole(String email, String nomRole) {
+    private Personne__Role findByEmailAndNomRole(DataProviderManager dpm, String email, String nomRole) {
         Personne__Role personneRole = null;
 
         try {
+            EntityManager em = TransactionManagerAR.getEntityManager(dpm);
             TypedQuery<Personne__Role> query = em.createQuery("SELECT pr from Personne__Role pr " +
                     " join pr.personne p " +
                     " join pr.role r " +
@@ -116,11 +122,12 @@ public class PersonneRepoAR extends RepoAR implements PersonneRepoPT {
         return personneRole;
     }
 
-    private Personne findEntityByEmail(String email) {
+    private Personne findEntityByEmail(DataProviderManager dpm, String email) {
 
         Personne personne = null;
 
         try {
+            EntityManager em = TransactionManagerAR.getEntityManager(dpm);
             TypedQuery<Personne> query = em.createQuery("SELECT c from Personne c where c.email=:email", Personne.class);
             personne = query.setParameter("email", email).getSingleResult();
         } catch (NoResultException nre) {

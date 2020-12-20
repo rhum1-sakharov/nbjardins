@@ -12,11 +12,13 @@ public interface DataServicePT<T extends Domain> {
 
     T save(T instance);
 
-    Set<T> savelAll(Set<T> instances);
+    Set<T> saveAll(Set<T> instances);
 
     void delete(String id);
 
     void deleteAll();
+
+
 
 
 }

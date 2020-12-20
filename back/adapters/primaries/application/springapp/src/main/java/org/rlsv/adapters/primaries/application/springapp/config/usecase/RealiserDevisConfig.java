@@ -1,19 +1,15 @@
 package org.rlsv.adapters.primaries.application.springapp.config.usecase;
 
-import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.DemandeDeDevisRepoAR;
-import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.PersonneRepoAR;
-import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.PersonneRoleRepoAR;
-import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.RoleRepoAR;
+import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.*;
+import org.rlsv.adapters.secondaries.dataproviderjpa.transactions.TransactionManagerAR;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.core.env.Environment;
 import ports.localization.LocalizeServicePT;
 import ports.mails.MailDevisServicePT;
-import ports.repositories.DemandeDeDevisRepoPT;
-import ports.repositories.PersonneRepoPT;
-import ports.repositories.PersonneRoleRepoPT;
-import ports.repositories.RoleRepoPT;
+import ports.repositories.*;
+import ports.transactions.TransactionManagerPT;
 import usecase.clients.EnregistrerClientUE;
 import usecase.devis.DemandeDeDevisUE;
 
@@ -53,14 +49,26 @@ public class RealiserDevisConfig {
     }
 
     @Bean
-    public EnregistrerClientUE enregistrerClientUE(PersonneRepoPT personneRepo, PersonneRoleRepoPT personneRoleRepo, LocalizeServicePT localizeService) {
-        return new EnregistrerClientUE(personneRepo, personneRoleRepo, localizeService);
+    @DependsOn("persistenceConfig")
+    public TransactionManagerPT transactionManagerPT() {
+        return new TransactionManagerAR();
+    }
+
+    @Bean
+    @DependsOn("persistenceConfig")
+    public ClientRepoPT clientRepoPT() {
+        return new ClientRepoAR();
+    }
+
+    @Bean
+    public EnregistrerClientUE enregistrerClientUE(PersonneRepoPT personneRepo, PersonneRoleRepoPT personneRoleRepo, LocalizeServicePT localizeService, ClientRepoPT clientRepo, TransactionManagerPT transactionManager) {
+        return new EnregistrerClientUE(personneRepo, personneRoleRepo, localizeService, clientRepo, transactionManager);
     }
 
 
     @Bean
-    public DemandeDeDevisUE realiserDevis(MailDevisServicePT mailDevisService, LocalizeServicePT localizeService, PersonneRepoPT personneRepo, DemandeDeDevisRepoPT demandeDeDevisRepo, EnregistrerClientUE enregistrerClientUE) {
-        return new DemandeDeDevisUE(mailDevisService, localizeService, personneRepo, demandeDeDevisRepo, enregistrerClientUE);
+    public DemandeDeDevisUE realiserDevis(MailDevisServicePT mailDevisService, LocalizeServicePT localizeService, PersonneRepoPT personneRepo, DemandeDeDevisRepoPT demandeDeDevisRepo, EnregistrerClientUE enregistrerClientUE, TransactionManagerPT transactionManager) {
+        return new DemandeDeDevisUE(mailDevisService, localizeService, personneRepo, demandeDeDevisRepo, enregistrerClientUE, transactionManager);
     }
 
 

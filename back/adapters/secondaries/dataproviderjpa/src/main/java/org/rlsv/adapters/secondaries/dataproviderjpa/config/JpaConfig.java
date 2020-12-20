@@ -21,7 +21,7 @@ public class JpaConfig {
     @Getter
     private static EntityManager entityManager;
 
-    private static EntityManagerFactory entityManagerFactory;
+    public static EntityManagerFactory entityManagerFactory;
     public static PersistenceConfig persistenceConfig;
     private static volatile  JpaConfig jpaConfig;
     private static Object mutex = new Object();
@@ -61,7 +61,7 @@ public class JpaConfig {
     }
 
 
-    private static PersistenceUnitInfo persistenceUnitInfo(String persistenceUnitName) {
+    public static PersistenceUnitInfo persistenceUnitInfo(String persistenceUnitName) {
         return new PersistenceUnitInfo() {
             @Override
             public String getPersistenceUnitName() {

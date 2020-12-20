@@ -3,8 +3,10 @@ package usecase.devis;
 
 import domain.exceptions.DemandeDeDevisException;
 import domain.exceptions.PersistenceException;
+import domain.models.ClientDN;
 import domain.models.DemandeDeDevisDN;
 import domain.models.PersonneDN;
+import domain.transactions.DataProviderManager;
 import domain.utils.Utils;
 import domain.wrapper.RequestDN;
 import domain.wrapper.ResponseDN;
@@ -15,6 +17,7 @@ import ports.localization.LocalizeServicePT;
 import ports.mails.MailDevisServicePT;
 import ports.repositories.DemandeDeDevisRepoPT;
 import ports.repositories.PersonneRepoPT;
+import ports.transactions.TransactionManagerPT;
 import usecase.AbstractUsecase;
 import usecase.IUsecase;
 import usecase.clients.EnregistrerClientUE;
@@ -34,12 +37,12 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase<
 
     private final MailDevisServicePT mailDevisService;
     private final PersonneRepoPT personneRepo;
-
     private final DemandeDeDevisRepoPT demandeDeDevisRepo;
     private final EnregistrerClientUE enregistrerClientUE;
+    private  DataProviderManager dpm;
 
-    public DemandeDeDevisUE(MailDevisServicePT mailDevisService, LocalizeServicePT localizeService, PersonneRepoPT personneRepo,  DemandeDeDevisRepoPT demandeDeDevisRepo, EnregistrerClientUE enregistrerClientUE) {
-        super(localizeService);
+    public DemandeDeDevisUE(MailDevisServicePT mailDevisService, LocalizeServicePT localizeService, PersonneRepoPT personneRepo, DemandeDeDevisRepoPT demandeDeDevisRepo, EnregistrerClientUE enregistrerClientUE, TransactionManagerPT transactionManager) {
+        super(localizeService, transactionManager);
         this.mailDevisService = mailDevisService;
         this.personneRepo = personneRepo;
         this.demandeDeDevisRepo = demandeDeDevisRepo;
@@ -52,6 +55,7 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase<
      * L'artisan recoit la demande par mail.
      * Le client recoit une confirmation d'envoi à l'artisan
      * Le client est enregistré dans le systeme de stockage
+     *
      * @param request
      * @return
      */
@@ -73,6 +77,8 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase<
         if (!responseDN.isError()) {
 
             try {
+                this.dpm = this.transactionManager.createTransactionManager();
+                this.transactionManager.begin(this.dpm);
 
                 // sujet de la demande de devis
                 String sujet = MessageFormat.format(localizeService.getMsg(SUJET_DEVIS, localizeService.getWorkerLocale()), StringUtils.capitalize(demandeDeDevisDN.getAsker().getPrenom().toLowerCase()), StringUtils.capitalize(demandeDeDevisDN.getAsker().getNom().toLowerCase()));
@@ -82,8 +88,7 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase<
                 request = addArtisanToDemandeDeDevis(request);
 
                 // enregistrer le client
-                PersonneDN client = demandeDeDevisDN.getAsker();
-                enregistrerClientUE.execute(Utils.initRequest(client));
+                saveClient(request);
 
                 //enregistrer la demande de devis
                 saveDemandeDeDevis(request);
@@ -97,9 +102,16 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase<
                     responseDN = sendAcknowledgementToSender(request);
                 }
 
+
+                this.transactionManager.commit(this.dpm);
+
             } catch (DemandeDeDevisException de) {
                 responseDN.addErrorMessage(de.displayMessage(localizeService));
+                this.transactionManager.rollback(this.dpm);
+            } finally {
+                this.transactionManager.close(dpm);
             }
+
         }
 
         // ne pas renvoyer le worker à l'appelant
@@ -110,9 +122,17 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase<
         return responseDN;
     }
 
+    private void saveClient(RequestDN<DemandeDeDevisDN> request) {
+
+        PersonneDN client = request.getOne().getAsker();
+        ClientDN clientDN = new ClientDN(client);
+        enregistrerClientUE.execute(Utils.initRequest(clientDN));
+
+    }
+
     private void saveDemandeDeDevis(RequestDN<DemandeDeDevisDN> request) throws DemandeDeDevisException {
         try {
-            demandeDeDevisRepo.save(request.getOne());
+            demandeDeDevisRepo.save(this.dpm, request.getOne());
         } catch (PersistenceException pe) {
             throw new DemandeDeDevisException(pe.getMessage(), pe, pe.getMsgKey(), pe.getArgs());
         }
@@ -120,7 +140,7 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase<
 
     private RequestDN<DemandeDeDevisDN> addArtisanToDemandeDeDevis(RequestDN<DemandeDeDevisDN> request) throws DemandeDeDevisException {
         try {
-            PersonneDN artisan = personneRepo.findArtisanByApplicationToken(request.getApplication().getToken());
+            PersonneDN artisan = personneRepo.findArtisanByApplicationToken(this.dpm, request.getApplication().getToken());
             request.getOne().setWorker(artisan);
             return request;
         } catch (PersistenceException pe) {
@@ -128,7 +148,6 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase<
         }
 
     }
-
 
 
     private ResponseDN<DemandeDeDevisDN> sendToWorker(RequestDN<DemandeDeDevisDN> wrapper) {

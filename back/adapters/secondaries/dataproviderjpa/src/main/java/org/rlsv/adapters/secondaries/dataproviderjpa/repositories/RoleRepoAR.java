@@ -2,12 +2,15 @@ package org.rlsv.adapters.secondaries.dataproviderjpa.repositories;
 
 import domain.exceptions.PersistenceException;
 import domain.models.RoleDN;
+import domain.transactions.DataProviderManager;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Role;
 import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.RoleMapper;
+import org.rlsv.adapters.secondaries.dataproviderjpa.transactions.TransactionManagerAR;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ports.repositories.RoleRepoPT;
 
+import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
@@ -17,9 +20,10 @@ public class RoleRepoAR extends RepoAR implements RoleRepoPT {
 
 
     @Override
-    public RoleDN findByNom(String nom) throws PersistenceException {
+    public RoleDN findByNom(DataProviderManager dpm,String nom) throws PersistenceException {
 
         try {
+            EntityManager em = TransactionManagerAR.getEntityManager(dpm);
             TypedQuery<Role> query = em.createQuery("SELECT r from Role r where r.nom=:nom", Role.class);
             Role role = query.setParameter("nom", nom).getSingleResult();
             return RoleMapper.INSTANCE.entityToDomain(role);
@@ -31,9 +35,10 @@ public class RoleRepoAR extends RepoAR implements RoleRepoPT {
     }
 
     @Override
-    public String findIdByNom(String nom) throws PersistenceException {
+    public String findIdByNom(DataProviderManager dpm,String nom) throws PersistenceException {
 
         try {
+            EntityManager em = TransactionManagerAR.getEntityManager(dpm);
             TypedQuery<String> query = em.createQuery("SELECT r.id from Role r where r.nom=:nom", String.class);
             String idRole = query.setParameter("nom", nom).getSingleResult();
             return idRole;

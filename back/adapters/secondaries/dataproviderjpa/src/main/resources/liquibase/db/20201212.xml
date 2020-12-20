@@ -314,7 +314,7 @@
         </comment>
     </changeSet>
 
-    <changeSet id="202012190920" author="rvl" >
+    <changeSet id="202012190920-1" author="rvl" >
         <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="artisans__taxes"></tableExists>
