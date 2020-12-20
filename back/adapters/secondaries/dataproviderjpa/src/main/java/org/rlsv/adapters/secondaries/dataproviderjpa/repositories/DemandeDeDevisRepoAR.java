@@ -33,7 +33,7 @@ public class DemandeDeDevisRepoAR extends RepoAR implements DemandeDeDevisRepoPT
 
         try {
             EntityManager em = TransactionManagerAR.getEntityManager(dpm);
-            em.flush();
+
 
             DemandeDeDevis dd = DemandeDeDevisMapper.INSTANCE.domainToEntity(demandeDeDevis);
 

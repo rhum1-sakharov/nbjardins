@@ -33,6 +33,7 @@ public abstract class RepoAR<T extends Entity> {
         } else {
             em.merge(instance);
         }
+        em.flush();
 
         return instance;
     }

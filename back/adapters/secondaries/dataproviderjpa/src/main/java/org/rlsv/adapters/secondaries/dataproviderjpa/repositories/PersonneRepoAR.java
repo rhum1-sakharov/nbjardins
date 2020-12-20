@@ -95,7 +95,8 @@ public class PersonneRepoAR extends RepoAR implements PersonneRepoPT {
             EntityManager em = TransactionManagerAR.getEntityManager(dpm);
             TypedQuery<String> query = em.createQuery("SELECT p.id from Personne p " +
                     " where p.email=:email", String.class);
-            id = query.setParameter("email", email).getSingleResult();
+            id = query.setParameter("email", email)
+                    .getSingleResult();
         } catch (NoResultException nre) {
 
         }
