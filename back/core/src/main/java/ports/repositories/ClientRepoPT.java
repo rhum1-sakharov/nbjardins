@@ -1,7 +1,7 @@
 package ports.repositories;
 
 import domain.models.ClientDN;
-import domain.transactions.DataProviderManager;
+import transactions.DataProviderManager;
 
 public interface ClientRepoPT {
 

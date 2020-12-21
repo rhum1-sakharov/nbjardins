@@ -1,9 +1,8 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.repositories;
 
 import domain.enums.ROLES;
-import domain.exceptions.PersistenceException;
 import domain.models.PersonneDN;
-import domain.transactions.DataProviderManager;
+import exceptions.PersistenceException;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Personne;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Personne__Role;
 import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.PersonneMapper;
@@ -11,6 +10,7 @@ import org.rlsv.adapters.secondaries.dataproviderjpa.transactions.TransactionMan
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ports.repositories.PersonneRepoPT;
+import transactions.DataProviderManager;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;

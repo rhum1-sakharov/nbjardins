@@ -6,6 +6,7 @@ import domain.wrapper.RequestDN;
 import domain.wrapper.ResponseDN;
 import ports.localization.LocalizeServicePT;
 import ports.transactions.TransactionManagerPT;
+import transactions.DataProviderManager;
 import usecase.AbstractUsecase;
 import usecase.IUsecase;
 
@@ -26,15 +27,25 @@ public class CreerDevisUE extends AbstractUsecase implements IUsecase<DevisDN> {
      * @return
      */
     @Override
-    public ResponseDN<DevisDN> execute(RequestDN<DevisDN> instance) {
+    public ResponseDN<DevisDN> execute(RequestDN<DevisDN> instance) throws Exception {
         ResponseDN<DevisDN> response = new ResponseDN<>();
 
-        TYPE_CREATION_DEVIS tcd = (TYPE_CREATION_DEVIS) instance.getAdditionalProperties().get(KEY_TYPE_CREATION_DEVIS);
-        switch (tcd) {
-            case FROM_ARTISAN:
-                break;
-            case FROM_DEMANDE_DE_DEVIS:
-                break;
+        DataProviderManager dpm = this.transactionManager.createDataProviderManager(instance.getDataProviderManager());
+        instance.setDataProviderManager(dpm);
+
+        try {
+
+            transactionManager.begin(dpm);
+
+            TYPE_CREATION_DEVIS tcd = (TYPE_CREATION_DEVIS) instance.getAdditionalProperties().get(KEY_TYPE_CREATION_DEVIS);
+            switch (tcd) {
+                case FROM_ARTISAN:
+                    break;
+                case FROM_DEMANDE_DE_DEVIS:
+                    break;
+            }
+        } finally {
+            transactionManager.close(dpm);
         }
 
         return response;

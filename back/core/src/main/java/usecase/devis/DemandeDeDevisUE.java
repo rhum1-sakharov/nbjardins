@@ -1,23 +1,23 @@
 package usecase.devis;
 
 
-import domain.exceptions.DemandeDeDevisException;
-import domain.exceptions.PersistenceException;
+import domain.enums.STATUT_DEVIS;
 import domain.models.ClientDN;
-import domain.models.DemandeDeDevisDN;
+import domain.models.DevisDN;
 import domain.models.PersonneDN;
-import domain.transactions.DataProviderManager;
 import domain.utils.Utils;
 import domain.wrapper.RequestDN;
 import domain.wrapper.ResponseDN;
-import org.apache.commons.lang3.StringUtils;
+import exceptions.DemandeDeDevisException;
+import exceptions.PersistenceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ports.localization.LocalizeServicePT;
 import ports.mails.MailDevisServicePT;
-import ports.repositories.DemandeDeDevisRepoPT;
+import ports.repositories.DevisRepoPT;
 import ports.repositories.PersonneRepoPT;
 import ports.transactions.TransactionManagerPT;
+import transactions.DataProviderManager;
 import usecase.AbstractUsecase;
 import usecase.IUsecase;
 import usecase.clients.EnregistrerClientUE;
@@ -31,17 +31,17 @@ import java.util.Objects;
 import static domain.localization.MessageKeys.*;
 
 
-public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase<DemandeDeDevisDN> {
+public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase<DevisDN> {
 
     private static final Logger LOG = LoggerFactory.getLogger(DemandeDeDevisUE.class);
 
     private final MailDevisServicePT mailDevisService;
     private final PersonneRepoPT personneRepo;
-    private final DemandeDeDevisRepoPT demandeDeDevisRepo;
+    private final DevisRepoPT demandeDeDevisRepo;
     private final EnregistrerClientUE enregistrerClientUE;
 
 
-    public DemandeDeDevisUE(MailDevisServicePT mailDevisService, LocalizeServicePT localizeService, PersonneRepoPT personneRepo, DemandeDeDevisRepoPT demandeDeDevisRepo, EnregistrerClientUE enregistrerClientUE, TransactionManagerPT transactionManager) {
+    public DemandeDeDevisUE(MailDevisServicePT mailDevisService, LocalizeServicePT localizeService, PersonneRepoPT personneRepo, DevisRepoPT demandeDeDevisRepo, EnregistrerClientUE enregistrerClientUE, TransactionManagerPT transactionManager) {
         super(localizeService, transactionManager);
         this.mailDevisService = mailDevisService;
         this.personneRepo = personneRepo;
@@ -60,20 +60,20 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase<
      * @return
      */
     @Override
-    public ResponseDN<DemandeDeDevisDN> execute(RequestDN<DemandeDeDevisDN> request) throws Exception {
+    public ResponseDN<DevisDN> execute(RequestDN<DevisDN> request) throws Exception {
         Locale currentLocale = request.getLocale();
-        DemandeDeDevisDN demandeDeDevisDN = request.getOne();
+        DevisDN devisDN = request.getOne();
         DataProviderManager dpm = this.transactionManager.createDataProviderManager(request.getDataProviderManager());
         request.setDataProviderManager(dpm);
 
         Map<String, Boolean> preconditions = new HashMap<>();
-        preconditions.put(localizeService.getMsg(PRENOM_OBLIGATOIRE, currentLocale), Objects.isNull(demandeDeDevisDN.getAsker().getPrenom()));
-        preconditions.put(localizeService.getMsg(NOM_OBLIGATOIRE, currentLocale), Objects.isNull(demandeDeDevisDN.getAsker().getNom()));
-        preconditions.put(localizeService.getMsg(EMAIL_OBLIGATOIRE, currentLocale), Objects.isNull(demandeDeDevisDN.getAsker().getEmail()));
-        preconditions.put(localizeService.getMsg(DEVIS_MESSAGE_OBLIGATOIRE, currentLocale), Objects.isNull(demandeDeDevisDN.getMessage()));
+        preconditions.put(localizeService.getMsg(PRENOM_OBLIGATOIRE, currentLocale), Objects.isNull(devisDN.getAsker().getPrenom()));
+        preconditions.put(localizeService.getMsg(NOM_OBLIGATOIRE, currentLocale), Objects.isNull(devisDN.getAsker().getNom()));
+        preconditions.put(localizeService.getMsg(EMAIL_OBLIGATOIRE, currentLocale), Objects.isNull(devisDN.getAsker().getEmail()));
+        preconditions.put(localizeService.getMsg(DEVIS_MESSAGE_OBLIGATOIRE, currentLocale), Objects.isNull(devisDN.getMessage()));
 
-        ResponseDN<DemandeDeDevisDN> responseDN = Utils.initResponse(preconditions);
-        responseDN.setOne(demandeDeDevisDN);
+        ResponseDN<DevisDN> responseDN = Utils.initResponse(preconditions);
+        responseDN.setOne(devisDN);
 
 
         if (!responseDN.isError()) {
@@ -82,10 +82,6 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase<
 
                 this.transactionManager.begin(dpm);
 
-                // sujet de la demande de devis
-                String sujet = MessageFormat.format(localizeService.getMsg(SUJET_DEVIS, localizeService.getWorkerLocale()), StringUtils.capitalize(demandeDeDevisDN.getAsker().getPrenom().toLowerCase()), StringUtils.capitalize(demandeDeDevisDN.getAsker().getNom().toLowerCase()));
-                demandeDeDevisDN.setSujet(sujet);
-
                 // recuperer l'artisan et le mettre dans la demande de devis
                 request = addArtisanToDemandeDeDevis( request);
 
@@ -93,7 +89,7 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase<
                 saveClient(request);
 
                 //enregistrer la demande de devis
-                saveDemandeDeDevis( request);
+                saveDevis( request);
 
                 // envoyer la demande de devis à l'artisan
                 responseDN = sendToWorker(request);
@@ -117,14 +113,14 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase<
         }
 
         // ne pas renvoyer le worker à l'appelant
-        demandeDeDevisDN.setWorker(null);
+        devisDN.setWorker(null);
 
-        responseDN.setOne(demandeDeDevisDN);
+        responseDN.setOne(devisDN);
 
         return responseDN;
     }
 
-    private void saveClient(RequestDN<DemandeDeDevisDN> request) throws Exception {
+    private void saveClient(RequestDN<DevisDN> request) throws Exception {
 
         PersonneDN client = request.getOne().getAsker();
         ClientDN clientDN = new ClientDN(client);
@@ -137,15 +133,22 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase<
 
     }
 
-    private void saveDemandeDeDevis( RequestDN<DemandeDeDevisDN> request) throws DemandeDeDevisException {
+    /**
+     * Enregistrer le devis avec le statut "demande"
+     * @param request
+     * @throws DemandeDeDevisException
+     */
+    private void saveDevis(RequestDN<DevisDN> request) throws DemandeDeDevisException {
         try {
-            demandeDeDevisRepo.save(request.getDataProviderManager(), request.getOne());
+            DevisDN devis = request.getOne();
+            devis.setStatut(STATUT_DEVIS.DEMANDE);
+            demandeDeDevisRepo.save(request.getDataProviderManager(), devis);
         } catch (PersistenceException pe) {
             throw new DemandeDeDevisException(pe.getMessage(), pe, pe.getMsgKey(), pe.getArgs());
         }
     }
 
-    private RequestDN<DemandeDeDevisDN> addArtisanToDemandeDeDevis(RequestDN<DemandeDeDevisDN> request) throws DemandeDeDevisException {
+    private RequestDN<DevisDN> addArtisanToDemandeDeDevis(RequestDN<DevisDN> request) throws DemandeDeDevisException {
         try {
             PersonneDN artisan = personneRepo.findArtisanByApplicationToken(request.getDataProviderManager(), request.getApplication().getToken());
             request.getOne().setWorker(artisan);
@@ -157,20 +160,20 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase<
     }
 
 
-    private ResponseDN<DemandeDeDevisDN> sendToWorker(RequestDN<DemandeDeDevisDN> wrapper) {
+    private ResponseDN<DevisDN> sendToWorker(RequestDN<DevisDN> wrapper) {
         Locale workerLocale = localizeService.getWorkerLocale();
-        DemandeDeDevisDN demandeDeDevisDN = wrapper.getOne();
-        demandeDeDevisDN.setLocale(workerLocale);
+        DevisDN devisDN = wrapper.getOne();
+        devisDN.setLocale(workerLocale);
 
         return mailDevisService.sendToWorker(wrapper);
     }
 
-    private ResponseDN<DemandeDeDevisDN> sendAcknowledgementToSender(RequestDN<DemandeDeDevisDN> wrapper) {
+    private ResponseDN<DevisDN> sendAcknowledgementToSender(RequestDN<DevisDN> wrapper) {
 
-        DemandeDeDevisDN demandeDeDevisDN = wrapper.getOne();
+        DevisDN devisDN = wrapper.getOne();
         String sujet = MessageFormat.format(localizeService.getMsg(ACK_DEVIS, localizeService.getWorkerLocale()), wrapper.getApplication().getNom());
-        demandeDeDevisDN.setSujet(sujet);
-        wrapper.setOne(demandeDeDevisDN);
+        devisDN.setSujet(sujet);
+        wrapper.setOne(devisDN);
 
 
         return mailDevisService.sendAcknowledgementToSender(wrapper);

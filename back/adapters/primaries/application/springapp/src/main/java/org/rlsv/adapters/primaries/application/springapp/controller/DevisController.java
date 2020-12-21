@@ -1,6 +1,6 @@
 package org.rlsv.adapters.primaries.application.springapp.controller;
 
-import domain.models.DemandeDeDevisDN;
+import domain.models.DevisDN;
 import domain.wrapper.RequestDN;
 import domain.wrapper.ResponseDN;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,7 +24,7 @@ public class DevisController {
 
 
     @PostMapping(value = "/demander-devis")
-    public ResponseDN<DemandeDeDevisDN> demanderDevis(@RequestBody RequestDN<DemandeDeDevisDN> request, Locale locale) throws Exception {
+    public ResponseDN<DevisDN> demanderDevis(@RequestBody RequestDN<DevisDN> request, Locale locale) throws Exception {
 
         request.setLocale(locale);
 

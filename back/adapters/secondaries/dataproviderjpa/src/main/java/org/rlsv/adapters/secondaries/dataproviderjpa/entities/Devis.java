@@ -1,5 +1,6 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.entities;
 
+import domain.enums.STATUT_DEVIS;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,8 +12,8 @@ import javax.persistence.Table;
 @Getter
 @Setter
 @javax.persistence.Entity
-@Table(name="demandes_de_devis")
-public class DemandeDeDevis extends Entity {
+@Table(name="devis")
+public class Devis extends Entity {
 
     @ManyToOne
     @JoinColumn(name = "ID_ASKER")
@@ -27,5 +28,8 @@ public class DemandeDeDevis extends Entity {
 
     @Column(name="MESSAGE")
     private String message;
+
+    @Column(name="STATUT")
+    private STATUT_DEVIS statut;
 
 }

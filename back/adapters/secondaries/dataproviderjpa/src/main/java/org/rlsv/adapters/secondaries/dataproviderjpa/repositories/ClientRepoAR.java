@@ -1,7 +1,6 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.repositories;
 
 import domain.models.ClientDN;
-import domain.transactions.DataProviderManager;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Client;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Personne;
 import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.ClientMapper;
@@ -9,6 +8,7 @@ import org.rlsv.adapters.secondaries.dataproviderjpa.transactions.TransactionMan
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ports.repositories.ClientRepoPT;
+import transactions.DataProviderManager;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;

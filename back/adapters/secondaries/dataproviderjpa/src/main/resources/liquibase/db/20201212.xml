@@ -352,4 +352,35 @@
         </comment>
     </changeSet>
 
+    <changeSet id="202012212203" author="rvl" >
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="demandes_de_devis"></tableExists>
+        </preConditions>
+        <sql>
+            ALTER TABLE demandes_de_devis
+            RENAME TO devis;
+        </sql>
+        <comment>
+            Renommer la table demandes_de_devis en devis
+        </comment>
+    </changeSet>
+
+    <changeSet id="202012212216" author="rvl" >
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="devis" columnName="STATUT"></columnExists>
+            </not>
+        </preConditions>
+        <sql>
+            SET FOREIGN_KEY_CHECKS = 0;
+            ALTER TABLE `devis`
+            ADD COLUMN `STATUT` ENUM('DEMANDE','TRAITEMENT_EN_COURS','ENVOYE','PERDU','GAGNE') NOT NULL AFTER `MESSAGE`;
+            UPDATE devis set statut='DEMANDE';
+            SET FOREIGN_KEY_CHECKS = 1;
+        </sql>
+        <comment>
+            Ajouter les différents statuts du devis
+        </comment>
+    </changeSet>
+
 </databaseChangeLog>

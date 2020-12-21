@@ -1,14 +1,14 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.repositories;
 
-import domain.exceptions.PersistenceException;
 import domain.models.RoleDN;
-import domain.transactions.DataProviderManager;
+import exceptions.PersistenceException;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Role;
 import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.RoleMapper;
 import org.rlsv.adapters.secondaries.dataproviderjpa.transactions.TransactionManagerAR;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ports.repositories.RoleRepoPT;
+import transactions.DataProviderManager;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;

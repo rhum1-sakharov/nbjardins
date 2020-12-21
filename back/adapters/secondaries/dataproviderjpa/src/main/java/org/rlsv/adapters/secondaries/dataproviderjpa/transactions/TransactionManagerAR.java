@@ -1,13 +1,14 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.transactions;
 
-import domain.transactions.DataProviderManager;
 import org.rlsv.adapters.secondaries.dataproviderjpa.config.JtaConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ports.transactions.TransactionManagerPT;
+import transactions.DataProviderManager;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Status;
+import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 import java.util.Objects;
 
@@ -76,6 +77,7 @@ public class TransactionManagerAR implements TransactionManagerPT {
 
             tx.commit();
 
+
             LOG.debug("jta transaction commited for entityManager {}", entityManager.toString());
         } else {
             LOG.debug("commit, jta transaction is already started");
@@ -84,24 +86,33 @@ public class TransactionManagerAR implements TransactionManagerPT {
     }
 
     @Override
-    public void rollback(DataProviderManager dpm) throws Exception {
+    public void rollback(DataProviderManager dpm){
 
         UserTransaction tx = getUserTransaction(dpm);
         EntityManager entityManager = getEntityManager(dpm);
 
         LOG.debug("trying to rollback jta transaction for entityManager {} {}", entityManager.toString(), tx.toString());
 
-        tx.rollback();
+        try {
+            tx.rollback();
+            LOG.debug("jta transaction rollbacked for entityManager {}", entityManager.toString());
+        } catch (SystemException e) {
+            LOG.error(e.getMessage(),e);
+            LOG.error("error, jta transaction not rollbacked for entityManager {}", entityManager.toString());
+        }
 
-        LOG.debug("jta transaction rollbacked for entityManager {}", entityManager.toString());
+
     }
 
     @Override
     public void close(DataProviderManager dpm) {
         EntityManager entityManager = getEntityManager(dpm);
 
-        entityManager.close();
+        if(Objects.nonNull(entityManager)){
+            entityManager.close();
+            LOG.debug("close {}", entityManager.toString());
+        }
 
-        LOG.debug("close {}", entityManager.toString());
+
     }
 }

@@ -1,4 +1,4 @@
-package domain.exceptions;
+package exceptions;
 
 public class PersistenceException extends CleanException{
 

@@ -2,7 +2,6 @@ package org.rlsv.adapters.secondaries.dataproviderjpa.repositories;
 
 import domain.enums.ROLES;
 import domain.models.Personne__RoleDN;
-import domain.transactions.DataProviderManager;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Personne;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Personne__Role;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Role;
@@ -13,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import ports.repositories.PersonneRepoPT;
 import ports.repositories.PersonneRoleRepoPT;
 import ports.repositories.RoleRepoPT;
+import transactions.DataProviderManager;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -38,13 +38,13 @@ public class PersonneRoleRepoAR extends RepoAR implements PersonneRoleRepoPT {
 
 
     @Override
-    public Personne__RoleDN saveRoleClient(DataProviderManager dpm,String idPersonne) throws domain.exceptions.PersistenceException {
+    public Personne__RoleDN saveRoleClient(DataProviderManager dpm,String idPersonne) throws exceptions.PersistenceException {
         String idRole = roleRepo.findIdByNom(dpm,ROLES.ROLE_CLIENT.getValue());
         return savePersonneRole(dpm,idRole, idPersonne);
     }
 
     @Override
-    public Personne__RoleDN saveRoleArtisan(DataProviderManager dpm,String idPersonne) throws domain.exceptions.PersistenceException {
+    public Personne__RoleDN saveRoleArtisan(DataProviderManager dpm,String idPersonne) throws exceptions.PersistenceException {
         String idRole = roleRepo.findIdByNom(dpm,ROLES.ROLE_ARTISAN.getValue());
         return savePersonneRole(dpm,idRole, idPersonne);
     }
@@ -90,7 +90,7 @@ public class PersonneRoleRepoAR extends RepoAR implements PersonneRoleRepoPT {
     }
 
 
-    private Personne__RoleDN savePersonneRole(DataProviderManager dpm,String idRole, String idPersonne) throws domain.exceptions.PersistenceException {
+    private Personne__RoleDN savePersonneRole(DataProviderManager dpm,String idRole, String idPersonne) throws exceptions.PersistenceException {
         try {
 
             Role role = new Role();
@@ -111,7 +111,7 @@ public class PersonneRoleRepoAR extends RepoAR implements PersonneRoleRepoPT {
             return Personne__RoleMapper.INSTANCE.entityToDomain(personne__role);
         } catch (PersistenceException pe) {
             LOG.error(pe.getMessage(), pe);
-            throw new domain.exceptions.PersistenceException(pe.getMessage(), pe, JPA_ERREUR_SAUVEGARDE_CLIENT, new String[]{idPersonne});
+            throw new exceptions.PersistenceException(pe.getMessage(), pe, JPA_ERREUR_SAUVEGARDE_CLIENT, new String[]{idPersonne});
         }
     }
 

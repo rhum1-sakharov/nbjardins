@@ -1,8 +1,8 @@
 package ports.repositories;
 
-import domain.exceptions.PersistenceException;
 import domain.models.Personne__RoleDN;
-import domain.transactions.DataProviderManager;
+import exceptions.PersistenceException;
+import transactions.DataProviderManager;
 
 public interface PersonneRoleRepoPT   {
 

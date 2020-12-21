@@ -1,6 +1,6 @@
 package ports.transactions;
 
-import domain.transactions.DataProviderManager;
+import transactions.DataProviderManager;
 
 public interface TransactionManagerPT {
 
@@ -19,7 +19,7 @@ public interface TransactionManagerPT {
     /**
      * Annuler la transaction
      */
-    void rollback(DataProviderManager dpm) throws Exception;
+    void rollback(DataProviderManager dpm) ;
 
     /**
      * Fermer le DataProviderManager

@@ -1,13 +1,12 @@
 package usecase.clients;
 
 import domain.enums.ROLES;
-import domain.exceptions.PersistenceException;
 import domain.models.ClientDN;
 import domain.models.PersonneDN;
 import domain.models.Personne__RoleDN;
-import domain.transactions.DataProviderManager;
 import domain.wrapper.RequestDN;
 import domain.wrapper.ResponseDN;
+import exceptions.PersistenceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ports.localization.LocalizeServicePT;
@@ -15,6 +14,7 @@ import ports.repositories.ClientRepoPT;
 import ports.repositories.PersonneRepoPT;
 import ports.repositories.PersonneRoleRepoPT;
 import ports.transactions.TransactionManagerPT;
+import transactions.DataProviderManager;
 import usecase.AbstractUsecase;
 import usecase.IUsecase;
 

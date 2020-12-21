@@ -1,4 +1,4 @@
-package domain.transactions;
+package transactions;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

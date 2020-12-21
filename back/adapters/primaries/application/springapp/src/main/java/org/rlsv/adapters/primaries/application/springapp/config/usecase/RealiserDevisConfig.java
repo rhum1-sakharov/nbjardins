@@ -37,8 +37,8 @@ public class RealiserDevisConfig {
 
     @Bean
     @DependsOn("databaseConnectionConfig")
-    public DemandeDeDevisRepoPT demandeDeDevisRepoPT(PersonneRepoPT personneRepo) {
-        return new DemandeDeDevisRepoAR(personneRepo);
+    public DevisRepoPT demandeDeDevisRepoPT(PersonneRepoPT personneRepo) {
+        return new DevisRepoAR(personneRepo);
     }
 
 
@@ -67,7 +67,7 @@ public class RealiserDevisConfig {
 
 
     @Bean
-    public DemandeDeDevisUE realiserDevis(MailDevisServicePT mailDevisService, LocalizeServicePT localizeService, PersonneRepoPT personneRepo, DemandeDeDevisRepoPT demandeDeDevisRepo, EnregistrerClientUE enregistrerClientUE, TransactionManagerPT transactionManager) {
+    public DemandeDeDevisUE realiserDevis(MailDevisServicePT mailDevisService, LocalizeServicePT localizeService, PersonneRepoPT personneRepo, DevisRepoPT demandeDeDevisRepo, EnregistrerClientUE enregistrerClientUE, TransactionManagerPT transactionManager) {
         return new DemandeDeDevisUE(mailDevisService, localizeService, personneRepo, demandeDeDevisRepo, enregistrerClientUE, transactionManager);
     }
 

@@ -16,7 +16,7 @@
         <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.Client</class>
         <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.Personne__Role</class>
         <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.Role</class>
-        <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.DemandeDeDevis</class>
+        <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.Devis</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
 

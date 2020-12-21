@@ -2,8 +2,8 @@ package domain.wrapper;
 
 import domain.models.ApplicationDN;
 import domain.models.Domain;
-import domain.transactions.DataProviderManager;
 import lombok.Data;
+import transactions.DataProviderManager;
 
 import java.util.*;
 

@@ -1,5 +1,6 @@
 package domain.models;
 
+import domain.enums.STATUT_DEVIS;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,8 +14,8 @@ import java.util.List;
 @Data
 public class DevisDN extends Domain {
 
-    PersonneDN artisan;
-    PersonneDN client;
+    PersonneDN asker;
+    PersonneDN worker;
     String sujet;
     String message;
     String numeroDevis;
@@ -27,5 +28,5 @@ public class DevisDN extends Domain {
     String conditionDeReglement;
     String ordre;
     List<LigneDevisDN> ligneDevisList;
-
+    STATUT_DEVIS statut;
 }
