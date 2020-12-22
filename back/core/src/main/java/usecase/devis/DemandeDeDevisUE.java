@@ -57,7 +57,7 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase 
      * Créer une demande de devis .
      * L'artisan recoit la demande par mail.
      * Le client recoit une confirmation d'envoi à l'artisan
-     * Le client est enregistré dans le systeme de stockage
+     * Le client et le devis sont enregistrés dans le systeme de stockage
      *
      * @param request
      * @return
@@ -197,7 +197,6 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase 
 
         DevisDN devisDN = wrapper.getOne();
         wrapper.setOne(devisDN);
-
 
         return mailDevisService.sendAcknowledgementToSender(wrapper);
     }

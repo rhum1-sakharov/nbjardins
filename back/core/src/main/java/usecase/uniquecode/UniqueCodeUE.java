@@ -57,9 +57,9 @@ public class UniqueCodeUE extends AbstractUsecase implements IUsecase {
         SimpleDateFormat spd = new SimpleDateFormat("yyyyMM");
 
 
-        String generatedString = randomString(3, true, false);
+        String generatedString = randomString(4, true, true);
 
-        // 202012-21165-NBO
+        // 202012-21165-NB7A
         String numeroDevis = spd.format(now) + "-" + String.format("%d05", countDevisOfMonth + 1) + "-" + generatedString;
 
         int exists = devisRepo.existsNumeroDevis(dpm, numeroDevis);
