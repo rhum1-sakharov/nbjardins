@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -17,8 +18,10 @@ public class Artisan extends Entity {
     @JoinColumn(name = "ID_PERSONNE")
     private Personne personne;
 
-    @OneToOne(mappedBy = "artisan")
-    private Artisan__Taxe artisan__taxe;
+
+    @ManyToOne
+    @JoinColumn(name = "ID_TAXE")
+    private Taxe taxe;
 
 
 }

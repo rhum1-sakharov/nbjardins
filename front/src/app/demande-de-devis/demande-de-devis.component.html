@@ -113,6 +113,23 @@
         {{validatorsSvc.displayEmailPatternError(form.get('emailCtl'))}}
       </div>
 
+      <div class="p-col-12">
+        <div class="p-inputgroup">
+          <span class="p-inputgroup-addon"> <div class="wh-80">Sujet<span
+            class="color-nature font-16"><b>*</b></span></div> </span>
+          <input type="text" formControlName="sujetCtl" pInputText placeholder="">
+        </div>
+      </div>
+      <div *ngIf="validatorsSvc.shouldShowRequiredError(form.get('sujetCtl'))" class="color-nature">Le sujet est
+        obligatoire.
+      </div>
+      <div *ngIf="validatorsSvc.shouldShowMinLengthError(form.get('sujetCtl'))" class="color-nature">
+        {{validatorsSvc.displayMinLengthError(form.get('sujetCtl'),'sujetCtl')}}
+      </div>
+      <div *ngIf="validatorsSvc.shouldShowMaxLengthError(form.get('sujetCtl'))" class="color-nature">
+        {{validatorsSvc.displayMaxLengthError(form.get('sujetCtl'),'sujetCtl')}}
+      </div>
+
       <div class="p-col-12 mg-t-10">
         <div class="p-inputgroup">
           <span class="p-inputgroup-addon "><div class="wh-80">Rédiger un message <span class="color-nature font-16"><b>*</b></span></div></span>

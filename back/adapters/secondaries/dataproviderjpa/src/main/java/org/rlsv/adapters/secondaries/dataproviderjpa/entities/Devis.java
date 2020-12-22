@@ -4,10 +4,8 @@ import domain.enums.STATUT_DEVIS;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Getter
 @Setter
@@ -29,7 +27,11 @@ public class Devis extends Entity {
     @Column(name="MESSAGE")
     private String message;
 
+    @Enumerated(EnumType.STRING)
     @Column(name="STATUT")
     private STATUT_DEVIS statut;
+
+    @Column(name="TVA")
+    private BigDecimal tva;
 
 }

@@ -26,7 +26,7 @@ public class TaxeRepoAR extends RepoAR implements TaxeRepoPT {
                     " join a.personne p " +
                     " where p.email=:email", BigDecimal.class);
             BigDecimal taux = query
-                    .setParameter("email", em)
+                    .setParameter("email", email)
                     .getSingleResult();
             return taux;
         } catch (NoResultException nre) {

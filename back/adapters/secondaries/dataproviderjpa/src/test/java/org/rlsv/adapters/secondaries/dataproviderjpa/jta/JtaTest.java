@@ -1,11 +1,20 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.jta;
 
+import domain.enums.STATUT_DEVIS;
+import domain.models.DevisDN;
 import org.junit.Before;
 import org.junit.Test;
 import org.rlsv.adapters.secondaries.dataproviderjpa.config.DatabaseConnectionConfig;
 import org.rlsv.adapters.secondaries.dataproviderjpa.config.JtaConfig;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Personne;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Role;
+import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.DevisRepoAR;
+import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.PersonneRepoAR;
+import org.rlsv.adapters.secondaries.dataproviderjpa.transactions.TransactionManagerAR;
+import ports.repositories.DevisRepoPT;
+import ports.repositories.PersonneRepoPT;
+import ports.transactions.TransactionManagerPT;
+import transactions.DataProviderManager;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -27,6 +36,28 @@ public class JtaTest {
         String driver = "com.mysql.cj.jdbc.Driver";
 
         JtaConfig.databaseConnectionConfig = new DatabaseConnectionConfig(user, password, url, driver, PERSISTENCE_UNIT_RLSV);
+    }
+
+    @Test
+    public void testSaveDevis() {
+        PersonneRepoPT personneRepo = new PersonneRepoAR();
+        DevisRepoPT devisRepoPT = new DevisRepoAR(personneRepo);
+
+        TransactionManagerPT transactionManager = new TransactionManagerAR();
+        try {
+            DataProviderManager dpm = transactionManager.createDataProviderManager(null);
+
+            DevisDN devis =new DevisDN();
+            devis.setSujet("A");
+            devis.setStatut(STATUT_DEVIS.DEMANDE);
+
+
+            devisRepoPT.save(dpm,devis);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     @Test

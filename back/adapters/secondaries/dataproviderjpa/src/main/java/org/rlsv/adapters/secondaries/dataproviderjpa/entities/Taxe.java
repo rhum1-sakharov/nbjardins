@@ -22,7 +22,7 @@ public class Taxe extends Entity {
     private BigDecimal taux;
 
     @OneToMany(mappedBy = "taxe")
-    private List<Artisan__Taxe> artisan__taxeList;
+    private List<Artisan> artisanList;
 
 
 

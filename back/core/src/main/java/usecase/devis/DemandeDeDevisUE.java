@@ -137,7 +137,7 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase<
     }
 
     /**
-     * Enregistrer le devis avec le statut "demande", la tva par defaut de l'artisan
+     * Enregistrer le devis avec le statut "demande" et la tva par defaut de l'artisan
      *
      * @param request
      * @throws DemandeDeDevisException

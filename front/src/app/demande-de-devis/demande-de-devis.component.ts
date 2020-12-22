@@ -46,6 +46,7 @@ export class DemandeDeDevisComponent implements OnInit {
       villeCtl: new FormControl(''),
       telephoneCtl: new FormControl(''),
       emailCtl: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50), Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+      sujetCtl: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
       messageCtl: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(800)]),
     });
 
@@ -68,16 +69,17 @@ export class DemandeDeDevisComponent implements OnInit {
       const fonction = this.form.get('fonctionCtl').value;
       const adresse = this.form.get('adresseCtl').value;
       const ville = this.form.get('villeCtl').value ? this.form.get('villeCtl').value : null;
-      const nomVille = ville ? ville.nom:null;
-      const codePostal = ville ? ville.codePostal:null;
+      const nomVille = ville ? ville.nom : null;
+      const codePostal = ville ? ville.codePostal : null;
       const telephone = this.form.get('telephoneCtl').value;
       const email = this.form.get('emailCtl').value;
+      const sujet = this.form.get('sujetCtl').value;
       const message = this.form.get('messageCtl').value;
 
-      const asker = new MPersonne(nom, prenom, telephone, societe, fonction, adresse, nomVille,codePostal, email);
+      const asker = new MPersonne(nom, prenom, telephone, societe, fonction, adresse, nomVille, codePostal, email);
 
       const request: MRequest<MDemandeDeDevis> = new MRequest();
-      request.one = new MDemandeDeDevis(asker, null, message);
+      request.one = new MDemandeDeDevis(asker, sujet, message);
 
       this.demandeDeDevisSvc.send(request).subscribe(response => {
 

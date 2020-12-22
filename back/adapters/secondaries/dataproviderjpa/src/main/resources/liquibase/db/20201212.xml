@@ -340,17 +340,6 @@
         </comment>
     </changeSet>
 
-    <changeSet id="202012190931" author="rvl" runAlways="true">
-        <preConditions onFail="MARK_RAN">
-            <sqlCheck expectedResult="0">select count(*) from artisans__taxes where ID_ARTISAN='38ecc009-b643-4d14-bed0-a7f29ea9d345'</sqlCheck>
-        </preConditions>
-        <sql>
-            INSERT INTO `artisans__taxes` (`ID`, `ID_ARTISAN`,`ID_TAXE`) VALUES ('0afc2070-9dc4-46e0-9660-36f09b72b237','38ecc009-b643-4d14-bed0-a7f29ea9d345','2dc642a6-9396-4e51-a2b6-ff75a3330684');
-        </sql>
-        <comment>
-            Ajouter les artisans__taxes par defaut
-        </comment>
-    </changeSet>
 
     <changeSet id="202012212203" author="rvl" >
         <preConditions onFail="MARK_RAN">
@@ -394,6 +383,50 @@
         </sql>
         <comment>
             Ajouter le taux de tva sur le devis
+        </comment>
+    </changeSet>
+
+    <changeSet id="202012222150" author="rvl" >
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="artisans__taxes"></tableExists>
+        </preConditions>
+        <sql>
+            DROP TABLE artisans__taxes;
+        </sql>
+        <comment>
+            Suppression de la table artisans__taxes
+        </comment>
+    </changeSet>
+
+    <changeSet id="202012222153" author="rvl" >
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="artisans" columnName="ID_TAXE"></columnExists>
+            </not>
+        </preConditions>
+        <sql>
+            SET FOREIGN_KEY_CHECKS = 0;
+            ALTER TABLE artisans ADD ID_TAXE varchar(36) NOT NULL;
+            CREATE INDEX artisans_ID_TAXE_index ON artisans (ID_TAXE);
+            ALTER TABLE artisans
+            ADD CONSTRAINT artisans_taxes_ID_fk
+            FOREIGN KEY (ID_TAXE) REFERENCES taxes (ID) ON UPDATE CASCADE;
+            SET FOREIGN_KEY_CHECKS = 1;
+        </sql>
+        <comment>
+           Ajout de la taxe par defaut pour un artisan
+        </comment>
+    </changeSet>
+
+    <changeSet id="20201222155" author="rvl" runAlways="true">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">select count(*) from artisans where ID_PERSONNE='08747d89-0c85-492b-b71a-cb6d244a9a00'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO `artisans` (`ID`, `ID_PERSONNE`,`ID_TAXE`) VALUES ('0afc2070-9dc4-46e0-9660-36f09b72b237','08747d89-0c85-492b-b71a-cb6d244a9a00','2dc642a6-9396-4e51-a2b6-ff75a3330684');
+        </sql>
+        <comment>
+            Ajouter les artisans__taxes par defaut
         </comment>
     </changeSet>
 
