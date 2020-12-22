@@ -3,12 +3,15 @@ package usecase.uniquecode;
 import domain.enums.UNIQUE_CODE;
 import domain.wrapper.RequestDN;
 import domain.wrapper.ResponseDN;
+import org.apache.commons.lang3.RandomStringUtils;
 import ports.localization.LocalizeServicePT;
 import ports.repositories.DevisRepoPT;
 import ports.transactions.TransactionManagerPT;
+import transactions.DataProviderManager;
 import usecase.AbstractUsecase;
 import usecase.IUsecase;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class UniqueCodeUE extends AbstractUsecase implements IUsecase {
@@ -24,6 +27,8 @@ public class UniqueCodeUE extends AbstractUsecase implements IUsecase {
     @Override
     public ResponseDN execute(RequestDN instance) throws Exception {
 
+        DataProviderManager dpm = transactionManager.createDataProviderManager(instance.getDataProviderManager());
+
         ResponseDN response = new ResponseDN<>();
 
         String uniqueCode = "";
@@ -32,7 +37,7 @@ public class UniqueCodeUE extends AbstractUsecase implements IUsecase {
 
         switch (unique_code) {
             case NUMERO_DEVIS:
-                uniqueCode = generateNumeroDevis();
+                uniqueCode = generateNumeroDevis(dpm);
                 break;
             default:
                 break;
@@ -43,13 +48,32 @@ public class UniqueCodeUE extends AbstractUsecase implements IUsecase {
         return response;
     }
 
-    public String generateNumeroDevis() {
-        String numeroDevis = "";
+    public String generateNumeroDevis(DataProviderManager dpm) {
 
-        int countDevisOfMonth = this.devisRepo.countDevisOfMonth(new Date());
 
-        // 202012-16511
+        Date now = new Date();
+
+        int countDevisOfMonth = this.devisRepo.countDevisOfMonth(dpm, now);
+        SimpleDateFormat spd = new SimpleDateFormat("yyyyMM");
+
+
+        String generatedString = randomString(3, true, false);
+
+        // 202012-21165-NBO
+        String numeroDevis = spd.format(now) + "-" + String.format("%d05", countDevisOfMonth + 1) + "-" + generatedString;
+
+        int exists = devisRepo.existsNumeroDevis(dpm, numeroDevis);
+
+        if (exists > 0) {
+            generateNumeroDevis(dpm);
+        }
 
         return numeroDevis;
+    }
+
+    private String randomString(int length, boolean useLetters, boolean useNumbers) {
+
+        return RandomStringUtils.random(length, useLetters, useNumbers);
+
     }
 }

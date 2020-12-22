@@ -10,6 +10,8 @@ public interface DevisRepoPT {
 
     DevisDN save(DataProviderManager dpm, DevisDN devis) throws PersistenceException;
 
-    int countDevisOfMonth(Date date);
+    int countDevisOfMonth(DataProviderManager dpm,Date date);
+
+    int existsNumeroDevis(DataProviderManager dpm,String numeroDevis);
 
 }

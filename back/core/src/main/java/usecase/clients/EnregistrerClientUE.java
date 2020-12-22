@@ -23,7 +23,7 @@ import java.util.Objects;
 import static domain.localization.MessageKeys.ENREGISTRER_CLIENT_ERREUR_ARTISAN;
 import static domain.localization.MessageKeys.JPA_ERREUR_SAUVEGARDE_CLIENT;
 
-public final class EnregistrerClientUE extends AbstractUsecase implements IUsecase<ClientDN> {
+public final class EnregistrerClientUE extends AbstractUsecase implements IUsecase {
 
     private static final Logger LOG = LoggerFactory.getLogger(EnregistrerClientUE.class);
 
@@ -48,7 +48,7 @@ public final class EnregistrerClientUE extends AbstractUsecase implements IUseca
      * Si non, enregistrer la personne, l'associer au role client et au type client
      */
     @Override
-    public ResponseDN<ClientDN> execute(RequestDN<ClientDN> instance) throws Exception {
+    public ResponseDN execute(RequestDN instance) throws Exception {
 
         ResponseDN<ClientDN> responseDN = new ResponseDN<>();
         DataProviderManager dpm = this.transactionManager.createDataProviderManager(instance.getDataProviderManager());
@@ -58,7 +58,7 @@ public final class EnregistrerClientUE extends AbstractUsecase implements IUseca
             transactionManager.begin(dpm);
 
             boolean isArtisan = false;
-            PersonneDN client = instance.getOne().getClient();
+            PersonneDN client = ((ClientDN)instance.getOne()).getClient();
 
             String idPersonne = personneRepo.findIdByEmail(dpm, client.getEmail());
 

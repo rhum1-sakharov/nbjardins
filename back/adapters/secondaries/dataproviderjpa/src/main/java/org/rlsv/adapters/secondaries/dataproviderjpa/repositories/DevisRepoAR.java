@@ -13,6 +13,8 @@ import ports.repositories.PersonneRepoPT;
 import transactions.DataProviderManager;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.TypedQuery;
 import java.util.Date;
 
 import static domain.localization.MessageKeys.JPA_ERREUR_SAUVEGARDE_DEMANDEDEDEVIS;
@@ -54,7 +56,27 @@ public class DevisRepoAR extends RepoAR implements DevisRepoPT {
     }
 
     @Override
-    public int countDevisOfMonth(Date date) {
+    public int countDevisOfMonth(DataProviderManager dpm,Date dateCreation) {
+
+        try {
+
+            EntityManager em = TransactionManagerAR.getEntityManager(dpm);
+
+            TypedQuery<Integer> query = em.createQuery("SELECT count(d.id) from Devis d " +
+                    " where month(d.dateCreation)=month(:dateCreation) and year(d.dateCreation)=year(:dateCreation)", Integer.class);
+            int nbDevisOfMonth= query.setParameter("dateCreation", dateCreation).getSingleResult();
+
+            return nbDevisOfMonth;
+
+        } catch (NoResultException nre) {
+
+        }
+
+        return 0;
+    }
+
+    @Override
+    public int existsNumeroDevis(DataProviderManager dpm,String numeroDevis) {
         return 0;
     }
 }
