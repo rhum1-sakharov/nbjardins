@@ -16,13 +16,14 @@ import ports.localization.LocalizeServicePT;
 import ports.mails.MailDevisServicePT;
 import ports.repositories.DevisRepoPT;
 import ports.repositories.PersonneRepoPT;
+import ports.repositories.TaxeRepoPT;
 import ports.transactions.TransactionManagerPT;
 import transactions.DataProviderManager;
 import usecase.AbstractUsecase;
 import usecase.IUsecase;
 import usecase.clients.EnregistrerClientUE;
 
-import java.text.MessageFormat;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -39,14 +40,16 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase<
     private final PersonneRepoPT personneRepo;
     private final DevisRepoPT demandeDeDevisRepo;
     private final EnregistrerClientUE enregistrerClientUE;
+    private final TaxeRepoPT taxeRepo;
 
 
-    public DemandeDeDevisUE(MailDevisServicePT mailDevisService, LocalizeServicePT localizeService, PersonneRepoPT personneRepo, DevisRepoPT demandeDeDevisRepo, EnregistrerClientUE enregistrerClientUE, TransactionManagerPT transactionManager) {
+    public DemandeDeDevisUE(MailDevisServicePT mailDevisService, LocalizeServicePT localizeService, PersonneRepoPT personneRepo, DevisRepoPT demandeDeDevisRepo, EnregistrerClientUE enregistrerClientUE, TransactionManagerPT transactionManager, TaxeRepoPT taxeRepo) {
         super(localizeService, transactionManager);
         this.mailDevisService = mailDevisService;
         this.personneRepo = personneRepo;
         this.demandeDeDevisRepo = demandeDeDevisRepo;
         this.enregistrerClientUE = enregistrerClientUE;
+        this.taxeRepo = taxeRepo;
 
     }
 
@@ -83,13 +86,13 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase<
                 this.transactionManager.begin(dpm);
 
                 // recuperer l'artisan et le mettre dans la demande de devis
-                request = addArtisanToDemandeDeDevis( request);
+                request = addArtisanToDemandeDeDevis(request);
 
                 // enregistrer le client
                 saveClient(request);
 
                 //enregistrer la demande de devis
-                saveDevis( request);
+                saveDevis(request);
 
                 // envoyer la demande de devis à l'artisan
                 responseDN = sendToWorker(request);
@@ -134,7 +137,8 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase<
     }
 
     /**
-     * Enregistrer le devis avec le statut "demande"
+     * Enregistrer le devis avec le statut "demande", la tva par defaut de l'artisan
+     *
      * @param request
      * @throws DemandeDeDevisException
      */
@@ -142,6 +146,12 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase<
         try {
             DevisDN devis = request.getOne();
             devis.setStatut(STATUT_DEVIS.DEMANDE);
+
+            String emailArtisan = request.getOne().getWorker().getEmail();
+            DataProviderManager dpm = request.getDataProviderManager();
+            BigDecimal tva = taxeRepo.findTauxByEmailArtisan(dpm, emailArtisan);
+            devis.setTva(tva);
+
             demandeDeDevisRepo.save(request.getDataProviderManager(), devis);
         } catch (PersistenceException pe) {
             throw new DemandeDeDevisException(pe.getMessage(), pe, pe.getMsgKey(), pe.getArgs());
@@ -171,8 +181,6 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase<
     private ResponseDN<DevisDN> sendAcknowledgementToSender(RequestDN<DevisDN> wrapper) {
 
         DevisDN devisDN = wrapper.getOne();
-        String sujet = MessageFormat.format(localizeService.getMsg(ACK_DEVIS, localizeService.getWorkerLocale()), wrapper.getApplication().getNom());
-        devisDN.setSujet(sujet);
         wrapper.setOne(devisDN);
 
 

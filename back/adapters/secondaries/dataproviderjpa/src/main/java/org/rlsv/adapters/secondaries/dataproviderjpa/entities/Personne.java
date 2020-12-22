@@ -27,7 +27,7 @@ public class Personne extends Entity {
     @OneToOne(mappedBy = "worker")
     private Application application;
 
-    @OneToOne(mappedBy = "artisan")
+    @OneToOne(mappedBy = "personne")
     private Artisan artisan;
 
     @OneToOne(mappedBy = "client")

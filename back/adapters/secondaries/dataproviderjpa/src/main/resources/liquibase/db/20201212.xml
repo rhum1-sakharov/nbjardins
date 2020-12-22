@@ -383,4 +383,18 @@
         </comment>
     </changeSet>
 
+    <changeSet id="202012222055" author="rvl" >
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="devis" columnName="TVA"></columnExists>
+            </not>
+        </preConditions>
+        <sql>
+            ALTER TABLE devis ADD TVA DECIMAL(4,2) NOT NULL;
+        </sql>
+        <comment>
+            Ajouter le taux de tva sur le devis
+        </comment>
+    </changeSet>
+
 </databaseChangeLog>

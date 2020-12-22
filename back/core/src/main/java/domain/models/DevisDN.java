@@ -22,7 +22,7 @@ public class DevisDN extends Domain {
     String lieu;
     Date dateCreation;
     BigDecimal totalHT;
-    TvaDN tva;
+    BigDecimal tva;
     String remarque;
     String nota;
     String conditionDeReglement;

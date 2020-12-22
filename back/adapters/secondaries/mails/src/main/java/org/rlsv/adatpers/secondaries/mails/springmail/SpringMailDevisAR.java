@@ -20,7 +20,11 @@ import ports.localization.LocalizeServicePT;
 import ports.mails.MailDevisServicePT;
 
 import java.nio.charset.StandardCharsets;
+import java.text.MessageFormat;
 import java.util.Properties;
+
+import static domain.localization.MessageKeys.ACK_DEVIS;
+import static domain.localization.MessageKeys.SUJET_DEVIS;
 
 
 public class SpringMailDevisAR extends AbstractMail implements MailDevisServicePT {
@@ -83,8 +87,10 @@ public class SpringMailDevisAR extends AbstractMail implements MailDevisServiceP
         DevisDN devisDN = request.getOne();
         PersonneDN asker = devisDN.getAsker();
         PersonneDN worker = devisDN.getWorker();
+        String sujet = localize.getMsg(SUJET_DEVIS) + " " + devisDN.getSujet();
 
-        return prepareAndSend(devisDN, asker.getEmail(), worker.getEmail(), TemplateLocation.DEMANDE_DEVIS_TO_WORKER,  request.getApplication().getNom());
+
+        return prepareAndSend(devisDN, asker.getEmail(), worker.getEmail(), TemplateLocation.DEMANDE_DEVIS_TO_WORKER, request.getApplication().getNom(), sujet);
     }
 
     @Override
@@ -94,11 +100,12 @@ public class SpringMailDevisAR extends AbstractMail implements MailDevisServiceP
         PersonneDN asker = devisDN.getAsker();
         PersonneDN worker = devisDN.getWorker();
         String application = request.getApplication().getNom();
+        String sujet = MessageFormat.format(localize.getMsg(ACK_DEVIS), request.getApplication().getNom());
 
-        return prepareAndSend(devisDN, worker.getEmail(), asker.getEmail(), TemplateLocation.ACKNOWLEDGEMENT_DEMANDE_DEVIS_TO_SENDER,  application);
+        return prepareAndSend(devisDN, worker.getEmail(), asker.getEmail(), TemplateLocation.ACKNOWLEDGEMENT_DEMANDE_DEVIS_TO_SENDER, application, sujet);
     }
 
-    private ResponseDN<DevisDN> prepareAndSend(DevisDN devisDN, String emailEmetteur, String emailDestinataire, TemplateLocation templateLocation, String application) {
+    private ResponseDN<DevisDN> prepareAndSend(DevisDN devisDN, String emailEmetteur, String emailDestinataire, TemplateLocation templateLocation, String application, String sujet) {
 
         ResponseDN<DevisDN> demandeDeDevisResponseDN = new ResponseDN<>();
         demandeDeDevisResponseDN.setOne(devisDN);
@@ -107,7 +114,7 @@ public class SpringMailDevisAR extends AbstractMail implements MailDevisServiceP
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
             messageHelper.setFrom(emailEmetteur);
             messageHelper.setTo(emailDestinataire);
-            messageHelper.setSubject(devisDN.getSujet());
+            messageHelper.setSubject(sujet);
             String content = buildDemandeDeDevis(devisDN, templateLocation, application);
             messageHelper.setText(content, true);
 

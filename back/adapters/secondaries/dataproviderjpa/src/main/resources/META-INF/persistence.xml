@@ -17,6 +17,8 @@
         <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.Personne__Role</class>
         <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.Role</class>
         <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.Devis</class>
+        <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.Artisan__Taxe</class>
+        <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.Taxe</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
 

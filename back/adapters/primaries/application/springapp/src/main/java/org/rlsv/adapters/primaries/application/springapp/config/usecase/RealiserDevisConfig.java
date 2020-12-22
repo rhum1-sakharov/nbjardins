@@ -61,14 +61,20 @@ public class RealiserDevisConfig {
     }
 
     @Bean
+    @DependsOn("databaseConnectionConfig")
+    public TaxeRepoPT taxeRepoPT() {
+        return new TaxeRepoAR();
+    }
+
+    @Bean
     public EnregistrerClientUE enregistrerClientUE(PersonneRepoPT personneRepo, PersonneRoleRepoPT personneRoleRepo, LocalizeServicePT localizeService, ClientRepoPT clientRepo, TransactionManagerPT transactionManager) {
         return new EnregistrerClientUE(personneRepo, personneRoleRepo, localizeService, clientRepo, transactionManager);
     }
 
 
     @Bean
-    public DemandeDeDevisUE realiserDevis(MailDevisServicePT mailDevisService, LocalizeServicePT localizeService, PersonneRepoPT personneRepo, DevisRepoPT demandeDeDevisRepo, EnregistrerClientUE enregistrerClientUE, TransactionManagerPT transactionManager) {
-        return new DemandeDeDevisUE(mailDevisService, localizeService, personneRepo, demandeDeDevisRepo, enregistrerClientUE, transactionManager);
+    public DemandeDeDevisUE realiserDevis(MailDevisServicePT mailDevisService, LocalizeServicePT localizeService, PersonneRepoPT personneRepo, DevisRepoPT demandeDeDevisRepo, EnregistrerClientUE enregistrerClientUE, TransactionManagerPT transactionManager, TaxeRepoPT taxeRepo) {
+        return new DemandeDeDevisUE(mailDevisService, localizeService, personneRepo, demandeDeDevisRepo, enregistrerClientUE, transactionManager,taxeRepo);
     }
 
 
