@@ -69,14 +69,26 @@ public class DevisRepoAR extends RepoAR implements DevisRepoPT {
             return nbDevisOfMonth;
 
         } catch (NoResultException nre) {
-
+            return 0;
         }
-
-        return 0;
     }
 
     @Override
     public int existsNumeroDevis(DataProviderManager dpm,String numeroDevis) {
-        return 0;
+
+        try {
+
+            EntityManager em = TransactionManagerAR.getEntityManager(dpm);
+
+            TypedQuery<Integer> query = em.createQuery("SELECT count(d.id) from Devis d " +
+                    " where d.numeroDevis=:numeroDevis", Integer.class);
+            int nbDevisOfMonth= query.setParameter("numeroDevis", numeroDevis).getSingleResult();
+
+            return nbDevisOfMonth;
+
+        } catch (NoResultException nre) {
+            return 0;
+        }
+
     }
 }

@@ -22,9 +22,9 @@ import transactions.DataProviderManager;
 import usecase.AbstractUsecase;
 import usecase.IUsecase;
 import usecase.clients.EnregistrerClientUE;
+import usecase.uniquecode.UniqueCodeUE;
 
 import java.math.BigDecimal;
-import java.nio.charset.Charset;
 import java.util.*;
 
 import static domain.localization.MessageKeys.*;
@@ -36,18 +36,20 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase 
 
     private final MailDevisServicePT mailDevisService;
     private final PersonneRepoPT personneRepo;
-    private final DevisRepoPT demandeDeDevisRepo;
+    private final DevisRepoPT devisRepo;
     private final EnregistrerClientUE enregistrerClientUE;
+    private final UniqueCodeUE uniqueCodeUE;
     private final TaxeRepoPT taxeRepo;
 
 
-    public DemandeDeDevisUE(MailDevisServicePT mailDevisService, LocalizeServicePT localizeService, PersonneRepoPT personneRepo, DevisRepoPT demandeDeDevisRepo, EnregistrerClientUE enregistrerClientUE, TransactionManagerPT transactionManager, TaxeRepoPT taxeRepo) {
+    public DemandeDeDevisUE(MailDevisServicePT mailDevisService, LocalizeServicePT localizeService, PersonneRepoPT personneRepo, DevisRepoPT devisRepo, EnregistrerClientUE enregistrerClientUE, TransactionManagerPT transactionManager, TaxeRepoPT taxeRepo, UniqueCodeUE uniqueCodeUE) {
         super(localizeService, transactionManager);
         this.mailDevisService = mailDevisService;
         this.personneRepo = personneRepo;
-        this.demandeDeDevisRepo = demandeDeDevisRepo;
+        this.devisRepo = devisRepo;
         this.enregistrerClientUE = enregistrerClientUE;
         this.taxeRepo = taxeRepo;
+        this.uniqueCodeUE = uniqueCodeUE;
 
     }
 
@@ -140,25 +142,32 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase 
      * @param request
      * @throws DemandeDeDevisException
      */
-    private void saveDevis(RequestDN<DevisDN> request) throws DemandeDeDevisException {
+    private void saveDevis(RequestDN<DevisDN> request) throws Exception {
         try {
             DevisDN devis = request.getOne();
-            devis.setStatut(STATUT_DEVIS.DEMANDE);
-
-            String emailArtisan = request.getOne().getWorker().getEmail();
             DataProviderManager dpm = request.getDataProviderManager();
+
+            // tva
+            String emailArtisan = request.getOne().getWorker().getEmail();
             BigDecimal tva = taxeRepo.findTauxByEmailArtisan(dpm, emailArtisan);
             devis.setTva(tva);
 
+            // date creation
             devis.setDateCreation(new Date());
 
-            // TODO use case generate unique code
-            byte[] array = new byte[7]; // length is bounded by 7
-            new Random().nextBytes(array);
-            String generatedString = new String(array, Charset.forName("UTF-8"));
-            devis.setNumeroDevis(generatedString);
+            // statut
+            devis.setStatut(STATUT_DEVIS.DEMANDE);
 
-            demandeDeDevisRepo.save(request.getDataProviderManager(), devis);
+            // numero devis
+            RequestDN uniqueCodeRequest = new RequestDN();
+            uniqueCodeRequest.setDataProviderManager(dpm);
+            ResponseDN responseUniqueCode = uniqueCodeUE.execute(uniqueCodeRequest);
+            String numeroDevis = (String) responseUniqueCode.getOne();
+            devis.setNumeroDevis(numeroDevis);
+
+            // enregistrement
+            devisRepo.save(request.getDataProviderManager(), devis);
+
         } catch (PersistenceException pe) {
             throw new DemandeDeDevisException(pe.getMessage(), pe, pe.getMsgKey(), pe.getArgs());
         }
