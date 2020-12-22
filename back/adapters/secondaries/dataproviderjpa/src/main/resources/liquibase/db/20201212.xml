@@ -230,17 +230,7 @@
         </comment>
     </changeSet>
 
-    <changeSet id="202012190847" author="rvl" >
-        <preConditions onFail="MARK_RAN">
-            <sqlCheck expectedResult="0">select count(*) from artisans where ID_PERSONNE='08747d89-0c85-492b-b71a-cb6d244a9a00'</sqlCheck>
-        </preConditions>
-        <sql>
-            INSERT INTO `artisans` (`ID`, `ID_PERSONNE`) VALUES ('38ecc009-b643-4d14-bed0-a7f29ea9d345','08747d89-0c85-492b-b71a-cb6d244a9a00');
-        </sql>
-        <comment>
-            Ajouter l'artisan nb
-        </comment>
-    </changeSet>
+
 
     <changeSet id="202012190848" author="rvl">
         <preConditions onFail="MARK_RAN">
@@ -427,6 +417,39 @@
         </sql>
         <comment>
             Ajouter les artisans__taxes par defaut
+        </comment>
+    </changeSet>
+
+    <changeSet id="20201222202" author="rvl" >
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="devis" columnName="NUMERO_DEVIS"></columnExists>
+            </not>
+        </preConditions>
+        <sql>
+            ALTER TABLE devis ADD NUMERO_DEVIS VARCHAR(12) NOT NULL;
+            CREATE INDEX devis_NUMERO_DEVIS_index ON devis (NUMERO_DEVIS);
+        </sql>
+        <comment>
+            Ajouter la colonne numero_devis sur la table devis
+        </comment>
+    </changeSet>
+
+    <changeSet id="20201222206-6" author="rvl" >
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="devis" columnName="DATE_CREATION"></columnExists>
+            </not>
+        </preConditions>
+        <sql>
+            SET FOREIGN_KEY_CHECKS = 0;
+            ALTER TABLE `devis`
+            ADD COLUMN `DATE_CREATION` DATE NOT NULL AFTER `NUMERO_DEVIS`;
+            update devis set DATE_CREATION=CURDATE();
+            SET FOREIGN_KEY_CHECKS = 1;
+        </sql>
+        <comment>
+            Ajouter la colonne date_creation sur la table devis
         </comment>
     </changeSet>
 

@@ -24,15 +24,13 @@ import usecase.IUsecase;
 import usecase.clients.EnregistrerClientUE;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Objects;
+import java.nio.charset.Charset;
+import java.util.*;
 
 import static domain.localization.MessageKeys.*;
 
 
-public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase<DevisDN> {
+public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase {
 
     private static final Logger LOG = LoggerFactory.getLogger(DemandeDeDevisUE.class);
 
@@ -63,9 +61,9 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase<
      * @return
      */
     @Override
-    public ResponseDN<DevisDN> execute(RequestDN<DevisDN> request) throws Exception {
+    public ResponseDN execute(RequestDN request) throws Exception {
         Locale currentLocale = request.getLocale();
-        DevisDN devisDN = request.getOne();
+        DevisDN devisDN = (DevisDN) request.getOne();
         DataProviderManager dpm = this.transactionManager.createDataProviderManager(request.getDataProviderManager());
         request.setDataProviderManager(dpm);
 
@@ -137,7 +135,7 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase<
     }
 
     /**
-     * Enregistrer le devis avec le statut "demande" et la tva par defaut de l'artisan
+     * Enregistrer le devis avec le statut "demande" et la tva par defaut de l'artisan et la date de creation à aujourd'hui
      *
      * @param request
      * @throws DemandeDeDevisException
@@ -151,6 +149,14 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase<
             DataProviderManager dpm = request.getDataProviderManager();
             BigDecimal tva = taxeRepo.findTauxByEmailArtisan(dpm, emailArtisan);
             devis.setTva(tva);
+
+            devis.setDateCreation(new Date());
+
+            // TODO use case generate unique code
+            byte[] array = new byte[7]; // length is bounded by 7
+            new Random().nextBytes(array);
+            String generatedString = new String(array, Charset.forName("UTF-8"));
+            devis.setNumeroDevis(generatedString);
 
             demandeDeDevisRepo.save(request.getDataProviderManager(), devis);
         } catch (PersistenceException pe) {

@@ -21,8 +21,7 @@ public class TaxeRepoAR extends RepoAR implements TaxeRepoPT {
 
         try {
             TypedQuery<BigDecimal> query = em.createQuery("SELECT t.taux  from Taxe t " +
-                    " join t.artisan__taxeList at " +
-                    " join at.artisan a " +
+                    " join t.artisanList a " +
                     " join a.personne p " +
                     " where p.email=:email", BigDecimal.class);
             BigDecimal taux = query

@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -33,5 +34,11 @@ public class Devis extends Entity {
 
     @Column(name="TVA")
     private BigDecimal tva;
+
+    @Column(name="NUMERO_DEVIS")
+    private String numeroDevis;
+
+    @Column(name="DATE_CREATION")
+    private Date dateCreation;
 
 }

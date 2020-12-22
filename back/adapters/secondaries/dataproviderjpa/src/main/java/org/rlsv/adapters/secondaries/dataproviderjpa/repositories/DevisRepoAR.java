@@ -13,6 +13,7 @@ import ports.repositories.PersonneRepoPT;
 import transactions.DataProviderManager;
 
 import javax.persistence.EntityManager;
+import java.util.Date;
 
 import static domain.localization.MessageKeys.JPA_ERREUR_SAUVEGARDE_DEMANDEDEDEVIS;
 
@@ -50,5 +51,10 @@ public class DevisRepoAR extends RepoAR implements DevisRepoPT {
             LOG.error(ex.getMessage(), ex);
             throw new PersistenceException(ex.getMessage(), ex, JPA_ERREUR_SAUVEGARDE_DEMANDEDEDEVIS, new String[]{devis.getMessage()});
         }
+    }
+
+    @Override
+    public int countDevisOfMonth(Date date) {
+        return 0;
     }
 }

@@ -96,7 +96,7 @@
 
       <div class="p-col-12 mg-t-10">
         <div class="p-inputgroup">
-          <span class="p-inputgroup-addon"> <div class="wh-80">Email <span class="color-nature font-16"><b>*</b></span></div></span>
+          <span class="p-inputgroup-addon"> <div class="wh-80">Email<span class="color-nature font-16"><b>*</b></span></div></span>
           <input class="max-wh-400" formControlName="emailCtl" type="email" pInputText placeholder="">
         </div>
       </div>
@@ -113,7 +113,7 @@
         {{validatorsSvc.displayEmailPatternError(form.get('emailCtl'))}}
       </div>
 
-      <div class="p-col-12">
+      <div class="p-col-12 mg-t-10">
         <div class="p-inputgroup">
           <span class="p-inputgroup-addon"> <div class="wh-80">Sujet<span
             class="color-nature font-16"><b>*</b></span></div> </span>
@@ -132,7 +132,7 @@
 
       <div class="p-col-12 mg-t-10">
         <div class="p-inputgroup">
-          <span class="p-inputgroup-addon "><div class="wh-80">Rédiger un message <span class="color-nature font-16"><b>*</b></span></div></span>
+          <span class="p-inputgroup-addon "><div class="wh-80">Rédiger un message<span class="color-nature font-16"><b>*</b></span></div></span>
           <textarea pInputTextarea formControlName="messageCtl" [rows]="6" [cols]="30"
                     placeholder=""></textarea>
         </div>

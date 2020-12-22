@@ -10,7 +10,7 @@ import transactions.DataProviderManager;
 import usecase.AbstractUsecase;
 import usecase.IUsecase;
 
-public class CreerDevisUE extends AbstractUsecase implements IUsecase<DevisDN> {
+public class CreerDevisUE extends AbstractUsecase implements IUsecase {
 
     private static final String KEY_TYPE_CREATION_DEVIS = "key.type.creation.devis";
 
@@ -27,7 +27,7 @@ public class CreerDevisUE extends AbstractUsecase implements IUsecase<DevisDN> {
      * @return
      */
     @Override
-    public ResponseDN<DevisDN> execute(RequestDN<DevisDN> instance) throws Exception {
+    public ResponseDN execute(RequestDN instance) throws Exception {
         ResponseDN<DevisDN> response = new ResponseDN<>();
 
         DataProviderManager dpm = this.transactionManager.createDataProviderManager(instance.getDataProviderManager());

@@ -1,10 +1,9 @@
 package usecase;
 
-import domain.models.Domain;
 import domain.wrapper.RequestDN;
 import domain.wrapper.ResponseDN;
 
-public interface IUsecase<T extends Domain> {
+public interface IUsecase {
 
-    ResponseDN<T> execute(RequestDN<T> instance) throws Exception;
+    ResponseDN execute(RequestDN instance) throws Exception;
 }
