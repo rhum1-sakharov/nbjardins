@@ -23,5 +23,4 @@ public class Artisan extends Entity {
     @JoinColumn(name = "ID_TAXE")
     private Taxe taxe;
 
-
 }
