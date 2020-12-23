@@ -2,6 +2,7 @@ package usecase.devis;
 
 
 import domain.enums.STATUT_DEVIS;
+import domain.models.ArtisanBanqueDN;
 import domain.models.ClientDN;
 import domain.models.DevisDN;
 import domain.models.PersonneDN;
@@ -14,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ports.localization.LocalizeServicePT;
 import ports.mails.MailDevisServicePT;
+import ports.repositories.ArtisanBanqueRepoPT;
 import ports.repositories.DevisRepoPT;
 import ports.repositories.PersonneRepoPT;
 import ports.repositories.TaxeRepoPT;
@@ -40,9 +42,10 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase 
     private final EnregistrerClientUE enregistrerClientUE;
     private final UniqueCodeUE uniqueCodeUE;
     private final TaxeRepoPT taxeRepo;
+    private final ArtisanBanqueRepoPT artisanBanqueRepo;
 
 
-    public DemandeDeDevisUE(MailDevisServicePT mailDevisService, LocalizeServicePT localizeService, PersonneRepoPT personneRepo, DevisRepoPT devisRepo, EnregistrerClientUE enregistrerClientUE, TransactionManagerPT transactionManager, TaxeRepoPT taxeRepo, UniqueCodeUE uniqueCodeUE) {
+    public DemandeDeDevisUE(MailDevisServicePT mailDevisService, LocalizeServicePT localizeService, PersonneRepoPT personneRepo, DevisRepoPT devisRepo, EnregistrerClientUE enregistrerClientUE, TransactionManagerPT transactionManager, TaxeRepoPT taxeRepo, UniqueCodeUE uniqueCodeUE, ArtisanBanqueRepoPT artisanBanqueRepo) {
         super(localizeService, transactionManager);
         this.mailDevisService = mailDevisService;
         this.personneRepo = personneRepo;
@@ -50,7 +53,7 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase 
         this.enregistrerClientUE = enregistrerClientUE;
         this.taxeRepo = taxeRepo;
         this.uniqueCodeUE = uniqueCodeUE;
-
+        this.artisanBanqueRepo = artisanBanqueRepo;
     }
 
     /**
@@ -137,7 +140,11 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase 
     }
 
     /**
-     * Enregistrer le devis avec le statut "demande" et la tva par defaut de l'artisan et la date de creation à aujourd'hui
+     * Enregistrer le devis avec
+     * le statut "demande"
+     * la tva par defaut de l'artisan
+     * la date de creation à aujourd'hui
+     * l'iban et le rib par defaut de l'artisan
      *
      * @param request
      * @throws DemandeDeDevisException
@@ -164,6 +171,11 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase 
             ResponseDN responseUniqueCode = uniqueCodeUE.execute(uniqueCodeRequest);
             String numeroDevis = (String) responseUniqueCode.getOne();
             devis.setNumeroDevis(numeroDevis);
+
+            // rib et iban
+            List<ArtisanBanqueDN> artisanBanqueList= artisanBanqueRepo.findByEmailAndPrefere(dpm,emailArtisan,true);
+            devis.setIban(artisanBanqueList.get(0).getIban());
+            devis.setRib(artisanBanqueList.get(0).getRib());
 
             // enregistrement
             devisRepo.save(request.getDataProviderManager(), devis);

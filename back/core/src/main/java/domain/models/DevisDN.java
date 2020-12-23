@@ -29,4 +29,6 @@ public class DevisDN extends Domain {
     String ordre;
     List<LigneDevisDN> ligneDevisList;
     STATUT_DEVIS statut;
+    String iban;
+    String rib;
 }

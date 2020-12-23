@@ -41,4 +41,10 @@ public class Devis extends Entity {
     @Column(name="DATE_CREATION")
     private Date dateCreation;
 
+    @Column(name="IBAN")
+    private String iban;
+
+    @Column(name="RIB")
+    private String rib;
+
 }

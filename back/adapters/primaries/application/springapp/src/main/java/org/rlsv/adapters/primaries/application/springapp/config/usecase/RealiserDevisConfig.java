@@ -12,6 +12,7 @@ import ports.repositories.*;
 import ports.transactions.TransactionManagerPT;
 import usecase.clients.EnregistrerClientUE;
 import usecase.devis.DemandeDeDevisUE;
+import usecase.uniquecode.UniqueCodeUE;
 
 
 @Configuration
@@ -67,14 +68,41 @@ public class RealiserDevisConfig {
     }
 
     @Bean
+    @DependsOn("databaseConnectionConfig")
+    public ArtisanBanqueRepoPT artisanBanqueRepoPT() {
+        return new ArtisanBanqueRepoAR();
+    }
+
+    @Bean
+    public UniqueCodeUE uniqueCodeUE(LocalizeServicePT localizeService,  TransactionManagerPT transactionManager, DevisRepoPT devisRepo){
+        return  new UniqueCodeUE(localizeService,transactionManager,devisRepo);
+    }
+
+    @Bean
     public EnregistrerClientUE enregistrerClientUE(PersonneRepoPT personneRepo, PersonneRoleRepoPT personneRoleRepo, LocalizeServicePT localizeService, ClientRepoPT clientRepo, TransactionManagerPT transactionManager) {
         return new EnregistrerClientUE(personneRepo, personneRoleRepo, localizeService, clientRepo, transactionManager);
     }
 
 
     @Bean
-    public DemandeDeDevisUE realiserDevis(MailDevisServicePT mailDevisService, LocalizeServicePT localizeService, PersonneRepoPT personneRepo, DevisRepoPT demandeDeDevisRepo, EnregistrerClientUE enregistrerClientUE, TransactionManagerPT transactionManager, TaxeRepoPT taxeRepo) {
-        return new DemandeDeDevisUE(mailDevisService, localizeService, personneRepo, demandeDeDevisRepo, enregistrerClientUE, transactionManager,taxeRepo);
+    public DemandeDeDevisUE realiserDevis(MailDevisServicePT mailDevisService,
+                                          LocalizeServicePT localizeService,
+                                          PersonneRepoPT personneRepo,
+                                          DevisRepoPT demandeDeDevisRepo,
+                                          EnregistrerClientUE enregistrerClientUE,
+                                          TransactionManagerPT transactionManager,
+                                          TaxeRepoPT taxeRepo,
+                                          UniqueCodeUE uniqueCodeUE,
+                                          ArtisanBanqueRepoPT artisanBanqueRepo) {
+        return new DemandeDeDevisUE(mailDevisService,
+                localizeService,
+                personneRepo,
+                demandeDeDevisRepo,
+                enregistrerClientUE,
+                transactionManager,
+                taxeRepo,
+                uniqueCodeUE,
+                artisanBanqueRepo);
     }
 
 
