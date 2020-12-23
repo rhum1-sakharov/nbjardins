@@ -56,38 +56,38 @@ public class DevisRepoAR extends RepoAR implements DevisRepoPT {
     }
 
     @Override
-    public int countDevisOfMonth(DataProviderManager dpm,Date dateCreation) {
+    public Long countDevisOfMonth(DataProviderManager dpm,Date dateCreation) {
 
         try {
 
             EntityManager em = TransactionManagerAR.getEntityManager(dpm);
 
-            TypedQuery<Integer> query = em.createQuery("SELECT count(d.id) from Devis d " +
-                    " where month(d.dateCreation)=month(:dateCreation) and year(d.dateCreation)=year(:dateCreation)", Integer.class);
-            Integer nbDevisOfMonth= query.setParameter("dateCreation", dateCreation).getSingleResult();
+            TypedQuery<Long> query = em.createQuery("SELECT count(d.id) from Devis d " +
+                    " where month(d.dateCreation)=month(:dateCreation) and year(d.dateCreation)=year(:dateCreation)", Long.class);
+            Long nbDevisOfMonth= query.setParameter("dateCreation", dateCreation).getSingleResult();
 
             return nbDevisOfMonth;
 
         } catch (NoResultException nre) {
-            return 0;
+            return Long.valueOf(0);
         }
     }
 
     @Override
-    public int existsNumeroDevis(DataProviderManager dpm,String numeroDevis) {
+    public Long existsNumeroDevis(DataProviderManager dpm,String numeroDevis) {
 
         try {
 
             EntityManager em = TransactionManagerAR.getEntityManager(dpm);
 
-            TypedQuery<Integer> query = em.createQuery("SELECT count(d.id) from Devis d " +
-                    " where d.numeroDevis=:numeroDevis", Integer.class);
-            int nbDevisOfMonth= query.setParameter("numeroDevis", numeroDevis).getSingleResult();
+            TypedQuery<Long> query = em.createQuery("SELECT count(d.id) from Devis d " +
+                    " where d.numeroDevis=:numeroDevis", Long.class);
+            Long nbDevisOfMonth= query.setParameter("numeroDevis", numeroDevis).getSingleResult();
 
             return nbDevisOfMonth;
 
         } catch (NoResultException nre) {
-            return 0;
+            return Long.valueOf(0);
         }
 
     }

@@ -53,16 +53,16 @@ public class UniqueCodeUE extends AbstractUsecase implements IUsecase {
 
         Date now = new Date();
 
-        int countDevisOfMonth = this.devisRepo.countDevisOfMonth(dpm, now);
+        Long countDevisOfMonth = this.devisRepo.countDevisOfMonth(dpm, now);
         SimpleDateFormat spd = new SimpleDateFormat("yyyyMM");
 
 
-        String generatedString = randomString(4, true, true);
+        String generatedString = randomString(2, true, true);
 
         // 202012-21165-NB7A
-        String numeroDevis = spd.format(now) + "-" + String.format("%d05", countDevisOfMonth + 1) + "-" + generatedString;
+        String numeroDevis = spd.format(now) + "-" + String.format("%d03", countDevisOfMonth + 1) +  generatedString;
 
-        int exists = devisRepo.existsNumeroDevis(dpm, numeroDevis);
+        Long exists = devisRepo.existsNumeroDevis(dpm, numeroDevis);
 
         if (exists > 0) {
             generateNumeroDevis(dpm);
