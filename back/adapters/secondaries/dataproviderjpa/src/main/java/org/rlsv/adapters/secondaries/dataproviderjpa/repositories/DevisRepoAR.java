@@ -64,7 +64,7 @@ public class DevisRepoAR extends RepoAR implements DevisRepoPT {
 
             TypedQuery<Integer> query = em.createQuery("SELECT count(d.id) from Devis d " +
                     " where month(d.dateCreation)=month(:dateCreation) and year(d.dateCreation)=year(:dateCreation)", Integer.class);
-            int nbDevisOfMonth= query.setParameter("dateCreation", dateCreation).getSingleResult();
+            Integer nbDevisOfMonth= query.setParameter("dateCreation", dateCreation).getSingleResult();
 
             return nbDevisOfMonth;
 

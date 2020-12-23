@@ -16,7 +16,7 @@ import java.util.Date;
 
 public class UniqueCodeUE extends AbstractUsecase implements IUsecase {
 
-    private final String UNIQUE_CODE_KEY = "UNIQUE_CODE_KEY";
+    public static final String UNIQUE_CODE_KEY = "UNIQUE_CODE_KEY";
     private final DevisRepoPT devisRepo;
 
     public UniqueCodeUE(LocalizeServicePT localizeService, TransactionManagerPT transactionManager, DevisRepoPT devisRepo) {

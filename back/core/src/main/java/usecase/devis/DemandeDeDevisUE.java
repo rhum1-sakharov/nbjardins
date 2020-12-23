@@ -2,6 +2,7 @@ package usecase.devis;
 
 
 import domain.enums.STATUT_DEVIS;
+import domain.enums.UNIQUE_CODE;
 import domain.models.ArtisanBanqueDN;
 import domain.models.ClientDN;
 import domain.models.DevisDN;
@@ -30,6 +31,7 @@ import java.math.BigDecimal;
 import java.util.*;
 
 import static domain.localization.MessageKeys.*;
+import static usecase.uniquecode.UniqueCodeUE.UNIQUE_CODE_KEY;
 
 
 public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase {
@@ -168,12 +170,13 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase 
             // numero devis
             RequestDN uniqueCodeRequest = new RequestDN();
             uniqueCodeRequest.setDataProviderManager(dpm);
+            uniqueCodeRequest.getAdditionalProperties().put(UNIQUE_CODE_KEY, UNIQUE_CODE.NUMERO_DEVIS);
             ResponseDN responseUniqueCode = uniqueCodeUE.execute(uniqueCodeRequest);
             String numeroDevis = (String) responseUniqueCode.getOne();
             devis.setNumeroDevis(numeroDevis);
 
             // rib et iban
-            List<ArtisanBanqueDN> artisanBanqueList= artisanBanqueRepo.findByEmailAndPrefere(dpm,emailArtisan,true);
+            List<ArtisanBanqueDN> artisanBanqueList = artisanBanqueRepo.findByEmailAndPrefere(dpm, emailArtisan, true);
             devis.setIban(artisanBanqueList.get(0).getIban());
             devis.setRib(artisanBanqueList.get(0).getRib());
 
