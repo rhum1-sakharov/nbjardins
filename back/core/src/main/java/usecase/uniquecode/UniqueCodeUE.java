@@ -57,7 +57,7 @@ public class UniqueCodeUE extends AbstractUsecase implements IUsecase {
         SimpleDateFormat spd = new SimpleDateFormat("yyyyMM");
 
 
-        String generatedString = randomString(2, true, true);
+        String generatedString = randomString(2, true, true).toUpperCase();
 
         // 202012-21165-NB7A
         String numeroDevis = spd.format(now) + "-" + String.format("%d03", countDevisOfMonth + 1) +  generatedString;
