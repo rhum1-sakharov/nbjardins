@@ -59,8 +59,8 @@ public class UniqueCodeUE extends AbstractUsecase implements IUsecase {
 
         String generatedString = randomString(2, true, true).toUpperCase();
 
-        // 202012-21165-NB7A
-        String numeroDevis = spd.format(now) + "-" + String.format("%d03", countDevisOfMonth + 1) +  generatedString;
+        // 12 caracteres 202012-211NB
+        String numeroDevis = spd.format(now) + "-" + String.format("%03d", countDevisOfMonth + 1) +  generatedString;
 
         Long exists = devisRepo.existsNumeroDevis(dpm, numeroDevis);
 
