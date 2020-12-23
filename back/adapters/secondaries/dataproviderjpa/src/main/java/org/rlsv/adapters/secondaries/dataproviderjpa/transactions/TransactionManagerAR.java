@@ -8,7 +8,6 @@ import transactions.DataProviderManager;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Status;
-import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 import java.util.Objects;
 
@@ -85,23 +84,23 @@ public class TransactionManagerAR implements TransactionManagerPT {
 
     }
 
+
+
     @Override
     public void rollback(DataProviderManager dpm){
 
-        UserTransaction tx = getUserTransaction(dpm);
-        EntityManager entityManager = getEntityManager(dpm);
-
-        LOG.debug("trying to rollback jta transaction for entityManager {} {}", entityManager.toString(), tx.toString());
-
         try {
-            tx.rollback();
-            LOG.debug("jta transaction rollbacked for entityManager {}", entityManager.toString());
-        } catch (SystemException e) {
-            LOG.error(e.getMessage(),e);
-            LOG.error("error, jta transaction not rollbacked for entityManager {}", entityManager.toString());
+            UserTransaction tx = getUserTransaction(dpm);
+
+            if (tx.getStatus() == Status.STATUS_ACTIVE ||
+                    tx.getStatus() == Status.STATUS_MARKED_ROLLBACK){
+                tx.rollback();
+            }
+
+        } catch (Exception ex) {
+            System.err.println("Rollback of transaction failed, trace follows!");
+            ex.printStackTrace(System.err);
         }
-
-
     }
 
     @Override

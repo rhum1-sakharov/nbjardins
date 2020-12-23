@@ -11,8 +11,6 @@ import javax.naming.InitialContext;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.sql.DataSource;
-import javax.transaction.Status;
 import javax.transaction.UserTransaction;
 import java.util.Objects;
 
@@ -106,25 +104,7 @@ public class JtaConfig {
         }
     }
 
-    public DataSource getDataSource() {
-        try {
-            return (DataSource) getNamingContext().lookup(DATASOURCE_NAME);
-        } catch (Exception ex) {
-            throw new RuntimeException(ex);
-        }
-    }
 
-    public void rollback() {
-        UserTransaction tx = getUserTransaction();
-        try {
-            if (tx.getStatus() == Status.STATUS_ACTIVE ||
-                    tx.getStatus() == Status.STATUS_MARKED_ROLLBACK)
-                tx.rollback();
-        } catch (Exception ex) {
-            System.err.println("Rollback of transaction failed, trace follows!");
-            ex.printStackTrace(System.err);
-        }
-    }
 
     public void stop() throws Exception {
         LOG.info("Stopping database connection pool");
