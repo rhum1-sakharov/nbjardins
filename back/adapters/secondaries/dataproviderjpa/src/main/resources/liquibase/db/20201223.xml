@@ -19,5 +19,36 @@
         </comment>
     </changeSet>
 
+    <changeSet id="202012241430" author="rvl" >
+        <preConditions onFail="MARK_RAN">
+                <columnExists tableName="devis" columnName="DATE_CREATION"></columnExists>
+        </preConditions>
+        <sql>
+            ALTER TABLE devis DROP DATE_CREATION;
+        </sql>
+        <comment>
+            Suppression de la colonne date_creation dans la table devis
+        </comment>
+    </changeSet>
+
+    <changeSet id="202012241432" author="rvl" >
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="devis" columnName="DATE_DEMANDE"></columnExists>
+                <columnExists tableName="devis" columnName="DATE_ENVOYE"></columnExists>
+                <columnExists tableName="devis" columnName="DATE_EN_COURS"></columnExists>
+            </not>
+
+        </preConditions>
+        <sql>
+            ALTER TABLE devis ADD DATE_DEMANDE date NULL;
+            ALTER TABLE devis ADD DATE_EN_COURS date NULL;
+            ALTER TABLE devis ADD DATE_ENVOYE date NULL;
+        </sql>
+        <comment>
+           ajout des colonnes DATE_DEMANDE, DATE_ENVOYE, DATE_EN_COURS dans la table devis
+        </comment>
+    </changeSet>
+
 
 </databaseChangeLog>

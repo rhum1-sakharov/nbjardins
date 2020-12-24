@@ -161,8 +161,12 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase 
             BigDecimal tva = taxeRepo.findTauxByEmailArtisan(dpm, emailArtisan);
             devis.setTva(tva);
 
-            // date creation
-            devis.setDateCreation(new Date());
+
+            // date demande
+            devis.setDateDemande(new Date());
+
+            // TODO mode de reglement à recuperer de la preference artisan
+            devis.setModeReglement("par chèque");
 
             // statut
             devis.setStatut(STATUT_DEVIS.DEMANDE);

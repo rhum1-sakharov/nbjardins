@@ -38,13 +38,24 @@ public class Devis extends Entity {
     @Column(name="NUMERO_DEVIS")
     private String numeroDevis;
 
-    @Column(name="DATE_CREATION")
-    private Date dateCreation;
+
+    @Column(name="DATE_EN_COURS")
+    Date dateEnCours;
+
+    @Column(name="DATE_ENVOYE")
+    Date dateEnvoye;
+
+    @Column(name="DATE_DEMANDE")
+    private Date dateDemande;
 
     @Column(name="IBAN")
     private String iban;
 
     @Column(name="RIB")
     private String rib;
+
+    @Column(name="MODE_REGLEMENT")
+    private String modeReglement;
+
 
 }
