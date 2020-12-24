@@ -8,4 +8,7 @@ import lombok.Setter;
 public class ArtisanDN extends Domain {
 
     private PersonneDN artisan;
+    private TaxeDN taxe;
+    private ConditionDeReglementDN conditionDeReglement;
+
 }

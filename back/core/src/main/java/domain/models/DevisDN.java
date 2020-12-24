@@ -33,5 +33,4 @@ public class DevisDN extends Domain {
     STATUT_DEVIS statut;
     String iban;
     String rib;
-    String modeReglement;
 }

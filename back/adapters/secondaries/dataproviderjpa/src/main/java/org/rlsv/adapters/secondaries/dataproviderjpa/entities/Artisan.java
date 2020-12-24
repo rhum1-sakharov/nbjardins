@@ -23,4 +23,8 @@ public class Artisan extends Entity {
     @JoinColumn(name = "ID_TAXE")
     private Taxe taxe;
 
+    @ManyToOne
+    @JoinColumn(name = "ID_CONDITION_DE_REGLEMENT")
+    private ConditionDeReglement conditionDeReglement;
+
 }

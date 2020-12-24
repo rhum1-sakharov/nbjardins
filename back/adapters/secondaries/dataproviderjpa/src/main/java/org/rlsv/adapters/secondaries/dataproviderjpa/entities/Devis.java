@@ -54,8 +54,8 @@ public class Devis extends Entity {
     @Column(name="RIB")
     private String rib;
 
-    @Column(name="MODE_REGLEMENT")
-    private String modeReglement;
+    @Column(name="CONDITION_DE_REGLEMENT")
+    private String conditionDeReglement;
 
 
 }
