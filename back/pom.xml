@@ -13,6 +13,7 @@
         <module>core</module>
         <module>adapters/secondaries/localization</module>
         <module>adapters/secondaries/mails</module>
+        <module>adapters/secondaries/flying-saucer-pdf</module>
         <module>adapters/secondaries/dataproviderjpa</module>
         <module>adapters/primaries/application/springapp</module>
     </modules>
