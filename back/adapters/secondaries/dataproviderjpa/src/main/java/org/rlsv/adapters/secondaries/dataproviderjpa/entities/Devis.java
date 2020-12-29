@@ -48,6 +48,9 @@ public class Devis extends Entity {
     @Column(name="DATE_DEMANDE")
     private Date dateDemande;
 
+    @Column(name="DATE_CREATION")
+    private Date dateCreation;
+
     @Column(name="IBAN")
     private String iban;
 
@@ -57,5 +60,16 @@ public class Devis extends Entity {
     @Column(name="CONDITION_DE_REGLEMENT")
     private String conditionDeReglement;
 
+    @Column(name="LIEU")
+    private String lieu;
+
+    @Column(name="LOGO")
+    private String logo;
+
+    @Column(name="PROVISION")
+    private BigDecimal provision;
+
+    @Column(name="SIGNATURE")
+    private String signature;
 
 }

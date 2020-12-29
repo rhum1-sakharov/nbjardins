@@ -126,7 +126,7 @@
         </comment>
     </changeSet>
 
-    <changeSet id="202012241500" author="rvl" runAlways="true">
+    <changeSet id="202012241500" author="rvl">
         <preConditions onFail="MARK_RAN">
           <not>
               <columnExists tableName="devis" columnName="ID_CONDITION_DE_REGLEMENT"></columnExists>
@@ -137,6 +137,22 @@
         </sql>
         <comment>
           Ajout de la colonne condition de reglement dans devis
+        </comment>
+    </changeSet>
+
+    <changeSet id="202012291630" author="rvl">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="devis" columnName="DATE_CREATION"></columnExists>
+            </not>
+        </preConditions>
+        <sql>
+            ALTER TABLE devis ADD DATE_CREATION date NOT NULL;
+            ALTER TABLE devis
+            MODIFY COLUMN DATE_CREATION date NOT NULL AFTER RIB;
+        </sql>
+        <comment>
+            Ajout de la date de creation du devis
         </comment>
     </changeSet>
 

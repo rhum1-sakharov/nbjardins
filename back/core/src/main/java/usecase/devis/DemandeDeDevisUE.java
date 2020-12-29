@@ -16,10 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ports.localization.LocalizeServicePT;
 import ports.mails.MailDevisServicePT;
-import ports.repositories.ArtisanBanqueRepoPT;
-import ports.repositories.DevisRepoPT;
-import ports.repositories.PersonneRepoPT;
-import ports.repositories.TaxeRepoPT;
+import ports.repositories.*;
 import ports.transactions.TransactionManagerPT;
 import transactions.DataProviderManager;
 import usecase.AbstractUsecase;
@@ -45,9 +42,13 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase 
     private final UniqueCodeUE uniqueCodeUE;
     private final TaxeRepoPT taxeRepo;
     private final ArtisanBanqueRepoPT artisanBanqueRepo;
+    private final ConditionDeReglementRepoPT conditionDeReglementRepo;
 
 
-    public DemandeDeDevisUE(MailDevisServicePT mailDevisService, LocalizeServicePT localizeService, PersonneRepoPT personneRepo, DevisRepoPT devisRepo, EnregistrerClientUE enregistrerClientUE, TransactionManagerPT transactionManager, TaxeRepoPT taxeRepo, UniqueCodeUE uniqueCodeUE, ArtisanBanqueRepoPT artisanBanqueRepo) {
+    public DemandeDeDevisUE(MailDevisServicePT mailDevisService, LocalizeServicePT localizeService, PersonneRepoPT personneRepo, DevisRepoPT devisRepo, EnregistrerClientUE enregistrerClientUE, TransactionManagerPT transactionManager, TaxeRepoPT taxeRepo, UniqueCodeUE uniqueCodeUE,
+                            ArtisanBanqueRepoPT artisanBanqueRepo,
+                            ConditionDeReglementRepoPT conditionDeReglementRepo
+    ) {
         super(localizeService, transactionManager);
         this.mailDevisService = mailDevisService;
         this.personneRepo = personneRepo;
@@ -56,6 +57,7 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase 
         this.taxeRepo = taxeRepo;
         this.uniqueCodeUE = uniqueCodeUE;
         this.artisanBanqueRepo = artisanBanqueRepo;
+        this.conditionDeReglementRepo = conditionDeReglementRepo;
     }
 
     /**
@@ -162,11 +164,15 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase 
             devis.setTva(tva);
 
 
+            Date now = new Date();
+            // date de creation
+            devis.setDateCreation(now);
             // date demande
-            devis.setDateDemande(new Date());
+            devis.setDateDemande(now);
 
-            // TODO mode de reglement à recuperer de la preference artisan
-            devis.setModeReglement("par chèque");
+            // condition de reglement
+            String conditionReglement = conditionDeReglementRepo.findConditionByEmailArtisan(dpm, emailArtisan);
+            devis.setConditionDeReglement(conditionReglement);
 
             // statut
             devis.setStatut(STATUT_DEVIS.DEMANDE);

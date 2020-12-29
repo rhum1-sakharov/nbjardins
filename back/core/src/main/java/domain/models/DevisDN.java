@@ -23,6 +23,7 @@ public class DevisDN extends Domain {
     Date dateDemande;
     Date dateEnCours;
     Date dateEnvoye;
+    Date dateCreation;
     BigDecimal totalHT;
     BigDecimal tva;
     String remarque;
@@ -33,4 +34,7 @@ public class DevisDN extends Domain {
     STATUT_DEVIS statut;
     String iban;
     String rib;
+    String logo;
+    BigDecimal provision;
+    String signature;
 }

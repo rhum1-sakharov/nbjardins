@@ -4,7 +4,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Column;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -12,7 +15,10 @@ import javax.persistence.Table;
 @Table(name="conditions_de_reglement")
 public class ConditionDeReglement extends Entity {
 
-    @Column(name = "CONDITION")
+    @Column(name = "LIBELLE")
     private String condition;
+
+    @OneToMany(mappedBy = "conditionDeReglement")
+    private List<Artisan> artisanList = new ArrayList<>();
 
 }

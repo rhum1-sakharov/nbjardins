@@ -19,6 +19,7 @@
         <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.Devis</class>
         <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.ArtisanBanque</class>
         <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.Taxe</class>
+        <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.ConditionDeReglement</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
 
@@ -26,6 +27,7 @@
                 When printing SQL in logs, let Hibernate format the SQL nicely and generate
                 comments into the SQL string so we know why Hibernate executed the SQL statement.
             -->
+            <property name="hibernate.show_sql" value="false"/>
             <property name="hibernate.format_sql" value="true"/>
             <property name="hibernate.use_sql_comments" value="true"/>
 
