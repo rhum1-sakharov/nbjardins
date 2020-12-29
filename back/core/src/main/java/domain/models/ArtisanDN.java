@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 @Setter
 public class ArtisanDN extends Domain {
 
-    private PersonneDN artisan;
+    private PersonneDN personne;
     private TaxeDN taxe;
     private ConditionDeReglementDN conditionDeReglement;
     private String logo;

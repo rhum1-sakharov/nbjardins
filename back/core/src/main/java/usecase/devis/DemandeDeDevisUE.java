@@ -180,7 +180,7 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase 
             devis.setLogo(artisan.getLogo());
 
             // lieu
-            devis.setLieu(artisan.getArtisan().getVille());
+            devis.setLieu(artisan.getPersonne().getVille());
 
             // signature
             devis.setSignature(artisan.getSignature());
