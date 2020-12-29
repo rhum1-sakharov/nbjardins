@@ -99,7 +99,7 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase 
                 saveClient(request);
 
                 //enregistrer la demande de devis
-                saveDevis(request);
+                saveDemandeDeDevis(request);
 
                 // envoyer la demande de devis à l'artisan
                 responseDN = sendToWorker(request);
@@ -153,7 +153,7 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase 
      * @param request
      * @throws DemandeDeDevisException
      */
-    private void saveDevis(RequestDN<DevisDN> request) throws Exception {
+    private void saveDemandeDeDevis(RequestDN<DevisDN> request) throws Exception {
         try {
             DevisDN devis = request.getOne();
             DataProviderManager dpm = request.getDataProviderManager();

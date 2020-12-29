@@ -13,7 +13,10 @@ public class ResponseDN<T> {
 
     List<String> errorMessages = new ArrayList<>();
     List<T> resultList = new ArrayList<>();
+
+    @Deprecated
     T one;
+
     String message = "";
 
 
@@ -30,6 +33,10 @@ public class ResponseDN<T> {
         if (messages != null) {
             errorMessages.addAll(Arrays.asList(messages));
         }
+    }
+
+    public void addResultList(T instance) {
+        resultList.add(instance);
     }
 
     public void addErrorMessage(List<String> messages) {

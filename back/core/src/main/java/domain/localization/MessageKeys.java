@@ -15,5 +15,6 @@ public class MessageKeys {
     public static final String SUJET_DEVIS = "sujet.devis";
     public static final String AUCUN_ARTISAN_APPLICATION= "aucun.artisan.application";
     public static final String ENREGISTRER_CLIENT_ERREUR_ARTISAN= "enregistrer-client.erreur.artisan";
+    public static final String PARAMETRE_DEVIS_OBLIGATOIRE="parametre.devis.obligatoire";
 
 }

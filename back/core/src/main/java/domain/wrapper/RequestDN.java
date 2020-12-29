@@ -8,6 +8,7 @@ import transactions.DataProviderManager;
 import java.util.*;
 
 @Data
+@Deprecated
 public class RequestDN<T extends Domain> {
 
     List<T> list = new ArrayList<>();
@@ -16,5 +17,6 @@ public class RequestDN<T extends Domain> {
     ApplicationDN application;
     DataProviderManager dataProviderManager;
     Map<String, Object> additionalProperties = new HashMap<>();
+    Map<String,Object> properties = new HashMap<>();
 
 }
