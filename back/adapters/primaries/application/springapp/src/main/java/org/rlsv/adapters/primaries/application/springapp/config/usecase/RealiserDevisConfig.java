@@ -80,6 +80,12 @@ public class RealiserDevisConfig {
     }
 
     @Bean
+    @DependsOn("databaseConnectionConfig")
+    public ArtisanRepoPT artisanRepoPT() {
+        return new ArtisanRepoAR();
+    }
+
+    @Bean
     public UniqueCodeUE uniqueCodeUE(LocalizeServicePT localizeService,  TransactionManagerPT transactionManager, DevisRepoPT devisRepo){
         return  new UniqueCodeUE(localizeService,transactionManager,devisRepo);
     }
@@ -100,7 +106,8 @@ public class RealiserDevisConfig {
                                           TaxeRepoPT taxeRepo,
                                           UniqueCodeUE uniqueCodeUE,
                                           ArtisanBanqueRepoPT artisanBanqueRepo,
-                                          ConditionDeReglementRepoPT conditionDeReglementRepo
+                                          ConditionDeReglementRepoPT conditionDeReglementRepo,
+                                          ArtisanRepoPT artisanRepo
                                           ) {
         return new DemandeDeDevisUE(mailDevisService,
                 localizeService,
@@ -111,7 +118,8 @@ public class RealiserDevisConfig {
                 taxeRepo,
                 uniqueCodeUE,
                 artisanBanqueRepo,
-                conditionDeReglementRepo
+                conditionDeReglementRepo,
+                artisanRepo
                 );
     }
 

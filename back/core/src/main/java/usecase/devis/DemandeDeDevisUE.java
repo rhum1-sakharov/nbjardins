@@ -3,10 +3,7 @@ package usecase.devis;
 
 import domain.enums.STATUT_DEVIS;
 import domain.enums.UNIQUE_CODE;
-import domain.models.ArtisanBanqueDN;
-import domain.models.ClientDN;
-import domain.models.DevisDN;
-import domain.models.PersonneDN;
+import domain.models.*;
 import domain.utils.Utils;
 import domain.wrapper.RequestDN;
 import domain.wrapper.ResponseDN;
@@ -43,11 +40,13 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase 
     private final TaxeRepoPT taxeRepo;
     private final ArtisanBanqueRepoPT artisanBanqueRepo;
     private final ConditionDeReglementRepoPT conditionDeReglementRepo;
+    private final ArtisanRepoPT artisanRepo;
 
 
     public DemandeDeDevisUE(MailDevisServicePT mailDevisService, LocalizeServicePT localizeService, PersonneRepoPT personneRepo, DevisRepoPT devisRepo, EnregistrerClientUE enregistrerClientUE, TransactionManagerPT transactionManager, TaxeRepoPT taxeRepo, UniqueCodeUE uniqueCodeUE,
                             ArtisanBanqueRepoPT artisanBanqueRepo,
-                            ConditionDeReglementRepoPT conditionDeReglementRepo
+                            ConditionDeReglementRepoPT conditionDeReglementRepo,
+                            ArtisanRepoPT artisanRepo
     ) {
         super(localizeService, transactionManager);
         this.mailDevisService = mailDevisService;
@@ -58,6 +57,7 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase 
         this.uniqueCodeUE = uniqueCodeUE;
         this.artisanBanqueRepo = artisanBanqueRepo;
         this.conditionDeReglementRepo = conditionDeReglementRepo;
+        this.artisanRepo = artisanRepo;
     }
 
     /**
@@ -158,8 +158,10 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase 
             DevisDN devis = request.getOne();
             DataProviderManager dpm = request.getDataProviderManager();
 
-            // tva
             String emailArtisan = request.getOne().getWorker().getEmail();
+            ArtisanDN artisan = artisanRepo.findByEmail(dpm, emailArtisan);
+
+            // tva
             BigDecimal tva = taxeRepo.findTauxByEmailArtisan(dpm, emailArtisan);
             devis.setTva(tva);
 
@@ -173,6 +175,18 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase 
             // condition de reglement
             String conditionReglement = conditionDeReglementRepo.findConditionByEmailArtisan(dpm, emailArtisan);
             devis.setConditionDeReglement(conditionReglement);
+
+            // logo
+            devis.setLogo(artisan.getLogo());
+
+            // lieu
+            devis.setLieu(artisan.getArtisan().getVille());
+
+            // signature
+            devis.setSignature(artisan.getSignature());
+
+            // provision
+            devis.setProvision(artisan.getProvision());
 
             // statut
             devis.setStatut(STATUT_DEVIS.DEMANDE);
