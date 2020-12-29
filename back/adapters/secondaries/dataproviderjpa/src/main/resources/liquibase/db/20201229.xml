@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="202012291656" author="rvl" >
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="devis" columnName="LIEU"></columnExists>
+                <columnExists tableName="devis" columnName="LOGO"></columnExists>
+                <columnExists tableName="devis" columnName="PROVISION"></columnExists>
+                <columnExists tableName="devis" columnName="SIGNATURE"></columnExists>
+            </not>
+        </preConditions>
+        <sql>
+            ALTER TABLE devis ADD LIEU varchar(50) NOT NULL;
+            ALTER TABLE devis ADD LOGO varchar(50) NOT NULL;
+            ALTER TABLE devis ADD SIGNATURE VARCHAR(50) NOT NULL;
+            ALTER TABLE devis ADD PROVISION DECIMAL(10,4) NOT NULL;
+            ALTER TABLE devis MODIFY CONDITION_DE_REGLEMENT varchar(50) NOT NULL;
+        </sql>
+        <comment>
+            Ajout des colonnes lieu, logo, provision, signature dans la table devis
+        </comment>
+    </changeSet>
+
+    <changeSet id="202012291717" author="rvl" >
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="artisans" columnName="LOGO"></columnExists>
+                <columnExists tableName="artisans" columnName="PROVISION"></columnExists>
+                <columnExists tableName="artisans" columnName="SIGNATURE"></columnExists>
+            </not>
+        </preConditions>
+        <sql>
+            ALTER TABLE artisans ADD LOGO varchar(50) NOT NULL;
+            ALTER TABLE artisans ADD SIGNATURE VARCHAR(50) NOT NULL;
+            ALTER TABLE artisans ADD PROVISION DECIMAL(10,4) NOT NULL COMMENT 'en pourcent';
+        </sql>
+        <comment>
+            Ajout des colonnes logo, provision, signature dans la table artisans
+        </comment>
+    </changeSet>
+
+
+    <changeSet id="202012241455" author="rvl" runAlways="true">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">select count(*) from artisans where ID_PERSONNE='08747d89-0c85-492b-b71a-cb6d244a9a00'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO `artisans` (`ID`, `ID_PERSONNE`,`ID_TAXE`, `ID_CONDITION_DE_REGLEMENT`,  `LOGO`, `SIGNATURE`, `PROVISION`) VALUES ('0afc2070-9dc4-46e0-9660-36f09b72b237','08747d89-0c85-492b-b71a-cb6d244a9a00','2dc642a6-9396-4e51-a2b6-ff75a3330684','1','logo_nb_jardins.png','signature_nb_jardins.png',30);
+        </sql>
+        <comment>
+            Ajouter les artisans par defaut
+        </comment>
+    </changeSet>
+
+    <changeSet id="202012232222" author="rvl" runAlways="true">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">select count(*) from artisans_banques where ID_ARTISAN='0afc2070-9dc4-46e0-9660-36f09b72b237' and iban='IBAN1' and rib='RIB1'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO `artisans_banques` (`ID`, `ID_ARTISAN`, `IBAN`, `RIB`, `PREFERE`) VALUES ('dafaaf78-bbaa-4bc4-bb46-455e9cb5025c', '0afc2070-9dc4-46e0-9660-36f09b72b237', 'IBAN1', 'RIB1', 1);
+        </sql>
+        <comment>
+            Ajouter les artisans_banques par defaut
+        </comment>
+    </changeSet>
+
+</databaseChangeLog>

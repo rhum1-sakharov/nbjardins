@@ -3,10 +3,8 @@ package org.rlsv.adapters.secondaries.dataproviderjpa.entities;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Getter
 @Setter
@@ -26,5 +24,14 @@ public class Artisan extends Entity {
     @ManyToOne
     @JoinColumn(name = "ID_CONDITION_DE_REGLEMENT")
     private ConditionDeReglement conditionDeReglement;
+
+    @Column(name="LOGO")
+    private String logo;
+
+    @Column(name="PROVISION")
+    private BigDecimal provision;
+
+    @Column(name="SIGNATURE")
+    private String signature;
 
 }
