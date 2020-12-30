@@ -1,15 +1,102 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8"></meta>
-    <title></title>
-</head>
+<header th:replace="fragments/general.html :: headerfiles"></header>
 <body>
+
+<!-- EN TETE -->
 <table>
+    <tr>
+        <td class="width-60percent">
+            <span th:text="${devis.logo}"></span>
+        </td>
+        <td >
+            <div th:text="${devis.worker.societe}"></div>
+            <div th:text="${devis.worker.adresse}"></div>
+            <div>
+                <span th:text="${devis.worker.codePostal}"></span> <span th:text="${devis.worker.ville}"></span>
+            </div>
+            <div>
+                <span th:text="${devis.worker.email}"></span>
+            </div>
+
+        </td>
+    </tr>
+    <tr>
+        <td>
+           <b> Devis n° <span th:text="${devis.numeroDevis}"></span></b>
+        </td>
+        <td>
+            <span th:text="${devis.lieu}"></span>, le  <span th:text="${#dates.day(devis.dateEnCours)}"></span>
+            <span th:text="${#dates.monthName(devis.dateEnCours)}"></span>
+            <span th:text="${#dates.year(devis.dateEnCours)}"></span>
+        </td>
+    </tr>
     <tr>
         <td></td>
         <td>
-            <span th:text="${devis.worker.nom}"></span>
+            <div>
+                <b><span th:text="${devis.asker.prenom}"></span> <span th:text="${devis.asker.nom}"></span></b>
+            </div>
+
+            <div th:text="${devis.asker.adresse}"></div>
+            <span th:text="${devis.asker.codePostal}"></span> <span th:text="${devis.asker.ville}"></span>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <div th:text="${devis.sujet}"></div>
+        </td>
+    </tr>
+</table>
+
+<!-- LIGNES -->
+<table>
+</table>
+
+<!-- PIED DE PAGE -->
+<table>
+    <tr>
+        <td>
+           <b> Conditions de règlement : <span th:text="${devis.conditionDeReglement}"></span></b>
+        </td>
+        <td>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            Réglement à l'ordre de : <b><span th:text="${devis.worker.societe}"></span></b> - <span
+                th:text="${devis.worker.adresse}"></span> - <span th:text="${devis.worker.codePostal}"></span> <span
+                th:text="${devis.worker.ville}"></span>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div>
+                RIB : <span th:text="${devis.rib}"></span>
+            </div>
+            <div>
+                IBAN : <span th:text="${devis.iban}"></span>
+            </div>
+        </td>
+        <td>
+
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="padding-top-10">
+                Acceptation du devis accompagné d'une provision de <span th:text="${devis.provision}"></span>€
+            </div>
+            <div class="padding-top-10">
+                Bon pour commande, le
+            </div>
+            <div class="padding-top-10">
+                Signature et nom du signataire
+            </div>
+
+        </td>
+        <td>
+            <span th:text="${devis.signature}"></span>
         </td>
     </tr>
 </table>
