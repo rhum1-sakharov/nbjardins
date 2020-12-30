@@ -11,6 +11,7 @@ public class PdfGeneratorARTest {
 
     PdfGeneratorAR pdfGeneratorAR;
 
+
     @Before
     public void setUp() throws Exception {
         this.pdfGeneratorAR = new PdfGeneratorAR();
