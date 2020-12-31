@@ -11,5 +11,5 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ClientDN extends Domain {
 
-    private PersonneDN client;
+    private PersonneDN personne;
 }

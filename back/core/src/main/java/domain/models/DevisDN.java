@@ -14,8 +14,8 @@ import java.util.List;
 @Data
 public class DevisDN extends Domain {
 
-    PersonneDN asker;
-    PersonneDN worker;
+    ClientDN asker;
+    ArtisanDN worker;
     String sujet;
     String message;
     String numeroDevis;

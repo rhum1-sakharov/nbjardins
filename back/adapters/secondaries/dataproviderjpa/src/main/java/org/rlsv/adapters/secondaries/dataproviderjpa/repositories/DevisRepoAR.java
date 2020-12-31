@@ -2,14 +2,16 @@ package org.rlsv.adapters.secondaries.dataproviderjpa.repositories;
 
 import domain.models.DevisDN;
 import exceptions.PersistenceException;
+import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Artisan;
+import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Client;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Devis;
-import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Personne;
 import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.DevisMapper;
 import org.rlsv.adapters.secondaries.dataproviderjpa.transactions.TransactionManagerAR;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ports.repositories.ArtisanRepoPT;
+import ports.repositories.ClientRepoPT;
 import ports.repositories.DevisRepoPT;
-import ports.repositories.PersonneRepoPT;
 import transactions.DataProviderManager;
 
 import javax.persistence.EntityManager;
@@ -23,11 +25,13 @@ public class DevisRepoAR extends RepoAR implements DevisRepoPT {
 
     private static final Logger LOG = LoggerFactory.getLogger(DevisRepoAR.class);
 
-    private PersonneRepoPT personneRepo;
+    private ArtisanRepoPT artisanRepo;
+    private ClientRepoPT clientRepo;
 
-    public DevisRepoAR(PersonneRepoPT personneRepo) {
+    public DevisRepoAR(ArtisanRepoPT artisanRepo, ClientRepoPT clientRepo) {
         super();
-        this.personneRepo = personneRepo;
+        this.artisanRepo = artisanRepo;
+        this.clientRepo = clientRepo;
     }
 
 
@@ -40,11 +44,11 @@ public class DevisRepoAR extends RepoAR implements DevisRepoPT {
 
             Devis dd = DevisMapper.INSTANCE.domainToEntity(devis);
 
-            String idArtisan = personneRepo.findIdByEmail(dpm, devis.getWorker().getEmail());
-            String idClient = personneRepo.findIdByEmail(dpm, devis.getAsker().getEmail());
+            String idArtisan = artisanRepo.findIdByEmail(dpm, devis.getWorker().getPersonne().getEmail());
+            String idClient = clientRepo.findIdByEmail(dpm, devis.getAsker().getPersonne().getEmail());
 
-            dd.setWorker(em.getReference(Personne.class, idArtisan));
-            dd.setAsker(em.getReference(Personne.class, idClient));
+            dd.setWorker(em.getReference(Artisan.class, idArtisan));
+            dd.setAsker(em.getReference(Client.class, idClient));
 
             save(dpm, dd);
 
@@ -56,7 +60,7 @@ public class DevisRepoAR extends RepoAR implements DevisRepoPT {
     }
 
     @Override
-    public Long countDevisOfMonth(DataProviderManager dpm,Date dateCreation) {
+    public Long countDevisOfMonth(DataProviderManager dpm, Date dateCreation) {
 
         try {
 
@@ -64,7 +68,7 @@ public class DevisRepoAR extends RepoAR implements DevisRepoPT {
 
             TypedQuery<Long> query = em.createQuery("SELECT count(d.id) from Devis d " +
                     " where month(d.dateCreation)=month(:dateCreation) and year(d.dateCreation)=year(:dateCreation)", Long.class);
-            Long nbDevisOfMonth= query.setParameter("dateCreation", dateCreation).getSingleResult();
+            Long nbDevisOfMonth = query.setParameter("dateCreation", dateCreation).getSingleResult();
 
             return nbDevisOfMonth;
 
@@ -74,7 +78,7 @@ public class DevisRepoAR extends RepoAR implements DevisRepoPT {
     }
 
     @Override
-    public Long existsNumeroDevis(DataProviderManager dpm,String numeroDevis) {
+    public Long existsNumeroDevis(DataProviderManager dpm, String numeroDevis) {
 
         try {
 
@@ -82,7 +86,7 @@ public class DevisRepoAR extends RepoAR implements DevisRepoPT {
 
             TypedQuery<Long> query = em.createQuery("SELECT count(d.id) from Devis d " +
                     " where d.numeroDevis=:numeroDevis", Long.class);
-            Long nbDevisOfMonth= query.setParameter("numeroDevis", numeroDevis).getSingleResult();
+            Long nbDevisOfMonth = query.setParameter("numeroDevis", numeroDevis).getSingleResult();
 
             return nbDevisOfMonth;
 

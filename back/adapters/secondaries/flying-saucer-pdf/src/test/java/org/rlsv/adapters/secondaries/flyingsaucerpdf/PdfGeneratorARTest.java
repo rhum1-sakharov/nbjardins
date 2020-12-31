@@ -1,5 +1,7 @@
 package org.rlsv.adapters.secondaries.flyingsaucerpdf;
 
+import domain.models.ArtisanDN;
+import domain.models.ClientDN;
 import domain.models.DevisDN;
 import domain.models.PersonneDN;
 import org.assertj.core.api.Assertions;
@@ -40,31 +42,39 @@ public class PdfGeneratorARTest {
 
     private DevisDN initDevis() {
 
-        PersonneDN worker = new PersonneDN();
-        worker.setNom("Boetsch");
-        worker.setSociete("Les jardins de Nicolas");
-        worker.setAdresse("366 chemin des castanes");
-        worker.setCodePostal("84210");
-        worker.setVille("Pernes les Fontaines");
-        worker.setNumeroTelephone("0612345678");
-        worker.setEmail("nb@laposte.net");
+        ArtisanDN worker = new ArtisanDN();
+
+        PersonneDN artisanPersonne = new PersonneDN();
+        artisanPersonne.setNom("Boetsch");
+        artisanPersonne.setSociete("Les jardins de Nicolas");
+        artisanPersonne.setAdresse("366 chemin des castanes");
+        artisanPersonne.setCodePostal("84210");
+        artisanPersonne.setVille("Pernes les Fontaines");
+        artisanPersonne.setNumeroTelephone("0612345678");
+        artisanPersonne.setEmail("nb@laposte.net");
+
+        worker.setPersonne(artisanPersonne);
+        worker.setSite("vps358243.ovh.net:81");
+
         // TODO worker setSite
         // worker.setSite("www.nb.com");
 
+        ClientDN client = new ClientDN();
         PersonneDN asker = new PersonneDN();
         asker.setNom("Tartenpion");
         asker.setPrenom("Milou");
         asker.setAdresse("544 chemin de Fontblanque");
         asker.setVille("Mazan");
         asker.setCodePostal("84350");
+        client.setPersonne(asker);
 
         DevisDN devis = new DevisDN();
 
         devis.setWorker(worker);
-        devis.setAsker(asker);
+        devis.setAsker(client);
 
         devis.setNumeroDevis("20201230-001-ABN");
-        devis.setLieu(worker.getVille());
+        devis.setLieu(worker.getPersonne().getVille());
         devis.setDateEnCours(new Date());
         devis.setSujet("Elagage des arbres de la propriété du 544 chemin de Fontblanque à Mazan");
 

@@ -15,5 +15,6 @@ public class ArtisanDN extends Domain {
     private String logo;
     private BigDecimal provision;
     private String signature;
+    private String site;
 
 }

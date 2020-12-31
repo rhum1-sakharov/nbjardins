@@ -19,7 +19,7 @@ public class Client extends Entity {
 
     @OneToOne
     @JoinColumn(name = "ID_PERSONNE")
-    private Personne client;
+    private Personne personne;
 
 
 }

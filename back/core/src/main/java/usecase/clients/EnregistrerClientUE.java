@@ -58,7 +58,7 @@ public final class EnregistrerClientUE extends AbstractUsecase implements IUseca
             transactionManager.begin(dpm);
 
             boolean isArtisan = false;
-            PersonneDN client = ((ClientDN)instance.getOne()).getClient();
+            PersonneDN client = ((ClientDN)instance.getOne()).getPersonne();
 
             String idPersonne = personneRepo.findIdByEmail(dpm, client.getEmail());
 

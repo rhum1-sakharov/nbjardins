@@ -1,6 +1,7 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.repositories;
 
 import domain.models.ArtisanDN;
+import exceptions.PersistenceException;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Artisan;
 import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.ArtisanMapper;
 import org.rlsv.adapters.secondaries.dataproviderjpa.transactions.TransactionManagerAR;
@@ -12,6 +13,8 @@ import transactions.DataProviderManager;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
+
+import static domain.localization.MessageKeys.AUCUN_RESULTAT;
 
 public class ArtisanRepoAR extends RepoAR implements ArtisanRepoPT {
 
@@ -34,5 +37,41 @@ public class ArtisanRepoAR extends RepoAR implements ArtisanRepoPT {
         }
 
         return null;
+    }
+
+    @Override
+    public ArtisanDN findArtisanByApplicationToken(DataProviderManager dpm, String token) throws PersistenceException {
+        try {
+            Artisan artisan = null;
+            EntityManager em = TransactionManagerAR.getEntityManager(dpm);
+
+            TypedQuery<Artisan> query = em.createQuery("SELECT a from Artisan a " +
+                    " join a.personne p " +
+                    " join p.application app " +
+                    " where app.token=:token", Artisan.class);
+            artisan = query.setParameter("token", token).getSingleResult();
+
+            return ArtisanMapper.INSTANCE.entityToDomain(artisan);
+
+        } catch (NoResultException nre) {
+            throw new PersistenceException(nre.getMessage(), nre, AUCUN_RESULTAT);
+        }
+    }
+
+    @Override
+    public String findIdByEmail(DataProviderManager dpm, String email) throws PersistenceException {
+        String id = null;
+
+        try {
+            EntityManager em = TransactionManagerAR.getEntityManager(dpm);
+            TypedQuery<String> query = em.createQuery("SELECT a.id from Artisan a " +
+                    " join a.personne p " +
+                    "where p.email=:email", String.class);
+            id = query.setParameter("email", email)
+                    .getSingleResult();
+        } catch (NoResultException nre) {
+
+        }
+        return id;
     }
 }

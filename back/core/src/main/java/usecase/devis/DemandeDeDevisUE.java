@@ -77,9 +77,9 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase 
         request.setDataProviderManager(dpm);
 
         Map<String, Boolean> preconditions = new HashMap<>();
-        preconditions.put(localizeService.getMsg(PRENOM_OBLIGATOIRE, currentLocale), Objects.isNull(devisDN.getAsker().getPrenom()));
-        preconditions.put(localizeService.getMsg(NOM_OBLIGATOIRE, currentLocale), Objects.isNull(devisDN.getAsker().getNom()));
-        preconditions.put(localizeService.getMsg(EMAIL_OBLIGATOIRE, currentLocale), Objects.isNull(devisDN.getAsker().getEmail()));
+        preconditions.put(localizeService.getMsg(PRENOM_OBLIGATOIRE, currentLocale), Objects.isNull(devisDN.getAsker().getPersonne().getPrenom()));
+        preconditions.put(localizeService.getMsg(NOM_OBLIGATOIRE, currentLocale), Objects.isNull(devisDN.getAsker().getPersonne().getNom()));
+        preconditions.put(localizeService.getMsg(EMAIL_OBLIGATOIRE, currentLocale), Objects.isNull(devisDN.getAsker().getPersonne().getEmail()));
         preconditions.put(localizeService.getMsg(DEVIS_MESSAGE_OBLIGATOIRE, currentLocale), Objects.isNull(devisDN.getMessage()));
 
         ResponseDN<DevisDN> responseDN = Utils.initResponse(preconditions);
@@ -132,7 +132,7 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase 
 
     private void saveClient(RequestDN<DevisDN> request) throws Exception {
 
-        PersonneDN client = request.getOne().getAsker();
+        PersonneDN client = request.getOne().getAsker().getPersonne();
         ClientDN clientDN = new ClientDN(client);
 
 
@@ -158,7 +158,7 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase 
             DevisDN devis = request.getOne();
             DataProviderManager dpm = request.getDataProviderManager();
 
-            String emailArtisan = request.getOne().getWorker().getEmail();
+            String emailArtisan = request.getOne().getWorker().getPersonne().getEmail();
             ArtisanDN artisan = artisanRepo.findByEmail(dpm, emailArtisan);
 
             // tva
@@ -214,11 +214,11 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase 
 
     private RequestDN<DevisDN> addArtisanToDemandeDeDevis(RequestDN<DevisDN> request) throws DemandeDeDevisException {
         try {
-            PersonneDN artisan = personneRepo.findArtisanByApplicationToken(request.getDataProviderManager(), request.getApplication().getToken());
+            ArtisanDN artisan = artisanRepo.findArtisanByApplicationToken(request.getDataProviderManager(),request.getApplication().getToken());
             request.getOne().setWorker(artisan);
             return request;
-        } catch (PersistenceException pe) {
-            throw new DemandeDeDevisException(pe.getMessage(), pe, AUCUN_ARTISAN_APPLICATION, new String[]{request.getApplication().getToken()});
+        } catch (Exception ex) {
+            throw new DemandeDeDevisException(ex.getMessage(), ex, AUCUN_ARTISAN_APPLICATION, new String[]{request.getApplication().getToken()});
         }
 
     }

@@ -1,6 +1,7 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.repositories;
 
 import domain.models.ClientDN;
+import exceptions.PersistenceException;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Client;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Personne;
 import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.ClientMapper;
@@ -46,7 +47,7 @@ public class ClientRepoAR extends RepoAR implements ClientRepoPT {
 
         try {
             TypedQuery<String> query = em.createQuery("SELECT c.id  from Client c " +
-                    " join c.client p " +
+                    " join c.personne p " +
                     " where p.id=:idPersonne", String.class);
             String idClient = query
                     .setParameter("idPersonne", idPersonne)
@@ -57,6 +58,23 @@ public class ClientRepoAR extends RepoAR implements ClientRepoPT {
         }
 
         return null;
+    }
+
+    @Override
+    public String findIdByEmail(DataProviderManager dpm, String email) throws PersistenceException {
+        String id = null;
+
+        try {
+            EntityManager em = TransactionManagerAR.getEntityManager(dpm);
+            TypedQuery<String> query = em.createQuery("SELECT c.id from Client c " +
+                    " join c.personne p " +
+                    "where p.email=:email", String.class);
+            id = query.setParameter("email", email)
+                    .getSingleResult();
+        } catch (NoResultException nre) {
+
+        }
+        return id;
     }
 
 
