@@ -16,8 +16,7 @@ public class Artisan extends Entity {
     @JoinColumn(name = "ID_PERSONNE")
     private Personne personne;
 
-    @OneToOne
-    @JoinColumn(name = "ID_APPLICATION")
+    @OneToOne(mappedBy = "artisan")
     private Application application;
 
 
