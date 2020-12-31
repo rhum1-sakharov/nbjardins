@@ -1,7 +1,7 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.repositories;
 
-import domain.enums.ROLES;
 import domain.models.PersonneDN;
+import enums.ROLES;
 import exceptions.PersistenceException;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Personne;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Personne__Role;
@@ -17,8 +17,8 @@ import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.util.Objects;
 
-import static domain.localization.MessageKeys.AUCUN_RESULTAT;
-import static domain.localization.MessageKeys.JPA_ERREUR_SAUVEGARDE_CLIENT;
+import static localization.MessageKeys.AUCUN_RESULTAT;
+import static localization.MessageKeys.JPA_ERREUR_SAUVEGARDE_CLIENT;
 
 public class PersonneRepoAR extends RepoAR implements PersonneRepoPT {
 

@@ -19,7 +19,7 @@ import ports.transactions.TransactionManagerPT;
 import java.io.ByteArrayOutputStream;
 import java.util.Locale;
 
-import static domain.localization.MessageKeys.PARAMETRE_DEVIS_OBLIGATOIRE;
+import static localization.MessageKeys.PARAMETRE_DEVIS_OBLIGATOIRE;
 import static usecase.devis.GenererDevisPdfUE.REQUEST_KEY_DEVIS;
 
 @RunWith(MockitoJUnitRunner.class)

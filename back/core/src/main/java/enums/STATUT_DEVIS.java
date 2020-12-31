@@ -1,4 +1,4 @@
-package domain.enums;
+package enums;
 
 import lombok.Getter;
 

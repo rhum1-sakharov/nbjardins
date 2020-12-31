@@ -1,9 +1,9 @@
 package usecase.devis;
 
-import domain.enums.TYPE_CREATION_DEVIS;
 import domain.models.DevisDN;
 import domain.wrapper.RequestDN;
 import domain.wrapper.ResponseDN;
+import enums.TYPE_CREATION_DEVIS;
 import ports.localization.LocalizeServicePT;
 import ports.transactions.TransactionManagerPT;
 import transactions.DataProviderManager;

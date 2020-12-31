@@ -1,6 +1,6 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.entities;
 
-import domain.enums.STATUT_DEVIS;
+import enums.STATUT_DEVIS;
 import lombok.Getter;
 import lombok.Setter;
 

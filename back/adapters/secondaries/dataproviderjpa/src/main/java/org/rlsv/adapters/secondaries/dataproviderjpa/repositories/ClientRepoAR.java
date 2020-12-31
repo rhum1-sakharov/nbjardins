@@ -36,6 +36,7 @@ public class ClientRepoAR extends RepoAR implements ClientRepoPT {
         }
 
         save(dpm, client);
+        em.flush();
 
         return ClientMapper.INSTANCE.entityToDomain(client);
     }

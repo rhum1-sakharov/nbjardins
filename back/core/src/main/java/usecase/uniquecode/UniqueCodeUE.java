@@ -1,8 +1,8 @@
 package usecase.uniquecode;
 
-import domain.enums.UNIQUE_CODE;
 import domain.wrapper.RequestDN;
 import domain.wrapper.ResponseDN;
+import enums.UNIQUE_CODE;
 import org.apache.commons.lang3.RandomStringUtils;
 import ports.localization.LocalizeServicePT;
 import ports.repositories.DevisRepoPT;

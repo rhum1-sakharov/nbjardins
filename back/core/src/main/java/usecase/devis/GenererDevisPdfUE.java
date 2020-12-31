@@ -1,17 +1,17 @@
 package usecase.devis;
 
 import domain.models.DevisDN;
-import domain.utils.Utils;
 import domain.wrapper.RequestMap;
 import domain.wrapper.ResponseDN;
 import ports.localization.LocalizeServicePT;
 import ports.pdfs.ProviderPdfPT;
 import ports.transactions.TransactionManagerPT;
 import usecase.AbstractUsecase;
+import utils.Utils;
 
 import java.io.ByteArrayOutputStream;
 
-import static domain.localization.MessageKeys.PARAMETRE_DEVIS_OBLIGATOIRE;
+import static localization.MessageKeys.PARAMETRE_DEVIS_OBLIGATOIRE;
 
 public class GenererDevisPdfUE extends AbstractUsecase {
 

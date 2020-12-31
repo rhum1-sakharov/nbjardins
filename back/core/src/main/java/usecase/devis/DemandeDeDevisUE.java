@@ -1,12 +1,14 @@
 package usecase.devis;
 
 
-import domain.enums.STATUT_DEVIS;
-import domain.enums.UNIQUE_CODE;
-import domain.models.*;
-import domain.utils.Utils;
+import domain.models.ArtisanBanqueDN;
+import domain.models.ArtisanDN;
+import domain.models.ClientDN;
+import domain.models.DevisDN;
 import domain.wrapper.RequestDN;
 import domain.wrapper.ResponseDN;
+import enums.STATUT_DEVIS;
+import enums.UNIQUE_CODE;
 import exceptions.DemandeDeDevisException;
 import exceptions.PersistenceException;
 import org.slf4j.Logger;
@@ -20,11 +22,13 @@ import usecase.AbstractUsecase;
 import usecase.IUsecase;
 import usecase.clients.EnregistrerClientUE;
 import usecase.uniquecode.UniqueCodeUE;
+import utils.Utils;
 
 import java.math.BigDecimal;
+import java.text.MessageFormat;
 import java.util.*;
 
-import static domain.localization.MessageKeys.*;
+import static localization.MessageKeys.*;
 import static usecase.uniquecode.UniqueCodeUE.UNIQUE_CODE_KEY;
 
 
@@ -116,7 +120,12 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase 
             } catch (DemandeDeDevisException de) {
                 responseDN.addErrorMessage(de.displayMessage(localizeService));
                 this.transactionManager.rollback(dpm);
-            } finally {
+            }catch (Exception ex) {
+                responseDN.addErrorMessage(MessageFormat.format(localizeService.getMsg(SERVER_ERROR),ex.getMessage()));
+
+                this.transactionManager.rollback(dpm);
+            }
+            finally {
                 this.transactionManager.close(dpm);
             }
 
@@ -132,10 +141,8 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase 
 
     private void saveClient(RequestDN<DevisDN> request) throws Exception {
 
-        PersonneDN client = request.getOne().getClient().getPersonne();
-        ClientDN clientDN = new ClientDN(client);
 
-
+        ClientDN clientDN = request.getOne().getClient();
         RequestDN<ClientDN> clientRequest = Utils.initRequest(clientDN);
         clientRequest.setDataProviderManager(request.getDataProviderManager());
 

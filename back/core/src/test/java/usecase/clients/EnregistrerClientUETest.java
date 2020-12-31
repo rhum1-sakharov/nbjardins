@@ -1,12 +1,12 @@
 package usecase.clients;
 
-import domain.enums.ROLES;
 import domain.models.ClientDN;
 import domain.models.PersonneDN;
 import domain.models.Personne__RoleDN;
 import domain.models.RoleDN;
 import domain.wrapper.RequestDN;
 import domain.wrapper.ResponseDN;
+import enums.ROLES;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +22,7 @@ import ports.transactions.TransactionManagerPT;
 
 import java.util.Objects;
 
-import static domain.localization.MessageKeys.ENREGISTRER_CLIENT_ERREUR_ARTISAN;
+import static localization.MessageKeys.ENREGISTRER_CLIENT_ERREUR_ARTISAN;
 
 @RunWith(MockitoJUnitRunner.class)
 public class EnregistrerClientUETest {

@@ -19,7 +19,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.util.Date;
 
-import static domain.localization.MessageKeys.JPA_ERREUR_SAUVEGARDE_DEMANDEDEDEVIS;
+import static localization.MessageKeys.JPA_ERREUR_SAUVEGARDE_DEMANDEDEDEVIS;
 
 public class DevisRepoAR extends RepoAR implements DevisRepoPT {
 
@@ -40,7 +40,6 @@ public class DevisRepoAR extends RepoAR implements DevisRepoPT {
 
         try {
             EntityManager em = TransactionManagerAR.getEntityManager(dpm);
-
 
             Devis dd = DevisMapper.INSTANCE.domainToEntity(devis);
 

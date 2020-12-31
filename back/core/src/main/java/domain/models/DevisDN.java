@@ -1,6 +1,6 @@
 package domain.models;
 
-import domain.enums.STATUT_DEVIS;
+import enums.STATUT_DEVIS;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -24,8 +24,8 @@ import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
 import java.util.Properties;
 
-import static domain.localization.MessageKeys.ACK_DEVIS;
-import static domain.localization.MessageKeys.SUJET_DEVIS;
+import static localization.MessageKeys.ACK_DEVIS;
+import static localization.MessageKeys.SUJET_DEVIS;
 
 
 public class SpringMailDevisAR extends AbstractMail implements MailDevisServicePT {

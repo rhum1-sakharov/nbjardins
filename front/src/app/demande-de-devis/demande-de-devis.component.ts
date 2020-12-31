@@ -10,6 +10,7 @@ import {MPersonne} from "../core/models/m-personne";
 import {LoadingService} from "../core/services/techniques/loading.service";
 import {faSync} from "@fortawesome/free-solid-svg-icons/faSync";
 import {MRequest} from "../core/models/m-request";
+import {MClient} from '../core/models/m-client';
 
 @Component({
   selector: 'app-demande-de-devis',
@@ -77,9 +78,10 @@ export class DemandeDeDevisComponent implements OnInit {
       const message = this.form.get('messageCtl').value;
 
       const asker = new MPersonne(nom, prenom, telephone, societe, fonction, adresse, nomVille, codePostal, email);
+      const client = new MClient(asker);
 
       const request: MRequest<MDemandeDeDevis> = new MRequest();
-      request.one = new MDemandeDeDevis(asker, sujet, message);
+      request.one = new MDemandeDeDevis(client, sujet, message);
 
       this.demandeDeDevisSvc.send(request).subscribe(response => {
 

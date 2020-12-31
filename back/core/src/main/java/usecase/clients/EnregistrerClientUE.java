@@ -1,11 +1,11 @@
 package usecase.clients;
 
-import domain.enums.ROLES;
 import domain.models.ClientDN;
 import domain.models.PersonneDN;
 import domain.models.Personne__RoleDN;
 import domain.wrapper.RequestDN;
 import domain.wrapper.ResponseDN;
+import enums.ROLES;
 import exceptions.PersistenceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,8 +20,8 @@ import usecase.IUsecase;
 
 import java.util.Objects;
 
-import static domain.localization.MessageKeys.ENREGISTRER_CLIENT_ERREUR_ARTISAN;
-import static domain.localization.MessageKeys.JPA_ERREUR_SAUVEGARDE_CLIENT;
+import static localization.MessageKeys.ENREGISTRER_CLIENT_ERREUR_ARTISAN;
+import static localization.MessageKeys.JPA_ERREUR_SAUVEGARDE_CLIENT;
 
 public final class EnregistrerClientUE extends AbstractUsecase implements IUsecase {
 

@@ -1,16 +1,16 @@
-import {MPersonne} from "./m-personne";
 import {Model} from "./model";
+import {MClient} from './m-client';
 
 export class MDemandeDeDevis extends Model{
 
-  asker: MPersonne;
+  client: MClient;
   sujet: string;
   message: string;
 
 
-  constructor(asker: MPersonne, sujet: string, message: string) {
+  constructor(client: MClient, sujet: string, message: string) {
     super();
-    this.asker = asker;
+    this.client = client;
     this.sujet = sujet;
     this.message = message;
   }

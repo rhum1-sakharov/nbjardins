@@ -14,7 +14,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
-import static domain.localization.MessageKeys.AUCUN_RESULTAT;
+import static localization.MessageKeys.AUCUN_RESULTAT;
 
 public class ArtisanRepoAR extends RepoAR implements ArtisanRepoPT {
 

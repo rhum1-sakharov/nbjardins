@@ -30,7 +30,7 @@ public class Personne extends Entity {
     @OneToOne(mappedBy = "personne")
     private Artisan artisan;
 
-    @OneToOne(mappedBy = "client")
+    @OneToOne(mappedBy = "personne")
     private Client client;
 
     @OneToMany(mappedBy = "personne")

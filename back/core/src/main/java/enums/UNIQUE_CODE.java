@@ -1,4 +1,4 @@
-package domain.enums;
+package enums;
 
 public enum UNIQUE_CODE {
 

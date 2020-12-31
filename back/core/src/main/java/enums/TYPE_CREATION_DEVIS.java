@@ -1,4 +1,4 @@
-package domain.enums;
+package enums;
 
 public enum TYPE_CREATION_DEVIS {
     FROM_ARTISAN,

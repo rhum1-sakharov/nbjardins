@@ -1,4 +1,4 @@
-package domain.utils;
+package utils;
 
 import domain.models.Domain;
 import domain.wrapper.RequestDN;
