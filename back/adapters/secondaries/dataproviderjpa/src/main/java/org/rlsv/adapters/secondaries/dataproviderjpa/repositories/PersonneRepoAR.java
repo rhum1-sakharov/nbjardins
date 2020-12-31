@@ -17,32 +17,12 @@ import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.util.Objects;
 
-import static localization.MessageKeys.AUCUN_RESULTAT;
 import static localization.MessageKeys.JPA_ERREUR_SAUVEGARDE_CLIENT;
 
 public class PersonneRepoAR extends RepoAR implements PersonneRepoPT {
 
     private static final Logger LOG = LoggerFactory.getLogger(PersonneRepoAR.class);
 
-    @Override
-    public PersonneDN findArtisanByApplicationToken(DataProviderManager dpm, String token) throws PersistenceException {
-
-        try {
-            Personne artisan = null;
-            EntityManager em = TransactionManagerAR.getEntityManager(dpm);
-
-            TypedQuery<Personne> query = em.createQuery("SELECT p from Personne p " +
-                    " join p.application app " +
-                    " where app.token=:token", Personne.class);
-            artisan = query.setParameter("token", token).getSingleResult();
-
-            return PersonneMapper.INSTANCE.entityToDomain(artisan);
-
-        } catch (NoResultException nre) {
-            throw new PersistenceException(nre.getMessage(), nre, AUCUN_RESULTAT);
-        }
-
-    }
 
 
     @Override

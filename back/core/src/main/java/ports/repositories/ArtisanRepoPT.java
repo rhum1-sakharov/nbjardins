@@ -12,4 +12,6 @@ public interface ArtisanRepoPT  {
 
     String findIdByEmail(DataProviderManager dpm,String email) throws PersistenceException;
 
+
+
 }

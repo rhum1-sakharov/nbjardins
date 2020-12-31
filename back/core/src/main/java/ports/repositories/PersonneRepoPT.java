@@ -6,7 +6,7 @@ import transactions.DataProviderManager;
 
 public interface PersonneRepoPT  {
 
-    PersonneDN findArtisanByApplicationToken(DataProviderManager dpm, String applicationToken) throws PersistenceException;
+
 
     PersonneDN saveClient(DataProviderManager dpm,PersonneDN personneDN) throws PersistenceException;
 

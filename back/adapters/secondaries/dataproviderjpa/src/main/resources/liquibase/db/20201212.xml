@@ -232,17 +232,7 @@
 
 
 
-    <changeSet id="202012190848" author="rvl">
-        <preConditions onFail="MARK_RAN">
-            <sqlCheck expectedResult="0">select count(*) from applications where ID_WORKER='08747d89-0c85-492b-b71a-cb6d244a9a00'</sqlCheck>
-        </preConditions>
-        <sql>
-            INSERT INTO `applications` (`ID`, `ID_WORKER`,`NOM`,`TOKEN`) VALUES ('d60065ee-d018-4629-8794-25cd2eeb0187','08747d89-0c85-492b-b71a-cb6d244a9a00','Les jardins de Nicolas','NB_JARDINS');
-        </sql>
-        <comment>
-            Ajouter l'application de l'artisan nb
-        </comment>
-    </changeSet>
+
 
     <changeSet id="202012190852" author="rvl" >
         <preConditions onFail="MARK_RAN">

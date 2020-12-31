@@ -46,8 +46,7 @@ public class ArtisanRepoAR extends RepoAR implements ArtisanRepoPT {
             EntityManager em = TransactionManagerAR.getEntityManager(dpm);
 
             TypedQuery<Artisan> query = em.createQuery("SELECT a from Artisan a " +
-                    " join a.personne p " +
-                    " join p.application app " +
+                    " join a.application app " +
                     " where app.token=:token", Artisan.class);
             artisan = query.setParameter("token", token).getSingleResult();
 

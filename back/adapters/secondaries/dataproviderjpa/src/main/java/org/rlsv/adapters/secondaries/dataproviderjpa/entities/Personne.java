@@ -24,8 +24,7 @@ public class Personne extends Entity {
     private String societe;
     private String email;
 
-    @OneToOne(mappedBy = "worker")
-    private Application application;
+
 
     @OneToOne(mappedBy = "personne")
     private Artisan artisan;

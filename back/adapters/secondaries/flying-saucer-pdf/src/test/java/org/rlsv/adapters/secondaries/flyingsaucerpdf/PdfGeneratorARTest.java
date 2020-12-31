@@ -1,9 +1,6 @@
 package org.rlsv.adapters.secondaries.flyingsaucerpdf;
 
-import domain.models.ArtisanDN;
-import domain.models.ClientDN;
-import domain.models.DevisDN;
-import domain.models.PersonneDN;
+import domain.models.*;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
@@ -54,10 +51,10 @@ public class PdfGeneratorARTest {
         artisanPersonne.setEmail("nb@laposte.net");
 
         worker.setPersonne(artisanPersonne);
-        worker.setSite("vps358243.ovh.net:81");
 
-        // TODO worker setSite
-        worker.setSite("www.nb.com");
+        ApplicationDN application = new ApplicationDN();
+        application.setSite("vps358243.ovh.net:81");
+        worker.setApplication(application);
 
         ClientDN client = new ClientDN();
         PersonneDN asker = new PersonneDN();

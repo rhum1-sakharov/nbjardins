@@ -57,36 +57,8 @@
     </changeSet>
 
 
-    <changeSet id="202012241455" author="rvl" runAlways="true">
-        <preConditions onFail="MARK_RAN">
-            <sqlCheck expectedResult="0">select count(*) from artisans where
-                ID_PERSONNE='08747d89-0c85-492b-b71a-cb6d244a9a00'
-            </sqlCheck>
-        </preConditions>
-        <sql>
-            INSERT INTO `artisans` (`ID`, `ID_PERSONNE`,`ID_TAXE`, `ID_CONDITION_DE_REGLEMENT`, `LOGO`, `SIGNATURE`,
-            `PROVISION`,`SITE`) VALUES
-            ('0afc2070-9dc4-46e0-9660-36f09b72b237','08747d89-0c85-492b-b71a-cb6d244a9a00','2dc642a6-9396-4e51-a2b6-ff75a3330684','1','logo_nb_jardins.png','signature_nb_jardins.png',30,'vps358243.ovh.net:81');
-        </sql>
-        <comment>
-            Ajouter les artisans par defaut
-        </comment>
-    </changeSet>
 
-    <changeSet id="202012232222" author="rvl" runAlways="true">
-        <preConditions onFail="MARK_RAN">
-            <sqlCheck expectedResult="0">select count(*) from artisans_banques where
-                ID_ARTISAN='0afc2070-9dc4-46e0-9660-36f09b72b237' and iban='IBAN1' and rib='RIB1'
-            </sqlCheck>
-        </preConditions>
-        <sql>
-            INSERT INTO `artisans_banques` (`ID`, `ID_ARTISAN`, `IBAN`, `RIB`, `PREFERE`) VALUES
-            ('dafaaf78-bbaa-4bc4-bb46-455e9cb5025c', '0afc2070-9dc4-46e0-9660-36f09b72b237', 'IBAN1', 'RIB1', 1);
-        </sql>
-        <comment>
-            Ajouter les artisans_banques par defaut
-        </comment>
-    </changeSet>
+
 
     <changeSet id="202012311117" author="rvl">
         <preConditions onFail="MARK_RAN">
@@ -128,6 +100,101 @@
         </sql>
         <comment>
            Recreation des colonnes ID_WORKER et ID_ASKER dans devis
+        </comment>
+    </changeSet>
+
+    <changeSet id="202012311356" author="rvl" >
+        <preConditions onFail="MARK_RAN">
+                <columnExists tableName="applications" columnName="ID_WORKER"></columnExists>
+        </preConditions>
+        <sql>
+            set foreign_key_checks=0;
+            ALTER TABLE `applications`
+            ADD COLUMN `ID_ARTISAN` VARCHAR(36) NOT NULL AFTER `ID`,
+            DROP COLUMN `ID_WORKER`,
+            DROP INDEX `ID_WORKER`,
+            DROP INDEX `unique_ID_WORKER_idx`,
+            ADD INDEX `ID_ARTISAN` (`ID_ARTISAN`),
+            ADD UNIQUE INDEX `unique_artisan_idx` (`ID_ARTISAN`),
+            DROP FOREIGN KEY `FK__applications__personnes`,
+            ADD CONSTRAINT `FK_applications_artisans` FOREIGN KEY (`ID_ARTISAN`) REFERENCES `artisans` (`ID`) ON UPDATE CASCADE ON DELETE CASCADE;
+            set foreign_key_checks=1;
+
+        </sql>
+        <comment>
+          renommer la colonne ID_wORKER en ID_ARTISAN dans la table applications
+        </comment>
+    </changeSet>
+
+    <changeSet id="202012311400" author="rvl" >
+    <preConditions onFail="MARK_RAN">
+        <columnExists tableName="artisans" columnName="SITE"></columnExists>
+    </preConditions>
+    <sql>
+        ALTER TABLE `artisans`
+        DROP COLUMN `SITE`;
+    </sql>
+    <comment>
+        supprimer la colonne site de la table artisans
+    </comment>
+</changeSet>
+
+    <changeSet id="202012311645" author="rvl" >
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="applications" columnName="SITE"></columnExists>
+            </not>
+        </preConditions>
+        <sql>
+            ALTER TABLE `applications`
+            ADD COLUMN `SITE` VARCHAR(50) NULL AFTER `TOKEN`;
+        </sql>
+        <comment>
+            ajouter la colonne site dans la table applications
+        </comment>
+    </changeSet>
+
+    <changeSet id="202012241455" author="rvl" runAlways="true">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">select count(*) from artisans where
+                ID_PERSONNE='08747d89-0c85-492b-b71a-cb6d244a9a00'
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO `artisans` (`ID`, `ID_PERSONNE`,`ID_TAXE`, `ID_CONDITION_DE_REGLEMENT`, `LOGO`, `SIGNATURE`,
+            `PROVISION`) VALUES
+            ('0afc2070-9dc4-46e0-9660-36f09b72b237','08747d89-0c85-492b-b71a-cb6d244a9a00','2dc642a6-9396-4e51-a2b6-ff75a3330684','1','logo_nb_jardins.png','signature_nb_jardins.png',30);
+        </sql>
+        <comment>
+            Ajouter les artisans par defaut
+        </comment>
+    </changeSet>
+
+    <changeSet id="202012232222" author="rvl" runAlways="true">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">select count(*) from artisans_banques where
+                ID_ARTISAN='0afc2070-9dc4-46e0-9660-36f09b72b237' and iban='IBAN1' and rib='RIB1'
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO `artisans_banques` (`ID`, `ID_ARTISAN`, `IBAN`, `RIB`, `PREFERE`) VALUES
+            ('dafaaf78-bbaa-4bc4-bb46-455e9cb5025c', '0afc2070-9dc4-46e0-9660-36f09b72b237', 'IBAN1', 'RIB1', 1);
+        </sql>
+        <comment>
+            Ajouter les artisans_banques par defaut
+        </comment>
+    </changeSet>
+
+
+    <changeSet id="202012190848" author="rvl">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">select count(*) from applications where ID_ARTISAN='0afc2070-9dc4-46e0-9660-36f09b72b237'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO `applications` (`ID`, `ID_ARTISAN`,`NOM`,`TOKEN`,`SITE`) VALUES ('d60065ee-d018-4629-8794-25cd2eeb0187','0afc2070-9dc4-46e0-9660-36f09b72b237','Les jardins de Nicolas','NB_JARDINS','vps358243.ovh.net:81');
+        </sql>
+        <comment>
+            Ajouter l'application de l'artisan nb
         </comment>
     </changeSet>
 

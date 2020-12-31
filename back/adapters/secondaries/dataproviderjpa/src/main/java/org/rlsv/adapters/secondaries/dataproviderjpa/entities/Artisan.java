@@ -16,6 +16,10 @@ public class Artisan extends Entity {
     @JoinColumn(name = "ID_PERSONNE")
     private Personne personne;
 
+    @OneToOne
+    @JoinColumn(name = "ID_APPLICATION")
+    private Application application;
+
 
     @ManyToOne
     @JoinColumn(name = "ID_TAXE")
@@ -33,5 +37,7 @@ public class Artisan extends Entity {
 
     @Column(name="SIGNATURE")
     private String signature;
+
+
 
 }
