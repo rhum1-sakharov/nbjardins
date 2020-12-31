@@ -57,7 +57,7 @@ public class PdfGeneratorARTest {
         worker.setSite("vps358243.ovh.net:81");
 
         // TODO worker setSite
-        // worker.setSite("www.nb.com");
+        worker.setSite("www.nb.com");
 
         ClientDN client = new ClientDN();
         PersonneDN asker = new PersonneDN();
@@ -70,8 +70,8 @@ public class PdfGeneratorARTest {
 
         DevisDN devis = new DevisDN();
 
-        devis.setWorker(worker);
-        devis.setAsker(client);
+        devis.setArtisan(worker);
+        devis.setClient(client);
 
         devis.setNumeroDevis("20201230-001-ABN");
         devis.setLieu(worker.getPersonne().getVille());

@@ -10,25 +10,25 @@
 
 <div class="alert alert-primary width-500" role="alert">
 <p>
-<span class="font-12" th:text="${asker.societe}"></span>
+<span class="font-12" th:text="${asker.personne.societe}"></span>
 </p>
 <p>
-<span class="font-12" th:text="${asker.fonction}"></span>
+<span class="font-12" th:text="${asker.personne.fonction}"></span>
 </p>
 <p>
-<span class="font-12" th:text="${asker.prenom}"></span> <span class="font-12" th:text="${asker.nom}"></span>
+<span class="font-12" th:text="${asker.personne.prenom}"></span> <span class="font-12" th:text="${asker.personne.nom}"></span>
 </p>
 <p>
-    <th:block th:if="${asker.getVille != null}">
-        <span class="font-12" th:text="${asker.codePostal}"></span> <span class="font-12" th:text="${asker.ville}"></span>
+    <th:block th:if="${asker.personne.ville != null}">
+        <span class="font-12" th:text="${asker.personne.codePostal}"></span> <span class="font-12" th:text="${asker.personne.ville}"></span>
     </th:block>
 
 </p>
 <p>
-<span class="font-12" th:text="${asker.adresse}"></span>
+<span class="font-12" th:text="${asker.personne.adresse}"></span>
 </p>
 <p>
-<span class="font-12" th:text="${asker.numeroTelephone}"></span>
+<span class="font-12" th:text="${asker.personne.numeroTelephone}"></span>
 </p>
 </div>
 

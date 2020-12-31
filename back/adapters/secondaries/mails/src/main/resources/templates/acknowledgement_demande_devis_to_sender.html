@@ -4,7 +4,7 @@
 <body>
 <div class="alert alert-primary width-500" role="alert">
 <p>
-Bonjour <span th:text="${asker.prenom}"></span> <span th:text="${asker.nom}"></span>,
+Bonjour <span th:text="${asker.personne.prenom}"></span> <span th:text="${asker.personne.nom}"></span>,
 </p>
 <br>
 
@@ -28,20 +28,20 @@ A bientôt
 
 <div class="alert alert-success width-500" role="alert">
 <p>
-    <span class="font-14" th:text="${worker.societe}"></span>
+    <span class="font-14" th:text="${worker.personne.societe}"></span>
 </p>
 
 <p >
-    <span class="font-12" th:text="${worker.prenom}"></span> <span  class="font-12" th:text="${worker.nom}"></span>
+    <span class="font-12" th:text="${worker.personne.prenom}"></span> <span  class="font-12" th:text="${worker.personne.nom}"></span>
 </p>
 <p>
-    <span class="font-12" th:text="${worker.adresse}"></span>
+    <span class="font-12" th:text="${worker.personne.adresse}"></span>
 </p>
 <p>
-    <span class="font-12" th:text="${worker.codePostal}"></span> <span class="font-12" th:text="${worker.ville}"></span>
+    <span class="font-12" th:text="${worker.personne.codePostal}"></span> <span class="font-12" th:text="${worker.personne.ville}"></span>
 </p>
 <p>
-    <span class="font-12" th:text="${worker.numeroTelephone}"></span>
+    <span class="font-12" th:text="${worker.personne.numeroTelephone}"></span>
 </p>
 </div>
 </body>

@@ -44,11 +44,11 @@ public class DevisRepoAR extends RepoAR implements DevisRepoPT {
 
             Devis dd = DevisMapper.INSTANCE.domainToEntity(devis);
 
-            String idArtisan = artisanRepo.findIdByEmail(dpm, devis.getWorker().getPersonne().getEmail());
-            String idClient = clientRepo.findIdByEmail(dpm, devis.getAsker().getPersonne().getEmail());
+            String idArtisan = artisanRepo.findIdByEmail(dpm, devis.getArtisan().getPersonne().getEmail());
+            String idClient = clientRepo.findIdByEmail(dpm, devis.getClient().getPersonne().getEmail());
 
-            dd.setWorker(em.getReference(Artisan.class, idArtisan));
-            dd.setAsker(em.getReference(Client.class, idClient));
+            dd.setArtisan(em.getReference(Artisan.class, idArtisan));
+            dd.setClient(em.getReference(Client.class, idClient));
 
             save(dpm, dd);
 

@@ -16,11 +16,11 @@ public class Devis extends Entity {
 
     @ManyToOne
     @JoinColumn(name = "ID_ASKER")
-    private Client asker;
+    private Client client;
 
     @ManyToOne
     @JoinColumn(name= "ID_WORKER")
-    private Artisan worker;
+    private Artisan artisan;
 
     @Column(name="SUJET")
     private String sujet;

@@ -88,5 +88,48 @@
         </comment>
     </changeSet>
 
+    <changeSet id="202012311117" author="rvl">
+        <preConditions onFail="MARK_RAN">
+            <foreignKeyConstraintExists foreignKeyTableName="devis"
+                                        foreignKeyName="fk__dd__askerpersonne"></foreignKeyConstraintExists>
+            <foreignKeyConstraintExists foreignKeyTableName="devis"
+                                        foreignKeyName="fk__dd__workerpersonne"></foreignKeyConstraintExists>
+        </preConditions>
+        <sql>
+            ALTER TABLE `devis`
+            DROP INDEX `fk__dd__askerpersonne`,
+            DROP INDEX `fk__dd__workerpersonne`,
+            DROP FOREIGN KEY `fk__dd__workerpersonne`,
+            DROP FOREIGN KEY `fk__dd__askerpersonne`,
+            DROP COLUMN `ID_ASKER`,
+            DROP COLUMN `ID_WORKER`;
+        </sql>
+        <comment>
+            Suppression de fk__dd__askerpersonne et fk__dd__workerpersonne dans devis
+        </comment>
+    </changeSet>
+
+    <changeSet id="202012311121" author="rvl" >
+        <preConditions onFail="MARK_RAN">
+           <not>
+               <columnExists tableName="devis" columnName="ID_WORKER"></columnExists>
+               <columnExists tableName="devis" columnName="ID_ASKER"></columnExists>
+           </not>
+        </preConditions>
+        <sql>
+            ALTER TABLE `devis`
+            ADD COLUMN `ID_ASKER` VARCHAR(36) NOT NULL AFTER `ID`,
+            ADD COLUMN `ID_WORKER` VARCHAR(36) NOT NULL AFTER `ID_ASKER`,
+            ADD INDEX `ID_WORKER` (`ID_WORKER`),
+            ADD INDEX `ID_ASKER` (`ID_ASKER`),
+            ADD CONSTRAINT `FK_devis_clients` FOREIGN KEY (`ID_ASKER`) REFERENCES `clients` (`ID`) ON UPDATE CASCADE,
+            ADD CONSTRAINT `FK_devis_artisans` FOREIGN KEY (`ID_WORKER`) REFERENCES `artisans` (`ID`) ON UPDATE CASCADE;
+
+        </sql>
+        <comment>
+           Recreation des colonnes ID_WORKER et ID_ASKER dans devis
+        </comment>
+    </changeSet>
+
 
 </databaseChangeLog>
