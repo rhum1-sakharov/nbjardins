@@ -1,6 +1,6 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.mappers;
 
-import domain.models.PersonneDN;
+import domains.models.PersonneDN;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Personne;

@@ -1,6 +1,6 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.repositories;
 
-import domain.models.DevisDN;
+import domains.models.DevisDN;
 import exceptions.PersistenceException;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Artisan;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Client;
@@ -19,7 +19,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.util.Date;
 
-import static localization.MessageKeys.JPA_ERREUR_SAUVEGARDE_DEMANDEDEDEVIS;
+import static localizations.MessageKeys.JPA_ERREUR_SAUVEGARDE_DEMANDEDEDEVIS;
 
 public class DevisRepoAR extends RepoAR implements DevisRepoPT {
 

@@ -1,6 +1,6 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.repositories;
 
-import domain.models.ArtisanBanqueDN;
+import domains.models.ArtisanBanqueDN;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.ArtisanBanque;
 import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.ArtisanBanqueMapper;
 import org.rlsv.adapters.secondaries.dataproviderjpa.transactions.TransactionManagerAR;

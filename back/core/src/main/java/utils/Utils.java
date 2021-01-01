@@ -1,8 +1,7 @@
 package utils;
 
-import domain.models.Domain;
-import domain.wrapper.RequestDN;
-import domain.wrapper.ResponseDN;
+import domains.models.Domain;
+import domains.wrapper.ResponseDN;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,12 +9,6 @@ import java.util.Objects;
 
 public class Utils {
 
-    public static <T extends Domain> RequestDN<T> initRequest(T instance) {
-
-        RequestDN<T> request = new RequestDN<>();
-        request.setOne(instance);
-        return request;
-    }
 
     public static <T extends Domain> ResponseDN<T> initResponse(String message, boolean precondition) {
 

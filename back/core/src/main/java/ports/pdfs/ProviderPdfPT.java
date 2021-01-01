@@ -1,6 +1,6 @@
 package ports.pdfs;
 
-import domain.models.DevisDN;
+import domains.models.DevisDN;
 
 import java.io.ByteArrayOutputStream;
 

@@ -1,6 +1,6 @@
 package org.rlsv.adatpers.secondaries.mails;
 
-import domain.models.Domain;
+import domains.models.Domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

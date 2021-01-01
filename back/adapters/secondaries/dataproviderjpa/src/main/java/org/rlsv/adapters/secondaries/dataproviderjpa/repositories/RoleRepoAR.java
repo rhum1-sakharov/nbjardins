@@ -1,6 +1,6 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.repositories;
 
-import domain.models.RoleDN;
+import domains.models.RoleDN;
 import exceptions.PersistenceException;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Role;
 import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.RoleMapper;

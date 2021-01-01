@@ -1,6 +1,6 @@
 package ports.repositories;
 
-import domain.models.ArtisanDN;
+import domains.models.ArtisanDN;
 import exceptions.PersistenceException;
 import transactions.DataProviderManager;
 

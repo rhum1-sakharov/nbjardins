@@ -2,9 +2,14 @@ package org.rlsv.adapters.primaries.application.springapp.config;
 
 import org.rlsv.adapters.secondaries.dataproviderjpa.config.DatabaseConnectionConfig;
 import org.rlsv.adapters.secondaries.dataproviderjpa.config.JtaConfig;
+import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.*;
+import org.rlsv.adapters.secondaries.dataproviderjpa.transactions.TransactionManagerAR;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.core.env.Environment;
+import ports.repositories.*;
+import ports.transactions.TransactionManagerPT;
 
 import static org.rlsv.adapters.secondaries.dataproviderjpa.config.JtaConfig.PERSISTENCE_UNIT_RLSV;
 
@@ -14,6 +19,66 @@ public class JpaPersistenceConfig {
 
     Environment env;
 
+    @Bean
+    @DependsOn("databaseConnectionConfig")
+    public PersonneRepoPT personneRepoPT() {
+        return new PersonneRepoAR();
+    }
+
+    @Bean
+    @DependsOn("databaseConnectionConfig")
+    public RoleRepoPT roleRepoPT() {
+        return new RoleRepoAR();
+    }
+
+    @Bean
+    @DependsOn("databaseConnectionConfig")
+    public DevisRepoPT demandeDeDevisRepoPT(ArtisanRepoPT artisanRepo, ClientRepoPT clientRepo) {
+        return new DevisRepoAR(artisanRepo, clientRepo);
+    }
+
+
+    @Bean
+    @DependsOn("databaseConnectionConfig")
+    public PersonneRoleRepoPT personneRoleRepoPT(PersonneRepoPT personneRepo, RoleRepoPT roleRepo) {
+        return new PersonneRoleRepoAR(personneRepo, roleRepo);
+    }
+
+    @Bean
+    @DependsOn("databaseConnectionConfig")
+    public TransactionManagerPT transactionManagerPT() {
+        return new TransactionManagerAR();
+    }
+
+    @Bean
+    @DependsOn("databaseConnectionConfig")
+    public ClientRepoPT clientRepoPT() {
+        return new ClientRepoAR();
+    }
+
+    @Bean
+    @DependsOn("databaseConnectionConfig")
+    public TaxeRepoPT taxeRepoPT() {
+        return new TaxeRepoAR();
+    }
+
+    @Bean
+    @DependsOn("databaseConnectionConfig")
+    public ArtisanBanqueRepoPT artisanBanqueRepoPT() {
+        return new ArtisanBanqueRepoAR();
+    }
+
+    @Bean
+    @DependsOn("databaseConnectionConfig")
+    public ConditionDeReglementRepoPT conditionDeReglementRepoPT() {
+        return new ConditionDeReglementRepoAR();
+    }
+
+    @Bean
+    @DependsOn("databaseConnectionConfig")
+    public ArtisanRepoPT artisanRepoPT() {
+        return new ArtisanRepoAR();
+    }
 
     @Bean("databaseConnectionConfig")
     public DatabaseConnectionConfig getPersistenceConfig() {

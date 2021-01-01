@@ -1,6 +1,6 @@
 package ports.repositories;
 
-import domain.models.Domain;
+import domains.models.Domain;
 
 import java.util.Set;
 

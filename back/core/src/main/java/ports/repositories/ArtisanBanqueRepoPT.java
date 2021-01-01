@@ -1,6 +1,6 @@
 package ports.repositories;
 
-import domain.models.ArtisanBanqueDN;
+import domains.models.ArtisanBanqueDN;
 import transactions.DataProviderManager;
 
 import java.util.List;

@@ -1,6 +1,6 @@
 package org.rlsv.adapters.secondaries.flyingsaucerpdf;
 
-import domain.models.*;
+import domains.models.*;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;

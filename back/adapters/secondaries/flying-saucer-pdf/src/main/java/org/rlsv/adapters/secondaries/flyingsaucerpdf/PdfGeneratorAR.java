@@ -1,7 +1,7 @@
 package org.rlsv.adapters.secondaries.flyingsaucerpdf;
 
 import com.lowagie.text.DocumentException;
-import domain.models.DevisDN;
+import domains.models.DevisDN;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.templatemode.TemplateMode;

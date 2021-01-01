@@ -1,6 +1,6 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.mappers;
 
-import domain.models.Domain;
+import domains.models.Domain;
 import org.mapstruct.InheritInverseConfiguration;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Entity;
 
