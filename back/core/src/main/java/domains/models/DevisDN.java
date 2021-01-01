@@ -30,11 +30,12 @@ public class DevisDN extends Domain {
     String nota;
     String conditionDeReglement;
     String ordre;
-    List<LigneDevisDN> ligneDevisList;
     STATUT_DEVIS statut;
     String iban;
     String rib;
     String logo;
     BigDecimal provision;
     String signature;
+    List<DevisLigneDN> devisLigneList;
+
 }

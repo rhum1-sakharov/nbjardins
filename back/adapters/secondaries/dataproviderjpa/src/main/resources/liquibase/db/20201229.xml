@@ -225,5 +225,30 @@
         </comment>
     </changeSet>
 
+    <changeSet id="202101012123" author="rvl">
+        <preConditions onFail="MARK_RAN">
+          <not>
+              <tableExists tableName="devis_lignes"></tableExists>
+          </not>
+        </preConditions>
+        <sql>
+            CREATE TABLE devis_lignes
+            (
+            ID VARCHAR(36) PRIMARY KEY NOT NULL,
+            ID_DEVIS varchar(36) NOT NULL,
+            DESIGNATION varchar(100) NOT NULL,
+            MONTANT_HT DECIMAL(10,4) NOT NULL,
+            CONSTRAINT devis_lignes_devis_ID_fk FOREIGN KEY (ID_DEVIS) REFERENCES devis (ID) ON DELETE CASCADE ON UPDATE CASCADE
+            )
+            COLLATE='utf8_general_ci'
+            ;
+            CREATE INDEX devis_lignes_ID_DEVIS_index ON devis_lignes (ID_DEVIS);
+        </sql>
+        <comment>
+            Creer la table devis_lignes
+        </comment>
+    </changeSet>
+
+
 
 </databaseChangeLog>

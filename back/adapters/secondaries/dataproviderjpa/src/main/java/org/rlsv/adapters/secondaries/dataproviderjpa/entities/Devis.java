@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,6 +22,9 @@ public class Devis extends Entity {
     @ManyToOne
     @JoinColumn(name= "ID_ARTISAN")
     private Artisan artisan;
+
+    @OneToMany(mappedBy = "devis")
+    private List<DevisLigne> devisLigneList;
 
     @Column(name="SUJET")
     private String sujet;
