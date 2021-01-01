@@ -20,7 +20,7 @@ public class RequestMap extends HashMap {
     /**
      * {@link enums.UNIQUE_CODE}
       */
-    public static final String UNIQUE_CODE_KEY = "UNIQUE_CODE_KEY";
+    public static final String REQUEST_KEY_UNIQUECODE = "REQUEST_KEY_UNIQUECODE";
 
     /**
      * {@link domains.models.ClientDN}
@@ -31,6 +31,8 @@ public class RequestMap extends HashMap {
     private ApplicationDN application;
     private Locale locale;
 
+    public RequestMap() {
+    }
 
     public RequestMap(Locale locale, ApplicationDN application, DataProviderManager dataProviderManager) throws Exception {
         super();

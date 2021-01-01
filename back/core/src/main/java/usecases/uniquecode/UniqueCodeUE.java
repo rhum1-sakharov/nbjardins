@@ -14,7 +14,7 @@ import usecases.IUsecase;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static domains.wrapper.RequestMap.UNIQUE_CODE_KEY;
+import static domains.wrapper.RequestMap.REQUEST_KEY_UNIQUECODE;
 
 public class UniqueCodeUE extends AbstractUsecase implements IUsecase {
 
@@ -35,7 +35,7 @@ public class UniqueCodeUE extends AbstractUsecase implements IUsecase {
 
         String uniqueCode = "";
 
-        UNIQUE_CODE unique_code = (UNIQUE_CODE) requestMap.get(UNIQUE_CODE_KEY);
+        UNIQUE_CODE unique_code = (UNIQUE_CODE) requestMap.get(REQUEST_KEY_UNIQUECODE);
 
         switch (unique_code) {
             case NUMERO_DEVIS:

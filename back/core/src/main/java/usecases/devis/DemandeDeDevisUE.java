@@ -200,7 +200,7 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase 
             // numero devis
             RequestMap uniqueCodeRequest = RequestMap.init(requestMap);
             uniqueCodeRequest.setDataProviderManager(dpm);
-            uniqueCodeRequest.put(UNIQUE_CODE_KEY, UNIQUE_CODE.NUMERO_DEVIS);
+            uniqueCodeRequest.put(REQUEST_KEY_UNIQUECODE, UNIQUE_CODE.NUMERO_DEVIS);
             ResponseDN responseUniqueCode = uniqueCodeUE.execute(uniqueCodeRequest);
             String numeroDevis = (String) responseUniqueCode.getResultList().get(0);
             devis.setNumeroDevis(numeroDevis);

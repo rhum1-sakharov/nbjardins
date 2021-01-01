@@ -9,7 +9,7 @@ import {DemandeDeDevisService} from "../core/services/metiers/demande-de-devis.s
 import {MPersonne} from "../core/models/m-personne";
 import {LoadingService} from "../core/services/techniques/loading.service";
 import {faSync} from "@fortawesome/free-solid-svg-icons/faSync";
-import {MRequest} from "../core/models/m-request";
+import {MRequest, REQUEST_KEY_DEVIS} from "../core/models/m-request";
 import {MClient} from '../core/models/m-client';
 
 @Component({
@@ -77,11 +77,12 @@ export class DemandeDeDevisComponent implements OnInit {
       const sujet = this.form.get('sujetCtl').value;
       const message = this.form.get('messageCtl').value;
 
-      const asker = new MPersonne(nom, prenom, telephone, societe, fonction, adresse, nomVille, codePostal, email);
-      const client = new MClient(asker);
+      const personne = new MPersonne(nom, prenom, telephone, societe, fonction, adresse, nomVille, codePostal, email);
+      const client = new MClient(personne);
 
-      const request: MRequest<MDemandeDeDevis> = new MRequest();
-      request.one = new MDemandeDeDevis(client, sujet, message);
+      const request: MRequest = new MRequest();
+
+      request.set(REQUEST_KEY_DEVIS, new MDemandeDeDevis(client, sujet, message));
 
       this.demandeDeDevisSvc.send(request).subscribe(response => {
 
