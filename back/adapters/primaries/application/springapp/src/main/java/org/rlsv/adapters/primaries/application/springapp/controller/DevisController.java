@@ -3,13 +3,13 @@ package org.rlsv.adapters.primaries.application.springapp.controller;
 import domains.models.DevisDN;
 import domains.wrapper.RequestMap;
 import domains.wrapper.ResponseDN;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import usecases.devis.DemandeDeDevisUE;
+import utils.Utils;
 
 import java.util.Locale;
+
+import static domains.wrapper.RequestMap.REQUEST_KEY_DEVIS;
 
 @RestController
 @RequestMapping("/devis")
@@ -23,9 +23,12 @@ public class DevisController {
 
 
     @PostMapping(value = "/demander-devis")
-    public ResponseDN<DevisDN> demanderDevis(@RequestBody RequestMap requestMap, Locale locale) throws Exception {
+    public ResponseDN<DevisDN> demanderDevis(@RequestParam("app-token") String appToken, @RequestBody DevisDN devis, Locale locale) throws Exception {
 
-        requestMap.setLocale(locale);
+
+        RequestMap requestMap = new RequestMap(locale,Utils.initApplication(appToken),null);
+        requestMap.put(REQUEST_KEY_DEVIS,devis);
+
         return demandeDeDevisUE.execute(requestMap);
     }
 

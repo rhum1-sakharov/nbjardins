@@ -1,5 +1,6 @@
 package utils;
 
+import domains.models.ApplicationDN;
 import domains.models.Domain;
 import domains.wrapper.ResponseDN;
 
@@ -35,5 +36,9 @@ public class Utils {
     }
 
 
-
+    public static ApplicationDN initApplication(String appToken) {
+        ApplicationDN application = new ApplicationDN();
+        application.setToken(appToken);
+        return application;
+    }
 }

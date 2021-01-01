@@ -57,9 +57,6 @@
     </changeSet>
 
 
-
-
-
     <changeSet id="202012311117" author="rvl">
         <preConditions onFail="MARK_RAN">
             <foreignKeyConstraintExists foreignKeyTableName="devis"
@@ -81,12 +78,12 @@
         </comment>
     </changeSet>
 
-    <changeSet id="202012311121" author="rvl" >
+    <changeSet id="202012311121" author="rvl">
         <preConditions onFail="MARK_RAN">
-           <not>
-               <columnExists tableName="devis" columnName="ID_WORKER"></columnExists>
-               <columnExists tableName="devis" columnName="ID_ASKER"></columnExists>
-           </not>
+            <not>
+                <columnExists tableName="devis" columnName="ID_WORKER"></columnExists>
+                <columnExists tableName="devis" columnName="ID_ASKER"></columnExists>
+            </not>
         </preConditions>
         <sql>
             ALTER TABLE `devis`
@@ -99,13 +96,13 @@
 
         </sql>
         <comment>
-           Recreation des colonnes ID_WORKER et ID_ASKER dans devis
+            Recreation des colonnes ID_WORKER et ID_ASKER dans devis
         </comment>
     </changeSet>
 
-    <changeSet id="202012311356" author="rvl" >
+    <changeSet id="202012311356" author="rvl">
         <preConditions onFail="MARK_RAN">
-                <columnExists tableName="applications" columnName="ID_WORKER"></columnExists>
+            <columnExists tableName="applications" columnName="ID_WORKER"></columnExists>
         </preConditions>
         <sql>
             set foreign_key_checks=0;
@@ -117,29 +114,30 @@
             ADD INDEX `ID_ARTISAN` (`ID_ARTISAN`),
             ADD UNIQUE INDEX `unique_artisan_idx` (`ID_ARTISAN`),
             DROP FOREIGN KEY `FK__applications__personnes`,
-            ADD CONSTRAINT `FK_applications_artisans` FOREIGN KEY (`ID_ARTISAN`) REFERENCES `artisans` (`ID`) ON UPDATE CASCADE ON DELETE CASCADE;
+            ADD CONSTRAINT `FK_applications_artisans` FOREIGN KEY (`ID_ARTISAN`) REFERENCES `artisans` (`ID`) ON UPDATE
+            CASCADE ON DELETE CASCADE;
             set foreign_key_checks=1;
 
         </sql>
         <comment>
-          renommer la colonne ID_wORKER en ID_ARTISAN dans la table applications
+            renommer la colonne ID_wORKER en ID_ARTISAN dans la table applications
         </comment>
     </changeSet>
 
-    <changeSet id="202012311400" author="rvl" >
-    <preConditions onFail="MARK_RAN">
-        <columnExists tableName="artisans" columnName="SITE"></columnExists>
-    </preConditions>
-    <sql>
-        ALTER TABLE `artisans`
-        DROP COLUMN `SITE`;
-    </sql>
-    <comment>
-        supprimer la colonne site de la table artisans
-    </comment>
-</changeSet>
+    <changeSet id="202012311400" author="rvl">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="artisans" columnName="SITE"></columnExists>
+        </preConditions>
+        <sql>
+            ALTER TABLE `artisans`
+            DROP COLUMN `SITE`;
+        </sql>
+        <comment>
+            supprimer la colonne site de la table artisans
+        </comment>
+    </changeSet>
 
-    <changeSet id="202012311645" author="rvl" >
+    <changeSet id="202012311645" author="rvl">
         <preConditions onFail="MARK_RAN">
             <not>
                 <columnExists tableName="applications" columnName="SITE"></columnExists>
@@ -188,13 +186,42 @@
 
     <changeSet id="202012190848" author="rvl">
         <preConditions onFail="MARK_RAN">
-            <sqlCheck expectedResult="0">select count(*) from applications where ID_ARTISAN='0afc2070-9dc4-46e0-9660-36f09b72b237'</sqlCheck>
+            <sqlCheck expectedResult="0">select count(*) from applications where
+                ID_ARTISAN='0afc2070-9dc4-46e0-9660-36f09b72b237'
+            </sqlCheck>
         </preConditions>
         <sql>
-            INSERT INTO `applications` (`ID`, `ID_ARTISAN`,`NOM`,`TOKEN`,`SITE`) VALUES ('d60065ee-d018-4629-8794-25cd2eeb0187','0afc2070-9dc4-46e0-9660-36f09b72b237','Les jardins de Nicolas','NB_JARDINS','vps358243.ovh.net:81');
+            INSERT INTO `applications` (`ID`, `ID_ARTISAN`,`NOM`,`TOKEN`,`SITE`) VALUES
+            ('d60065ee-d018-4629-8794-25cd2eeb0187','0afc2070-9dc4-46e0-9660-36f09b72b237','Les jardins de
+            Nicolas','NB_JARDINS','vps358243.ovh.net:81');
         </sql>
         <comment>
             Ajouter l'application de l'artisan nb
+        </comment>
+    </changeSet>
+
+    <changeSet id="202101012057" author="rvl">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="devis" columnName="ID_WORKER"></columnExists>
+            <columnExists tableName="devis" columnName="ID_ASKER"></columnExists>
+        </preConditions>
+        <sql>
+            ALTER TABLE `devis`
+            DROP FOREIGN KEY `FK_devis_artisans`,
+            DROP FOREIGN KEY `FK_devis_clients`;
+            ALTER TABLE `devis`
+            CHANGE COLUMN `ID_ASKER` `ID_CLIENT` VARCHAR(36) NOT NULL COLLATE 'utf8_general_ci' AFTER `ID`,
+            CHANGE COLUMN `ID_WORKER` `ID_ARTISAN` VARCHAR(36) NOT NULL COLLATE 'utf8_general_ci' AFTER `ID_CLIENT`,
+            DROP INDEX `ID_WORKER`,
+            ADD INDEX `ID_ARTISAN` (`ID_ARTISAN`) USING BTREE,
+            DROP INDEX `ID_ASKER`,
+            ADD INDEX `ID_CLIENT` (`ID_CLIENT`) USING BTREE,
+            ADD CONSTRAINT `FK_devis_artisans` FOREIGN KEY (`ID_ARTISAN`) REFERENCES `artisans` (`ID`) ON UPDATE CASCADE ON DELETE CASCADE,
+            ADD CONSTRAINT `FK_devis_clients` FOREIGN KEY (`ID_CLIENT`) REFERENCES `clients` (`ID`) ON UPDATE CASCADE ON DELETE CASCADE;
+
+        </sql>
+        <comment>
+            renommer ID_WORKER en ID_ARTISAN dans la table devis
         </comment>
     </changeSet>
 

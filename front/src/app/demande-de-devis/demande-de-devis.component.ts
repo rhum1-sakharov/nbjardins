@@ -9,7 +9,6 @@ import {DemandeDeDevisService} from "../core/services/metiers/demande-de-devis.s
 import {MPersonne} from "../core/models/m-personne";
 import {LoadingService} from "../core/services/techniques/loading.service";
 import {faSync} from "@fortawesome/free-solid-svg-icons/faSync";
-import {MRequest, REQUEST_KEY_DEVIS} from "../core/models/m-request";
 import {MClient} from '../core/models/m-client';
 
 @Component({
@@ -79,12 +78,9 @@ export class DemandeDeDevisComponent implements OnInit {
 
       const personne = new MPersonne(nom, prenom, telephone, societe, fonction, adresse, nomVille, codePostal, email);
       const client = new MClient(personne);
+      const demandeDeDevis = new MDemandeDeDevis(client, sujet, message);
 
-      const request: MRequest = new MRequest();
-
-      request.set(REQUEST_KEY_DEVIS, new MDemandeDeDevis(client, sujet, message));
-
-      this.demandeDeDevisSvc.send(request).subscribe(response => {
+      this.demandeDeDevisSvc.send(demandeDeDevis).subscribe(response => {
 
         this.toasterSvc.showMsg(MSG_KEY.ROOT, MSG_SEVERITY.SUCCESS, 'Votre demande a été envoyé avec succès. Je vous répondrai sous 48 heures.');
         this.form.reset();

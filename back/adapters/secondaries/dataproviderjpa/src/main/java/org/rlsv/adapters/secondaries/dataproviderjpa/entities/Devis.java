@@ -15,11 +15,11 @@ import java.util.Date;
 public class Devis extends Entity {
 
     @ManyToOne
-    @JoinColumn(name = "ID_ASKER")
+    @JoinColumn(name = "ID_CLIENT")
     private Client client;
 
     @ManyToOne
-    @JoinColumn(name= "ID_WORKER")
+    @JoinColumn(name= "ID_ARTISAN")
     private Artisan artisan;
 
     @Column(name="SUJET")
