@@ -9,14 +9,19 @@
         <td class="width-60percent">
             <span th:text="${devis.logo}"></span>
         </td>
-        <td >
+        <td>
             <div th:text="${devis.artisan.personne.societe}"></div>
             <div th:text="${devis.artisan.personne.adresse}"></div>
             <div>
-                <span th:text="${devis.artisan.personne.codePostal}"></span> <span th:text="${devis.artisan.personne.ville}"></span>
+                <span th:text="${devis.artisan.personne.codePostal}"></span> <span
+                    th:text="${devis.artisan.personne.ville}"></span>
             </div>
             <div>
-                <span th:text="${devis.artisan.personne.email}"></span> - <a th:href="${devis.artisan.application.site}">
+                Tél. <span th:text="${devis.artisan.personne.numeroTelephone}"></span>
+            </div>
+            <div>
+                <span th:text="${devis.artisan.personne.email}"></span> - <a
+                    th:href="${devis.artisan.application.site}">
                 <span th:text="${devis.artisan.application.site}"></span> </a>
             </div>
 
@@ -24,10 +29,10 @@
     </tr>
     <tr>
         <td>
-           <b> Devis n° <span th:text="${devis.numeroDevis}"></span></b>
+            <b> Devis n° <span th:text="${devis.numeroDevis}"></span></b>
         </td>
         <td>
-            <span th:text="${devis.lieu}"></span>, le  <span th:text="${#dates.day(devis.dateEnCours)}"></span>
+            <span th:text="${devis.lieu}"></span>, le <span th:text="${#dates.day(devis.dateEnCours)}"></span>
             <span th:text="${#dates.monthName(devis.dateEnCours)}"></span>
             <span th:text="${#dates.year(devis.dateEnCours)}"></span>
         </td>
@@ -36,11 +41,13 @@
         <td></td>
         <td>
             <div>
-                <b><span th:text="${devis.client.personne.prenom}"></span> <span th:text="${devis.client.personne.nom}"></span></b>
+                <b><span th:text="${devis.client.personne.prenom}"></span> <span
+                        th:text="${devis.client.personne.nom}"></span></b>
             </div>
 
             <div th:text="${devis.client.personne.adresse}"></div>
-            <span th:text="${devis.client.personne.codePostal}"></span> <span th:text="${devis.client.personne.ville}"></span>
+            <span th:text="${devis.client.personne.codePostal}"></span> <span
+                th:text="${devis.client.personne.ville}"></span>
         </td>
     </tr>
     <tr>
@@ -51,23 +58,45 @@
 </table>
 
 <!-- LIGNES -->
-<table>
+<table border="1"  style="width:100%;border-collapse: collapse;">
+    <thead>
+        <tr style="background-color: gainsboro">
+            <th>Désignation</th>
+            <th>Montant HT (€)</th>
+        </tr>
+    </thead>
+    <tbody>
+    <th:block th:each="ligne : ${devis.devisLigneList}">
+        <tr>
+            <td class="width-90percent">
+                <span th:text="${ligne.designation}"></span>
+            </td>
+            <td style="text-align: right;">
+                <span th:text="${#numbers.formatDecimal(ligne.montantHT,1,2,'COMMA')}"></span>
+            </td>
+        </tr>
+    </th:block>
+    </tbody>
 </table>
 
 <!-- PIED DE PAGE -->
-<table>
+<table style="width:100%;">
     <tr>
         <td>
-           <b> Conditions de règlement : <span th:text="${devis.conditionDeReglement}"></span></b>
+            <b> Conditions de règlement : <span th:text="${devis.conditionDeReglement}"></span></b>
         </td>
         <td>
         </td>
     </tr>
     <tr>
-        <td colspan="2">
+        <td>
             Réglement à l'ordre de : <b><span th:text="${devis.artisan.personne.societe}"></span></b> - <span
-                th:text="${devis.artisan.personne.adresse}"></span> - <span th:text="${devis.artisan.personne.codePostal}"></span> <span
+                th:text="${devis.artisan.personne.adresse}"></span> - <span
+                th:text="${devis.artisan.personne.codePostal}"></span> <span
                 th:text="${devis.artisan.personne.ville}"></span>
+        </td>
+        <td>
+
         </td>
     </tr>
     <tr>
@@ -81,12 +110,35 @@
         </td>
         <td>
 
+            <table style="border: 1px solid black; width:100%; text-align: right;">
+                <tbody>
+                <tr>
+                    <td><b>TOTAL HT</b></td>
+                    <td>
+                        <span th:text="${#numbers.formatDecimal(sommeHT,1,2,'COMMA')}"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>TOTAL TVA (<span th:text="${#numbers.formatDecimal(devis.tva,1,2,'COMMA')}"></span>%)</td>
+                    <td>
+                        <span th:text="${#numbers.formatDecimal(sommeTVA,1,2,'COMMA')}"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><b>TOTAL TTC</b></td>
+                    <td>
+                        <span th:text="${#numbers.formatDecimal(sommeTTC,1,2,'COMMA')}"></span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
         </td>
     </tr>
     <tr>
         <td>
             <div class="padding-top-10">
-                Acceptation du devis accompagné d'une provision de <span th:text="${devis.provision}"></span>€
+                Acceptation du devis accompagné d'une provision de <span th:text="${#numbers.formatDecimal(devis.provision,1,2,'COMMA')}"></span>€
             </div>
             <div class="padding-top-10">
                 Bon pour commande, le
@@ -94,7 +146,6 @@
             <div class="padding-top-10">
                 Signature et nom du signataire
             </div>
-
         </td>
         <td>
             <span th:text="${devis.signature}"></span>

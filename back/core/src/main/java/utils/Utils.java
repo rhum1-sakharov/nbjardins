@@ -4,6 +4,7 @@ import domains.models.ApplicationDN;
 import domains.models.Domain;
 import domains.wrapper.ResponseDN;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -40,5 +41,9 @@ public class Utils {
         ApplicationDN application = new ApplicationDN();
         application.setToken(appToken);
         return application;
+    }
+
+    public static BigDecimal add(BigDecimal a, BigDecimal b) {
+        return a.add(b);
     }
 }

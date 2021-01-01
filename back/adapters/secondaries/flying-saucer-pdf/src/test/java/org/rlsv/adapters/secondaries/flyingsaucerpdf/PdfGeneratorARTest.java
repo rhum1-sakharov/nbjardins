@@ -7,7 +7,9 @@ import org.junit.Test;
 
 import java.io.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 public class PdfGeneratorARTest {
@@ -22,7 +24,7 @@ public class PdfGeneratorARTest {
 
     @Test
     public void genererDevisPDF() {
-        ByteArrayOutputStream baos = pdfGeneratorAR.genererDevisPDF(initDevis());
+        ByteArrayOutputStream baos = pdfGeneratorAR.genererDevisPDF(initDevis(true));
 
         try (OutputStream os = new FileOutputStream("test-devis.pdf")) {
             baos.writeTo(os);
@@ -34,10 +36,25 @@ public class PdfGeneratorARTest {
 
         Assertions.assertThat(Objects.nonNull(baos)).isTrue();
 
+    }
+
+    @Test
+    public void genererDevisPDF_with_no_ligne_should_return_not_null() {
+        ByteArrayOutputStream baos = pdfGeneratorAR.genererDevisPDF(initDevis(false));
+
+        try (OutputStream os = new FileOutputStream("test-devis-2.pdf")) {
+            baos.writeTo(os);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Assertions.assertThat(Objects.nonNull(baos)).isTrue();
 
     }
 
-    private DevisDN initDevis() {
+    private DevisDN initDevis(boolean enableLignes) {
 
         ArtisanDN worker = new ArtisanDN();
 
@@ -73,9 +90,19 @@ public class PdfGeneratorARTest {
         devis.setNumeroDevis("20201230-001-ABN");
         devis.setLieu(worker.getPersonne().getVille());
         devis.setDateEnCours(new Date());
+        devis.setTva(new BigDecimal(10));
         devis.setSujet("Elagage des arbres de la propriété du 544 chemin de Fontblanque à Mazan");
 
-        // TODO lignes devis
+        if(enableLignes){
+            DevisLigneDN devisLigne1 = new DevisLigneDN("Modificatif de l'etat descriptif",new BigDecimal(550.25));
+            DevisLigneDN devisLigne2 = new DevisLigneDN("Attestation de surface loi carrez",new BigDecimal(125.78));
+            List<DevisLigneDN> devisLigneDNList = new ArrayList<>();
+            devisLigneDNList.add(devisLigne1);
+            devisLigneDNList.add(devisLigne2);
+            devis.setDevisLigneList(devisLigneDNList);
+
+        }
+
         devis.setConditionDeReglement("à réception de la facture");
 
         // TODO reglement à l'ordre de
