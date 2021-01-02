@@ -37,5 +37,6 @@ public class DevisDN extends Domain {
     BigDecimal provision;
     String signature;
     List<DevisLigneDN> devisLigneList;
+    int validiteDevisMois;
 
 }

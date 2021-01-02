@@ -194,6 +194,9 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase 
             // provision
             devis.setProvision(artisan.getProvision());
 
+            // validite devis
+            devis.setValiditeDevisMois(artisan.getValiditeDevisMois());
+
             // statut
             devis.setStatut(STATUT_DEVIS.DEMANDE);
 

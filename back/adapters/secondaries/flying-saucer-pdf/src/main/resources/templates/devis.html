@@ -125,6 +125,9 @@
 <table style="width:100%;">
     <tr>
         <td>
+            <div class="padding-top-10">
+                Devis valable <span th:text="${devis.validiteDevisMois}"></span> mois.
+            </div>
             <div class="padding-top-10" th:if="${devis.provision.floatValue()>0}">
                 Acceptation du devis accompagné d'une provision de <span th:text="${#numbers.formatDecimal(devis.provision,1,2,'COMMA')}"></span>€
             </div>

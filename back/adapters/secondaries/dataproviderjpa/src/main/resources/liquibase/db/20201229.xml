@@ -180,6 +180,20 @@
         </comment>
     </changeSet>
 
+    <changeSet id="202101021420" author="rvl">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="devis" columnName="VALIDITE_DEVIS_MOIS"></columnExists>
+            </not>
+        </preConditions>
+        <sql>
+            ALTER TABLE devis ADD VALIDITE_DEVIS_MOIS INT(2) NOT NULL;
+        </sql>
+        <comment>
+            ajouter la duree de validite d'un devis pour un devis
+        </comment>
+    </changeSet>
+
     <changeSet id="202101021359" author="rvl">
         <preConditions onFail="MARK_RAN">
                 <columnExists tableName="artisans" columnName="PROVISION"></columnExists>

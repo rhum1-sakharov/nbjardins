@@ -76,4 +76,7 @@ public class Devis extends Entity {
     @Column(name="SIGNATURE")
     private String signature;
 
+    @Column(name="VALIDITE_DEVIS_MOIS")
+    private int validiteDevisMois;
+
 }

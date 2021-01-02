@@ -70,6 +70,7 @@ public class PdfGeneratorARTest {
         artisan.setPersonne(artisanPersonne);
         artisan.setSiret("80025030000011");
 
+
         ApplicationDN application = new ApplicationDN();
         application.setSite("vps358243.ovh.net:81");
         artisan.setApplication(application);
@@ -88,6 +89,7 @@ public class PdfGeneratorARTest {
         devis.setArtisan(artisan);
         devis.setClient(client);
 
+        devis.setValiditeDevisMois(3);
         devis.setNumeroDevis("20201230-001-ABN");
         devis.setLieu(artisan.getPersonne().getVille());
         devis.setDateEnCours(new Date());
