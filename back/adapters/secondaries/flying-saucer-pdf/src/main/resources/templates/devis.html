@@ -78,26 +78,31 @@
 </table>
 <table style="width:100%;border-style: none;">
     <tr >
-        <td class="width-50percent"></td>
-        <td   style="text-align: right; "><b>TOTAL HT</b></td>
-        <td  style="text-align: right;">
-            <b><span th:text="${#numbers.formatDecimal(sommeHT,1,2,'COMMA')}"></span> €</b>
+        <td  class="width-60percent"></td>
+        <td >
+            <table style="width:100%;border: 2px solid black;">
+                <tr>
+                    <td   style="text-align: right; "><b>TOTAL HT</b></td>
+                    <td  style="text-align: right;">
+                        <b><span th:text="${#numbers.formatDecimal(sommeHT,1,2,'COMMA')}"></span> €</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td  style="text-align: right; ">TOTAL TVA (<span th:text="${#numbers.formatDecimal(devis.tva,1,2,'COMMA')}"></span>%)</td>
+                    <td  style="text-align: right; ">
+                        <span th:text="${#numbers.formatDecimal(sommeTVA,1,2,'COMMA')}"></span> €
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right; "><b>TOTAL TTC</b></td>
+                    <td  style="text-align: right;">
+                        <b><span th:text="${#numbers.formatDecimal(sommeTTC,1,2,'COMMA')}"></span> €</b>
+                    </td>
+                </tr>
+            </table>
         </td>
     </tr>
-    <tr >
-        <td class="width-50percent"></td>
-        <td  style="text-align: right; ">TOTAL TVA (<span th:text="${#numbers.formatDecimal(devis.tva,1,2,'COMMA')}"></span>%)</td>
-        <td  style="text-align: right; ">
-            <span th:text="${#numbers.formatDecimal(sommeTVA,1,2,'COMMA')}"></span> €
-        </td>
-    </tr>
-    <tr >
-        <td class="width-50percent"></td>
-        <td style="text-align: right; "><b>TOTAL TTC</b></td>
-        <td  style="text-align: right; width:20%">
-            <b><span th:text="${#numbers.formatDecimal(sommeTTC,1,2,'COMMA')}"></span> €</b>
-        </td>
-    </tr>
+
 </table>
 
 <!-- PIED DE PAGE -->
@@ -126,7 +131,7 @@
     <tr>
         <td>
             <div class="padding-top-10">
-                Devis valable <span th:text="${devis.validiteDevisMois}"></span> mois.
+                <b>Devis valable <span th:text="${devis.validiteDevisMois}"></span> mois.</b>
             </div>
             <div class="padding-top-10" th:if="${devis.provision.floatValue()>0}">
                 Acceptation du devis accompagné d'une provision de <span th:text="${#numbers.formatDecimal(devis.provision,1,2,'COMMA')}"></span>€
