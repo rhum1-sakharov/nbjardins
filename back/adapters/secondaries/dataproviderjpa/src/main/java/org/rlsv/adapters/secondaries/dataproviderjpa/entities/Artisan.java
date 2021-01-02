@@ -37,6 +37,10 @@ public class Artisan extends Entity {
     @Column(name="SIGNATURE")
     private String signature;
 
+    @Column(name="SIRET")
+    private String siret;
 
+    @Column(name="VALIDITE_DEVIS_MOIS")
+    private int validiteDevisMois;
 
 }

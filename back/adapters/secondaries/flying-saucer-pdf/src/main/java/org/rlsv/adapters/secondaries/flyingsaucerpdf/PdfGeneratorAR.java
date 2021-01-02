@@ -20,6 +20,7 @@ public class PdfGeneratorAR implements ProviderPdfPT {
 
     public static final String REPORT_DEVIS = "devis";
     public static final String RESOURCE_FONT_SYNE = "/fonts/syne/Syne-VariableFont_wght.ttf";
+    public static final String RESOURCE_FONT_NUNITO = "/fonts/nunito/Nunito-Regular.ttf";
 
     private TemplateEngine thymeleafTemplateEngine;
 
@@ -52,7 +53,7 @@ public class PdfGeneratorAR implements ProviderPdfPT {
 
 
 
-        return processTemplateToPdf(REPORT_DEVIS, RESOURCE_FONT_SYNE, context);
+        return processTemplateToPdf(REPORT_DEVIS, RESOURCE_FONT_NUNITO, context);
     }
 
     private ByteArrayOutputStream processTemplateToPdf(String reportName, String fontResource, Context context) {

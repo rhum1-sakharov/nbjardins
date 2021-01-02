@@ -56,7 +56,7 @@ public class PdfGeneratorARTest {
 
     private DevisDN initDevis(boolean enableLignes) {
 
-        ArtisanDN worker = new ArtisanDN();
+        ArtisanDN artisan = new ArtisanDN();
 
         PersonneDN artisanPersonne = new PersonneDN();
         artisanPersonne.setNom("Boetsch");
@@ -67,11 +67,12 @@ public class PdfGeneratorARTest {
         artisanPersonne.setNumeroTelephone("0612345678");
         artisanPersonne.setEmail("nb@laposte.net");
 
-        worker.setPersonne(artisanPersonne);
+        artisan.setPersonne(artisanPersonne);
+        artisan.setSiret("80025030000011");
 
         ApplicationDN application = new ApplicationDN();
         application.setSite("vps358243.ovh.net:81");
-        worker.setApplication(application);
+        artisan.setApplication(application);
 
         ClientDN client = new ClientDN();
         PersonneDN asker = new PersonneDN();
@@ -84,18 +85,18 @@ public class PdfGeneratorARTest {
 
         DevisDN devis = new DevisDN();
 
-        devis.setArtisan(worker);
+        devis.setArtisan(artisan);
         devis.setClient(client);
 
         devis.setNumeroDevis("20201230-001-ABN");
-        devis.setLieu(worker.getPersonne().getVille());
+        devis.setLieu(artisan.getPersonne().getVille());
         devis.setDateEnCours(new Date());
         devis.setTva(new BigDecimal(10));
         devis.setSujet("Elagage des arbres de la propriété du 544 chemin de Fontblanque à Mazan");
 
-        if(enableLignes){
-            DevisLigneDN devisLigne1 = new DevisLigneDN("Modificatif de l'etat descriptif",new BigDecimal(550.25));
-            DevisLigneDN devisLigne2 = new DevisLigneDN("Attestation de surface loi carrez",new BigDecimal(125.78));
+        if (enableLignes) {
+            DevisLigneDN devisLigne1 = new DevisLigneDN("Modificatif de l'etat descriptif", new BigDecimal(550.25));
+            DevisLigneDN devisLigne2 = new DevisLigneDN("Attestation de surface loi carrez", new BigDecimal(125.78));
             List<DevisLigneDN> devisLigneDNList = new ArrayList<>();
             devisLigneDNList.add(devisLigne1);
             devisLigneDNList.add(devisLigne2);
@@ -105,7 +106,6 @@ public class PdfGeneratorARTest {
 
         devis.setConditionDeReglement("à réception de la facture");
 
-        // TODO reglement à l'ordre de
         devis.setRib("CL MONTPELLIER (03000) 30002 11111 1111171110U 03");
         devis.setIban("IBAN FR63 XXXX XXXX XXXX XXXX XXXX U03");
 

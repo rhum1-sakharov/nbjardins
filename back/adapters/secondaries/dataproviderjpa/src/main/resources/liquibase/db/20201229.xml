@@ -152,6 +152,48 @@
         </comment>
     </changeSet>
 
+    <changeSet id="202101021356" author="rvl">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="artisans" columnName="SIRET"></columnExists>
+            </not>
+        </preConditions>
+        <sql>
+            ALTER TABLE artisans ADD SIRET VARCHAR(50) NOT NULL;
+        </sql>
+        <comment>
+            ajouter la colonne siret dans la table artisans
+        </comment>
+    </changeSet>
+
+    <changeSet id="202101021416" author="rvl">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="artisans" columnName="VALIDITE_DEVIS_MOIS"></columnExists>
+            </not>
+        </preConditions>
+        <sql>
+            ALTER TABLE artisans ADD VALIDITE_DEVIS_MOIS INT(2) NOT NULL;
+        </sql>
+        <comment>
+            ajouter la duree de validite d'un devis pour un artisan
+        </comment>
+    </changeSet>
+
+    <changeSet id="202101021359" author="rvl">
+        <preConditions onFail="MARK_RAN">
+                <columnExists tableName="artisans" columnName="PROVISION"></columnExists>
+        </preConditions>
+        <sql>
+            ALTER TABLE `artisans`
+            CHANGE COLUMN `PROVISION` `PROVISION` DECIMAL(10,4) NOT NULL COMMENT 'en euros' AFTER `SIGNATURE`;
+
+        </sql>
+        <comment>
+            la colonne provision est exprimée en euros
+        </comment>
+    </changeSet>
+
     <changeSet id="202012241455" author="rvl" runAlways="true">
         <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="0">select count(*) from artisans where
@@ -160,8 +202,8 @@
         </preConditions>
         <sql>
             INSERT INTO `artisans` (`ID`, `ID_PERSONNE`,`ID_TAXE`, `ID_CONDITION_DE_REGLEMENT`, `LOGO`, `SIGNATURE`,
-            `PROVISION`) VALUES
-            ('0afc2070-9dc4-46e0-9660-36f09b72b237','08747d89-0c85-492b-b71a-cb6d244a9a00','2dc642a6-9396-4e51-a2b6-ff75a3330684','1','logo_nb_jardins.png','signature_nb_jardins.png',30);
+            `PROVISION`, `SIRET`, `VALIDITE_DEVIS_MOIS`) VALUES
+            ('0afc2070-9dc4-46e0-9660-36f09b72b237','08747d89-0c85-492b-b71a-cb6d244a9a00','2dc642a6-9396-4e51-a2b6-ff75a3330684','1','logo_nb_jardins.png','signature_nb_jardins.png',30,'80025030000011',2);
         </sql>
         <comment>
             Ajouter les artisans par defaut

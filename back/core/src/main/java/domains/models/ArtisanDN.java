@@ -16,5 +16,7 @@ public class ArtisanDN extends Domain {
     private BigDecimal provision;
     private String signature;
     private ApplicationDN application;
+    private String siret;
+    private int validiteDevisMois;
 
 }
