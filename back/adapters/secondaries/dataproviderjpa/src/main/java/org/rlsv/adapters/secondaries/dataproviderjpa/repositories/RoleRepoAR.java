@@ -4,14 +4,13 @@ import domains.models.RoleDN;
 import exceptions.PersistenceException;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Role;
 import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.RoleMapper;
-import org.rlsv.adapters.secondaries.dataproviderjpa.transactions.TransactionManagerAR;
+import org.rlsv.adapters.secondaries.dataproviderjpa.utils.PersistenceUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ports.repositories.RoleRepoPT;
 import transactions.DataProviderManager;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
 public class RoleRepoAR extends RepoAR implements RoleRepoPT {
@@ -20,32 +19,27 @@ public class RoleRepoAR extends RepoAR implements RoleRepoPT {
 
 
     @Override
-    public RoleDN findByNom(DataProviderManager dpm,String nom) throws PersistenceException {
+    public RoleDN findByNom(DataProviderManager dpm, String nom) throws PersistenceException {
 
-        try {
-            EntityManager em = TransactionManagerAR.getEntityManager(dpm);
-            TypedQuery<Role> query = em.createQuery("SELECT r from Role r where r.nom=:nom", Role.class);
-            Role role = query.setParameter("nom", nom).getSingleResult();
-            return RoleMapper.INSTANCE.entityToDomain(role);
-        } catch (NoResultException nre) {
+        EntityManager em = PersistenceUtils.getEntityManager(dpm);
 
-        }
+        TypedQuery<Role> query = em.createQuery("SELECT r from Role r where r.nom=:nom", Role.class);
+        query.setParameter("nom", nom);
 
-        return null;
+        Role role = PersistenceUtils.getSingleResult(query);
+
+        return RoleMapper.INSTANCE.entityToDomain(role);
+
     }
 
     @Override
-    public String findIdByNom(DataProviderManager dpm,String nom) throws PersistenceException {
+    public String findIdByNom(DataProviderManager dpm, String nom) throws PersistenceException {
 
-        try {
-            EntityManager em = TransactionManagerAR.getEntityManager(dpm);
+            EntityManager em = PersistenceUtils.getEntityManager(dpm);
+
             TypedQuery<String> query = em.createQuery("SELECT r.id from Role r where r.nom=:nom", String.class);
-            String idRole = query.setParameter("nom", nom).getSingleResult();
-            return idRole;
-        } catch (NoResultException nre) {
+            query.setParameter("nom", nom);
 
-        }
-
-        return null;
+            return PersistenceUtils.getSingleResult(query);
     }
 }

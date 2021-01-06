@@ -1,6 +1,7 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.transactions;
 
 import org.rlsv.adapters.secondaries.dataproviderjpa.config.JtaConfig;
+import org.rlsv.adapters.secondaries.dataproviderjpa.utils.PersistenceUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ports.transactions.TransactionManagerPT;
@@ -15,9 +16,6 @@ public class TransactionManagerAR implements TransactionManagerPT {
 
     private static final Logger LOG = LoggerFactory.getLogger(TransactionManagerAR.class);
 
-    public static EntityManager getEntityManager(DataProviderManager dpm) {
-        return (EntityManager) dpm.getManager();
-    }
 
     public static UserTransaction getUserTransaction(DataProviderManager dpm) {
         return (UserTransaction) dpm.getTransactionManager();
@@ -54,7 +52,7 @@ public class TransactionManagerAR implements TransactionManagerPT {
                 tx.begin();
             }
 
-            EntityManager entityManager = getEntityManager(dpm);
+            EntityManager entityManager = PersistenceUtils.getEntityManager(dpm);
 
             LOG.debug("begin jta transaction for entityManager {} {}", entityManager.toString(), tx.toString());
         } else {
@@ -70,7 +68,7 @@ public class TransactionManagerAR implements TransactionManagerPT {
         if (!dpm.isNestedTransaction()) {
 
             UserTransaction tx = getUserTransaction(dpm);
-            EntityManager entityManager = getEntityManager(dpm);
+            EntityManager entityManager = PersistenceUtils.getEntityManager(dpm);
 
             LOG.debug("trying to commit jta transaction for entityManager {} {}", entityManager.toString(), tx.toString());
 
@@ -85,16 +83,16 @@ public class TransactionManagerAR implements TransactionManagerPT {
     }
 
 
-
     @Override
-    public void rollback(DataProviderManager dpm){
+    public void rollback(DataProviderManager dpm) {
 
         try {
             UserTransaction tx = getUserTransaction(dpm);
 
             if (tx.getStatus() == Status.STATUS_ACTIVE ||
-                    tx.getStatus() == Status.STATUS_MARKED_ROLLBACK){
+                    tx.getStatus() == Status.STATUS_MARKED_ROLLBACK) {
                 tx.rollback();
+                LOG.warn("Rollback executed for transaction {}",tx.toString());
             }
 
         } catch (Exception ex) {
@@ -105,9 +103,9 @@ public class TransactionManagerAR implements TransactionManagerPT {
 
     @Override
     public void close(DataProviderManager dpm) {
-        EntityManager entityManager = getEntityManager(dpm);
+        EntityManager entityManager = PersistenceUtils.getEntityManager(dpm);
 
-        if(Objects.nonNull(entityManager)){
+        if (Objects.nonNull(entityManager)) {
             entityManager.close();
             LOG.debug("close {}", entityManager.toString());
         }

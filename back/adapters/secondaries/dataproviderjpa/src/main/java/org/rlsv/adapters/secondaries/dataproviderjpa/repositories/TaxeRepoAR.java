@@ -1,6 +1,6 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.repositories;
 
-import org.rlsv.adapters.secondaries.dataproviderjpa.transactions.TransactionManagerAR;
+import org.rlsv.adapters.secondaries.dataproviderjpa.utils.PersistenceUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ports.repositories.TaxeRepoPT;
@@ -17,7 +17,8 @@ public class TaxeRepoAR extends RepoAR implements TaxeRepoPT {
 
     @Override
     public BigDecimal findTauxByEmailArtisan(DataProviderManager dpm, String email) {
-        EntityManager em = TransactionManagerAR.getEntityManager(dpm);
+
+        EntityManager em = PersistenceUtils.getEntityManager(dpm);
 
         try {
             TypedQuery<BigDecimal> query = em.createQuery("SELECT t.taux  from Taxe t " +
@@ -29,9 +30,7 @@ public class TaxeRepoAR extends RepoAR implements TaxeRepoPT {
                     .getSingleResult();
             return taux;
         } catch (NoResultException nre) {
-
+            return BigDecimal.ZERO;
         }
-
-        return BigDecimal.ZERO;
     }
 }

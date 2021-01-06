@@ -4,15 +4,14 @@ import domains.models.PersonneDN;
 import exceptions.PersistenceException;
 import transactions.DataProviderManager;
 
-public interface PersonneRepoPT  {
+public interface PersonneRepoPT {
 
 
+    PersonneDN saveClient(DataProviderManager dpm, PersonneDN personneDN) throws PersistenceException;
 
-    PersonneDN saveClient(DataProviderManager dpm,PersonneDN personneDN) throws PersistenceException;
+    PersonneDN findByEmail(DataProviderManager dpm, String email);
 
-    PersonneDN findByEmail(DataProviderManager dpm,String email) throws PersistenceException;
-
-    String findIdByEmail(DataProviderManager dpm,String email) throws PersistenceException;
+    String findIdByEmail(DataProviderManager dpm, String email);
 
 
 }

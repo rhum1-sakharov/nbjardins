@@ -6,7 +6,7 @@ import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Artisan;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Client;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Devis;
 import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.DevisMapper;
-import org.rlsv.adapters.secondaries.dataproviderjpa.transactions.TransactionManagerAR;
+import org.rlsv.adapters.secondaries.dataproviderjpa.utils.PersistenceUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ports.repositories.ArtisanRepoPT;
@@ -39,7 +39,7 @@ public class DevisRepoAR extends RepoAR implements DevisRepoPT {
     public DevisDN save(DataProviderManager dpm, DevisDN devis) throws PersistenceException {
 
         try {
-            EntityManager em = TransactionManagerAR.getEntityManager(dpm);
+            EntityManager em = PersistenceUtils.getEntityManager(dpm);
 
             Devis dd = DevisMapper.INSTANCE.domainToEntity(devis);
 
@@ -63,7 +63,7 @@ public class DevisRepoAR extends RepoAR implements DevisRepoPT {
 
         try {
 
-            EntityManager em = TransactionManagerAR.getEntityManager(dpm);
+            EntityManager em = PersistenceUtils.getEntityManager(dpm);
 
             TypedQuery<Long> query = em.createQuery("SELECT count(d.id) from Devis d " +
                     " where month(d.dateCreation)=month(:dateCreation) and year(d.dateCreation)=year(:dateCreation)", Long.class);
@@ -81,7 +81,7 @@ public class DevisRepoAR extends RepoAR implements DevisRepoPT {
 
         try {
 
-            EntityManager em = TransactionManagerAR.getEntityManager(dpm);
+            EntityManager em = PersistenceUtils.getEntityManager(dpm);
 
             TypedQuery<Long> query = em.createQuery("SELECT count(d.id) from Devis d " +
                     " where d.numeroDevis=:numeroDevis", Long.class);
