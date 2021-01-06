@@ -1,14 +1,14 @@
-import {TOKEN_APP} from "../../constants";
+import {MApplication} from "./m-application";
 
-export const REQUEST_KEY_DEVIS = 'REQUEST_KEY_DEVIS';
 
 export class MRequest extends Map {
 
-  application: { nom, token } = {nom: 'Les jardins de Nicolas', token: TOKEN_APP};
-  elements: any[]=[];
+  application: MApplication ;
+  elements: any[] ;
 
-  constructor() {
+  constructor(application: MApplication, elements: any[]) {
     super();
-
+    this.application = application;
+    this.elements = elements;
   }
 }

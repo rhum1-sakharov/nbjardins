@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
-import {HttpParams} from "@angular/common/http";
-import {HttpService} from "../techniques/http.service";
+import {HttpParams} from '@angular/common/http';
+import {Observable} from 'rxjs/internal/Observable';
+import {HttpService} from 'rhum1-sakharov-core-lib';
 
 export const URL_GET_API_GEOPORTAIL_SEARCH_COMMUNES = `https://geo.api.gouv.fr/communes`;
 
@@ -12,7 +13,7 @@ export class VillesService {
   constructor(private httpSvc: HttpService) {
   }
 
-  search(text: string) {
+  search(text: string): Observable<any> {
 
     const params = new HttpParams()
       .set('nom', text)

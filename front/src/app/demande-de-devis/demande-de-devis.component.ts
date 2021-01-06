@@ -1,15 +1,19 @@
 import {Component, OnInit} from '@angular/core';
-import {MVille} from "../../../../front-lib/projects/core-lib/src/lib/models/m-ville";
-import {VillesService} from "../core/services/metiers/villes.service";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {ValidatorsService} from "../core/services/techniques/validators.service";
-import {MSG_KEY, MSG_SEVERITY, ToasterService} from "../core/services/techniques/toaster.service";
-import {MDemandeDeDevis} from "../../../../front-lib/projects/core-lib/src/lib/models/m-demande-de-devis";
-import {DemandeDeDevisService} from "../core/services/metiers/demande-de-devis.service";
-import {MPersonne} from "../../../../front-lib/projects/core-lib/src/lib/models/m-personne";
-import {LoadingService} from "../core/services/techniques/loading.service";
-import {faSync} from "@fortawesome/free-solid-svg-icons/faSync";
-import {MClient} from '../../../../front-lib/projects/core-lib/src/lib/models/m-client';
+import {
+  LoadingService,
+  MClient,
+  MDemandeDeDevis,
+  MPersonne,
+  MSG_KEY,
+  MSG_SEVERITY,
+  MVille,
+  ToasterService,
+  ValidatorsService
+} from 'rhum1-sakharov-core-lib';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {faSync} from '@fortawesome/free-solid-svg-icons/faSync';
+import {VillesService} from '../core/services/metiers/villes.service';
+import {DemandeDeDevisService} from '../core/services/metiers/demande-de-devis.service';
 
 @Component({
   selector: 'app-demande-de-devis',
@@ -35,7 +39,7 @@ export class DemandeDeDevisComponent implements OnInit {
     this.initForm();
   }
 
-  initForm() {
+  initForm(): void {
 
     this.form = new FormGroup({
       nomCtl: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
@@ -45,7 +49,7 @@ export class DemandeDeDevisComponent implements OnInit {
       adresseCtl: new FormControl(''),
       villeCtl: new FormControl(''),
       telephoneCtl: new FormControl(''),
-      emailCtl: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50), Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+      emailCtl: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50), Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
       sujetCtl: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
       messageCtl: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(800)]),
     });
@@ -53,14 +57,14 @@ export class DemandeDeDevisComponent implements OnInit {
 
   }
 
-  search($event) {
+  search($event): void {
 
     this.villesSvc.search($event.query).subscribe((response: any[]) => {
       this.villes = response.map(item => new MVille(item.nom, item.codesPostaux[0]));
     });
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.form.valid) {
 
       const nom = this.form.get('nomCtl').value;

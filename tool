@@ -36,6 +36,13 @@ case "$1" in
 	    ng build --prod
 		;;
 
+	fd) # compiler le front pour le dev
+	    cd "${curdir}/front-lib/projects/core-lib"
+	    ng build --watch &
+	    cd "${curdir}/front"
+	    npm start
+	    ;;
+
 	*)
 		echo "Utilisation : $0"
 		echo "	bs : generer le livrable du back spring"
