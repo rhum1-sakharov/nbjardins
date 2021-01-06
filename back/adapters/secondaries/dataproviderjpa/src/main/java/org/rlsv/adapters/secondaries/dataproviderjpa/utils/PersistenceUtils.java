@@ -28,7 +28,6 @@ public class PersistenceUtils {
         try {
             return (T) query.getSingleResult();
         } catch (NoResultException nre) {
-            LOG.warn("query \"{}\" : {}",query.unwrap(org.hibernate.query.Query.class).getQueryString(),nre.getMessage());
             return null;
         }
     }
@@ -45,7 +44,6 @@ public class PersistenceUtils {
         try {
             return query.getResultList();
         } catch (NoResultException nre) {
-            LOG.warn("query {} : {}",query.unwrap(org.hibernate.query.Query.class).getQueryString(),nre.getMessage());
             return new ArrayList<>();
         }
     }
@@ -58,7 +56,7 @@ public class PersistenceUtils {
     public static EntityManager getEntityManager(DataProviderManager dpm) {
 
         if(Objects.isNull(dpm) || Objects.isNull(dpm.getManager())){
-            throw new PersistenceException("DataProviderManager non defini. Impossible de recuperer l'entityManager");
+            throw new PersistenceException("DataProvider Manager non defini. Impossible de recuperer l'entityManager");
         }
 
         return (EntityManager) dpm.getManager();
