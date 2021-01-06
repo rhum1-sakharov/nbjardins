@@ -28,7 +28,7 @@ public class PersistenceUtils {
         try {
             return (T) query.getSingleResult();
         } catch (NoResultException nre) {
-            LOG.warn(nre.getMessage());
+            LOG.warn("query \"{}\" : {}",query.unwrap(org.hibernate.query.Query.class).getQueryString(),nre.getMessage());
             return null;
         }
     }
@@ -45,7 +45,7 @@ public class PersistenceUtils {
         try {
             return query.getResultList();
         } catch (NoResultException nre) {
-            LOG.warn(nre.getMessage());
+            LOG.warn("query {} : {}",query.unwrap(org.hibernate.query.Query.class).getQueryString(),nre.getMessage());
             return new ArrayList<>();
         }
     }
