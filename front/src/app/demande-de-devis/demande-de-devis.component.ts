@@ -1,15 +1,15 @@
 import {Component, OnInit} from '@angular/core';
-import {MVille} from "../core/models/m-ville";
+import {MVille} from "../../../../front-lib/projects/core-lib/src/lib/models/m-ville";
 import {VillesService} from "../core/services/metiers/villes.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ValidatorsService} from "../core/services/techniques/validators.service";
 import {MSG_KEY, MSG_SEVERITY, ToasterService} from "../core/services/techniques/toaster.service";
-import {MDemandeDeDevis} from "../core/models/m-demande-de-devis";
+import {MDemandeDeDevis} from "../../../../front-lib/projects/core-lib/src/lib/models/m-demande-de-devis";
 import {DemandeDeDevisService} from "../core/services/metiers/demande-de-devis.service";
-import {MPersonne} from "../core/models/m-personne";
+import {MPersonne} from "../../../../front-lib/projects/core-lib/src/lib/models/m-personne";
 import {LoadingService} from "../core/services/techniques/loading.service";
 import {faSync} from "@fortawesome/free-solid-svg-icons/faSync";
-import {MClient} from '../core/models/m-client';
+import {MClient} from '../../../../front-lib/projects/core-lib/src/lib/models/m-client';
 
 @Component({
   selector: 'app-demande-de-devis',
