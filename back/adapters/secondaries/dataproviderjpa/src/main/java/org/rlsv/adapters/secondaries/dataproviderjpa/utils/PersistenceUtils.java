@@ -1,6 +1,5 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.utils;
 
-import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Entity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import transactions.DataProviderManager;
@@ -24,7 +23,7 @@ public class PersistenceUtils {
      * @param <T>
      * @return {@code T} ou null si aucun élément
      */
-    public static <T extends Entity> T getSingleResult(Query query) {
+    public static <T> T getSingleResult(Query query) {
 
         try {
             return (T) query.getSingleResult();
@@ -41,7 +40,7 @@ public class PersistenceUtils {
      * @param <T>
      * @return {@code List<T>} ou liste vide si aucun élément
      */
-    public static <T  extends Entity> List<T> getResultList(Query query) {
+    public static <T> List<T> getResultList(Query query) {
 
         try {
             return query.getResultList();
