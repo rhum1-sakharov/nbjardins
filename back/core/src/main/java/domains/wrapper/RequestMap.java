@@ -3,6 +3,7 @@ package domains.wrapper;
 import domains.models.ApplicationDN;
 import lombok.Getter;
 import lombok.Setter;
+import security.LoginManager;
 import transactions.DataProviderManager;
 
 import java.util.HashMap;
@@ -13,23 +14,30 @@ import java.util.Locale;
 public class RequestMap extends HashMap {
 
     /**
-     * {@link domains.models.DevisDN}
+     * {@see domains.models.DevisDN}
      */
     public static final String REQUEST_KEY_DEVIS = "REQUEST_KEY_DEVIS";
 
     /**
-     * {@link enums.UNIQUE_CODE}
-      */
+     * {@see enums.UNIQUE_CODE}
+     */
     public static final String REQUEST_KEY_UNIQUECODE = "REQUEST_KEY_UNIQUECODE";
 
     /**
-     * {@link domains.models.ClientDN}
+     * {@see domains.models.ClientDN}
      */
     public static final String REQUEST_KEY_CLIENT = "REQUEST_KEY_CLIENT";
+
+    /**
+     * {@see security.LoginManager}
+     */
+    public static final String REQUEST_KEY_LOGIN_MANAGER = "REQUEST_KEY_LOGIN_MANAGER";
+
 
     private DataProviderManager dataProviderManager;
     private ApplicationDN application;
     private Locale locale;
+    private LoginManager loginManager;
 
     public RequestMap() {
     }
@@ -40,10 +48,12 @@ public class RequestMap extends HashMap {
         this.locale = locale;
         this.application = application;
         this.dataProviderManager = dataProviderManager;
+
     }
 
     /**
      * Initialiser une requestMap à partir d'une autre requestMap. On ne prend ici que la locale, l'application et le dataProviderManager
+     *
      * @param requestMap
      * @return
      * @throws Exception
