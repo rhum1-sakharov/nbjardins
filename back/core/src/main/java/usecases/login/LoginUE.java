@@ -3,7 +3,6 @@ package usecases.login;
 import domains.models.AuthorizationDN;
 import domains.models.PersonneDN;
 import domains.wrapper.RequestMap;
-import domains.wrapper.ResponseDN;
 import ports.localization.LocalizeServicePT;
 import ports.login.ILoginPT;
 import ports.repositories.PersonneRepoPT;
@@ -11,14 +10,13 @@ import ports.transactions.TransactionManagerPT;
 import security.LoginManager;
 import transactions.DataProviderManager;
 import usecases.AbstractUsecase;
-import usecases.IUsecase;
 import usecases.clients.EnregistrerClientUE;
 
 import java.util.Objects;
 
 import static domains.wrapper.RequestMap.REQUEST_KEY_LOGIN_MANAGER;
 
-public class LoginUE extends AbstractUsecase implements IUsecase {
+public class LoginUE extends AbstractUsecase  {
 
     ILoginPT loginPT;
     PersonneRepoPT personneRepo;
@@ -39,18 +37,18 @@ public class LoginUE extends AbstractUsecase implements IUsecase {
      * @return
      * @throws Exception
      */
-    public ResponseDN execute(RequestMap requestMap) throws Exception {
+    public AuthorizationDN execute(RequestMap requestMap) throws Exception {
 
         LoginManager loginManager = (LoginManager) requestMap.get(REQUEST_KEY_LOGIN_MANAGER);
 
-        ResponseDN<AuthorizationDN> authorization = loginPT.getAuthorization(loginManager);
+       AuthorizationDN authorization = loginPT.getAuthorization(loginManager);
 
         DataProviderManager dpm = this.transactionManager.createDataProviderManager(requestMap.getDataProviderManager());
 
         try {
             this.transactionManager.begin(dpm);
 
-            PersonneDN personne = personneRepo.findByEmail(dpm, authorization.getResultList().get(0).getEmail());
+            PersonneDN personne = personneRepo.findByEmail(dpm, authorization.getEmail());
 
             if(Objects.isNull(personne)){
 

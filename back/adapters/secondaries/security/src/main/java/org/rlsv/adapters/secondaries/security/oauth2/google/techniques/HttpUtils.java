@@ -1,5 +1,9 @@
 package org.rlsv.adapters.secondaries.security.oauth2.google.techniques;
 
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -22,6 +26,7 @@ public class HttpUtils {
 
     /**
      * Requete HTTP GET
+     *
      * @param url
      * @return Le body en String
      * @throws ClientProtocolException
@@ -32,7 +37,8 @@ public class HttpUtils {
     }
 
     /**
-     *  Requete HTTP POST
+     * Requete HTTP POST
+     *
      * @param url
      * @param formParameters
      * @return Le body en String
@@ -53,8 +59,17 @@ public class HttpUtils {
         return execute(request);
     }
 
+
+    public static JsonNode jsonParser(String content) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        JsonFactory factory = mapper.getFactory();
+        JsonParser parser = factory.createParser(content);
+        return mapper.readTree(parser);
+    }
+
     /**
      * Déclencher une requete HTTP et verifier la réponse
+     *
      * @param request
      * @return
      * @throws ClientProtocolException
@@ -73,8 +88,6 @@ public class HttpUtils {
 
         return body;
     }
-
-
 
 
 }

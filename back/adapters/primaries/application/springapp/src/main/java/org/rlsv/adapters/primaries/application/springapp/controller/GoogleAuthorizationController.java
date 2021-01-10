@@ -1,93 +1,73 @@
 package org.rlsv.adapters.primaries.application.springapp.controller;
 
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.collect.ImmutableMap;
+import enums.TYPES_PERSONNE;
+import exceptions.LoginException;
+import org.rlsv.adapters.secondaries.security.oauth2.google.GoogleOAuthLoginAR;
 import org.rlsv.adapters.secondaries.security.oauth2.google.models.GoogleOAuthSettings;
-import org.rlsv.adapters.secondaries.security.oauth2.google.techniques.HttpUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import ports.login.ILoginPT;
+import security.LoginManager;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Objects;
 
 @RestController
 @RequestMapping("/authorization")
 public class GoogleAuthorizationController {
 
-    GoogleOAuthSettings gOAuth;
+    private static final Logger LOG = LoggerFactory.getLogger(GoogleOAuthLoginAR.class);
 
-    public GoogleAuthorizationController(GoogleOAuthSettings gOAuth) {
+    GoogleOAuthSettings gOAuth;
+    ILoginPT googleLogin;
+
+    public GoogleAuthorizationController(GoogleOAuthSettings gOAuth, ILoginPT loginPT) {
         this.gOAuth = gOAuth;
+        this.googleLogin = loginPT;
+    }
+
+    @GetMapping(value = "/initiate-google-oauth")
+    public void initiateGoogleOAuth(HttpServletResponse response, @RequestParam(value = "typePersone", required = false) TYPES_PERSONNE typePersonne) throws IOException {
+
+        LoginManager loginManager = new LoginManager(typePersonne, gOAuth);
+
+        try {
+            String redirectUrl = this.googleLogin.redirectToThirdServerAuthorization(loginManager);
+            response.sendRedirect(redirectUrl);
+
+        } catch (LoginException e) {
+            response.getWriter().println(e.getMessage());
+            return;
+        }
     }
 
     @GetMapping(value = "/callback")
     public void callback(HttpServletResponse response,
                          @RequestParam(value = "error", required = false) String error,
-                         @RequestParam("code") String code,
-                         @RequestParam("scope") String scope) throws Exception {
-
-        long start=System.currentTimeMillis();
-        System.out.println(code);
-        System.out.println(scope);
+                         @RequestParam("code") String code ) throws Exception {
 
         if(Objects.nonNull(error)){
             response.getWriter().println(error);
             return;
         }
 
-        String body = HttpUtils.post(gOAuth.getUrlGetToken(), ImmutableMap.<String, String>builder()
-                .put("code", code)
-                .put("client_id", gOAuth.getClientId())
-                .put("client_secret", gOAuth.getClientSecret())
-                .put("redirect_uri",gOAuth.getRedirectUri())
-                .put("grant_type", gOAuth.getGrantType()).build());
+        long start = System.currentTimeMillis();
 
-        System.out.println(body);
+        // le code temporaire permettant d'obtenir un access token
+        gOAuth.setCode(code);
+        LoginManager loginManager = new LoginManager(null,gOAuth);
 
-        ObjectMapper mapper = new ObjectMapper();
-        JsonFactory factory = mapper.getFactory();
-        JsonParser parser = factory.createParser(body);
-        JsonNode actualObj = mapper.readTree(parser);
+        googleLogin.getAuthorization(loginManager);
 
-        String jwtToken = actualObj.get("access_token").textValue();
-
-        System.out.println(jwtToken);
-
-        // get some info about the user with the access token
-        String userInfo = HttpUtils.get(new StringBuilder(gOAuth.getUrlUserInfo()).append("?access_token=").append(jwtToken).toString());
-
-        // now we could store the email address in session
-
-        // return the json of the user's basic info
-        System.out.println(userInfo);
-        response.getWriter().println(userInfo);
-
-        System.out.println(String.format("elapsed time : %dms",System.currentTimeMillis()-start));
+       LOG.info(String.format("callback elapsed time : %dms", System.currentTimeMillis() - start));
 
     }
 
-
-
-
-
-    @GetMapping(value = "/user_infos")
-    public void userInfos() throws Exception {
-        System.out.println("userInfos");
-    }
-
-
-
-    private class TokenEntity {
-        String accessToken;
-        String expiresIn;
-        String scope;
-        String tokenType;
-    }
 
 }
 

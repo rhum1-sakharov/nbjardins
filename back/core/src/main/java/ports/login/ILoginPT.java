@@ -1,11 +1,14 @@
 package ports.login;
 
 import domains.models.AuthorizationDN;
-import domains.wrapper.ResponseDN;
+import exceptions.LoginException;
 import security.LoginManager;
 
 public interface ILoginPT {
 
-    ResponseDN<AuthorizationDN> getAuthorization(LoginManager loginManager);
+    AuthorizationDN getAuthorization(LoginManager loginManager) throws  LoginException;
+
+    String redirectToThirdServerAuthorization(LoginManager loginManager) throws LoginException;
+
 
 }

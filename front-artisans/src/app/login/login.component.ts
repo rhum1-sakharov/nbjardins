@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {OAUTH_GOOGLE_CONNECTION_URL} from "../constants";
+
 
 @Component({
   selector: 'app-login',
@@ -8,7 +8,8 @@ import {OAUTH_GOOGLE_CONNECTION_URL} from "../constants";
 })
 export class LoginComponent implements OnInit {
 
-  readonly OAUTH_GOOGLE_CONNECTION_URL = OAUTH_GOOGLE_CONNECTION_URL;
+ readonly URL_INITIATE_GOOGLE_OAUTH = `api/authorization/initiate-google-oauth`;
+
   constructor() { }
 
   ngOnInit(): void {

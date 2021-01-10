@@ -19,5 +19,9 @@ public class GoogleOAuthSettings {
     private String urlGetToken;
     private String urlUserInfo;
     private String grantType;
+    private String accessType;
+    private String responseType;
+    private String state;
+    private String code;
 
 }
