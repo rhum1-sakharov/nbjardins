@@ -15,6 +15,7 @@
         <module>adapters/secondaries/mails</module>
         <module>adapters/secondaries/flying-saucer-pdf</module>
         <module>adapters/secondaries/dataproviderjpa</module>
+        <module>adapters/secondaries/security</module>
         <module>adapters/primaries/application/springapp</module>
     </modules>
 
@@ -236,6 +237,8 @@
                 <artifactId>guava</artifactId>
                 <version>14.0.1</version>
             </dependency>
+
+
 
         </dependencies>
 

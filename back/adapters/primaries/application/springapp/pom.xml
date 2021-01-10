@@ -37,6 +37,12 @@
 
         <dependency>
             <groupId>org.rlsv.adapters.secondaries</groupId>
+            <artifactId>security</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.rlsv.adapters.secondaries</groupId>
             <artifactId>data-provider-jpa</artifactId>
             <version>${project.version}</version>
         </dependency>
