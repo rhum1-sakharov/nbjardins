@@ -28,14 +28,14 @@ import java.math.BigDecimal;
 import java.text.MessageFormat;
 import java.util.*;
 
-import static domains.wrapper.RequestMap.*;
+import static domains.wrapper.RequestMap.REQUEST_KEY_DEVIS;
+import static domains.wrapper.RequestMap.REQUEST_KEY_UNIQUECODE;
 import static localizations.MessageKeys.*;
 
 
 public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase {
 
     private static final Logger LOG = LoggerFactory.getLogger(DemandeDeDevisUE.class);
-
 
 
     private final MailDevisServicePT mailDevisService;
@@ -99,7 +99,8 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase 
                 requestMap = addArtisanToDemandeDeDevis(requestMap);
 
                 // enregistrer le client
-                saveClient(requestMap);
+                saveClient(dpm, devis.getClient());
+
 
                 //enregistrer la demande de devis
                 saveDemandeDeDevis(requestMap);
@@ -137,15 +138,10 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase 
         return response;
     }
 
-    private void saveClient(RequestMap requestMap) throws Exception {
+    private void saveClient(DataProviderManager dpm, ClientDN client) throws Exception {
 
-        DevisDN devis = (DevisDN) requestMap.get(REQUEST_KEY_DEVIS);
-        ClientDN client = devis.getClient();
 
-        RequestMap requestMapClient = RequestMap.init(requestMap);
-        requestMapClient.put(REQUEST_KEY_CLIENT, client);
-
-        enregistrerClientUE.execute(requestMapClient);
+        enregistrerClientUE.execute(dpm, client);
 
     }
 
@@ -225,7 +221,7 @@ public final class DemandeDeDevisUE extends AbstractUsecase implements IUsecase 
         try {
 
             ArtisanDN artisan = artisanRepo.findArtisanByApplicationToken(requestMap.getDataProviderManager(), requestMap.getApplication().getToken());
-            ((DevisDN)(requestMap.get(REQUEST_KEY_DEVIS))).setArtisan(artisan);
+            ((DevisDN) (requestMap.get(REQUEST_KEY_DEVIS))).setArtisan(artisan);
 
             return requestMap;
         } catch (Exception ex) {

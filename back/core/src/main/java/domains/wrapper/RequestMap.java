@@ -11,6 +11,7 @@ import java.util.Locale;
 
 @Getter
 @Setter
+@Deprecated
 public class RequestMap extends HashMap {
 
     /**
