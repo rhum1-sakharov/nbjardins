@@ -3,6 +3,7 @@ package org.rlsv.adapters.secondaries.security.oauth2.google;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.common.collect.ImmutableMap;
 import domains.models.AuthorizationDN;
+import enums.TYPES_PERSONNE;
 import exceptions.LoginException;
 import org.rlsv.adapters.secondaries.security.oauth2.google.models.GoogleOAuthSettings;
 import org.rlsv.adapters.secondaries.security.oauth2.google.techniques.HttpUtils;
@@ -29,7 +30,7 @@ public class GoogleOAuthLoginAR implements ILoginPT {
 
         GoogleOAuthSettings gOAuth = (GoogleOAuthSettings) loginManager.getAuthorizationSettings();
 
-        String bodyGetToken = getBodyAccessToken(gOAuth);
+        String bodyGetToken = getBodyAccessToken(gOAuth,loginManager.getTypePersonne());
         String token = getAuthorizationToken(gOAuth.getUrlGetToken(),bodyGetToken);
         String userInfo =getUserInfo(gOAuth.getUrlUserInfo(),token);
         AuthorizationDN authorization = getAuthorizationDN(userInfo);
@@ -53,7 +54,7 @@ public class GoogleOAuthLoginAR implements ILoginPT {
                     .append("&access_type=").append(gOAuth.getAccessType())
                     .append("&response_type=").append(gOAuth.getResponseType())
                     .append("&state=").append(gOAuth.getState())
-                    .append("&redirect_uri=").append(URLEncoder.encode(gOAuth.getRedirectUri(), StandardCharsets.UTF_8.toString()))
+                    .append("&redirect_uri=").append(URLEncoder.encode(gOAuth.getRedirectUri()+"?typePersonne="+loginManager.getTypePersonne(), StandardCharsets.UTF_8.toString()))
                     .append("&client_id=").append(gOAuth.getClientId());
 
             return urlAuthorization.toString();
@@ -81,7 +82,7 @@ public class GoogleOAuthLoginAR implements ILoginPT {
      * @return
      * @throws LoginException
      */
-    private String getBodyAccessToken(GoogleOAuthSettings  gOAuth) throws LoginException {
+    private String getBodyAccessToken(GoogleOAuthSettings  gOAuth, TYPES_PERSONNE types_personne) throws LoginException {
 
         String bodyGetToken;
 
@@ -91,7 +92,7 @@ public class GoogleOAuthLoginAR implements ILoginPT {
                     .put("code", gOAuth.getCode())
                     .put("client_id", gOAuth.getClientId())
                     .put("client_secret", gOAuth.getClientSecret())
-                    .put("redirect_uri", gOAuth.getRedirectUri())
+                    .put("redirect_uri", gOAuth.getRedirectUri()+"?typePersonne="+types_personne)
                     .put("grant_type", gOAuth.getGrantType()).build());
 
 

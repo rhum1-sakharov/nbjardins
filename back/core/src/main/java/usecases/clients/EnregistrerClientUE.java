@@ -3,7 +3,6 @@ package usecases.clients;
 import domains.models.ClientDN;
 import domains.models.PersonneDN;
 import domains.models.Personne__RoleDN;
-import domains.wrapper.RequestMap;
 import domains.wrapper.ResponseDN;
 import enums.ROLES;
 import exceptions.PersistenceException;
@@ -16,15 +15,13 @@ import ports.repositories.PersonneRoleRepoPT;
 import ports.transactions.TransactionManagerPT;
 import transactions.DataProviderManager;
 import usecases.AbstractUsecase;
-import usecases.IUsecase;
 
 import java.util.Objects;
 
-import static domains.wrapper.RequestMap.REQUEST_KEY_CLIENT;
 import static localizations.MessageKeys.ENREGISTRER_CLIENT_ERREUR_ARTISAN;
 import static localizations.MessageKeys.JPA_ERREUR_SAUVEGARDE_CLIENT;
 
-public final class EnregistrerClientUE extends AbstractUsecase implements IUsecase {
+public final class EnregistrerClientUE extends AbstractUsecase {
 
     private static final Logger LOG = LoggerFactory.getLogger(EnregistrerClientUE.class);
 
@@ -48,24 +45,23 @@ public final class EnregistrerClientUE extends AbstractUsecase implements IUseca
      * Si oui, interdire l enregistrement
      * Si non, enregistrer la personne, l'associer au role client et au type client
      */
-    @Override
-    public ResponseDN execute(RequestMap requestMap) throws Exception {
+    public ResponseDN execute(DataProviderManager dpm, ClientDN client) throws Exception {
 
         ResponseDN<ClientDN> responseDN = new ResponseDN<>();
-        DataProviderManager dpm = this.transactionManager.createDataProviderManager(requestMap.getDataProviderManager());
+        dpm = this.transactionManager.createDataProviderManager(dpm);
 
         try {
 
             transactionManager.begin(dpm);
 
             boolean isArtisan = false;
-            PersonneDN client = ((ClientDN) requestMap.get(REQUEST_KEY_CLIENT)).getPersonne();
+            PersonneDN personne =client.getPersonne();
 
-            String idPersonne = personneRepo.findIdByEmail(dpm, client.getEmail());
+            String idPersonne = personneRepo.findIdByEmail(dpm, personne.getEmail());
 
             // si la personne existe
             if (Objects.nonNull(idPersonne)) {
-                Personne__RoleDN personne__role = personneRoleRepo.findByEmailAndRole(dpm, client.getEmail(), ROLES.ROLE_ARTISAN.getValue());
+                Personne__RoleDN personne__role = personneRoleRepo.findByEmailAndRole(dpm, personne.getEmail(), ROLES.ROLE_ARTISAN.getValue());
 
                 // si c'est un artisan
                 if (Objects.nonNull(personne__role)) {
@@ -76,7 +72,7 @@ public final class EnregistrerClientUE extends AbstractUsecase implements IUseca
 
             // si ce n'est pas un artisan, on l'enregistre en tant que client
             if (!isArtisan) {
-                ClientDN clientDN = saveClient(dpm, client);
+                ClientDN clientDN = saveClient(dpm, personne);
                 responseDN.setOne(clientDN);
             }
 

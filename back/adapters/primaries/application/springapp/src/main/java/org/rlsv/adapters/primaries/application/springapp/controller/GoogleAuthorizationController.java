@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ports.login.ILoginPT;
 import security.LoginManager;
+import usecases.login.LoginUE;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Objects;
 
 @RestController
@@ -25,14 +27,16 @@ public class GoogleAuthorizationController {
 
     GoogleOAuthSettings gOAuth;
     ILoginPT googleLogin;
+    LoginUE loginUE;
 
-    public GoogleAuthorizationController(GoogleOAuthSettings gOAuth, ILoginPT loginPT) {
+    public GoogleAuthorizationController(GoogleOAuthSettings gOAuth, ILoginPT loginPT,LoginUE loginUE) {
         this.gOAuth = gOAuth;
         this.googleLogin = loginPT;
+        this.loginUE = loginUE;
     }
 
     @GetMapping(value = "/initiate-google-oauth")
-    public void initiateGoogleOAuth(HttpServletResponse response, @RequestParam(value = "typePersone", required = false) TYPES_PERSONNE typePersonne) throws IOException {
+    public void initiateGoogleOAuth(HttpServletResponse response, @RequestParam(value = "typePersonne", required = false) TYPES_PERSONNE typePersonne) throws IOException {
 
         LoginManager loginManager = new LoginManager(typePersonne, gOAuth);
 
@@ -49,7 +53,10 @@ public class GoogleAuthorizationController {
     @GetMapping(value = "/callback")
     public void callback(HttpServletResponse response,
                          @RequestParam(value = "error", required = false) String error,
-                         @RequestParam("code") String code ) throws Exception {
+                         @RequestParam(value = "typePersonne", required = false) TYPES_PERSONNE typePersonne,
+                         @RequestParam("code") String code,
+                         Locale locale
+                         ) throws Exception {
 
         if(Objects.nonNull(error)){
             response.getWriter().println(error);
@@ -60,9 +67,9 @@ public class GoogleAuthorizationController {
 
         // le code temporaire permettant d'obtenir un access token
         gOAuth.setCode(code);
-        LoginManager loginManager = new LoginManager(null,gOAuth);
+        LoginManager loginManager = new LoginManager(typePersonne,gOAuth);
 
-        googleLogin.getAuthorization(loginManager);
+        loginUE.execute(null,loginManager);
 
        LOG.info(String.format("callback elapsed time : %dms", System.currentTimeMillis() - start));
 
