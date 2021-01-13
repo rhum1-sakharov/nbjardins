@@ -4,8 +4,8 @@ import domains.models.ClientDN;
 import domains.models.PersonneDN;
 import domains.models.Personne__RoleDN;
 import domains.models.RoleDN;
-import domains.wrapper.ResponseDN;
 import enums.ROLES;
+import exceptions.CleanException;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,7 +28,6 @@ public class EnregistrerClientUETest {
 
     @Mock
     PersonneRepoPT personneRepo;
-
 
 
     @Mock
@@ -56,10 +55,9 @@ public class EnregistrerClientUETest {
         this.enregistrerClientUE = new EnregistrerClientUE(personneRepo, personneRoleRepo, localizeService, clientRepo, transactionManager);
 
 
-        this.client= initClientStub(initPersonneStub());
+        this.client = initClientStub(initPersonneStub());
 
     }
-
 
 
     @Test
@@ -67,34 +65,34 @@ public class EnregistrerClientUETest {
 
         String errorMessage = "On ne peut pas enregistrer un client qui a un email qui est déjà utilisé par un artisan.";
 
+        try {
 
+            Mockito.when(this.personneRepo.findIdByEmail(null, client.getPersonne().getEmail())).thenReturn("1");
+            Mockito.when(this.personneRoleRepo.findByEmailAndRole(null, client.getPersonne().getEmail(), ROLES.ROLE_ARTISAN.getValue())).thenReturn(initPersonneRoleStub());
+            Mockito.when(this.localizeService.getMsg(ENREGISTRER_CLIENT_ERREUR_ARTISAN)).thenReturn(errorMessage);
+            Mockito.when(this.clientRepo.saveByIdPersonne(null, initPersonneStub().getId())).thenReturn(initClientStub(initPersonneStub()));
 
-        Mockito.when(this.personneRepo.findIdByEmail(null,client.getPersonne().getEmail())).thenReturn("1");
-        Mockito.when(this.personneRoleRepo.findByEmailAndRole(null,client.getPersonne().getEmail(), ROLES.ROLE_ARTISAN.getValue())).thenReturn(initPersonneRoleStub());
-        Mockito.when(this.localizeService.getMsg(ENREGISTRER_CLIENT_ERREUR_ARTISAN)).thenReturn(errorMessage);
-        Mockito.when(this.clientRepo.saveByIdPersonne(null,initPersonneStub().getId())).thenReturn(initClientStub(initPersonneStub()));
+            client = this.enregistrerClientUE.execute(null, client);
 
-        ResponseDN<ClientDN> response = this.enregistrerClientUE.execute(null,client);
+        } catch (CleanException e) {
 
-        Assertions.assertThat(Objects.nonNull(response)).isTrue();
-        Assertions.assertThat(response.getErrorMessages()).contains(errorMessage);
+            Assertions.assertThat(e.getMessage().equals(errorMessage)).isTrue();
+        }
     }
 
     @Test
     public void execute_should_return_new_personne_when_personne_is_client() throws Exception {
 
 
+        Mockito.when(personneRepo.saveClient(null, initPersonneStub())).thenReturn(initPersonneStub());
+        Mockito.when(this.personneRepo.findIdByEmail(null, client.getPersonne().getEmail())).thenReturn("1");
+        Mockito.when(this.personneRoleRepo.findByEmailAndRole(null, client.getPersonne().getEmail(), ROLES.ROLE_CLIENT.getValue())).thenReturn(initPersonneRoleStub());
+        Mockito.when(this.clientRepo.saveByIdPersonne(null, initPersonneStub().getId())).thenReturn(initClientStub(initPersonneStub()));
 
-        Mockito.when(personneRepo.saveClient(null,initPersonneStub())).thenReturn(initPersonneStub());
-        Mockito.when(this.personneRepo.findIdByEmail(null,client.getPersonne().getEmail())).thenReturn("1");
-        Mockito.when(this.personneRoleRepo.findByEmailAndRole(null,client.getPersonne().getEmail(), ROLES.ROLE_CLIENT.getValue())).thenReturn(initPersonneRoleStub());
-        Mockito.when(this.clientRepo.saveByIdPersonne(null,initPersonneStub().getId())).thenReturn(initClientStub(initPersonneStub()));
+        client = this.enregistrerClientUE.execute(null, client);
 
-        ResponseDN<ClientDN> response = this.enregistrerClientUE.execute(null,client);
+        Assertions.assertThat(Objects.nonNull(client)).isTrue();
 
-        Assertions.assertThat(Objects.nonNull(response)).isTrue();
-        Assertions.assertThat(response.getErrorMessages()).isEmpty();
-        Assertions.assertThat(Objects.nonNull(response.getOne())).isTrue();
 
     }
 

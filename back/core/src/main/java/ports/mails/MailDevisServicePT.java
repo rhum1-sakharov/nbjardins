@@ -1,13 +1,13 @@
 package ports.mails;
 
 import domains.models.DevisDN;
-import domains.wrapper.ResponseDN;
+import exceptions.MailException;
 
 public interface MailDevisServicePT extends MailServicePT {
 
 
-    ResponseDN<DevisDN> sendToWorker(DevisDN devis, String applicationName);
+    DevisDN sendToWorker(DevisDN devis, String applicationName) throws MailException;
 
-    ResponseDN<DevisDN> sendAcknowledgementToSender(DevisDN devis, String applicationName);
+    DevisDN sendAcknowledgementToSender(DevisDN devis, String applicationName) throws MailException;
 
 }

@@ -1,6 +1,7 @@
 package org.rlsv.adapters.secondaries.flyingsaucerpdf;
 
 import domains.models.*;
+import exceptions.PdfException;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,14 +24,18 @@ public class PdfGeneratorARTest {
     }
 
     @Test
-    public void genererDevisPDF() {
-        ByteArrayOutputStream baos = pdfGeneratorAR.genererDevisPDF(initDevis(true));
+    public void genererDevisPDF(){
+        ByteArrayOutputStream baos = null;
 
         try (OutputStream os = new FileOutputStream("test-devis.pdf")) {
+            baos = pdfGeneratorAR.genererDevisPDF(initDevis(true));
             baos.writeTo(os);
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (PdfException e) {
             e.printStackTrace();
         }
 
@@ -40,13 +45,18 @@ public class PdfGeneratorARTest {
 
     @Test
     public void genererDevisPDF_with_no_ligne_should_return_not_null() {
-        ByteArrayOutputStream baos = pdfGeneratorAR.genererDevisPDF(initDevis(false));
+
+        ByteArrayOutputStream baos =null;
 
         try (OutputStream os = new FileOutputStream("test-devis-2.pdf")) {
+            baos = pdfGeneratorAR.genererDevisPDF(initDevis(false));
             baos.writeTo(os);
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (PdfException e) {
             e.printStackTrace();
         }
 

@@ -11,6 +11,14 @@ import java.util.Objects;
 
 public class Utils {
 
+    public static <T extends Domain> ResponseDN<T> initResponse(T one) {
+
+        ResponseDN<T> responseDN = new ResponseDN<>();
+        responseDN.setOne(one);
+
+        return responseDN;
+    }
+
 
     public static <T extends Domain> ResponseDN<T> initResponse(String message, boolean precondition) {
 

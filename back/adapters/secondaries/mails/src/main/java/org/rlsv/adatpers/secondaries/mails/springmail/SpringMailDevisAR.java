@@ -4,9 +4,10 @@ import domains.models.ArtisanDN;
 import domains.models.ClientDN;
 import domains.models.DevisDN;
 import domains.models.MailDN;
-import domains.wrapper.ResponseDN;
 import org.rlsv.adatpers.secondaries.mails.AbstractMail;
 import org.rlsv.adatpers.secondaries.mails.ServerMail;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -23,11 +24,12 @@ import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
 import java.util.Properties;
 
-import static localizations.MessageKeys.ACK_DEVIS;
-import static localizations.MessageKeys.SUJET_DEVIS;
+import static localizations.MessageKeys.*;
 
 
 public class SpringMailDevisAR extends AbstractMail implements MailDevisServicePT {
+
+    private static final Logger LOG = LoggerFactory.getLogger(SpringMailDevisAR.class);
 
     JavaMailSender mailSender;
 
@@ -75,14 +77,14 @@ public class SpringMailDevisAR extends AbstractMail implements MailDevisServiceP
     }
 
     @Override
-    public ResponseDN<MailDN> send(MailDN mailDN) {
+    public MailDN send(MailDN mailDN) {
 
         return null;
 
     }
 
     @Override
-    public ResponseDN<DevisDN> sendToWorker(DevisDN devis, String applicationName) {
+    public DevisDN sendToWorker(DevisDN devis, String applicationName) throws exceptions.MailException {
 
 
         ClientDN asker = devis.getClient();
@@ -93,7 +95,7 @@ public class SpringMailDevisAR extends AbstractMail implements MailDevisServiceP
     }
 
     @Override
-    public ResponseDN<DevisDN> sendAcknowledgementToSender(DevisDN devis, String applicationName) {
+    public DevisDN sendAcknowledgementToSender(DevisDN devis, String applicationName) throws exceptions.MailException {
 
         ClientDN asker = devis.getClient();
         ArtisanDN worker = devis.getArtisan();
@@ -103,29 +105,27 @@ public class SpringMailDevisAR extends AbstractMail implements MailDevisServiceP
         return prepareAndSend(devis, worker.getPersonne().getEmail(), asker.getPersonne().getEmail(), TemplateLocation.ACKNOWLEDGEMENT_DEMANDE_DEVIS_TO_SENDER, applicationName, sujet);
     }
 
-    private ResponseDN<DevisDN> prepareAndSend(DevisDN devisDN, String emailEmetteur, String emailDestinataire, TemplateLocation templateLocation, String application, String sujet) {
+    private DevisDN prepareAndSend(DevisDN devis, String emailEmetteur, String emailDestinataire, TemplateLocation templateLocation, String application, String sujet) throws exceptions.MailException {
 
-        ResponseDN<DevisDN> demandeDeDevisResponseDN = new ResponseDN<>();
-        demandeDeDevisResponseDN.setOne(devisDN);
 
         MimeMessagePreparator messagePreparator = mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
             messageHelper.setFrom(emailEmetteur);
             messageHelper.setTo(emailDestinataire);
             messageHelper.setSubject(sujet);
-            String content = buildDemandeDeDevis(devisDN, templateLocation, application);
+            String content = buildDemandeDeDevis(devis, templateLocation, application);
             messageHelper.setText(content, true);
 
         };
         try {
             mailSender.send(messagePreparator);
         } catch (MailException e) {
-            demandeDeDevisResponseDN.addErrorMessage(e.getMessage());
-            e.printStackTrace();
+            LOG.error(e.getMessage());
+            throw new exceptions.MailException(localize.getMsg(MAIL_ERROR));
         }
 
 
-        return demandeDeDevisResponseDN;
+        return devis;
     }
 
     private String buildDemandeDeDevis(DevisDN devisDN, TemplateLocation templateLocation, String application) {

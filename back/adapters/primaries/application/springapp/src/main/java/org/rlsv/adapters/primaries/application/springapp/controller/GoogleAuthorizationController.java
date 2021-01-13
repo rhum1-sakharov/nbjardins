@@ -1,7 +1,9 @@
 package org.rlsv.adapters.primaries.application.springapp.controller;
 
 import enums.TYPES_PERSONNE;
+import exceptions.CleanException;
 import exceptions.LoginException;
+import exceptions.TechnicalException;
 import org.rlsv.adapters.secondaries.security.oauth2.google.GoogleOAuthLoginAR;
 import org.rlsv.adapters.secondaries.security.oauth2.google.models.GoogleOAuthSettings;
 import org.slf4j.Logger;
@@ -36,17 +38,26 @@ public class GoogleAuthorizationController {
     }
 
     @GetMapping(value = "/initiate-google-oauth")
-    public void initiateGoogleOAuth(HttpServletResponse response, @RequestParam(value = "typePersonne", required = false) TYPES_PERSONNE typePersonne) throws IOException {
+    public void initiateGoogleOAuth(HttpServletResponse response, @RequestParam(value = "typePersonne", required = false) TYPES_PERSONNE typePersonne) throws CleanException {
 
         LoginManager loginManager = new LoginManager(typePersonne, gOAuth);
 
         try {
+
             String redirectUrl = this.googleLogin.redirectToThirdServerAuthorization(loginManager);
             response.sendRedirect(redirectUrl);
 
+
+
         } catch (LoginException e) {
-            response.getWriter().println(e.getMessage());
+            try {
+                response.getWriter().println(e.getMessage());
+            } catch (IOException e1) {
+                throw  new TechnicalException(e1.getMessage());
+            }
             return;
+        } catch (IOException e) {
+            throw  new TechnicalException(e.getMessage());
         }
     }
 

@@ -3,8 +3,8 @@ package usecases.clients;
 import domains.models.ClientDN;
 import domains.models.PersonneDN;
 import domains.models.Personne__RoleDN;
-import domains.wrapper.ResponseDN;
 import enums.ROLES;
+import exceptions.CleanException;
 import exceptions.PersistenceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,9 +19,8 @@ import usecases.AbstractUsecase;
 import java.util.Objects;
 
 import static localizations.MessageKeys.ENREGISTRER_CLIENT_ERREUR_ARTISAN;
-import static localizations.MessageKeys.JPA_ERREUR_SAUVEGARDE_CLIENT;
 
-public final class EnregistrerClientUE extends AbstractUsecase {
+public class EnregistrerClientUE extends AbstractUsecase {
 
     private static final Logger LOG = LoggerFactory.getLogger(EnregistrerClientUE.class);
 
@@ -45,17 +44,15 @@ public final class EnregistrerClientUE extends AbstractUsecase {
      * Si oui, interdire l enregistrement
      * Si non, enregistrer la personne, l'associer au role client et au type client
      */
-    public ResponseDN execute(DataProviderManager dpm, ClientDN client) throws Exception {
+    public ClientDN execute(DataProviderManager dpm, ClientDN client) throws CleanException {
 
-        ResponseDN<ClientDN> responseDN = new ResponseDN<>();
-        dpm = this.transactionManager.createDataProviderManager(dpm);
 
         try {
 
+            dpm = this.transactionManager.createDataProviderManager(dpm);
             transactionManager.begin(dpm);
 
-            boolean isArtisan = false;
-            PersonneDN personne =client.getPersonne();
+            PersonneDN personne = client.getPersonne();
 
             String idPersonne = personneRepo.findIdByEmail(dpm, personne.getEmail());
 
@@ -65,29 +62,20 @@ public final class EnregistrerClientUE extends AbstractUsecase {
 
                 // si c'est un artisan
                 if (Objects.nonNull(personne__role)) {
-                    responseDN.addErrorMessage(localizeService.getMsg(ENREGISTRER_CLIENT_ERREUR_ARTISAN));
-                    isArtisan = true;
+                    throw new PersistenceException(localizeService.getMsg(ENREGISTRER_CLIENT_ERREUR_ARTISAN));
                 }
             }
 
-            // si ce n'est pas un artisan, on l'enregistre en tant que client
-            if (!isArtisan) {
-                ClientDN clientDN = saveClient(dpm, personne);
-                responseDN.setOne(clientDN);
-            }
+            client = saveClient(dpm, personne);
 
             this.transactionManager.commit(dpm);
 
-        } catch (PersistenceException e) {
-            responseDN.addErrorMessage(localizeService.getMsg(JPA_ERREUR_SAUVEGARDE_CLIENT));
-            this.transactionManager.rollback(dpm);
-            LOG.error(e.getMessage(), e);
         } finally {
             this.transactionManager.close(dpm);
         }
 
 
-        return responseDN;
+        return client;
     }
 
     private ClientDN saveClient(DataProviderManager dpm, PersonneDN client) throws PersistenceException {

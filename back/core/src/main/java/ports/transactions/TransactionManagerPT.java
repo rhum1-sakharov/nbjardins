@@ -1,20 +1,21 @@
 package ports.transactions;
 
+import exceptions.CleanException;
 import transactions.DataProviderManager;
 
 public interface TransactionManagerPT {
 
-    DataProviderManager createDataProviderManager(DataProviderManager dpm) throws Exception;
+    DataProviderManager createDataProviderManager(DataProviderManager dpm) throws CleanException;
 
     /**
      * Démarrer une transaction
      */
-    void begin(DataProviderManager dpm) throws Exception;
+    void begin(DataProviderManager dpm) throws CleanException;
 
     /**
      * Valider la transaction
      */
-    void commit(DataProviderManager dpm) throws Exception;
+    void commit(DataProviderManager dpm) throws CleanException;
 
     /**
      * Annuler la transaction

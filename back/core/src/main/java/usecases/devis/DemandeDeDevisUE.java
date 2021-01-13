@@ -2,10 +2,11 @@ package usecases.devis;
 
 
 import domains.models.*;
-import domains.wrapper.ResponseDN;
 import enums.STATUT_DEVIS;
 import enums.UNIQUE_CODE;
+import exceptions.CleanException;
 import exceptions.DemandeDeDevisException;
+import exceptions.MailException;
 import exceptions.PersistenceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,16 +18,14 @@ import transactions.DataProviderManager;
 import usecases.AbstractUsecase;
 import usecases.clients.EnregistrerClientUE;
 import usecases.uniquecode.UniqueCodeUE;
-import utils.Utils;
 
 import java.math.BigDecimal;
-import java.text.MessageFormat;
 import java.util.*;
 
 import static localizations.MessageKeys.*;
 
 
-public final class DemandeDeDevisUE extends AbstractUsecase {
+public class DemandeDeDevisUE extends AbstractUsecase {
 
     private static final Logger LOG = LoggerFactory.getLogger(DemandeDeDevisUE.class);
 
@@ -71,66 +70,59 @@ public final class DemandeDeDevisUE extends AbstractUsecase {
      *
      * @return
      */
-    public ResponseDN execute(DevisDN devis, Locale locale, ApplicationDN application, DataProviderManager dpm) throws Exception {
-        Locale currentLocale = locale;
-        dpm = this.transactionManager.createDataProviderManager(dpm);
+    public DevisDN execute(DevisDN devis, Locale locale, ApplicationDN application, DataProviderManager dpm) throws CleanException {
+
+        try {
+
+            Locale currentLocale = locale;
+            dpm = this.transactionManager.createDataProviderManager(dpm);
 
 
-        Map<String, Boolean> preconditions = new HashMap<>();
-        preconditions.put(localizeService.getMsg(PRENOM_OBLIGATOIRE, currentLocale), Objects.isNull(devis.getClient().getPersonne().getPrenom()));
-        preconditions.put(localizeService.getMsg(NOM_OBLIGATOIRE, currentLocale), Objects.isNull(devis.getClient().getPersonne().getNom()));
-        preconditions.put(localizeService.getMsg(EMAIL_OBLIGATOIRE, currentLocale), Objects.isNull(devis.getClient().getPersonne().getEmail()));
-        preconditions.put(localizeService.getMsg(DEVIS_MESSAGE_OBLIGATOIRE, currentLocale), Objects.isNull(devis.getMessage()));
+            //        TODO with excetpion manager
+            Map<String, Boolean> preconditions = new HashMap<>();
+            preconditions.put(localizeService.getMsg(PRENOM_OBLIGATOIRE, currentLocale), Objects.isNull(devis.getClient().getPersonne().getPrenom()));
+            preconditions.put(localizeService.getMsg(NOM_OBLIGATOIRE, currentLocale), Objects.isNull(devis.getClient().getPersonne().getNom()));
+            preconditions.put(localizeService.getMsg(EMAIL_OBLIGATOIRE, currentLocale), Objects.isNull(devis.getClient().getPersonne().getEmail()));
+            preconditions.put(localizeService.getMsg(DEVIS_MESSAGE_OBLIGATOIRE, currentLocale), Objects.isNull(devis.getMessage()));
 
-        ResponseDN<DevisDN> response = Utils.initResponse(preconditions);
+            this.transactionManager.begin(dpm);
 
-        if (!response.isError()) {
+            // recuperer l'artisan et le mettre dans la demande de devis
+            addArtisanToDemandeDeDevis(dpm, application.getToken(), devis);
 
-            try {
-
-                this.transactionManager.begin(dpm);
-
-                // recuperer l'artisan et le mettre dans la demande de devis
-                addArtisanToDemandeDeDevis(dpm, application.getToken(),devis);
-
-                // enregistrer le client
-                saveClient(dpm, devis.getClient());
+            // enregistrer le client
+            saveClient(dpm, devis.getClient());
 
 
-                //enregistrer la demande de devis
-                saveDemandeDeDevis(dpm,devis);
+            //enregistrer la demande de devis
+            saveDemandeDeDevis(dpm, devis);
 
-                // envoyer la demande de devis à l'artisan
-                response = sendToWorker(application.getNom(),devis);
-
-
-                if (!response.isError()) {
-                    // envoyer l'accusé réception au client
-                    response = sendAcknowledgementToSender(application.getNom(),devis );
-                }
+            // envoyer la demande de devis à l'artisan
+            sendToWorker(application.getNom(), devis);
 
 
-                this.transactionManager.commit(dpm);
+            // envoyer l'accusé réception au client
+            sendAcknowledgementToSender(application.getNom(), devis);
 
-            } catch (DemandeDeDevisException de) {
-                response.addErrorMessage(de.displayMessage(localizeService));
-                this.transactionManager.rollback(dpm);
-            } catch (Exception ex) {
-                response.addErrorMessage(MessageFormat.format(localizeService.getMsg(SERVER_ERROR), ex.getMessage()));
 
-                this.transactionManager.rollback(dpm);
-            } finally {
-                this.transactionManager.close(dpm);
-            }
+            this.transactionManager.commit(dpm);
 
+        } catch (DemandeDeDevisException de) {
+
+            this.transactionManager.rollback(dpm);
+            throw new DemandeDeDevisException(de.displayMessage(localizeService));
+        } catch (Exception ex) {
+
+            this.transactionManager.rollback(dpm);
+            throw new DemandeDeDevisException(ex.getMessage());
+        } finally {
+            this.transactionManager.close(dpm);
         }
 
         // ne pas renvoyer l'artisan à l'appelant
         devis.setArtisan(null);
 
-        response.addResultList(devis);
-
-        return response;
+        return devis;
     }
 
     private void saveClient(DataProviderManager dpm, ClientDN client) throws Exception {
@@ -221,15 +213,15 @@ public final class DemandeDeDevisUE extends AbstractUsecase {
     }
 
 
-    private ResponseDN<DevisDN> sendToWorker(String applicationName, DevisDN devis) {
+    private void sendToWorker(String applicationName, DevisDN devis) throws MailException {
         Locale workerLocale = localizeService.getWorkerLocale();
         devis.setLocale(workerLocale);
 
-        return mailDevisService.sendToWorker(devis, applicationName);
+        mailDevisService.sendToWorker(devis, applicationName);
+
     }
 
-    private ResponseDN<DevisDN> sendAcknowledgementToSender( String applicationName,DevisDN devis) {
-
-        return mailDevisService.sendAcknowledgementToSender(devis, applicationName);
+    private void sendAcknowledgementToSender(String applicationName, DevisDN devis) throws MailException {
+        mailDevisService.sendAcknowledgementToSender(devis, applicationName);
     }
 }

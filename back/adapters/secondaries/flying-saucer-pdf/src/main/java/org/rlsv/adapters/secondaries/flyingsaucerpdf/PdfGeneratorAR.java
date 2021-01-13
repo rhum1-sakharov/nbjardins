@@ -2,6 +2,7 @@ package org.rlsv.adapters.secondaries.flyingsaucerpdf;
 
 import com.lowagie.text.DocumentException;
 import domains.models.DevisDN;
+import exceptions.PdfException;
 import org.apache.commons.collections4.CollectionUtils;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
@@ -36,7 +37,7 @@ public class PdfGeneratorAR implements ProviderPdfPT {
     }
 
     @Override
-    public ByteArrayOutputStream genererDevisPDF(DevisDN devis) {
+    public ByteArrayOutputStream genererDevisPDF(DevisDN devis) throws PdfException {
 
         Context context = new Context();
         context.setVariable("devis", devis);
@@ -56,7 +57,7 @@ public class PdfGeneratorAR implements ProviderPdfPT {
         return processTemplateToPdf(REPORT_DEVIS, RESOURCE_FONT_NUNITO, context);
     }
 
-    private ByteArrayOutputStream processTemplateToPdf(String reportName, String fontResource, Context context) {
+    private ByteArrayOutputStream processTemplateToPdf(String reportName, String fontResource, Context context) throws PdfException {
 
         try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
 
@@ -73,12 +74,12 @@ public class PdfGeneratorAR implements ProviderPdfPT {
 
             return baos;
         } catch (DocumentException e) {
-            e.printStackTrace();
+            throw new PdfException(e.getMessage(),e);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new PdfException(e.getMessage(),e);
         }
 
-        return null;
+
     }
 
 }

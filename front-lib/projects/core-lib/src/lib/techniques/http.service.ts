@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
-import {catchError, delay, filter, finalize, switchMap} from 'rxjs/operators';
+import {catchError, delay, filter, finalize} from 'rxjs/operators';
 import {of} from 'rxjs/internal/observable/of';
 import {MSG_KEY, MSG_SEVERITY, ToasterService} from './toaster.service';
 import {Observable} from 'rxjs/internal/Observable';
@@ -15,10 +15,8 @@ export class HttpService {
 
   private manageErrors$ = (changes: Observable<any>) => changes.pipe(
     delay(5),
-    catchError(err => this.handleTechnicalError(err)),
+    catchError(err => this.handleError(err)),
     filter(response => !(response instanceof MError)),
-    switchMap(response => this.handleServerError(response)),
-    filter((response: any) => !response.hasOwnProperty('errorMessages') || response.errorMessages.length === 0),
     finalize(() => this.loadingSvc.loading = false)
   )
 
@@ -39,9 +37,16 @@ export class HttpService {
     return this.http.post(url, body, {params}).pipe(this.manageErrors$);
   }
 
-  handleTechnicalError(err: HttpErrorResponse): Observable<MError> {
+  handleError(err: HttpErrorResponse): Observable<MError> {
 
-    this.toastSvc.showMsg(MSG_KEY.ROOT, MSG_SEVERITY.ERROR, 'Erreur interne.', err.message);
+    if (err.error ) {
+      if (err.error.errorMessages) {
+        this.toastSvc.showMsg(MSG_KEY.ROOT, MSG_SEVERITY.ERROR, 'Traitement en erreur.',
+          err.error.errorMessages.map((item: string) => item).join(' '));
+      } else {
+        this.toastSvc.showMsg(MSG_KEY.ROOT, MSG_SEVERITY.ERROR, 'Erreur interne.', err.message);
+      }
+    }
     return of(new MError());
   }
 

@@ -1,6 +1,7 @@
 package usecases.uniquecode;
 
 import enums.UNIQUE_CODE;
+import exceptions.CleanException;
 import org.apache.commons.lang3.RandomStringUtils;
 import ports.localization.LocalizeServicePT;
 import ports.repositories.DevisRepoPT;
@@ -22,7 +23,7 @@ public class UniqueCodeUE extends AbstractUsecase {
     }
 
 
-    public String  execute(DataProviderManager dpm, UNIQUE_CODE unique_code) throws Exception {
+    public String  execute(DataProviderManager dpm, UNIQUE_CODE unique_code) throws CleanException {
 
         dpm = transactionManager.createDataProviderManager(dpm);
 

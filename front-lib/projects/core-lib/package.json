@@ -1,6 +1,6 @@
 {
   "name": "rhum1-sakharov-core-lib",
-  "version": "1.0.7",
+  "version": "1.0.12",
   "schematics": "./schematics/collection.json",
   "scripts": {
     "build": "../../node_modules/.bin/tsc -p tsconfig.schematics.json",
@@ -15,17 +15,13 @@
     "primeng": "^11.1.0-rc.1",
     "rxjs": "^6.6.3"
   },
-
   "devDependencies": {
     "@angular/common": "^11.0.5",
     "@angular/core": "^11.0.5",
     "primeng": "^11.1.0-rc.1",
     "rxjs": "^6.6.3"
   },
-
   "dependencies": {
-
-
     "tslib": "^2.0.0"
   },
   "ng-add": {

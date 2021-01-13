@@ -4,6 +4,7 @@ back/adapters/secondaries/dataproviderjpa/src/main/resources/liquibase/liquibase
 back/adapters/secondaries/dataproviderjpa/src/test/resources/liquibase/liquibase.properties
 */target
 *.pdf
+
 ### Java template 
 # Compiled class file
 *.class
@@ -11,6 +12,7 @@ back/adapters/secondaries/dataproviderjpa/src/test/resources/liquibase/liquibase
 
 # Log file
 *.log
+*.tlog
 
 # BlueJ files
 *.ctxt

@@ -2,6 +2,7 @@ package org.rlsv.adapters.primaries.application.springapp.controller;
 
 import domains.models.DevisDN;
 import domains.wrapper.ResponseDN;
+import exceptions.CleanException;
 import org.springframework.web.bind.annotation.*;
 import usecases.devis.DemandeDeDevisUE;
 import utils.Utils;
@@ -20,9 +21,11 @@ public class DevisController {
 
 
     @PostMapping(value = "/demander-devis")
-    public ResponseDN<DevisDN> demanderDevis(@RequestParam("app-token") String appToken, @RequestBody DevisDN devis, Locale locale) throws Exception {
+    public ResponseDN<DevisDN> demanderDevis(@RequestParam("app-token") String appToken, @RequestBody DevisDN devis, Locale locale) throws CleanException {
 
-        return demandeDeDevisUE.execute(devis, locale, Utils.initApplication(appToken), null);
+        devis= demandeDeDevisUE.execute(devis, locale, Utils.initApplication(appToken), null);
+
+        return Utils.initResponse(devis);
     }
 
 

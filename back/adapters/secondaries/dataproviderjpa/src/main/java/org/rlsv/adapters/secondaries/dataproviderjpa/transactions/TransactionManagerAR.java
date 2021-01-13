@@ -1,5 +1,7 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.transactions;
 
+import exceptions.CleanException;
+import exceptions.PersistenceException;
 import org.rlsv.adapters.secondaries.dataproviderjpa.config.JtaConfig;
 import org.rlsv.adapters.secondaries.dataproviderjpa.utils.PersistenceUtils;
 import org.slf4j.Logger;
@@ -8,8 +10,7 @@ import ports.transactions.TransactionManagerPT;
 import transactions.DataProviderManager;
 
 import javax.persistence.EntityManager;
-import javax.transaction.Status;
-import javax.transaction.UserTransaction;
+import javax.transaction.*;
 import java.util.Objects;
 
 public class TransactionManagerAR implements TransactionManagerPT {
@@ -22,9 +23,14 @@ public class TransactionManagerAR implements TransactionManagerPT {
     }
 
     @Override
-    public DataProviderManager createDataProviderManager(DataProviderManager dpm) throws Exception {
+    public DataProviderManager createDataProviderManager(DataProviderManager dpm) throws CleanException {
 
-        JtaConfig jtaConfig = JtaConfig.getInstance();
+        JtaConfig jtaConfig = null;
+        try {
+            jtaConfig = JtaConfig.getInstance();
+        } catch (Exception e) {
+            throw new PersistenceException(e.getMessage(), e);
+        }
         EntityManager em = jtaConfig.createEntityManager();
         boolean nestedTransaction = false;
 
@@ -42,14 +48,20 @@ public class TransactionManagerAR implements TransactionManagerPT {
     }
 
     @Override
-    public void begin(DataProviderManager dpm) throws Exception {
+    public void begin(DataProviderManager dpm) throws CleanException {
 
         if (!dpm.isNestedTransaction()) {
 
             UserTransaction tx = getUserTransaction(dpm);
 
-            if (tx.getStatus() != Status.STATUS_ACTIVE) {
-                tx.begin();
+            try {
+                if (tx.getStatus() != Status.STATUS_ACTIVE) {
+                    tx.begin();
+                }
+            } catch (SystemException e) {
+                throw new PersistenceException(e.getMessage(), e);
+            } catch (NotSupportedException e) {
+                throw new PersistenceException(e.getMessage(), e);
             }
 
             EntityManager entityManager = PersistenceUtils.getEntityManager(dpm);
@@ -63,7 +75,7 @@ public class TransactionManagerAR implements TransactionManagerPT {
     }
 
     @Override
-    public void commit(DataProviderManager dpm) throws Exception {
+    public void commit(DataProviderManager dpm) throws CleanException {
 
         if (!dpm.isNestedTransaction()) {
 
@@ -72,7 +84,17 @@ public class TransactionManagerAR implements TransactionManagerPT {
 
             LOG.debug("trying to commit jta transaction for entityManager {} {}", entityManager.toString(), tx.toString());
 
-            tx.commit();
+            try {
+                tx.commit();
+            } catch (RollbackException e) {
+                throw new PersistenceException(e.getMessage(), e);
+            } catch (HeuristicMixedException e) {
+                throw new PersistenceException(e.getMessage(), e);
+            } catch (HeuristicRollbackException e) {
+                throw new PersistenceException(e.getMessage(), e);
+            } catch (SystemException e) {
+                throw new PersistenceException(e.getMessage(), e);
+            }
 
 
             LOG.debug("jta transaction commited for entityManager {}", entityManager.toString());
@@ -92,7 +114,7 @@ public class TransactionManagerAR implements TransactionManagerPT {
             if (tx.getStatus() == Status.STATUS_ACTIVE ||
                     tx.getStatus() == Status.STATUS_MARKED_ROLLBACK) {
                 tx.rollback();
-                LOG.warn("Rollback executed for transaction {}",tx.toString());
+                LOG.warn("Rollback executed for transaction {}", tx.toString());
             }
 
         } catch (Exception ex) {

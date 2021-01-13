@@ -3,6 +3,7 @@ package usecases.login;
 import domains.models.AuthorizationDN;
 import domains.models.ClientDN;
 import domains.models.PersonneDN;
+import exceptions.CleanException;
 import ports.localization.LocalizeServicePT;
 import ports.login.ILoginPT;
 import ports.repositories.PersonneRepoPT;
@@ -37,7 +38,7 @@ public class LoginUE extends AbstractUsecase {
      * @return
      * @throws Exception
      */
-    public AuthorizationDN execute(DataProviderManager dpm, LoginManager loginManager) throws Exception {
+    public AuthorizationDN execute(DataProviderManager dpm, LoginManager loginManager) throws CleanException {
 
         AuthorizationDN authorization = loginPT.getAuthorization(loginManager);
 
@@ -52,8 +53,8 @@ public class LoginUE extends AbstractUsecase {
 
                 switch (loginManager.getTypePersonne()) {
                     case CLIENT:
-                        ClientDN client = new ClientDN();
-                        this.enregistrerClientUE.execute(dpm, client);
+                        ClientDN client = initClient(personne);
+                        this.enregistrerClientUE.execute(dpm,client);
                         break;
                     case ARTISAN:
                         //TODO
@@ -68,4 +69,11 @@ public class LoginUE extends AbstractUsecase {
             this.transactionManager.close(dpm);
         }
     }
+
+    private ClientDN initClient(PersonneDN personne){
+        ClientDN client = new ClientDN(personne);
+
+        return client;
+    }
+
 }
