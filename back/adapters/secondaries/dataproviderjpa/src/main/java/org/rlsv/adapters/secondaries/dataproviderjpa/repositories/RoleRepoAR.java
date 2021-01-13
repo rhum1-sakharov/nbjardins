@@ -1,5 +1,6 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.repositories;
 
+import domains.PersonneDN;
 import domains.RoleDN;
 import exceptions.PersistenceException;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Role;
@@ -12,6 +13,7 @@ import transactions.DataProviderManager;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import java.util.List;
 
 public class RoleRepoAR extends RepoAR implements RoleRepoPT {
 
@@ -41,5 +43,22 @@ public class RoleRepoAR extends RepoAR implements RoleRepoPT {
             query.setParameter("nom", nom);
 
             return PersistenceUtils.getSingleResult(query);
+    }
+
+    @Override
+    public List<RoleDN> findByPersonne(DataProviderManager dpm, PersonneDN personne) {
+
+        EntityManager em = PersistenceUtils.getEntityManager(dpm);
+
+        TypedQuery<Role> query = em.createQuery("SELECT distinct(r) from Role r " +
+                " join r.personne__roleList pr " +
+                " join pr.personne p " +
+                " where p.email=:email", Role.class);
+        query.setParameter("email", personne.getEmail());
+
+        List<Role> roleList = PersistenceUtils.getResultList(query);
+
+        return RoleMapper.INSTANCE.entitiesToDomains(roleList);
+
     }
 }

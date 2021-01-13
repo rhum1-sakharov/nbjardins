@@ -6,7 +6,6 @@ import domains.AuthorizationDN;
 import domains.PersonneDN;
 import enums.TYPES_PERSONNE;
 import exceptions.LoginException;
-import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -81,20 +80,14 @@ public class GoogleOAuthLoginAR implements ILoginPT {
     @Override
     public String generateToken(PersonneDN personne, List<String> roles) {
 
-        Claims claims = Jwts.claims();
-        claims.put("roles", roles);
-
         LocalDateTime dateStart = LocalDateTime.now();
         LocalDateTime datePlus1H = dateStart.plusHours(1);
 
         String jwtToken = Jwts.builder()
                 .setSubject(personne.getEmail())
                 .setExpiration( Date.from(datePlus1H.atZone(ZoneId.systemDefault()).toInstant()))
-                .setClaims(claims)
+                .claim("roles",roles)
                 .signWith(key).compact();
-
-        String subject= Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(jwtToken).getBody().getSubject();
-        LOG.info("jwtToken subject : {}",subject);
 
         return jwtToken;
     }

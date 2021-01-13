@@ -11,6 +11,7 @@ import ports.localization.LocalizeServicePT;
 import ports.login.ILoginPT;
 import ports.repositories.ConditionDeReglementRepoPT;
 import ports.repositories.PersonneRepoPT;
+import ports.repositories.RoleRepoPT;
 import ports.repositories.TaxeRepoPT;
 import ports.transactions.TransactionManagerPT;
 import security.LoginManager;
@@ -44,13 +45,15 @@ public class LoginUETest {
     @Mock
     PersonneRepoPT personneRepoPT;
 
+    RoleRepoPT roleRepo;
+
     @Mock
     LoginManager loginManager;
 
 
     @Before
     public void setUp() throws Exception {
-        loginUE = new LoginUE(localizeService, transactionManager, loginPT, personneRepoPT, enregistrerClientUE, enregistrerArtisanUE,conditionDeReglementRepo,taxeRepo);
+        loginUE = new LoginUE(localizeService, transactionManager, loginPT, personneRepoPT, enregistrerClientUE, enregistrerArtisanUE,conditionDeReglementRepo,taxeRepo,roleRepo);
 
     }
 

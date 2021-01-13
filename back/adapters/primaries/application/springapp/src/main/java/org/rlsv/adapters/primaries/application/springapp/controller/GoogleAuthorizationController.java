@@ -1,5 +1,6 @@
 package org.rlsv.adapters.primaries.application.springapp.controller;
 
+import domains.AuthorizationDN;
 import enums.TYPES_PERSONNE;
 import exceptions.CleanException;
 import exceptions.LoginException;
@@ -33,7 +34,7 @@ public class GoogleAuthorizationController {
     ILoginPT googleLogin;
     LoginUE loginUE;
 
-    public GoogleAuthorizationController(GoogleOAuthSettings gOAuth, ILoginPT loginPT,LoginUE loginUE) {
+    public GoogleAuthorizationController(GoogleOAuthSettings gOAuth, ILoginPT loginPT, LoginUE loginUE) {
         this.gOAuth = gOAuth;
         this.googleLogin = loginPT;
         this.loginUE = loginUE;
@@ -50,16 +51,15 @@ public class GoogleAuthorizationController {
             response.sendRedirect(redirectUrl);
 
 
-
         } catch (LoginException e) {
             try {
                 response.getWriter().println(e.getMessage());
             } catch (IOException e1) {
-                throw  new TechnicalException(e1.getMessage(),e,SERVER_ERROR, new String[]{e1.getMessage()});
+                throw new TechnicalException(e1.getMessage(), e, SERVER_ERROR, new String[]{e1.getMessage()});
             }
             return;
         } catch (IOException e) {
-            throw  new TechnicalException(e.getMessage(),e,SERVER_ERROR, new String[]{e.getMessage()});
+            throw new TechnicalException(e.getMessage(), e, SERVER_ERROR, new String[]{e.getMessage()});
         }
     }
 
@@ -69,9 +69,9 @@ public class GoogleAuthorizationController {
                          @RequestParam(value = "typePersonne", required = false) TYPES_PERSONNE typePersonne,
                          @RequestParam("code") String code,
                          Locale locale
-                         ) throws Exception {
+    ) throws Exception {
 
-        if(Objects.nonNull(error)){
+        if (Objects.nonNull(error)) {
             response.getWriter().println(error);
             return;
         }
@@ -80,13 +80,13 @@ public class GoogleAuthorizationController {
 
         // le code temporaire permettant d'obtenir un access token
         gOAuth.setCode(code);
-        LoginManager loginManager = new LoginManager(typePersonne,gOAuth);
+        LoginManager loginManager = new LoginManager(typePersonne, gOAuth);
 
-        String jwtToken = loginUE.execute(null,loginManager);
+        AuthorizationDN authorization = loginUE.execute(null, loginManager);
 
 
-        LOG.info("jwtToken : {}",jwtToken);
-       LOG.info(String.format("callback elapsed time : %dms", System.currentTimeMillis() - start));
+        LOG.info("jwtToken : {}", authorization.getToken());
+        LOG.info(String.format("callback elapsed time : %dms", System.currentTimeMillis() - start));
 
     }
 

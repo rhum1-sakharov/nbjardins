@@ -6,6 +6,7 @@ import ports.localization.LocalizeServicePT;
 import ports.login.ILoginPT;
 import ports.repositories.ConditionDeReglementRepoPT;
 import ports.repositories.PersonneRepoPT;
+import ports.repositories.RoleRepoPT;
 import ports.repositories.TaxeRepoPT;
 import ports.transactions.TransactionManagerPT;
 import usecases.login.LoginUE;
@@ -25,9 +26,10 @@ public class LoginConfig {
                               EnregistrerClientUE enregistrerClientUE,
                               EnregistrerArtisanUE enregistrerArtisanUE,
                               ConditionDeReglementRepoPT conditionDeReglementRepo,
-                              TaxeRepoPT taxeRepo
+                              TaxeRepoPT taxeRepo,
+                              RoleRepoPT roleRepo
     ) {
-        return new LoginUE(localizeService, transactionManager, loginPT, personneRepo, enregistrerClientUE, enregistrerArtisanUE,conditionDeReglementRepo,taxeRepo);
+        return new LoginUE(localizeService, transactionManager, loginPT, personneRepo, enregistrerClientUE, enregistrerArtisanUE,conditionDeReglementRepo,taxeRepo,roleRepo);
     }
 
 
