@@ -1,7 +1,7 @@
 package org.rlsv.adatpers.secondaries.mails.javamail;
 
-import domains.models.DevisDN;
-import domains.models.MailDN;
+import domains.DevisDN;
+import domains.MailDN;
 import exceptions.MailException;
 import org.rlsv.adatpers.secondaries.mails.AbstractMail;
 import org.rlsv.adatpers.secondaries.mails.ServerMail;

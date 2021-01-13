@@ -1,6 +1,6 @@
 package ports.repositories;
 
-import domains.models.DevisDN;
+import domains.DevisDN;
 import exceptions.PersistenceException;
 import transactions.DataProviderManager;
 

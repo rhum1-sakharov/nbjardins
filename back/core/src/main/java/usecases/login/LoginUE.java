@@ -1,9 +1,10 @@
 package usecases.login;
 
-import domains.models.AuthorizationDN;
-import domains.models.ClientDN;
-import domains.models.PersonneDN;
+import domains.AuthorizationDN;
+import domains.ClientDN;
+import domains.PersonneDN;
 import exceptions.CleanException;
+import models.Precondition;
 import ports.localization.LocalizeServicePT;
 import ports.login.ILoginPT;
 import ports.repositories.PersonneRepoPT;
@@ -40,11 +41,17 @@ public class LoginUE extends AbstractUsecase {
      */
     public AuthorizationDN execute(DataProviderManager dpm, LoginManager loginManager) throws CleanException {
 
-        AuthorizationDN authorization = loginPT.getAuthorization(loginManager);
-
-        dpm = this.transactionManager.createDataProviderManager(dpm);
-
         try {
+
+            Precondition.validate(
+                    Precondition.init("Le parametre loginManager ne doit pas être nul.", Objects.nonNull(loginManager)),
+                    Precondition.init("Le parametre type_personne ne doit pas être nul.", Objects.nonNull(loginManager) && Objects.nonNull(loginManager.getTypePersonne()))
+            );
+
+            AuthorizationDN authorization = loginPT.getAuthorization(loginManager);
+
+            dpm = this.transactionManager.createDataProviderManager(dpm);
+
             this.transactionManager.begin(dpm);
 
             PersonneDN personne = personneRepo.findByEmail(dpm, authorization.getEmail());
@@ -54,7 +61,7 @@ public class LoginUE extends AbstractUsecase {
                 switch (loginManager.getTypePersonne()) {
                     case CLIENT:
                         ClientDN client = initClient(personne);
-                        this.enregistrerClientUE.execute(dpm,client);
+                        this.enregistrerClientUE.execute(dpm, client);
                         break;
                     case ARTISAN:
                         //TODO
@@ -70,7 +77,7 @@ public class LoginUE extends AbstractUsecase {
         }
     }
 
-    private ClientDN initClient(PersonneDN personne){
+    private ClientDN initClient(PersonneDN personne) {
         ClientDN client = new ClientDN(personne);
 
         return client;

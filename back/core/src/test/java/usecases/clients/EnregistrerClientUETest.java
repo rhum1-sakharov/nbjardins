@@ -1,9 +1,9 @@
 package usecases.clients;
 
-import domains.models.ClientDN;
-import domains.models.PersonneDN;
-import domains.models.Personne__RoleDN;
-import domains.models.RoleDN;
+import domains.ClientDN;
+import domains.PersonneDN;
+import domains.Personne__RoleDN;
+import domains.RoleDN;
 import enums.ROLES;
 import exceptions.CleanException;
 import org.assertj.core.api.Assertions;

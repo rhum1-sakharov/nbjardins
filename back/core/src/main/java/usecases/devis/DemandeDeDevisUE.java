@@ -1,7 +1,7 @@
 package usecases.devis;
 
 
-import domains.models.*;
+import domains.*;
 import enums.STATUT_DEVIS;
 import enums.UNIQUE_CODE;
 import exceptions.CleanException;

@@ -1,6 +1,6 @@
 package ports.pdfs;
 
-import domains.models.DevisDN;
+import domains.DevisDN;
 import exceptions.PdfException;
 
 import java.io.ByteArrayOutputStream;

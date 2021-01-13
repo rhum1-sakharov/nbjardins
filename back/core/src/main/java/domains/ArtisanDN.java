@@ -1,4 +1,4 @@
-package domains.models;
+package domains;
 
 import lombok.Getter;
 import lombok.Setter;

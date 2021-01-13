@@ -1,6 +1,6 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.repositories;
 
-import domains.models.DevisDN;
+import domains.DevisDN;
 import exceptions.PersistenceException;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Artisan;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Client;

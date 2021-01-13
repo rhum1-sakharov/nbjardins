@@ -1,7 +1,7 @@
 package utils;
 
-import domains.models.ApplicationDN;
-import domains.models.Domain;
+import domains.ApplicationDN;
+import domains.Domain;
 import domains.wrapper.ResponseDN;
 
 import java.math.BigDecimal;
@@ -54,4 +54,6 @@ public class Utils {
     public static BigDecimal add(BigDecimal a, BigDecimal b) {
         return a.add(b);
     }
+
+
 }

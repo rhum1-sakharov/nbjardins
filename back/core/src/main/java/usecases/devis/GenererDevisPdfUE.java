@@ -1,6 +1,6 @@
 package usecases.devis;
 
-import domains.models.DevisDN;
+import domains.DevisDN;
 import exceptions.CleanException;
 import ports.localization.LocalizeServicePT;
 import ports.pdfs.ProviderPdfPT;

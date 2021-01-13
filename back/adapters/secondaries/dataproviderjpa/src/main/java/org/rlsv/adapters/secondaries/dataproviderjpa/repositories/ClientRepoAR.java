@@ -1,6 +1,6 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.repositories;
 
-import domains.models.ClientDN;
+import domains.ClientDN;
 import exceptions.PersistenceException;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Client;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Personne;

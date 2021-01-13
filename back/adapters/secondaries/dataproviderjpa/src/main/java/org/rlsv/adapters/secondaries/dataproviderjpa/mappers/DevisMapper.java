@@ -1,6 +1,6 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.mappers;
 
-import domains.models.DevisDN;
+import domains.DevisDN;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Devis;

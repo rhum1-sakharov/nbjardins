@@ -1,6 +1,6 @@
 package ports.login;
 
-import domains.models.AuthorizationDN;
+import domains.AuthorizationDN;
 import exceptions.LoginException;
 import security.LoginManager;
 

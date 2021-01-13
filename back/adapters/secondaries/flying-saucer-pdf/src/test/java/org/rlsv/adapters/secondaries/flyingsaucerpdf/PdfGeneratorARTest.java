@@ -1,6 +1,6 @@
 package org.rlsv.adapters.secondaries.flyingsaucerpdf;
 
-import domains.models.*;
+import domains.*;
 import exceptions.PdfException;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;

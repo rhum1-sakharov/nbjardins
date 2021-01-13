@@ -1,4 +1,4 @@
-package domains.models;
+package domains;
 
 import enums.STATUT_DEVIS;
 import lombok.AllArgsConstructor;

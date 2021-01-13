@@ -1,6 +1,6 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.repositories;
 
-import domains.models.Personne__RoleDN;
+import domains.Personne__RoleDN;
 import enums.ROLES;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Personne;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Personne__Role;

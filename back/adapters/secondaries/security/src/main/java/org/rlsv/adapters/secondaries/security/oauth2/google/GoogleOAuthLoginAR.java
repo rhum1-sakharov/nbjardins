@@ -2,7 +2,7 @@ package org.rlsv.adapters.secondaries.security.oauth2.google;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.common.collect.ImmutableMap;
-import domains.models.AuthorizationDN;
+import domains.AuthorizationDN;
 import enums.TYPES_PERSONNE;
 import exceptions.LoginException;
 import org.rlsv.adapters.secondaries.security.oauth2.google.models.GoogleOAuthSettings;

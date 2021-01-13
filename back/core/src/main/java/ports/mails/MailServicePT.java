@@ -1,6 +1,6 @@
 package ports.mails;
 
-import domains.models.MailDN;
+import domains.MailDN;
 
 public interface MailServicePT {
 

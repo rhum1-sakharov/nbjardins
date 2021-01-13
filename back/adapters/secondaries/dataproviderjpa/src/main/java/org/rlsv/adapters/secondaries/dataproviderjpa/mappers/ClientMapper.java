@@ -1,6 +1,6 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.mappers;
 
-import domains.models.ClientDN;
+import domains.ClientDN;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Client;

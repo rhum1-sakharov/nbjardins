@@ -1,6 +1,6 @@
 package ports.mails;
 
-import domains.models.DevisDN;
+import domains.DevisDN;
 import exceptions.MailException;
 
 public interface MailDevisServicePT extends MailServicePT {

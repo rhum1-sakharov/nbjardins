@@ -1,5 +1,7 @@
 package usecases.login;
 
+import exceptions.CleanException;
+import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,6 +13,8 @@ import ports.repositories.PersonneRepoPT;
 import ports.transactions.TransactionManagerPT;
 import security.LoginManager;
 import usecases.clients.EnregistrerClientUE;
+
+import java.util.Objects;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LoginUETest {
@@ -32,7 +36,7 @@ public class LoginUETest {
     @Mock
     PersonneRepoPT personneRepoPT;
 
-
+    @Mock
     LoginManager loginManager;
 
 
@@ -43,13 +47,21 @@ public class LoginUETest {
     }
 
     @Test
-    public void execute_should_have_loginManager_parameters_not_null() throws Exception {
+    public void execute_should_have_typePersonne_not_null() {
 
-//        LoginManager loginManager = null;
-//        loginUE.execute(null, loginManager);
-//
-//        Assertions.assertThat(Objects.isNull(loginManager)).isTrue();
-//        Assertions.assertThat()
+        LoginManager loginManager = null;
 
+        try {
+
+            loginUE.execute(null, loginManager);
+
+        } catch (CleanException e) {
+
+            Assertions.assertThat(Objects.isNull(loginManager)).isTrue();
+            Assertions.assertThat(e.getMessage()).contains("Le parametre type_personne ne doit pas être nul.");
+
+        }
     }
+
+
 }

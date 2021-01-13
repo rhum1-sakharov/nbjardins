@@ -1,6 +1,6 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.mappers;
 
-import domains.models.ArtisanBanqueDN;
+import domains.ArtisanBanqueDN;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.ArtisanBanque;
