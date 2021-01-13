@@ -62,7 +62,7 @@ public class EnregistrerClientUE extends AbstractUsecase {
 
                 // si c'est un artisan
                 if (Objects.nonNull(personne__role)) {
-                    throw new PersistenceException(localizeService.getMsg(ENREGISTRER_CLIENT_ERREUR_ARTISAN));
+                    throw new PersistenceException(localizeService.getMsg(ENREGISTRER_CLIENT_ERREUR_ARTISAN),null,ENREGISTRER_CLIENT_ERREUR_ARTISAN);
                 }
             }
 

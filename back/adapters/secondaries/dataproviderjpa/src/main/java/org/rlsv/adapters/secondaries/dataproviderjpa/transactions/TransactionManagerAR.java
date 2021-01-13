@@ -10,8 +10,12 @@ import ports.transactions.TransactionManagerPT;
 import transactions.DataProviderManager;
 
 import javax.persistence.EntityManager;
-import javax.transaction.*;
+import javax.transaction.Status;
+import javax.transaction.SystemException;
+import javax.transaction.UserTransaction;
 import java.util.Objects;
+
+import static localizations.MessageKeys.SERVER_ERROR;
 
 public class TransactionManagerAR implements TransactionManagerPT {
 
@@ -29,7 +33,7 @@ public class TransactionManagerAR implements TransactionManagerPT {
         try {
             jtaConfig = JtaConfig.getInstance();
         } catch (Exception e) {
-            throw new PersistenceException(e.getMessage(), e);
+            throw new PersistenceException(e.getMessage(), e, SERVER_ERROR, new String[]{e.getMessage()});
         }
         EntityManager em = jtaConfig.createEntityManager();
         boolean nestedTransaction = false;
@@ -58,10 +62,8 @@ public class TransactionManagerAR implements TransactionManagerPT {
                 if (tx.getStatus() != Status.STATUS_ACTIVE) {
                     tx.begin();
                 }
-            } catch (SystemException e) {
-                throw new PersistenceException(e.getMessage(), e);
-            } catch (NotSupportedException e) {
-                throw new PersistenceException(e.getMessage(), e);
+            } catch (Exception e) {
+                throw new PersistenceException(e.getMessage(), e, SERVER_ERROR, new String[]{e.getMessage()});
             }
 
             EntityManager entityManager = PersistenceUtils.getEntityManager(dpm);
@@ -86,16 +88,15 @@ public class TransactionManagerAR implements TransactionManagerPT {
 
             try {
                 tx.commit();
-            } catch (RollbackException e) {
-                throw new PersistenceException(e.getMessage(), e);
-            } catch (HeuristicMixedException e) {
-                throw new PersistenceException(e.getMessage(), e);
-            } catch (HeuristicRollbackException e) {
-                throw new PersistenceException(e.getMessage(), e);
-            } catch (SystemException e) {
-                throw new PersistenceException(e.getMessage(), e);
-            }
+            } catch (Exception e) {
 
+                try {
+                    tx.rollback();
+                } catch (SystemException e1) {
+                    LOG.error(e1.getMessage());
+                }
+                throw new PersistenceException(e.getMessage(), e, SERVER_ERROR, new String[]{e.getMessage()});
+            }
 
             LOG.debug("jta transaction commited for entityManager {}", entityManager.toString());
         } else {

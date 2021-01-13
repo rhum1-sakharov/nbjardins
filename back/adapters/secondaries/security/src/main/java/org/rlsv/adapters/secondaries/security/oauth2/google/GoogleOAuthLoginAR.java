@@ -17,6 +17,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
+import static localizations.MessageKeys.SERVER_ERROR;
+
 
 public class GoogleOAuthLoginAR implements ILoginPT {
 
@@ -60,7 +62,7 @@ public class GoogleOAuthLoginAR implements ILoginPT {
             return urlAuthorization.toString();
 
         } catch (UnsupportedEncodingException e) {
-            throw new LoginException(String.format("%s : Impossible d'encoder l'url %s", ERREUR_GOOGLE_OAUTH, urlAuthorization.toString()), e.getCause());
+            throw new LoginException(String.format("%s : Impossible d'encoder l'url %s", ERREUR_GOOGLE_OAUTH, urlAuthorization.toString()),e, SERVER_ERROR, new String[]{e.getMessage()});
         }
     }
 
@@ -69,7 +71,7 @@ public class GoogleOAuthLoginAR implements ILoginPT {
         try {
             userInfo = HttpUtils.get(new StringBuilder(urlUserInfo).append("?access_token=").append(token).toString());
         } catch (IOException e) {
-            throw  new LoginException(String.format("Impossible d'executer la requete %s avec le token %s",urlUserInfo,token),e);
+            throw  new LoginException(String.format("Impossible d'executer la requete %s avec le token %s",urlUserInfo,token),e,SERVER_ERROR, new String[]{e.getMessage()});
         }
 
         return userInfo;
@@ -97,7 +99,7 @@ public class GoogleOAuthLoginAR implements ILoginPT {
 
 
         } catch (IOException e) {
-            throw new LoginException(String.format("Impossible d'executer la requete POST %s", gOAuth.getUrlGetToken()), e);
+            throw new LoginException(String.format("Impossible d'executer la requete POST %s", gOAuth.getUrlGetToken()), e,SERVER_ERROR, new String[]{e.getMessage()});
         }
 
         return bodyGetToken;
@@ -111,7 +113,7 @@ public class GoogleOAuthLoginAR implements ILoginPT {
             JsonNode actualObj = HttpUtils.jsonParser(bodyGetToken);
             token = actualObj.get("access_token").textValue();
         } catch (IOException e) {
-            throw new LoginException(String.format("Impossible de parser le contenu de la reponse POST %s", urlGetToken), e);
+            throw new LoginException(String.format("Impossible de parser le contenu de la reponse POST %s", urlGetToken), e,SERVER_ERROR, new String[]{e.getMessage()});
         }
 
         return token;
@@ -130,7 +132,7 @@ public class GoogleOAuthLoginAR implements ILoginPT {
             authorization.setEmail(email);
 
         } catch (IOException e) {
-            throw new LoginException(String.format("Impossible de parser %s", userInfo), e);
+            throw new LoginException(String.format("Impossible de parser %s", userInfo), e,SERVER_ERROR, new String[]{e.getMessage()});
         }
 
         return authorization;

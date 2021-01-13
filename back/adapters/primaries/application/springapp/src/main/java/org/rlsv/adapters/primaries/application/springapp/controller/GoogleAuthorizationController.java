@@ -21,6 +21,8 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.Objects;
 
+import static localizations.MessageKeys.SERVER_ERROR;
+
 @RestController
 @RequestMapping("/authorization")
 public class GoogleAuthorizationController {
@@ -53,11 +55,11 @@ public class GoogleAuthorizationController {
             try {
                 response.getWriter().println(e.getMessage());
             } catch (IOException e1) {
-                throw  new TechnicalException(e1.getMessage());
+                throw  new TechnicalException(e1.getMessage(),e,SERVER_ERROR, new String[]{e1.getMessage()});
             }
             return;
         } catch (IOException e) {
-            throw  new TechnicalException(e.getMessage());
+            throw  new TechnicalException(e.getMessage(),e,SERVER_ERROR, new String[]{e.getMessage()});
         }
     }
 

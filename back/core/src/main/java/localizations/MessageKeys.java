@@ -17,4 +17,6 @@ public class MessageKeys {
     public static final String ENREGISTRER_CLIENT_ERREUR_ARTISAN= "enregistrer-client.erreur.artisan";
     public static final String PARAMETRE_DEVIS_OBLIGATOIRE="parametre.devis.obligatoire";
     public static final String SERVER_ERROR="server.error";
+    public static final String PDF_GENERATION_ERROR="pdf.generation.error";
+    public static final String CLIENT_ARTISAN_CONFLIT_SAUVEGARDE="client.artisan.conflit.sauvegarde";
 }

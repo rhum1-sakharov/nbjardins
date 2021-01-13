@@ -121,7 +121,7 @@ public class SpringMailDevisAR extends AbstractMail implements MailDevisServiceP
             mailSender.send(messagePreparator);
         } catch (MailException e) {
             LOG.error(e.getMessage());
-            throw new exceptions.MailException(localize.getMsg(MAIL_ERROR));
+            throw new exceptions.MailException(localize.getMsg(MAIL_ERROR),e.getCause(),MAIL_ERROR);
         }
 
 

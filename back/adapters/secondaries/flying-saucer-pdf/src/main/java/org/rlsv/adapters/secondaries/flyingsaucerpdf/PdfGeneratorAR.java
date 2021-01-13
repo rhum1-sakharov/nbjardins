@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
 
+import static localizations.MessageKeys.PDF_GENERATION_ERROR;
+
 public class PdfGeneratorAR implements ProviderPdfPT {
 
     public static final String REPORT_DEVIS = "devis";
@@ -42,7 +44,7 @@ public class PdfGeneratorAR implements ProviderPdfPT {
         Context context = new Context();
         context.setVariable("devis", devis);
 
-        if(CollectionUtils.isNotEmpty(devis.getDevisLigneList())){
+        if (CollectionUtils.isNotEmpty(devis.getDevisLigneList())) {
             BigDecimal sommeHT = devis.getDevisLigneList().stream().map(item -> item.getMontantHT()).reduce(BigDecimal.ZERO, Utils::add);
             context.setVariable("sommeHT", sommeHT);
 
@@ -51,7 +53,6 @@ public class PdfGeneratorAR implements ProviderPdfPT {
 
             context.setVariable("sommeTTC", sommeHT.add(sommeTVA));
         }
-
 
 
         return processTemplateToPdf(REPORT_DEVIS, RESOURCE_FONT_NUNITO, context);
@@ -74,9 +75,9 @@ public class PdfGeneratorAR implements ProviderPdfPT {
 
             return baos;
         } catch (DocumentException e) {
-            throw new PdfException(e.getMessage(),e);
+            throw new PdfException(e.getMessage(), e, PDF_GENERATION_ERROR);
         } catch (IOException e) {
-            throw new PdfException(e.getMessage(),e);
+            throw new PdfException(e.getMessage(), e, PDF_GENERATION_ERROR);
         }
 
 

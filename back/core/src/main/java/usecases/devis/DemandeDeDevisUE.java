@@ -110,11 +110,11 @@ public class DemandeDeDevisUE extends AbstractUsecase {
         } catch (DemandeDeDevisException de) {
 
             this.transactionManager.rollback(dpm);
-            throw new DemandeDeDevisException(de.displayMessage(localizeService));
+            throw new DemandeDeDevisException(de.getMessage(), de, de.getMsgKey());
         } catch (Exception ex) {
 
             this.transactionManager.rollback(dpm);
-            throw new DemandeDeDevisException(ex.getMessage());
+            throw new DemandeDeDevisException(ex.getMessage(), ex, SERVER_ERROR, new String[]{ex.getMessage()});
         } finally {
             this.transactionManager.close(dpm);
         }

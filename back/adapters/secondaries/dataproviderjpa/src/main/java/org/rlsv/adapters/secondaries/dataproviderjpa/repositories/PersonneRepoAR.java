@@ -16,6 +16,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.Objects;
 
+import static localizations.MessageKeys.CLIENT_ARTISAN_CONFLIT_SAUVEGARDE;
 import static localizations.MessageKeys.JPA_ERREUR_SAUVEGARDE_CLIENT;
 
 public class PersonneRepoAR extends RepoAR implements PersonneRepoPT {
@@ -36,7 +37,8 @@ public class PersonneRepoAR extends RepoAR implements PersonneRepoPT {
 
                 Personne__Role prDb = findByEmailAndNomRole(dpm, personneDb.getEmail(), ROLES.ROLE_ARTISAN.getValue());
                 if (Objects.nonNull(prDb)) {
-                    throw new PersistenceException(String.format("Impossible de modifier l'artisan %s, alors qu'on veut enregistrer un client !", personneDb.getEmail()), null);
+                    throw new PersistenceException(String.format("Impossible de modifier l'artisan %s, alors qu'on veut enregistrer un client !", personneDb.getEmail()),
+                            null, CLIENT_ARTISAN_CONFLIT_SAUVEGARDE, new String[]{personneDb.getEmail()});
                 }
 
                 personne.setId(personneDb.getId());
@@ -53,7 +55,7 @@ public class PersonneRepoAR extends RepoAR implements PersonneRepoPT {
     }
 
     @Override
-    public PersonneDN findByEmail(DataProviderManager dpm, String email)  {
+    public PersonneDN findByEmail(DataProviderManager dpm, String email) {
 
         Personne personne = findEntityByEmail(dpm, email);
         return PersonneMapper.INSTANCE.entityToDomain(personne);
