@@ -2,6 +2,7 @@ package usecases.login;
 
 import domains.*;
 import exceptions.CleanException;
+import exceptions.TechnicalException;
 import models.Precondition;
 import ports.localization.LocalizeServicePT;
 import ports.login.ILoginPT;
@@ -17,6 +18,8 @@ import usecases.personnes.clients.EnregistrerClientUE;
 
 import java.math.BigDecimal;
 import java.util.Objects;
+
+import static localizations.MessageKeys.SERVER_ERROR;
 
 public class LoginUE extends AbstractUsecase {
 
@@ -80,17 +83,20 @@ public class LoginUE extends AbstractUsecase {
                         this.enregistrerClientUE.execute(dpm, client);
                         break;
                     case ARTISAN:
-                        ArtisanDN artisan = initArtisan(dpm,authorization);
+                        ArtisanDN artisan = initArtisan(dpm, authorization);
                         this.enregistrerArtisanUE.execute(dpm, artisan);
                         break;
                 }
             }
 
-            String token = loginPT.generateToken(personne);
+            String token = loginPT.generateToken(personne,null);
 
             this.transactionManager.commit(dpm);
 
             return token;
+        }catch(Exception ex){
+            this.transactionManager.rollback(dpm);
+            throw new TechnicalException(ex.getMessage(),ex,SERVER_ERROR,new String[]{ex.getMessage()});
         } finally {
             this.transactionManager.close(dpm);
         }

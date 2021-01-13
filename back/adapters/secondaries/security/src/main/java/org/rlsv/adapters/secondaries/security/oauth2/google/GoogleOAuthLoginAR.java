@@ -6,6 +6,10 @@ import domains.AuthorizationDN;
 import domains.PersonneDN;
 import enums.TYPES_PERSONNE;
 import exceptions.LoginException;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import org.rlsv.adapters.secondaries.security.oauth2.google.models.GoogleOAuthSettings;
 import org.rlsv.adapters.secondaries.security.oauth2.google.techniques.HttpUtils;
 import org.slf4j.Logger;
@@ -17,11 +21,18 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.security.Key;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.List;
 
 import static localizations.MessageKeys.SERVER_ERROR;
 
 
 public class GoogleOAuthLoginAR implements ILoginPT {
+
+    private Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
     private static final Logger LOG = LoggerFactory.getLogger(GoogleOAuthLoginAR.class);
 
@@ -33,12 +44,12 @@ public class GoogleOAuthLoginAR implements ILoginPT {
 
         GoogleOAuthSettings gOAuth = (GoogleOAuthSettings) loginManager.getAuthorizationSettings();
 
-        String bodyGetToken = getBodyAccessToken(gOAuth,loginManager.getTypePersonne());
-        String token = getAuthorizationToken(gOAuth.getUrlGetToken(),bodyGetToken);
-        String userInfo =getUserInfo(gOAuth.getUrlUserInfo(),token);
+        String bodyGetToken = getBodyAccessToken(gOAuth, loginManager.getTypePersonne());
+        String token = getAuthorizationToken(gOAuth.getUrlGetToken(), bodyGetToken);
+        String userInfo = getUserInfo(gOAuth.getUrlUserInfo(), token);
         AuthorizationDN authorization = getAuthorizationDN(userInfo);
 
-        LOG.info("userInfo : {}, authorization : {}",userInfo,authorization.toString());
+        LOG.info("userInfo : {}, authorization : {}", userInfo, authorization.toString());
 
         return authorization;
     }
@@ -57,19 +68,35 @@ public class GoogleOAuthLoginAR implements ILoginPT {
                     .append("&access_type=").append(gOAuth.getAccessType())
                     .append("&response_type=").append(gOAuth.getResponseType())
                     .append("&state=").append(gOAuth.getState())
-                    .append("&redirect_uri=").append(URLEncoder.encode(gOAuth.getRedirectUri()+"?typePersonne="+loginManager.getTypePersonne(), StandardCharsets.UTF_8.toString()))
+                    .append("&redirect_uri=").append(URLEncoder.encode(gOAuth.getRedirectUri() + "?typePersonne=" + loginManager.getTypePersonne(), StandardCharsets.UTF_8.toString()))
                     .append("&client_id=").append(gOAuth.getClientId());
 
             return urlAuthorization.toString();
 
         } catch (UnsupportedEncodingException e) {
-            throw new LoginException(String.format("%s : Impossible d'encoder l'url %s", ERREUR_GOOGLE_OAUTH, urlAuthorization.toString()),e, SERVER_ERROR, new String[]{e.getMessage()});
+            throw new LoginException(String.format("%s : Impossible d'encoder l'url %s", ERREUR_GOOGLE_OAUTH, urlAuthorization.toString()), e, SERVER_ERROR, new String[]{e.getMessage()});
         }
     }
 
     @Override
-    public String generateToken(PersonneDN personne) {
-        return null;
+    public String generateToken(PersonneDN personne, List<String> roles) {
+
+        Claims claims = Jwts.claims();
+        claims.put("roles", roles);
+
+        LocalDateTime dateStart = LocalDateTime.now();
+        LocalDateTime datePlus1H = dateStart.plusHours(1);
+
+        String jwtToken = Jwts.builder()
+                .setSubject(personne.getEmail())
+                .setExpiration( Date.from(datePlus1H.atZone(ZoneId.systemDefault()).toInstant()))
+                .setClaims(claims)
+                .signWith(key).compact();
+
+        String subject= Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(jwtToken).getBody().getSubject();
+        LOG.info("jwtToken subject : {}",subject);
+
+        return jwtToken;
     }
 
     private String getUserInfo(String urlUserInfo, String token) throws LoginException {
@@ -77,7 +104,7 @@ public class GoogleOAuthLoginAR implements ILoginPT {
         try {
             userInfo = HttpUtils.get(new StringBuilder(urlUserInfo).append("?access_token=").append(token).toString());
         } catch (IOException e) {
-            throw  new LoginException(String.format("Impossible d'executer la requete %s avec le token %s",urlUserInfo,token),e,SERVER_ERROR, new String[]{e.getMessage()});
+            throw new LoginException(String.format("Impossible d'executer la requete %s avec le token %s", urlUserInfo, token), e, SERVER_ERROR, new String[]{e.getMessage()});
         }
 
         return userInfo;
@@ -86,11 +113,12 @@ public class GoogleOAuthLoginAR implements ILoginPT {
 
     /**
      * Exchange authorization code for refresh and access tokens
+     *
      * @param gOAuth
      * @return
      * @throws LoginException
      */
-    private String getBodyAccessToken(GoogleOAuthSettings  gOAuth, TYPES_PERSONNE types_personne) throws LoginException {
+    private String getBodyAccessToken(GoogleOAuthSettings gOAuth, TYPES_PERSONNE types_personne) throws LoginException {
 
         String bodyGetToken;
 
@@ -100,12 +128,12 @@ public class GoogleOAuthLoginAR implements ILoginPT {
                     .put("code", gOAuth.getCode())
                     .put("client_id", gOAuth.getClientId())
                     .put("client_secret", gOAuth.getClientSecret())
-                    .put("redirect_uri", gOAuth.getRedirectUri()+"?typePersonne="+types_personne)
+                    .put("redirect_uri", gOAuth.getRedirectUri() + "?typePersonne=" + types_personne)
                     .put("grant_type", gOAuth.getGrantType()).build());
 
 
         } catch (IOException e) {
-            throw new LoginException(String.format("Impossible d'executer la requete POST %s", gOAuth.getUrlGetToken()), e,SERVER_ERROR, new String[]{e.getMessage()});
+            throw new LoginException(String.format("Impossible d'executer la requete POST %s", gOAuth.getUrlGetToken()), e, SERVER_ERROR, new String[]{e.getMessage()});
         }
 
         return bodyGetToken;
@@ -119,7 +147,7 @@ public class GoogleOAuthLoginAR implements ILoginPT {
             JsonNode actualObj = HttpUtils.jsonParser(bodyGetToken);
             token = actualObj.get("access_token").textValue();
         } catch (IOException e) {
-            throw new LoginException(String.format("Impossible de parser le contenu de la reponse POST %s", urlGetToken), e,SERVER_ERROR, new String[]{e.getMessage()});
+            throw new LoginException(String.format("Impossible de parser le contenu de la reponse POST %s", urlGetToken), e, SERVER_ERROR, new String[]{e.getMessage()});
         }
 
         return token;
@@ -140,7 +168,7 @@ public class GoogleOAuthLoginAR implements ILoginPT {
             authorization.setPrenom(prenom);
 
         } catch (IOException e) {
-            throw new LoginException(String.format("Impossible de parser %s", userInfo), e,SERVER_ERROR, new String[]{e.getMessage()});
+            throw new LoginException(String.format("Impossible de parser %s", userInfo), e, SERVER_ERROR, new String[]{e.getMessage()});
         }
 
         return authorization;

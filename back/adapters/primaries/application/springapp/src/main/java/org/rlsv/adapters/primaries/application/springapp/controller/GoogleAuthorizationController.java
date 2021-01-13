@@ -82,8 +82,10 @@ public class GoogleAuthorizationController {
         gOAuth.setCode(code);
         LoginManager loginManager = new LoginManager(typePersonne,gOAuth);
 
-        loginUE.execute(null,loginManager);
+        String jwtToken = loginUE.execute(null,loginManager);
 
+
+        LOG.info("jwtToken : {}",jwtToken);
        LOG.info(String.format("callback elapsed time : %dms", System.currentTimeMillis() - start));
 
     }
