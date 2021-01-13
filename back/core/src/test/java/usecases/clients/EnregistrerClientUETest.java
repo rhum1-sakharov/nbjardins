@@ -4,7 +4,6 @@ import domains.models.ClientDN;
 import domains.models.PersonneDN;
 import domains.models.Personne__RoleDN;
 import domains.models.RoleDN;
-import domains.wrapper.RequestMap;
 import domains.wrapper.ResponseDN;
 import enums.ROLES;
 import org.assertj.core.api.Assertions;
@@ -22,7 +21,6 @@ import ports.transactions.TransactionManagerPT;
 
 import java.util.Objects;
 
-import static domains.wrapper.RequestMap.REQUEST_KEY_CLIENT;
 import static localizations.MessageKeys.ENREGISTRER_CLIENT_ERREUR_ARTISAN;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -46,7 +44,9 @@ public class EnregistrerClientUETest {
     TransactionManagerPT transactionManager;
 
     EnregistrerClientUE enregistrerClientUE;
-    RequestMap request;
+
+
+    ClientDN client;
 
 
     @Before
@@ -54,9 +54,9 @@ public class EnregistrerClientUETest {
 
 
         this.enregistrerClientUE = new EnregistrerClientUE(personneRepo, personneRoleRepo, localizeService, clientRepo, transactionManager);
-        this.request = new RequestMap(localizeService.getFrenchLocale(),null,null);
 
-        this.request.put(REQUEST_KEY_CLIENT,initClientStub(initPersonneStub()));
+
+        this.client= initClientStub(initPersonneStub());
 
     }
 
@@ -67,14 +67,14 @@ public class EnregistrerClientUETest {
 
         String errorMessage = "On ne peut pas enregistrer un client qui a un email qui est déjà utilisé par un artisan.";
 
-        ClientDN client = (ClientDN) this.request.get(REQUEST_KEY_CLIENT);
+
 
         Mockito.when(this.personneRepo.findIdByEmail(null,client.getPersonne().getEmail())).thenReturn("1");
         Mockito.when(this.personneRoleRepo.findByEmailAndRole(null,client.getPersonne().getEmail(), ROLES.ROLE_ARTISAN.getValue())).thenReturn(initPersonneRoleStub());
         Mockito.when(this.localizeService.getMsg(ENREGISTRER_CLIENT_ERREUR_ARTISAN)).thenReturn(errorMessage);
         Mockito.when(this.clientRepo.saveByIdPersonne(null,initPersonneStub().getId())).thenReturn(initClientStub(initPersonneStub()));
 
-        ResponseDN<ClientDN> response = this.enregistrerClientUE.execute(request);
+        ResponseDN<ClientDN> response = this.enregistrerClientUE.execute(null,client);
 
         Assertions.assertThat(Objects.nonNull(response)).isTrue();
         Assertions.assertThat(response.getErrorMessages()).contains(errorMessage);
@@ -83,14 +83,14 @@ public class EnregistrerClientUETest {
     @Test
     public void execute_should_return_new_personne_when_personne_is_client() throws Exception {
 
-        ClientDN client = (ClientDN) this.request.get(REQUEST_KEY_CLIENT);
+
 
         Mockito.when(personneRepo.saveClient(null,initPersonneStub())).thenReturn(initPersonneStub());
         Mockito.when(this.personneRepo.findIdByEmail(null,client.getPersonne().getEmail())).thenReturn("1");
         Mockito.when(this.personneRoleRepo.findByEmailAndRole(null,client.getPersonne().getEmail(), ROLES.ROLE_CLIENT.getValue())).thenReturn(initPersonneRoleStub());
         Mockito.when(this.clientRepo.saveByIdPersonne(null,initPersonneStub().getId())).thenReturn(initClientStub(initPersonneStub()));
 
-        ResponseDN<ClientDN> response = this.enregistrerClientUE.execute(request);
+        ResponseDN<ClientDN> response = this.enregistrerClientUE.execute(null,client);
 
         Assertions.assertThat(Objects.nonNull(response)).isTrue();
         Assertions.assertThat(response.getErrorMessages()).isEmpty();

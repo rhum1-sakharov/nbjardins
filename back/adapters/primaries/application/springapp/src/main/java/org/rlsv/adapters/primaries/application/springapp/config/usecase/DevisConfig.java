@@ -36,7 +36,6 @@ public class DevisConfig {
     @Bean
     public DemandeDeDevisUE realiserDevis(MailDevisServicePT mailDevisService,
                                           LocalizeServicePT localizeService,
-                                          PersonneRepoPT personneRepo,
                                           DevisRepoPT demandeDeDevisRepo,
                                           EnregistrerClientUE enregistrerClientUE,
                                           TransactionManagerPT transactionManager,
@@ -48,7 +47,6 @@ public class DevisConfig {
     ) {
         return new DemandeDeDevisUE(mailDevisService,
                 localizeService,
-                personneRepo,
                 demandeDeDevisRepo,
                 enregistrerClientUE,
                 transactionManager,

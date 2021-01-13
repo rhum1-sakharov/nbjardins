@@ -1,7 +1,5 @@
 package usecases.uniquecode;
 
-import domains.wrapper.RequestMap;
-import domains.wrapper.ResponseDN;
 import enums.UNIQUE_CODE;
 import org.apache.commons.lang3.RandomStringUtils;
 import ports.localization.LocalizeServicePT;
@@ -9,14 +7,11 @@ import ports.repositories.DevisRepoPT;
 import ports.transactions.TransactionManagerPT;
 import transactions.DataProviderManager;
 import usecases.AbstractUsecase;
-import usecases.IUsecase;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static domains.wrapper.RequestMap.REQUEST_KEY_UNIQUECODE;
-
-public class UniqueCodeUE extends AbstractUsecase implements IUsecase {
+public class UniqueCodeUE extends AbstractUsecase {
 
 
     private final DevisRepoPT devisRepo;
@@ -26,16 +21,12 @@ public class UniqueCodeUE extends AbstractUsecase implements IUsecase {
         this.devisRepo = devisRepo;
     }
 
-    @Override
-    public ResponseDN execute(RequestMap requestMap) throws Exception {
 
-        DataProviderManager dpm = transactionManager.createDataProviderManager(requestMap.getDataProviderManager());
+    public String  execute(DataProviderManager dpm, UNIQUE_CODE unique_code) throws Exception {
 
-        ResponseDN response = new ResponseDN<>();
+        dpm = transactionManager.createDataProviderManager(dpm);
 
         String uniqueCode = "";
-
-        UNIQUE_CODE unique_code = (UNIQUE_CODE) requestMap.get(REQUEST_KEY_UNIQUECODE);
 
         switch (unique_code) {
             case NUMERO_DEVIS:
@@ -45,9 +36,7 @@ public class UniqueCodeUE extends AbstractUsecase implements IUsecase {
                 break;
         }
 
-        response.addResultList(uniqueCode);
-
-        return response;
+        return uniqueCode;
     }
 
     public String generateNumeroDevis(DataProviderManager dpm) {
@@ -62,7 +51,7 @@ public class UniqueCodeUE extends AbstractUsecase implements IUsecase {
         String generatedString = randomString(2, true, true).toUpperCase();
 
         // 12 caracteres 202012-211NB
-        String numeroDevis = spd.format(now) + "-" + String.format("%03d", countDevisOfMonth + 1) +  generatedString;
+        String numeroDevis = spd.format(now) + "-" + String.format("%03d", countDevisOfMonth + 1) + generatedString;
 
         Long exists = devisRepo.existsNumeroDevis(dpm, numeroDevis);
 

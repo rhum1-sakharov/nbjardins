@@ -2,7 +2,6 @@ package org.rlsv.adatpers.secondaries.mails.javamail;
 
 import domains.models.DevisDN;
 import domains.models.MailDN;
-import domains.wrapper.RequestMap;
 import domains.wrapper.ResponseDN;
 import org.rlsv.adatpers.secondaries.mails.AbstractMail;
 import org.rlsv.adatpers.secondaries.mails.ServerMail;
@@ -18,18 +17,20 @@ public class JavaMailDevisAR extends AbstractMail implements MailDevisServicePT 
     }
 
 
-    @Override
-    public ResponseDN<DevisDN> sendToWorker(RequestMap requestMap) {
-        return null;
-    }
 
-    @Override
-    public ResponseDN<DevisDN> sendAcknowledgementToSender(RequestMap requestMap) {
-        return null;
-    }
 
     @Override
     public ResponseDN<MailDN> send(MailDN mailDN) {
+        return null;
+    }
+
+    @Override
+    public ResponseDN<DevisDN> sendToWorker(DevisDN devis, String applicationName) {
+        return null;
+    }
+
+    @Override
+    public ResponseDN<DevisDN> sendAcknowledgementToSender(DevisDN devis, String applicationName) {
         return null;
     }
 }

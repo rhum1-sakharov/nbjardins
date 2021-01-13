@@ -4,7 +4,6 @@ import domains.models.ArtisanDN;
 import domains.models.ClientDN;
 import domains.models.DevisDN;
 import domains.models.MailDN;
-import domains.wrapper.RequestMap;
 import domains.wrapper.ResponseDN;
 import org.rlsv.adatpers.secondaries.mails.AbstractMail;
 import org.rlsv.adatpers.secondaries.mails.ServerMail;
@@ -24,7 +23,6 @@ import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
 import java.util.Properties;
 
-import static domains.wrapper.RequestMap.REQUEST_KEY_DEVIS;
 import static localizations.MessageKeys.ACK_DEVIS;
 import static localizations.MessageKeys.SUJET_DEVIS;
 
@@ -84,27 +82,25 @@ public class SpringMailDevisAR extends AbstractMail implements MailDevisServiceP
     }
 
     @Override
-    public ResponseDN<DevisDN> sendToWorker(RequestMap requestMap) {
-
-        DevisDN devisDN = (DevisDN) requestMap.get(REQUEST_KEY_DEVIS);
-        ClientDN asker = devisDN.getClient();
-        ArtisanDN worker = devisDN.getArtisan();
-        String sujet = localize.getMsg(SUJET_DEVIS) + " " + devisDN.getSujet();
+    public ResponseDN<DevisDN> sendToWorker(DevisDN devis, String applicationName) {
 
 
-        return prepareAndSend(devisDN, asker.getPersonne().getEmail(), worker.getPersonne().getEmail(), TemplateLocation.DEMANDE_DEVIS_TO_WORKER, requestMap.getApplication().getNom(), sujet);
+        ClientDN asker = devis.getClient();
+        ArtisanDN worker = devis.getArtisan();
+        String sujet = localize.getMsg(SUJET_DEVIS) + " " + devis.getSujet();
+
+        return prepareAndSend(devis, asker.getPersonne().getEmail(), worker.getPersonne().getEmail(), TemplateLocation.DEMANDE_DEVIS_TO_WORKER, applicationName, sujet);
     }
 
     @Override
-    public ResponseDN<DevisDN> sendAcknowledgementToSender(RequestMap requestMap) {
+    public ResponseDN<DevisDN> sendAcknowledgementToSender(DevisDN devis, String applicationName) {
 
-        DevisDN devisDN = (DevisDN) requestMap.get(REQUEST_KEY_DEVIS);
-        ClientDN asker = devisDN.getClient();
-        ArtisanDN worker = devisDN.getArtisan();
-        String application = requestMap.getApplication().getNom();
-        String sujet = MessageFormat.format(localize.getMsg(ACK_DEVIS), requestMap.getApplication().getNom());
+        ClientDN asker = devis.getClient();
+        ArtisanDN worker = devis.getArtisan();
 
-        return prepareAndSend(devisDN, worker.getPersonne().getEmail(), asker.getPersonne().getEmail(), TemplateLocation.ACKNOWLEDGEMENT_DEMANDE_DEVIS_TO_SENDER, application, sujet);
+        String sujet = MessageFormat.format(localize.getMsg(ACK_DEVIS), applicationName);
+
+        return prepareAndSend(devis, worker.getPersonne().getEmail(), asker.getPersonne().getEmail(), TemplateLocation.ACKNOWLEDGEMENT_DEMANDE_DEVIS_TO_SENDER, applicationName, sujet);
     }
 
     private ResponseDN<DevisDN> prepareAndSend(DevisDN devisDN, String emailEmetteur, String emailDestinataire, TemplateLocation templateLocation, String application, String sujet) {
