@@ -1,4 +1,4 @@
-package usecases.clients;
+package usecases.personnes.clients;
 
 import domains.ClientDN;
 import domains.PersonneDN;

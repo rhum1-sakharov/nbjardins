@@ -12,5 +12,7 @@ public interface ArtisanRepoPT  {
     String findIdByEmail(DataProviderManager dpm,String email) ;
 
 
+    ArtisanDN saveByIdPersonne(DataProviderManager dpm, String id);
 
+    ArtisanDN save(DataProviderManager dpm, ArtisanDN artisan);
 }

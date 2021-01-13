@@ -9,10 +9,13 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import ports.localization.LocalizeServicePT;
 import ports.login.ILoginPT;
+import ports.repositories.ConditionDeReglementRepoPT;
 import ports.repositories.PersonneRepoPT;
+import ports.repositories.TaxeRepoPT;
 import ports.transactions.TransactionManagerPT;
 import security.LoginManager;
-import usecases.clients.EnregistrerClientUE;
+import usecases.personnes.artisans.EnregistrerArtisanUE;
+import usecases.personnes.clients.EnregistrerClientUE;
 
 import java.util.Objects;
 
@@ -23,6 +26,11 @@ public class LoginUETest {
 
 
     EnregistrerClientUE enregistrerClientUE;
+
+    EnregistrerArtisanUE enregistrerArtisanUE;
+
+    ConditionDeReglementRepoPT conditionDeReglementRepo;
+    TaxeRepoPT taxeRepo;
 
     @Mock
     LocalizeServicePT localizeService;
@@ -42,7 +50,7 @@ public class LoginUETest {
 
     @Before
     public void setUp() throws Exception {
-        loginUE = new LoginUE(localizeService, transactionManager, loginPT, personneRepoPT, enregistrerClientUE);
+        loginUE = new LoginUE(localizeService, transactionManager, loginPT, personneRepoPT, enregistrerClientUE, enregistrerArtisanUE,conditionDeReglementRepo,taxeRepo);
 
     }
 

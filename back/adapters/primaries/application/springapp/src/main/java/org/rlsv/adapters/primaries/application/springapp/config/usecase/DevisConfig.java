@@ -7,8 +7,8 @@ import ports.localization.LocalizeServicePT;
 import ports.mails.MailDevisServicePT;
 import ports.repositories.*;
 import ports.transactions.TransactionManagerPT;
-import usecases.clients.EnregistrerClientUE;
 import usecases.devis.DemandeDeDevisUE;
+import usecases.personnes.clients.EnregistrerClientUE;
 import usecases.uniquecode.UniqueCodeUE;
 
 
@@ -22,15 +22,8 @@ public class DevisConfig {
     }
 
 
-    @Bean
-    public UniqueCodeUE uniqueCodeUE(LocalizeServicePT localizeService, TransactionManagerPT transactionManager, DevisRepoPT devisRepo) {
-        return new UniqueCodeUE(localizeService, transactionManager, devisRepo);
-    }
 
-    @Bean
-    public EnregistrerClientUE enregistrerClientUE(PersonneRepoPT personneRepo, PersonneRoleRepoPT personneRoleRepo, LocalizeServicePT localizeService, ClientRepoPT clientRepo, TransactionManagerPT transactionManager) {
-        return new EnregistrerClientUE(personneRepo, personneRoleRepo, localizeService, clientRepo, transactionManager);
-    }
+
 
 
     @Bean

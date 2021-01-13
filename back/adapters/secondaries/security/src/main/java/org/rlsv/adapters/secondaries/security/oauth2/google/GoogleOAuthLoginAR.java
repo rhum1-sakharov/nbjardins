@@ -3,6 +3,7 @@ package org.rlsv.adapters.secondaries.security.oauth2.google;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.common.collect.ImmutableMap;
 import domains.AuthorizationDN;
+import domains.PersonneDN;
 import enums.TYPES_PERSONNE;
 import exceptions.LoginException;
 import org.rlsv.adapters.secondaries.security.oauth2.google.models.GoogleOAuthSettings;
@@ -64,6 +65,11 @@ public class GoogleOAuthLoginAR implements ILoginPT {
         } catch (UnsupportedEncodingException e) {
             throw new LoginException(String.format("%s : Impossible d'encoder l'url %s", ERREUR_GOOGLE_OAUTH, urlAuthorization.toString()),e, SERVER_ERROR, new String[]{e.getMessage()});
         }
+    }
+
+    @Override
+    public String generateToken(PersonneDN personne) {
+        return null;
     }
 
     private String getUserInfo(String urlUserInfo, String token) throws LoginException {
@@ -130,6 +136,8 @@ public class GoogleOAuthLoginAR implements ILoginPT {
             String email = actualObj.get("email").textValue();
 
             authorization.setEmail(email);
+            authorization.setNom(nom);
+            authorization.setPrenom(prenom);
 
         } catch (IOException e) {
             throw new LoginException(String.format("Impossible de parser %s", userInfo), e,SERVER_ERROR, new String[]{e.getMessage()});

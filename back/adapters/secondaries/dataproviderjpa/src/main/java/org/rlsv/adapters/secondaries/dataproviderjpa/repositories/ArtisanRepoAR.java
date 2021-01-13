@@ -62,4 +62,18 @@ public class ArtisanRepoAR extends RepoAR implements ArtisanRepoPT {
 
         return PersistenceUtils.getSingleResult(query);
     }
+
+    @Override
+    public ArtisanDN saveByIdPersonne(DataProviderManager dpm, String id) {
+        return null;
+    }
+
+    @Override
+    public ArtisanDN save(DataProviderManager dpm, ArtisanDN artisan) {
+
+        Artisan artisanEntity= (Artisan) super.save(dpm, ArtisanMapper.INSTANCE.domainToEntity(artisan));
+
+        return ArtisanMapper.INSTANCE.entityToDomain(artisanEntity);
+
+    }
 }

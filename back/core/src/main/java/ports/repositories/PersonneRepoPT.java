@@ -14,4 +14,5 @@ public interface PersonneRepoPT {
     String findIdByEmail(DataProviderManager dpm, String email);
 
 
+    PersonneDN save(DataProviderManager dpm, PersonneDN personne);
 }

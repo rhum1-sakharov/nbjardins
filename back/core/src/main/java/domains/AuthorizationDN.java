@@ -10,5 +10,7 @@ import lombok.ToString;
 public class AuthorizationDN extends Domain {
 
     private String email;
+    private String nom;
+    private String prenom;
     private String token;
 }

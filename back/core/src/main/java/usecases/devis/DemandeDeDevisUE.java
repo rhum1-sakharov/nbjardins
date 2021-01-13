@@ -16,7 +16,7 @@ import ports.repositories.*;
 import ports.transactions.TransactionManagerPT;
 import transactions.DataProviderManager;
 import usecases.AbstractUsecase;
-import usecases.clients.EnregistrerClientUE;
+import usecases.personnes.clients.EnregistrerClientUE;
 import usecases.uniquecode.UniqueCodeUE;
 
 import java.math.BigDecimal;

@@ -1,5 +1,8 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.repositories;
 
+import domains.TaxeDN;
+import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Taxe;
+import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.TaxeMapper;
 import org.rlsv.adapters.secondaries.dataproviderjpa.utils.PersistenceUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,5 +35,19 @@ public class TaxeRepoAR extends RepoAR implements TaxeRepoPT {
         } catch (NoResultException nre) {
             return BigDecimal.ZERO;
         }
+    }
+
+    @Override
+    public TaxeDN findFirst(DataProviderManager dpm) {
+
+        EntityManager em = PersistenceUtils.getEntityManager(dpm);
+
+        TypedQuery<Taxe> query = em.createQuery("SELECT t from Taxe  t ", Taxe.class)
+                .setMaxResults(1);
+
+        Taxe taxe = PersistenceUtils.getSingleResult(query);
+
+        return TaxeMapper.INSTANCE.entityToDomain(taxe);
+
     }
 }

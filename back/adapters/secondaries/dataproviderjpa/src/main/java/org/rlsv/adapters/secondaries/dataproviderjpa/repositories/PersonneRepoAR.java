@@ -74,6 +74,14 @@ public class PersonneRepoAR extends RepoAR implements PersonneRepoPT {
         return PersistenceUtils.getSingleResult(query);
     }
 
+    @Override
+    public PersonneDN save(DataProviderManager dpm, PersonneDN personne) {
+
+        Personne personneEntity = (Personne) super.save(dpm, PersonneMapper.INSTANCE.domainToEntity(personne));
+
+        return PersonneMapper.INSTANCE.entityToDomain(personneEntity);
+    }
+
 
     private Personne__Role findByEmailAndNomRole(DataProviderManager dpm, String email, String nomRole) {
 

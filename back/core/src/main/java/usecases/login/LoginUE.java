@@ -1,19 +1,21 @@
 package usecases.login;
 
-import domains.AuthorizationDN;
-import domains.ClientDN;
-import domains.PersonneDN;
+import domains.*;
 import exceptions.CleanException;
 import models.Precondition;
 import ports.localization.LocalizeServicePT;
 import ports.login.ILoginPT;
+import ports.repositories.ConditionDeReglementRepoPT;
 import ports.repositories.PersonneRepoPT;
+import ports.repositories.TaxeRepoPT;
 import ports.transactions.TransactionManagerPT;
 import security.LoginManager;
 import transactions.DataProviderManager;
 import usecases.AbstractUsecase;
-import usecases.clients.EnregistrerClientUE;
+import usecases.personnes.artisans.EnregistrerArtisanUE;
+import usecases.personnes.clients.EnregistrerClientUE;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 public class LoginUE extends AbstractUsecase {
@@ -21,12 +23,26 @@ public class LoginUE extends AbstractUsecase {
     ILoginPT loginPT;
     PersonneRepoPT personneRepo;
     EnregistrerClientUE enregistrerClientUE;
+    EnregistrerArtisanUE enregistrerArtisanUE;
+    ConditionDeReglementRepoPT conditionDeReglementRepo;
+    TaxeRepoPT taxeRepo;
 
-    public LoginUE(LocalizeServicePT localizeService, TransactionManagerPT transactionManager, ILoginPT loginPT, PersonneRepoPT personneRepo, EnregistrerClientUE enregistrerClientUE) {
+    public LoginUE(LocalizeServicePT localizeService,
+                   TransactionManagerPT transactionManager,
+                   ILoginPT loginPT,
+                   PersonneRepoPT personneRepo,
+                   EnregistrerClientUE enregistrerClientUE,
+                   EnregistrerArtisanUE enregistrerArtisanUE,
+                   ConditionDeReglementRepoPT conditionDeReglementRepo,
+                   TaxeRepoPT taxeRepo
+    ) {
         super(localizeService, transactionManager);
         this.loginPT = loginPT;
         this.personneRepo = personneRepo;
         this.enregistrerClientUE = enregistrerClientUE;
+        this.enregistrerArtisanUE = enregistrerArtisanUE;
+        this.conditionDeReglementRepo = conditionDeReglementRepo;
+        this.taxeRepo = taxeRepo;
     }
 
 
@@ -39,7 +55,7 @@ public class LoginUE extends AbstractUsecase {
      * @return
      * @throws Exception
      */
-    public AuthorizationDN execute(DataProviderManager dpm, LoginManager loginManager) throws CleanException {
+    public String execute(DataProviderManager dpm, LoginManager loginManager) throws CleanException {
 
         try {
 
@@ -60,27 +76,71 @@ public class LoginUE extends AbstractUsecase {
 
                 switch (loginManager.getTypePersonne()) {
                     case CLIENT:
-                        ClientDN client = initClient(personne);
+                        ClientDN client = initClient(authorization);
                         this.enregistrerClientUE.execute(dpm, client);
                         break;
                     case ARTISAN:
-                        //TODO
+                        ArtisanDN artisan = initArtisan(dpm,authorization);
+                        this.enregistrerArtisanUE.execute(dpm, artisan);
                         break;
                 }
             }
 
+            String token = loginPT.generateToken(personne);
+
             this.transactionManager.commit(dpm);
 
-            return authorization;
+            return token;
         } finally {
             this.transactionManager.close(dpm);
         }
     }
 
-    private ClientDN initClient(PersonneDN personne) {
-        ClientDN client = new ClientDN(personne);
+    private ClientDN initClient(AuthorizationDN authorization) {
 
+        ClientDN client = new ClientDN(initPersonne(authorization));
         return client;
+    }
+
+    private PersonneDN initPersonne(AuthorizationDN authorization) {
+
+        PersonneDN personne = new PersonneDN();
+        personne.setEmail(authorization.getEmail());
+        personne.setAdresse("");
+        personne.setCodePostal("");
+        personne.setFonction("");
+        personne.setNom(authorization.getNom());
+        personne.setPrenom(authorization.getPrenom());
+        personne.setSociete("");
+        personne.setVille("");
+        personne.setNumeroTelephone("");
+
+        return personne;
+
+    }
+
+    private ArtisanDN initArtisan(DataProviderManager dpm,AuthorizationDN authorization) {
+
+
+        ArtisanDN artisan = new ArtisanDN();
+        artisan.setPersonne(initPersonne(authorization));
+
+        artisan.setApplication(null);
+
+        ConditionDeReglementDN conditionDeReglement = conditionDeReglementRepo.findFirst(dpm);
+        artisan.setConditionDeReglement(conditionDeReglement);
+
+        TaxeDN taxe = taxeRepo.findFirst(dpm);
+        artisan.setTaxe(taxe);
+
+        artisan.setLogo("");
+        artisan.setProvision(BigDecimal.ZERO);
+        artisan.setSignature("");
+        artisan.setSiret("");
+        artisan.setValiditeDevisMois(3);
+
+
+        return artisan;
     }
 
 }
