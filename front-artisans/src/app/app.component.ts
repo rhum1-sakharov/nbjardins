@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from './login/auth.service';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,12 +10,11 @@ import {AuthService} from './login/auth.service';
 export class AppComponent implements OnInit {
   title = 'front-artisans';
 
-  constructor(private authSvc: AuthService){}
+  constructor(public authSvc: AuthService){}
 
   ngOnInit(): void {
 
-
-      this.authSvc.startUserSession();
+       this.authSvc.startUserSession();
 
   }
 }

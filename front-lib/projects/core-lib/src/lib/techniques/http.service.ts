@@ -1,11 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import {catchError, delay, filter, finalize} from 'rxjs/operators';
-import {of} from 'rxjs/internal/observable/of';
 import {MSG_KEY, MSG_SEVERITY, ToasterService} from './toaster.service';
-import {Observable} from 'rxjs/internal/Observable';
 import {LoadingService} from './loading.service';
 import {MError} from '../models/m-error';
+import {Observable, of} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

@@ -6,6 +6,7 @@ import {AppComponent} from './app.component';
 import {LoginComponent} from './login/login.component';
 import {ModuleParametresModule} from './module-parametres/module-parametres.module';
 import {ModuleDevisModule} from './module-devis/module-devis.module';
+import {CoreLibModule} from 'rhum1-sakharov-core-lib';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import {ModuleDevisModule} from './module-devis/module-devis.module';
     BrowserModule,
     AppRoutingModule,
     ModuleParametresModule,
-    ModuleDevisModule
+    ModuleDevisModule,
+    CoreLibModule
   ],
   providers: [],
   bootstrap: [AppComponent]
