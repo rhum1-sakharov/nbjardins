@@ -87,6 +87,8 @@ public class GoogleOAuthLoginAR implements ILoginPT {
                 .setSubject(personne.getEmail())
                 .setExpiration( Date.from(datePlus1H.atZone(ZoneId.systemDefault()).toInstant()))
                 .claim("roles",roles)
+                .claim("nom",personne.getNom())
+                .claim("prenom",personne.getPrenom())
                 .signWith(key).compact();
 
         return jwtToken;

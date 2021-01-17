@@ -16,7 +16,7 @@ export class AuthGuard implements CanActivate {
 
     const userRight = route.data as UserRight;
 
-    if (this.authSvc.hasRight(null, userRight)) {
+    if (this.authSvc.hasRight(this.authSvc.connectedUser, userRight)) {
       return true;
     } else {
       window.location.href = this.authSvc.URL_INITIATE_GOOGLE_OAUTH_ARTISAN;
