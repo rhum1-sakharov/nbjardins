@@ -82,7 +82,15 @@ public class GoogleAuthorizationController {
         gOAuth.setCode(code);
         LoginManager loginManager = new LoginManager(typePersonne, gOAuth);
 
+        // creer le compte s'il n'existe pas et recuperer l'authoriation
         AuthorizationDN authorization = loginUE.execute(null, loginManager);
+
+
+        // rediriger sur l'application front en  fournissant le jwt en parametre
+        StringBuilder redirectFrontUri = new StringBuilder();
+        redirectFrontUri.append(gOAuth.getRedirectFrontUri())
+                .append("?token=").append(authorization.getToken());
+        response.sendRedirect(redirectFrontUri.toString());
 
 
         LOG.info("jwtToken : {}", authorization.getToken());

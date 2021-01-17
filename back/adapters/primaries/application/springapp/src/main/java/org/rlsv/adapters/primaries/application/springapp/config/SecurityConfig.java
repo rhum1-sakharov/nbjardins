@@ -32,6 +32,7 @@ public class SecurityConfig {
         googleOAuthSettings.setAccessType(env.getProperty("google.oauth2.access_type"));
         googleOAuthSettings.setResponseType(env.getProperty("google.oauth2.response_type"));
         googleOAuthSettings.setState(env.getProperty("google.oauth2.state"));
+        googleOAuthSettings.setRedirectFrontUri(env.getProperty("google.oauth2.redirect_front_uri"));
 
 
         return googleOAuthSettings;

@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {AuthService} from "./auth.service";
 
 
 @Component({
@@ -8,9 +9,9 @@ import {Component, OnInit} from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
- readonly URL_INITIATE_GOOGLE_OAUTH_ARTISAN = `api/authorization/initiate-google-oauth?typePersonne=ARTISAN`;
 
-  constructor() { }
+
+  constructor(public authSvc: AuthService) { }
 
   ngOnInit(): void {
   }

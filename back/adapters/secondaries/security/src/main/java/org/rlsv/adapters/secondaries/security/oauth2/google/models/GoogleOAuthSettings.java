@@ -23,5 +23,6 @@ public class GoogleOAuthSettings {
     private String responseType;
     private String state;
     private String code;
+    private String redirectFrontUri;
 
 }
