@@ -23,4 +23,5 @@ public class MessageKeys {
     public static final String LOGINUE_LOGINMANAGER_NOT_NULL = "loginue.loginmanager.not.null";
     public static final String USER_NOT_FOUND = "user.not.found";
     public static final String USER_HAS_NO_ROLE = "user.has.no.role";
+    public static final String TOKEN_NOT_VALID = "token.not.valid";
 }

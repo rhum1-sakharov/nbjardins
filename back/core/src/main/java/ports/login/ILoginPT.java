@@ -13,7 +13,7 @@ public interface ILoginPT {
 
     String redirectToThirdServerAuthorization(LoginManager loginManager) throws LoginException;
 
-    String generateToken(PersonneDN personne, List<String> roles);
+    String generateToken(LoginManager loginManager,PersonneDN personne, List<String> roles);
 
 
     String getUserName(String token) throws LoginException;

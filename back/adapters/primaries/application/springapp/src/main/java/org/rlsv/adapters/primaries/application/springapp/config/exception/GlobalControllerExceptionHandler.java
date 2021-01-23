@@ -27,7 +27,7 @@ public class GlobalControllerExceptionHandler extends ResponseEntityExceptionHan
         this.localizeServicePT = localizeServicePT;
     }
 
-    @ExceptionHandler(CleanException.class)
+    @ExceptionHandler(Exception.class)
     protected ResponseEntity<Object> handleCleanException(CleanException ce, Locale locale) {
 
         ResponseDN response = new ResponseDN();

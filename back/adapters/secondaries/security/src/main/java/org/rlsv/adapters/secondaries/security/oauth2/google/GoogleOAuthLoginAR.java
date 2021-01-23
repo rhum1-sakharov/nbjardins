@@ -10,7 +10,6 @@ import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
-import localizations.MessageKeys;
 import org.rlsv.adapters.secondaries.security.oauth2.google.models.GoogleOAuthSettings;
 import org.rlsv.adapters.secondaries.security.oauth2.google.techniques.HttpUtils;
 import org.slf4j.Logger;
@@ -29,6 +28,7 @@ import java.util.Date;
 import java.util.List;
 
 import static localizations.MessageKeys.SERVER_ERROR;
+import static localizations.MessageKeys.TOKEN_NOT_VALID;
 
 
 public class GoogleOAuthLoginAR implements ILoginPT {
@@ -75,19 +75,22 @@ public class GoogleOAuthLoginAR implements ILoginPT {
             return urlAuthorization.toString();
 
         } catch (UnsupportedEncodingException e) {
+            LOG.error(e.getMessage(), e);
             throw new LoginException(String.format("%s : Impossible d'encoder l'url %s", ERREUR_GOOGLE_OAUTH, urlAuthorization.toString()), e, SERVER_ERROR, new String[]{e.getMessage()});
         }
     }
 
     @Override
-    public String generateToken(PersonneDN personne, List<String> roles) {
+    public String generateToken(LoginManager loginManager, PersonneDN personne, List<String> roles) {
+
+        GoogleOAuthSettings gOAuth = (GoogleOAuthSettings) loginManager.getAuthorizationSettings();
 
         LocalDateTime dateStart = LocalDateTime.now();
-        LocalDateTime datePlus1H = dateStart.plusHours(1);
+        LocalDateTime expirationDate = dateStart.plusMinutes(gOAuth.getTokenValidityInMinutes());
 
         String jwtToken = Jwts.builder()
                 .setSubject(personne.getEmail())
-                .setExpiration(Date.from(datePlus1H.atZone(ZoneId.systemDefault()).toInstant()))
+                .setExpiration(Date.from(expirationDate.atZone(ZoneId.systemDefault()).toInstant()))
                 .claim("roles", roles)
                 .claim("nom", personne.getNom())
                 .claim("prenom", personne.getPrenom())
@@ -108,8 +111,8 @@ public class GoogleOAuthLoginAR implements ILoginPT {
                     .getSubject();
 
         } catch (JwtException ex) {
-            LOG.error(ex.getMessage(),ex);
-            throw new LoginException(String.format("Impossible de décoder l'utilisateur dans le token %s",token),ex,MessageKeys.USER_NOT_FOUND,new String[]{""});
+            LOG.error(ex.getMessage(), ex);
+            throw new LoginException("L'autorisation n'est pas ou plus valide pour le token : " + token, ex, TOKEN_NOT_VALID);
         }
 
 
@@ -120,6 +123,7 @@ public class GoogleOAuthLoginAR implements ILoginPT {
         try {
             userInfo = HttpUtils.get(new StringBuilder(urlUserInfo).append("?access_token=").append(token).toString());
         } catch (IOException e) {
+            LOG.error(e.getMessage(), e);
             throw new LoginException(String.format("Impossible d'executer la requete %s avec le token %s", urlUserInfo, token), e, SERVER_ERROR, new String[]{e.getMessage()});
         }
 
@@ -149,6 +153,7 @@ public class GoogleOAuthLoginAR implements ILoginPT {
 
 
         } catch (IOException e) {
+            LOG.error(e.getMessage(), e);
             throw new LoginException(String.format("Impossible d'executer la requete POST %s", gOAuth.getUrlGetToken()), e, SERVER_ERROR, new String[]{e.getMessage()});
         }
 
@@ -163,6 +168,7 @@ public class GoogleOAuthLoginAR implements ILoginPT {
             JsonNode actualObj = HttpUtils.jsonParser(bodyGetToken);
             token = actualObj.get("access_token").textValue();
         } catch (IOException e) {
+            LOG.error(e.getMessage(), e);
             throw new LoginException(String.format("Impossible de parser le contenu de la reponse POST %s", urlGetToken), e, SERVER_ERROR, new String[]{e.getMessage()});
         }
 
@@ -184,6 +190,7 @@ public class GoogleOAuthLoginAR implements ILoginPT {
             authorization.setPrenom(prenom);
 
         } catch (IOException e) {
+            LOG.error(e.getMessage(), e);
             throw new LoginException(String.format("Impossible de parser %s", userInfo), e, SERVER_ERROR, new String[]{e.getMessage()});
         }
 

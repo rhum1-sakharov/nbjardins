@@ -10,6 +10,9 @@ import {CoreLibModule} from 'rhum1-sakharov-core-lib';
 import {MessageService} from 'primeng/api';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {AuthInterceptorService} from './login/auth-interceptor.service';
+import {ToastModule} from 'primeng/toast';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ModuleCoreModule} from './module-core/module-core.module';
 
 @NgModule({
   declarations: [
@@ -18,10 +21,14 @@ import {AuthInterceptorService} from './login/auth-interceptor.service';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     ModuleParametresModule,
     ModuleDevisModule,
-    CoreLibModule
+    CoreLibModule,
+    ToastModule,
+    ModuleCoreModule
+
   ],
   providers: [MessageService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }],

@@ -6,6 +6,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import ports.localization.LocalizeServicePT;
 
 @Configuration
 public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -24,10 +25,14 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     JwtTokenProvider jwtTokenProvider;
+    LocalizeServicePT localizeService;
 
-    public JwtSecurityConfig(JwtTokenProvider jwtTokenProvider) {
+    public JwtSecurityConfig(JwtTokenProvider jwtTokenProvider, LocalizeServicePT localizeService) {
         this.jwtTokenProvider = jwtTokenProvider;
+        this.localizeService = localizeService;
     }
+
+
 
     @Bean
     @Override
@@ -49,7 +54,7 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers( "/artisans/**").hasRole(ROLES.ARTISAN.value)
                 .anyRequest().authenticated()
                 .and()
-                .apply(new JwtConfigurer(jwtTokenProvider));
+                .apply(new JwtConfigurer(jwtTokenProvider,localizeService));
         //@formatter:on
     }
 }

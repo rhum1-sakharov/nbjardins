@@ -1,6 +1,6 @@
 {
   "name": "rhum1-sakharov-core-lib",
-  "version": "1.0.21",
+  "version": "1.0.26",
   "schematics": "./schematics/collection.json",
   "scripts": {
     "build": "../../node_modules/.bin/tsc -p tsconfig.schematics.json",

@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from './login/auth.service';
-import {HttpService} from 'rhum1-sakharov-core-lib';
 import {HttpParams} from '@angular/common/http';
+import {MSG_KEY, MSG_POSITION} from 'rhum1-sakharov-core-lib';
+import {HttpService} from './module-core/http.service';
 
 
 @Component({
@@ -11,6 +12,8 @@ import {HttpParams} from '@angular/common/http';
 })
 export class AppComponent implements OnInit {
   title = 'front-artisans';
+  readonly ROOT_KEY = MSG_KEY.ROOT;
+  readonly MSG_POSITION = MSG_POSITION.BOTTOM_CENTER;
 
   constructor(public authSvc: AuthService, private httpSvc: HttpService) {
   }

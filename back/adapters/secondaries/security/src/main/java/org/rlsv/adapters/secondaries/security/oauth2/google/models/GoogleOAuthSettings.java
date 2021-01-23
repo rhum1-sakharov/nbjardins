@@ -24,5 +24,6 @@ public class GoogleOAuthSettings {
     private String state;
     private String code;
     private String redirectFrontUri;
+    private int tokenValidityInMinutes;
 
 }
