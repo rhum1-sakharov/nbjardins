@@ -5,7 +5,6 @@ import enums.TYPES_PERSONNE;
 import exceptions.CleanException;
 import exceptions.LoginException;
 import exceptions.TechnicalException;
-import org.rlsv.adapters.secondaries.security.oauth2.google.GoogleOAuthLoginAR;
 import org.rlsv.adapters.secondaries.security.oauth2.google.models.GoogleOAuthSettings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +27,7 @@ import static localizations.MessageKeys.SERVER_ERROR;
 @RequestMapping("/authorization")
 public class GoogleAuthorizationController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(GoogleOAuthLoginAR.class);
+    private static final Logger LOG = LoggerFactory.getLogger(GoogleAuthorizationController.class);
 
     GoogleOAuthSettings gOAuth;
     ILoginPT googleLogin;

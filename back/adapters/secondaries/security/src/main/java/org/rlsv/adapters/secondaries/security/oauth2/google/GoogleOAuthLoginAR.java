@@ -6,9 +6,11 @@ import domains.AuthorizationDN;
 import domains.PersonneDN;
 import enums.TYPES_PERSONNE;
 import exceptions.LoginException;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import localizations.MessageKeys;
 import org.rlsv.adapters.secondaries.security.oauth2.google.models.GoogleOAuthSettings;
 import org.rlsv.adapters.secondaries.security.oauth2.google.techniques.HttpUtils;
 import org.slf4j.Logger;
@@ -85,13 +87,32 @@ public class GoogleOAuthLoginAR implements ILoginPT {
 
         String jwtToken = Jwts.builder()
                 .setSubject(personne.getEmail())
-                .setExpiration( Date.from(datePlus1H.atZone(ZoneId.systemDefault()).toInstant()))
-                .claim("roles",roles)
-                .claim("nom",personne.getNom())
-                .claim("prenom",personne.getPrenom())
+                .setExpiration(Date.from(datePlus1H.atZone(ZoneId.systemDefault()).toInstant()))
+                .claim("roles", roles)
+                .claim("nom", personne.getNom())
+                .claim("prenom", personne.getPrenom())
                 .signWith(key).compact();
 
         return jwtToken;
+    }
+
+    @Override
+    public String getUserName(String token) throws LoginException {
+
+        try {
+            return Jwts.parserBuilder()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody()
+                    .getSubject();
+
+        } catch (JwtException ex) {
+            LOG.error(ex.getMessage(),ex);
+            throw new LoginException(String.format("Impossible de décoder l'utilisateur dans le token %s",token),ex,MessageKeys.USER_NOT_FOUND,new String[]{""});
+        }
+
+
     }
 
     private String getUserInfo(String urlUserInfo, String token) throws LoginException {

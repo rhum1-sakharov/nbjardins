@@ -1,7 +1,10 @@
-package org.rlsv.adapters.primaries.application.springapp.exceptions;
+package org.rlsv.adapters.primaries.application.springapp.config.exception;
 
 import domains.wrapper.ResponseDN;
 import exceptions.CleanException;
+import exceptions.LoginException;
+import exceptions.PersistenceException;
+import exceptions.TechnicalException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -30,9 +33,18 @@ public class GlobalControllerExceptionHandler extends ResponseEntityExceptionHan
         ResponseDN response = new ResponseDN();
         response.addErrorMessage(ce.displayMessage(localizeServicePT, locale));
 
-        ResponseEntity responseEntity = new ResponseEntity(response, HttpStatus.CONFLICT);
+        HttpStatus status;
+        if (ce instanceof TechnicalException) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        } else if (ce instanceof LoginException) {
+            status = HttpStatus.UNAUTHORIZED;
+        } else if (ce instanceof PersistenceException) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        } else {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
 
-        return responseEntity;
+        return  new ResponseEntity(response, status);
     }
 
 

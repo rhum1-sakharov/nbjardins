@@ -21,4 +21,6 @@ public class MessageKeys {
     public static final String PDF_GENERATION_ERROR = "pdf.generation.error";
     public static final String CLIENT_ARTISAN_CONFLIT_SAUVEGARDE = "client.artisan.conflit.sauvegarde";
     public static final String LOGINUE_LOGINMANAGER_NOT_NULL = "loginue.loginmanager.not.null";
+    public static final String USER_NOT_FOUND = "user.not.found";
+    public static final String USER_HAS_NO_ROLE = "user.has.no.role";
 }

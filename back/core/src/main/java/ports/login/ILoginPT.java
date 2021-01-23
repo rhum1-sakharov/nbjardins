@@ -16,4 +16,5 @@ public interface ILoginPT {
     String generateToken(PersonneDN personne, List<String> roles);
 
 
+    String getUserName(String token) throws LoginException;
 }
