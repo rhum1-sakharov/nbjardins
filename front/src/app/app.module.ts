@@ -44,7 +44,6 @@ import {MessageService} from 'primeng/api';
 
   ],
   providers: [
-    MessageService,
     MessageService
   ],
   bootstrap: [AppComponent]

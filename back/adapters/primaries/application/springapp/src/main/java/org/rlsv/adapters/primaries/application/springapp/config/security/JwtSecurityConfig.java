@@ -1,6 +1,5 @@
 package org.rlsv.adapters.primaries.application.springapp.config.security;
 
-import enums.ROLES;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,6 +10,18 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 @Configuration
 public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    enum ROLES{
+        ARTISAN("ARTISAN"),
+        CLIENT("CLIENT");
+
+        String value;
+
+        ROLES(String value) {
+            this.value = value;
+        }
+
+
+    }
 
     JwtTokenProvider jwtTokenProvider;
 
@@ -35,7 +46,7 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers( "/authorization/**").permitAll()
                 .antMatchers( "/devis/**").permitAll()
-                .antMatchers( "/artisans/**").hasRole(ROLES.ROLE_ARTISAN.getValue())
+                .antMatchers( "/artisans/**").hasRole(ROLES.ARTISAN.value)
                 .anyRequest().authenticated()
                 .and()
                 .apply(new JwtConfigurer(jwtTokenProvider));
