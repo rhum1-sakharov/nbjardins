@@ -42,14 +42,23 @@ export class HttpService {
 
       // si non autorisé, on redirige vers la fenetre d'authentification
       if (err.status === 401) {
+        this.authSvc.connectedUser = new Utilisateur();
         setTimeout(() => {
-          this.authSvc.connectedUser = new Utilisateur();
-          this.router.navigate([localStorage.getItem(this.authSvc.keyRedirectUrl)]);
+          this.redirectTo(localStorage.getItem(this.authSvc.keyRedirectAuthorizedUrl));
         }, 5000);
 
       }
     }
     return of(null);
+  }
+
+  /**
+   * https://stackoverflow.com/questions/40983055/how-to-reload-the-current-route-with-the-angular-2-router
+   * @param {string | null} uri
+   */
+  redirectTo(uri: string | null): void{
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
+      this.router.navigate([uri]));
   }
 
   handleServerError(response: any): Observable<any> {

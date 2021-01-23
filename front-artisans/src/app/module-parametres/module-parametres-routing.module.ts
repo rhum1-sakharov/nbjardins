@@ -9,6 +9,7 @@ const routes: Routes = [
     path: 'parametres',
     component: ParametresComponent,
     canActivate: [AuthGuard],
+    runGuardsAndResolvers: 'always',
     data: USER_RIGHT_ARTISAN
   }
 ];

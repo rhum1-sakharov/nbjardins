@@ -34,6 +34,6 @@ export class AuthGuard implements CanActivate {
     }
 
     // stockage dans le localstorage
-    localStorage.setItem(this.authSvc.keyRedirectUrl, url);
+    localStorage.setItem(this.authSvc.keyRedirectAuthorizedUrl, url);
   }
 }

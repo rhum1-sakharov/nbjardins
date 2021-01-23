@@ -8,7 +8,7 @@ import {Router} from '@angular/router';
 export class AuthService {
 
   readonly keyJwtToken = 'jwt_token';
-  readonly keyRedirectUrl = 'redirect_url';
+  readonly keyRedirectAuthorizedUrl = 'redirect_authorized_url';
   readonly URL_INITIATE_GOOGLE_OAUTH_ARTISAN = `api/authorization/initiate-google-oauth?typePersonne=ARTISAN`;
   connectedUser: Utilisateur = new Utilisateur();
 
@@ -48,7 +48,7 @@ export class AuthService {
       }
     }
 
-    const redirectUrl = localStorage.getItem(this.keyRedirectUrl);
+    const redirectUrl = localStorage.getItem(this.keyRedirectAuthorizedUrl);
     if (redirectUrl && this.connectedUser.email !== '') {
       this.router.navigate([redirectUrl]);
     }
