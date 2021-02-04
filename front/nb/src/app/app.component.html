@@ -1,0 +1,61 @@
+<p-toast [key]="ROOT_KEY" [position]="MSG_POSITION" ></p-toast>
+<div class="body">
+
+  <div class="toolbar ">
+    <div class="d-flex ">
+      <div class="mr-auto">
+        <div class="d-flex">
+          <div class="mg-r-20 ">
+            <img class="ht-50 wh-50 rounded-image shadow" src="assets/nicolas.jpg">
+          </div>
+          <div class="title">{{title}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="second-level-menu shadow">
+    <div class="d-flex font-20">
+      <div class="mg-r-20 mg-l-40 cursor item-menu">
+        <a routerLink="accueil" routerLinkActive="active-menu">
+          <fa-icon [icon]="faHome" class=" mg-r-5"></fa-icon>
+          Accueil</a>
+      </div>
+      <div class="cursor item-menu">
+        <a routerLink="demander-un-devis" routerLinkActive="active-menu">
+          <fa-icon [icon]="faFileInvoice" class="mg-r-5"></fa-icon>
+          Demander un devis</a>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="d-flex flex-column main shadow">
+    <div class="flex-grow-1 pg-20">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+  <!--footer-->
+  <div class="d-flex ht-120 pg-14 footer">
+    <div class="mr-auto">
+
+    </div>
+    <div class="d-flex flex-column">
+      <a href="tel:0699235428" class="color-white">
+        <fa-icon [icon]="faMobile" class="mg-r-10 "></fa-icon>
+        06 99 23 54 28
+      </a>
+      <a class="mg-t-10 color-white" href="mailto:nicolas.boetsch@laposte.net" >
+        <fa-icon [icon]="faEnvelope" class="mg-r-5"></fa-icon>
+        nicolas.boetsch@laposte.net
+      </a>
+      <span class="mg-t-10">
+        <fa-icon [icon]="faMapMarkerAlt" class="mg-r-10"></fa-icon>366 chemin de fontblanque, 84210 Pernes
+      </span>
+    </div>
+  </div>
+</div>
+
+
+
