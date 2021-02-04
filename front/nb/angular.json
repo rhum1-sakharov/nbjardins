@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "front": {
+    "nb": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -15,8 +15,17 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-builders/custom-webpack:browser",
           "options": {
+            "customWebpackConfig": {
+              "path": "./webpack.config.js",
+              "mergeRules": {
+                "module": {
+                  "rules": "prepend"
+                }
+              },
+              "replaceDuplicatePlugins": true
+            },
             "outputPath": "dist/front",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -51,7 +60,7 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
-              "progress":true,
+              "progress": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -64,29 +73,36 @@
                   "maximumError": "10kb"
                 }
               ]
+            },
+            "dev": {
+              "aot": false,
+              "optimization": false
             }
           }
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
-            "browserTarget": "front:build",
+            "browserTarget": "nb:build",
             "sourceMap": {
-              "scripts": true,
-              "styles": true,
-              "vendor": true
+              "scripts": false,
+              "styles": false,
+              "vendor": false
             }
           },
           "configurations": {
             "production": {
-              "browserTarget": "front:build:production"
+              "browserTarget": "nb:build:production"
+            },
+            "dev": {
+              "browserTarget": "nb:build:dev"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "front:build"
+            "browserTarget": "nb:build"
           }
         },
         "test": {
@@ -123,15 +139,31 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "front:serve"
+            "devServerTarget": "nb:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "front:serve:production"
+              "devServerTarget": "nb:serve:production"
             }
+          }
+        },
+        "build-webpack": {
+          "builder": "@angular-devkit/build-webpack:webpack",
+          "options": {
+            "webpackConfig": "webpack.config.js"
+          }
+        },
+        "serve-webpack": {
+          "builder": "@angular-devkit/build-webpack:webpack-dev-server",
+          "options": {
+            "webpackConfig": "webpack.config.js"
           }
         }
       }
-    }},
-  "defaultProject": "front"
+    }
+  },
+  "defaultProject": "nb",
+  "resolutions": {
+    "webpack": "5.4.0"
+  }
 }
