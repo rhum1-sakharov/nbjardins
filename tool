@@ -30,14 +30,14 @@ case "$1" in
     		;;
 
 	fa) # generer le livrable du front angular
-	    cd "${curdir}/front"
+	    cd "${curdir}/front/nb"
 	    rm -rf node_modules
 	    npm ci
 	    ng build --prod
 		;;
 
 	fd) # compiler le front pour le dev
-	    cd "${curdir}/front-lib/projects/core-lib"
+	    cd "${curdir}/front/lib/projects/core-lib"
 	    ng build --watch &
 	    cd "${curdir}/front"
 	    npm start
