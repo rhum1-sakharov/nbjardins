@@ -1,0 +1,10 @@
+<p-toast [key]="ROOT_KEY" [position]="MSG_POSITION" ></p-toast>
+<app-login></app-login>
+
+<a routerLink="parametres">Parametres</a>
+<a routerLink="devis">Devis</a>
+<button label="Artisans" (click)="displayArtisan()">Artisans</button>
+
+{{authSvc.connectedUser.email}}
+
+<router-outlet></router-outlet>
