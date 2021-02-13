@@ -15,18 +15,9 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-builders/custom-webpack:browser",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "customWebpackConfig": {
-              "path": "./webpack.config.js",
-              "mergeRules": {
-                "module": {
-                  "rules": "prepend"
-                }
-              },
-              "replaceDuplicatePlugins": true
-            },
-            "outputPath": "dist/front",
+            "outputPath": "dist/nb",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -60,7 +51,7 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
-              "progress": true,
+              "progress":true,
               "budgets": [
                 {
                   "type": "initial",
@@ -73,29 +64,22 @@
                   "maximumError": "10kb"
                 }
               ]
-            },
-            "dev": {
-              "aot": false,
-              "optimization": false
             }
           }
         },
         "serve": {
-          "builder": "@angular-builders/custom-webpack:dev-server",
+          "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "nb:build",
             "sourceMap": {
-              "scripts": false,
-              "styles": false,
-              "vendor": false
+              "scripts": true,
+              "styles": true,
+              "vendor": true
             }
           },
           "configurations": {
             "production": {
               "browserTarget": "nb:build:production"
-            },
-            "dev": {
-              "browserTarget": "nb:build:dev"
             }
           }
         },
@@ -146,24 +130,8 @@
               "devServerTarget": "nb:serve:production"
             }
           }
-        },
-        "build-webpack": {
-          "builder": "@angular-devkit/build-webpack:webpack",
-          "options": {
-            "webpackConfig": "webpack.config.js"
-          }
-        },
-        "serve-webpack": {
-          "builder": "@angular-devkit/build-webpack:webpack-dev-server",
-          "options": {
-            "webpackConfig": "webpack.config.js"
-          }
         }
       }
-    }
-  },
-  "defaultProject": "nb",
-  "resolutions": {
-    "webpack": "5.4.0"
-  }
+    }},
+  "defaultProject": "nb"
 }
