@@ -1,5 +1,6 @@
 package usecases.personnes.clients;
 
+import aop.Transactionnal;
 import domains.ClientDN;
 import domains.PersonneDN;
 import domains.Personne__RoleDN;
@@ -44,35 +45,25 @@ public class EnregistrerClientUE extends AbstractUsecase {
      * Si oui, interdire l enregistrement
      * Si non, enregistrer la personne, l'associer au role client et au type client
      */
-    public ClientDN execute(DataProviderManager dpm, ClientDN client) throws CleanException {
+    @Transactionnal
+    public ClientDN execute(TransactionManagerPT tm, DataProviderManager dpm, ClientDN client) throws CleanException {
 
 
-        try {
+        PersonneDN personne = client.getPersonne();
 
-            dpm = this.transactionManager.createDataProviderManager(dpm);
-            transactionManager.begin(dpm);
+        String idPersonne = personneRepo.findIdByEmail(dpm, personne.getEmail());
 
-            PersonneDN personne = client.getPersonne();
+        // si la personne existe
+        if (Objects.nonNull(idPersonne)) {
+            Personne__RoleDN personne__role = personneRoleRepo.findByEmailAndRole(dpm, personne.getEmail(), ROLES.ROLE_ARTISAN.getValue());
 
-            String idPersonne = personneRepo.findIdByEmail(dpm, personne.getEmail());
-
-            // si la personne existe
-            if (Objects.nonNull(idPersonne)) {
-                Personne__RoleDN personne__role = personneRoleRepo.findByEmailAndRole(dpm, personne.getEmail(), ROLES.ROLE_ARTISAN.getValue());
-
-                // si c'est un artisan
-                if (Objects.nonNull(personne__role)) {
-                    throw new PersistenceException(localizeService.getMsg(ENREGISTRER_CLIENT_ERREUR_ARTISAN),null,ENREGISTRER_CLIENT_ERREUR_ARTISAN);
-                }
+            // si c'est un artisan
+            if (Objects.nonNull(personne__role)) {
+                throw new PersistenceException(localizeService.getMsg(ENREGISTRER_CLIENT_ERREUR_ARTISAN), null, ENREGISTRER_CLIENT_ERREUR_ARTISAN);
             }
-
-            client = saveClient(dpm, personne);
-
-            this.transactionManager.commit(dpm);
-
-        } finally {
-            this.transactionManager.close(dpm);
         }
+
+        client = saveClient(dpm, personne);
 
 
         return client;

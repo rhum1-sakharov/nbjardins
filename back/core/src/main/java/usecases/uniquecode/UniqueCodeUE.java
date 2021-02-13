@@ -1,5 +1,6 @@
 package usecases.uniquecode;
 
+import aop.Transactionnal;
 import enums.UNIQUE_CODE;
 import exceptions.CleanException;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -23,9 +24,8 @@ public class UniqueCodeUE extends AbstractUsecase {
     }
 
 
-    public String  execute(DataProviderManager dpm, UNIQUE_CODE unique_code) throws CleanException {
-
-        dpm = transactionManager.createDataProviderManager(dpm);
+    @Transactionnal
+    public String  execute(TransactionManagerPT tm, DataProviderManager dpm, UNIQUE_CODE unique_code) throws CleanException {
 
         String uniqueCode = "";
 

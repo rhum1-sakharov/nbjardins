@@ -2,6 +2,10 @@ package exceptions;
 
 public class TechnicalException extends CleanException {
 
+    public TechnicalException(String message) {
+        super(message);
+    }
+
 
     public TechnicalException(String message, Throwable cause, String msgKey) {
         super(message, cause, msgKey);

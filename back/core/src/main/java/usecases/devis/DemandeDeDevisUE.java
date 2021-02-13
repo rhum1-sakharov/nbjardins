@@ -1,7 +1,11 @@
 package usecases.devis;
 
 
-import domains.*;
+import aop.Transactionnal;
+import domains.ApplicationDN;
+import domains.ArtisanBanqueDN;
+import domains.ArtisanDN;
+import domains.DevisDN;
 import enums.STATUT_DEVIS;
 import enums.UNIQUE_CODE;
 import exceptions.CleanException;
@@ -20,9 +24,12 @@ import usecases.personnes.clients.EnregistrerClientUE;
 import usecases.uniquecode.UniqueCodeUE;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
-import static localizations.MessageKeys.*;
+import static localizations.MessageKeys.AUCUN_ARTISAN_APPLICATION;
+import static localizations.MessageKeys.SERVER_ERROR;
 
 
 public class DemandeDeDevisUE extends AbstractUsecase {
@@ -70,32 +77,20 @@ public class DemandeDeDevisUE extends AbstractUsecase {
      *
      * @return
      */
-    public DevisDN execute(DevisDN devis, Locale locale, ApplicationDN application, DataProviderManager dpm) throws CleanException {
+    @Transactionnal
+    public DevisDN execute(TransactionManagerPT tm, DevisDN devis, Locale locale, ApplicationDN application, DataProviderManager dpm) throws CleanException {
 
         try {
-
-            Locale currentLocale = locale;
-            dpm = this.transactionManager.createDataProviderManager(dpm);
-
-
-            //        TODO with excetpion manager
-            Map<String, Boolean> preconditions = new HashMap<>();
-            preconditions.put(localizeService.getMsg(PRENOM_OBLIGATOIRE, currentLocale), Objects.isNull(devis.getClient().getPersonne().getPrenom()));
-            preconditions.put(localizeService.getMsg(NOM_OBLIGATOIRE, currentLocale), Objects.isNull(devis.getClient().getPersonne().getNom()));
-            preconditions.put(localizeService.getMsg(EMAIL_OBLIGATOIRE, currentLocale), Objects.isNull(devis.getClient().getPersonne().getEmail()));
-            preconditions.put(localizeService.getMsg(DEVIS_MESSAGE_OBLIGATOIRE, currentLocale), Objects.isNull(devis.getMessage()));
-
-            this.transactionManager.begin(dpm);
 
             // recuperer l'artisan et le mettre dans la demande de devis
             addArtisanToDemandeDeDevis(dpm, application.getToken(), devis);
 
             // enregistrer le client
-            saveClient(dpm, devis.getClient());
+            enregistrerClientUE.execute(tm, dpm, devis.getClient());
 
 
             //enregistrer la demande de devis
-            saveDemandeDeDevis(dpm, devis);
+            saveDemandeDeDevis(tm, dpm, devis);
 
             // envoyer la demande de devis à l'artisan
             sendToWorker(application.getNom(), devis);
@@ -104,19 +99,10 @@ public class DemandeDeDevisUE extends AbstractUsecase {
             // envoyer l'accusé réception au client
             sendAcknowledgementToSender(application.getNom(), devis);
 
-
-            this.transactionManager.commit(dpm);
-
         } catch (DemandeDeDevisException de) {
-
-            this.transactionManager.rollback(dpm);
             throw new DemandeDeDevisException(de.getMessage(), de, de.getMsgKey());
         } catch (Exception ex) {
-
-            this.transactionManager.rollback(dpm);
             throw new DemandeDeDevisException(ex.getMessage(), ex, SERVER_ERROR, new String[]{ex.getMessage()});
-        } finally {
-            this.transactionManager.close(dpm);
         }
 
         // ne pas renvoyer l'artisan à l'appelant
@@ -125,12 +111,6 @@ public class DemandeDeDevisUE extends AbstractUsecase {
         return devis;
     }
 
-    private void saveClient(DataProviderManager dpm, ClientDN client) throws Exception {
-
-
-        enregistrerClientUE.execute(dpm, client);
-
-    }
 
     /**
      * Enregistrer le devis avec
@@ -143,7 +123,7 @@ public class DemandeDeDevisUE extends AbstractUsecase {
      * @param dpm
      * @throws DemandeDeDevisException
      */
-    private void saveDemandeDeDevis(DataProviderManager dpm, DevisDN devis) throws Exception {
+    private void saveDemandeDeDevis(TransactionManagerPT tm, DataProviderManager dpm, DevisDN devis) throws Exception {
         try {
 
 
@@ -184,7 +164,7 @@ public class DemandeDeDevisUE extends AbstractUsecase {
             devis.setStatut(STATUT_DEVIS.DEMANDE);
 
             // numero devis
-            String numeroDevis = uniqueCodeUE.execute(dpm, UNIQUE_CODE.NUMERO_DEVIS);
+            String numeroDevis = uniqueCodeUE.execute(tm, dpm, UNIQUE_CODE.NUMERO_DEVIS);
             devis.setNumeroDevis(numeroDevis);
 
             // rib et iban

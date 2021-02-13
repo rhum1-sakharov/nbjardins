@@ -1,8 +1,12 @@
 package usecases;
 
+import lombok.Getter;
+import lombok.Setter;
 import ports.localization.LocalizeServicePT;
 import ports.transactions.TransactionManagerPT;
 
+@Getter
+@Setter
 public class AbstractUsecase {
 
     protected LocalizeServicePT localizeService;

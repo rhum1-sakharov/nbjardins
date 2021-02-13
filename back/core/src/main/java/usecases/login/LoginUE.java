@@ -1,5 +1,6 @@
 package usecases.login;
 
+import aop.Transactionnal;
 import domains.*;
 import exceptions.CleanException;
 import exceptions.TechnicalException;
@@ -65,7 +66,8 @@ public class LoginUE extends AbstractUsecase {
      * @return
      * @throws Exception
      */
-    public AuthorizationDN execute(DataProviderManager dpm, LoginManager loginManager) throws CleanException {
+    @Transactionnal
+    public AuthorizationDN execute(TransactionManagerPT tm, DataProviderManager dpm, LoginManager loginManager) throws CleanException {
 
         try {
 
@@ -76,10 +78,6 @@ public class LoginUE extends AbstractUsecase {
 
             AuthorizationDN authorization = loginPT.getAuthorization(loginManager);
 
-            dpm = this.transactionManager.createDataProviderManager(dpm);
-
-            this.transactionManager.begin(dpm);
-
 
             PersonneDN personne = personneRepo.findByEmail(dpm, authorization.getEmail());
 
@@ -88,12 +86,12 @@ public class LoginUE extends AbstractUsecase {
                 switch (loginManager.getTypePersonne()) {
                     case CLIENT:
                         ClientDN client = initClient(authorization);
-                        client = this.enregistrerClientUE.execute(dpm, client);
+                        client = this.enregistrerClientUE.execute(tm,dpm, client);
                         personne = client.getPersonne();
                         break;
                     case ARTISAN:
                         ArtisanDN artisan = initArtisan(dpm, authorization);
-                        artisan = this.enregistrerArtisanUE.execute(dpm, artisan);
+                        artisan = this.enregistrerArtisanUE.execute(tm,dpm, artisan);
                         personne = artisan.getPersonne();
                         break;
                 }
@@ -103,14 +101,9 @@ public class LoginUE extends AbstractUsecase {
             String token = loginPT.generateToken(loginManager,personne, roles);
             authorization.setToken(token);
 
-            this.transactionManager.commit(dpm);
-
             return authorization;
         } catch (Exception ex) {
-            this.transactionManager.rollback(dpm);
             throw new TechnicalException(ex.getMessage(), ex, SERVER_ERROR, new String[]{ex.getMessage()});
-        } finally {
-            this.transactionManager.close(dpm);
         }
     }
 

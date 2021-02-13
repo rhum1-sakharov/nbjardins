@@ -64,7 +64,7 @@ public class LoginUETest {
 
         try {
 
-            loginUE.execute(null, loginManager);
+            loginUE.execute(transactionManager,null, loginManager);
 
         } catch (CleanException e) {
 

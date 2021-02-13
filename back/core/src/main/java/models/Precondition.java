@@ -13,8 +13,9 @@ import static localizations.MessageKeys.SERVER_ERROR;
 @NoArgsConstructor
 public class Precondition {
 
-    String message;
-    boolean condition;
+    private String message;
+    private boolean condition;
+    public static final int INDEX_NOT_FOUND = -1;
 
     public static Precondition init(String message, boolean condition) {
         return new Precondition(message, condition);
@@ -36,5 +37,24 @@ public class Precondition {
             throw new TechnicalException(sb.toString(), null, SERVER_ERROR, new String[]{""});
         }
 
+    }
+
+    /**
+     * Recuperer l'index d'un argument qui est de type clazz
+     * @param parameterTypes
+     * @param clazz
+     * @return {@value INDEX_NOT_FOUND} si pas d'index trouvé, sinon l'index
+     */
+    public static int getIndexClassType(Class<?>[] parameterTypes, Class clazz) {
+
+        int i = 0;
+        for (Class<?> aClass : parameterTypes) {
+            if (aClass == clazz) {
+                return i;
+            }
+            i++;
+        }
+
+        return INDEX_NOT_FOUND;
     }
 }

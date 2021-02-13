@@ -1,5 +1,6 @@
 package usecases.personnes.artisans;
 
+import aop.Transactionnal;
 import domains.ArtisanDN;
 import domains.PersonneDN;
 import domains.Personne__RoleDN;
@@ -46,14 +47,10 @@ public class EnregistrerArtisanUE extends AbstractUsecase {
      * Si oui, interdire l enregistrement
      * Si non, enregistrer la personne, l'associer au role artisan
      */
-    public ArtisanDN execute(DataProviderManager dpm, ArtisanDN artisan) throws CleanException {
-
+    @Transactionnal
+    public ArtisanDN execute(TransactionManagerPT tm, DataProviderManager dpm, ArtisanDN artisan) throws CleanException {
 
         try {
-
-            dpm = this.transactionManager.createDataProviderManager(dpm);
-
-            transactionManager.begin(dpm);
 
             PersonneDN personne = artisan.getPersonne();
 
@@ -69,14 +66,9 @@ public class EnregistrerArtisanUE extends AbstractUsecase {
 
             artisan = saveArtisan(dpm, artisan);
 
-            this.transactionManager.commit(dpm);
 
-        }catch(Exception ex){
-         this.transactionManager.rollback(dpm);
-         throw new TechnicalException(ex.getMessage(),ex,SERVER_ERROR,new String[]{ex.getMessage()});
-        }
-        finally {
-            this.transactionManager.close(dpm);
+        } catch (Exception ex) {
+            throw new TechnicalException(ex.getMessage(), ex, SERVER_ERROR, new String[]{ex.getMessage()});
         }
 
 

@@ -12,6 +12,10 @@ public abstract class CleanException extends Exception {
     String msgKey;
     String[] args;
 
+    public CleanException(String message) {
+        super(message);
+    }
+
     public CleanException(String message, Throwable cause, String msgKey) {
         super(message, cause);
         this.msgKey = msgKey;
@@ -27,9 +31,9 @@ public abstract class CleanException extends Exception {
     public String displayMessage(LocalizeServicePT localizeService, Locale locale) {
 
         if (this.args != null && this.args.length > 0) {
-            return MessageFormat.format(localizeService.getMsg(msgKey,locale), args);
+            return MessageFormat.format(localizeService.getMsg(msgKey, locale), args);
         }
-        return localizeService.getMsg(msgKey,locale);
+        return localizeService.getMsg(msgKey, locale);
     }
 
 }

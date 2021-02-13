@@ -4,6 +4,7 @@ import domains.DevisDN;
 import domains.wrapper.ResponseDN;
 import exceptions.CleanException;
 import org.springframework.web.bind.annotation.*;
+import ports.transactions.TransactionManagerPT;
 import usecases.devis.DemandeDeDevisUE;
 import utils.Utils;
 
@@ -23,7 +24,8 @@ public class DevisController {
     @PostMapping(value = "/demander-devis")
     public ResponseDN<DevisDN> demanderDevis(@RequestParam("app-token") String appToken, @RequestBody DevisDN devis, Locale locale) throws CleanException {
 
-        devis= demandeDeDevisUE.execute(devis, locale, Utils.initApplication(appToken), null);
+        TransactionManagerPT tm = demandeDeDevisUE.getTransactionManager();
+        devis = demandeDeDevisUE.execute(tm, devis, locale, Utils.initApplication(appToken), null);
 
         return Utils.initResponse(devis);
     }
