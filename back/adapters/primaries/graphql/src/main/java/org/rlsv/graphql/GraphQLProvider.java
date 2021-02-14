@@ -20,7 +20,9 @@ public class GraphQLProvider {
     private GraphQL graphQL;
     private GraphQLTaxeDataFetcher graphQLTaxeDataFetcher;
 
-    public GraphQLProvider() throws IOException {
+    public GraphQLProvider(GraphQLTaxeDataFetcher graphQLTaxeDataFetcher) throws IOException {
+
+        this.graphQLTaxeDataFetcher = graphQLTaxeDataFetcher;
 
         URL url = Resources.getResource("schema.graphqls");
         String sdl = Resources.toString(url, Charsets.UTF_8);
