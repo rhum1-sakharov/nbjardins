@@ -1,0 +1,9 @@
+type Query {
+  taxeById(id: ID): Taxe
+}
+
+type Taxe {
+  id: ID
+  nom: String
+  taux: Float
+}
