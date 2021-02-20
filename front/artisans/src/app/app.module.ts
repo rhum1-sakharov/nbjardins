@@ -13,7 +13,6 @@ import {AuthInterceptorService} from './login/auth-interceptor.service';
 import {ToastModule} from 'primeng/toast';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ModuleCoreModule} from './module-core/module-core.module';
-import {GraphQLModule} from './graphql.module';
 
 @NgModule({
   declarations: [
@@ -29,7 +28,6 @@ import {GraphQLModule} from './graphql.module';
     CoreLibModule,
     ToastModule,
     ModuleCoreModule,
-    GraphQLModule,
     HttpClientModule
 
   ],
