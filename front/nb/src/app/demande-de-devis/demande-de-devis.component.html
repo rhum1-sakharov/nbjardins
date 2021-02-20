@@ -46,58 +46,8 @@
 
       <div class="p-col-12 mg-t-10">
         <div class="p-inputgroup">
-          <span class="p-inputgroup-addon"> <div class="wh-80">Société</div></span>
-          <input type="text" formControlName="societeCtl" pInputText placeholder="">
-        </div>
-      </div>
-
-      <div class="p-col-12 mg-t-10">
-        <div class="p-inputgroup">
-          <span class="p-inputgroup-addon"> <div class="wh-80">Fonction</div></span>
-          <input type="text" formControlName="fonctionCtl" pInputText placeholder="">
-        </div>
-      </div>
-
-
-      <div class="p-col-12 mg-t-10">
-        <div class="p-inputgroup">
-          <span class="p-inputgroup-addon"> <div class="wh-80">Adresse</div></span>
-          <input type="text" formControlName="adresseCtl" pInputText placeholder="">
-        </div>
-      </div>
-
-      <div class="p-col-12 mg-t-10">
-        <div class="p-inputgroup">
-          <span class="p-inputgroup-addon"> <div class="wh-80">Ville</div></span>
-          <p-autoComplete field="nom" formControlName="villeCtl"
-                          [suggestions]="villes" (completeMethod)="search($event)">
-            <ng-template let-item pTemplate="item">
-              <div class="d-flex">
-                <div class="mr-auto">
-                  {{item.nom}}
-                </div>
-                <div>
-                  {{item.codePostal}}
-                </div>
-              </div>
-            </ng-template>
-          </p-autoComplete>
-          <span class="mg-l-10 lh-40"
-                *ngIf="form.get('villeCtl').value">{{form.get('villeCtl').value.codePostal}}</span>
-        </div>
-      </div>
-
-      <div class="p-col-12 mg-t-10">
-        <div class="p-inputgroup">
-          <span class="p-inputgroup-addon"> <div class="wh-80">Téléphone</div></span>
-          <input class="max-wh-400" formControlName="telephoneCtl" type="tel" pInputText placeholder="">
-        </div>
-      </div>
-
-      <div class="p-col-12 mg-t-10">
-        <div class="p-inputgroup">
           <span class="p-inputgroup-addon"> <div class="wh-80">Email<span class="color-nature font-16"><b>*</b></span></div></span>
-          <input class="max-wh-400" formControlName="emailCtl" type="email" pInputText placeholder="">
+          <input formControlName="emailCtl" type="email" pInputText placeholder="">
         </div>
       </div>
       <div *ngIf="validatorsSvc.shouldShowRequiredError(form.get('emailCtl'))" class="color-nature">L'email est

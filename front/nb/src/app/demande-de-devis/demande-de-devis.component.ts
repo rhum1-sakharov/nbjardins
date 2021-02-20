@@ -44,11 +44,6 @@ export class DemandeDeDevisComponent implements OnInit {
     this.form = new FormGroup({
       nomCtl: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
       prenomCtl: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
-      societeCtl: new FormControl(''),
-      fonctionCtl: new FormControl(''),
-      adresseCtl: new FormControl(''),
-      villeCtl: new FormControl(''),
-      telephoneCtl: new FormControl(''),
       emailCtl: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50), Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
       sujetCtl: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
       messageCtl: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(800)]),
@@ -69,18 +64,11 @@ export class DemandeDeDevisComponent implements OnInit {
 
       const nom = this.form.get('nomCtl').value;
       const prenom = this.form.get('prenomCtl').value;
-      const societe = this.form.get('societeCtl').value;
-      const fonction = this.form.get('fonctionCtl').value;
-      const adresse = this.form.get('adresseCtl').value;
-      const ville = this.form.get('villeCtl').value ? this.form.get('villeCtl').value : null;
-      const nomVille = ville ? ville.nom : null;
-      const codePostal = ville ? ville.codePostal : null;
-      const telephone = this.form.get('telephoneCtl').value;
       const email = this.form.get('emailCtl').value;
       const sujet = this.form.get('sujetCtl').value;
       const message = this.form.get('messageCtl').value;
 
-      const personne = new MPersonne(nom, prenom, telephone, societe, fonction, adresse, nomVille, codePostal, email);
+      const personne = new MPersonne(nom, prenom, '', '', '', '', '', '', email);
       const client = new MClient(personne);
       const demandeDeDevis = new MDemandeDeDevis(client, sujet, message);
 
