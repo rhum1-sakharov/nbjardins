@@ -8,11 +8,12 @@ import {ModuleParametresModule} from './module-parametres/module-parametres.modu
 import {ModuleDevisModule} from './module-devis/module-devis.module';
 import {CoreLibModule} from 'rhum1-sakharov-core-lib';
 import {MessageService} from 'primeng/api';
-import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AuthInterceptorService} from './login/auth-interceptor.service';
 import {ToastModule} from 'primeng/toast';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ModuleCoreModule} from './module-core/module-core.module';
+import {GraphQLModule} from './graphql.module';
 
 @NgModule({
   declarations: [
@@ -27,11 +28,15 @@ import {ModuleCoreModule} from './module-core/module-core.module';
     ModuleDevisModule,
     CoreLibModule,
     ToastModule,
-    ModuleCoreModule
+    ModuleCoreModule,
+    GraphQLModule,
+    HttpClientModule
 
   ],
-  providers: [MessageService,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }],
+  providers: [
+    MessageService,
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
