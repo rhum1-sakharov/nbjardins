@@ -48,7 +48,7 @@ public class EnregistrerArtisanUE extends AbstractUsecase {
      * Si non, enregistrer la personne, l'associer au role artisan
      */
     @Transactionnal
-    public ArtisanDN execute(TransactionManagerPT tm, DataProviderManager dpm, ArtisanDN artisan) throws CleanException {
+    public ArtisanDN execute( DataProviderManager dpm, ArtisanDN artisan) throws CleanException {
 
         try {
 

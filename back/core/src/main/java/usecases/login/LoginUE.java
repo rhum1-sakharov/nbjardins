@@ -67,7 +67,7 @@ public class LoginUE extends AbstractUsecase {
      * @throws Exception
      */
     @Transactionnal
-    public AuthorizationDN execute(TransactionManagerPT tm, DataProviderManager dpm, LoginManager loginManager) throws CleanException {
+    public AuthorizationDN execute( DataProviderManager dpm, LoginManager loginManager) throws CleanException {
 
         try {
 
@@ -86,12 +86,12 @@ public class LoginUE extends AbstractUsecase {
                 switch (loginManager.getTypePersonne()) {
                     case CLIENT:
                         ClientDN client = initClient(authorization);
-                        client = this.enregistrerClientUE.execute(tm,dpm, client);
+                        client = this.enregistrerClientUE.execute(dpm, client);
                         personne = client.getPersonne();
                         break;
                     case ARTISAN:
                         ArtisanDN artisan = initArtisan(dpm, authorization);
-                        artisan = this.enregistrerArtisanUE.execute(tm,dpm, artisan);
+                        artisan = this.enregistrerArtisanUE.execute(dpm, artisan);
                         personne = artisan.getPersonne();
                         break;
                 }

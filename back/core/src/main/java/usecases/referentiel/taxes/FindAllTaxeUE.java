@@ -21,7 +21,7 @@ public class FindAllTaxeUE extends AbstractUsecase {
     }
 
     @Transactionnal
-    public List<TaxeDN> execute(TransactionManagerPT tm, DataProviderManager dpm) throws CleanException {
+    public List<TaxeDN> execute( DataProviderManager dpm) throws CleanException {
 
         List<TaxeDN> taxeList = taxeRepo.findAll(dpm);
 

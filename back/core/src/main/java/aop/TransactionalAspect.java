@@ -1,5 +1,6 @@
 package aop;
 
+import exceptions.TechnicalException;
 import models.Precondition;
 import org.apache.commons.lang3.ArrayUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -10,10 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ports.transactions.TransactionManagerPT;
 import transactions.DataProviderManager;
+import usecases.AbstractUsecase;
 
-import java.util.Arrays;
 import java.util.Objects;
-import java.util.Optional;
 
 @Aspect
 public class TransactionalAspect {
@@ -38,13 +38,13 @@ public class TransactionalAspect {
         TransactionManagerPT tm = null;
 
         try {
-            System.out.println("TransactionalAspect's aroundAdvice's body is now executed Before yourMethodAround is called.");
+            LOG.debug("TransactionalAspect's aroundAdvice's body is now executed Before yourMethodAround is called.");
 
-            tm = getInstanceOfTm(args);
+            tm = getInstanceOfTm(joinPoint);
             int indexDpmArg = Precondition.getIndexClassType(parameterTypes, DataProviderManager.class);
 
             Precondition.validate(
-                    Precondition.init("no transaction manager provided", Objects.nonNull(tm)),
+                    Precondition.init("no transaction manager provided. In order to use @Transactional annotation, your method class needs to extends AbstractUseCase. In fact AbstractUseCase init the transaction manager!", Objects.nonNull(tm)),
                     Precondition.init("no dpm provided", indexDpmArg != Precondition.INDEX_NOT_FOUND)
             );
 
@@ -72,7 +72,7 @@ public class TransactionalAspect {
 
         } finally {
 
-            System.out.println("TransactionalAspect's aroundAdvice's body is now executed After yourMethodAround is called.");
+            LOG.debug("TransactionalAspect's aroundAdvice's body is now executed After yourMethodAround is called.");
 
             if (Objects.nonNull(tm)) {
                 tm.close(dpm);
@@ -82,18 +82,14 @@ public class TransactionalAspect {
     }
 
 
-    private TransactionManagerPT getInstanceOfTm(Object[] args) {
-        TransactionManagerPT tm = null;
+    private TransactionManagerPT getInstanceOfTm(ProceedingJoinPoint joinPoint) throws TechnicalException {
 
-        Optional<Object> optional = Arrays.stream(args)
-                .filter(item -> item instanceof TransactionManagerPT)
-                .findFirst();
-
-        if (optional.isPresent()) {
-            tm = (TransactionManagerPT) optional.get();
+        try {
+            AbstractUsecase au = (AbstractUsecase) joinPoint.getThis();
+            return au.getTransactionManager();
+        } catch (ClassCastException cce) {
+            return null;
         }
-
-        return tm;
     }
 
     private <T> int getIndexOfClassArg(Object[] args, Class<T> clazz) {

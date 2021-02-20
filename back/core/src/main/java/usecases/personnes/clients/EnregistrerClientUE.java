@@ -46,7 +46,7 @@ public class EnregistrerClientUE extends AbstractUsecase {
      * Si non, enregistrer la personne, l'associer au role client et au type client
      */
     @Transactionnal
-    public ClientDN execute(TransactionManagerPT tm, DataProviderManager dpm, ClientDN client) throws CleanException {
+    public ClientDN execute( DataProviderManager dpm, ClientDN client) throws CleanException {
 
 
         PersonneDN personne = client.getPersonne();

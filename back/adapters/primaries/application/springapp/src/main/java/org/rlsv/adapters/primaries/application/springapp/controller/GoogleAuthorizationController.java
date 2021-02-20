@@ -84,7 +84,7 @@ public class GoogleAuthorizationController {
 
         // creer le compte s'il n'existe pas et recuperer l'authoriation
         TransactionManagerPT tm = loginUE.getTransactionManager();
-        AuthorizationDN authorization = loginUE.execute(tm, null, loginManager);
+        AuthorizationDN authorization = loginUE.execute( null, loginManager);
 
 
         // rediriger sur l'application front en  fournissant le jwt en parametre

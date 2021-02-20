@@ -72,7 +72,7 @@ public class EnregistrerClientUETest {
             Mockito.when(this.localizeService.getMsg(ENREGISTRER_CLIENT_ERREUR_ARTISAN)).thenReturn(errorMessage);
             Mockito.when(this.clientRepo.saveByIdPersonne(null, initPersonneStub().getId())).thenReturn(initClientStub(initPersonneStub()));
 
-            client = this.enregistrerClientUE.execute(transactionManager,null, client);
+            client = this.enregistrerClientUE.execute(null, client);
 
         } catch (CleanException e) {
 
@@ -89,7 +89,7 @@ public class EnregistrerClientUETest {
         Mockito.when(this.personneRoleRepo.findByEmailAndRole(null, client.getPersonne().getEmail(), ROLES.ROLE_CLIENT.getValue())).thenReturn(initPersonneRoleStub());
         Mockito.when(this.clientRepo.saveByIdPersonne(null, initPersonneStub().getId())).thenReturn(initClientStub(initPersonneStub()));
 
-        client = this.enregistrerClientUE.execute(transactionManager,null, client);
+        client = this.enregistrerClientUE.execute(null, client);
 
         Assertions.assertThat(Objects.nonNull(client)).isTrue();
 

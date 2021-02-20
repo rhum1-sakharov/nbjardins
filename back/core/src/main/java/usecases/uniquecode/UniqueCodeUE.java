@@ -25,7 +25,7 @@ public class UniqueCodeUE extends AbstractUsecase {
 
 
     @Transactionnal
-    public String  execute(TransactionManagerPT tm, DataProviderManager dpm, UNIQUE_CODE unique_code) throws CleanException {
+    public String  execute( DataProviderManager dpm, UNIQUE_CODE unique_code) throws CleanException {
 
         String uniqueCode = "";
 

@@ -16,7 +16,7 @@ public class TaxeDataFetcher {
     }
 
     public DataFetcher getAllTaxesDataFetcher() throws CleanException {
-        return dataFetchingEnvironment -> findAllTaxeUE.execute(tm, null);
+        return dataFetchingEnvironment -> findAllTaxeUE.execute( null);
     }
 
 }

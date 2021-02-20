@@ -78,7 +78,7 @@ public class DemandeDeDevisUE extends AbstractUsecase {
      * @return
      */
     @Transactionnal
-    public DevisDN execute(TransactionManagerPT tm, DevisDN devis, Locale locale, ApplicationDN application, DataProviderManager dpm) throws CleanException {
+    public DevisDN execute( DevisDN devis, Locale locale, ApplicationDN application, DataProviderManager dpm) throws CleanException {
 
         try {
 
@@ -86,11 +86,11 @@ public class DemandeDeDevisUE extends AbstractUsecase {
             addArtisanToDemandeDeDevis(dpm, application.getToken(), devis);
 
             // enregistrer le client
-            enregistrerClientUE.execute(tm, dpm, devis.getClient());
+            enregistrerClientUE.execute( dpm, devis.getClient());
 
 
             //enregistrer la demande de devis
-            saveDemandeDeDevis(tm, dpm, devis);
+            saveDemandeDeDevis( dpm, devis);
 
             // envoyer la demande de devis à l'artisan
             sendToWorker(application.getNom(), devis);
@@ -123,7 +123,7 @@ public class DemandeDeDevisUE extends AbstractUsecase {
      * @param dpm
      * @throws DemandeDeDevisException
      */
-    private void saveDemandeDeDevis(TransactionManagerPT tm, DataProviderManager dpm, DevisDN devis) throws Exception {
+    private void saveDemandeDeDevis( DataProviderManager dpm, DevisDN devis) throws Exception {
         try {
 
 
@@ -164,7 +164,7 @@ public class DemandeDeDevisUE extends AbstractUsecase {
             devis.setStatut(STATUT_DEVIS.DEMANDE);
 
             // numero devis
-            String numeroDevis = uniqueCodeUE.execute(tm, dpm, UNIQUE_CODE.NUMERO_DEVIS);
+            String numeroDevis = uniqueCodeUE.execute( dpm, UNIQUE_CODE.NUMERO_DEVIS);
             devis.setNumeroDevis(numeroDevis);
 
             // rib et iban

@@ -7,7 +7,7 @@ type Query {
 }
 
 type Taxe {
-    id: String
+    id: ID
     nom: String
     taux: Float
 }
