@@ -4,10 +4,16 @@ schema {
 
 type Query {
     allTaxes: [Taxe]
+    allConditionsReglements: [ConditionReglement]
 }
 
 type Taxe {
     id: ID
     nom: String
     taux: Float
+}
+
+type ConditionReglement {
+    id : ID
+    condition: String
 }

@@ -11,6 +11,7 @@ import transactions.DataProviderManager;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import java.util.List;
 
 public class ConditionDeReglementRepoAR extends RepoAR implements ConditionDeReglementRepoPT {
 
@@ -43,6 +44,19 @@ public class ConditionDeReglementRepoAR extends RepoAR implements ConditionDeReg
         ConditionDeReglement cdr= PersistenceUtils.getSingleResult(query);
 
         return ConditionDeReglementMapper.INSTANCE.entityToDomain(cdr);
+
+    }
+
+    @Override
+    public List<ConditionDeReglementDN> findAll(DataProviderManager dpm) {
+
+        EntityManager em = PersistenceUtils.getEntityManager(dpm);
+
+        TypedQuery<ConditionDeReglement> query = em.createQuery("SELECT cr from ConditionDeReglement  cr order by cr.condition", ConditionDeReglement.class);
+
+        List<ConditionDeReglement> conditionDeReglementList = PersistenceUtils.getResultList(query);
+
+        return ConditionDeReglementMapper.INSTANCE.entitiesToDomains(conditionDeReglementList);
 
     }
 }

@@ -9,6 +9,7 @@ import graphql.schema.idl.RuntimeWiring;
 import graphql.schema.idl.SchemaGenerator;
 import graphql.schema.idl.SchemaParser;
 import graphql.schema.idl.TypeDefinitionRegistry;
+import org.rlsv.graphql.referentiel.ConditionReglementDataFetcher;
 import org.rlsv.graphql.referentiel.TaxeDataFetcher;
 
 import java.io.IOException;
@@ -20,10 +21,12 @@ public class GraphQLProvider {
 
     private GraphQL graphQL;
     private TaxeDataFetcher taxeDataFetcher;
+    private ConditionReglementDataFetcher conditionReglementDataFetcher;
 
-    public GraphQLProvider(TaxeDataFetcher taxeDataFetcher) throws IOException, CleanException {
+    public GraphQLProvider(TaxeDataFetcher taxeDataFetcher, ConditionReglementDataFetcher conditionReglementDataFetcher) throws IOException, CleanException {
 
         this.taxeDataFetcher = taxeDataFetcher;
+        this.conditionReglementDataFetcher = conditionReglementDataFetcher;
 
         URL url = Resources.getResource("schema.graphqls");
         String sdl = Resources.toString(url, Charsets.UTF_8);
@@ -46,7 +49,10 @@ public class GraphQLProvider {
 
         return RuntimeWiring.newRuntimeWiring()
                 .type(newTypeWiring("Query")
-                        .dataFetcher("allTaxes", taxeDataFetcher.getAllTaxesDataFetcher()))
+                        .dataFetcher("allTaxes", taxeDataFetcher.getAllTaxesDataFetcher())
+                        .dataFetcher("allConditionsReglements", conditionReglementDataFetcher.getAllConditionReglementDataFetcher())
+                )
+
                 .build();
     }
 
