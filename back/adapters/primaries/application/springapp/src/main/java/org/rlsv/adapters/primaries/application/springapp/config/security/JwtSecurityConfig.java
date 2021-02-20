@@ -49,6 +49,7 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
+                .antMatchers( "/graphql").permitAll()
                 .antMatchers( "/authorization/**").permitAll()
                 .antMatchers( "/devis/**").permitAll()
                 .antMatchers( "/artisans/**").hasRole(ROLES.ARTISAN.value)

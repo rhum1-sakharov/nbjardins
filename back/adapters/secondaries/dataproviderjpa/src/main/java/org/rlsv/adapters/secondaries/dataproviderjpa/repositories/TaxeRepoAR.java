@@ -13,6 +13,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.math.BigDecimal;
+import java.util.List;
 
 public class TaxeRepoAR extends RepoAR implements TaxeRepoPT {
 
@@ -48,6 +49,19 @@ public class TaxeRepoAR extends RepoAR implements TaxeRepoPT {
         Taxe taxe = PersistenceUtils.getSingleResult(query);
 
         return TaxeMapper.INSTANCE.entityToDomain(taxe);
+
+    }
+
+    @Override
+    public List<TaxeDN> findAll(DataProviderManager dpm) {
+
+        EntityManager em = PersistenceUtils.getEntityManager(dpm);
+
+        TypedQuery<Taxe> query = em.createQuery("SELECT t from Taxe  t order by t.nom", Taxe.class);
+
+        List<Taxe> taxeList = PersistenceUtils.getResultList(query);
+
+        return TaxeMapper.INSTANCE.entitiesToDomains(taxeList);
 
     }
 }

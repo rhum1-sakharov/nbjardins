@@ -2,13 +2,14 @@ package org.rlsv.graphql;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
+import exceptions.CleanException;
 import graphql.GraphQL;
 import graphql.schema.GraphQLSchema;
 import graphql.schema.idl.RuntimeWiring;
 import graphql.schema.idl.SchemaGenerator;
 import graphql.schema.idl.SchemaParser;
 import graphql.schema.idl.TypeDefinitionRegistry;
-import org.rlsv.graphql.referentiel.GraphQLTaxeDataFetcher;
+import org.rlsv.graphql.referentiel.TaxeDataFetcher;
 
 import java.io.IOException;
 import java.net.URL;
@@ -18,11 +19,11 @@ import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 public class GraphQLProvider {
 
     private GraphQL graphQL;
-    private GraphQLTaxeDataFetcher graphQLTaxeDataFetcher;
+    private TaxeDataFetcher taxeDataFetcher;
 
-    public GraphQLProvider(GraphQLTaxeDataFetcher graphQLTaxeDataFetcher) throws IOException {
+    public GraphQLProvider(TaxeDataFetcher taxeDataFetcher) throws IOException, CleanException {
 
-        this.graphQLTaxeDataFetcher = graphQLTaxeDataFetcher;
+        this.taxeDataFetcher = taxeDataFetcher;
 
         URL url = Resources.getResource("schema.graphqls");
         String sdl = Resources.toString(url, Charsets.UTF_8);
@@ -31,7 +32,7 @@ public class GraphQLProvider {
     }
 
 
-    private GraphQLSchema buildSchema(String sdl) {
+    private GraphQLSchema buildSchema(String sdl) throws CleanException {
 
         TypeDefinitionRegistry typeRegistry = new SchemaParser().parse(sdl);
         RuntimeWiring runtimeWiring = buildWiring();
@@ -41,13 +42,16 @@ public class GraphQLProvider {
 
     }
 
-    private RuntimeWiring buildWiring() {
+    private RuntimeWiring buildWiring() throws CleanException {
 
         return RuntimeWiring.newRuntimeWiring()
                 .type(newTypeWiring("Query")
-                        .dataFetcher("taxeById", graphQLTaxeDataFetcher.getTaxeByIdDataFetcher()))
-                .type(newTypeWiring("Taxe"))
+                        .dataFetcher("allTaxes", taxeDataFetcher.getAllTaxesDataFetcher()))
                 .build();
+    }
+
+    public GraphQL getGraphQL(){
+        return this.graphQL;
     }
 
 }

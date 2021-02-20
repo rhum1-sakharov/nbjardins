@@ -16,6 +16,7 @@
         <module>adapters/secondaries/flying-saucer-pdf</module>
         <module>adapters/secondaries/dataproviderjpa</module>
         <module>adapters/secondaries/security</module>
+        <module>adapters/primaries/graphql</module>
         <module>adapters/primaries/application/springapp</module>
     </modules>
 
@@ -283,7 +284,19 @@
             <dependency>
                 <groupId>com.graphql-java</groupId>
                 <artifactId>graphql-java</artifactId>
-                <version>11.0</version>
+                <version>16.2</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.graphql-java</groupId>
+                <artifactId>graphql-java-spring-boot-starter-webmvc</artifactId>
+                <version>1.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-thymeleaf</artifactId>
+                <version>${version.springboot}</version>
             </dependency>
 
         </dependencies>

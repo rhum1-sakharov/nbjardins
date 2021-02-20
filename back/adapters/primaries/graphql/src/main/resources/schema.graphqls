@@ -1,9 +1,13 @@
+schema {
+    query: Query
+}
+
 type Query {
-  taxeById(id: ID): Taxe
+    allTaxes: [Taxe]
 }
 
 type Taxe {
-  id: ID
-  nom: String
-  taux: Float
+    id: String
+    nom: String
+    taux: Float
 }
