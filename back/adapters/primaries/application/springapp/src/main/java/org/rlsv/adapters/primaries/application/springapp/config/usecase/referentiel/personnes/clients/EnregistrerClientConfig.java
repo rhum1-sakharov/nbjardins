@@ -1,4 +1,4 @@
-package org.rlsv.adapters.primaries.application.springapp.config.usecase;
+package org.rlsv.adapters.primaries.application.springapp.config.usecase.referentiel.personnes.clients;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
