@@ -1,9 +1,8 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {ParametresComponent} from './parametres/parametres.component';
-import {AuthGuard} from '../login/auth.guard';
-import {USER_RIGHT_ARTISAN} from '../login/auth.service';
 import {ParametresResolverService} from './parametres/parametres-resolver.service';
+import {AuthGuard, USER_RIGHT_ARTISAN} from 'rhum1-sakharov-core-lib';
 
 const routes: Routes = [
   {
@@ -12,8 +11,8 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     runGuardsAndResolvers: 'always',
     data: USER_RIGHT_ARTISAN,
-    resolve:{
-      parametresSupplier : ParametresResolverService
+    resolve: {
+      parametresSupplier: ParametresResolverService
     }
   }
 ];
@@ -22,4 +21,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ModuleParametresRoutingModule { }
+export class ModuleParametresRoutingModule {
+}

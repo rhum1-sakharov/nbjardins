@@ -1,18 +1,18 @@
 import {Injectable} from '@angular/core';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {Router} from '@angular/router';
+import {KEY_JWT_TOKEN, KEY_REDIRECT_AUTHORIZED_URL, KEY_USER} from '../constants/constants';
+import {ConfirmationService} from 'primeng/api';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  readonly keyJwtToken = 'jwt_token';
-  readonly keyRedirectAuthorizedUrl = 'redirect_authorized_url';
   readonly URL_INITIATE_GOOGLE_OAUTH_ARTISAN = `api/authorization/initiate-google-oauth?typePersonne=ARTISAN`;
-  connectedUser: Utilisateur = new Utilisateur();
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private confirmationSvc: ConfirmationService,) {
   }
 
   /**
@@ -37,19 +37,21 @@ export class AuthService {
     const token: string = urlParams.get('token') || '';
 
     if (token !== '') {
-      localStorage.setItem(this.keyJwtToken, token);
+      localStorage.setItem(KEY_JWT_TOKEN, token);
       this.createUser(token);
     } else {
-      const localToken = localStorage.getItem(this.keyJwtToken);
+      const localToken = localStorage.getItem(KEY_JWT_TOKEN);
       if (localToken !== null) {
         this.createUser(localToken);
       } else {
-        this.connectedUser = new Utilisateur();
+        localStorage.removeItem(KEY_USER);
       }
     }
 
-    const redirectUrl = localStorage.getItem(this.keyRedirectAuthorizedUrl);
-    if (redirectUrl && this.connectedUser.email !== '') {
+    const redirectUrl = localStorage.getItem(KEY_REDIRECT_AUTHORIZED_URL);
+
+    const user: Utilisateur = JSON.parse(localStorage.getItem(KEY_USER) as string);
+    if (redirectUrl && user && user.email !== '') {
       this.router.navigate([redirectUrl]);
     }
   }
@@ -71,6 +73,25 @@ export class AuthService {
     return false;
   }
 
+  confirmReconnect() {
+
+    // on reset l'utilisateur
+    localStorage.removeItem(KEY_USER);
+
+    this.confirmationSvc.confirm({
+      message: 'Votre session est invalide, veuillez vous reconnecter.',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+
+      accept: () => {
+        window.location.href = this.URL_INITIATE_GOOGLE_OAUTH_ARTISAN;
+      },
+      reject: () => {
+        this.router.navigate(['/']);
+      }
+    })
+  }
+
   private createUser(token: string): void {
 
     const helper = new JwtHelperService();
@@ -79,11 +100,13 @@ export class AuthService {
     const isExpired = helper.isTokenExpired(token);
     console.log(decodedToken, expirationDate, isExpired);
 
-    this.connectedUser = new Utilisateur();
-    this.connectedUser.email = decodedToken.sub;
-    this.connectedUser.nom = decodedToken.nom;
-    this.connectedUser.prenom = decodedToken.prenom;
-    this.connectedUser.roles = this.getRoles(decodedToken.roles);
+    const user = new Utilisateur();
+    user.email = decodedToken.sub;
+    user.nom = decodedToken.nom;
+    user.prenom = decodedToken.prenom;
+    user.roles = this.getRoles(decodedToken.roles);
+
+    localStorage.setItem(KEY_USER, JSON.stringify(user));
 
   }
 

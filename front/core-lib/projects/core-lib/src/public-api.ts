@@ -18,11 +18,16 @@ export * from './lib/models/m-request';
 export * from './lib/models/m-ville';
 export * from './lib/models/model';
 
+export * from './lib/constants/constants';
+
 export * from './lib/techniques/http.service';
 export * from './lib/techniques/loading.service';
 export * from './lib/techniques/toaster.service';
 export * from './lib/techniques/validators.service';
 export * from './lib/techniques/utils.service';
+export * from './lib/techniques/auth.guard';
+export * from './lib/techniques/auth.service';
+export * from './lib/techniques/auth-interceptor.service';
 
 
 

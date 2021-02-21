@@ -3,7 +3,7 @@ import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/rou
 import {Observable} from 'rxjs';
 import {Promise} from 'q';
 import {ParametresHttpService} from '../../module-core/http/parametres-http.service';
-import {AuthService} from '../../login/auth.service';
+import {AuthService, KEY_USER} from 'rhum1-sakharov-core-lib';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,8 @@ export class ParametresResolverService implements Resolve<any> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
 
-    return this.parametresHttp.prepare(this.auth.connectedUser.email);
+    const user = JSON.parse(localStorage.getItem(KEY_USER) as string);
+    return this.parametresHttp.prepare(user.email);
 
   }
 }

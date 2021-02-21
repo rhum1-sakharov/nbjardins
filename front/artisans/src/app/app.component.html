@@ -1,10 +1,15 @@
 <p-toast [key]="ROOT_KEY" [position]="MSG_POSITION" ></p-toast>
+<p-confirmDialog #cd rejectButtonStyleClass="p-button-outlined"  header="Confirmation" icon="pi pi-exclamation-triangle">
+  <p-footer>
+    <button type="button" pButton icon="pi pi-check" label="Oui" (click)="cd.accept()"></button>
+    <button type="button" pButton icon="pi pi-times" label="Non" (click)="cd.reject()"></button>
+  </p-footer>
+</p-confirmDialog>
 <app-login></app-login>
 
 <a routerLink="parametres">Parametres</a>
 <a routerLink="devis">Devis</a>
 <button label="Artisans" (click)="displayArtisan()">Artisans</button>
 
-{{authSvc.connectedUser.email}}
 
 <router-outlet></router-outlet>

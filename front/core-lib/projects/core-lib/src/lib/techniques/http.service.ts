@@ -6,6 +6,8 @@ import {LoadingService} from './loading.service';
 import {MError} from '../models/m-error';
 import {Observable, of} from 'rxjs';
 import {Router} from '@angular/router';
+import {AuthService} from './auth.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +22,11 @@ export class HttpService {
     finalize(() => this.loadingSvc.loading = false)
   )
 
-  constructor(private http: HttpClient, private toastSvc: ToasterService, private loadingSvc: LoadingService, private router: Router) {
+  constructor(private http: HttpClient,
+              private toastSvc: ToasterService,
+              private loadingSvc: LoadingService,
+              private router: Router,
+              private authSvc: AuthService) {
   }
 
   get(url: string, params?: HttpParams, loading = true): any {
@@ -41,6 +47,12 @@ export class HttpService {
 
     if (err.error) {
 
+      // si non autorisé, on demande une confirmation pour se reconnecter
+      if (err.status === 401 || err.status === 403) {
+        this.authSvc.confirmReconnect();
+        return of(new MError());
+      }
+
       if (err.error.errorMessages) {
         this.toastSvc.showMsg(MSG_KEY.ROOT, MSG_SEVERITY.ERROR, 'Traitement en erreur.',
           err.error.errorMessages.map((item: string) => item).join(' '));
@@ -48,10 +60,7 @@ export class HttpService {
         this.toastSvc.showMsg(MSG_KEY.ROOT, MSG_SEVERITY.ERROR, 'Erreur interne.', err.message);
       }
 
-      // si non autorisé, on redirige vers la fenetre d'authentification
-      if (err.status === 401) {
-        this.router.navigate([localStorage.getItem('redirect_url')]);
-      }
+
     }
     return of(new MError());
   }

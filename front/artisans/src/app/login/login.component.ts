@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from './auth.service';
+import {AuthService} from 'rhum1-sakharov-core-lib';
 
 
 @Component({

@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from './login/auth.service';
-import {HttpParams} from '@angular/common/http';
-import {MSG_KEY, MSG_POSITION} from 'rhum1-sakharov-core-lib';
-import {HttpService} from './module-core/http.service';
+import {AuthService} from '../../../core-lib/projects/core-lib/src/lib/techniques/auth.service';
+import {HttpService, MSG_KEY, MSG_POSITION} from 'rhum1-sakharov-core-lib';
 
 
 @Component({
@@ -25,7 +23,6 @@ export class AppComponent implements OnInit {
   }
 
   displayArtisan(): void {
-    const params = new HttpParams();
-    this.httpSvc.get(`api/artisans`, params).subscribe();
+    this.httpSvc.get(`api/artisans`).subscribe();
   }
 }

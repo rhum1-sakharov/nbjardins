@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpService} from 'rhum1-sakharov-core-lib';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ParametresHttpService {
 
-  constructor(private http: HttpClient) {
+  constructor(private httpSvc: HttpService) {
 
   }
 
@@ -52,6 +52,6 @@ export class ParametresHttpService {
        }       
     }`;
 
-    return this.http.post('api/graphql', query);
+    return this.httpSvc.post('api/graphql', query);
   }
 }
