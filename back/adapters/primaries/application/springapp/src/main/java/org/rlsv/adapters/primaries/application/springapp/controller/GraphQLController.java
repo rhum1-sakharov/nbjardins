@@ -33,7 +33,7 @@ public class GraphQLController {
 
         ExecutionResult executionResult = this.graphQL.execute(query);
 
-        LOG.info("query : {} {}", query, executionResult);
+        LOG.debug("query : {} {}", query, executionResult);
 
         HttpStatus status = OK;
         if (CollectionUtils.isNotEmpty(executionResult.getErrors())) {

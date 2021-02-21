@@ -3,8 +3,34 @@ schema {
 }
 
 type Query {
-    allTaxes: [Taxe]
-    allConditionsReglements: [ConditionReglement]
+    taxeAll: [Taxe]
+    conditionReglementAll: [ConditionReglement]
+    artisanByEmail(email: String) : Artisan
+}
+
+type Artisan {
+    id: ID
+    taxe: Taxe
+    conditionDeReglement : ConditionReglement
+    logo: String
+    signature: String
+    provision: Float
+    siret: String
+    validiteDevisMois: Int
+    personne : Personne
+}
+
+type Personne {
+    id: ID
+    nom: String
+    prenom: String
+    email: String
+    telephone: String
+    adresse: String
+    codepostal : String
+    ville: String
+    fonction: String
+    societe: String
 }
 
 type Taxe {

@@ -9,8 +9,9 @@ import graphql.schema.idl.RuntimeWiring;
 import graphql.schema.idl.SchemaGenerator;
 import graphql.schema.idl.SchemaParser;
 import graphql.schema.idl.TypeDefinitionRegistry;
-import org.rlsv.graphql.referentiel.ConditionReglementDataFetcher;
-import org.rlsv.graphql.referentiel.TaxeDataFetcher;
+import org.rlsv.graphql.referentiel.artisan.ArtisanDataFetcher;
+import org.rlsv.graphql.referentiel.condition.reglement.ConditionReglementDataFetcher;
+import org.rlsv.graphql.referentiel.taxe.TaxeDataFetcher;
 
 import java.io.IOException;
 import java.net.URL;
@@ -22,11 +23,16 @@ public class GraphQLProvider {
     private GraphQL graphQL;
     private TaxeDataFetcher taxeDataFetcher;
     private ConditionReglementDataFetcher conditionReglementDataFetcher;
+    private ArtisanDataFetcher artisanDataFetcher;
 
-    public GraphQLProvider(TaxeDataFetcher taxeDataFetcher, ConditionReglementDataFetcher conditionReglementDataFetcher) throws IOException, CleanException {
+    public GraphQLProvider(TaxeDataFetcher taxeDataFetcher,
+                           ConditionReglementDataFetcher conditionReglementDataFetcher,
+                           ArtisanDataFetcher artisanDataFetcher
+    ) throws IOException, CleanException {
 
         this.taxeDataFetcher = taxeDataFetcher;
         this.conditionReglementDataFetcher = conditionReglementDataFetcher;
+        this.artisanDataFetcher = artisanDataFetcher;
 
         URL url = Resources.getResource("schema.graphqls");
         String sdl = Resources.toString(url, Charsets.UTF_8);
@@ -49,14 +55,15 @@ public class GraphQLProvider {
 
         return RuntimeWiring.newRuntimeWiring()
                 .type(newTypeWiring("Query")
-                        .dataFetcher("allTaxes", taxeDataFetcher.getAllTaxesDataFetcher())
-                        .dataFetcher("allConditionsReglements", conditionReglementDataFetcher.getAllConditionReglementDataFetcher())
+                        .dataFetcher("taxeAll", taxeDataFetcher.getAllTaxesDataFetcher())
+                        .dataFetcher("conditionReglementAll", conditionReglementDataFetcher.getAllConditionReglementDataFetcher())
+                        .dataFetcher("artisanByEmail", artisanDataFetcher.artisanByEmailDataFetcher())
                 )
 
                 .build();
     }
 
-    public GraphQL getGraphQL(){
+    public GraphQL getGraphQL() {
         return this.graphQL;
     }
 

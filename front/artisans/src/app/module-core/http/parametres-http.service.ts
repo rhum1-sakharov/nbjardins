@@ -14,20 +14,42 @@ export class ParametresHttpService {
    * Préparer les infos nécessaires à l'écran de parametrage de l'artisan
    * @returns {Observable<Object>}
    */
-  prepare(){
+  prepare(email: string) {
 
     const query = `{
       
-      allTaxes{
+      taxeAll{
         id
         nom
         taux
       }
       
-       allConditionsReglements{
+       conditionReglementAll{
           id
           condition
        }
+       
+       artisanByEmail(email: "${email}"){
+          id
+          provision
+          siret
+          validiteDevisMois
+          taxe {
+            id
+            nom
+            taux
+          }
+          conditionDeReglement {
+            id
+            condition
+          }
+          personne {
+            id
+            nom
+            prenom
+            email
+          }
+       }       
     }`;
 
     return this.http.post('api/graphql', query);

@@ -9,6 +9,7 @@ export * from './lib/core-lib.module';
 export * from './lib/models/m-application';
 export * from './lib/models/m-client';
 export * from './lib/models/m-taxe';
+export * from './lib/models/m-artisan';
 export * from './lib/models/m-condition-reglement';
 export * from './lib/models/m-demande-de-devis';
 export * from './lib/models/m-error';

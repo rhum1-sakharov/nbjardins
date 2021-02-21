@@ -1,8 +1,9 @@
 import {Model} from './model';
+import {MPersonne} from './m-personne';
 
-export class MPersonne  extends Model {
+export class MArtisan  extends Model {
 
-  nom: string='';
+  personne!: MPersonne;
   prenom: string='';
   numeroTelephone: string='';
   societe: string='';
@@ -11,6 +12,7 @@ export class MPersonne  extends Model {
   ville: string='';
   codePostal:string='';
   email: string='';
+
 
 
 }

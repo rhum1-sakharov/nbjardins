@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs';
-import {MConditionReglement, MTaxe, UtilsService} from 'rhum1-sakharov-core-lib';
+import {MArtisan, MConditionReglement, MTaxe, UtilsService} from 'rhum1-sakharov-core-lib';
 
 
 @Component({
@@ -13,8 +13,9 @@ export class ParametresComponent implements OnInit, OnDestroy {
 
   taxes: MTaxe[] = [];
   conditionsReglements: MConditionReglement[] = [];
+  artisan !: MArtisan;
   error: any;
-  subRoute: Subscription= new Subscription();
+  subRoute: Subscription = new Subscription();
 
   constructor(private route: ActivatedRoute, private utils: UtilsService) {
   }
@@ -26,8 +27,9 @@ export class ParametresComponent implements OnInit, OnDestroy {
   routeSubscription() {
     this.subRoute = this.route.data.subscribe((data) => {
 
-      this.taxes = data.parametresSupplier.data.allTaxes;
-      this.conditionsReglements = data.parametresSupplier.data.allConditionsReglements;
+      this.taxes = data.parametresSupplier.data.taxeAll;
+      this.conditionsReglements = data.parametresSupplier.data.conditionReglementAll;
+      this.artisan = data.parametresSupplier.data.artisanByEmail;
     });
   }
 

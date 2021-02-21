@@ -40,6 +40,7 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true,
-    "preserveSymlinks": true
+    "preserveSymlinks": true,
+    "strictPropertyInitialization":false
   }
 }
