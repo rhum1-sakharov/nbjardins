@@ -16,11 +16,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ports.localization.LocalizeServicePT;
 import ports.mails.MailDevisServicePT;
-import ports.repositories.*;
 import ports.transactions.TransactionManagerPT;
 import transactions.DataProviderManager;
 import usecases.AbstractUsecase;
+import usecases.personnes.artisans.FindByApplicationTokenUE;
+import usecases.personnes.artisans.FindByEmailUE;
+import usecases.personnes.artisans.banques.FindByEmailAndPrefereUE;
 import usecases.personnes.clients.EnregistrerClientUE;
+import usecases.referentiel.conditions.reglements.FindConditionByEmailArtisanUE;
+import usecases.referentiel.taxes.FindTauxByEmailArtisanUE;
 import usecases.uniquecode.UniqueCodeUE;
 
 import java.math.BigDecimal;
@@ -38,35 +42,38 @@ public class DemandeDeDevisUE extends AbstractUsecase {
 
 
     private final MailDevisServicePT mailDevisService;
-    private final DevisRepoPT devisRepo;
     private final EnregistrerClientUE enregistrerClientUE;
     private final UniqueCodeUE uniqueCodeUE;
-    private final TaxeRepoPT taxeRepo;
-    private final ArtisanBanqueRepoPT artisanBanqueRepo;
-    private final ConditionDeReglementRepoPT conditionDeReglementRepo;
-    private final ArtisanRepoPT artisanRepo;
+    private final FindByEmailUE artisanFindByEmailUE;
+    private final FindByApplicationTokenUE artisanFindByApplicationTokenUE;
+    private final FindTauxByEmailArtisanUE findTauxByEmailArtisanUE;
+    private final FindConditionByEmailArtisanUE findConditionByEmailArtisanUE;
+    private final FindByEmailAndPrefereUE findByEmailAndPrefereUE;
+    private final EnregistrerUE enregistrerDevisUE;
 
 
-    public DemandeDeDevisUE(MailDevisServicePT mailDevisService,
+    public DemandeDeDevisUE(TransactionManagerPT transactionManager,
                             LocalizeServicePT localizeService,
-                            DevisRepoPT devisRepo,
+                            MailDevisServicePT mailDevisService,
                             EnregistrerClientUE enregistrerClientUE,
-                            TransactionManagerPT transactionManager,
-                            TaxeRepoPT taxeRepo,
                             UniqueCodeUE uniqueCodeUE,
-                            ArtisanBanqueRepoPT artisanBanqueRepo,
-                            ConditionDeReglementRepoPT conditionDeReglementRepo,
-                            ArtisanRepoPT artisanRepo
+                            FindByEmailUE artisanFindByEmailUE,
+                            FindByApplicationTokenUE artisanFindByApplicationTokenUE,
+                            FindTauxByEmailArtisanUE findTauxByEmailArtisanUE,
+                            FindConditionByEmailArtisanUE findConditionByEmailArtisanUE,
+                            FindByEmailAndPrefereUE findByEmailAndPrefereUE,
+                            EnregistrerUE enregistrerDevisUE
     ) {
         super(localizeService, transactionManager);
         this.mailDevisService = mailDevisService;
-        this.devisRepo = devisRepo;
         this.enregistrerClientUE = enregistrerClientUE;
-        this.taxeRepo = taxeRepo;
         this.uniqueCodeUE = uniqueCodeUE;
-        this.artisanBanqueRepo = artisanBanqueRepo;
-        this.conditionDeReglementRepo = conditionDeReglementRepo;
-        this.artisanRepo = artisanRepo;
+        this.artisanFindByEmailUE = artisanFindByEmailUE;
+        this.artisanFindByApplicationTokenUE = artisanFindByApplicationTokenUE;
+        this.findTauxByEmailArtisanUE = findTauxByEmailArtisanUE;
+        this.findConditionByEmailArtisanUE = findConditionByEmailArtisanUE;
+        this.findByEmailAndPrefereUE = findByEmailAndPrefereUE;
+        this.enregistrerDevisUE = enregistrerDevisUE;
     }
 
     /**
@@ -78,7 +85,7 @@ public class DemandeDeDevisUE extends AbstractUsecase {
      * @return
      */
     @Transactionnal
-    public DevisDN execute( DevisDN devis, Locale locale, ApplicationDN application, DataProviderManager dpm) throws CleanException {
+    public DevisDN execute(DevisDN devis, Locale locale, ApplicationDN application, DataProviderManager dpm) throws CleanException {
 
         try {
 
@@ -86,11 +93,11 @@ public class DemandeDeDevisUE extends AbstractUsecase {
             addArtisanToDemandeDeDevis(dpm, application.getToken(), devis);
 
             // enregistrer le client
-            enregistrerClientUE.execute( dpm, devis.getClient());
+            enregistrerClientUE.execute(dpm, devis.getClient());
 
 
             //enregistrer la demande de devis
-            saveDemandeDeDevis( dpm, devis);
+            saveDemandeDeDevis(dpm, devis);
 
             // envoyer la demande de devis à l'artisan
             sendToWorker(application.getNom(), devis);
@@ -123,15 +130,15 @@ public class DemandeDeDevisUE extends AbstractUsecase {
      * @param dpm
      * @throws DemandeDeDevisException
      */
-    private void saveDemandeDeDevis( DataProviderManager dpm, DevisDN devis) throws Exception {
+    private void saveDemandeDeDevis(DataProviderManager dpm, DevisDN devis) throws Exception {
         try {
 
 
             String emailArtisan = devis.getArtisan().getPersonne().getEmail();
-            ArtisanDN artisan = artisanRepo.findByEmail(dpm, emailArtisan);
+            ArtisanDN artisan = artisanFindByEmailUE.execute(dpm, emailArtisan);
 
             // tva
-            BigDecimal tva = taxeRepo.findTauxByEmailArtisan(dpm, emailArtisan);
+            BigDecimal tva = findTauxByEmailArtisanUE.execute(dpm, emailArtisan);
             devis.setTva(tva);
 
 
@@ -142,7 +149,7 @@ public class DemandeDeDevisUE extends AbstractUsecase {
             devis.setDateDemande(now);
 
             // condition de reglement
-            String conditionReglement = conditionDeReglementRepo.findConditionByEmailArtisan(dpm, emailArtisan);
+            String conditionReglement = findConditionByEmailArtisanUE.execute(dpm, emailArtisan);
             devis.setConditionDeReglement(conditionReglement);
 
             // logo
@@ -164,16 +171,16 @@ public class DemandeDeDevisUE extends AbstractUsecase {
             devis.setStatut(STATUT_DEVIS.DEMANDE);
 
             // numero devis
-            String numeroDevis = uniqueCodeUE.execute( dpm, UNIQUE_CODE.NUMERO_DEVIS);
+            String numeroDevis = uniqueCodeUE.execute(dpm, UNIQUE_CODE.NUMERO_DEVIS);
             devis.setNumeroDevis(numeroDevis);
 
             // rib et iban
-            List<ArtisanBanqueDN> artisanBanqueList = artisanBanqueRepo.findByEmailAndPrefere(dpm, emailArtisan, true);
+            List<ArtisanBanqueDN> artisanBanqueList = findByEmailAndPrefereUE.execute(dpm, emailArtisan, true);
             devis.setIban(artisanBanqueList.get(0).getIban());
             devis.setRib(artisanBanqueList.get(0).getRib());
 
             // enregistrement
-            devisRepo.save(dpm, devis);
+            enregistrerDevisUE.execute(dpm, devis);
 
         } catch (PersistenceException pe) {
             throw new DemandeDeDevisException(pe.getMessage(), pe, pe.getMsgKey(), pe.getArgs());
@@ -183,7 +190,7 @@ public class DemandeDeDevisUE extends AbstractUsecase {
     private void addArtisanToDemandeDeDevis(DataProviderManager dpm, String applicationToken, DevisDN devis) throws DemandeDeDevisException {
         try {
 
-            ArtisanDN artisan = artisanRepo.findArtisanByApplicationToken(dpm, applicationToken);
+            ArtisanDN artisan = artisanFindByApplicationTokenUE.execute(dpm, applicationToken);
             devis.setArtisan(artisan);
 
         } catch (Exception ex) {
