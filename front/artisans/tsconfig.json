@@ -20,11 +20,26 @@
       "dom",
       "esnext.asynciterable"
     ],
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "paths": {
+      "primeng/api": [
+        "./node_modules/primeng/api"
+      ],
+      "@angular/*": [
+        "./node_modules/@angular/*"
+      ],
+      "@auth0/*": [
+        "./node_modules/@auth0/*"
+      ],
+      "rxjs": [
+        "./node_modules/rxjs"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    "strictTemplates": true
+    "strictTemplates": true,
+    "preserveSymlinks": true
   }
 }

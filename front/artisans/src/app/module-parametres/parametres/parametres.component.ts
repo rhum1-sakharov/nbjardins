@@ -1,42 +1,38 @@
-import {Component, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Subscription} from 'rxjs';
+import {MConditionReglement, MTaxe, UtilsService} from 'rhum1-sakharov-core-lib';
+
 
 @Component({
   selector: 'app-parametres',
   templateUrl: './parametres.component.html',
   styleUrls: ['./parametres.component.scss']
 })
-export class ParametresComponent implements OnInit {
+export class ParametresComponent implements OnInit, OnDestroy {
 
-  taxes = [];
-  conditionsReglements = [];
+  taxes: MTaxe[] = [];
+  conditionsReglements: MConditionReglement[] = [];
   error: any;
+  subRoute: Subscription= new Subscription();
 
-  constructor(private http: HttpClient) {
+  constructor(private route: ActivatedRoute, private utils: UtilsService) {
   }
 
   ngOnInit() {
+    this.routeSubscription();
+  }
 
-    const query = `{
-      allTaxes{
-        id
-        nom
-        taux
-      }
-      
-       allConditionsReglements{
-          id
-          condition
-       }
-    }`;
+  routeSubscription() {
+    this.subRoute = this.route.data.subscribe((data) => {
 
-    this.http.post('api/graphql', query).subscribe((response: any) => {
-      this.taxes = response?.data?.allTaxes;
-      this.conditionsReglements = response?.data?.allConditionsReglements;
-      this.error = response.error;
+      this.taxes = data.parametresSupplier.data.allTaxes;
+      this.conditionsReglements = data.parametresSupplier.data.allConditionsReglements;
     });
+  }
 
-
+  ngOnDestroy(): void {
+    this.utils.unsubscribe(this.subRoute);
   }
 
 }
