@@ -3,6 +3,7 @@ import {JwtHelperService} from '@auth0/angular-jwt';
 import {Router} from '@angular/router';
 import {KEY_JWT_TOKEN, KEY_REDIRECT_AUTHORIZED_URL, KEY_USER} from '../constants/constants';
 import {ConfirmationService} from 'primeng/api';
+import {LocalstorageService} from './localstorage.service';
 
 
 @Injectable({
@@ -12,7 +13,7 @@ export class AuthService {
 
   readonly URL_INITIATE_GOOGLE_OAUTH_ARTISAN = `api/authorization/initiate-google-oauth?typePersonne=ARTISAN`;
 
-  constructor(private router: Router, private confirmationSvc: ConfirmationService,) {
+  constructor(private router: Router, private confirmationSvc: ConfirmationService, private ls:LocalstorageService) {
   }
 
   /**
@@ -37,10 +38,10 @@ export class AuthService {
     const token: string = urlParams.get('token') || '';
 
     if (token !== '') {
-      localStorage.setItem(KEY_JWT_TOKEN, token);
+      this.ls.setItem(KEY_JWT_TOKEN, token);
       this.createUser(token);
     } else {
-      const localToken = localStorage.getItem(KEY_JWT_TOKEN);
+      const localToken = this.ls.getItem(KEY_JWT_TOKEN);
       if (localToken !== null) {
         this.createUser(localToken);
       } else {
@@ -48,9 +49,9 @@ export class AuthService {
       }
     }
 
-    const redirectUrl = localStorage.getItem(KEY_REDIRECT_AUTHORIZED_URL);
+    const redirectUrl = this.ls.getItem(KEY_REDIRECT_AUTHORIZED_URL);
 
-    const user: Utilisateur = JSON.parse(localStorage.getItem(KEY_USER) as string);
+    const user: Utilisateur = this.ls.getItem(KEY_USER);
     if (redirectUrl && user && user.email !== '') {
       this.router.navigate([redirectUrl]);
     }
@@ -106,7 +107,7 @@ export class AuthService {
     user.prenom = decodedToken.prenom;
     user.roles = this.getRoles(decodedToken.roles);
 
-    localStorage.setItem(KEY_USER, JSON.stringify(user));
+    this.ls.setItem(KEY_USER, user);
 
   }
 

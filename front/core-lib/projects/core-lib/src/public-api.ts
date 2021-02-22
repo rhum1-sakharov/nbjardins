@@ -22,6 +22,7 @@ export * from './lib/constants/constants';
 
 export * from './lib/techniques/http.service';
 export * from './lib/techniques/loading.service';
+export * from './lib/techniques/localstorage.service';
 export * from './lib/techniques/toaster.service';
 export * from './lib/techniques/validators.service';
 export * from './lib/techniques/utils.service';

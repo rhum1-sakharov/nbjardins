@@ -3,13 +3,14 @@ import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTre
 import {Observable} from 'rxjs';
 import {AuthService, UserRight} from './auth.service';
 import {KEY_REDIRECT_AUTHORIZED_URL, KEY_USER} from '../constants/constants';
+import {LocalstorageService} from './localstorage.service';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  constructor(private authSvc: AuthService, private router: Router) {
+  constructor(private authSvc: AuthService, private router: Router, private ls: LocalstorageService) {
   }
 
   canActivate(
@@ -19,7 +20,7 @@ export class AuthGuard implements CanActivate {
     this.storeRouteToActivate(route.data, state);
 
     const userRight = route.data as UserRight;
-    const user = JSON.parse(localStorage.getItem(KEY_USER) as string);
+    const user = this.ls.getItem(KEY_USER);
 
     if (this.authSvc.hasRight(user, userRight)) {
       return true;
@@ -39,6 +40,7 @@ export class AuthGuard implements CanActivate {
     }
 
     // stockage dans le localstorage
-    localStorage.setItem(KEY_REDIRECT_AUTHORIZED_URL, url);
+    this.ls.setItem(KEY_REDIRECT_AUTHORIZED_URL, url);
+
   }
 }
