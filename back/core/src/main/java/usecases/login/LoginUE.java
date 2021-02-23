@@ -105,7 +105,7 @@ public class LoginUE extends AbstractUsecase {
 
 
             List<String> roles = getRoles(dpm, personne);
-            String token = loginPT.generateToken(loginManager, personne, roles);
+            String token = loginPT.generateToken(loginManager, authorization, roles);
             authorization.setToken(token);
 
             return authorization;

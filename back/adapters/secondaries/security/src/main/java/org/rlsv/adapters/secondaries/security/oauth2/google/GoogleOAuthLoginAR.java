@@ -3,7 +3,6 @@ package org.rlsv.adapters.secondaries.security.oauth2.google;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.common.collect.ImmutableMap;
 import domains.AuthorizationDN;
-import domains.PersonneDN;
 import enums.TYPES_PERSONNE;
 import exceptions.LoginException;
 import io.jsonwebtoken.JwtException;
@@ -82,7 +81,7 @@ public class GoogleOAuthLoginAR implements ILoginPT {
     }
 
     @Override
-    public String generateToken(LoginManager loginManager, PersonneDN personne, List<String> roles) {
+    public String generateToken(LoginManager loginManager, AuthorizationDN authorization, List<String> roles) {
 
         GoogleOAuthSettings gOAuth = (GoogleOAuthSettings) loginManager.getAuthorizationSettings();
 
@@ -90,11 +89,12 @@ public class GoogleOAuthLoginAR implements ILoginPT {
         LocalDateTime expirationDate = dateStart.plusMinutes(gOAuth.getTokenValidityInMinutes());
 
         String jwtToken = Jwts.builder()
-                .setSubject(personne.getEmail())
+                .setSubject(authorization.getEmail())
                 .setExpiration(Date.from(expirationDate.atZone(ZoneId.systemDefault()).toInstant()))
                 .claim("roles", roles)
-                .claim("nom", personne.getNom())
-                .claim("prenom", personne.getPrenom())
+                .claim("nom", authorization.getNom())
+                .claim("prenom", authorization.getPrenom())
+                .claim("logo",authorization.getPicture())
                 .signWith(key).compact();
 
         return jwtToken;

@@ -1,7 +1,6 @@
 package ports.login;
 
 import domains.AuthorizationDN;
-import domains.PersonneDN;
 import exceptions.LoginException;
 import security.LoginManager;
 
@@ -13,7 +12,7 @@ public interface ILoginPT {
 
     String redirectToThirdServerAuthorization(LoginManager loginManager) throws LoginException;
 
-    String generateToken(LoginManager loginManager,PersonneDN personne, List<String> roles);
+    String generateToken(LoginManager loginManager,AuthorizationDN authorization, List<String> roles);
 
 
     String getUserName(String token) throws LoginException;

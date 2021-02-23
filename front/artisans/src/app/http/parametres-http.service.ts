@@ -33,8 +33,7 @@ export class ParametresHttpService {
           id
           provision
           siret
-          validiteDevisMois
-          logo
+          validiteDevisMois         
           taxe {
             id
             nom

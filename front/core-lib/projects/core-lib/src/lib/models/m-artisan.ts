@@ -12,6 +12,7 @@ export class MArtisan  extends Model {
   ville: string='';
   codePostal:string='';
   email: string='';
+  logo: string='';
 
 
 

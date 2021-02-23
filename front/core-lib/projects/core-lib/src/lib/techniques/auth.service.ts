@@ -106,6 +106,7 @@ export class AuthService {
     user.nom = decodedToken.nom;
     user.prenom = decodedToken.prenom;
     user.roles = this.getRoles(decodedToken.roles);
+    user.logo  = decodedToken.logo;
 
     this.ls.setItem(KEY_USER, user);
 
@@ -153,4 +154,5 @@ export class Utilisateur {
   prenom = '';
   email = '';
   roles: ROLE[] = [];
+  logo = '';
 }
