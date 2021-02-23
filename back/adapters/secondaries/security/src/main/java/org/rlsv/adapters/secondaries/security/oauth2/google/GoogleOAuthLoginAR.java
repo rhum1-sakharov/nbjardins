@@ -50,6 +50,7 @@ public class GoogleOAuthLoginAR implements ILoginPT {
         String userInfo = getUserInfo(gOAuth.getUrlUserInfo(), token);
         AuthorizationDN authorization = getAuthorizationDN(userInfo);
 
+
         LOG.info("userInfo : {}, authorization : {}", userInfo, authorization.toString());
 
         return authorization;
@@ -184,10 +185,12 @@ public class GoogleOAuthLoginAR implements ILoginPT {
             String prenom = actualObj.get("given_name").textValue();
             String nom = actualObj.get("family_name").textValue();
             String email = actualObj.get("email").textValue();
+            String photo = actualObj.get("picture").textValue();
 
             authorization.setEmail(email);
             authorization.setNom(nom);
             authorization.setPrenom(prenom);
+            authorization.setPicture(photo);
 
         } catch (IOException e) {
             LOG.error(e.getMessage(), e);

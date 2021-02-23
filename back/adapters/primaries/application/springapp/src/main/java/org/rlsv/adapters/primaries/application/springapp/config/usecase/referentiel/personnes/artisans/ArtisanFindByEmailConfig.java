@@ -8,10 +8,10 @@ import ports.transactions.TransactionManagerPT;
 import usecases.personnes.artisans.FindByEmailUE;
 
 @Configuration
-public class FindByEmailConfig {
+public class ArtisanFindByEmailConfig {
 
-    @Bean
-    public FindByEmailUE findByEmailUE(
+    @Bean(name="artisanFindByEmailUE")
+    public FindByEmailUE artisanFindByEmailUE(
             LocalizeServicePT localizeService,
             TransactionManagerPT transactionManager,
             ArtisanRepoPT artisanRepo

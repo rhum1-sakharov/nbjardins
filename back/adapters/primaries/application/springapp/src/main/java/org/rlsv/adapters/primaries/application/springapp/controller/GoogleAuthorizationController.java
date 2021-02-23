@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ports.login.ILoginPT;
-import ports.transactions.TransactionManagerPT;
 import security.LoginManager;
 import usecases.login.LoginUE;
 
@@ -83,7 +82,6 @@ public class GoogleAuthorizationController {
         LoginManager loginManager = new LoginManager(typePersonne, gOAuth);
 
         // creer le compte s'il n'existe pas et recuperer l'authoriation
-        TransactionManagerPT tm = loginUE.getTransactionManager();
         AuthorizationDN authorization = loginUE.execute( null, loginManager);
 
 

@@ -71,7 +71,7 @@ public class ArtisanRepoAR extends RepoAR implements ArtisanRepoPT {
     @Override
     public ArtisanDN save(DataProviderManager dpm, ArtisanDN artisan) {
 
-        Artisan artisanEntity= (Artisan) super.save(dpm, ArtisanMapper.INSTANCE.domainToEntity(artisan));
+        Artisan artisanEntity= (Artisan) save(dpm, ArtisanMapper.INSTANCE.domainToEntity(artisan));
 
         return ArtisanMapper.INSTANCE.entityToDomain(artisanEntity);
 

@@ -11,7 +11,7 @@ import usecases.personnes.artisans.banques.FindByEmailAndPrefereUE;
 public class FindByEmailAndPrefereConfig {
 
     @Bean
-    public FindByEmailAndPrefereUE findByEmailAndPrefereUE(
+    public FindByEmailAndPrefereUE banqueFindByEmailAndPrefereUE(
             LocalizeServicePT localizeService,
             TransactionManagerPT transactionManager,
             ArtisanBanqueRepoPT artisanBanqueRepo

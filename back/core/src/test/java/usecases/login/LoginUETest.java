@@ -9,14 +9,14 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import ports.localization.LocalizeServicePT;
 import ports.login.ILoginPT;
-import ports.repositories.ConditionDeReglementRepoPT;
-import ports.repositories.PersonneRepoPT;
-import ports.repositories.RoleRepoPT;
-import ports.repositories.TaxeRepoPT;
 import ports.transactions.TransactionManagerPT;
 import security.LoginManager;
+import usecases.personnes.FindByEmailUE;
 import usecases.personnes.artisans.EnregistrerArtisanUE;
 import usecases.personnes.clients.EnregistrerClientUE;
+import usecases.referentiel.conditions.reglements.FindAllConditionReglementUE;
+import usecases.referentiel.roles.FindByPersonneUE;
+import usecases.referentiel.taxes.FindAllTaxeUE;
 
 import java.util.Objects;
 
@@ -30,8 +30,9 @@ public class LoginUETest {
 
     EnregistrerArtisanUE enregistrerArtisanUE;
 
-    ConditionDeReglementRepoPT conditionDeReglementRepo;
-    TaxeRepoPT taxeRepo;
+    FindAllConditionReglementUE findAllConditionReglementUE;
+
+    FindAllTaxeUE findAllTaxeUE;
 
     @Mock
     LocalizeServicePT localizeService;
@@ -43,9 +44,11 @@ public class LoginUETest {
     ILoginPT loginPT;
 
     @Mock
-    PersonneRepoPT personneRepoPT;
+    FindByEmailUE personneFindByEmailUE;
 
-    RoleRepoPT roleRepo;
+    usecases.personnes.artisans.FindByEmailUE artisanFindByEmailUE;
+
+    FindByPersonneUE roleFindByPersonneUE;
 
     @Mock
     LoginManager loginManager;
@@ -53,7 +56,7 @@ public class LoginUETest {
 
     @Before
     public void setUp() throws Exception {
-        loginUE = new LoginUE(localizeService, transactionManager, loginPT, personneRepoPT, enregistrerClientUE, enregistrerArtisanUE,conditionDeReglementRepo,taxeRepo,roleRepo);
+        loginUE = new LoginUE(localizeService, transactionManager, loginPT, personneFindByEmailUE, enregistrerClientUE, enregistrerArtisanUE, findAllConditionReglementUE, findAllTaxeUE, artisanFindByEmailUE, roleFindByPersonneUE);
 
     }
 

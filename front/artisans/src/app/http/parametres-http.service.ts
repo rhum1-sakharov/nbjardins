@@ -34,6 +34,7 @@ export class ParametresHttpService {
           provision
           siret
           validiteDevisMois
+          logo
           taxe {
             id
             nom

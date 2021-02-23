@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/router';
 import {Observable} from 'rxjs';
 import {Promise} from 'q';
-import {ParametresHttpService} from '../../module-core/http/parametres-http.service';
+import {ParametresHttpService} from '../../http/parametres-http.service';
 import {AuthService, KEY_USER, LocalstorageService} from 'rhum1-sakharov-core-lib';
 
 @Injectable({

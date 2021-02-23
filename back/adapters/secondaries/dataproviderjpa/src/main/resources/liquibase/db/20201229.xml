@@ -306,5 +306,17 @@
     </changeSet>
 
 
+    <changeSet id="202102232156" author="rvl" runAlways="true">
+        <preConditions onFail="MARK_RAN">
+           <columnExists tableName="artisans" columnName="LOGO"></columnExists>
+        </preConditions>
+        <sql>
+            ALTER TABLE `artisans`
+            CHANGE COLUMN `LOGO` `LOGO` VARCHAR(256) NOT NULL COLLATE 'utf8_general_ci' AFTER `ID_CONDITION_DE_REGLEMENT`;
+        </sql>
+        <comment>
+            Changer la taille de logo à 256 varchar
+        </comment>
+    </changeSet>
 
 </databaseChangeLog>

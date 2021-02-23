@@ -11,7 +11,7 @@ import usecases.personnes.artisans.FindByApplicationTokenUE;
 public class FindByApplicationTokenConfig {
 
     @Bean
-    public FindByApplicationTokenUE findByApplicationTokenUE(
+    public FindByApplicationTokenUE artisanFindByApplicationTokenUE(
             LocalizeServicePT localizeService,
             TransactionManagerPT transactionManager,
             ArtisanRepoPT artisanRepo
