@@ -6,32 +6,11 @@
   </p-footer>
 </p-confirmDialog>
 
-<div data-test="menu">
-  <div class="threeBarButton" data-test="threeBarButton">
-    threeBarButton
-  </div>
-  <div class="logo" data-test="logo">
-    logo
-  </div>
-  <div  class="parametres" data-test="parametres">
-    Parametres
-  </div>
-  <div class="devis" data-test="devis">
-    Devis
-  </div>
-  <div class="factures" data-test="factures">
-    Factures
-  </div>
-  <div data-test="compte">
-    compte
-  </div>
+<!--TOP MENU-->
+<app-top-menu></app-top-menu>
+
+<!--MAIN CONTENT-->
+<div class="content" data-test="content">
+  <router-outlet></router-outlet>
 </div>
 
-<app-login></app-login>
-
-<a routerLink="parametres">Parametres</a>
-<a routerLink="devis">Devis</a>
-<button label="Artisans" (click)="displayArtisan()">Artisans</button>
-
-
-<router-outlet></router-outlet>

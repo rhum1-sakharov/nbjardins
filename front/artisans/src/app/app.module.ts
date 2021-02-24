@@ -2,7 +2,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {LoginComponent} from './pages/login/login.component';
+import {LoginComponent} from './components/login/login.component';
 import {CoreLibModule} from 'rhum1-sakharov-core-lib';
 import {ConfirmationService, MessageService} from 'primeng/api';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
@@ -11,21 +11,40 @@ import {ToastModule} from 'primeng/toast';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ParametresComponent} from './pages/parametres/parametres.component';
+import {TopMenuComponent} from './components/top-menu/top-menu.component';
+import {TooltipModule} from 'primeng/tooltip';
+import {ListboxModule} from 'primeng/listbox';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {InputNumberModule} from 'primeng/inputnumber';
+import {InputTextModule} from 'primeng/inputtext';
+import {DevisComponent} from './pages/devis/devis.component';
+import {FacturesComponent} from './pages/factures/factures.component';
+import {AccordionModule} from 'primeng/accordion';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    ParametresComponent
+    ParametresComponent,
+    TopMenuComponent,
+    DevisComponent,
+    FacturesComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     CoreLibModule,
     ToastModule,
     HttpClientModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    TooltipModule,
+    ListboxModule,
+    InputNumberModule,
+    InputTextModule,
+    AccordionModule
 
   ],
   providers: [

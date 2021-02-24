@@ -1,25 +1,4 @@
-.logo {
-  width: 150px;
-}
-
-.threeBarButton{
-  display: none;
-}
-
-.parametres, .devis, .factures {
-  display: block;
-}
-
-@media screen and (max-width: 960px) {
-  .logo {
-    width: 40px;
-  }
-
-  .parametres, .devis, .factures {
-    display: none;
-  }
-
-  .threeBarButton{
-    display: block;
-  }
+.content {
+  position: absolute;
+  top: 71px;
 }

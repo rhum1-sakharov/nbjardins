@@ -84,20 +84,16 @@ public class LoginUE extends AbstractUsecase {
 
 
             PersonneDN personne = personneFindByEmailUE.execute(dpm, authorization.getEmail());
-            String idPersonne = null;
-            if (Objects.nonNull(personne)) {
-                idPersonne = personne.getId();
-            }
 
 
             switch (loginManager.getTypePersonne()) {
                 case CLIENT:
-                    ClientDN client = initClient(idPersonne, authorization);
+                    ClientDN client = initClient( authorization);
                     client = this.enregistrerClientUE.execute(dpm, client);
                     personne = client.getPersonne();
                     break;
                 case ARTISAN:
-                    ArtisanDN artisan = initArtisan(idPersonne, dpm, authorization);
+                    ArtisanDN artisan = initArtisan(personne, dpm, authorization);
                     artisan = this.enregistrerArtisanUE.execute(dpm, artisan);
                     personne = artisan.getPersonne();
                     break;
@@ -126,13 +122,14 @@ public class LoginUE extends AbstractUsecase {
         return roles;
     }
 
-    private ClientDN initClient(String idPersonne, AuthorizationDN authorization) {
+    private ClientDN initClient(AuthorizationDN authorization) {
 
-        ClientDN client = new ClientDN(initPersonne(idPersonne, authorization));
+        ClientDN client = new ClientDN(initNewPersonne(authorization));
         return client;
     }
 
-    private PersonneDN initPersonne(String idPersonne, AuthorizationDN authorization) {
+    private PersonneDN initNewPersonne(AuthorizationDN authorization) {
+
 
         PersonneDN personne = new PersonneDN();
         personne.setEmail(authorization.getEmail());
@@ -145,19 +142,21 @@ public class LoginUE extends AbstractUsecase {
         personne.setVille("");
         personne.setNumeroTelephone("");
 
-        if (Objects.nonNull(idPersonne)) {
-            personne.setId(idPersonne);
-        }
-
         return personne;
 
     }
 
-    private ArtisanDN initArtisan(String idPersonne, DataProviderManager dpm, AuthorizationDN authorization) throws CleanException {
+    private ArtisanDN initArtisan(PersonneDN personne, DataProviderManager dpm, AuthorizationDN authorization) throws CleanException {
 
 
         ArtisanDN artisan = new ArtisanDN();
-        artisan.setPersonne(initPersonne(idPersonne, authorization));
+
+        if (Objects.isNull(personne)) {
+            artisan.setPersonne(initNewPersonne(authorization));
+        }else{
+            artisan.setPersonne(personne);
+        }
+
         artisan.setLogo(authorization.getPicture());
 
 

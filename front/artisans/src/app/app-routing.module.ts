@@ -3,6 +3,8 @@ import {RouterModule, Routes} from '@angular/router';
 import {ParametresResolverService} from './pages/parametres/parametres-resolver.service';
 import {ParametresComponent} from './pages/parametres/parametres.component';
 import {AuthGuard, USER_RIGHT_ARTISAN} from 'rhum1-sakharov-core-lib';
+import {DevisComponent} from './pages/devis/devis.component';
+import {FacturesComponent} from './pages/factures/factures.component';
 
 
 const routes: Routes = [
@@ -15,6 +17,18 @@ const routes: Routes = [
     resolve: {
       parametresSupplier: ParametresResolverService
     }
+  },
+  {
+    path: 'devis',
+    component: DevisComponent,
+    runGuardsAndResolvers: 'always',
+    data: USER_RIGHT_ARTISAN,
+  },
+  {
+    path: 'factures',
+    component: FacturesComponent,
+    runGuardsAndResolvers: 'always',
+    data: USER_RIGHT_ARTISAN,
   }
 ];
 

@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {KEY_JWT_TOKEN, KEY_REDIRECT_AUTHORIZED_URL, KEY_USER} from '../constants/constants';
 import {ConfirmationService} from 'primeng/api';
 import {LocalstorageService} from './localstorage.service';
+import {BehaviorSubject} from 'rxjs';
 
 
 @Injectable({
@@ -12,6 +13,9 @@ import {LocalstorageService} from './localstorage.service';
 export class AuthService {
 
   readonly URL_INITIATE_GOOGLE_OAUTH_ARTISAN = `api/authorization/initiate-google-oauth?typePersonne=ARTISAN`;
+
+  private subjectUser = new BehaviorSubject(new Utilisateur());
+  user$ = this.subjectUser.asObservable();
 
   constructor(private router: Router, private confirmationSvc: ConfirmationService, private ls: LocalstorageService) {
   }
@@ -77,7 +81,7 @@ export class AuthService {
   confirmReconnect() {
 
     // on reset l'utilisateur
-    localStorage.removeItem(KEY_USER);
+    this.logout(false);
 
     this.confirmationSvc.confirm({
       message: 'Votre session est invalide, veuillez vous reconnecter.',
@@ -93,6 +97,17 @@ export class AuthService {
     })
   }
 
+  logout(redirectToHomePage: boolean) {
+    localStorage.removeItem(KEY_USER);
+    localStorage.removeItem(KEY_JWT_TOKEN);
+    this.announceUser(new Utilisateur());
+
+    if (redirectToHomePage) {
+      this.router.navigate(['/']);
+    }
+
+  }
+
   private createUser(token: string): void {
 
     const helper = new JwtHelperService();
@@ -102,7 +117,7 @@ export class AuthService {
 
     const user = new Utilisateur();
 
-    if(decodedToken){
+    if (decodedToken) {
       user.email = decodedToken.sub;
       user.nom = decodedToken.nom;
       user.prenom = decodedToken.prenom;
@@ -111,6 +126,8 @@ export class AuthService {
     }
 
     this.ls.setItem(KEY_USER, user);
+
+    this.announceUser(user);
 
   }
 
@@ -134,6 +151,10 @@ export class AuthService {
     }
 
     return roles;
+  }
+
+  announceUser(user: Utilisateur) {
+    this.subjectUser.next(user);
   }
 }
 

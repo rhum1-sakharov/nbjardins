@@ -3,6 +3,7 @@ package org.rlsv.adapters.secondaries.dataproviderjpa.entities;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -16,7 +17,10 @@ public class Personne extends Entity {
 
     private String nom;
     private String prenom;
-    private String telephone;
+
+    @Column(name="NUMERO_TELEPHONE")
+    private String numeroTelephone;
+
     private String adresse;
     private String ville;
     private String codePostal;

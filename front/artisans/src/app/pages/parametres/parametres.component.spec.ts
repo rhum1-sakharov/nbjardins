@@ -1,6 +1,7 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {ParametresComponent} from './parametres.component';
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('ParametresComponent', () => {
   let component: ParametresComponent;
@@ -8,7 +9,13 @@ describe('ParametresComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ParametresComponent ]
+      declarations: [ ParametresComponent ],
+      imports:[
+        RouterTestingModule
+      ],
+      providers:[
+
+      ]
     })
     .compileComponents();
   });
@@ -18,6 +25,16 @@ describe('ParametresComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
+
+
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  // it('should have taxe element', () => {
+  //   expect(fixture.nativeElement.querySelector('[data-test="taxe"]')).toBeTruthy();
+  // });
 
 
 });

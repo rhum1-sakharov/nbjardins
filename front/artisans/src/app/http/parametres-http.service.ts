@@ -48,6 +48,12 @@ export class ParametresHttpService {
             nom
             prenom
             email
+            societe
+            fonction
+            ville
+            adresse
+            codePostal 
+            numeroTelephone          
           }
        }       
     }`;

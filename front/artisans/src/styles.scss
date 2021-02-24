@@ -1,1 +1,38 @@
 /* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
+@import 'scss/variables';
+
+body{
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+  color: #495057;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+
+
+.cursor {
+  cursor: pointer;
+}
+
+.rounded-image {
+  overflow: hidden;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}
+
+.color-white{
+  color:white !important;
+}
+
+.color-danger{
+  color: $color-danger;
+}
+
+.color-nature{
+  color: $color-nature;
+}

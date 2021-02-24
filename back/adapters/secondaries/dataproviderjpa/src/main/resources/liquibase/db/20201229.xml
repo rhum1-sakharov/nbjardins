@@ -319,4 +319,18 @@
         </comment>
     </changeSet>
 
+    <changeSet id="202102242231-1" author="rvl" runAlways="true">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="personnes" columnName="TELEPHONE"></columnExists>
+        </preConditions>
+        <sql>
+            ALTER TABLE `personnes`
+            CHANGE COLUMN `TELEPHONE` `NUMERO_TELEPHONE` VARCHAR(10) NULL DEFAULT NULL COLLATE 'utf8_general_ci' AFTER `EMAIL`;
+
+        </sql>
+        <comment>
+            Changer la colonne telephone en numeroTelephone
+        </comment>
+    </changeSet>
+
 </databaseChangeLog>

@@ -57,7 +57,7 @@ public class TaxeRepoAR extends RepoAR implements TaxeRepoPT {
 
         EntityManager em = PersistenceUtils.getEntityManager(dpm);
 
-        TypedQuery<Taxe> query = em.createQuery("SELECT t from Taxe  t order by t.nom", Taxe.class);
+        TypedQuery<Taxe> query = em.createQuery("SELECT t from Taxe  t order by t.taux", Taxe.class);
 
         List<Taxe> taxeList = PersistenceUtils.getResultList(query);
 

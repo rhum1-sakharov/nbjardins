@@ -1,0 +1,98 @@
+$color-danger: #ff4a16;
+$color-nature: #668D2E;
+
+$buttonBg: $color-nature;
+
+:host {
+  ::ng-deep .p-button {
+    background: $color-nature !important;
+    border: 1px solid $color-nature;
+  }
+
+  ::ng-deep .p-button:focus {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: 0 0 0 0.2rem #7aaf3c;
+  }
+
+  ::ng-deep .p-button:hover {
+    outline: 0 none;
+    outline-offset: 0;
+    border: 1px solid #a1e147;
+  }
+
+  ::ng-deep .p-inputtext.ng-dirty.ng-invalid {
+    border-color: $color-nature;
+  }
+
+  .ng-touched, ::ng-deep .p-inputtext.ng-touched {
+    border-color: #CED4DA;
+  }
+
+  ::ng-deep .p-inputtext:enabled:focus {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: 0 0 0 0.2rem #7aaf3c;
+    border: 1px solid #a1e147;
+  }
+
+  ::ng-deep .p-inputtext:enabled:hover {
+    border-color: #CED4DA;
+  }
+
+}
+
+@for $i from 1 through 1000 {
+
+  @if ($i < 60) {
+    .font-#{$i} {
+      font-size: #{$i}px;
+    }
+
+    .lh-#{$i} {
+      line-height: #{$i}px;
+    }
+  }
+
+  .ht-#{$i} {
+    height: #{$i}px;
+  }
+
+  .max-ht-#{$i} {
+    max-height: #{$i}px;
+  }
+
+  .wh-#{$i} {
+    width: #{$i}px;
+  }
+
+  .max-wh-#{$i} {
+    max-width: #{$i}px;
+  }
+
+  .pg-#{$i} {
+    padding: #{$i}px;
+  }
+
+  .mg-#{$i} {
+    margin: #{$i}px;
+  }
+
+  .mg-r-#{$i} {
+    margin-right: #{$i}px;
+  }
+
+  .mg-l-#{$i} {
+    margin-left: #{$i}px;
+  }
+
+  .mg-b-#{$i} {
+    margin-bottom: #{$i}px;
+  }
+
+  .mg-t-#{$i} {
+    margin-top: #{$i}px;
+  }
+
+}
+

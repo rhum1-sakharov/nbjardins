@@ -1,6 +1,81 @@
+<p-accordion [multiple]="true">
+  <p-accordionTab header="Identification">
+    <div data-test="siret">
+      <h5>SIRET</h5>
+      <input type="text"  [style]="{'width':'450px'}" pInputText [(ngModel)]="selectedSiret"/>
+    </div>
 
-<img [src]="user?.logo">
-<p>parametres works!</p>
-<pre>{{taxes | json}}</pre>
-<pre>{{conditionsReglements | json}}</pre>
-<pre>{{artisan | json}}</pre>
+    <div data-test="societe">
+      <h5>Société</h5>
+      <input type="text"  [style]="{'width':'450px'}" pInputText [(ngModel)]="selectedSociete"/>
+    </div>
+
+    <div data-test="fonction">
+      <h5>Fonction</h5>
+      <input type="text"  [style]="{'width':'450px'}" pInputText [(ngModel)]="selectedFonction"/>
+    </div>
+
+    <div data-test="adresse">
+      <h5>Adresse</h5>
+      <input type="text"  [style]="{'width':'450px'}" pInputText [(ngModel)]="selectedAdresse"/>
+    </div>
+
+    <div data-test="ville">
+      <h5>Ville</h5>
+      <input type="text"  [style]="{'width':'450px'}" pInputText [(ngModel)]="selectedVille"/>
+    </div>
+
+    <div data-test="codePostal">
+      <h5>Code postal</h5>
+      <input type="text" required [style]="{'width':'450px'}" pInputText [(ngModel)]="selectedCodePostal"/>
+    </div>
+
+    <div data-test="telephone">
+      <h5>Téléphone</h5>
+      <input type="text"  [style]="{'width':'450px'}" pInputText [(ngModel)]="selectedTelephone"/>
+    </div>
+
+    <div data-test="signature">
+      <h5>Signature</h5>
+      TODO
+    </div>
+
+  </p-accordionTab>
+  <p-accordionTab header="Devis">
+    <div data-test="taxe">
+      <h5>TVA par défaut</h5>
+      <p-listbox [options]="taxes" [(ngModel)]="selectedTaxe" optionLabel="nom" [style]="{'width':'450px'}">
+        <ng-template let-item pTemplate="item">
+          <div class="p-d-flex wh-450">
+            <div class="p-mr-2">
+              {{item.nom}}
+            </div>
+            <div class="p-ml-auto">
+              <strong>{{item.taux | number:'1.2-2'}}%</strong>
+            </div>
+          </div>
+
+        </ng-template>
+      </p-listbox>
+    </div>
+    <div data-test="conditionReglement">
+      <h5>Condition de règlement par défaut</h5>
+      <p-listbox [options]="conditionsReglements" [(ngModel)]="selectedConditionReglement" optionLabel="condition"
+                 [style]="{'width':'450px'}">
+      </p-listbox>
+    </div>
+
+
+    <div data-test="provision">
+      <h5>Provision par défaut</h5>
+      <p-inputNumber [(ngModel)]="selectedProvision" mode="decimal" [minFractionDigits]="2"
+                     [maxFractionDigits]="2"></p-inputNumber>%
+    </div>
+
+  </p-accordionTab>
+  <p-accordionTab header="Factures"></p-accordionTab>
+</p-accordion>
+
+
+
+

@@ -1,0 +1,69 @@
+.menu {
+  height: 69px;
+  background-color: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 997;
+  box-shadow: 0 0 4px rgb(0 0 0 / 25%);
+  border-bottom: 1px solid #dee2e6;
+  display: flex;
+  align-items: center;
+}
+
+
+.logo {
+  width: 150px;
+
+}
+
+.threeBarButton {
+  display: none;
+  width: 70px;
+  text-align: center;
+  transition: background-color .2s;
+  cursor: pointer;
+}
+
+.threeBarButton:hover {
+  background-color: #e9ecef;
+}
+
+.threeBarButton i {
+  font-size: 24px;
+}
+
+.parametres, .devis, .factures, .compte {
+  height:70px;
+  line-height: 70px;
+  display: block;
+}
+
+.parametres:hover, .devis:hover, .factures:hover {
+
+  border-bottom: 3px solid #2196f3;
+}
+
+.routeActive{
+  border-bottom: 3px solid #7aaf3c;
+}
+
+@media screen and (max-width: 960px) {
+
+  .menu {
+    justify-content: space-between;
+  }
+
+  .logo {
+    width: 40px;
+  }
+
+  .parametres, .devis, .factures {
+    display: none;
+  }
+
+  .threeBarButton {
+    display: block;
+  }
+}

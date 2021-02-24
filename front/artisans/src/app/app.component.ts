@@ -24,7 +24,5 @@ export class AppComponent implements OnInit {
 
   }
 
-  displayArtisan(): void {
-    this.httpSvc.get(`api/artisans`).subscribe();
-  }
+
 }

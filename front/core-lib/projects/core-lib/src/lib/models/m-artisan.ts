@@ -1,19 +1,17 @@
 import {Model} from './model';
 import {MPersonne} from './m-personne';
+import {MTaxe} from './m-taxe';
+import {MConditionReglement} from './m-condition-reglement';
 
-export class MArtisan  extends Model {
+export class MArtisan extends Model {
 
   personne!: MPersonne;
-  prenom: string='';
-  numeroTelephone: string='';
-  societe: string='';
-  fonction: string='';
-  adresse: string='';
-  ville: string='';
-  codePostal:string='';
-  email: string='';
-  logo: string='';
-
+  logo: string = '';
+  taxe !: MTaxe;
+  conditionDeReglement !: MConditionReglement;
+  provision: number = 0;
+  siret: string = '';
+  validiteDevisMois: number = 1;
 
 
 }
