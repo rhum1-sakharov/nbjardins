@@ -1,5 +1,5 @@
-<p-accordion [multiple]="true">
-  <p-accordionTab header="Identification">
+<p-accordion [multiple]="false">
+  <p-accordionTab header="Identification" [selected]="true">
 
     <div class="p-field p-grid">
       <label for="siret" class="p-col-fixed" style="width:100px"><strong>SIRET</strong></label>
@@ -79,7 +79,7 @@
     <div data-test="conditionReglement">
       <h5>Condition de règlement</h5>
       <p-listbox [options]="conditionsReglements" [(ngModel)]="selectedConditionReglement" optionLabel="condition"
-                 [style]="{'width':'450px'}">
+                 [style]="{'width':'320px'}">
       </p-listbox>
     </div>
 
