@@ -13,6 +13,8 @@ export class AppComponent implements OnInit {
   readonly ROOT_KEY = MSG_KEY.ROOT;
   readonly MSG_POSITION = MSG_POSITION.BOTTOM_CENTER;
 
+
+
   constructor(public authSvc: AuthService, private httpSvc: HttpService) {
   }
 

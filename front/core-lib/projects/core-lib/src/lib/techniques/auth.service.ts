@@ -13,7 +13,7 @@ export class AuthService {
 
   readonly URL_INITIATE_GOOGLE_OAUTH_ARTISAN = `api/authorization/initiate-google-oauth?typePersonne=ARTISAN`;
 
-  constructor(private router: Router, private confirmationSvc: ConfirmationService, private ls:LocalstorageService) {
+  constructor(private router: Router, private confirmationSvc: ConfirmationService, private ls: LocalstorageService) {
   }
 
   /**
@@ -99,14 +99,16 @@ export class AuthService {
     const decodedToken = helper.decodeToken(token);
     const expirationDate = helper.getTokenExpirationDate(token);
     const isExpired = helper.isTokenExpired(token);
-    console.log(decodedToken, expirationDate, isExpired);
 
     const user = new Utilisateur();
-    user.email = decodedToken.sub;
-    user.nom = decodedToken.nom;
-    user.prenom = decodedToken.prenom;
-    user.roles = this.getRoles(decodedToken.roles);
-    user.logo  = decodedToken.logo;
+
+    if(decodedToken){
+      user.email = decodedToken.sub;
+      user.nom = decodedToken.nom;
+      user.prenom = decodedToken.prenom;
+      user.roles = this.getRoles(decodedToken.roles);
+      user.logo = decodedToken.logo;
+    }
 
     this.ls.setItem(KEY_USER, user);
 
