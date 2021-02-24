@@ -47,12 +47,12 @@ describe('AppComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('content should be positionned at 71 px of the top ', () => {
+  it('content should be positionned at 85 px of the top ', () => {
 
 
     const content = fixture.nativeElement.querySelector('[data-test="content"]');
     const contentStyle = window.getComputedStyle(content);
-    expect(contentStyle.getPropertyValue('top')).toEqual('71px');
+    expect(contentStyle.getPropertyValue('top')).toEqual('85px');
     expect(contentStyle.getPropertyValue('position')).toEqual('absolute');
 
   });
