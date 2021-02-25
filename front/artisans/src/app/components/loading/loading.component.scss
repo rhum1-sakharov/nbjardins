@@ -1,0 +1,15 @@
+
+:host ::ng-deep .loading-button {
+
+  background-color: gray;
+  border-radius: 4px;
+  opacity: 0.8;
+  padding: 4px;
+  display: block;
+  position: absolute;
+  right: 30px;
+  left: auto;
+  top: auto;
+  bottom: 60px;
+  z-index: 9999;
+}

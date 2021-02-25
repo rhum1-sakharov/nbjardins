@@ -40,14 +40,18 @@
   display: block;
 }
 
-.parametres:hover, .devis:hover, .factures:hover {
+.parametres:hover, .devis:hover, .factures:hover, .routeActive {
 
   border-bottom: 3px solid #2196f3;
 }
 
-.routeActive{
-  border-bottom: 3px solid #7aaf3c;
+.parametres:focus, .devis:focus, .factures:focus {
+
+
+  outline: none;
 }
+
+
 
 @media screen and (max-width: 960px) {
 

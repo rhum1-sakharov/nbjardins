@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../../core-lib/projects/core-lib/src/lib/techniques/auth.service';
 import {HttpService, MSG_KEY, MSG_POSITION} from 'rhum1-sakharov-core-lib';
+import {LoadingService} from './services/loading.service';
 
 
 @Component({
@@ -14,8 +15,7 @@ export class AppComponent implements OnInit {
   readonly MSG_POSITION = MSG_POSITION.BOTTOM_CENTER;
 
 
-
-  constructor(public authSvc: AuthService, private httpSvc: HttpService) {
+  constructor(public authSvc: AuthService, private httpSvc: HttpService, private loadingSvc: LoadingService) {
   }
 
   ngOnInit(): void {

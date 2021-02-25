@@ -20,6 +20,8 @@ import {InputTextModule} from 'primeng/inputtext';
 import {DevisComponent} from './pages/devis/devis.component';
 import {FacturesComponent} from './pages/factures/factures.component';
 import {AccordionModule} from 'primeng/accordion';
+import {LoadingComponent} from './components/loading/loading.component';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import {AccordionModule} from 'primeng/accordion';
     ParametresComponent,
     TopMenuComponent,
     DevisComponent,
-    FacturesComponent
+    FacturesComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +47,8 @@ import {AccordionModule} from 'primeng/accordion';
     ListboxModule,
     InputNumberModule,
     InputTextModule,
-    AccordionModule
+    AccordionModule,
+    ProgressSpinnerModule
 
   ],
   providers: [

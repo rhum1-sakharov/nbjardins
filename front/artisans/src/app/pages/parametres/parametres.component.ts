@@ -33,8 +33,6 @@ export class ParametresComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-
-
     this.routeSubscription();
   }
 
