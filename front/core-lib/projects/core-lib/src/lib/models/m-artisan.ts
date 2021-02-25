@@ -5,6 +5,7 @@ import {MConditionReglement} from './m-condition-reglement';
 
 export class MArtisan extends Model {
 
+  id !: string;
   personne!: MPersonne;
   logo: string = '';
   taxe !: MTaxe;

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpService} from 'rhum1-sakharov-core-lib';
+import {HttpService, MArtisan} from 'rhum1-sakharov-core-lib';
 
 @Injectable({
   providedIn: 'root'
@@ -57,6 +57,24 @@ export class ParametresHttpService {
           }
        }       
     }`;
+
+    return this.httpSvc.post('api/graphql', query);
+  }
+
+  save(artisan: MArtisan) {
+
+    const query = `      
+    mutation saveArtisan{
+    saveArtisan(artisan:{
+        id: "${artisan.id}"
+        personne: {
+            numeroTelephone: "${artisan.personne.numeroTelephone}"
+        }
+    }){
+        id
+    }
+}        
+    `;
 
     return this.httpSvc.post('api/graphql', query);
   }

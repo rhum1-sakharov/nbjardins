@@ -3,6 +3,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {MArtisan, MConditionReglement, MTaxe, Utilisateur, UtilsService} from 'rhum1-sakharov-core-lib';
+import {ParametresHttpService} from '../../http/parametres-http.service';
 
 
 @Component({
@@ -24,12 +25,12 @@ export class ParametresComponent implements OnInit, OnDestroy {
   selectedSiret: string = '';
   selectedSociete: string = '';
   selectedVille: string = '';
-  selectedCodePostal: string='';
-  selectedTelephone: string='';
-  selectedAdresse: string='';
-  selectedFonction: string='';
+  selectedCodePostal: string = '';
+  selectedTelephone: string = '';
+  selectedAdresse: string = '';
+  selectedFonction: string = '';
 
-  constructor(private route: ActivatedRoute, private utils: UtilsService) {
+  constructor(private route: ActivatedRoute, private utils: UtilsService, private parametresHttp: ParametresHttpService) {
   }
 
   ngOnInit() {
@@ -60,6 +61,12 @@ export class ParametresComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.utils.unsubscribe(this.subRoute);
+  }
+
+  save() {
+    this.parametresHttp.save(this.artisan).subscribe((response: any) => {
+      console.log(response);
+    });
   }
 
 }

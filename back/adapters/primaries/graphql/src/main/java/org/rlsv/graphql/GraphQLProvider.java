@@ -59,7 +59,9 @@ public class GraphQLProvider {
                         .dataFetcher("conditionReglementAll", conditionReglementDataFetcher.getAllConditionReglementDataFetcher())
                         .dataFetcher("artisanByEmail", artisanDataFetcher.artisanByEmailDataFetcher())
                 )
-
+                .type(newTypeWiring("Mutation")
+                        .dataFetcher("saveArtisan", artisanDataFetcher.saveArtisanDataFetcher())
+                )
                 .build();
     }
 
