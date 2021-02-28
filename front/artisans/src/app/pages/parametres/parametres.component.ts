@@ -4,6 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {
   MArtisan,
+  MArtisanBanque,
   MConditionReglement,
   MSG_KEY,
   MSG_SEVERITY,
@@ -25,6 +26,7 @@ export class ParametresComponent implements OnInit, OnDestroy {
   taxes: MTaxe[] = [];
   conditionsReglements: MConditionReglement[] = [];
   artisan !: MArtisan;
+  artisanBanque !: MArtisanBanque;
   error: any;
   subRoute: Subscription = new Subscription();
   user!: Utilisateur;
@@ -58,6 +60,7 @@ export class ParametresComponent implements OnInit, OnDestroy {
       this.taxes = data.parametresSupplier.data.taxeAll;
       this.conditionsReglements = data.parametresSupplier.data.conditionReglementAll;
       this.artisan = data.parametresSupplier.data.artisanByEmail as MArtisan;
+      this.artisanBanque = data.parametresSupplier.data.artisanBanqueByEmailAndPrefere as MArtisanBanque;
 
       this.selectedTaxe = this.utils.preselectSingleElement(this.taxes, this.artisan.taxe);
       this.selectedConditionReglement = this.utils.preselectSingleElement(this.conditionsReglements, this.artisan.conditionDeReglement);

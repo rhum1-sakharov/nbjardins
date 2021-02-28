@@ -16,6 +16,7 @@ export * from './lib/models/m-error';
 export * from './lib/models/m-personne';
 export * from './lib/models/m-request';
 export * from './lib/models/m-ville';
+export * from './lib/models/m-artisan-banque';
 export * from './lib/models/model';
 
 export * from './lib/constants/constants';

@@ -4,12 +4,14 @@ import exceptions.CleanException;
 import graphql.GraphQL;
 import org.rlsv.graphql.GraphQLProvider;
 import org.rlsv.graphql.referentiel.artisan.ArtisanDataFetcher;
+import org.rlsv.graphql.referentiel.artisan.banque.ArtisanBanqueDataFetcher;
 import org.rlsv.graphql.referentiel.condition.reglement.ConditionReglementDataFetcher;
 import org.rlsv.graphql.referentiel.taxe.TaxeDataFetcher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import usecases.personnes.artisans.EnregistrerArtisanUE;
 import usecases.personnes.artisans.FindByEmailUE;
+import usecases.personnes.artisans.banques.FindByEmailAndPrefereUE;
 import usecases.referentiel.conditions.reglements.FindAllConditionReglementUE;
 import usecases.referentiel.taxes.FindAllTaxeUE;
 
@@ -19,8 +21,13 @@ import java.io.IOException;
 public class GraphQLConfig {
 
     @Bean
+    public ArtisanBanqueDataFetcher artisanBanqueDataFetcher(FindByEmailAndPrefereUE findByEmailAndPrefereUE) {
+        return new ArtisanBanqueDataFetcher(findByEmailAndPrefereUE);
+    }
+
+    @Bean
     public ArtisanDataFetcher artisanDataFetcher(FindByEmailUE findByEmailUE, EnregistrerArtisanUE enregistrerArtisanUE) {
-        return new ArtisanDataFetcher(findByEmailUE,enregistrerArtisanUE);
+        return new ArtisanDataFetcher(findByEmailUE, enregistrerArtisanUE);
     }
 
     @Bean
@@ -36,11 +43,13 @@ public class GraphQLConfig {
     @Bean
     public GraphQLProvider getGraphQLProvider(TaxeDataFetcher taxeDataFetcher,
                                               ConditionReglementDataFetcher conditionReglementDataFetcher,
-                                              ArtisanDataFetcher artisanDataFetcher
+                                              ArtisanDataFetcher artisanDataFetcher,
+                                              ArtisanBanqueDataFetcher artisanBanqueDataFetcher
     ) throws IOException, CleanException {
         return new GraphQLProvider(taxeDataFetcher,
                 conditionReglementDataFetcher,
-                artisanDataFetcher
+                artisanDataFetcher,
+                artisanBanqueDataFetcher
         );
     }
 

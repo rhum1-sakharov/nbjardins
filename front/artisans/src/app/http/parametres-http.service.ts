@@ -17,6 +17,11 @@ export class ParametresHttpService {
   prepare(email: string) {
 
     const query = `{
+    
+      artisanBanqueByEmailAndPrefere(email: "${email}", prefere: ${true}){
+          iban
+          rib
+      }
       
       taxeAll{
         id

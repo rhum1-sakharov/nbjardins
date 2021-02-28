@@ -7,6 +7,7 @@ type Query {
     taxeAll: [Taxe]
     conditionReglementAll: [ConditionReglement]
     artisanByEmail(email: String) : Artisan
+    artisanBanqueByEmailAndPrefere(email: String, prefere: Boolean) : ArtisanBanque
 }
 
 type Mutation{
@@ -60,6 +61,13 @@ type Artisan {
     siret: String
     validiteDevisMois: Int
     personne : Personne
+}
+
+type ArtisanBanque{
+    id: ID
+    iban: String
+    rib: String
+    artisan : Artisan
 }
 
 type Personne {

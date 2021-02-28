@@ -97,7 +97,7 @@
 
           <div data-test="provision">
             <h5>Validité du devis en mois</h5>
-            <p-inputNumber [(ngModel)]="selectedValiditeDevisMois" mode="decimal" ></p-inputNumber>
+            <p-inputNumber [(ngModel)]="selectedValiditeDevisMois" mode="decimal"></p-inputNumber>
           </div>
 
         </p-accordionTab>
@@ -163,12 +163,52 @@
         <div class="p-col-6">
         </div>
 
-        <div class="col-p-12">
+        <div class="p-col-12">
+          <table style="width:100%">
+            <thead>
+            <tr>
+              <th>Désignation</th>
+              <th>Montant en euros</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>Modificatif de l'état descriptif</td>
+              <td class="montant">550.25</td>
+            </tr>
+            <tr>
+              <td>Attestation de surface loi carrez</td>
+              <td class="montant">125.78</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
 
+        <div class="p-col-6">
+        </div>
+        <div class="p-col-6">
+          <table style="width:100%">
+            <tbody>
+            <tr>
+              <td><strong>TOTAL HT</strong></td>
+              <td class="montant"><strong>676.03</strong></td>
+            </tr>
+            <tr>
+              <td>TOTAL TVA ({{selectedTaxe.taux}}%)</td>
+              <td class="montant">{{676.03 * (selectedTaxe.taux/100) | number:'1.2-2'}}</td>
+            </tr>
+            <tr>
+              <td><strong>TOTAL TTC</strong></td>
+              <td class="montant"><strong>{{676.03 * (1+(selectedTaxe.taux/100 )) | number:'1.2-2'}}</strong></td>
+            </tr>
+            </tbody>
+          </table>
         </div>
 
         <div class="p-col-12">
-          <span class="mg-r-5">Conditions de réglement : </span>
+          <span class="mg-r-5">
+            <strong>Conditions de réglement :</strong>
+          </span>
           <span>{{selectedConditionReglement.condition}}</span>
         </div>
 
@@ -184,25 +224,25 @@
           <span class="mg-r-5">{{selectedVille}}</span>
         </div>
 
-        <div class="col-p-12">
+        <div class="p-col-12">
           <span class="mg-r-5">RIB : </span>
-          <span class="mg-r-5">TODO</span>
+          <span class="mg-r-5">{{artisanBanque?.rib}}</span>
         </div>
 
 
-        <div class="col-p-12">
+        <div class="p-col-12">
           <span class="mg-r-5">IBAN : </span>
-          <span class="mg-r-5">TODO</span>
+          <span class="mg-r-5">{{artisanBanque?.iban}}</span>
         </div>
 
 
-        <div class="col-p-12">
+        <div class="p-col-12">
           <span class="mg-r-5">
             <strong>Devis valable {{selectedValiditeDevisMois}} mois.</strong>
           </span>
         </div>
 
-        <div class="col-p-12">
+        <div class="p-col-12">
           <span class="mg-r-5">
             Acceptation du devis accompagné d'une provision de
           </span>
@@ -211,24 +251,24 @@
           </span>
         </div>
 
-        <div class="col-p-12">
+        <div class="p-col-12">
           <span class="mg-r-5">
             Bon pour commande,
           </span>
         </div>
 
-        <div class="col-p-12">
+        <div class="p-col-12">
           <span class="mg-r-5">
             Le ...........................................
           </span>
         </div>
 
-        <div class="col-p-6">
+        <div class="p-col-6">
           <span class="mg-r-5">
            Signature et nom du signataire
           </span>
         </div>
-        <div class="col-p-6">
+        <div class="p-col-6">
           <span class="mg-r-5">
            TODO signature artisan
           </span>

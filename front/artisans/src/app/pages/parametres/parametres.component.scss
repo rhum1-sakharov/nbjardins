@@ -1,14 +1,43 @@
 @import '../../../scss/variables';
 
-::ng-deep .p-inputnumber-input{
-  width:80px;
+::ng-deep .p-inputnumber-input {
+  width: 80px;
   text-align: right;
 }
 
-strong{
+strong {
   font-size: 14px;
 }
 
-.devis-preview{
+.devis-preview {
   border: 1px solid $border-color;
+
+  .montant{
+    text-align: right;
+  }
+
+  table {
+    border: 1px solid black;
+    border-collapse: collapse;
+
+    td{
+
+      border: 1px solid black;
+      padding:8px;
+
+
+    }
+
+
+    th {
+      border: 1px solid black;
+      background-color: $border-color;
+      text-align: left;
+      padding: 8px;
+    }
+
+  }
+
+
 }
+
