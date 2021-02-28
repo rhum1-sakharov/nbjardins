@@ -13,6 +13,7 @@ export class MArtisan extends Model {
   provision: number = 0;
   siret: string = '';
   validiteDevisMois: number = 1;
+  signature: string = '';
 
 
 }

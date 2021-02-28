@@ -1,6 +1,5 @@
 package models;
 
-import exceptions.CleanException;
 import exceptions.TechnicalException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,7 +20,7 @@ public class Precondition {
         return new Precondition(message, condition);
     }
 
-    public static void validate(Precondition... preconditions) throws CleanException {
+    public static void validate(Precondition... preconditions) throws TechnicalException {
 
         boolean isError = false;
         StringBuilder sb = new StringBuilder();

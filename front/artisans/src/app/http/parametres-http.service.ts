@@ -66,9 +66,32 @@ export class ParametresHttpService {
     const query = `      
     mutation saveArtisan{
     saveArtisan(artisan:{
-        id: "${artisan.id}"
+        id: "${artisan.id}",
+        taxe: {
+          id: "${artisan.taxe.id}"
+          nom: "${artisan.taxe.nom}"
+          taux: ${artisan.taxe.taux}
+        }
+        conditionDeReglement: {
+          id: "${artisan.conditionDeReglement.id}"
+          condition: "${artisan.conditionDeReglement.condition}"
+        }
+        logo: "${artisan.logo}"
+        provision: ${artisan.provision}
+        siret: "${artisan.siret}"
+        validiteDevisMois: ${artisan.validiteDevisMois}      
+        signature: ""   
         personne: {
+            id: "${artisan.personne.id}"
+            nom: "${artisan.personne.nom}"
+            prenom: "${artisan.personne.prenom}"
+            email: "${artisan.personne.email}"            
             numeroTelephone: "${artisan.personne.numeroTelephone}"
+            adresse: "${artisan.personne.adresse}"
+            codePostal: "${artisan.personne.codePostal}"
+            ville: "${artisan.personne.ville}"
+            fonction: "${artisan.personne.fonction}"
+            societe: "${artisan.personne.societe}"
         }
     }){
         id

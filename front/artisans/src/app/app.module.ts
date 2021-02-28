@@ -22,6 +22,7 @@ import {FacturesComponent} from './pages/factures/factures.component';
 import {AccordionModule} from 'primeng/accordion';
 import {LoadingComponent} from './components/loading/loading.component';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
+import {ToolbarModule} from 'primeng/toolbar';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
     InputNumberModule,
     InputTextModule,
     AccordionModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    ToolbarModule
 
   ],
   providers: [

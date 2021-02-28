@@ -2,7 +2,16 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs';
-import {MArtisan, MConditionReglement, MTaxe, Utilisateur, UtilsService} from 'rhum1-sakharov-core-lib';
+import {
+  MArtisan,
+  MConditionReglement,
+  MSG_KEY,
+  MSG_SEVERITY,
+  MTaxe,
+  ToasterService,
+  Utilisateur,
+  UtilsService
+} from 'rhum1-sakharov-core-lib';
 import {ParametresHttpService} from '../../http/parametres-http.service';
 
 
@@ -30,7 +39,9 @@ export class ParametresComponent implements OnInit, OnDestroy {
   selectedAdresse: string = '';
   selectedFonction: string = '';
 
-  constructor(private route: ActivatedRoute, private utils: UtilsService, private parametresHttp: ParametresHttpService) {
+  constructor(private route: ActivatedRoute, private utils: UtilsService,
+              private toastSvc: ToasterService,
+              private parametresHttp: ParametresHttpService) {
   }
 
   ngOnInit() {
@@ -64,8 +75,24 @@ export class ParametresComponent implements OnInit, OnDestroy {
   }
 
   save() {
+
+    this.artisan.taxe = this.selectedTaxe;
+    this.artisan.provision = this.selectedProvision;
+    this.artisan.conditionDeReglement = this.selectedConditionReglement;
+
+    this.artisan.siret = this.selectedSiret;
+    this.artisan.personne.societe = this.selectedSociete;
+    this.artisan.personne.fonction = this.selectedFonction;
+    this.artisan.personne.adresse = this.selectedAdresse;
+    this.artisan.personne.ville = this.selectedVille;
+    this.artisan.personne.codePostal = this.selectedCodePostal;
+    this.artisan.personne.numeroTelephone = this.selectedTelephone;
+
+    // TODO to implement
+    this.artisan.signature = '';
+
     this.parametresHttp.save(this.artisan).subscribe((response: any) => {
-      console.log(response);
+      this.toastSvc.showMsg(MSG_KEY.ROOT, MSG_SEVERITY.SUCCESS, 'Parmètres enregistrés avec succès.');
     });
   }
 
