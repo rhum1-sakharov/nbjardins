@@ -38,6 +38,9 @@ export class ParametresComponent implements OnInit, OnDestroy {
   selectedTelephone: string = '';
   selectedAdresse: string = '';
   selectedFonction: string = '';
+  selectedValiditeDevisMois: number = 0;
+
+  previewDate = new Date();
 
   constructor(private route: ActivatedRoute, private utils: UtilsService,
               private toastSvc: ToasterService,
@@ -66,6 +69,7 @@ export class ParametresComponent implements OnInit, OnDestroy {
       this.selectedTelephone = this.artisan.personne.numeroTelephone;
       this.selectedVille = this.artisan.personne.ville;
       this.selectedFonction = this.artisan.personne.fonction;
+      this.selectedValiditeDevisMois = this.artisan.validiteDevisMois;
 
     });
   }
@@ -87,6 +91,7 @@ export class ParametresComponent implements OnInit, OnDestroy {
     this.artisan.personne.ville = this.selectedVille;
     this.artisan.personne.codePostal = this.selectedCodePostal;
     this.artisan.personne.numeroTelephone = this.selectedTelephone;
+    this.artisan.validiteDevisMois = this.selectedValiditeDevisMois;
 
     // TODO to implement
     this.artisan.signature = '';
@@ -95,5 +100,6 @@ export class ParametresComponent implements OnInit, OnDestroy {
       this.toastSvc.showMsg(MSG_KEY.ROOT, MSG_SEVERITY.SUCCESS, 'Parmètres enregistrés avec succès.');
     });
   }
+
 
 }

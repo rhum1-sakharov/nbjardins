@@ -1,16 +1,7 @@
-<p-toolbar>
-  <div class="p-toolbar-group-left">
-  </div>
-  <div class="p-toolbar-group-right">
-    <p-button icon="pi pi-save" pTooltip="Enregistrer les modifications" (onClick)="save()"></p-button>
-  </div>
-</p-toolbar>
-
-
 <div class="mg-t-10">
   <div class="p-grid">
     <div class="p-col">
-      <p-accordion [multiple]="false" >
+      <p-accordion [multiple]="false">
         <p-accordionTab header="Identification" [selected]="true">
 
           <div class="p-field p-grid">
@@ -52,7 +43,8 @@
           <div class="p-field p-grid">
             <label for="codePostal" class="p-col-fixed" style="width:100px"><strong>Code postal</strong></label>
             <div class="p-col">
-              <input type="text" id="codePostal" [style]="{'width':'450px'}" pInputText [(ngModel)]="selectedCodePostal"/>
+              <input type="text" id="codePostal" [style]="{'width':'450px'}" pInputText
+                     [(ngModel)]="selectedCodePostal"/>
             </div>
           </div>
 
@@ -103,13 +95,146 @@
             %
           </div>
 
+          <div data-test="provision">
+            <h5>Validité du devis en mois</h5>
+            <p-inputNumber [(ngModel)]="selectedValiditeDevisMois" mode="decimal" ></p-inputNumber>
+          </div>
+
         </p-accordionTab>
         <p-accordionTab header="Factures">
           Nouvelle fonctionnalité à implémenter...
         </p-accordionTab>
       </p-accordion>
+      <p-button icon="pi pi-save" pTooltip="Enregistrer les modifications" (onClick)="save()"></p-button>
     </div>
     <div class="p-col">
+      <div class="p-grid devis-preview">
+        <div class="p-col-6">
+
+          <div>
+            <img [src]="artisan.logo" height="40">
+          </div>
+          <div>
+            {{selectedSociete}}
+          </div>
+          <div>
+            {{selectedAdresse}}
+          </div>
+          <div>
+            <span class="mg-r-5">{{selectedCodePostal}}</span>
+            <span>{{selectedVille}}</span>
+          </div>
+          <div>
+            <span class="mg-r-5">Tél :</span>
+            <span>{{selectedTelephone}}</span>
+          </div>
+          <div>
+            <span class="mg-r-5">Email : </span>
+            <span>{{artisan.personne.email}}</span>
+          </div>
+          <div>
+            <span class="mg-r-5">SIRET : </span>
+            <span>{{selectedSiret}}</span>
+          </div>
+
+        </div>
+        <div class="p-col-6">
+          <div>
+            <strong>Milou Tartenpion</strong>
+          </div>
+          <div>
+            544 chemin de fontblanque
+          </div>
+          <div>
+            84350 Mazan
+          </div>
+        </div>
+
+        <div class="p-col-6">
+          <strong>Devis n° 20201230-001-ABN</strong>
+        </div>
+        <div class="p-col-6">
+          Elagage des arbres de la propriété du 544 chemin de fontblaqune à Mazan
+        </div>
+
+        <div class="p-col-6">
+          <span class="mg-r-5">{{selectedVille}}</span>, le {{previewDate | date:'dd/MM/yyyy'}}
+        </div>
+        <div class="p-col-6">
+        </div>
+
+        <div class="col-p-12">
+
+        </div>
+
+        <div class="p-col-12">
+          <span class="mg-r-5">Conditions de réglement : </span>
+          <span>{{selectedConditionReglement.condition}}</span>
+        </div>
+
+        <div class="p-col-12">
+          <span class="mg-r-5">Règlement à l'ordre de : </span>
+          <span class="mg-r-5">
+            <strong>{{selectedSociete}}</strong>
+          </span>
+          <span class="mg-r-5">-</span>
+          <span class="mg-r-5">{{selectedAdresse}}</span>
+          <span class="mg-r-5">-</span>
+          <span class="mg-r-5">{{selectedCodePostal}}</span>
+          <span class="mg-r-5">{{selectedVille}}</span>
+        </div>
+
+        <div class="col-p-12">
+          <span class="mg-r-5">RIB : </span>
+          <span class="mg-r-5">TODO</span>
+        </div>
+
+
+        <div class="col-p-12">
+          <span class="mg-r-5">IBAN : </span>
+          <span class="mg-r-5">TODO</span>
+        </div>
+
+
+        <div class="col-p-12">
+          <span class="mg-r-5">
+            <strong>Devis valable {{selectedValiditeDevisMois}} mois.</strong>
+          </span>
+        </div>
+
+        <div class="col-p-12">
+          <span class="mg-r-5">
+            Acceptation du devis accompagné d'une provision de
+          </span>
+          <span class="mg-r-5">
+            {{selectedProvision}} %
+          </span>
+        </div>
+
+        <div class="col-p-12">
+          <span class="mg-r-5">
+            Bon pour commande,
+          </span>
+        </div>
+
+        <div class="col-p-12">
+          <span class="mg-r-5">
+            Le ...........................................
+          </span>
+        </div>
+
+        <div class="col-p-6">
+          <span class="mg-r-5">
+           Signature et nom du signataire
+          </span>
+        </div>
+        <div class="col-p-6">
+          <span class="mg-r-5">
+           TODO signature artisan
+          </span>
+        </div>
+
+      </div>
     </div>
   </div>
 
