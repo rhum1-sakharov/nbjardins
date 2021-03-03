@@ -30,19 +30,12 @@ export class ParametresComponent implements OnInit, OnDestroy {
   error: any;
   subRoute: Subscription = new Subscription();
   user!: Utilisateur;
-  selectedTaxe !: MTaxe;
-  selectedConditionReglement !: MConditionReglement;
-  selectedProvision: number = 0;
-  selectedSiret: string = '';
-  selectedSociete: string = '';
-  selectedVille: string = '';
-  selectedCodePostal: string = '';
-  selectedTelephone: string = '';
-  selectedAdresse: string = '';
-  selectedFonction: string = '';
-  selectedValiditeDevisMois: number = 0;
+  previews = [
+    {label: 'devis'},
+    {label: 'facture'},
+  ];
+  selectedPreview = 'devis';
 
-  previewDate = new Date();
 
   constructor(private route: ActivatedRoute, private utils: UtilsService,
               private toastSvc: ToasterService,
@@ -62,17 +55,9 @@ export class ParametresComponent implements OnInit, OnDestroy {
       this.artisan = data.parametresSupplier.data.artisanByEmail as MArtisan;
       this.artisanBanque = data.parametresSupplier.data.artisanBanqueByEmailAndPrefere as MArtisanBanque;
 
-      this.selectedTaxe = this.utils.preselectSingleElement(this.taxes, this.artisan.taxe);
-      this.selectedConditionReglement = this.utils.preselectSingleElement(this.conditionsReglements, this.artisan.conditionDeReglement);
-      this.selectedProvision = this.artisan.provision;
-      this.selectedSiret = this.artisan.siret;
-      this.selectedSociete = this.artisan.personne.societe;
-      this.selectedCodePostal = this.artisan.personne.codePostal;
-      this.selectedAdresse = this.artisan.personne.adresse;
-      this.selectedTelephone = this.artisan.personne.numeroTelephone;
-      this.selectedVille = this.artisan.personne.ville;
-      this.selectedFonction = this.artisan.personne.fonction;
-      this.selectedValiditeDevisMois = this.artisan.validiteDevisMois;
+      this.artisan.taxe = this.utils.preselectSingleElement(this.taxes, this.artisan.taxe);
+      this.artisan.conditionDeReglement = this.utils.preselectSingleElement(this.conditionsReglements, this.artisan.conditionDeReglement);
+
 
     });
   }
@@ -83,18 +68,6 @@ export class ParametresComponent implements OnInit, OnDestroy {
 
   save() {
 
-    this.artisan.taxe = this.selectedTaxe;
-    this.artisan.provision = this.selectedProvision;
-    this.artisan.conditionDeReglement = this.selectedConditionReglement;
-
-    this.artisan.siret = this.selectedSiret;
-    this.artisan.personne.societe = this.selectedSociete;
-    this.artisan.personne.fonction = this.selectedFonction;
-    this.artisan.personne.adresse = this.selectedAdresse;
-    this.artisan.personne.ville = this.selectedVille;
-    this.artisan.personne.codePostal = this.selectedCodePostal;
-    this.artisan.personne.numeroTelephone = this.selectedTelephone;
-    this.artisan.validiteDevisMois = this.selectedValiditeDevisMois;
 
     // TODO to implement
     this.artisan.signature = '';

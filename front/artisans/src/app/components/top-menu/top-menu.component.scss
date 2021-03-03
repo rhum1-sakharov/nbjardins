@@ -1,3 +1,5 @@
+@import 'variables';
+
 .menu {
   height: 69px;
   background-color: #fff;
@@ -7,7 +9,7 @@
   width: 100%;
   z-index: 997;
   box-shadow: 0 0 4px rgb(0 0 0 / 25%);
-  border-bottom: 1px solid #dee2e6;
+  border-bottom: 1px solid $color-border;
   display: flex;
   align-items: center;
 }
@@ -27,7 +29,7 @@
 }
 
 .threeBarButton:hover {
-  background-color: #e9ecef;
+  background-color:$color-hover;
 }
 
 .threeBarButton i {
@@ -42,7 +44,7 @@
 
 .parametres:hover, .devis:hover, .factures:hover, .routeActive {
 
-  border-bottom: 3px solid #2196f3;
+  border-bottom: 3px solid $color-button;
 }
 
 .parametres:focus, .devis:focus, .factures:focus {
