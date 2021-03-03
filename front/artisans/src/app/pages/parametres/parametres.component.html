@@ -1,20 +1,20 @@
 <div class="mg-t-10 page-parametre">
-  <div class="p-grid">
-    <div class="p-col-5">
+  <div class="p-d-flex p-flex-column p-flex-md-row">
+    <div class="p-mr-2">
       <p-accordion [multiple]="false">
         <p-accordionTab header="Identification" [selected]="true">
 
           <div class="p-field p-grid">
             <label for="siret" class="p-col-fixed" style="width:100px"><strong>SIRET</strong></label>
             <div class="p-col">
-              <input type="text" id="siret" [style]="{'width':'450px'}" pInputText [(ngModel)]="artisan.siret"/>
+              <input type="text" id="siret"  pInputText [(ngModel)]="artisan.siret" data-test="siret"/>
             </div>
           </div>
 
           <div class="p-field p-grid">
             <label for="societe" class="p-col-fixed" style="width:100px"><strong>Société</strong></label>
             <div class="p-col">
-              <input type="text" id="societe" [style]="{'width':'450px'}" pInputText
+              <input type="text" id="societe"  pInputText
                      [(ngModel)]="artisan.personne.societe"/>
             </div>
           </div>
@@ -22,7 +22,7 @@
           <div class="p-field p-grid">
             <label for="fonction" class="p-col-fixed" style="width:100px"><strong>Fonction</strong></label>
             <div class="p-col">
-              <input type="text" id="fonction" [style]="{'width':'450px'}" pInputText
+              <input type="text" id="fonction"  pInputText
                      [(ngModel)]="artisan.personne.fonction"/>
             </div>
           </div>
@@ -31,7 +31,7 @@
           <div class="p-field p-grid">
             <label for="adresse" class="p-col-fixed" style="width:100px"><strong>Adresse</strong></label>
             <div class="p-col">
-              <input type="text" id="adresse" [style]="{'width':'450px'}" pInputText
+              <input type="text" id="adresse"  pInputText
                      [(ngModel)]="artisan.personne.adresse"/>
             </div>
           </div>
@@ -39,7 +39,7 @@
           <div class="p-field p-grid">
             <label for="ville" class="p-col-fixed" style="width:100px"><strong>Ville</strong></label>
             <div class="p-col">
-              <input type="text" id="ville" [style]="{'width':'450px'}" pInputText
+              <input type="text" id="ville"  pInputText
                      [(ngModel)]="artisan.personne.ville"/>
             </div>
           </div>
@@ -47,7 +47,7 @@
           <div class="p-field p-grid">
             <label for="codePostal" class="p-col-fixed" style="width:100px"><strong>Code postal</strong></label>
             <div class="p-col">
-              <input type="text" id="codePostal" [style]="{'width':'450px'}" pInputText
+              <input type="text" id="codePostal"  pInputText
                      [(ngModel)]="artisan.personne.codePostal"/>
             </div>
           </div>
@@ -55,7 +55,7 @@
           <div class="p-field p-grid">
             <label for="telephone" class="p-col-fixed" style="width:100px"><strong>Téléphone</strong></label>
             <div class="p-col">
-              <input type="text" id="telephone" [style]="{'width':'450px'}" pInputText
+              <input type="text" id="telephone"  pInputText
                      [(ngModel)]="artisan.personne.numeroTelephone"/>
             </div>
           </div>
@@ -71,9 +71,9 @@
         <p-accordionTab header="Devis">
           <div data-test="taxe">
             <h5>TVA</h5>
-            <p-listbox [options]="taxes" [(ngModel)]="artisan.taxe" optionLabel="nom" [style]="{'width':'450px'}">
+            <p-listbox [options]="taxes" [(ngModel)]="artisan.taxe" optionLabel="nom" >
               <ng-template let-item pTemplate="item">
-                <div class="p-d-flex wh-450">
+                <div class="p-d-flex ">
                   <div class="p-mr-2">
                     {{item.nom}}
                   </div>
@@ -113,7 +113,7 @@
       </p-accordion>
       <p-button icon="pi pi-save" pTooltip="Enregistrer les modifications" (onClick)="save()"></p-button>
     </div>
-    <div class="p-col-7">
+    <div class="p-mr-2">
 
       <p-selectButton [options]="previews" [(ngModel)]="selectedPreview" optionLabel="label" optionValue="label"></p-selectButton>
 
@@ -126,11 +126,8 @@
         </ng-container>
       </ng-container>
 
-
     </div>
   </div>
-
-
 </div>
 
 

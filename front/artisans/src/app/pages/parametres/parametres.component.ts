@@ -37,7 +37,7 @@ export class ParametresComponent implements OnInit, OnDestroy {
   selectedPreview = 'devis';
 
 
-  constructor(private route: ActivatedRoute, private utils: UtilsService,
+  constructor(public route: ActivatedRoute, private utils: UtilsService,
               private toastSvc: ToasterService,
               private parametresHttp: ParametresHttpService) {
   }

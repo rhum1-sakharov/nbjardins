@@ -13,3 +13,15 @@ strong {
   width: calc( 100% - 20px);
 }
 
+
+input{
+  width:292px;
+}
+
+@media screen and (max-width: 960px) {
+
+  input{
+    width:192px;
+  }
+
+}
