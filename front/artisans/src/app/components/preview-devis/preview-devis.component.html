@@ -3,29 +3,29 @@
     <div class="p-col-6">
 
       <div>
-        <img [src]="artisan?.logo" height="40">
+        <img [src]="artisan.logo" height="40">
       </div>
       <div>
-        {{artisan?.personne?.societe}}
+        {{artisan.personne.societe}}
       </div>
       <div>
-        {{artisan?.personne?.adresse}}
+        {{artisan.personne.adresse}}
       </div>
       <div>
-        <span class="mg-r-5">{{artisan?.personne?.codePostal}}</span>
-        <span>{{artisan?.personne?.ville}}</span>
+        <span class="mg-r-5">{{artisan.personne.codePostal}}</span>
+        <span>{{artisan.personne.ville}}</span>
       </div>
       <div>
         <span class="mg-r-5">Tél :</span>
-        <span>{{artisan?.personne?.numeroTelephone}}</span>
+        <span>{{artisan.personne.numeroTelephone}}</span>
       </div>
       <div>
         <span class="mg-r-5">Email : </span>
-        <span>{{artisan?.personne?.email}}</span>
+        <span>{{artisan.personne.email}}</span>
       </div>
       <div>
         <span class="mg-r-5">SIRET : </span>
-        <span>{{artisan?.siret}}</span>
+        <span>{{artisan.siret}}</span>
       </div>
 
     </div>
@@ -49,7 +49,7 @@
     </div>
 
     <div class="p-col-6">
-      <span class="mg-r-5">{{artisan?.personne?.ville}}</span>, le {{previewDate | date:'dd/MM/yyyy'}}
+      <span class="mg-r-5">{{artisan.personne.ville}}</span>, le {{previewDate | date:'dd/MM/yyyy'}}
     </div>
     <div class="p-col-6">
     </div>
@@ -85,12 +85,12 @@
           <td class="montant"><strong>676.03</strong></td>
         </tr>
         <tr>
-          <td>TOTAL TVA ({{artisan?.taxe?.taux}}%)</td>
-          <td class="montant">{{676.03 * (artisan?.taxe?.taux/100) | number:'1.2-2'}}</td>
+          <td>TOTAL TVA ({{artisan.taxe.taux}}%)</td>
+          <td class="montant">{{676.03 * (artisan.taxe.taux/100) | number:'1.2-2'}}</td>
         </tr>
         <tr>
           <td><strong>TOTAL TTC</strong></td>
-          <td class="montant"><strong>{{676.03 * (1+(artisan?.taxe?.taux/100 )) | number:'1.2-2'}}</strong></td>
+          <td class="montant"><strong>{{676.03 * (1+(artisan.taxe.taux/100 )) | number:'1.2-2'}}</strong></td>
         </tr>
         </tbody>
       </table>
@@ -100,45 +100,45 @@
           <span class="mg-r-5">
             <strong>Conditions de réglement :</strong>
           </span>
-      <span>{{artisan?.conditionDeReglement?.condition}}</span>
+      <span>{{artisan.conditionDeReglement.condition}}</span>
     </div>
 
     <div class="p-col-12">
       <span class="mg-r-5">Règlement à l'ordre de : </span>
       <span class="mg-r-5">
-            <strong>{{artisan?.personne?.societe}}</strong>
+            <strong>{{artisan.personne.societe}}</strong>
           </span>
       <span class="mg-r-5">-</span>
-      <span class="mg-r-5">{{artisan?.personne?.adresse}}</span>
+      <span class="mg-r-5">{{artisan.personne.adresse}}</span>
       <span class="mg-r-5">-</span>
-      <span class="mg-r-5">{{artisan?.personne?.codePostal}}</span>
-      <span class="mg-r-5">{{artisan?.personne?.ville}}</span>
+      <span class="mg-r-5">{{artisan.personne.codePostal}}</span>
+      <span class="mg-r-5">{{artisan.personne.ville}}</span>
     </div>
 
     <div class="p-col-12">
       <span class="mg-r-5">RIB : </span>
-      <span class="mg-r-5">{{artisanBanque?.rib}}</span>
+      <span class="mg-r-5">{{artisanBanque.rib}}</span>
     </div>
 
 
     <div class="p-col-12">
       <span class="mg-r-5">IBAN : </span>
-      <span class="mg-r-5">{{artisanBanque?.iban}}</span>
+      <span class="mg-r-5">{{artisanBanque.iban}}</span>
     </div>
 
 
     <div class="p-col-12">
           <span class="mg-r-5">
-            <strong>Devis valable {{artisan?.validiteDevisMois}} mois.</strong>
+            <strong>Devis valable {{artisan.validiteDevisMois}} mois.</strong>
           </span>
     </div>
 
-    <div class="p-col-12" *ngIf="artisan?.provision>0" data-test="provision">
+    <div class="p-col-12" *ngIf="artisan.provision>0" data-test="provision">
           <span class="mg-r-5">
             Acceptation du devis accompagné d'une provision de
           </span>
       <span class="mg-r-5">
-            {{artisan?.provision}} %
+            {{artisan.provision}} %
           </span>
     </div>
 

@@ -1,7 +1,7 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {PreviewDevisComponent} from './preview-devis.component';
-import {MArtisan, MArtisanBanque, MPersonne} from 'rhum1-sakharov-core-lib';
+import {MArtisan, MArtisanBanque, MConditionReglement, MPersonne, MTaxe} from 'rhum1-sakharov-core-lib';
 
 describe('PreviewDevisComponent', () => {
   let component: PreviewDevisComponent;
@@ -21,6 +21,8 @@ describe('PreviewDevisComponent', () => {
 
     component.artisan = new MArtisan();
     component.artisan.personne = new MPersonne();
+    component.artisan.taxe = new MTaxe('1','normal',20);
+    component.artisan.conditionDeReglement = new MConditionReglement('1','à réception de la facture');
 
     component.artisanBanque = new MArtisanBanque();
 
