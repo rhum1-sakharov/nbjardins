@@ -1,167 +1,170 @@
-<div class="p-grid devis-preview pg-8 mg-t-10 mg-l-1">
-  <div class="p-col-6">
+<ng-container *ngIf="artisan && artisanBanque">
+  <div class="p-grid devis-preview pg-8 mg-t-10 mg-l-1">
+    <div class="p-col-6">
 
-    <div>
-      <img [src]="artisan.logo" height="40">
+      <div>
+        <img [src]="artisan?.logo" height="40">
+      </div>
+      <div>
+        {{artisan?.personne?.societe}}
+      </div>
+      <div>
+        {{artisan?.personne?.adresse}}
+      </div>
+      <div>
+        <span class="mg-r-5">{{artisan?.personne?.codePostal}}</span>
+        <span>{{artisan?.personne?.ville}}</span>
+      </div>
+      <div>
+        <span class="mg-r-5">Tél :</span>
+        <span>{{artisan?.personne?.numeroTelephone}}</span>
+      </div>
+      <div>
+        <span class="mg-r-5">Email : </span>
+        <span>{{artisan?.personne?.email}}</span>
+      </div>
+      <div>
+        <span class="mg-r-5">SIRET : </span>
+        <span>{{artisan?.siret}}</span>
+      </div>
+
     </div>
-    <div>
-      {{artisan.personne.societe}}
-    </div>
-    <div>
-      {{artisan.personne.adresse}}
-    </div>
-    <div>
-      <span class="mg-r-5">{{artisan.personne.codePostal}}</span>
-      <span>{{artisan.personne.ville}}</span>
-    </div>
-    <div>
-      <span class="mg-r-5">Tél :</span>
-      <span>{{artisan.personne.numeroTelephone}}</span>
-    </div>
-    <div>
-      <span class="mg-r-5">Email : </span>
-      <span>{{artisan.personne.email}}</span>
-    </div>
-    <div>
-      <span class="mg-r-5">SIRET : </span>
-      <span>{{artisan.siret}}</span>
+    <div class="p-col-6">
+      <div>
+        <strong>Milou Tartenpion</strong>
+      </div>
+      <div>
+        544 chemin de fontblanque
+      </div>
+      <div>
+        84350 Mazan
+      </div>
     </div>
 
-  </div>
-  <div class="p-col-6">
-    <div>
-      <strong>Milou Tartenpion</strong>
+    <div class="p-col-6">
+      <strong>Devis n° 20201230-001-ABN</strong>
     </div>
-    <div>
-      544 chemin de fontblanque
+    <div class="p-col-6">
+      Elagage des arbres de la propriété du 544 chemin de fontblaqune à Mazan
     </div>
-    <div>
-      84350 Mazan
+
+    <div class="p-col-6">
+      <span class="mg-r-5">{{artisan?.personne?.ville}}</span>, le {{previewDate | date:'dd/MM/yyyy'}}
     </div>
-  </div>
+    <div class="p-col-6">
+    </div>
 
-  <div class="p-col-6">
-    <strong>Devis n° 20201230-001-ABN</strong>
-  </div>
-  <div class="p-col-6">
-    Elagage des arbres de la propriété du 544 chemin de fontblaqune à Mazan
-  </div>
+    <div class="p-col-12">
+      <table style="width:100%">
+        <thead>
+        <tr>
+          <th>Désignation</th>
+          <th>Montant en euros</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>Modificatif de l'état descriptif</td>
+          <td class="montant">550.25</td>
+        </tr>
+        <tr>
+          <td>Attestation de surface loi carrez</td>
+          <td class="montant">125.78</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
 
-  <div class="p-col-6">
-    <span class="mg-r-5">{{artisan.personne.ville}}</span>, le {{previewDate | date:'dd/MM/yyyy'}}
-  </div>
-  <div class="p-col-6">
-  </div>
+    <div class="p-col-6">
+    </div>
+    <div class="p-col-6">
+      <table style="width:100%">
+        <tbody>
+        <tr>
+          <td><strong>TOTAL HT</strong></td>
+          <td class="montant"><strong>676.03</strong></td>
+        </tr>
+        <tr>
+          <td>TOTAL TVA ({{artisan?.taxe?.taux}}%)</td>
+          <td class="montant">{{676.03 * (artisan?.taxe?.taux/100) | number:'1.2-2'}}</td>
+        </tr>
+        <tr>
+          <td><strong>TOTAL TTC</strong></td>
+          <td class="montant"><strong>{{676.03 * (1+(artisan?.taxe?.taux/100 )) | number:'1.2-2'}}</strong></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
 
-  <div class="p-col-12">
-    <table style="width:100%">
-      <thead>
-      <tr>
-        <th>Désignation</th>
-        <th>Montant en euros</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td>Modificatif de l'état descriptif</td>
-        <td class="montant">550.25</td>
-      </tr>
-      <tr>
-        <td>Attestation de surface loi carrez</td>
-        <td class="montant">125.78</td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="p-col-6">
-  </div>
-  <div class="p-col-6">
-    <table style="width:100%">
-      <tbody>
-      <tr>
-        <td><strong>TOTAL HT</strong></td>
-        <td class="montant"><strong>676.03</strong></td>
-      </tr>
-      <tr>
-        <td>TOTAL TVA ({{artisan.taxe.taux}}%)</td>
-        <td class="montant">{{676.03 * (artisan.taxe.taux/100) | number:'1.2-2'}}</td>
-      </tr>
-      <tr>
-        <td><strong>TOTAL TTC</strong></td>
-        <td class="montant"><strong>{{676.03 * (1+(artisan.taxe.taux/100 )) | number:'1.2-2'}}</strong></td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="p-col-12">
+    <div class="p-col-12">
           <span class="mg-r-5">
             <strong>Conditions de réglement :</strong>
           </span>
-    <span>{{artisan.conditionDeReglement.condition}}</span>
-  </div>
+      <span>{{artisan?.conditionDeReglement?.condition}}</span>
+    </div>
 
-  <div class="p-col-12">
-    <span class="mg-r-5">Règlement à l'ordre de : </span>
-    <span class="mg-r-5">
-            <strong>{{artisan.personne.societe}}</strong>
+    <div class="p-col-12">
+      <span class="mg-r-5">Règlement à l'ordre de : </span>
+      <span class="mg-r-5">
+            <strong>{{artisan?.personne?.societe}}</strong>
           </span>
-    <span class="mg-r-5">-</span>
-    <span class="mg-r-5">{{artisan.personne.adresse}}</span>
-    <span class="mg-r-5">-</span>
-    <span class="mg-r-5">{{artisan.personne.codePostal}}</span>
-    <span class="mg-r-5">{{artisan.personne.ville}}</span>
-  </div>
+      <span class="mg-r-5">-</span>
+      <span class="mg-r-5">{{artisan?.personne?.adresse}}</span>
+      <span class="mg-r-5">-</span>
+      <span class="mg-r-5">{{artisan?.personne?.codePostal}}</span>
+      <span class="mg-r-5">{{artisan?.personne?.ville}}</span>
+    </div>
 
-  <div class="p-col-12">
-    <span class="mg-r-5">RIB : </span>
-    <span class="mg-r-5">{{artisanBanque?.rib}}</span>
-  </div>
-
-
-  <div class="p-col-12">
-    <span class="mg-r-5">IBAN : </span>
-    <span class="mg-r-5">{{artisanBanque?.iban}}</span>
-  </div>
+    <div class="p-col-12">
+      <span class="mg-r-5">RIB : </span>
+      <span class="mg-r-5">{{artisanBanque?.rib}}</span>
+    </div>
 
 
-  <div class="p-col-12">
+    <div class="p-col-12">
+      <span class="mg-r-5">IBAN : </span>
+      <span class="mg-r-5">{{artisanBanque?.iban}}</span>
+    </div>
+
+
+    <div class="p-col-12">
           <span class="mg-r-5">
-            <strong>Devis valable {{artisan.validiteDevisMois}} mois.</strong>
+            <strong>Devis valable {{artisan?.validiteDevisMois}} mois.</strong>
           </span>
-  </div>
+    </div>
 
-  <div class="p-col-12" *ngIf="artisan.provision>0">
+    <div class="p-col-12" *ngIf="artisan?.provision>0" data-test="provision">
           <span class="mg-r-5">
             Acceptation du devis accompagné d'une provision de
           </span>
-    <span class="mg-r-5">
-            {{artisan.provision}} %
+      <span class="mg-r-5">
+            {{artisan?.provision}} %
           </span>
-  </div>
+    </div>
 
-  <div class="p-col-12">
+    <div class="p-col-12">
           <span class="mg-r-5">
             Bon pour commande,
           </span>
-  </div>
+    </div>
 
-  <div class="p-col-12">
+    <div class="p-col-12">
           <span class="mg-r-5">
             Le ...........................................
           </span>
-  </div>
+    </div>
 
-  <div class="p-col-6">
+    <div class="p-col-6">
           <span class="mg-r-5">
            Signature et nom du signataire
           </span>
-  </div>
-  <div class="p-col-6">
+    </div>
+    <div class="p-col-6">
           <span class="mg-r-5">
            TODO signature artisan
           </span>
-  </div>
+    </div>
 
-</div>
+  </div>
+</ng-container>
+
