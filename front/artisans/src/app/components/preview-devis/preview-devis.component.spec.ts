@@ -23,7 +23,6 @@ describe('PreviewDevisComponent', () => {
     component.artisan.personne = new MPersonne();
     component.artisan.taxe = new MTaxe('1','normal',20);
     component.artisan.conditionDeReglement = new MConditionReglement('1','à réception de la facture');
-
     component.artisanBanque = new MArtisanBanque();
 
     fixture.detectChanges();
