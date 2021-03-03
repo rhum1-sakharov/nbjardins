@@ -23,8 +23,8 @@ import {AccordionModule} from 'primeng/accordion';
 import {LoadingComponent} from './components/loading/loading.component';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import {ToolbarModule} from 'primeng/toolbar';
-import {PreviewDevisComponent} from './pages/parametres/preview-devis/preview-devis.component';
-import {PreviewFactureComponent} from './pages/parametres/preview-facture/preview-facture.component';
+import {PreviewDevisComponent} from './components/preview-devis/preview-devis.component';
+import {PreviewFactureComponent} from './components/preview-facture/preview-facture.component';
 import {SelectButtonModule} from 'primeng/selectbutton';
 
 @NgModule({
