@@ -54,8 +54,8 @@
     <div class="p-col-6">
     </div>
 
-    <div class="p-col-12">
-      <table style="width:100%">
+    <div id="designation" class="p-col-12">
+      <table  style="width:100%">
         <thead>
         <tr>
           <th>Désignation</th>
@@ -64,33 +64,33 @@
         </thead>
         <tbody>
         <tr>
-          <td>Modificatif de l'état descriptif</td>
-          <td class="montant">550.25</td>
+          <td width="80%">Modificatif de l'état descriptif</td>
+          <td class="montant">550.25 €</td>
         </tr>
         <tr>
           <td>Attestation de surface loi carrez</td>
-          <td class="montant">125.78</td>
+          <td class="montant">125.78 €</td>
         </tr>
         </tbody>
       </table>
     </div>
 
-    <div class="p-col-6">
+    <div class="p-col-8">
     </div>
-    <div class="p-col-6">
-      <table style="width:100%">
+    <div class="p-col-4">
+      <table id="totaux" style="width:100%">
         <tbody>
         <tr>
           <td><strong>TOTAL HT</strong></td>
-          <td class="montant"><strong>676.03</strong></td>
+          <td class="montant"><strong>676.03 €</strong></td>
         </tr>
         <tr>
           <td>TOTAL TVA ({{artisan.taxe.taux}}%)</td>
-          <td class="montant">{{676.03 * (artisan.taxe.taux/100) | number:'1.2-2'}}</td>
+          <td class="montant">{{676.03 * (artisan.taxe.taux/100) | number:'1.2-2'}} €</td>
         </tr>
         <tr>
           <td><strong>TOTAL TTC</strong></td>
-          <td class="montant"><strong>{{676.03 * (1+(artisan.taxe.taux/100 )) | number:'1.2-2'}}</strong></td>
+          <td class="montant"><strong>{{676.03 * (1+(artisan.taxe.taux/100 )) | number:'1.2-2'}} €</strong></td>
         </tr>
         </tbody>
       </table>

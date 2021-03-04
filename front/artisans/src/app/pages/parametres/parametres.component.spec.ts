@@ -77,7 +77,7 @@ describe('ParametresComponent', () => {
 
     fixture.detectChanges();
 
-    expect(input.getBoundingClientRect().width).toEqual(300);
+    expect(input.getBoundingClientRect().width).toEqual(260);
 
   });
 

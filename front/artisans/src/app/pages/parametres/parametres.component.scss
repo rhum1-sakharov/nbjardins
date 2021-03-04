@@ -13,9 +13,12 @@ strong {
   width: calc( 100% - 20px);
 }
 
+label{
+  width:100px;
+}
 
 input{
-  width:292px;
+  width:252px;
 }
 
 @media screen and (max-width: 960px) {
