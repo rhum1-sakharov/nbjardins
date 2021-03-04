@@ -21,6 +21,12 @@ input{
   width:252px;
 }
 
+.previewer{
+  max-height: calc( 100vh - 170px);
+  overflow: auto;
+  margin-top:0px;
+}
+
 @media screen and (max-width: 960px) {
 
   input{

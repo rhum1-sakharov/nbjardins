@@ -111,20 +111,26 @@
           Nouvelle fonctionnalité à implémenter...
         </p-accordionTab>
       </p-accordion>
-      <p-button icon="pi pi-save" pTooltip="Enregistrer les modifications" (onClick)="save()"></p-button>
+
     </div>
     <div class="mg-l-10 max-wh-900">
 
-      <p-selectButton [options]="previews" [(ngModel)]="selectedPreview" optionLabel="label" optionValue="label"></p-selectButton>
+      <div class="p-d-flex p-flex-column p-flex-md-row">
+        <p-button icon="pi pi-save" pTooltip="Enregistrer les modifications" (onClick)="save()" class="mg-r-10"></p-button>
+        <p-selectButton [options]="previews" [(ngModel)]="selectedPreview" optionLabel="label" optionValue="label"></p-selectButton>
+      </div>
 
-      <ng-container [ngSwitch]="selectedPreview">
-        <ng-container *ngSwitchCase="'devis'">
-          <app-preview-devis [artisan]="artisan" [artisanBanque]="artisanBanque"></app-preview-devis>
-        </ng-container>
-        <ng-container *ngSwitchCase="'facture'">
+      <div class="previewer" >
+        <ng-container [ngSwitch]="selectedPreview">
+          <ng-container *ngSwitchCase="'devis'">
+            <app-preview-devis [artisan]="artisan" [artisanBanque]="artisanBanque"></app-preview-devis>
+          </ng-container>
+          <ng-container *ngSwitchCase="'facture'">
 
+          </ng-container>
         </ng-container>
-      </ng-container>
+      </div>
+
 
     </div>
   </div>
