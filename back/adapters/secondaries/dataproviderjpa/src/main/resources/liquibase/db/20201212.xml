@@ -45,13 +45,13 @@
         </comment>
     </changeSet>
 
-    <changeSet id="202012160956" author="rvl" >
+    <changeSet id="202012160956-1" author="rvl" >
         <preConditions onFail="MARK_RAN">
             <columnExists tableName="personnes" columnName="TELEPHONE"></columnExists>
         </preConditions>
         <sql>
             ALTER TABLE `personnes`
-            CHANGE COLUMN `TELEPHONE` `TELEPHONE` VARCHAR(10) NULL DEFAULT NULL AFTER `EMAIL`;
+            CHANGE COLUMN `TELEPHONE` `NUMERO_TELEPHONE` VARCHAR(10) NULL DEFAULT NULL AFTER `EMAIL`;
         </sql>
         <comment>
             La colonne telephone doit être un VARCHAR dans la table personnes
@@ -157,12 +157,12 @@
         </comment>
     </changeSet>
 
-    <changeSet id="202012161056-1" author="rvl" runAlways="true">
+    <changeSet id="202012161056-2-a" author="rvl" runAlways="true">
         <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="0">select count(*) from personnes where email='rvermo3402@gmail.com'</sqlCheck>
         </preConditions>
         <sql>
-            INSERT INTO `personnes` (`ID`, `NOM`, `PRENOM`, `EMAIL`, `TELEPHONE`, `ADRESSE`, `CODEPOSTAL`, `VILLE`, `FONCTION`, `SOCIETE`) VALUES ('08747d89-0c85-492b-b71a-cb6d244a9a00', 'BOETSCH', 'NICOLAS', 'rvermo3402@gmail.com', '061234567', '366, chemin des castanes', '84210', 'Pernes les Fontaines', 'Jardinier', 'Les jardins de Nicolas');
+            INSERT INTO `personnes` (`ID`, `NOM`, `PRENOM`, `EMAIL`, `NUMERO_TELEPHONE`, `ADRESSE`, `CODEPOSTAL`, `VILLE`, `FONCTION`, `SOCIETE`) VALUES ('08747d89-0c85-492b-b71a-cb6d244a9a00', 'BOETSCH', 'NICOLAS', 'rvermo3402@gmail.com', '061234567', '366, chemin des castanes', '84210', 'Pernes les Fontaines', 'Jardinier', 'Les jardins de Nicolas');
         </sql>
         <comment>
             Ajouter l'artisan nb

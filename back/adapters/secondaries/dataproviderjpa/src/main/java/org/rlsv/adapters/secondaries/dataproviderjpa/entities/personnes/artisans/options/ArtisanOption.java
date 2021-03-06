@@ -18,8 +18,8 @@ public class ArtisanOption extends org.rlsv.adapters.secondaries.dataproviderjpa
     private Artisan artisan;
 
     @Enumerated(value = EnumType.STRING)
-    @Column(name="OPTION")
-    private MODELE_OPTION option;
+    @Column(name="MODELE_OPTION")
+    private MODELE_OPTION modeleOption;
 
     @Column(name="ACTIF")
     private boolean actif;

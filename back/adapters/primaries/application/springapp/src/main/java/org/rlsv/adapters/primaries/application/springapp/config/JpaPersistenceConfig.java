@@ -6,6 +6,7 @@ import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.devis.DevisRep
 import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.personnes.PersonneRepoAR;
 import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.personnes.artisans.ArtisanRepoAR;
 import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.personnes.artisans.banques.ArtisanBanqueRepoAR;
+import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.personnes.artisans.options.ArtisanOptionRepoAR;
 import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.personnes.clients.ClientRepoAR;
 import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.personnes.roles.PersonneRoleRepoAR;
 import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.referentiel.conditions.reglements.ConditionDeReglementRepoAR;
@@ -20,6 +21,7 @@ import ports.repositories.devis.DevisRepoPT;
 import ports.repositories.personnes.PersonneRepoPT;
 import ports.repositories.personnes.artisans.ArtisanRepoPT;
 import ports.repositories.personnes.artisans.banques.ArtisanBanqueRepoPT;
+import ports.repositories.personnes.artisans.options.ArtisanOptionRepoPT;
 import ports.repositories.personnes.clients.ClientRepoPT;
 import ports.repositories.personnes.roles.PersonneRoleRepoPT;
 import ports.repositories.referentiel.conditions.reglements.ConditionDeReglementRepoPT;
@@ -95,6 +97,13 @@ public class JpaPersistenceConfig {
     public ArtisanRepoPT artisanRepoPT() {
         return new ArtisanRepoAR();
     }
+
+    @Bean
+    @DependsOn("databaseConnectionConfig")
+    public ArtisanOptionRepoPT artisanOptionRepoPT() {
+        return new ArtisanOptionRepoAR();
+    }
+
 
     @Bean("databaseConnectionConfig")
     public DatabaseConnectionConfig getPersistenceConfig() {

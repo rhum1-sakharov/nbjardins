@@ -11,7 +11,7 @@ import lombok.Setter;
 public class ArtisanOptionDN extends Domain {
 
     private ArtisanDN artisan;
-    private MODELE_OPTION option;
+    private MODELE_OPTION modeleOption;
     private boolean actif;
 
 }

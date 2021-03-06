@@ -13,6 +13,7 @@ import ports.transactions.TransactionManagerPT;
 import security.LoginManager;
 import usecases.personnes.FindByEmailUE;
 import usecases.personnes.artisans.SaveArtisanUE;
+import usecases.personnes.artisans.options.SaveOptionUE;
 import usecases.personnes.clients.SaveClientUE;
 import usecases.referentiel.conditions.reglements.FindAllConditionReglementUE;
 import usecases.referentiel.roles.FindByPersonneUE;
@@ -41,6 +42,9 @@ public class GetAuthorizationUETest {
     TransactionManagerPT transactionManager;
 
     @Mock
+    SaveOptionUE saveOptionUE;
+
+    @Mock
     ILoginPT loginPT;
 
     @Mock
@@ -56,7 +60,16 @@ public class GetAuthorizationUETest {
 
     @Before
     public void setUp() throws Exception {
-        getAuthorizationUE = new GetAuthorizationUE(localizeService, transactionManager, loginPT, personneFindByEmailUE, saveClientUE, saveArtisanUE, findAllConditionReglementUE, findAllTaxeUE, artisanFindByEmailUE, roleFindByPersonneUE);
+        getAuthorizationUE = new GetAuthorizationUE(localizeService,
+                transactionManager,
+                loginPT,
+                saveClientUE,
+                saveArtisanUE,
+                findAllConditionReglementUE,
+                findAllTaxeUE,
+                artisanFindByEmailUE,
+                roleFindByPersonneUE,
+                personneFindByEmailUE, saveOptionUE);
 
     }
 

@@ -35,4 +35,14 @@ public class ArtisanOptionRepoAR extends RepoAR implements ArtisanOptionRepoPT {
         return ArtisanOptionMapper.INSTANCE.entitiesToDomains(artisanOptionList);
 
     }
+
+    @Override
+    public ArtisanOptionDN save(DataProviderManager dpm, ArtisanOptionDN artisanOption) {
+
+        ArtisanOption ao = ArtisanOptionMapper.INSTANCE.domainToEntity(artisanOption);
+
+        ao = (ArtisanOption) super.save(dpm,ao);
+
+        return ArtisanOptionMapper.INSTANCE.entityToDomain(ao);
+    }
 }

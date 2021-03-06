@@ -19,6 +19,7 @@
         <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.devis.Devis</class>
         <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.devis.lignes.DevisLigne</class>
         <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.personnes.artisans.banques.ArtisanBanque</class>
+        <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.personnes.artisans.options.ArtisanOption</class>
         <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.referentiel.taxes.Taxe</class>
         <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.referentiel.conditions.reglements.ConditionDeReglement</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>

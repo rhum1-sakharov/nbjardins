@@ -8,4 +8,6 @@ import java.util.List;
 public interface  ArtisanOptionRepoPT {
 
     List<ArtisanOptionDN> findAllByEmail(DataProviderManager dpm, String email);
+
+    ArtisanOptionDN save(DataProviderManager dpm, ArtisanOptionDN artisanOption);
 }

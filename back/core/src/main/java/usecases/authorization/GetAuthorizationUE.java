@@ -8,6 +8,7 @@ import domains.personnes.clients.ClientDN;
 import domains.referentiel.condition.reglement.ConditionDeReglementDN;
 import domains.referentiel.roles.RoleDN;
 import domains.referentiel.taxes.TaxeDN;
+import enums.MODELE_OPTION;
 import exceptions.CleanException;
 import exceptions.TechnicalException;
 import models.Precondition;
@@ -20,15 +21,14 @@ import transactions.DataProviderManager;
 import usecases.AbstractUsecase;
 import usecases.personnes.artisans.FindByEmailUE;
 import usecases.personnes.artisans.SaveArtisanUE;
+import usecases.personnes.artisans.options.SaveOptionUE;
 import usecases.personnes.clients.SaveClientUE;
 import usecases.referentiel.conditions.reglements.FindAllConditionReglementUE;
 import usecases.referentiel.roles.FindByPersonneUE;
 import usecases.referentiel.taxes.FindAllTaxeUE;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import static localizations.MessageKeys.SERVER_ERROR;
 
@@ -42,19 +42,13 @@ public class GetAuthorizationUE extends AbstractUsecase {
     FindByEmailUE artisanFindByEmailUE;
     FindByPersonneUE rolesFindByPersonne;
     usecases.personnes.FindByEmailUE personneFindByEmailUE;
+    SaveOptionUE saveOptionUE;
 
-    public GetAuthorizationUE(LocalizeServicePT localizeService,
-                              TransactionManagerPT transactionManager,
-                              ILoginPT loginPT,
-                              usecases.personnes.FindByEmailUE personneFindByEmailUE,
-                              SaveClientUE saveClientUE,
-                              SaveArtisanUE saveArtisanUE,
-                              FindAllConditionReglementUE findAllConditionReglementUE,
-                              FindAllTaxeUE findAllTaxeUE,
-                              FindByEmailUE artisanFindByEmailUE,
-                              FindByPersonneUE rolesFindByPersonne
-    ) {
-        super(localizeService, transactionManager);
+    private static final String IS_CREATION = "IS_CREATION";
+    private static final String ARTISAN = "ARTISAN";
+
+    public GetAuthorizationUE(LocalizeServicePT ls, TransactionManagerPT transactionManager, ILoginPT loginPT, SaveClientUE saveClientUE, SaveArtisanUE saveArtisanUE, FindAllConditionReglementUE findAllConditionReglementUE, FindAllTaxeUE findAllTaxeUE, FindByEmailUE artisanFindByEmailUE, FindByPersonneUE rolesFindByPersonne, usecases.personnes.FindByEmailUE personneFindByEmailUE, SaveOptionUE saveOptionUE) {
+        super(ls, transactionManager);
         this.loginPT = loginPT;
         this.saveClientUE = saveClientUE;
         this.saveArtisanUE = saveArtisanUE;
@@ -63,8 +57,8 @@ public class GetAuthorizationUE extends AbstractUsecase {
         this.artisanFindByEmailUE = artisanFindByEmailUE;
         this.rolesFindByPersonne = rolesFindByPersonne;
         this.personneFindByEmailUE = personneFindByEmailUE;
+        this.saveOptionUE = saveOptionUE;
     }
-
 
     /**
      * Récupérer l'authorization
@@ -94,14 +88,16 @@ public class GetAuthorizationUE extends AbstractUsecase {
 
             switch (loginManager.getTypePersonne()) {
                 case CLIENT:
-                    ClientDN client = initClient( authorization);
+                    ClientDN client = initClient(authorization);
                     client = this.saveClientUE.execute(dpm, client);
                     personne = client.getPersonne();
                     break;
                 case ARTISAN:
-                    ArtisanDN artisan = initArtisan(personne, dpm, authorization);
+                    Map<String, Object> resultMap = initArtisan(personne, dpm, authorization);
+                    ArtisanDN artisan = (ArtisanDN) resultMap.get(ARTISAN);
                     artisan = this.saveArtisanUE.execute(dpm, artisan);
                     personne = artisan.getPersonne();
+                    initArtisanOption(dpm, artisan.getId(), (Boolean) resultMap.get(IS_CREATION));
                     break;
             }
 
@@ -152,14 +148,16 @@ public class GetAuthorizationUE extends AbstractUsecase {
 
     }
 
-    private ArtisanDN initArtisan(PersonneDN personne, DataProviderManager dpm, AuthorizationDN authorization) throws CleanException {
+    private Map<String, Object> initArtisan(PersonneDN personne, DataProviderManager dpm, AuthorizationDN authorization) throws CleanException {
 
+        Map<String, Object> map = new HashMap<>();
+        boolean creation = true;
 
         ArtisanDN artisan = new ArtisanDN();
 
         if (Objects.isNull(personne)) {
             artisan.setPersonne(initNewPersonne(authorization));
-        }else{
+        } else {
             artisan.setPersonne(personne);
         }
 
@@ -169,6 +167,7 @@ public class GetAuthorizationUE extends AbstractUsecase {
         ArtisanDN artisanDb = artisanFindByEmailUE.execute(dpm, artisan.getPersonne().getEmail());
         // modification
         if (Objects.nonNull(artisanDb)) {
+            creation = false;
             artisan.setId(artisanDb.getId());
             artisan.setSignature(artisanDb.getSignature());
             artisan.setSiret(artisanDb.getSiret());
@@ -189,10 +188,24 @@ public class GetAuthorizationUE extends AbstractUsecase {
             artisan.setTaxe(taxeList.get(0));
             artisan.setApplication(null);
 
+
         }
 
+        map.put(IS_CREATION, creation);
+        map.put(ARTISAN, artisan);
 
-        return artisan;
+        return map;
+    }
+
+    private void initArtisanOption(DataProviderManager dpm, String idArtisan, boolean isCreation) throws CleanException {
+
+        if (isCreation) {
+
+            saveOptionUE.execute(dpm, idArtisan, MODELE_OPTION.COLONNE_QUANTITE, false);
+            saveOptionUE.execute(dpm, idArtisan, MODELE_OPTION.COORDONNEES_BANQUAIRES, false);
+            saveOptionUE.execute(dpm, idArtisan, MODELE_OPTION.TVA_SAISISSABLE_PAR_LIGNE, false);
+        }
     }
 
 }
+

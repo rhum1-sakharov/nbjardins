@@ -8,13 +8,14 @@ import ports.transactions.TransactionManagerPT;
 import usecases.authorization.GetAuthorizationUE;
 import usecases.personnes.FindByEmailUE;
 import usecases.personnes.artisans.SaveArtisanUE;
+import usecases.personnes.artisans.options.SaveOptionUE;
 import usecases.personnes.clients.SaveClientUE;
 import usecases.referentiel.conditions.reglements.FindAllConditionReglementUE;
 import usecases.referentiel.roles.FindByPersonneUE;
 import usecases.referentiel.taxes.FindAllTaxeUE;
 
 @Configuration
-public class LoginConfig {
+public class GetAuthorizationConfig {
 
 
     @Bean
@@ -27,9 +28,20 @@ public class LoginConfig {
                                          FindAllConditionReglementUE findAllConditionReglementUE,
                                          usecases.personnes.artisans.FindByEmailUE artisanFindByEmailUE,
                                          FindAllTaxeUE findAllTaxeUE,
-                                         FindByPersonneUE rolesFindByPersonneUE
+                                         FindByPersonneUE rolesFindByPersonneUE,
+                                         SaveOptionUE saveOptionUE
     ) {
-        return new GetAuthorizationUE(localizeService, transactionManager, loginPT, personneFindByEmailUE, saveClientUE, saveArtisanUE, findAllConditionReglementUE, findAllTaxeUE, artisanFindByEmailUE, rolesFindByPersonneUE);
+        return new GetAuthorizationUE(
+                localizeService,
+                transactionManager,
+                loginPT,
+                saveClientUE,
+                saveArtisanUE,
+                findAllConditionReglementUE,
+                findAllTaxeUE,
+                artisanFindByEmailUE,
+                rolesFindByPersonneUE,
+                personneFindByEmailUE, saveOptionUE);
     }
 
 
