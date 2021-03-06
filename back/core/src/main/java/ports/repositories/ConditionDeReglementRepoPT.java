@@ -1,6 +1,6 @@
 package ports.repositories;
 
-import domains.ConditionDeReglementDN;
+import domains.referentiel.condition.reglement.ConditionDeReglementDN;
 import transactions.DataProviderManager;
 
 import java.util.List;

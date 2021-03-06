@@ -1,7 +1,7 @@
 package utils;
 
-import domains.ApplicationDN;
 import domains.Domain;
+import domains.applications.ApplicationDN;
 import domains.wrapper.ResponseDN;
 
 import java.math.BigDecimal;

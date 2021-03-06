@@ -1,9 +1,9 @@
 package usecases.personnes.artisans;
 
 import aop.Transactionnal;
-import domains.ArtisanDN;
-import domains.PersonneDN;
-import domains.Personne__RoleDN;
+import domains.personnes.PersonneDN;
+import domains.personnes.artisans.ArtisanDN;
+import domains.personnes.roles.Personne__RoleDN;
 import enums.ROLES;
 import exceptions.CleanException;
 import exceptions.PersistenceException;

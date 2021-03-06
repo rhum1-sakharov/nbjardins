@@ -1,6 +1,6 @@
 package org.rlsv.graphql.referentiel.artisan;
 
-import domains.ArtisanDN;
+import domains.personnes.artisans.ArtisanDN;
 import exceptions.CleanException;
 import graphql.schema.DataFetcher;
 import org.rlsv.graphql.utils.MapperUtils;

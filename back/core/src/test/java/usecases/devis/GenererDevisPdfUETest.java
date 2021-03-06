@@ -1,7 +1,7 @@
 package usecases.devis;
 
-import domains.ApplicationDN;
-import domains.DevisDN;
+import domains.applications.ApplicationDN;
+import domains.devis.DevisDN;
 import org.assertj.core.api.Assertions;
 import org.junit.After;
 import org.junit.Before;

@@ -2,7 +2,7 @@ package org.rlsv.adapters.secondaries.dataproviderjpa.config;
 
 import bitronix.tm.TransactionManagerServices;
 import bitronix.tm.resource.jdbc.PoolingDataSource;
-import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.ClientRepoAR;
+import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.personnes.clients.ClientRepoAR;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

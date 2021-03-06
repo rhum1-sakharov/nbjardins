@@ -3,7 +3,7 @@ package org.rlsv.adapters.secondaries.dataproviderjpa.transactions;
 import exceptions.CleanException;
 import exceptions.PersistenceException;
 import org.rlsv.adapters.secondaries.dataproviderjpa.config.JtaConfig;
-import org.rlsv.adapters.secondaries.dataproviderjpa.utils.PersistenceUtils;
+import org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence.PersistenceUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ports.transactions.TransactionManagerPT;

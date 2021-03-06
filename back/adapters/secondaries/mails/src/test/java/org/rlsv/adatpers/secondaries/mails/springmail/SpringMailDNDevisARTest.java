@@ -1,7 +1,7 @@
 package org.rlsv.adatpers.secondaries.mails.springmail;
 
 import com.icegreen.greenmail.util.GreenMail;
-import domains.DevisDN;
+import domains.devis.DevisDN;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

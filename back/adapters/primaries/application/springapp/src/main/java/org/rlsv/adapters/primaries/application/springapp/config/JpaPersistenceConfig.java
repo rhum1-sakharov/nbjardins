@@ -2,7 +2,15 @@ package org.rlsv.adapters.primaries.application.springapp.config;
 
 import org.rlsv.adapters.secondaries.dataproviderjpa.config.DatabaseConnectionConfig;
 import org.rlsv.adapters.secondaries.dataproviderjpa.config.JtaConfig;
-import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.*;
+import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.devis.DevisRepoAR;
+import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.personnes.PersonneRepoAR;
+import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.personnes.artisans.ArtisanRepoAR;
+import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.personnes.artisans.banques.ArtisanBanqueRepoAR;
+import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.personnes.clients.ClientRepoAR;
+import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.personnes.roles.PersonneRoleRepoAR;
+import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.referentiel.conditions.reglements.ConditionDeReglementRepoAR;
+import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.referentiel.roles.RoleRepoAR;
+import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.referentiel.taxes.TaxeRepoAR;
 import org.rlsv.adapters.secondaries.dataproviderjpa.transactions.TransactionManagerAR;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

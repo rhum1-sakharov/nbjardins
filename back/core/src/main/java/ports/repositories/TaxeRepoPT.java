@@ -1,6 +1,6 @@
 package ports.repositories;
 
-import domains.TaxeDN;
+import domains.referentiel.taxes.TaxeDN;
 import transactions.DataProviderManager;
 
 import java.math.BigDecimal;

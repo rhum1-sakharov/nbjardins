@@ -1,9 +1,9 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.mappers;
 
-import domains.RoleDN;
+import domains.referentiel.roles.RoleDN;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
-import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Role;
+import org.rlsv.adapters.secondaries.dataproviderjpa.entities.referentiel.roles.Role;
 
 @Mapper(uses={})
 public interface RoleMapper extends ObjectMapper<Role,RoleDN>{

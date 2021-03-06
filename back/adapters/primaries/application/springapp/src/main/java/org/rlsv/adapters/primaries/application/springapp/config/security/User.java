@@ -1,6 +1,6 @@
 package org.rlsv.adapters.primaries.application.springapp.config.security;
 
-import domains.PersonneDN;
+import domains.personnes.PersonneDN;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

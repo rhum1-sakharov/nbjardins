@@ -1,6 +1,6 @@
 package ports.repositories;
 
-import domains.ArtisanDN;
+import domains.personnes.artisans.ArtisanDN;
 import transactions.DataProviderManager;
 
 public interface ArtisanRepoPT  {

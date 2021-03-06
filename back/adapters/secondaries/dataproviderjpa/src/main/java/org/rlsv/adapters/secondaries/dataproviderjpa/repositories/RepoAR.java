@@ -1,7 +1,7 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.repositories;
 
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Entity;
-import org.rlsv.adapters.secondaries.dataproviderjpa.utils.PersistenceUtils;
+import org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence.PersistenceUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ports.localization.LocalizeServicePT;

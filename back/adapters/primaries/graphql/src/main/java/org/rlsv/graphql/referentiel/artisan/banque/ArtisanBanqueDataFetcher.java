@@ -1,6 +1,6 @@
 package org.rlsv.graphql.referentiel.artisan.banque;
 
-import domains.ArtisanBanqueDN;
+import domains.personnes.artisans.ArtisanBanqueDN;
 import exceptions.CleanException;
 import graphql.schema.DataFetcher;
 import org.apache.commons.collections4.CollectionUtils;

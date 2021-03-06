@@ -1,7 +1,7 @@
 package org.rlsv.adapters.primaries.application.springapp.config.security;
 
-import domains.PersonneDN;
-import domains.RoleDN;
+import domains.personnes.PersonneDN;
+import domains.referentiel.roles.RoleDN;
 import exceptions.CleanException;
 import localizations.MessageKeys;
 import org.apache.commons.collections4.CollectionUtils;

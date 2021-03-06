@@ -1,9 +1,9 @@
 package org.rlsv.adatpers.secondaries.mails.springmail;
 
-import domains.ArtisanDN;
-import domains.ClientDN;
-import domains.DevisDN;
-import domains.MailDN;
+import domains.devis.DevisDN;
+import domains.mails.MailDN;
+import domains.personnes.artisans.ArtisanDN;
+import domains.personnes.clients.ClientDN;
 import org.rlsv.adatpers.secondaries.mails.AbstractMail;
 import org.rlsv.adatpers.secondaries.mails.ServerMail;
 import org.slf4j.Logger;

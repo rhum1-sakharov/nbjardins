@@ -1,6 +1,6 @@
 package org.rlsv.adapters.primaries.application.springapp.controller;
 
-import domains.DevisDN;
+import domains.devis.DevisDN;
 import domains.wrapper.ResponseDN;
 import exceptions.CleanException;
 import org.springframework.web.bind.annotation.*;

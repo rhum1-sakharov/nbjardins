@@ -1,6 +1,6 @@
 package org.rlsv.adapters.primaries.application.springapp.controller;
 
-import domains.AuthorizationDN;
+import domains.authorizations.AuthorizationDN;
 import enums.TYPES_PERSONNE;
 import exceptions.CleanException;
 import exceptions.LoginException;

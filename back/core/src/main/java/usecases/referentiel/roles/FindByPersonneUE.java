@@ -1,8 +1,8 @@
 package usecases.referentiel.roles;
 
 import aop.Transactionnal;
-import domains.PersonneDN;
-import domains.RoleDN;
+import domains.personnes.PersonneDN;
+import domains.referentiel.roles.RoleDN;
 import exceptions.CleanException;
 import ports.localization.LocalizeServicePT;
 import ports.repositories.RoleRepoPT;

@@ -1,7 +1,7 @@
 package org.rlsv.graphql.utils;
 
-import domains.ArtisanDN;
-import domains.PersonneDN;
+import domains.personnes.PersonneDN;
+import domains.personnes.artisans.ArtisanDN;
 import exceptions.CleanException;
 import exceptions.TechnicalException;
 import org.assertj.core.api.Assertions;

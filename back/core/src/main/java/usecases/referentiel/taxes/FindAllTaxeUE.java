@@ -1,7 +1,7 @@
 package usecases.referentiel.taxes;
 
 import aop.Transactionnal;
-import domains.TaxeDN;
+import domains.referentiel.taxes.TaxeDN;
 import exceptions.CleanException;
 import ports.localization.LocalizeServicePT;
 import ports.repositories.TaxeRepoPT;

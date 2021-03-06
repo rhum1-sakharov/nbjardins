@@ -1,7 +1,13 @@
 package usecases.login;
 
 import aop.Transactionnal;
-import domains.*;
+import domains.authorizations.AuthorizationDN;
+import domains.personnes.PersonneDN;
+import domains.personnes.artisans.ArtisanDN;
+import domains.personnes.clients.ClientDN;
+import domains.referentiel.condition.reglement.ConditionDeReglementDN;
+import domains.referentiel.roles.RoleDN;
+import domains.referentiel.taxes.TaxeDN;
 import exceptions.CleanException;
 import exceptions.TechnicalException;
 import models.Precondition;

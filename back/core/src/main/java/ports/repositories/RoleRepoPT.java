@@ -1,7 +1,7 @@
 package ports.repositories;
 
-import domains.PersonneDN;
-import domains.RoleDN;
+import domains.personnes.PersonneDN;
+import domains.referentiel.roles.RoleDN;
 import exceptions.PersistenceException;
 import transactions.DataProviderManager;
 

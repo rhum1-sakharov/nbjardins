@@ -2,10 +2,10 @@ package usecases.devis;
 
 
 import aop.Transactionnal;
-import domains.ApplicationDN;
-import domains.ArtisanBanqueDN;
-import domains.ArtisanDN;
-import domains.DevisDN;
+import domains.applications.ApplicationDN;
+import domains.devis.DevisDN;
+import domains.personnes.artisans.ArtisanBanqueDN;
+import domains.personnes.artisans.ArtisanDN;
 import enums.STATUT_DEVIS;
 import enums.UNIQUE_CODE;
 import exceptions.CleanException;

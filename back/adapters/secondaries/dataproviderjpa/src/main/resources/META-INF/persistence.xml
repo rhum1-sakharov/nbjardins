@@ -10,17 +10,17 @@
 
         <jta-data-source>myDS</jta-data-source>
 
-        <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.Personne</class>
-        <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.Application</class>
-        <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.Artisan</class>
-        <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.Client</class>
-        <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.Personne__Role</class>
-        <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.Role</class>
-        <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.Devis</class>
-        <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.DevisLigne</class>
-        <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.ArtisanBanque</class>
-        <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.Taxe</class>
-        <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.ConditionDeReglement</class>
+        <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.personnes.Personne</class>
+        <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.referentiel.applications.Application</class>
+        <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.personnes.artisans.Artisan</class>
+        <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.personnes.clients.Client</class>
+        <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.personnes.roles.Personne__Role</class>
+        <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.referentiel.roles.Role</class>
+        <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.devis.Devis</class>
+        <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.devis.lignes.DevisLigne</class>
+        <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.personnes.artisans.banques.ArtisanBanque</class>
+        <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.referentiel.taxes.Taxe</class>
+        <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.referentiel.conditions.reglements.ConditionDeReglement</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
 

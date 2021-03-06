@@ -1,9 +1,9 @@
 package usecases.personnes.clients;
 
 import aop.Transactionnal;
-import domains.ClientDN;
-import domains.PersonneDN;
-import domains.Personne__RoleDN;
+import domains.personnes.PersonneDN;
+import domains.personnes.clients.ClientDN;
+import domains.personnes.roles.Personne__RoleDN;
 import enums.ROLES;
 import exceptions.CleanException;
 import exceptions.PersistenceException;

@@ -1,6 +1,6 @@
 package ports.repositories;
 
-import domains.PersonneDN;
+import domains.personnes.PersonneDN;
 import exceptions.PersistenceException;
 import transactions.DataProviderManager;
 

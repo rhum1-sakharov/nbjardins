@@ -1,7 +1,7 @@
 package usecases.personnes.artisans;
 
 import aop.Transactionnal;
-import domains.ArtisanDN;
+import domains.personnes.artisans.ArtisanDN;
 import exceptions.CleanException;
 import ports.localization.LocalizeServicePT;
 import ports.repositories.ArtisanRepoPT;

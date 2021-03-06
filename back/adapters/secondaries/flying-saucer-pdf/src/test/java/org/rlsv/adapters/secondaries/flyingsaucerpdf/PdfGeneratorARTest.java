@@ -1,6 +1,11 @@
 package org.rlsv.adapters.secondaries.flyingsaucerpdf;
 
-import domains.*;
+import domains.applications.ApplicationDN;
+import domains.devis.DevisDN;
+import domains.devis.DevisLigneDN;
+import domains.personnes.PersonneDN;
+import domains.personnes.artisans.ArtisanDN;
+import domains.personnes.clients.ClientDN;
 import exceptions.PdfException;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
