@@ -4,7 +4,7 @@ import aop.Transactionnal;
 import domains.personnes.artisans.ArtisanBanqueDN;
 import exceptions.CleanException;
 import ports.localization.LocalizeServicePT;
-import ports.repositories.ArtisanBanqueRepoPT;
+import ports.repositories.personnes.artisans.banques.ArtisanBanqueRepoPT;
 import ports.transactions.TransactionManagerPT;
 import transactions.DataProviderManager;
 import usecases.AbstractUsecase;

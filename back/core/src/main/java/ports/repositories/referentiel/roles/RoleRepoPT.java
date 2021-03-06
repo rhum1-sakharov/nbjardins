@@ -1,4 +1,4 @@
-package ports.repositories;
+package ports.repositories.referentiel.roles;
 
 import domains.personnes.PersonneDN;
 import domains.referentiel.roles.RoleDN;

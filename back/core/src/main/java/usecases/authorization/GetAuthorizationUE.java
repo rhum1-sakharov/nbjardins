@@ -1,4 +1,4 @@
-package usecases.login;
+package usecases.authorization;
 
 import aop.Transactionnal;
 import domains.authorizations.AuthorizationDN;
@@ -18,9 +18,9 @@ import ports.transactions.TransactionManagerPT;
 import security.LoginManager;
 import transactions.DataProviderManager;
 import usecases.AbstractUsecase;
-import usecases.personnes.artisans.EnregistrerArtisanUE;
 import usecases.personnes.artisans.FindByEmailUE;
-import usecases.personnes.clients.EnregistrerClientUE;
+import usecases.personnes.artisans.SaveArtisanUE;
+import usecases.personnes.clients.SaveClientUE;
 import usecases.referentiel.conditions.reglements.FindAllConditionReglementUE;
 import usecases.referentiel.roles.FindByPersonneUE;
 import usecases.referentiel.taxes.FindAllTaxeUE;
@@ -32,32 +32,32 @@ import java.util.Objects;
 
 import static localizations.MessageKeys.SERVER_ERROR;
 
-public class LoginUE extends AbstractUsecase {
+public class GetAuthorizationUE extends AbstractUsecase {
 
     ILoginPT loginPT;
-    EnregistrerClientUE enregistrerClientUE;
-    EnregistrerArtisanUE enregistrerArtisanUE;
+    SaveClientUE saveClientUE;
+    SaveArtisanUE saveArtisanUE;
     FindAllConditionReglementUE findAllConditionReglementUE;
     FindAllTaxeUE findAllTaxeUE;
     FindByEmailUE artisanFindByEmailUE;
     FindByPersonneUE rolesFindByPersonne;
     usecases.personnes.FindByEmailUE personneFindByEmailUE;
 
-    public LoginUE(LocalizeServicePT localizeService,
-                   TransactionManagerPT transactionManager,
-                   ILoginPT loginPT,
-                   usecases.personnes.FindByEmailUE personneFindByEmailUE,
-                   EnregistrerClientUE enregistrerClientUE,
-                   EnregistrerArtisanUE enregistrerArtisanUE,
-                   FindAllConditionReglementUE findAllConditionReglementUE,
-                   FindAllTaxeUE findAllTaxeUE,
-                   FindByEmailUE artisanFindByEmailUE,
-                   FindByPersonneUE rolesFindByPersonne
+    public GetAuthorizationUE(LocalizeServicePT localizeService,
+                              TransactionManagerPT transactionManager,
+                              ILoginPT loginPT,
+                              usecases.personnes.FindByEmailUE personneFindByEmailUE,
+                              SaveClientUE saveClientUE,
+                              SaveArtisanUE saveArtisanUE,
+                              FindAllConditionReglementUE findAllConditionReglementUE,
+                              FindAllTaxeUE findAllTaxeUE,
+                              FindByEmailUE artisanFindByEmailUE,
+                              FindByPersonneUE rolesFindByPersonne
     ) {
         super(localizeService, transactionManager);
         this.loginPT = loginPT;
-        this.enregistrerClientUE = enregistrerClientUE;
-        this.enregistrerArtisanUE = enregistrerArtisanUE;
+        this.saveClientUE = saveClientUE;
+        this.saveArtisanUE = saveArtisanUE;
         this.findAllConditionReglementUE = findAllConditionReglementUE;
         this.findAllTaxeUE = findAllTaxeUE;
         this.artisanFindByEmailUE = artisanFindByEmailUE;
@@ -95,12 +95,12 @@ public class LoginUE extends AbstractUsecase {
             switch (loginManager.getTypePersonne()) {
                 case CLIENT:
                     ClientDN client = initClient( authorization);
-                    client = this.enregistrerClientUE.execute(dpm, client);
+                    client = this.saveClientUE.execute(dpm, client);
                     personne = client.getPersonne();
                     break;
                 case ARTISAN:
                     ArtisanDN artisan = initArtisan(personne, dpm, authorization);
-                    artisan = this.enregistrerArtisanUE.execute(dpm, artisan);
+                    artisan = this.saveArtisanUE.execute(dpm, artisan);
                     personne = artisan.getPersonne();
                     break;
             }

@@ -4,19 +4,19 @@ import domains.personnes.artisans.ArtisanDN;
 import exceptions.CleanException;
 import graphql.schema.DataFetcher;
 import org.rlsv.graphql.utils.MapperUtils;
-import usecases.personnes.artisans.EnregistrerArtisanUE;
 import usecases.personnes.artisans.FindByEmailUE;
+import usecases.personnes.artisans.SaveArtisanUE;
 
 import java.util.Map;
 
 public class ArtisanDataFetcher {
 
     FindByEmailUE findByEmailUE;
-    EnregistrerArtisanUE enregistrerArtisanUE;
+    SaveArtisanUE saveArtisanUE;
 
-    public ArtisanDataFetcher(FindByEmailUE findByEmailUE, EnregistrerArtisanUE enregistrerArtisanUE) {
+    public ArtisanDataFetcher(FindByEmailUE findByEmailUE, SaveArtisanUE saveArtisanUE) {
         this.findByEmailUE = findByEmailUE;
-        this.enregistrerArtisanUE = enregistrerArtisanUE;
+        this.saveArtisanUE = saveArtisanUE;
 
     }
 
@@ -34,7 +34,7 @@ public class ArtisanDataFetcher {
 
             ArtisanDN artisan = MapperUtils.fromMap(args, ArtisanDN.class);
 
-            artisan = enregistrerArtisanUE.execute(null, artisan);
+            artisan = saveArtisanUE.execute(null, artisan);
 
             return artisan;
         };

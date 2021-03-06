@@ -22,10 +22,10 @@ import usecases.AbstractUsecase;
 import usecases.personnes.artisans.FindByApplicationTokenUE;
 import usecases.personnes.artisans.FindByEmailUE;
 import usecases.personnes.artisans.banques.FindByEmailAndPrefereUE;
-import usecases.personnes.clients.EnregistrerClientUE;
+import usecases.personnes.clients.SaveClientUE;
 import usecases.referentiel.conditions.reglements.FindConditionByEmailArtisanUE;
 import usecases.referentiel.taxes.FindTauxByEmailArtisanUE;
-import usecases.uniquecode.UniqueCodeUE;
+import usecases.uniquecode.GetUniqueCodeUE;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -42,8 +42,8 @@ public class DemandeDeDevisUE extends AbstractUsecase {
 
 
     private final MailDevisServicePT mailDevisService;
-    private final EnregistrerClientUE enregistrerClientUE;
-    private final UniqueCodeUE uniqueCodeUE;
+    private final SaveClientUE saveClientUE;
+    private final GetUniqueCodeUE getUniqueCodeUE;
     private final FindByEmailUE artisanFindByEmailUE;
     private final FindByApplicationTokenUE artisanFindByApplicationTokenUE;
     private final FindTauxByEmailArtisanUE findTauxByEmailArtisanUE;
@@ -55,8 +55,8 @@ public class DemandeDeDevisUE extends AbstractUsecase {
     public DemandeDeDevisUE(TransactionManagerPT transactionManager,
                             LocalizeServicePT localizeService,
                             MailDevisServicePT mailDevisService,
-                            EnregistrerClientUE enregistrerClientUE,
-                            UniqueCodeUE uniqueCodeUE,
+                            SaveClientUE saveClientUE,
+                            GetUniqueCodeUE getUniqueCodeUE,
                             FindByEmailUE artisanFindByEmailUE,
                             FindByApplicationTokenUE artisanFindByApplicationTokenUE,
                             FindTauxByEmailArtisanUE findTauxByEmailArtisanUE,
@@ -66,8 +66,8 @@ public class DemandeDeDevisUE extends AbstractUsecase {
     ) {
         super(localizeService, transactionManager);
         this.mailDevisService = mailDevisService;
-        this.enregistrerClientUE = enregistrerClientUE;
-        this.uniqueCodeUE = uniqueCodeUE;
+        this.saveClientUE = saveClientUE;
+        this.getUniqueCodeUE = getUniqueCodeUE;
         this.artisanFindByEmailUE = artisanFindByEmailUE;
         this.artisanFindByApplicationTokenUE = artisanFindByApplicationTokenUE;
         this.findTauxByEmailArtisanUE = findTauxByEmailArtisanUE;
@@ -93,7 +93,7 @@ public class DemandeDeDevisUE extends AbstractUsecase {
             addArtisanToDemandeDeDevis(dpm, application.getToken(), devis);
 
             // enregistrer le client
-            enregistrerClientUE.execute(dpm, devis.getClient());
+            saveClientUE.execute(dpm, devis.getClient());
 
 
             //enregistrer la demande de devis
@@ -171,7 +171,7 @@ public class DemandeDeDevisUE extends AbstractUsecase {
             devis.setStatut(STATUT_DEVIS.DEMANDE);
 
             // numero devis
-            String numeroDevis = uniqueCodeUE.execute(dpm, UNIQUE_CODE.NUMERO_DEVIS);
+            String numeroDevis = getUniqueCodeUE.execute(dpm, UNIQUE_CODE.NUMERO_DEVIS);
             devis.setNumeroDevis(numeroDevis);
 
             // rib et iban
@@ -201,7 +201,7 @@ public class DemandeDeDevisUE extends AbstractUsecase {
 
 
     private void sendToWorker(String applicationName, DevisDN devis) throws MailException {
-        Locale workerLocale = localizeService.getWorkerLocale();
+        Locale workerLocale = ls.getWorkerLocale();
         devis.setLocale(workerLocale);
 
         mailDevisService.sendToWorker(devis, applicationName);

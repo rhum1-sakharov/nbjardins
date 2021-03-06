@@ -5,7 +5,7 @@ import domains.personnes.PersonneDN;
 import domains.referentiel.roles.RoleDN;
 import exceptions.CleanException;
 import ports.localization.LocalizeServicePT;
-import ports.repositories.RoleRepoPT;
+import ports.repositories.referentiel.roles.RoleRepoPT;
 import ports.transactions.TransactionManagerPT;
 import transactions.DataProviderManager;
 import usecases.AbstractUsecase;

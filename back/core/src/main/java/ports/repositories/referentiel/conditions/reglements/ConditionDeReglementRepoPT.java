@@ -1,4 +1,4 @@
-package ports.repositories;
+package ports.repositories.referentiel.conditions.reglements;
 
 import domains.referentiel.condition.reglement.ConditionDeReglementDN;
 import transactions.DataProviderManager;

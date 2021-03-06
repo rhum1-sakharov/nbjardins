@@ -1,4 +1,4 @@
-package ports.repositories;
+package ports.repositories.devis;
 
 import domains.devis.DevisDN;
 import exceptions.PersistenceException;

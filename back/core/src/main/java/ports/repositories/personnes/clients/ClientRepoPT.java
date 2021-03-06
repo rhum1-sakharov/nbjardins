@@ -1,4 +1,4 @@
-package ports.repositories;
+package ports.repositories.personnes.clients;
 
 import domains.personnes.clients.ClientDN;
 import exceptions.PersistenceException;

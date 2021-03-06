@@ -22,7 +22,7 @@ public class MailConfig {
 
 
     @Bean
-    @DependsOn({"serverMail","localizeService"})
+    @DependsOn({"serverMail","ls"})
     public MailDevisServicePT mailServicePT(ServerMail serverMail, LocalizeServicePT localizeServicePT) {
         return new SpringMailDevisAR(serverMail, localizeServicePT);
     }

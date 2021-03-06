@@ -8,7 +8,8 @@ import ports.localization.LocalizeServicePT;
 @Configuration
 public class LocalizeConfig {
 
-    @Bean("localizeService")
+
+    @Bean("ls")
     public LocalizeServicePT localizeServicePT() {
         return new LocalizeResourceBundleAR();
     }

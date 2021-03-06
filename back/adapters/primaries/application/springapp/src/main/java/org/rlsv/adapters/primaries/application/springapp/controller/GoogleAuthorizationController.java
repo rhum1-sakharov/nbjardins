@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ports.login.ILoginPT;
 import security.LoginManager;
-import usecases.login.LoginUE;
+import usecases.authorization.GetAuthorizationUE;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -31,12 +31,12 @@ public class GoogleAuthorizationController {
 
     GoogleOAuthSettings gOAuth;
     ILoginPT googleLogin;
-    LoginUE loginUE;
+    GetAuthorizationUE getAuthorizationUE;
 
-    public GoogleAuthorizationController(GoogleOAuthSettings gOAuth, ILoginPT loginPT, LoginUE loginUE) {
+    public GoogleAuthorizationController(GoogleOAuthSettings gOAuth, ILoginPT loginPT, GetAuthorizationUE getAuthorizationUE) {
         this.gOAuth = gOAuth;
         this.googleLogin = loginPT;
-        this.loginUE = loginUE;
+        this.getAuthorizationUE = getAuthorizationUE;
     }
 
     @GetMapping(value = "/initiate-google-oauth")
@@ -82,7 +82,7 @@ public class GoogleAuthorizationController {
         LoginManager loginManager = new LoginManager(typePersonne, gOAuth);
 
         // creer le compte s'il n'existe pas et recuperer l'authoriation
-        AuthorizationDN authorization = loginUE.execute( null, loginManager);
+        AuthorizationDN authorization = getAuthorizationUE.execute( null, loginManager);
 
 
         // rediriger sur l'application front en  fournissant le jwt en parametre

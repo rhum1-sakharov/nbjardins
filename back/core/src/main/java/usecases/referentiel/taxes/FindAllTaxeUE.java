@@ -4,7 +4,7 @@ import aop.Transactionnal;
 import domains.referentiel.taxes.TaxeDN;
 import exceptions.CleanException;
 import ports.localization.LocalizeServicePT;
-import ports.repositories.TaxeRepoPT;
+import ports.repositories.referentiel.taxes.TaxeRepoPT;
 import ports.transactions.TransactionManagerPT;
 import transactions.DataProviderManager;
 import usecases.AbstractUsecase;

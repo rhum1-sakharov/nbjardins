@@ -1,4 +1,4 @@
-package ports.repositories;
+package ports.repositories.referentiel.taxes;
 
 import domains.referentiel.taxes.TaxeDN;
 import transactions.DataProviderManager;

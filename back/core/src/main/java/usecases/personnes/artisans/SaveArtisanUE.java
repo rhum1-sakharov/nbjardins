@@ -11,9 +11,9 @@ import exceptions.TechnicalException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ports.localization.LocalizeServicePT;
-import ports.repositories.ArtisanRepoPT;
-import ports.repositories.PersonneRepoPT;
-import ports.repositories.PersonneRoleRepoPT;
+import ports.repositories.personnes.PersonneRepoPT;
+import ports.repositories.personnes.artisans.ArtisanRepoPT;
+import ports.repositories.personnes.roles.PersonneRoleRepoPT;
 import ports.transactions.TransactionManagerPT;
 import transactions.DataProviderManager;
 import usecases.AbstractUsecase;
@@ -23,16 +23,16 @@ import java.util.Objects;
 import static localizations.MessageKeys.ENREGISTRER_ARTISAN_ERREUR_CLIENT;
 import static localizations.MessageKeys.SERVER_ERROR;
 
-public class EnregistrerArtisanUE extends AbstractUsecase {
+public class SaveArtisanUE extends AbstractUsecase {
 
-    private static final Logger LOG = LoggerFactory.getLogger(EnregistrerArtisanUE.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SaveArtisanUE.class);
 
     PersonneRepoPT personneRepo;
     PersonneRoleRepoPT personneRoleRepo;
     ArtisanRepoPT artisanRepo;
 
 
-    public EnregistrerArtisanUE(PersonneRepoPT personneRepo, PersonneRoleRepoPT personneRoleRepo, LocalizeServicePT localizeService, ArtisanRepoPT artisanRepo, TransactionManagerPT transactionManager) {
+    public SaveArtisanUE(PersonneRepoPT personneRepo, PersonneRoleRepoPT personneRoleRepo, LocalizeServicePT localizeService, ArtisanRepoPT artisanRepo, TransactionManagerPT transactionManager) {
         super(localizeService, transactionManager);
         this.personneRepo = personneRepo;
         this.personneRoleRepo = personneRoleRepo;
@@ -60,7 +60,7 @@ public class EnregistrerArtisanUE extends AbstractUsecase {
             if (Objects.nonNull(idPersonne)) {
                 Personne__RoleDN personne__role = personneRoleRepo.findByEmailAndRole(dpm, personne.getEmail(), ROLES.ROLE_CLIENT.getValue());
                 if (Objects.nonNull(personne__role)) {
-                    throw new PersistenceException(localizeService.getMsg(ENREGISTRER_ARTISAN_ERREUR_CLIENT), null, ENREGISTRER_ARTISAN_ERREUR_CLIENT);
+                    throw new PersistenceException(ls.getMsg(ENREGISTRER_ARTISAN_ERREUR_CLIENT), null, ENREGISTRER_ARTISAN_ERREUR_CLIENT);
                 }
             }
 

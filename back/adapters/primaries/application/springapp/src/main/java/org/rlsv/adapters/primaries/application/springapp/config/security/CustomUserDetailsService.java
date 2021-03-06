@@ -12,8 +12,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ports.localization.LocalizeServicePT;
-import ports.repositories.PersonneRepoPT;
-import ports.repositories.RoleRepoPT;
+import ports.repositories.personnes.PersonneRepoPT;
+import ports.repositories.referentiel.roles.RoleRepoPT;
 import ports.transactions.TransactionManagerPT;
 import transactions.DataProviderManager;
 

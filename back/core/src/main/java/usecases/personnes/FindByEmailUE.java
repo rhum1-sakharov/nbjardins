@@ -4,7 +4,7 @@ import aop.Transactionnal;
 import domains.personnes.PersonneDN;
 import exceptions.CleanException;
 import ports.localization.LocalizeServicePT;
-import ports.repositories.PersonneRepoPT;
+import ports.repositories.personnes.PersonneRepoPT;
 import ports.transactions.TransactionManagerPT;
 import transactions.DataProviderManager;
 import usecases.AbstractUsecase;

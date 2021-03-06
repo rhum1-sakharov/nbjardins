@@ -9,8 +9,8 @@ import org.rlsv.graphql.referentiel.condition.reglement.ConditionReglementDataFe
 import org.rlsv.graphql.referentiel.taxe.TaxeDataFetcher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import usecases.personnes.artisans.EnregistrerArtisanUE;
 import usecases.personnes.artisans.FindByEmailUE;
+import usecases.personnes.artisans.SaveArtisanUE;
 import usecases.personnes.artisans.banques.FindByEmailAndPrefereUE;
 import usecases.referentiel.conditions.reglements.FindAllConditionReglementUE;
 import usecases.referentiel.taxes.FindAllTaxeUE;
@@ -26,8 +26,8 @@ public class GraphQLConfig {
     }
 
     @Bean
-    public ArtisanDataFetcher artisanDataFetcher(FindByEmailUE findByEmailUE, EnregistrerArtisanUE enregistrerArtisanUE) {
-        return new ArtisanDataFetcher(findByEmailUE, enregistrerArtisanUE);
+    public ArtisanDataFetcher artisanDataFetcher(FindByEmailUE findByEmailUE, SaveArtisanUE saveArtisanUE) {
+        return new ArtisanDataFetcher(findByEmailUE, saveArtisanUE);
     }
 
     @Bean

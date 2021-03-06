@@ -11,10 +11,10 @@ import usecases.devis.EnregistrerUE;
 import usecases.personnes.artisans.FindByApplicationTokenUE;
 import usecases.personnes.artisans.FindByEmailUE;
 import usecases.personnes.artisans.banques.FindByEmailAndPrefereUE;
-import usecases.personnes.clients.EnregistrerClientUE;
+import usecases.personnes.clients.SaveClientUE;
 import usecases.referentiel.conditions.reglements.FindConditionByEmailArtisanUE;
 import usecases.referentiel.taxes.FindTauxByEmailArtisanUE;
-import usecases.uniquecode.UniqueCodeUE;
+import usecases.uniquecode.GetUniqueCodeUE;
 
 
 @Configuration
@@ -30,8 +30,8 @@ public class DemandeDevisConfig {
     public DemandeDeDevisUE realiserDevis(TransactionManagerPT transactionManager,
                                           LocalizeServicePT localizeService,
                                           MailDevisServicePT mailDevisService,
-                                          EnregistrerClientUE enregistrerClientUE,
-                                          UniqueCodeUE uniqueCodeUE,
+                                          SaveClientUE saveClientUE,
+                                          GetUniqueCodeUE getUniqueCodeUE,
                                           FindByEmailUE artisanFindByEmailUE,
                                           FindByApplicationTokenUE artisanFindByApplicationTokenUE,
                                           FindTauxByEmailArtisanUE findTauxByEmailArtisanUE,
@@ -45,8 +45,8 @@ public class DemandeDevisConfig {
                 transactionManager,
                 localizeService,
                 mailDevisService,
-                enregistrerClientUE,
-                uniqueCodeUE,
+                saveClientUE,
+                getUniqueCodeUE,
                 artisanFindByEmailUE,
                 artisanFindByApplicationTokenUE,
                 findTauxByEmailArtisanUE,

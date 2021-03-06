@@ -5,7 +5,7 @@ import enums.UNIQUE_CODE;
 import exceptions.CleanException;
 import org.apache.commons.lang3.RandomStringUtils;
 import ports.localization.LocalizeServicePT;
-import ports.repositories.DevisRepoPT;
+import ports.repositories.devis.DevisRepoPT;
 import ports.transactions.TransactionManagerPT;
 import transactions.DataProviderManager;
 import usecases.AbstractUsecase;
@@ -13,12 +13,12 @@ import usecases.AbstractUsecase;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class UniqueCodeUE extends AbstractUsecase {
+public class GetUniqueCodeUE extends AbstractUsecase {
 
 
     private final DevisRepoPT devisRepo;
 
-    public UniqueCodeUE(LocalizeServicePT localizeService, TransactionManagerPT transactionManager, DevisRepoPT devisRepo) {
+    public GetUniqueCodeUE(LocalizeServicePT localizeService, TransactionManagerPT transactionManager, DevisRepoPT devisRepo) {
         super(localizeService, transactionManager);
         this.devisRepo = devisRepo;
     }

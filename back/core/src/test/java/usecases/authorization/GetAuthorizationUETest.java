@@ -1,4 +1,4 @@
-package usecases.login;
+package usecases.authorization;
 
 import exceptions.CleanException;
 import org.assertj.core.api.Assertions;
@@ -12,8 +12,8 @@ import ports.login.ILoginPT;
 import ports.transactions.TransactionManagerPT;
 import security.LoginManager;
 import usecases.personnes.FindByEmailUE;
-import usecases.personnes.artisans.EnregistrerArtisanUE;
-import usecases.personnes.clients.EnregistrerClientUE;
+import usecases.personnes.artisans.SaveArtisanUE;
+import usecases.personnes.clients.SaveClientUE;
 import usecases.referentiel.conditions.reglements.FindAllConditionReglementUE;
 import usecases.referentiel.roles.FindByPersonneUE;
 import usecases.referentiel.taxes.FindAllTaxeUE;
@@ -21,14 +21,14 @@ import usecases.referentiel.taxes.FindAllTaxeUE;
 import java.util.Objects;
 
 @RunWith(MockitoJUnitRunner.class)
-public class LoginUETest {
+public class GetAuthorizationUETest {
 
-    LoginUE loginUE;
+    GetAuthorizationUE getAuthorizationUE;
 
 
-    EnregistrerClientUE enregistrerClientUE;
+    SaveClientUE saveClientUE;
 
-    EnregistrerArtisanUE enregistrerArtisanUE;
+    SaveArtisanUE saveArtisanUE;
 
     FindAllConditionReglementUE findAllConditionReglementUE;
 
@@ -56,7 +56,7 @@ public class LoginUETest {
 
     @Before
     public void setUp() throws Exception {
-        loginUE = new LoginUE(localizeService, transactionManager, loginPT, personneFindByEmailUE, enregistrerClientUE, enregistrerArtisanUE, findAllConditionReglementUE, findAllTaxeUE, artisanFindByEmailUE, roleFindByPersonneUE);
+        getAuthorizationUE = new GetAuthorizationUE(localizeService, transactionManager, loginPT, personneFindByEmailUE, saveClientUE, saveArtisanUE, findAllConditionReglementUE, findAllTaxeUE, artisanFindByEmailUE, roleFindByPersonneUE);
 
     }
 
@@ -67,7 +67,7 @@ public class LoginUETest {
 
         try {
 
-            loginUE.execute(null, loginManager);
+            getAuthorizationUE.execute(null, loginManager);
 
         } catch (CleanException e) {
 

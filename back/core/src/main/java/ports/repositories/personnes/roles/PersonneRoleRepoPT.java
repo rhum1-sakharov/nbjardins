@@ -1,4 +1,4 @@
-package ports.repositories;
+package ports.repositories.personnes.roles;
 
 import domains.personnes.roles.Personne__RoleDN;
 import exceptions.PersistenceException;

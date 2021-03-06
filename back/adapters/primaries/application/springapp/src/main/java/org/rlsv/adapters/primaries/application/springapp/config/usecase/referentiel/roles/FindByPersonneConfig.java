@@ -3,7 +3,7 @@ package org.rlsv.adapters.primaries.application.springapp.config.usecase.referen
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import ports.localization.LocalizeServicePT;
-import ports.repositories.RoleRepoPT;
+import ports.repositories.referentiel.roles.RoleRepoPT;
 import ports.transactions.TransactionManagerPT;
 import usecases.referentiel.roles.FindByPersonneUE;
 

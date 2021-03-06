@@ -16,7 +16,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.core.env.Environment;
-import ports.repositories.*;
+import ports.repositories.devis.DevisRepoPT;
+import ports.repositories.personnes.PersonneRepoPT;
+import ports.repositories.personnes.artisans.ArtisanRepoPT;
+import ports.repositories.personnes.artisans.banques.ArtisanBanqueRepoPT;
+import ports.repositories.personnes.clients.ClientRepoPT;
+import ports.repositories.personnes.roles.PersonneRoleRepoPT;
+import ports.repositories.referentiel.conditions.reglements.ConditionDeReglementRepoPT;
+import ports.repositories.referentiel.roles.RoleRepoPT;
+import ports.repositories.referentiel.taxes.TaxeRepoPT;
 import ports.transactions.TransactionManagerPT;
 
 import static org.rlsv.adapters.secondaries.dataproviderjpa.config.JtaConfig.PERSISTENCE_UNIT_RLSV;

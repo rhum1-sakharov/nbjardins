@@ -1,4 +1,4 @@
-package ports.repositories;
+package ports.repositories.personnes.artisans.banques;
 
 import domains.personnes.artisans.ArtisanBanqueDN;
 import transactions.DataProviderManager;

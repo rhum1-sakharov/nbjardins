@@ -9,7 +9,7 @@ import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.RepoAR;
 import org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence.PersistenceUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ports.repositories.ClientRepoPT;
+import ports.repositories.personnes.clients.ClientRepoPT;
 import transactions.DataProviderManager;
 
 import javax.persistence.EntityManager;

@@ -9,11 +9,11 @@ import ports.transactions.TransactionManagerPT;
 @Setter
 public class AbstractUsecase {
 
-    protected LocalizeServicePT localizeService;
+    protected LocalizeServicePT ls;
     protected TransactionManagerPT transactionManager;
 
-    public AbstractUsecase(LocalizeServicePT localizeService, TransactionManagerPT transactionManager) {
-        this.localizeService = localizeService;
+    public AbstractUsecase(LocalizeServicePT ls, TransactionManagerPT transactionManager) {
+        this.ls = ls;
         this.transactionManager = transactionManager;
     }
 }

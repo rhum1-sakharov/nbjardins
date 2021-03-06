@@ -3,22 +3,22 @@ package org.rlsv.adapters.primaries.application.springapp.config.usecase.referen
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import ports.localization.LocalizeServicePT;
-import ports.repositories.ArtisanRepoPT;
-import ports.repositories.PersonneRepoPT;
-import ports.repositories.PersonneRoleRepoPT;
+import ports.repositories.personnes.PersonneRepoPT;
+import ports.repositories.personnes.artisans.ArtisanRepoPT;
+import ports.repositories.personnes.roles.PersonneRoleRepoPT;
 import ports.transactions.TransactionManagerPT;
-import usecases.personnes.artisans.EnregistrerArtisanUE;
+import usecases.personnes.artisans.SaveArtisanUE;
 
 @Configuration
 public class EnregistrerArtisanConfig {
 
     @Bean
-    public EnregistrerArtisanUE enregistrerArtisanUE(PersonneRepoPT personneRepo,
-                                                     PersonneRoleRepoPT personneRoleRepo,
-                                                     LocalizeServicePT localizeService,
-                                                     ArtisanRepoPT artisanRepo,
-                                                     TransactionManagerPT transactionManager) {
-        return new EnregistrerArtisanUE(personneRepo, personneRoleRepo, localizeService, artisanRepo, transactionManager);
+    public SaveArtisanUE enregistrerArtisanUE(PersonneRepoPT personneRepo,
+                                              PersonneRoleRepoPT personneRoleRepo,
+                                              LocalizeServicePT localizeService,
+                                              ArtisanRepoPT artisanRepo,
+                                              TransactionManagerPT transactionManager) {
+        return new SaveArtisanUE(personneRepo, personneRoleRepo, localizeService, artisanRepo, transactionManager);
     }
 
 }

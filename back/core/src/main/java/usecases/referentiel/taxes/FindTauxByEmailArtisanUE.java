@@ -3,7 +3,7 @@ package usecases.referentiel.taxes;
 import aop.Transactionnal;
 import exceptions.CleanException;
 import ports.localization.LocalizeServicePT;
-import ports.repositories.TaxeRepoPT;
+import ports.repositories.referentiel.taxes.TaxeRepoPT;
 import ports.transactions.TransactionManagerPT;
 import transactions.DataProviderManager;
 import usecases.AbstractUsecase;

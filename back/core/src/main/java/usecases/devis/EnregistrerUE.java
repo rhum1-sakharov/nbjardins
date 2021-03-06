@@ -4,7 +4,7 @@ import aop.Transactionnal;
 import domains.devis.DevisDN;
 import exceptions.CleanException;
 import ports.localization.LocalizeServicePT;
-import ports.repositories.DevisRepoPT;
+import ports.repositories.devis.DevisRepoPT;
 import ports.transactions.TransactionManagerPT;
 import transactions.DataProviderManager;
 import usecases.AbstractUsecase;

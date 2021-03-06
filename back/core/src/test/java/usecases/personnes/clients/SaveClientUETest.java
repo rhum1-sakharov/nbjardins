@@ -14,9 +14,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 import ports.localization.LocalizeServicePT;
-import ports.repositories.ClientRepoPT;
-import ports.repositories.PersonneRepoPT;
-import ports.repositories.PersonneRoleRepoPT;
+import ports.repositories.personnes.PersonneRepoPT;
+import ports.repositories.personnes.clients.ClientRepoPT;
+import ports.repositories.personnes.roles.PersonneRoleRepoPT;
 import ports.transactions.TransactionManagerPT;
 
 import java.util.Objects;
@@ -24,7 +24,7 @@ import java.util.Objects;
 import static localizations.MessageKeys.ENREGISTRER_CLIENT_ERREUR_ARTISAN;
 
 @RunWith(MockitoJUnitRunner.class)
-public class EnregistrerClientUETest {
+public class SaveClientUETest {
 
     @Mock
     PersonneRepoPT personneRepo;
@@ -42,7 +42,7 @@ public class EnregistrerClientUETest {
     @Mock
     TransactionManagerPT transactionManager;
 
-    EnregistrerClientUE enregistrerClientUE;
+    SaveClientUE saveClientUE;
 
 
     ClientDN client;
@@ -52,7 +52,7 @@ public class EnregistrerClientUETest {
     public void setUp() throws Exception {
 
 
-        this.enregistrerClientUE = new EnregistrerClientUE(personneRepo, personneRoleRepo, localizeService, clientRepo, transactionManager);
+        this.saveClientUE = new SaveClientUE(personneRepo, personneRoleRepo, localizeService, clientRepo, transactionManager);
 
 
         this.client = initClientStub(initPersonneStub());
@@ -72,7 +72,7 @@ public class EnregistrerClientUETest {
             Mockito.when(this.localizeService.getMsg(ENREGISTRER_CLIENT_ERREUR_ARTISAN)).thenReturn(errorMessage);
             Mockito.when(this.clientRepo.saveByIdPersonne(null, initPersonneStub().getId())).thenReturn(initClientStub(initPersonneStub()));
 
-            client = this.enregistrerClientUE.execute(null, client);
+            client = this.saveClientUE.execute(null, client);
 
         } catch (CleanException e) {
 
@@ -89,7 +89,7 @@ public class EnregistrerClientUETest {
         Mockito.when(this.personneRoleRepo.findByEmailAndRole(null, client.getPersonne().getEmail(), ROLES.ROLE_CLIENT.getValue())).thenReturn(initPersonneRoleStub());
         Mockito.when(this.clientRepo.saveByIdPersonne(null, initPersonneStub().getId())).thenReturn(initClientStub(initPersonneStub()));
 
-        client = this.enregistrerClientUE.execute(null, client);
+        client = this.saveClientUE.execute(null, client);
 
         Assertions.assertThat(Objects.nonNull(client)).isTrue();
 

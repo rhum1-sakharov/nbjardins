@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="202103062041" author="rvl">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="artisans_options"></tableExists>
+            </not>
+        </preConditions>
+        <sql>
+            CREATE TABLE `artisans_options` (
+            `ID` VARCHAR(36) NOT NULL DEFAULT '',
+            `ID_ARTISAN` VARCHAR(36) NOT NULL DEFAULT '',
+            `OPTION` ENUM('TVA_SAISISSABLE_PAR_LIGNE','COLONNE_QUANTITE','COORDONNEES_BANQUAIRES') NOT NULL,
+            `ACTIF` TINYINT(1) NOT NULL DEFAULT '0',
+            PRIMARY KEY (`ID`),
+            UNIQUE INDEX `unique_artisan_option` (`ID_ARTISAN`, `OPTION`),
+            CONSTRAINT `FK__ao__artisans` FOREIGN KEY (`ID_ARTISAN`) REFERENCES `artisans` (`ID`) ON UPDATE CASCADE ON
+            DELETE CASCADE
+            )
+            COLLATE='utf8_general_ci'
+            ;
+        </sql>
+        <comment>
+            Ajout de la table artisans_options
+        </comment>
+    </changeSet>
+
+    <changeSet id="202103062109" author="rvl">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="artisans_options"></tableExists>
+        </preConditions>
+        <sql>
+            set @rownum := 0;
+            INSERT INTO artisans_options (id, id_artisan, `OPTION`, actif )
+            SELECT @rownum := @rownum + 1, a.ID, 'TVA_SAISISSABLE_PAR_LIGNE',0 FROM artisans a;
+            INSERT INTO artisans_options (id, id_artisan, `OPTION`, actif )
+            SELECT @rownum := @rownum + 1, a.ID, 'COLONNE_QUANTITE',0 FROM artisans a;
+            INSERT INTO artisans_options (id, id_artisan, `OPTION`, actif )
+            SELECT @rownum := @rownum + 1, a.ID, 'COORDONNEES_BANQUAIRES',0 FROM artisans a;
+        </sql>
+        <comment>
+            Ajout des options par défaut pour les artisans déjà présents
+        </comment>
+    </changeSet>
+
+
+</databaseChangeLog>

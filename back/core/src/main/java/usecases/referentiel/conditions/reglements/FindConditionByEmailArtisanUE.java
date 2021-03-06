@@ -3,7 +3,7 @@ package usecases.referentiel.conditions.reglements;
 import aop.Transactionnal;
 import exceptions.CleanException;
 import ports.localization.LocalizeServicePT;
-import ports.repositories.ConditionDeReglementRepoPT;
+import ports.repositories.referentiel.conditions.reglements.ConditionDeReglementRepoPT;
 import ports.transactions.TransactionManagerPT;
 import transactions.DataProviderManager;
 import usecases.AbstractUsecase;

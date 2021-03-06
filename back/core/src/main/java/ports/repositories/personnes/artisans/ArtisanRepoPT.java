@@ -1,4 +1,4 @@
-package ports.repositories;
+package ports.repositories.personnes.artisans;
 
 import domains.personnes.artisans.ArtisanDN;
 import transactions.DataProviderManager;

@@ -5,10 +5,10 @@ import org.springframework.context.annotation.Configuration;
 import ports.localization.LocalizeServicePT;
 import ports.login.ILoginPT;
 import ports.transactions.TransactionManagerPT;
-import usecases.login.LoginUE;
+import usecases.authorization.GetAuthorizationUE;
 import usecases.personnes.FindByEmailUE;
-import usecases.personnes.artisans.EnregistrerArtisanUE;
-import usecases.personnes.clients.EnregistrerClientUE;
+import usecases.personnes.artisans.SaveArtisanUE;
+import usecases.personnes.clients.SaveClientUE;
 import usecases.referentiel.conditions.reglements.FindAllConditionReglementUE;
 import usecases.referentiel.roles.FindByPersonneUE;
 import usecases.referentiel.taxes.FindAllTaxeUE;
@@ -18,18 +18,18 @@ public class LoginConfig {
 
 
     @Bean
-    public LoginUE getLoginUE(LocalizeServicePT localizeService,
-                              TransactionManagerPT transactionManager,
-                              ILoginPT loginPT,
-                              FindByEmailUE personneFindByEmailUE,
-                              EnregistrerClientUE enregistrerClientUE,
-                              EnregistrerArtisanUE enregistrerArtisanUE,
-                              FindAllConditionReglementUE findAllConditionReglementUE,
-                              usecases.personnes.artisans.FindByEmailUE artisanFindByEmailUE,
-                              FindAllTaxeUE findAllTaxeUE,
-                              FindByPersonneUE rolesFindByPersonneUE
+    public GetAuthorizationUE getLoginUE(LocalizeServicePT localizeService,
+                                         TransactionManagerPT transactionManager,
+                                         ILoginPT loginPT,
+                                         FindByEmailUE personneFindByEmailUE,
+                                         SaveClientUE saveClientUE,
+                                         SaveArtisanUE saveArtisanUE,
+                                         FindAllConditionReglementUE findAllConditionReglementUE,
+                                         usecases.personnes.artisans.FindByEmailUE artisanFindByEmailUE,
+                                         FindAllTaxeUE findAllTaxeUE,
+                                         FindByPersonneUE rolesFindByPersonneUE
     ) {
-        return new LoginUE(localizeService, transactionManager, loginPT, personneFindByEmailUE, enregistrerClientUE, enregistrerArtisanUE, findAllConditionReglementUE, findAllTaxeUE, artisanFindByEmailUE, rolesFindByPersonneUE);
+        return new GetAuthorizationUE(localizeService, transactionManager, loginPT, personneFindByEmailUE, saveClientUE, saveArtisanUE, findAllConditionReglementUE, findAllTaxeUE, artisanFindByEmailUE, rolesFindByPersonneUE);
     }
 
 

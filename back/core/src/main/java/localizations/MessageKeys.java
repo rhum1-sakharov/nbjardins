@@ -24,4 +24,5 @@ public class MessageKeys {
     public static final String USER_NOT_FOUND = "user.not.found";
     public static final String USER_HAS_NO_ROLE = "user.has.no.role";
     public static final String TOKEN_NOT_VALID = "token.not.valid";
+    public static final String ARG_IS_REQUIRED = "arg.is.required";
 }
