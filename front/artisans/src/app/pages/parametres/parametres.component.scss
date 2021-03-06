@@ -21,10 +21,18 @@ input{
   width:252px;
 }
 
+.listbox{
+  width:400px;
+}
+
+
 .previewer{
+
+  font-size: 12px;
   max-height: calc( 100vh - 170px);
   overflow: auto;
   margin-top:0px;
+  max-width:600px;
 }
 
 @media screen and (max-width: 960px) {
@@ -32,5 +40,10 @@ input{
   input{
     width:192px;
   }
+
+  .listbox{
+    width:300px;
+  }
+
 
 }

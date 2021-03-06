@@ -1,9 +1,13 @@
-<ng-container *ngIf="artisan && artisanBanque">
+<ng-container *ngIf="artisan">
   <div class="p-grid devis-preview pg-8 mg-t-10 mg-l-1">
     <div class="p-col-6">
 
       <div>
         <img [src]="artisan.logo" height="40">
+      </div>
+      <div>
+        <span class="mg-r-5">SIRET : </span>
+        <span>{{artisan.siret}}</span>
       </div>
       <div>
         {{artisan.personne.societe}}
@@ -23,10 +27,7 @@
         <span class="mg-r-5">Email : </span>
         <span>{{artisan.personne.email}}</span>
       </div>
-      <div>
-        <span class="mg-r-5">SIRET : </span>
-        <span>{{artisan.siret}}</span>
-      </div>
+
 
     </div>
     <div class="p-col-6">
@@ -59,16 +60,22 @@
         <thead>
         <tr>
           <th>Désignation</th>
-          <th>Montant en euros</th>
+          <th>Quantité</th>
+          <th>Prix unitaire HT</th>
+          <th>Prix total HT</th>
         </tr>
         </thead>
         <tbody>
         <tr>
-          <td width="80%">Modificatif de l'état descriptif</td>
+          <td >Modificatif de l'état descriptif</td>
+          <td class="montant">1</td>
+          <td class="montant">550.25 €</td>
           <td class="montant">550.25 €</td>
         </tr>
         <tr>
           <td>Attestation de surface loi carrez</td>
+          <td class="montant">2</td>
+          <td class="montant">62.89 €</td>
           <td class="montant">125.78 €</td>
         </tr>
         </tbody>
@@ -115,16 +122,20 @@
       <span class="mg-r-5">{{artisan.personne.ville}}</span>
     </div>
 
-    <div class="p-col-12">
-      <span class="mg-r-5">RIB : </span>
-      <span class="mg-r-5">{{artisanBanque.rib}}</span>
-    </div>
+    <ng-container *ngIf="artisanBanque">
+      <div class="p-col-12">
+        <span class="mg-r-5">RIB : </span>
+        <span class="mg-r-5">{{artisanBanque.rib}}</span>
+      </div>
 
 
-    <div class="p-col-12">
-      <span class="mg-r-5">IBAN : </span>
-      <span class="mg-r-5">{{artisanBanque.iban}}</span>
-    </div>
+      <div class="p-col-12">
+        <span class="mg-r-5">IBAN : </span>
+        <span class="mg-r-5">{{artisanBanque.iban}}</span>
+      </div>
+    </ng-container>
+
+
 
 
     <div class="p-col-12">

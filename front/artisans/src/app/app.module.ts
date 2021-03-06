@@ -26,6 +26,7 @@ import {ToolbarModule} from 'primeng/toolbar';
 import {PreviewDevisComponent} from './components/preview-devis/preview-devis.component';
 import {PreviewFactureComponent} from './components/preview-facture/preview-facture.component';
 import {SelectButtonModule} from 'primeng/selectbutton';
+import {StatsComponent} from './pages/stats/stats.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import {SelectButtonModule} from 'primeng/selectbutton';
     FacturesComponent,
     LoadingComponent,
     PreviewDevisComponent,
-    PreviewFactureComponent
+    PreviewFactureComponent,
+    StatsComponent
   ],
   imports: [
     BrowserModule,

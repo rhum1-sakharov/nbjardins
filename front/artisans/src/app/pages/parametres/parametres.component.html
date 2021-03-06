@@ -1,6 +1,6 @@
 <div class="mg-t-10 page-parametre">
   <div class="p-d-flex p-flex-column p-flex-md-row">
-    <div >
+    <div  class="mg-b-10">
       <p-accordion [multiple]="false">
         <p-accordionTab header="Identification" [selected]="true">
 
@@ -71,13 +71,13 @@
         <p-accordionTab header="Devis">
           <div data-test="taxe">
             <h5>TVA</h5>
-            <p-listbox [options]="taxes" [(ngModel)]="artisan.taxe" optionLabel="nom" >
+            <p-listbox [options]="taxes"  [(ngModel)]="artisan.taxe" optionLabel="nom" >
               <ng-template let-item pTemplate="item">
-                <div class="p-d-flex ">
-                  <div class="p-mr-2">
+                <div class="p-d-flex listbox">
+                  <div>
                     {{item.nom}}
-                  </div>
-                  <div class="p-ml-auto">
+                  </div >
+                  <div class="p-ml-auto" >
                     <strong>{{item.taux | number:'1.2-2'}}%</strong>
                   </div>
                 </div>
@@ -88,8 +88,15 @@
           <div data-test="conditionReglement">
             <h5>Condition de règlement</h5>
             <p-listbox [options]="conditionsReglements" [(ngModel)]="artisan.conditionDeReglement"
-                       optionLabel="condition"
-                       [style]="{'width':'320px'}">
+                       optionLabel="condition"                      >
+              <ng-template let-item pTemplate="item">
+                <div class="listbox">
+                  <div>
+                    {{item.condition}}
+                  </div >
+                </div>
+
+              </ng-template>
             </p-listbox>
           </div>
 
@@ -113,9 +120,9 @@
       </p-accordion>
 
     </div>
-    <div class="mg-l-10 max-wh-900">
+    <div class="mg-l-10">
 
-      <div class="p-d-flex p-flex-column p-flex-md-row">
+      <div class="p-d-flex  p-flex-md-row">
         <p-button icon="pi pi-save" pTooltip="Enregistrer les modifications" (onClick)="save()" class="mg-r-10"></p-button>
         <p-selectButton [options]="previews" [(ngModel)]="selectedPreview" optionLabel="label" optionValue="label"></p-selectButton>
       </div>

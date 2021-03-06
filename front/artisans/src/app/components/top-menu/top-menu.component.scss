@@ -36,20 +36,18 @@
   font-size: 24px;
 }
 
-.parametres, .devis, .factures, .compte {
+.parametres, .devis, .factures, .stats {
   height:70px;
   line-height: 70px;
   display: block;
 }
 
-.parametres:hover, .devis:hover, .factures:hover, .routeActive {
+.link:hover , .routeActive {
 
   border-bottom: 3px solid $color-button;
 }
 
-.parametres:focus, .devis:focus, .factures:focus {
-
-
+.link:focus{
   outline: none;
 }
 
@@ -65,7 +63,7 @@
     width: 40px;
   }
 
-  .parametres, .devis, .factures {
+  .parametres, .devis, .factures, .stats{
     display: none;
   }
 

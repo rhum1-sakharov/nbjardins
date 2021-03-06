@@ -5,6 +5,7 @@ import {ParametresComponent} from './pages/parametres/parametres.component';
 import {AuthGuard, USER_RIGHT_ARTISAN} from 'rhum1-sakharov-core-lib';
 import {DevisComponent} from './pages/devis/devis.component';
 import {FacturesComponent} from './pages/factures/factures.component';
+import {StatsComponent} from './pages/stats/stats.component';
 
 
 const routes: Routes = [
@@ -27,6 +28,12 @@ const routes: Routes = [
   {
     path: 'factures',
     component: FacturesComponent,
+    runGuardsAndResolvers: 'always',
+    data: USER_RIGHT_ARTISAN,
+  },
+  {
+    path: 'stats',
+    component: StatsComponent,
     runGuardsAndResolvers: 'always',
     data: USER_RIGHT_ARTISAN,
   }

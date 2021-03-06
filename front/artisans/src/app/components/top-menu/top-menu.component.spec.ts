@@ -66,6 +66,11 @@ describe('TopMenuComponent', () => {
     expect(fixture.nativeElement.querySelector('[data-test="factures"]')).toBeTruthy();
   });
 
+  it('should have menu stats', () => {
+    expect(fixture.nativeElement.querySelector('[data-test="stats"]')).toBeTruthy();
+  });
+
+
   it('should have menu compte', () => {
     expect(fixture.nativeElement.querySelector('[data-test="compte"]')).toBeTruthy();
   });
