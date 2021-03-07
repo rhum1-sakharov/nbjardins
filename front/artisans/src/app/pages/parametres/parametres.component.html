@@ -85,7 +85,6 @@
                      dataKey="id">
               <ng-template pTemplate="header">
                 <tr>
-                  <th></th>
                   <th>Banque</th>
                   <th>RIB</th>
                   <th>IBAN</th>
@@ -93,7 +92,6 @@
               </ng-template>
               <ng-template pTemplate="body" let-banque>
                 <tr [pSelectableRow]="banque">
-                  <td></td>
                   <td></td>
                   <td>{{banque.rib}}</td>
                   <td>{{banque.iban}}</td>
