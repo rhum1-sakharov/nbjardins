@@ -1,7 +1,7 @@
-import {Model} from './model';
-import {MPersonne} from './m-personne';
-import {MTaxe} from './m-taxe';
-import {MConditionReglement} from './m-condition-reglement';
+import {Model} from '../../model';
+import {MPersonne} from '../m-personne';
+import {MTaxe} from '../../referentiel/taxes/m-taxe';
+import {MConditionReglement} from '../../referentiel/conditions/reglements/m-condition-reglement';
 
 export class MArtisan extends Model {
 

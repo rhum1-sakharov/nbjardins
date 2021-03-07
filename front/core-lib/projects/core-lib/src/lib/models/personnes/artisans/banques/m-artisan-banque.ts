@@ -1,5 +1,5 @@
-import {Model} from './model';
-import {MArtisan} from './m-artisan';
+import {Model} from '../../../model';
+import {MArtisan} from '../m-artisan';
 
 export class MArtisanBanque extends Model {
 

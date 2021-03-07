@@ -1,5 +1,5 @@
-import {Model} from './model';
-import {MPersonne} from './m-personne';
+import {Model} from '../../model';
+import {MPersonne} from '../m-personne';
 
 export class MClient extends Model {
 
