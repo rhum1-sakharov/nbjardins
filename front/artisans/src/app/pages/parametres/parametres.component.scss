@@ -33,19 +33,10 @@ input{
   max-height: calc( 100vh - 170px);
   overflow: auto;
   margin-top:0px;
-  max-width:600px;
+  max-width:800px;
 }
 
 @media screen and (max-width: 960px) {
-
-  input{
-    width:192px;
-  }
-
-  .listbox, .datagrid-banque{
-    width:300px;
-  }
-
 
 
 }

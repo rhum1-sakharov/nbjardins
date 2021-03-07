@@ -57,4 +57,12 @@ public class ArtisanBanqueRepoAR extends RepoAR implements ArtisanBanqueRepoPT {
         return ArtisanBanqueMapper.INSTANCE.entitiesToDomains(artisanBanqueList);
 
     }
+
+    @Override
+    public ArtisanBanqueDN save(DataProviderManager dpm, ArtisanBanqueDN artisanBanque) {
+
+        ArtisanBanque ab = ArtisanBanqueMapper.INSTANCE.domainToEntity(artisanBanque);
+        ab = (ArtisanBanque) super.save(dpm, ab);
+        return ArtisanBanqueMapper.INSTANCE.entityToDomain(ab);
+    }
 }

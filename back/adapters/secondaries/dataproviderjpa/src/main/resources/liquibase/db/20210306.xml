@@ -46,5 +46,20 @@
         </comment>
     </changeSet>
 
+    <changeSet id="202103071836" author="rvl">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="artisans_banques" columnName="BANQUE"></columnExists>
+            </not>
+        </preConditions>
+        <sql>
+            ALTER TABLE `artisans_banques`
+            ADD COLUMN `BANQUE` VARCHAR(50) NOT NULL AFTER `RIB`;
+        </sql>
+        <comment>
+          Ajout de la colonne banque sur artisans_banques
+        </comment>
+    </changeSet>
+
 
 </databaseChangeLog>

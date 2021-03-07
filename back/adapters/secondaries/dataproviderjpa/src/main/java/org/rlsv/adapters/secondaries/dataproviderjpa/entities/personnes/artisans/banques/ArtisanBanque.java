@@ -22,6 +22,9 @@ public class ArtisanBanque extends Entity {
     @Column(name = "RIB")
     private String rib;
 
+    @Column(name = "BANQUE")
+    private String banque;
+
     @ManyToOne
     @JoinColumn(name = "ID_ARTISAN")
     private Artisan artisan;

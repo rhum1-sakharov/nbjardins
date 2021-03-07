@@ -67,45 +67,18 @@
             </div>
           </div>
         </p-accordionTab>
-        <p-accordionTab header="Réglages">
-
-          <div *ngFor="let ao of artisanOptionList; ">
-            <h5>{{getModeleOptionLabel(ao.modeleOption)}}</h5>
-            <p-selectButton [options]="[{label:'oui',value:true},{label:'non',value:false}]" [(ngModel)]="ao.actif"
+        <p-accordionTab header="TVA">
+          <div>
+            <h5>{{getModeleOptionLabel(tvaSaisissableParLigne)}}</h5>
+            <p-selectButton [options]="[{label:'oui',value:true},{label:'non',value:false}]"
+                            [ngModel]="getArtisanOption(tvaSaisissableParLigne)"
+                            (ngModelChange)="setArtisanOption(tvaSaisissableParLigne,$event)"
                             optionLabel="label"
                             optionValue="value"
             ></p-selectButton>
           </div>
-        </p-accordionTab>
-        <p-accordionTab header="Banque">
-          <div class="datagrid-banque">
-            <p-table [value]="artisanBanqueList"
-                     selectionMode="single"
-                     [(selection)]="selectedArtisanBanque"
-                     dataKey="id">
-              <ng-template pTemplate="header">
-                <tr>
-                  <th>Banque</th>
-                  <th>RIB</th>
-                  <th>IBAN</th>
-                </tr>
-              </ng-template>
-              <ng-template pTemplate="body" let-banque>
-                <tr [pSelectableRow]="banque">
-                  <td></td>
-                  <td>{{banque.rib}}</td>
-                  <td>{{banque.iban}}</td>
-                </tr>
-              </ng-template>
-            </p-table>
-          </div>
-
-          <pre>{{selectedArtisanBanque | json}}</pre>
-
-        </p-accordionTab>
-        <p-accordionTab header="Devis">
-          <div data-test="taxe">
-            <h5>TVA</h5>
+          <div data-test="taxe" *ngIf="!getArtisanOption(tvaSaisissableParLigne)">
+            <h5>Taux de TVA par défaut</h5>
             <p-listbox [options]="taxes" [(ngModel)]="artisan.taxe" optionLabel="nom">
               <ng-template let-item pTemplate="item">
                 <div class="p-d-flex listbox">
@@ -120,6 +93,19 @@
               </ng-template>
             </p-listbox>
           </div>
+        </p-accordionTab>
+        <p-accordionTab header="Options">
+
+          <div>
+            <h5>{{getModeleOptionLabel(colonneQuantite)}}</h5>
+            <p-selectButton [options]="[{label:'oui',value:true},{label:'non',value:false}]"
+                            [ngModel]="getArtisanOption(colonneQuantite)"
+                            (ngModelChange)="setArtisanOption(colonneQuantite,$event)"
+                            optionLabel="label"
+                            optionValue="value"
+            ></p-selectButton>
+          </div>
+
           <div data-test="conditionReglement">
             <h5>Condition de règlement</h5>
             <p-listbox [options]="conditionsReglements" [(ngModel)]="artisan.conditionDeReglement"
@@ -135,7 +121,6 @@
             </p-listbox>
           </div>
 
-
           <div data-test="provision">
             <h5>Provision</h5>
             <p-inputNumber [(ngModel)]="artisan.provision" mode="decimal" [minFractionDigits]="2"
@@ -148,12 +133,81 @@
             <p-inputNumber [(ngModel)]="artisan.validiteDevisMois" mode="decimal"></p-inputNumber>
           </div>
 
-        </p-accordionTab>
-        <p-accordionTab header="Factures">
-          Nouvelle fonctionnalité à implémenter...
-        </p-accordionTab>
 
+        </p-accordionTab>
+        <p-accordionTab header="Banque">
 
+          <h5>{{getModeleOptionLabel(coordonneesBanquaires)}}</h5>
+          <p-selectButton [options]="[{label:'oui',value:true},{label:'non',value:false}]"
+                          [ngModel]="getArtisanOption(coordonneesBanquaires)"
+                          (ngModelChange)="setArtisanOption(coordonneesBanquaires,$event)"
+                          optionLabel="label"
+                          optionValue="value"
+          ></p-selectButton>
+
+          <div class="datagrid-banque mg-t-10">
+            <h5>Sélectionner une banque</h5>
+            <p-table [value]="artisanBanqueList"
+                     selectionMode="single"
+                     [(selection)]="artisanBanque"
+                     dataKey="id">
+              <ng-template pTemplate="header">
+                <tr>
+                  <th>
+                    <button pButton icon="pi pi-plus" pTooltip="Ajouter une banque"></button>
+                  </th>
+                  <th>Banque</th>
+                  <th>RIB</th>
+                  <th>IBAN</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-banque>
+                <tr >
+                  <td>
+                    <p-tableRadioButton [value]="banque"></p-tableRadioButton>
+                  </td>
+                  <td pEditableColumn>
+                    <p-cellEditor>
+                      <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="banque.banque" style="width:100%">
+                      </ng-template>
+                      <ng-template pTemplate="output">
+                        <div style="width:100%;word-break: break-word;">
+                          {{banque.banque}}
+                        </div>
+                      </ng-template>
+                    </p-cellEditor>
+                  </td>
+                  <td pEditableColumn>
+                    <p-cellEditor>
+                      <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="banque.rib" style="width:100%">
+                      </ng-template>
+                      <ng-template pTemplate="output">
+                        <div style="width:100%;word-break: break-word;">
+                          {{banque.rib}}
+                        </div>
+
+                      </ng-template>
+                    </p-cellEditor>
+                  </td>
+                  <td  pEditableColumn>
+                    <p-cellEditor>
+                      <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="banque.iban" style="width:100%">
+                      </ng-template>
+                      <ng-template pTemplate="output">
+
+                        {{banque.iban}}
+                      </ng-template>
+                    </p-cellEditor>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+
+        </p-accordionTab>
       </p-accordion>
 
     </div>

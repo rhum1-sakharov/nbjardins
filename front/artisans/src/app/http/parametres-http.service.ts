@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpService, MArtisan, MArtisanOption} from 'rhum1-sakharov-core-lib';
+import {HttpService, MArtisan, MArtisanBanque, MArtisanOption} from 'rhum1-sakharov-core-lib';
 
 @Injectable({
   providedIn: 'root'
@@ -16,18 +16,17 @@ export class ParametresHttpService {
    */
   prepare(email: string) {
 
-    const query = `{
-    
-      artisanBanqueFindByEmailAndPrefere(email: "${email}", prefere: ${true}){
-          id
-          iban
-          rib
-      }
+    const query = `{  
       
        artisanBanqueFindByEmail(email: "${email}"){
           id
+          artisan {
+            id
+          }
           iban
           rib
+          banque
+          prefere
       }
       
       artisanOptionFindByEmail(email: "${email}"){
@@ -83,17 +82,49 @@ export class ParametresHttpService {
     return this.httpSvc.post('api/graphql', query);
   }
 
-  save(artisan: MArtisan, artisanOptionList: MArtisanOption[]) {
+  save(artisan: MArtisan, artisanOptionList: MArtisanOption[], artisanBanqueList: MArtisanBanque[]) {
 
     const query = `      
     mutation saveArtisan{
     
       ${this.generateSaveArtisan(artisan)}
       ${this.generateSaveArtisanOptionList(artisanOptionList)}
+      ${this.generateSaveArtisanBanqueList(artisanBanqueList)}
    
     }`;
 
     return this.httpSvc.post('api/graphql', query);
+  }
+
+  private generateSaveArtisanBanqueList(artisanBanqueList: MArtisanBanque[]) {
+
+    let str = '';
+
+    let i = 1;
+    for (const ab of artisanBanqueList) {
+      str += `
+      
+   ${'ab' + i} : saveArtisanBanque( artisanBanque: {
+             
+          id: "${ab.id}"      
+          artisan: {
+            id: "${ab.artisan.id}"
+          } 
+          iban: "${ab.iban}"
+          rib: "${ab.rib}"
+          banque: "${ab.banque}"
+          prefere: ${ab.prefere}
+      
+      }){
+            id
+      }
+      
+      `;
+      i++;
+    }
+
+    return str;
+
   }
 
   private generateSaveArtisan(artisan: MArtisan) {

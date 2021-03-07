@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {
@@ -39,16 +39,14 @@ export class ParametresComponent implements OnInit, OnDestroy {
   ];
   selectedPreview = 'devis';
 
-  tvaSaisissableParLigne = [
-    {label: 'oui', value: true},
-    {label: 'non', value: false},
-  ];
-  selectedTvaSaisissableParLigne = false;
-  selectedArtisanBanque !: MArtisanBanque;
+  coordonneesBanquaires = MODELE_OPTION.COORDONNEES_BANQUAIRES;
+  colonneQuantite = MODELE_OPTION.COLONNE_QUANTITE;
+  tvaSaisissableParLigne = MODELE_OPTION.TVA_SAISISSABLE_PAR_LIGNE;
 
 
   constructor(public route: ActivatedRoute, private utils: UtilsService,
               private toastSvc: ToasterService,
+              private cd: ChangeDetectorRef,
               private parametresHttp: ParametresHttpService) {
   }
 
@@ -64,8 +62,10 @@ export class ParametresComponent implements OnInit, OnDestroy {
       this.conditionsReglements = data.parametresSupplier.data.conditionReglementAll;
       this.artisanOptionList = data.parametresSupplier.data.artisanOptionFindByEmail;
       this.artisan = data.parametresSupplier.data.artisanFindByEmail as MArtisan;
-      this.artisanBanque = data.parametresSupplier.data.artisanBanqueFindByEmailAndPrefere as MArtisanBanque;
       this.artisanBanqueList = data.parametresSupplier.data.artisanBanqueFindByEmail;
+
+      this.artisanBanque = this.getArtisanBanquePrefere(this.artisanBanqueList) as MArtisanBanque;
+
 
       this.artisan.taxe = this.utils.preselectSingleElement(this.taxes, this.artisan.taxe);
       this.artisan.conditionDeReglement = this.utils.preselectSingleElement(this.conditionsReglements, this.artisan.conditionDeReglement);
@@ -80,14 +80,14 @@ export class ParametresComponent implements OnInit, OnDestroy {
 
   save() {
 
-
     // TODO to implement
     this.artisan.signature = '';
 
-    this.parametresHttp.save(this.artisan, this.artisanOptionList).subscribe((response: any) => {
+    this.parametresHttp.save(this.artisan, this.artisanOptionList, this.artisanBanqueList).subscribe((response: any) => {
       this.toastSvc.showMsg(MSG_KEY.ROOT, MSG_SEVERITY.SUCCESS, 'Paramètres enregistrés avec succès.');
     });
   }
+
 
   getModeleOptionLabel(modeleOption: MODELE_OPTION) {
 
@@ -104,4 +104,42 @@ export class ParametresComponent implements OnInit, OnDestroy {
   }
 
 
+  getArtisanBanquePrefere(abList: MArtisanBanque[]) {
+    if (abList) {
+      for (const ab of abList) {
+        if (ab.prefere === true) {
+          return ab;
+        }
+      }
+    }
+    return null;
+  }
+
+  getArtisanOption(mo: MODELE_OPTION) {
+
+    if (this.artisanOptionList) {
+      for (const ao of this.artisanOptionList) {
+        if (ao.modeleOption === mo) {
+          return ao.actif;
+        }
+      }
+    }
+
+    return null;
+  }
+
+
+  setArtisanOption(mo: MODELE_OPTION, $event:any) {
+
+
+    if (this.artisanOptionList) {
+      for (const ao of this.artisanOptionList) {
+        if (ao.modeleOption === mo) {
+           ao.actif=$event;
+        }
+      }
+    }
+
+
+  }
 }

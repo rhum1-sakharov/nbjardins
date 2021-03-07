@@ -29,6 +29,7 @@ import {SelectButtonModule} from 'primeng/selectbutton';
 import {StatsComponent} from './pages/stats/stats.component';
 import {CheckboxModule} from 'primeng/checkbox';
 import {TableModule} from 'primeng/table';
+import {RadioButtonModule} from 'primeng/radiobutton';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import {TableModule} from 'primeng/table';
     ToolbarModule,
     SelectButtonModule,
     CheckboxModule,
-    TableModule
+    TableModule,
+    RadioButtonModule
 
   ],
   providers: [

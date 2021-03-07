@@ -16,6 +16,16 @@ type Query {
 type Mutation{
     saveArtisan (artisan: ArtisanInput!): Artisan!
     saveArtisanOption (artisanOption: ArtisanOptionInput!): ArtisanOption!
+    saveArtisanBanque (artisanBanque: ArtisanBanqueInput!): ArtisanBanque!
+}
+
+input ArtisanBanqueInput{
+    id: ID
+    artisan: ArtisanInput
+    banque: String
+    iban: String
+    rib: String
+    prefere: Boolean
 }
 
 
@@ -92,6 +102,8 @@ type ArtisanBanque{
     iban: String
     rib: String
     artisan : Artisan
+    banque: String
+    prefere: Boolean
 }
 
 type Personne {
