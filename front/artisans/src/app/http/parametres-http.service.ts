@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpService, MArtisan} from 'rhum1-sakharov-core-lib';
+import {HttpService, MArtisan, MArtisanOption} from 'rhum1-sakharov-core-lib';
 
 @Injectable({
   providedIn: 'root'
@@ -76,47 +76,80 @@ export class ParametresHttpService {
     return this.httpSvc.post('api/graphql', query);
   }
 
-  save(artisan: MArtisan) {
+  save(artisan: MArtisan, artisanOptionList: MArtisanOption[]) {
 
     const query = `      
     mutation saveArtisan{
     
-    saveArtisan(artisan:{
-        id: "${artisan.id}",
-        taxe: {
-          id: "${artisan.taxe.id}"
-          nom: "${artisan.taxe.nom}"
-          taux: ${artisan.taxe.taux}
-        }
-        conditionDeReglement: {
-          id: "${artisan.conditionDeReglement.id}"
-          condition: "${artisan.conditionDeReglement.condition}"
-        }
-        logo: "${artisan.logo}"
-        provision: ${artisan.provision}
-        siret: "${artisan.siret}"
-        validiteDevisMois: ${artisan.validiteDevisMois}      
-        signature: ""   
-        personne: {
-            id: "${artisan.personne.id}"
-            nom: "${artisan.personne.nom}"
-            prenom: "${artisan.personne.prenom}"
-            email: "${artisan.personne.email}"            
-            numeroTelephone: "${artisan.personne.numeroTelephone}"
-            adresse: "${artisan.personne.adresse}"
-            codePostal: "${artisan.personne.codePostal}"
-            ville: "${artisan.personne.ville}"
-            fonction: "${artisan.personne.fonction}"
-            societe: "${artisan.personne.societe}"
-        }
-    }){
-        id
-    }
-    
-    
-}        
-    `;
+      ${this.generateSaveArtisan(artisan)}
+      ${this.generateSaveArtisanOptionList(artisanOptionList)}
+   
+    }`;
 
     return this.httpSvc.post('api/graphql', query);
+  }
+
+  private generateSaveArtisan(artisan: MArtisan) {
+    let str = `
+
+    saveArtisan(artisan:{
+      id: "${artisan.id}",
+        taxe: {
+        id: "${artisan.taxe.id}"
+        nom: "${artisan.taxe.nom}"
+        taux: ${artisan.taxe.taux}
+          }
+      conditionDeReglement: {
+        id: "${artisan.conditionDeReglement.id}"
+        condition: "${artisan.conditionDeReglement.condition}"
+      }
+      logo: "${artisan.logo}"
+      provision: ${artisan.provision}
+        siret: "${artisan.siret}"
+      validiteDevisMois: ${artisan.validiteDevisMois}
+        signature: ""
+      personne: {
+        id: "${artisan.personne.id}"
+        nom: "${artisan.personne.nom}"
+        prenom: "${artisan.personne.prenom}"
+        email: "${artisan.personne.email}"
+        numeroTelephone: "${artisan.personne.numeroTelephone}"
+        adresse: "${artisan.personne.adresse}"
+        codePostal: "${artisan.personne.codePostal}"
+        ville: "${artisan.personne.ville}"
+        fonction: "${artisan.personne.fonction}"
+        societe: "${artisan.personne.societe}"
+      }
+    }){
+      id
+    }`;
+
+    return str;
+  }
+
+  private generateSaveArtisanOptionList(artisanOptionList: MArtisanOption[]): string {
+
+    let str = '';
+
+    for (const ao of artisanOptionList) {
+      str += `
+      
+   ${ao.modeleOption} : saveArtisanOption( artisanOption: {
+             
+          id: "${ao.id}"      
+          artisan: {
+            id: "${ao.artisan.id}"
+          } 
+          modeleOption: ${ao.modeleOption}
+          actif: ${ao.actif}
+      
+      }){
+            id
+      }
+      
+      `;
+    }
+
+    return str;
   }
 }

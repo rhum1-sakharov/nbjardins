@@ -37,18 +37,15 @@ public class SaveOptionUETest {
     @Test
     public void when_args_are_null_should_throw_exception() {
 
-        final String errMsgIdArtisan = "L'argument id artisan est obligatoire.";
-        final String errMsgModelOption = "L'argument option est obligatoire.";
+        final String errMsgArtisanOption = "L'argument artisan option est obligatoire.";
 
-        Mockito.when(this.ls.getMsg(ARG_IS_REQUIRED,"id artisan"))
-                .thenReturn(errMsgModelOption);
 
-        Mockito.when(this.ls.getMsg(ARG_IS_REQUIRED,"option"))
-                .thenReturn(errMsgIdArtisan);
+        Mockito.when(this.ls.getMsg(ARG_IS_REQUIRED,"artisan option"))
+                .thenReturn(errMsgArtisanOption);
 
-        Assertions.assertThatCode(() -> this.usecase.execute(null, null,null,false))
+        Assertions.assertThatCode(() -> this.usecase.execute(null, null))
                 .isInstanceOf(TechnicalException.class)
-                .hasMessageContaining(errMsgIdArtisan)
-                .hasMessageContaining(errMsgModelOption)     ;
+                .hasMessageContaining(errMsgArtisanOption)
+                  ;
     }
 }

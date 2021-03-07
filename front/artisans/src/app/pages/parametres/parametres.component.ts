@@ -81,7 +81,7 @@ export class ParametresComponent implements OnInit, OnDestroy {
     // TODO to implement
     this.artisan.signature = '';
 
-    this.parametresHttp.save(this.artisan).subscribe((response: any) => {
+    this.parametresHttp.save(this.artisan, this.artisanOptionList).subscribe((response: any) => {
       this.toastSvc.showMsg(MSG_KEY.ROOT, MSG_SEVERITY.SUCCESS, 'Paramètres enregistrés avec succès.');
     });
   }

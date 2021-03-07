@@ -4,6 +4,7 @@ import aop.Transactionnal;
 import domains.authorizations.AuthorizationDN;
 import domains.personnes.PersonneDN;
 import domains.personnes.artisans.ArtisanDN;
+import domains.personnes.artisans.options.ArtisanOptionDN;
 import domains.personnes.clients.ClientDN;
 import domains.referentiel.condition.reglement.ConditionDeReglementDN;
 import domains.referentiel.roles.RoleDN;
@@ -201,11 +202,17 @@ public class GetAuthorizationUE extends AbstractUsecase {
 
         if (isCreation) {
 
-            saveOptionUE.execute(dpm, idArtisan, MODELE_OPTION.COLONNE_QUANTITE, false);
-            saveOptionUE.execute(dpm, idArtisan, MODELE_OPTION.COORDONNEES_BANQUAIRES, false);
-            saveOptionUE.execute(dpm, idArtisan, MODELE_OPTION.TVA_SAISISSABLE_PAR_LIGNE, false);
+            ArtisanDN artisan = new ArtisanDN();
+            artisan.setId(idArtisan);
+
+
+            saveOptionUE.execute(dpm,new ArtisanOptionDN(artisan,MODELE_OPTION.COLONNE_QUANTITE,false));
+            saveOptionUE.execute(dpm, new ArtisanOptionDN(artisan,MODELE_OPTION.COORDONNEES_BANQUAIRES,false));
+            saveOptionUE.execute(dpm, new ArtisanOptionDN(artisan,MODELE_OPTION.TVA_SAISISSABLE_PAR_LIGNE,false));
         }
     }
+
+
 
 }
 

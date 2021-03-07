@@ -33,7 +33,7 @@ public class ArtisanOptionDataFetcher {
 
             ArtisanOptionDN artisanOption= MapperUtils.fromMap(args, ArtisanOptionDN.class);
 
-            return saveOptionUE.execute(null, artisanOption.getId(),artisanOption.getModeleOption(),artisanOption.isActif());
+            return saveOptionUE.execute(null,artisanOption);
         };
     }
 }

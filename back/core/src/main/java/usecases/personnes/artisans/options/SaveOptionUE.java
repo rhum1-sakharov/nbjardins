@@ -1,9 +1,7 @@
 package usecases.personnes.artisans.options;
 
 import aop.Transactionnal;
-import domains.personnes.artisans.ArtisanDN;
 import domains.personnes.artisans.options.ArtisanOptionDN;
-import enums.MODELE_OPTION;
 import exceptions.CleanException;
 import models.Precondition;
 import org.slf4j.Logger;
@@ -30,20 +28,11 @@ public class SaveOptionUE extends AbstractUsecase {
     }
 
     @Transactionnal
-    public ArtisanOptionDN execute(DataProviderManager dpm, String idArtisan, MODELE_OPTION mo, boolean actif) throws CleanException {
+    public ArtisanOptionDN execute(DataProviderManager dpm, ArtisanOptionDN artisanOption) throws CleanException {
 
         Precondition.validate(
-                Precondition.init(ls.getMsg(ARG_IS_REQUIRED, "id artisan"), Objects.nonNull(idArtisan)),
-                Precondition.init(ls.getMsg(ARG_IS_REQUIRED, "option"), Objects.nonNull(mo))
+                Precondition.init(ls.getMsg(ARG_IS_REQUIRED, "artisan option"), Objects.nonNull(artisanOption))
         );
-
-        ArtisanOptionDN artisanOption = new ArtisanOptionDN();
-
-        ArtisanDN artisan = new ArtisanDN();
-        artisan.setId(idArtisan);
-        artisanOption.setArtisan(artisan);
-        artisanOption.setModeleOption(mo);
-        artisanOption.setActif(actif);
 
         return artisanOptionRepo.save(dpm, artisanOption);
     }
