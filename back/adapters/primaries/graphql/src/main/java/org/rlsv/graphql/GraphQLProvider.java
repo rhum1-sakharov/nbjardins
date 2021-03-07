@@ -9,10 +9,11 @@ import graphql.schema.idl.RuntimeWiring;
 import graphql.schema.idl.SchemaGenerator;
 import graphql.schema.idl.SchemaParser;
 import graphql.schema.idl.TypeDefinitionRegistry;
-import org.rlsv.graphql.referentiel.artisan.ArtisanDataFetcher;
-import org.rlsv.graphql.referentiel.artisan.banque.ArtisanBanqueDataFetcher;
-import org.rlsv.graphql.referentiel.condition.reglement.ConditionReglementDataFetcher;
-import org.rlsv.graphql.referentiel.taxe.TaxeDataFetcher;
+import org.rlsv.graphql.personnes.artisans.ArtisanDataFetcher;
+import org.rlsv.graphql.personnes.artisans.banques.ArtisanBanqueDataFetcher;
+import org.rlsv.graphql.personnes.artisans.options.ArtisanOptionDataFetcher;
+import org.rlsv.graphql.referentiel.conditions.reglements.ConditionReglementDataFetcher;
+import org.rlsv.graphql.referentiel.taxes.TaxeDataFetcher;
 
 import java.io.IOException;
 import java.net.URL;
@@ -26,17 +27,20 @@ public class GraphQLProvider {
     private ConditionReglementDataFetcher conditionReglementDataFetcher;
     private ArtisanDataFetcher artisanDataFetcher;
     private ArtisanBanqueDataFetcher artisanBanqueDataFetcher;
+    private ArtisanOptionDataFetcher artisanOptionDataFetcher;
 
     public GraphQLProvider(TaxeDataFetcher taxeDataFetcher,
                            ConditionReglementDataFetcher conditionReglementDataFetcher,
                            ArtisanDataFetcher artisanDataFetcher,
-                           ArtisanBanqueDataFetcher artisanBanqueDataFetcher
+                           ArtisanBanqueDataFetcher artisanBanqueDataFetcher,
+                           ArtisanOptionDataFetcher artisanOptionDataFetcher
     ) throws IOException, CleanException {
 
         this.taxeDataFetcher = taxeDataFetcher;
         this.conditionReglementDataFetcher = conditionReglementDataFetcher;
         this.artisanDataFetcher = artisanDataFetcher;
         this.artisanBanqueDataFetcher = artisanBanqueDataFetcher;
+        this.artisanOptionDataFetcher = artisanOptionDataFetcher;
 
         URL url = Resources.getResource("schema.graphqls");
         String sdl = Resources.toString(url, Charsets.UTF_8);
@@ -63,9 +67,11 @@ public class GraphQLProvider {
                         .dataFetcher("conditionReglementAll", conditionReglementDataFetcher.getAllConditionReglementDataFetcher())
                         .dataFetcher("artisanByEmail", artisanDataFetcher.artisanByEmailDataFetcher())
                         .dataFetcher("artisanBanqueByEmailAndPrefere", artisanBanqueDataFetcher.artisanBanqueByEmailAndPrefereDataFetcher())
+                        .dataFetcher("artisanOptionFindAllByEmail", artisanOptionDataFetcher.artisanOptionFindAllByEmailDataFetcher())
                 )
                 .type(newTypeWiring("Mutation")
                         .dataFetcher("saveArtisan", artisanDataFetcher.saveArtisanDataFetcher())
+                        .dataFetcher("saveArtisanOption", artisanOptionDataFetcher.saveArtisanOptionDataFetcher())
                 )
                 .build();
     }

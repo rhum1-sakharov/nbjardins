@@ -1,4 +1,4 @@
-package org.rlsv.graphql.referentiel.condition.reglement;
+package org.rlsv.graphql.referentiel.conditions.reglements;
 
 import exceptions.CleanException;
 import graphql.schema.DataFetcher;

@@ -1,4 +1,4 @@
-package org.rlsv.graphql.referentiel.taxe;
+package org.rlsv.graphql.referentiel.taxes;
 
 import exceptions.CleanException;
 import graphql.schema.DataFetcher;

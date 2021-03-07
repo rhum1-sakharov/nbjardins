@@ -5,7 +5,7 @@ import enums.ROLES;
 import exceptions.PersistenceException;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.personnes.Personne;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.personnes.roles.Personne__Role;
-import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.PersonneMapper;
+import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.personnes.PersonneMapper;
 import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.RepoAR;
 import org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence.PersistenceUtils;
 import org.slf4j.Logger;

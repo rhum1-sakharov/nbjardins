@@ -2,7 +2,7 @@ package org.rlsv.adapters.secondaries.dataproviderjpa.repositories.referentiel.t
 
 import domains.referentiel.taxes.TaxeDN;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.referentiel.taxes.Taxe;
-import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.TaxeMapper;
+import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.referentiel.taxes.TaxeMapper;
 import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.RepoAR;
 import org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence.PersistenceUtils;
 import org.slf4j.Logger;

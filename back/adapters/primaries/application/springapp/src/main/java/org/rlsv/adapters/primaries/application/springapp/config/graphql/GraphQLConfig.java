@@ -3,15 +3,18 @@ package org.rlsv.adapters.primaries.application.springapp.config.graphql;
 import exceptions.CleanException;
 import graphql.GraphQL;
 import org.rlsv.graphql.GraphQLProvider;
-import org.rlsv.graphql.referentiel.artisan.ArtisanDataFetcher;
-import org.rlsv.graphql.referentiel.artisan.banque.ArtisanBanqueDataFetcher;
-import org.rlsv.graphql.referentiel.condition.reglement.ConditionReglementDataFetcher;
-import org.rlsv.graphql.referentiel.taxe.TaxeDataFetcher;
+import org.rlsv.graphql.personnes.artisans.ArtisanDataFetcher;
+import org.rlsv.graphql.personnes.artisans.banques.ArtisanBanqueDataFetcher;
+import org.rlsv.graphql.personnes.artisans.options.ArtisanOptionDataFetcher;
+import org.rlsv.graphql.referentiel.conditions.reglements.ConditionReglementDataFetcher;
+import org.rlsv.graphql.referentiel.taxes.TaxeDataFetcher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import usecases.personnes.artisans.FindByEmailUE;
 import usecases.personnes.artisans.SaveArtisanUE;
 import usecases.personnes.artisans.banques.FindByEmailAndPrefereUE;
+import usecases.personnes.artisans.options.FindAllByEmailUE;
+import usecases.personnes.artisans.options.SaveOptionUE;
 import usecases.referentiel.conditions.reglements.FindAllConditionReglementUE;
 import usecases.referentiel.taxes.FindAllTaxeUE;
 
@@ -19,6 +22,11 @@ import java.io.IOException;
 
 @Configuration
 public class GraphQLConfig {
+
+    @Bean
+    public ArtisanOptionDataFetcher artisanOptionDataFetcher(FindAllByEmailUE findAllByEmailUE, SaveOptionUE saveOptionUE) {
+        return new ArtisanOptionDataFetcher(findAllByEmailUE, saveOptionUE);
+    }
 
     @Bean
     public ArtisanBanqueDataFetcher artisanBanqueDataFetcher(FindByEmailAndPrefereUE findByEmailAndPrefereUE) {
@@ -44,12 +52,14 @@ public class GraphQLConfig {
     public GraphQLProvider getGraphQLProvider(TaxeDataFetcher taxeDataFetcher,
                                               ConditionReglementDataFetcher conditionReglementDataFetcher,
                                               ArtisanDataFetcher artisanDataFetcher,
-                                              ArtisanBanqueDataFetcher artisanBanqueDataFetcher
+                                              ArtisanBanqueDataFetcher artisanBanqueDataFetcher,
+                                              ArtisanOptionDataFetcher artisanOptionDataFetcher
     ) throws IOException, CleanException {
         return new GraphQLProvider(taxeDataFetcher,
                 conditionReglementDataFetcher,
                 artisanDataFetcher,
-                artisanBanqueDataFetcher
+                artisanBanqueDataFetcher,
+                artisanOptionDataFetcher
         );
     }
 

@@ -12,6 +12,15 @@ type Query {
 
 type Mutation{
     saveArtisan (artisan: ArtisanInput!): Artisan!
+    saveArtisanOption (artisanOption: ArtisanOptionInput!): ArtisanOption!
+}
+
+
+input ArtisanOptionInput{
+    id: ID
+    artisan: ArtisanInput
+    modeleOption: MODELE_OPTION
+    actif: Boolean
 }
 
 input ArtisanInput{
@@ -50,6 +59,18 @@ input PersonneInput {
     societe: String
 }
 
+enum MODELE_OPTION{
+    TVA_SAISISSABLE_PAR_LIGNE
+    COLONNE_QUANTITE
+    COORDONNEES_BANQUAIRES
+}
+
+type ArtisanOption{
+    id: ID
+    artisan : Artisan
+    modeleOption: MODELE_OPTION
+    actif: Boolean
+}
 
 type Artisan {
     id: ID

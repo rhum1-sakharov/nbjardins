@@ -2,7 +2,7 @@ package org.rlsv.adapters.secondaries.dataproviderjpa.repositories.personnes.art
 
 import domains.personnes.artisans.options.ArtisanOptionDN;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.personnes.artisans.options.ArtisanOption;
-import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.ArtisanOptionMapper;
+import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.personnes.artisans.options.ArtisanOptionMapper;
 import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.RepoAR;
 import org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence.PersistenceUtils;
 import org.slf4j.Logger;

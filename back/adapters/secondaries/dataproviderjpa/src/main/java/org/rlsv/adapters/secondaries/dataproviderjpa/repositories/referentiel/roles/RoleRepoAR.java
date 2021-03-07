@@ -4,7 +4,7 @@ import domains.personnes.PersonneDN;
 import domains.referentiel.roles.RoleDN;
 import exceptions.PersistenceException;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.referentiel.roles.Role;
-import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.RoleMapper;
+import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.referentiel.roles.RoleMapper;
 import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.RepoAR;
 import org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence.PersistenceUtils;
 import org.slf4j.Logger;

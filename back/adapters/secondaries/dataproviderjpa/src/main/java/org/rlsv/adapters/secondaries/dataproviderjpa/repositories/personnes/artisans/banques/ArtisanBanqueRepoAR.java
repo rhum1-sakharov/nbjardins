@@ -2,7 +2,7 @@ package org.rlsv.adapters.secondaries.dataproviderjpa.repositories.personnes.art
 
 import domains.personnes.artisans.ArtisanBanqueDN;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.personnes.artisans.banques.ArtisanBanque;
-import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.ArtisanBanqueMapper;
+import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.personnes.artisans.banques.ArtisanBanqueMapper;
 import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.RepoAR;
 import org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence.PersistenceUtils;
 import org.slf4j.Logger;

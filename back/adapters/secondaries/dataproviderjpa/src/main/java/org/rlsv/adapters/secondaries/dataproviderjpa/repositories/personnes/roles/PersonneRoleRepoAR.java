@@ -5,7 +5,7 @@ import enums.ROLES;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.personnes.Personne;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.personnes.roles.Personne__Role;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.referentiel.roles.Role;
-import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.Personne__RoleMapper;
+import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.personnes.roles.Personne__RoleMapper;
 import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.RepoAR;
 import org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence.PersistenceUtils;
 import org.slf4j.Logger;

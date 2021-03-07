@@ -4,7 +4,7 @@ import domains.personnes.clients.ClientDN;
 import exceptions.PersistenceException;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.personnes.Personne;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.personnes.clients.Client;
-import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.ClientMapper;
+import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.personnes.clients.ClientMapper;
 import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.RepoAR;
 import org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence.PersistenceUtils;
 import org.slf4j.Logger;

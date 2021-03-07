@@ -2,7 +2,7 @@ package org.rlsv.adapters.secondaries.dataproviderjpa.repositories.referentiel.c
 
 import domains.referentiel.condition.reglement.ConditionDeReglementDN;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.referentiel.conditions.reglements.ConditionDeReglement;
-import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.ConditionDeReglementMapper;
+import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.referentiel.conditions.reglements.ConditionDeReglementMapper;
 import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.RepoAR;
 import org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence.PersistenceUtils;
 import org.slf4j.Logger;
