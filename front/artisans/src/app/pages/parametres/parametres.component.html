@@ -1,20 +1,20 @@
 <div class="mg-t-10 page-parametre">
   <div class="p-d-flex p-flex-column p-flex-md-row">
-    <div  class="mg-b-10">
+    <div class="mg-b-10">
       <p-accordion [multiple]="false">
         <p-accordionTab header="Identification" [selected]="true">
 
           <div class="p-field p-grid">
             <label for="siret" class="p-col-fixed"><strong>SIRET</strong></label>
             <div class="p-col">
-              <input type="text" id="siret"  pInputText [(ngModel)]="artisan.siret" data-test="siret"/>
+              <input type="text" id="siret" pInputText [(ngModel)]="artisan.siret" data-test="siret"/>
             </div>
           </div>
 
           <div class="p-field p-grid">
             <label for="societe" class="p-col-fixed"><strong>Société</strong></label>
             <div class="p-col">
-              <input type="text" id="societe"  pInputText
+              <input type="text" id="societe" pInputText
                      [(ngModel)]="artisan.personne.societe"/>
             </div>
           </div>
@@ -22,7 +22,7 @@
           <div class="p-field p-grid">
             <label for="fonction" class="p-col-fixed"><strong>Fonction</strong></label>
             <div class="p-col">
-              <input type="text" id="fonction"  pInputText
+              <input type="text" id="fonction" pInputText
                      [(ngModel)]="artisan.personne.fonction"/>
             </div>
           </div>
@@ -31,7 +31,7 @@
           <div class="p-field p-grid">
             <label for="adresse" class="p-col-fixed"><strong>Adresse</strong></label>
             <div class="p-col">
-              <input type="text" id="adresse"  pInputText
+              <input type="text" id="adresse" pInputText
                      [(ngModel)]="artisan.personne.adresse"/>
             </div>
           </div>
@@ -39,7 +39,7 @@
           <div class="p-field p-grid">
             <label for="ville" class="p-col-fixed"><strong>Ville</strong></label>
             <div class="p-col">
-              <input type="text" id="ville"  pInputText
+              <input type="text" id="ville" pInputText
                      [(ngModel)]="artisan.personne.ville"/>
             </div>
           </div>
@@ -47,7 +47,7 @@
           <div class="p-field p-grid">
             <label for="codePostal" class="p-col-fixed"><strong>Code postal</strong></label>
             <div class="p-col">
-              <input type="text" id="codePostal"  pInputText
+              <input type="text" id="codePostal" pInputText
                      [(ngModel)]="artisan.personne.codePostal"/>
             </div>
           </div>
@@ -55,7 +55,7 @@
           <div class="p-field p-grid">
             <label for="telephone" class="p-col-fixed"><strong>Téléphone</strong></label>
             <div class="p-col">
-              <input type="text" id="telephone"  pInputText
+              <input type="text" id="telephone" pInputText
                      [(ngModel)]="artisan.personne.numeroTelephone"/>
             </div>
           </div>
@@ -67,17 +67,26 @@
             </div>
           </div>
         </p-accordionTab>
+        <p-accordionTab header="Réglages">
 
+          <div *ngFor="let ao of artisanOptionList; ">
+            <h5>{{getModeleOptionLabel(ao.modeleOption)}}</h5>
+            <p-selectButton [options]="[{label:'oui',value:true},{label:'non',value:false}]" [(ngModel)]="ao.actif"
+                            optionLabel="label"
+                            optionValue="value"
+            ></p-selectButton>
+          </div>
+        </p-accordionTab>
         <p-accordionTab header="Devis">
           <div data-test="taxe">
             <h5>TVA</h5>
-            <p-listbox [options]="taxes"  [(ngModel)]="artisan.taxe" optionLabel="nom" >
+            <p-listbox [options]="taxes" [(ngModel)]="artisan.taxe" optionLabel="nom">
               <ng-template let-item pTemplate="item">
                 <div class="p-d-flex listbox">
                   <div>
                     {{item.nom}}
-                  </div >
-                  <div class="p-ml-auto" >
+                  </div>
+                  <div class="p-ml-auto">
                     <strong>{{item.taux | number:'1.2-2'}}%</strong>
                   </div>
                 </div>
@@ -88,12 +97,12 @@
           <div data-test="conditionReglement">
             <h5>Condition de règlement</h5>
             <p-listbox [options]="conditionsReglements" [(ngModel)]="artisan.conditionDeReglement"
-                       optionLabel="condition"                      >
+                       optionLabel="condition">
               <ng-template let-item pTemplate="item">
                 <div class="listbox">
                   <div>
                     {{item.condition}}
-                  </div >
+                  </div>
                 </div>
 
               </ng-template>
@@ -117,20 +126,26 @@
         <p-accordionTab header="Factures">
           Nouvelle fonctionnalité à implémenter...
         </p-accordionTab>
+
+
+
       </p-accordion>
 
     </div>
     <div class="mg-l-10">
 
       <div class="p-d-flex  p-flex-md-row">
-        <p-button icon="pi pi-save" pTooltip="Enregistrer les modifications" (onClick)="save()" class="mg-r-10"></p-button>
-        <p-selectButton [options]="previews" [(ngModel)]="selectedPreview" optionLabel="label" optionValue="label"></p-selectButton>
+        <p-button icon="pi pi-save" pTooltip="Enregistrer les modifications" (onClick)="save()"
+                  class="mg-r-10"></p-button>
+        <p-selectButton [options]="previews" [(ngModel)]="selectedPreview" optionLabel="label"
+                        optionValue="label"></p-selectButton>
       </div>
 
-      <div class="previewer" >
+      <div class="previewer">
         <ng-container [ngSwitch]="selectedPreview">
           <ng-container *ngSwitchCase="'devis'">
-            <app-preview-devis [artisan]="artisan" [artisanBanque]="artisanBanque"></app-preview-devis>
+            <app-preview-devis [artisan]="artisan" [artisanBanque]="artisanBanque"
+                               [artisanOptionList]="artisanOptionList"></app-preview-devis>
           </ng-container>
           <ng-container *ngSwitchCase="'facture'">
 

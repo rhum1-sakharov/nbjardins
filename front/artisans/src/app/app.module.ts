@@ -27,6 +27,7 @@ import {PreviewDevisComponent} from './components/preview-devis/preview-devis.co
 import {PreviewFactureComponent} from './components/preview-facture/preview-facture.component';
 import {SelectButtonModule} from 'primeng/selectbutton';
 import {StatsComponent} from './pages/stats/stats.component';
+import {CheckboxModule} from 'primeng/checkbox';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import {StatsComponent} from './pages/stats/stats.component';
     AccordionModule,
     ProgressSpinnerModule,
     ToolbarModule,
-    SelectButtonModule
+    SelectButtonModule,
+    CheckboxModule
 
   ],
   providers: [
@@ -66,7 +68,9 @@ import {StatsComponent} from './pages/stats/stats.component';
     ConfirmationService,
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}
   ],
-  bootstrap: [AppComponent]
+  bootstrap:
+    [AppComponent]
 })
+
 export class AppModule {
 }

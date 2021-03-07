@@ -1,4 +1,6 @@
 <ng-container *ngIf="artisan">
+
+
   <div class="p-grid devis-preview pg-8 mg-t-10 mg-l-1">
     <div class="p-col-6">
 
@@ -56,26 +58,29 @@
     </div>
 
     <div id="designation" class="p-col-12">
-      <table  style="width:100%">
+      <table style="width:100%">
         <thead>
         <tr>
           <th>Désignation</th>
-          <th>Quantité</th>
-          <th>Prix unitaire HT</th>
+          <th *ngIf="isActif(colonneQuantite)">Quantité</th>
+          <th *ngIf="isActif(colonneQuantite)">Prix unitaire HT</th>
+          <th *ngIf="isActif(tvaSaisissableParLigne)">Taux TVA</th>
           <th>Prix total HT</th>
         </tr>
         </thead>
         <tbody>
         <tr>
-          <td >Modificatif de l'état descriptif</td>
-          <td class="montant">1</td>
-          <td class="montant">550.25 €</td>
+          <td>Modificatif de l'état descriptif</td>
+          <td class="montant" *ngIf="isActif(colonneQuantite)">1</td>
+          <td class="montant" *ngIf="isActif(colonneQuantite)">550.25 €</td>
+          <td class="montant" *ngIf="isActif(tvaSaisissableParLigne)">20%</td>
           <td class="montant">550.25 €</td>
         </tr>
         <tr>
           <td>Attestation de surface loi carrez</td>
-          <td class="montant">2</td>
-          <td class="montant">62.89 €</td>
+          <td class="montant" *ngIf="isActif(colonneQuantite)">2</td>
+          <td class="montant" *ngIf="isActif(colonneQuantite)">62.89 €</td>
+          <td class="montant" *ngIf="isActif(tvaSaisissableParLigne)">5.5%</td>
           <td class="montant">125.78 €</td>
         </tr>
         </tbody>
@@ -91,14 +96,33 @@
           <td><strong>TOTAL HT</strong></td>
           <td class="montant"><strong>676.03 €</strong></td>
         </tr>
-        <tr>
-          <td>TOTAL TVA ({{artisan.taxe.taux}}%)</td>
-          <td class="montant">{{676.03 * (artisan.taxe.taux/100) | number:'1.2-2'}} €</td>
-        </tr>
-        <tr>
-          <td><strong>TOTAL TTC</strong></td>
-          <td class="montant"><strong>{{676.03 * (1+(artisan.taxe.taux/100 )) | number:'1.2-2'}} €</strong></td>
-        </tr>
+
+
+        <ng-container [ngSwitch]="isActif(tvaSaisissableParLigne)">
+          <ng-container *ngSwitchCase="false">
+            <tr>
+              <td>TOTAL TVA ({{artisan.taxe.taux}}%)</td>
+              <td class="montant">{{676.03 * (artisan.taxe.taux/100) | number:'1.2-2'}} €</td>
+            </tr>
+            <tr>
+              <td><strong>TOTAL TTC</strong></td>
+              <td class="montant"><strong>{{676.03 * (1+(artisan.taxe.taux/100 )) | number:'1.2-2'}} €</strong></td>
+            </tr>
+          </ng-container>
+          <ng-container *ngSwitchCase="true">
+            <tr>
+              <td>TOTAL TVA</td>
+              <td class="montant">116.97 €</td>
+            </tr>
+            <tr>
+              <td><strong>TOTAL TTC</strong></td>
+              <td class="montant"><strong>{{793 | number:'1.2-2' }} €</strong></td>
+            </tr>
+          </ng-container>
+        </ng-container>
+
+
+
         </tbody>
       </table>
     </div>
@@ -122,7 +146,9 @@
       <span class="mg-r-5">{{artisan.personne.ville}}</span>
     </div>
 
-    <ng-container *ngIf="artisanBanque">
+
+    <ng-container *ngIf="isActif(coordonneesBanquaires) && artisanBanque">
+
       <div class="p-col-12">
         <span class="mg-r-5">RIB : </span>
         <span class="mg-r-5">{{artisanBanque.rib}}</span>
@@ -134,8 +160,6 @@
         <span class="mg-r-5">{{artisanBanque.iban}}</span>
       </div>
     </ng-container>
-
-
 
 
     <div class="p-col-12">

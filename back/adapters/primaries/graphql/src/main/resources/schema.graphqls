@@ -8,6 +8,7 @@ type Query {
     conditionReglementAll: [ConditionReglement]
     artisanByEmail(email: String) : Artisan
     artisanBanqueByEmailAndPrefere(email: String, prefere: Boolean) : ArtisanBanque
+    artisanOptionFindAllByEmail(email: String) : [ArtisanOption!]
 }
 
 type Mutation{

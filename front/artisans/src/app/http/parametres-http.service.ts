@@ -23,6 +23,15 @@ export class ParametresHttpService {
           rib
       }
       
+      artisanOptionFindAllByEmail(email: "${email}"){
+         id
+         artisan {
+           id
+         }
+         modeleOption
+         actif      
+      }
+      
       taxeAll{
         id
         nom
@@ -71,6 +80,7 @@ export class ParametresHttpService {
 
     const query = `      
     mutation saveArtisan{
+    
     saveArtisan(artisan:{
         id: "${artisan.id}",
         taxe: {
@@ -102,6 +112,8 @@ export class ParametresHttpService {
     }){
         id
     }
+    
+    
 }        
     `;
 
