@@ -77,6 +77,34 @@
             ></p-selectButton>
           </div>
         </p-accordionTab>
+        <p-accordionTab header="Banque">
+          <div class="datagrid-banque">
+            <p-table [value]="artisanBanqueList"
+                     selectionMode="single"
+                     [(selection)]="selectedArtisanBanque"
+                     dataKey="id">
+              <ng-template pTemplate="header">
+                <tr>
+                  <th></th>
+                  <th>Banque</th>
+                  <th>RIB</th>
+                  <th>IBAN</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-banque>
+                <tr [pSelectableRow]="banque">
+                  <td></td>
+                  <td></td>
+                  <td>{{banque.rib}}</td>
+                  <td>{{banque.iban}}</td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+
+          <pre>{{selectedArtisanBanque | json}}</pre>
+
+        </p-accordionTab>
         <p-accordionTab header="Devis">
           <div data-test="taxe">
             <h5>TVA</h5>
@@ -126,7 +154,6 @@
         <p-accordionTab header="Factures">
           Nouvelle fonctionnalité à implémenter...
         </p-accordionTab>
-
 
 
       </p-accordion>

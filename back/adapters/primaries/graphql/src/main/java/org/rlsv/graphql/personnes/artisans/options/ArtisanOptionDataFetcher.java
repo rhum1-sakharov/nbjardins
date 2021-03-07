@@ -4,25 +4,25 @@ import domains.personnes.artisans.options.ArtisanOptionDN;
 import exceptions.CleanException;
 import graphql.schema.DataFetcher;
 import org.rlsv.graphql.utils.MapperUtils;
-import usecases.personnes.artisans.options.FindAllByEmailUE;
+import usecases.personnes.artisans.options.FindByEmailUE;
 import usecases.personnes.artisans.options.SaveOptionUE;
 
 import java.util.Map;
 
 public class ArtisanOptionDataFetcher {
 
-    FindAllByEmailUE findAllByEmailUE;
+    FindByEmailUE findByEmailUE;
     SaveOptionUE saveOptionUE;
 
-    public ArtisanOptionDataFetcher(FindAllByEmailUE findAllByEmailUE, SaveOptionUE saveOptionUE) {
-        this.findAllByEmailUE = findAllByEmailUE;
+    public ArtisanOptionDataFetcher(FindByEmailUE findByEmailUE, SaveOptionUE saveOptionUE) {
+        this.findByEmailUE = findByEmailUE;
         this.saveOptionUE = saveOptionUE;
     }
 
-    public DataFetcher artisanOptionFindAllByEmailDataFetcher() throws CleanException {
+    public DataFetcher artisanOptionFindByEmailDataFetcher() throws CleanException {
         return dataFetchingEnvironment -> {
             String email = dataFetchingEnvironment.getArgument("email");
-            return findAllByEmailUE.execute(null, email);
+            return findByEmailUE.execute(null, email);
         };
     }
 

@@ -6,9 +6,11 @@ schema {
 type Query {
     taxeAll: [Taxe]
     conditionReglementAll: [ConditionReglement]
-    artisanByEmail(email: String) : Artisan
-    artisanBanqueByEmailAndPrefere(email: String, prefere: Boolean) : ArtisanBanque
-    artisanOptionFindAllByEmail(email: String) : [ArtisanOption!]
+    artisanFindByEmail(email: String) : Artisan
+    artisanBanqueFindByEmailAndPrefere(email: String, prefere: Boolean) : ArtisanBanque
+    artisanBanqueFindByEmail(email: String) : [ArtisanBanque!]
+    artisanOptionFindByEmail(email: String) : [ArtisanOption!]
+
 }
 
 type Mutation{

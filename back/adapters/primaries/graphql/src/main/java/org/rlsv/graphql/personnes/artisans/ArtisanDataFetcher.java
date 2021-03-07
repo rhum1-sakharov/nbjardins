@@ -20,7 +20,7 @@ public class ArtisanDataFetcher {
 
     }
 
-    public DataFetcher artisanByEmailDataFetcher() throws CleanException {
+    public DataFetcher artisanFindByEmailDataFetcher() throws CleanException {
         return dataFetchingEnvironment -> {
             String email = dataFetchingEnvironment.getArgument("email");
             return findByEmailUE.execute(null, email);

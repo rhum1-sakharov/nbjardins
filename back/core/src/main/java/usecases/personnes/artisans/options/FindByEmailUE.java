@@ -15,11 +15,11 @@ import java.util.Objects;
 
 import static localizations.MessageKeys.ARG_IS_REQUIRED;
 
-public class FindAllByEmailUE extends AbstractUsecase {
+public class FindByEmailUE extends AbstractUsecase {
 
     ArtisanOptionRepoPT artisanOptionRepo;
 
-    public FindAllByEmailUE(LocalizeServicePT localizeService, TransactionManagerPT transactionManager, ArtisanOptionRepoPT artisanOptionRepo) {
+    public FindByEmailUE(LocalizeServicePT localizeService, TransactionManagerPT transactionManager, ArtisanOptionRepoPT artisanOptionRepo) {
         super(localizeService, transactionManager);
         this.artisanOptionRepo = artisanOptionRepo;
     }

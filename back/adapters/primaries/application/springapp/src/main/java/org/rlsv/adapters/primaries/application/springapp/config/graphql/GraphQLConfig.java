@@ -10,10 +10,9 @@ import org.rlsv.graphql.referentiel.conditions.reglements.ConditionReglementData
 import org.rlsv.graphql.referentiel.taxes.TaxeDataFetcher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import usecases.personnes.artisans.FindByEmailUE;
 import usecases.personnes.artisans.SaveArtisanUE;
 import usecases.personnes.artisans.banques.FindByEmailAndPrefereUE;
-import usecases.personnes.artisans.options.FindAllByEmailUE;
+import usecases.personnes.artisans.options.FindByEmailUE;
 import usecases.personnes.artisans.options.SaveOptionUE;
 import usecases.referentiel.conditions.reglements.FindAllConditionReglementUE;
 import usecases.referentiel.taxes.FindAllTaxeUE;
@@ -24,17 +23,17 @@ import java.io.IOException;
 public class GraphQLConfig {
 
     @Bean
-    public ArtisanOptionDataFetcher artisanOptionDataFetcher(FindAllByEmailUE findAllByEmailUE, SaveOptionUE saveOptionUE) {
-        return new ArtisanOptionDataFetcher(findAllByEmailUE, saveOptionUE);
+    public ArtisanOptionDataFetcher artisanOptionDataFetcher(FindByEmailUE findByEmailUE, SaveOptionUE saveOptionUE) {
+        return new ArtisanOptionDataFetcher(findByEmailUE, saveOptionUE);
     }
 
     @Bean
-    public ArtisanBanqueDataFetcher artisanBanqueDataFetcher(FindByEmailAndPrefereUE findByEmailAndPrefereUE) {
-        return new ArtisanBanqueDataFetcher(findByEmailAndPrefereUE);
+    public ArtisanBanqueDataFetcher artisanBanqueDataFetcher(FindByEmailAndPrefereUE findByEmailAndPrefereUE, usecases.personnes.artisans.banques.FindByEmailUE findByEmailUE) {
+        return new ArtisanBanqueDataFetcher(findByEmailAndPrefereUE, findByEmailUE);
     }
 
     @Bean
-    public ArtisanDataFetcher artisanDataFetcher(FindByEmailUE findByEmailUE, SaveArtisanUE saveArtisanUE) {
+    public ArtisanDataFetcher artisanDataFetcher(usecases.personnes.artisans.FindByEmailUE findByEmailUE, SaveArtisanUE saveArtisanUE) {
         return new ArtisanDataFetcher(findByEmailUE, saveArtisanUE);
     }
 

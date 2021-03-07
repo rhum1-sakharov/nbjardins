@@ -15,9 +15,9 @@ import ports.transactions.TransactionManagerPT;
 import static localizations.MessageKeys.ARG_IS_REQUIRED;
 
 @RunWith(MockitoJUnitRunner.class)
-public class FindAllByEmailUETest {
+public class FindByEmailUETest {
 
-    private FindAllByEmailUE usecase;
+    private FindByEmailUE usecase;
 
     @Mock
     private TransactionManagerPT tm;
@@ -31,7 +31,7 @@ public class FindAllByEmailUETest {
     @Before
     public void setUp() throws Exception {
 
-        this.usecase = new FindAllByEmailUE(ls, tm, artisanOptionRepo);
+        this.usecase = new FindByEmailUE(ls, tm, artisanOptionRepo);
     }
 
     @Test

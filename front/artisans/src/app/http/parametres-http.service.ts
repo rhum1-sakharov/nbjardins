@@ -18,12 +18,19 @@ export class ParametresHttpService {
 
     const query = `{
     
-      artisanBanqueByEmailAndPrefere(email: "${email}", prefere: ${true}){
+      artisanBanqueFindByEmailAndPrefere(email: "${email}", prefere: ${true}){
+          id
           iban
           rib
       }
       
-      artisanOptionFindAllByEmail(email: "${email}"){
+       artisanBanqueFindByEmail(email: "${email}"){
+          id
+          iban
+          rib
+      }
+      
+      artisanOptionFindByEmail(email: "${email}"){
          id
          artisan {
            id
@@ -43,7 +50,7 @@ export class ParametresHttpService {
           condition
        }
        
-       artisanByEmail(email: "${email}"){
+       artisanFindByEmail(email: "${email}"){
           id
           provision
           siret

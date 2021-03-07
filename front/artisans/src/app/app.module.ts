@@ -28,6 +28,7 @@ import {PreviewFactureComponent} from './components/preview-facture/preview-fact
 import {SelectButtonModule} from 'primeng/selectbutton';
 import {StatsComponent} from './pages/stats/stats.component';
 import {CheckboxModule} from 'primeng/checkbox';
+import {TableModule} from 'primeng/table';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import {CheckboxModule} from 'primeng/checkbox';
     ProgressSpinnerModule,
     ToolbarModule,
     SelectButtonModule,
-    CheckboxModule
+    CheckboxModule,
+    TableModule
 
   ],
   providers: [

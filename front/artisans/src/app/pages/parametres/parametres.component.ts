@@ -28,6 +28,7 @@ export class ParametresComponent implements OnInit, OnDestroy {
   conditionsReglements: MConditionReglement[] = [];
   artisan !: MArtisan;
   artisanBanque !: MArtisanBanque;
+  artisanBanqueList !: MArtisanBanque[];
   artisanOptionList: MArtisanOption[] = [];
   error: any;
   subRoute: Subscription = new Subscription();
@@ -43,6 +44,7 @@ export class ParametresComponent implements OnInit, OnDestroy {
     {label: 'non', value: false},
   ];
   selectedTvaSaisissableParLigne = false;
+  selectedArtisanBanque !: MArtisanBanque;
 
 
   constructor(public route: ActivatedRoute, private utils: UtilsService,
@@ -60,9 +62,10 @@ export class ParametresComponent implements OnInit, OnDestroy {
 
       this.taxes = data.parametresSupplier.data.taxeAll;
       this.conditionsReglements = data.parametresSupplier.data.conditionReglementAll;
-      this.artisanOptionList = data.parametresSupplier.data.artisanOptionFindAllByEmail;
-      this.artisan = data.parametresSupplier.data.artisanByEmail as MArtisan;
-      this.artisanBanque = data.parametresSupplier.data.artisanBanqueByEmailAndPrefere as MArtisanBanque;
+      this.artisanOptionList = data.parametresSupplier.data.artisanOptionFindByEmail;
+      this.artisan = data.parametresSupplier.data.artisanFindByEmail as MArtisan;
+      this.artisanBanque = data.parametresSupplier.data.artisanBanqueFindByEmailAndPrefere as MArtisanBanque;
+      this.artisanBanqueList = data.parametresSupplier.data.artisanBanqueFindByEmail;
 
       this.artisan.taxe = this.utils.preselectSingleElement(this.taxes, this.artisan.taxe);
       this.artisan.conditionDeReglement = this.utils.preselectSingleElement(this.conditionsReglements, this.artisan.conditionDeReglement);
