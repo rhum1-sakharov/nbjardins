@@ -17,7 +17,14 @@ type Mutation{
     saveArtisan (artisan: ArtisanInput!): Artisan!
     saveArtisanOption (artisanOption: ArtisanOptionInput!): ArtisanOption!
     saveArtisanBanqueList (artisanBanqueList: [ArtisanBanqueInput!]): [ArtisanBanque!]
+    removeArtisanBanqueByEmail( email: EmailInput): Deleted
 }
+
+input EmailInput{
+    email: String
+}
+
+
 
 input ArtisanBanqueInput{
     id: ID
@@ -46,6 +53,10 @@ input ArtisanInput{
     siret: String
     validiteDevisMois: Int
     personne : PersonneInput
+}
+
+type Deleted{
+    nbDeleted: Int
 }
 
 input TaxeInput{

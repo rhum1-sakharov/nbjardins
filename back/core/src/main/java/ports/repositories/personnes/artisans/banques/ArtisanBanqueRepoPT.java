@@ -13,4 +13,6 @@ public interface ArtisanBanqueRepoPT {
     List<ArtisanBanqueDN> findAllByEmail(DataProviderManager dpm, String email);
 
     ArtisanBanqueDN save(DataProviderManager dpm, ArtisanBanqueDN artisanBanque) throws TechnicalException;
+
+    Integer removeByEmail(DataProviderManager dpm, String email);
 }

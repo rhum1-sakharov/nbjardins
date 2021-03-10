@@ -1,4 +1,4 @@
-package org.rlsv.graphql.personnes.artisans;
+package org.rlsv.graphql.data.fetcher.personnes.artisans;
 
 import domains.personnes.artisans.ArtisanDN;
 import exceptions.CleanException;

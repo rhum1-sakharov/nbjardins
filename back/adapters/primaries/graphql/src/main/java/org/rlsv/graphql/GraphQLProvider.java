@@ -9,11 +9,11 @@ import graphql.schema.idl.RuntimeWiring;
 import graphql.schema.idl.SchemaGenerator;
 import graphql.schema.idl.SchemaParser;
 import graphql.schema.idl.TypeDefinitionRegistry;
-import org.rlsv.graphql.personnes.artisans.ArtisanDataFetcher;
-import org.rlsv.graphql.personnes.artisans.banques.ArtisanBanqueDataFetcher;
-import org.rlsv.graphql.personnes.artisans.options.ArtisanOptionDataFetcher;
-import org.rlsv.graphql.referentiel.conditions.reglements.ConditionReglementDataFetcher;
-import org.rlsv.graphql.referentiel.taxes.TaxeDataFetcher;
+import org.rlsv.graphql.data.fetcher.personnes.artisans.ArtisanDataFetcher;
+import org.rlsv.graphql.data.fetcher.personnes.artisans.banques.ArtisanBanqueDataFetcher;
+import org.rlsv.graphql.data.fetcher.personnes.artisans.options.ArtisanOptionDataFetcher;
+import org.rlsv.graphql.data.fetcher.referentiel.conditions.reglements.ConditionReglementDataFetcher;
+import org.rlsv.graphql.data.fetcher.referentiel.taxes.TaxeDataFetcher;
 
 import java.io.IOException;
 import java.net.URL;
@@ -74,6 +74,8 @@ public class GraphQLProvider {
                         .dataFetcher("saveArtisan", artisanDataFetcher.saveArtisanDataFetcher())
                         .dataFetcher("saveArtisanOption", artisanOptionDataFetcher.saveArtisanOptionDataFetcher())
                         .dataFetcher("saveArtisanBanqueList", artisanBanqueDataFetcher.saveArtisanBanqueListDataFetcher())
+                        .dataFetcher("removeArtisanBanqueByEmail", artisanBanqueDataFetcher.removeArtisanBanqueByEmailDataFetcher())
+
                 )
                 .build();
     }

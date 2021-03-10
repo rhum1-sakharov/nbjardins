@@ -89,11 +89,19 @@ export class ParametresHttpService {
     
       ${this.generateSaveArtisan(artisan)}
       ${this.generateSaveArtisanOptionList(artisanOptionList)}
+      ${this.generateRemoveArtisanBanqueByEmail(artisan.personne.email)}
       ${this.generateSaveArtisanBanqueList(artisanBanqueList)}
    
     }`;
 
     return this.httpSvc.post('api/graphql', query);
+  }
+
+  private generateRemoveArtisanBanqueByEmail(email: string) {
+
+    return ` removeArtisanBanqueByEmail( email: {email: "${email}"}){
+       nbDeleted
+    }`;
   }
 
   private generateSaveArtisanBanqueList(artisanBanqueList: MArtisanBanque[]) {
@@ -117,9 +125,8 @@ export class ParametresHttpService {
         }
         `;
       }
-    }
 
-    str+=`]){
+      str+=`]){
        id
        artisan {
          id
@@ -129,6 +136,10 @@ export class ParametresHttpService {
        rib
        prefere
       }`;
+
+
+    }
+
 
 
 

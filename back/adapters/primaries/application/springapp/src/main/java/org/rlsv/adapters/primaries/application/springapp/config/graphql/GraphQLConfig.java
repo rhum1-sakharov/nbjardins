@@ -3,15 +3,16 @@ package org.rlsv.adapters.primaries.application.springapp.config.graphql;
 import exceptions.CleanException;
 import graphql.GraphQL;
 import org.rlsv.graphql.GraphQLProvider;
-import org.rlsv.graphql.personnes.artisans.ArtisanDataFetcher;
-import org.rlsv.graphql.personnes.artisans.banques.ArtisanBanqueDataFetcher;
-import org.rlsv.graphql.personnes.artisans.options.ArtisanOptionDataFetcher;
-import org.rlsv.graphql.referentiel.conditions.reglements.ConditionReglementDataFetcher;
-import org.rlsv.graphql.referentiel.taxes.TaxeDataFetcher;
+import org.rlsv.graphql.data.fetcher.personnes.artisans.ArtisanDataFetcher;
+import org.rlsv.graphql.data.fetcher.personnes.artisans.banques.ArtisanBanqueDataFetcher;
+import org.rlsv.graphql.data.fetcher.personnes.artisans.options.ArtisanOptionDataFetcher;
+import org.rlsv.graphql.data.fetcher.referentiel.conditions.reglements.ConditionReglementDataFetcher;
+import org.rlsv.graphql.data.fetcher.referentiel.taxes.TaxeDataFetcher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import usecases.personnes.artisans.SaveArtisanUE;
 import usecases.personnes.artisans.banques.FindByEmailAndPrefereUE;
+import usecases.personnes.artisans.banques.RemoveArtisanBanqueByEmailUE;
 import usecases.personnes.artisans.banques.SaveArtisanBanqueUE;
 import usecases.personnes.artisans.options.FindByEmailUE;
 import usecases.personnes.artisans.options.SaveOptionUE;
@@ -29,8 +30,11 @@ public class GraphQLConfig {
     }
 
     @Bean
-    public ArtisanBanqueDataFetcher artisanBanqueDataFetcher(FindByEmailAndPrefereUE findByEmailAndPrefereUE, usecases.personnes.artisans.banques.FindByEmailUE findByEmailUE, SaveArtisanBanqueUE saveArtisanBanqueUE) {
-        return new ArtisanBanqueDataFetcher(findByEmailAndPrefereUE, findByEmailUE, saveArtisanBanqueUE);
+    public ArtisanBanqueDataFetcher artisanBanqueDataFetcher(FindByEmailAndPrefereUE findByEmailAndPrefereUE, usecases.personnes.artisans.banques.FindByEmailUE findByEmailUE,
+                                                             SaveArtisanBanqueUE saveArtisanBanqueUE,
+                                                             RemoveArtisanBanqueByEmailUE removeArtisanBanqueByEmailUE
+                                                             ) {
+        return new ArtisanBanqueDataFetcher(findByEmailAndPrefereUE, findByEmailUE, saveArtisanBanqueUE,removeArtisanBanqueByEmailUE);
     }
 
     @Bean

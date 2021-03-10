@@ -12,6 +12,7 @@ import ports.repositories.personnes.artisans.banques.ArtisanBanqueRepoPT;
 import transactions.DataProviderManager;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -62,5 +63,20 @@ public class ArtisanBanqueRepoAR extends RepoAR implements ArtisanBanqueRepoPT {
     @Override
     public ArtisanBanqueDN save(DataProviderManager dpm, ArtisanBanqueDN artisanBanque) throws TechnicalException {
         return (ArtisanBanqueDN) super.save(dpm, artisanBanque);
+    }
+
+    @Override
+    public Integer removeByEmail(DataProviderManager dpm, String email) {
+
+        EntityManager em = PersistenceUtils.getEntityManager(dpm);
+
+        List<ArtisanBanqueDN> artisanBanqueDNList = findAllByEmail(dpm, email);
+
+        Query query = em.createQuery("DELETE FROM ArtisanBanque ab " +
+                " where ab in :abList");
+        query.setParameter("abList", ArtisanBanqueMapper.INSTANCE.domainsToEntities(artisanBanqueDNList));
+
+        return query.executeUpdate();
+
     }
 }

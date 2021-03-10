@@ -85,10 +85,10 @@ export class ParametresComponent implements OnInit, OnDestroy {
 
     this.parametresHttp.save(this.artisan, this.artisanOptionList, this.artisanBanqueList).subscribe((response: any) => {
 
-      this.artisanBanqueList = [...response.data.saveArtisanBanqueList];
-      this.artisanBanque = this.getArtisanBanquePrefere(this.artisanBanqueList) as MArtisanBanque;
-
-      this.cd.markForCheck();
+      if(!this.utils.isCollectionNoe(response.data.saveArtisanBanqueList)){
+        this.artisanBanqueList = [...response.data.saveArtisanBanqueList];
+        this.artisanBanque = this.getArtisanBanquePrefere(this.artisanBanqueList) as MArtisanBanque;
+      }
 
       this.toastSvc.showMsg(MSG_KEY.ROOT, MSG_SEVERITY.SUCCESS, 'Paramètres enregistrés avec succès.');
     });

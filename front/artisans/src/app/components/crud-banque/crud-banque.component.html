@@ -11,6 +11,7 @@
       <th>Banque</th>
       <th>RIB</th>
       <th>IBAN</th>
+      <th></th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-banque>
@@ -52,6 +53,9 @@
             {{banque.iban}}
           </ng-template>
         </p-cellEditor>
+      </td>
+      <td>
+        <i class="pi pi-trash cursor" pTooltip="Enlever" (click)="removeBanque(banque)"></i>
       </td>
     </tr>
   </ng-template>

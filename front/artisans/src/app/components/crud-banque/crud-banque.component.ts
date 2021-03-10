@@ -102,4 +102,8 @@ export class CrudBanqueComponent implements OnInit {
 
   }
 
+  removeBanque(banque: MArtisanBanque) {
+    this.artisanBanqueList = this.artisanBanqueList.filter(item=>item !== banque);
+    this.outArtisanBanqueList.emit(this.artisanBanqueList);
+  }
 }
