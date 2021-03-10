@@ -1,6 +1,7 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.repositories.personnes.artisans.banques;
 
 import domains.personnes.artisans.ArtisanBanqueDN;
+import exceptions.TechnicalException;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.personnes.artisans.banques.ArtisanBanque;
 import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.personnes.artisans.banques.ArtisanBanqueMapper;
 import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.RepoAR;
@@ -59,13 +60,7 @@ public class ArtisanBanqueRepoAR extends RepoAR implements ArtisanBanqueRepoPT {
     }
 
     @Override
-    public ArtisanBanqueDN save(DataProviderManager dpm, ArtisanBanqueDN artisanBanque) {
-
-        ArtisanBanque ab = ArtisanBanqueMapper.INSTANCE.domainToEntity(artisanBanque);
-        ab = (ArtisanBanque) super.save(dpm, ab);
-
-
-
-        return ArtisanBanqueMapper.INSTANCE.entityToDomain(ab);
+    public ArtisanBanqueDN save(DataProviderManager dpm, ArtisanBanqueDN artisanBanque) throws TechnicalException {
+        return (ArtisanBanqueDN) super.save(dpm, artisanBanque);
     }
 }

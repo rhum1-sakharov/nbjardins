@@ -1,6 +1,7 @@
 package ports.repositories.personnes.artisans;
 
 import domains.personnes.artisans.ArtisanDN;
+import exceptions.TechnicalException;
 import transactions.DataProviderManager;
 
 public interface ArtisanRepoPT  {
@@ -14,5 +15,5 @@ public interface ArtisanRepoPT  {
 
     ArtisanDN saveByIdPersonne(DataProviderManager dpm, String id);
 
-    ArtisanDN save(DataProviderManager dpm, ArtisanDN artisan);
+    ArtisanDN save(DataProviderManager dpm, ArtisanDN artisan) throws TechnicalException;
 }

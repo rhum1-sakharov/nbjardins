@@ -75,7 +75,7 @@ public class SaveArtisanUE extends AbstractUsecase {
         return artisan;
     }
 
-    private ArtisanDN saveArtisan(DataProviderManager dpm, ArtisanDN artisan) throws PersistenceException {
+    private ArtisanDN saveArtisan(DataProviderManager dpm, ArtisanDN artisan) throws PersistenceException, TechnicalException {
         PersonneDN personne = personneRepo.save(dpm, artisan.getPersonne());
         artisan.setPersonne(personne);
 
