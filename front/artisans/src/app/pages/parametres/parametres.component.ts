@@ -84,6 +84,12 @@ export class ParametresComponent implements OnInit, OnDestroy {
     this.artisan.signature = '';
 
     this.parametresHttp.save(this.artisan, this.artisanOptionList, this.artisanBanqueList).subscribe((response: any) => {
+
+      this.artisanBanqueList = [...response.data.saveArtisanBanqueList];
+      this.artisanBanque = this.getArtisanBanquePrefere(this.artisanBanqueList) as MArtisanBanque;
+
+      this.cd.markForCheck();
+
       this.toastSvc.showMsg(MSG_KEY.ROOT, MSG_SEVERITY.SUCCESS, 'Paramètres enregistrés avec succès.');
     });
   }
@@ -129,17 +135,30 @@ export class ParametresComponent implements OnInit, OnDestroy {
   }
 
 
-  setArtisanOption(mo: MODELE_OPTION, $event:any) {
+  setArtisanOption(mo: MODELE_OPTION, $event: any) {
 
 
     if (this.artisanOptionList) {
       for (const ao of this.artisanOptionList) {
         if (ao.modeleOption === mo) {
-           ao.actif=$event;
+          ao.actif = $event;
         }
       }
     }
 
 
+  }
+
+  updateArtisanBanqueList($event: MArtisanBanque[]) {
+
+    this.artisanBanqueList = $event;
+    if (!this.utils.isCollectionNoe(this.artisanBanqueList)) {
+      for (const ab of this.artisanBanqueList) {
+        if (ab.prefere) {
+          this.artisanBanque = ab;
+          break;
+        }
+      }
+    }
   }
 }

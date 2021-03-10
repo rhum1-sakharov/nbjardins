@@ -224,20 +224,7 @@
         </comment>
     </changeSet>
 
-    <changeSet id="202012232222" author="rvl" runAlways="true">
-        <preConditions onFail="MARK_RAN">
-            <sqlCheck expectedResult="0">select count(*) from artisans_banques where
-                ID_ARTISAN='0afc2070-9dc4-46e0-9660-36f09b72b237' and iban='IBAN1' and rib='RIB1'
-            </sqlCheck>
-        </preConditions>
-        <sql>
-            INSERT INTO `artisans_banques` (`ID`, `ID_ARTISAN`, `IBAN`, `RIB`, `PREFERE`) VALUES
-            ('dafaaf78-bbaa-4bc4-bb46-455e9cb5025c', '0afc2070-9dc4-46e0-9660-36f09b72b237', 'IBAN1', 'RIB1', 1);
-        </sql>
-        <comment>
-            Ajouter les artisans_banques par defaut
-        </comment>
-    </changeSet>
+
 
 
     <changeSet id="202012190848" author="rvl">

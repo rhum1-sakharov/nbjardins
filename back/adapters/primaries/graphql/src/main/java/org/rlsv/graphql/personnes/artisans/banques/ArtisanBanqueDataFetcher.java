@@ -9,6 +9,7 @@ import usecases.personnes.artisans.banques.FindByEmailAndPrefereUE;
 import usecases.personnes.artisans.banques.FindByEmailUE;
 import usecases.personnes.artisans.banques.SaveArtisanBanqueUE;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -28,13 +29,13 @@ public class ArtisanBanqueDataFetcher {
         return dataFetchingEnvironment -> {
             String email = dataFetchingEnvironment.getArgument("email");
             boolean prefere = dataFetchingEnvironment.getArgument("prefere");
-           List<ArtisanBanqueDN> artisanBanqueDNList= findByEmailAndPrefereUE.execute(null, email, prefere);
+            List<ArtisanBanqueDN> artisanBanqueDNList = findByEmailAndPrefereUE.execute(null, email, prefere);
 
-           if(CollectionUtils.isEmpty(artisanBanqueDNList)){
-               return null;
-           }
+            if (CollectionUtils.isEmpty(artisanBanqueDNList)) {
+                return null;
+            }
 
-           return artisanBanqueDNList.get(0);
+            return artisanBanqueDNList.get(0);
         };
     }
 
@@ -47,14 +48,19 @@ public class ArtisanBanqueDataFetcher {
         };
     }
 
-    public DataFetcher saveArtisanBanqueDataFetcher() throws CleanException {
+    public DataFetcher saveArtisanBanqueListDataFetcher() throws CleanException {
         return dataFetchingEnvironment -> {
 
-            Map<String, Object> args = dataFetchingEnvironment.getArgument("artisanBanque");
+            List<Map<String,Object>> result = dataFetchingEnvironment.getArgument("artisanBanqueList");
 
-            ArtisanBanqueDN artisanBanque= MapperUtils.fromMap(args, ArtisanBanqueDN.class);
+            List<ArtisanBanqueDN> savedArtisanBanqueDNList = new ArrayList<>();
 
-            return saveArtisanBanqueUE.execute(null,artisanBanque);
+            for (Map<String,Object> item : result) {
+                ArtisanBanqueDN artisanBanque = MapperUtils.fromMap(item,ArtisanBanqueDN.class);
+                savedArtisanBanqueDNList.add(saveArtisanBanqueUE.execute(null,artisanBanque));
+            }
+
+            return savedArtisanBanqueDNList;
 
         };
     }

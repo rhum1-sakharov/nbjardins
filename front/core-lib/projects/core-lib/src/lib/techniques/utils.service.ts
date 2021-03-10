@@ -11,6 +11,14 @@ export class UtilsService {
   constructor() {
   }
 
+  isCollectionNoe(collection:any[]) : boolean{
+    if(!collection || collection.length===0){
+      return true;
+    }
+
+    return false;
+  }
+
   preselectSingleElement(elements: any[], selectedElement: any): any {
 
     if (elements && selectedElement) {

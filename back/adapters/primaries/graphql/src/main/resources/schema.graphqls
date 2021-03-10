@@ -16,7 +16,7 @@ type Query {
 type Mutation{
     saveArtisan (artisan: ArtisanInput!): Artisan!
     saveArtisanOption (artisanOption: ArtisanOptionInput!): ArtisanOption!
-    saveArtisanBanque (artisanBanque: ArtisanBanqueInput!): ArtisanBanque!
+    saveArtisanBanqueList (artisanBanqueList: [ArtisanBanqueInput!]): [ArtisanBanque!]
 }
 
 input ArtisanBanqueInput{

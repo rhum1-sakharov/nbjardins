@@ -2,7 +2,7 @@
   <div class="p-d-flex p-flex-column p-flex-md-row">
     <div class="mg-b-10">
       <p-accordion [multiple]="false">
-        <p-accordionTab header="Identification" [selected]="true">
+        <p-accordionTab header="Identification">
 
           <div class="p-field p-grid">
             <label for="siret" class="p-col-fixed"><strong>SIRET</strong></label>
@@ -135,7 +135,7 @@
 
 
         </p-accordionTab>
-        <p-accordionTab header="Banque">
+        <p-accordionTab header="Banque"  [selected]="true">
 
           <h5>{{getModeleOptionLabel(coordonneesBanquaires)}}</h5>
           <p-selectButton [options]="[{label:'oui',value:true},{label:'non',value:false}]"
@@ -146,66 +146,12 @@
           ></p-selectButton>
 
           <div class="datagrid-banque mg-t-10">
-            <h5>Sélectionner une banque</h5>
-            <p-table [value]="artisanBanqueList"
-                     selectionMode="single"
-                     [(selection)]="artisanBanque"
-                     dataKey="id">
-              <ng-template pTemplate="header">
-                <tr>
-                  <th>
-                    <button pButton icon="pi pi-plus" pTooltip="Ajouter une banque"></button>
-                  </th>
-                  <th>Banque</th>
-                  <th>RIB</th>
-                  <th>IBAN</th>
-                </tr>
-              </ng-template>
-              <ng-template pTemplate="body" let-banque>
-                <tr >
-                  <td>
-                    <p-tableRadioButton [value]="banque"></p-tableRadioButton>
-                  </td>
-                  <td pEditableColumn>
-                    <p-cellEditor>
-                      <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="banque.banque" style="width:100%">
-                      </ng-template>
-                      <ng-template pTemplate="output">
-                        <div style="width:100%;word-break: break-word;">
-                          {{banque.banque}}
-                        </div>
-                      </ng-template>
-                    </p-cellEditor>
-                  </td>
-                  <td pEditableColumn>
-                    <p-cellEditor>
-                      <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="banque.rib" style="width:100%">
-                      </ng-template>
-                      <ng-template pTemplate="output">
-                        <div style="width:100%;word-break: break-word;">
-                          {{banque.rib}}
-                        </div>
+          <app-crud-banque [artisanBanqueList]="artisanBanqueList"
+                           [artisan]="artisan"
+                           (outArtisanBanqueList)="updateArtisanBanqueList($event)"></app-crud-banque>
 
-                      </ng-template>
-                    </p-cellEditor>
-                  </td>
-                  <td  pEditableColumn>
-                    <p-cellEditor>
-                      <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="banque.iban" style="width:100%">
-                      </ng-template>
-                      <ng-template pTemplate="output">
-
-                        {{banque.iban}}
-                      </ng-template>
-                    </p-cellEditor>
-                  </td>
-                </tr>
-              </ng-template>
-            </p-table>
           </div>
+
 
         </p-accordionTab>
       </p-accordion>

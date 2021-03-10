@@ -73,7 +73,7 @@ public class GraphQLProvider {
                 .type(newTypeWiring("Mutation")
                         .dataFetcher("saveArtisan", artisanDataFetcher.saveArtisanDataFetcher())
                         .dataFetcher("saveArtisanOption", artisanOptionDataFetcher.saveArtisanOptionDataFetcher())
-                        .dataFetcher("saveArtisanBanque", artisanBanqueDataFetcher.saveArtisanBanqueDataFetcher())
+                        .dataFetcher("saveArtisanBanqueList", artisanBanqueDataFetcher.saveArtisanBanqueListDataFetcher())
                 )
                 .build();
     }

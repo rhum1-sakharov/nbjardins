@@ -30,6 +30,8 @@ import {StatsComponent} from './pages/stats/stats.component';
 import {CheckboxModule} from 'primeng/checkbox';
 import {TableModule} from 'primeng/table';
 import {RadioButtonModule} from 'primeng/radiobutton';
+import {CrudBanqueComponent} from './components/crud-banque/crud-banque.component';
+import {DialogModule} from 'primeng/dialog';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,8 @@ import {RadioButtonModule} from 'primeng/radiobutton';
     LoadingComponent,
     PreviewDevisComponent,
     PreviewFactureComponent,
-    StatsComponent
+    StatsComponent,
+    CrudBanqueComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +67,8 @@ import {RadioButtonModule} from 'primeng/radiobutton';
     SelectButtonModule,
     CheckboxModule,
     TableModule,
-    RadioButtonModule
+    RadioButtonModule,
+    DialogModule
 
   ],
   providers: [

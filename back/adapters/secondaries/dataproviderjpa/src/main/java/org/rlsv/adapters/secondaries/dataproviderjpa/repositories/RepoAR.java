@@ -1,5 +1,6 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.repositories;
 
+import org.apache.commons.lang3.StringUtils;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Entity;
 import org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence.PersistenceUtils;
 import org.slf4j.Logger;
@@ -8,7 +9,6 @@ import ports.localization.LocalizeServicePT;
 import transactions.DataProviderManager;
 
 import javax.persistence.EntityManager;
-import java.util.Objects;
 
 public abstract class RepoAR<T extends Entity> {
 
@@ -21,7 +21,7 @@ public abstract class RepoAR<T extends Entity> {
     }
 
     private boolean isNew(String id) {
-        return Objects.isNull(id);
+        return StringUtils.isEmpty(id);
     }
 
     public T save(DataProviderManager dpm, T instance) {
@@ -29,6 +29,7 @@ public abstract class RepoAR<T extends Entity> {
         EntityManager em = PersistenceUtils.getEntityManager(dpm);
 
         if (isNew(instance.getId())) {
+            instance.setId(null);
             em.persist(instance);
         } else {
             em.merge(instance);

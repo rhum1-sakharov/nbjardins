@@ -1,0 +1,106 @@
+<h5>Sélectionner une banque</h5>
+<p-table [value]="artisanBanqueList"
+         dataKey="id">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>
+        <button pButton icon="pi pi-plus" pTooltip="Ajouter une banque"
+                (click)="addBanque()"
+        ></button>
+      </th>
+      <th>Banque</th>
+      <th>RIB</th>
+      <th>IBAN</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-banque>
+    <tr>
+      <td>
+        <p-checkbox [binary]="true" [ngModel]="banque.prefere" [disabled]="banque.prefere" (ngModelChange)="updateBanquePrefere(banque,artisanBanqueList,$event)"></p-checkbox>
+      </td>
+      <td pEditableColumn>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input pInputText type="text" [(ngModel)]="banque.banque" style="width:100%">
+          </ng-template>
+          <ng-template pTemplate="output">
+            <div style="width:100%;word-break: break-word;">
+              {{banque.banque}}
+            </div>
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td pEditableColumn>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input pInputText type="text" [(ngModel)]="banque.rib" style="width:100%">
+          </ng-template>
+          <ng-template pTemplate="output">
+            <div style="width:100%;word-break: break-word;">
+              {{banque.rib}}
+            </div>
+
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td pEditableColumn>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input pInputText type="text" [(ngModel)]="banque.iban" style="width:100%">
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{banque.iban}}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+
+
+<p-dialog header="Ajouter une banque"
+          (onHide)="close()"
+          [modal]="true"
+          [(visible)]="display">
+
+  <form [formGroup]="form">
+    <div class="p-field p-grid">
+      <label for="banque" class="p-col-fixed" style="width:100px">Banque</label>
+      <div class="p-col">
+        <input id="banque" type="text" pInputText formControlName="banque" required>
+      </div>
+    </div>
+    <div class="p-field p-grid">
+      <label for="iban" class="p-col-fixed" style="width:100px">IBAN</label>
+      <div class="p-col">
+        <input id="iban" type="text" pInputText formControlName="iban">
+      </div>
+    </div>
+    <div class="p-field p-grid">
+      <label for="rib" class="p-col-fixed" style="width:100px">RIB</label>
+      <div class="p-col">
+        <input id="rib" type="text" pInputText formControlName="rib">
+      </div>
+    </div>
+    <div class="p-field p-grid">
+      <label for="prefere" class="p-col-fixed" style="width:100px">Banque préférée</label>
+      <div class="p-col">
+        <p-selectButton
+          id="prefere"
+          [options]="[{label:'oui',value:true},{label:'non',value:false}]"
+          formControlName="prefere"
+          optionLabel="label"
+          optionValue="value"
+        ></p-selectButton>
+      </div>
+    </div>
+    <div class="color-danger">{{warnMsg}}</div>
+  </form>
+
+  <p-footer>
+    <button pButton icon="pi pi-plus" label="Ajouter"  (click)="save()"></button>
+    <button pButton class="p-button-secondary" label="Annuler" icon="pi pi-times"  (click)="close()"></button>
+  </p-footer>
+
+</p-dialog>
