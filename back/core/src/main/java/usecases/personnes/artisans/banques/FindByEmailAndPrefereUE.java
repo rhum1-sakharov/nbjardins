@@ -1,6 +1,6 @@
 package usecases.personnes.artisans.banques;
 
-import aop.Transactionnal;
+import aop.Transactional;
 import domains.personnes.artisans.ArtisanBanqueDN;
 import exceptions.CleanException;
 import ports.localization.LocalizeServicePT;
@@ -20,7 +20,7 @@ public class FindByEmailAndPrefereUE extends AbstractUsecase {
         this.artisanBanqueRepo = artisanBanqueRepo;
     }
 
-    @Transactionnal
+    @Transactional
     public List<ArtisanBanqueDN> execute(DataProviderManager dpm, String email, boolean prefere) throws CleanException {
 
         return artisanBanqueRepo.findByEmailAndPrefere(dpm, email, prefere);

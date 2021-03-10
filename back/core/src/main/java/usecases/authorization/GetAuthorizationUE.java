@@ -1,6 +1,6 @@
 package usecases.authorization;
 
-import aop.Transactionnal;
+import aop.Transactional;
 import domains.authorizations.AuthorizationDN;
 import domains.personnes.PersonneDN;
 import domains.personnes.artisans.ArtisanDN;
@@ -71,7 +71,7 @@ public class GetAuthorizationUE extends AbstractUsecase {
      * @return
      * @throws Exception
      */
-    @Transactionnal
+    @Transactional
     public AuthorizationDN execute(DataProviderManager dpm, LoginManager loginManager) throws CleanException {
 
         try {

@@ -1,7 +1,7 @@
 package usecases.devis;
 
 
-import aop.Transactionnal;
+import aop.Transactional;
 import domains.applications.ApplicationDN;
 import domains.devis.DevisDN;
 import domains.personnes.artisans.ArtisanBanqueDN;
@@ -84,7 +84,7 @@ public class DemandeDeDevisUE extends AbstractUsecase {
      *
      * @return
      */
-    @Transactionnal
+    @Transactional
     public DevisDN execute(DevisDN devis, Locale locale, ApplicationDN application, DataProviderManager dpm) throws CleanException {
 
         try {

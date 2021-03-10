@@ -1,6 +1,6 @@
 package usecases.personnes.artisans.banques;
 
-import aop.Transactionnal;
+import aop.Transactional;
 import domains.personnes.artisans.ArtisanBanqueDN;
 import exceptions.CleanException;
 import models.Precondition;
@@ -24,7 +24,7 @@ public class FindByEmailUE extends AbstractUsecase {
         this.artisanBanqueRepo = artisanBanqueRepo;
     }
 
-    @Transactionnal
+    @Transactional
     public List<ArtisanBanqueDN> execute(DataProviderManager dpm, String email) throws CleanException {
 
         Precondition.validate(

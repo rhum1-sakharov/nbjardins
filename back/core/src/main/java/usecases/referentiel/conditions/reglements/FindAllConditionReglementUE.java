@@ -1,6 +1,6 @@
 package usecases.referentiel.conditions.reglements;
 
-import aop.Transactionnal;
+import aop.Transactional;
 import domains.referentiel.condition.reglement.ConditionDeReglementDN;
 import exceptions.CleanException;
 import ports.localization.LocalizeServicePT;
@@ -20,7 +20,7 @@ public class FindAllConditionReglementUE extends AbstractUsecase {
         this.conditionDeReglementRepo = conditionDeReglementRepo;
     }
 
-    @Transactionnal
+    @Transactional
     public List<ConditionDeReglementDN> execute(DataProviderManager dpm) throws CleanException {
 
         List<ConditionDeReglementDN> conditionDeReglementDNList = conditionDeReglementRepo.findAll(dpm);

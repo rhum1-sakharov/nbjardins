@@ -22,7 +22,7 @@ public class TransactionalAspect {
 
     //Defines a pointcut where the @YourAnnotation exists
     //And combines that with a catch all pointcut with the scope of execution
-    @Around("@annotation(Transactionnal) && execution(* *(..))")
+    @Around("@annotation(aop.Transactional) && execution(* *(..))")
     //ProceedingJointPoint = the reference of the call to the method.
     //Difference between ProceedingJointPoint and JointPoint is that a JointPoint can't be continued(proceeded)
     //A ProceedingJointPoint can be continued(proceeded) and is needed for a Around advice

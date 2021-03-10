@@ -1,6 +1,6 @@
 package usecases.personnes.artisans;
 
-import aop.Transactionnal;
+import aop.Transactional;
 import domains.personnes.artisans.ArtisanDN;
 import exceptions.CleanException;
 import ports.localization.LocalizeServicePT;
@@ -18,7 +18,7 @@ public class FindByEmailUE extends AbstractUsecase {
         this.artisanRepo = artisanRepo;
     }
 
-    @Transactionnal
+    @Transactional
     public ArtisanDN execute(DataProviderManager dpm, String email) throws CleanException {
 
         return artisanRepo.findByEmail(dpm,email);

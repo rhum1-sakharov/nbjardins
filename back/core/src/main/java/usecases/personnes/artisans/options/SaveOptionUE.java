@@ -1,6 +1,6 @@
 package usecases.personnes.artisans.options;
 
-import aop.Transactionnal;
+import aop.Transactional;
 import domains.personnes.artisans.options.ArtisanOptionDN;
 import exceptions.CleanException;
 import models.Precondition;
@@ -27,7 +27,7 @@ public class SaveOptionUE extends AbstractUsecase {
         this.artisanOptionRepo = artisanOptionRepo;
     }
 
-    @Transactionnal
+    @Transactional
     public ArtisanOptionDN execute(DataProviderManager dpm, ArtisanOptionDN artisanOption) throws CleanException {
 
         Precondition.validate(

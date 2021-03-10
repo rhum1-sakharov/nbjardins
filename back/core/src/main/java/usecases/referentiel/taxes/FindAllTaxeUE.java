@@ -1,6 +1,6 @@
 package usecases.referentiel.taxes;
 
-import aop.Transactionnal;
+import aop.Transactional;
 import domains.referentiel.taxes.TaxeDN;
 import exceptions.CleanException;
 import ports.localization.LocalizeServicePT;
@@ -20,7 +20,7 @@ public class FindAllTaxeUE extends AbstractUsecase {
         this.taxeRepo = taxeRepo;
     }
 
-    @Transactionnal
+    @Transactional
     public List<TaxeDN> execute( DataProviderManager dpm) throws CleanException {
 
         List<TaxeDN> taxeList = taxeRepo.findAll(dpm);

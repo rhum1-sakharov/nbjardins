@@ -1,6 +1,6 @@
 package usecases.devis;
 
-import aop.Transactionnal;
+import aop.Transactional;
 import domains.devis.DevisDN;
 import exceptions.CleanException;
 import ports.localization.LocalizeServicePT;
@@ -18,7 +18,7 @@ public class EnregistrerUE extends AbstractUsecase {
         this.devisRepo = devisRepo;
     }
 
-    @Transactionnal
+    @Transactional
     public DevisDN execute(DataProviderManager dpm, DevisDN devis) throws CleanException {
 
         return devisRepo.save(dpm, devis);

@@ -1,6 +1,6 @@
 package usecases.personnes.clients;
 
-import aop.Transactionnal;
+import aop.Transactional;
 import domains.personnes.PersonneDN;
 import domains.personnes.clients.ClientDN;
 import domains.personnes.roles.Personne__RoleDN;
@@ -45,7 +45,7 @@ public class SaveClientUE extends AbstractUsecase {
      * Si oui, interdire l enregistrement
      * Si non, enregistrer la personne, l'associer au role client et au type client
      */
-    @Transactionnal
+    @Transactional
     public ClientDN execute( DataProviderManager dpm, ClientDN client) throws CleanException {
 
 

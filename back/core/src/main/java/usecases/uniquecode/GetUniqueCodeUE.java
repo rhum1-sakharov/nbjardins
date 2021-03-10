@@ -1,6 +1,6 @@
 package usecases.uniquecode;
 
-import aop.Transactionnal;
+import aop.Transactional;
 import enums.UNIQUE_CODE;
 import exceptions.CleanException;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -24,7 +24,7 @@ public class GetUniqueCodeUE extends AbstractUsecase {
     }
 
 
-    @Transactionnal
+    @Transactional
     public String  execute( DataProviderManager dpm, UNIQUE_CODE unique_code) throws CleanException {
 
         String uniqueCode = "";

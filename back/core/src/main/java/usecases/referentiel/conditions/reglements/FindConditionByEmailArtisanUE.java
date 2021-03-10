@@ -1,6 +1,6 @@
 package usecases.referentiel.conditions.reglements;
 
-import aop.Transactionnal;
+import aop.Transactional;
 import exceptions.CleanException;
 import ports.localization.LocalizeServicePT;
 import ports.repositories.referentiel.conditions.reglements.ConditionDeReglementRepoPT;
@@ -17,7 +17,7 @@ public class FindConditionByEmailArtisanUE extends AbstractUsecase {
         this.conditionDeReglementRepo = conditionDeReglementRepo;
     }
 
-    @Transactionnal
+    @Transactional
     public String execute(DataProviderManager dpm, String emailArtisan) throws CleanException {
 
         return conditionDeReglementRepo.findConditionByEmailArtisan(dpm, emailArtisan);

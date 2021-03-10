@@ -15,14 +15,14 @@ public class UsecaseTransactionalAspect  {
         ut.execute(dpm);
     }
 
-    @Transactionnal
+    @Transactional
     public void execute(DataProviderManager dpm) {
         System.out.println("Executing TestTarget.yourMethodAround()");
     }
 
 
 
-    @Transactionnal
+    @Transactional
     public void execute() {
         System.out.println("Executing TestTarget.yourMethodAround()");
     }
