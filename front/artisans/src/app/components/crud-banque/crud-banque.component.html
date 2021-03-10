@@ -1,4 +1,5 @@
 <h5>Sélectionner une banque</h5>
+
 <p-table [value]="artisanBanqueList"
          dataKey="id">
   <ng-template pTemplate="header">
@@ -19,40 +20,14 @@
       <td>
         <p-checkbox [binary]="true" [ngModel]="banque.prefere" [disabled]="banque.prefere" (ngModelChange)="updateBanquePrefere(banque,artisanBanqueList,$event)"></p-checkbox>
       </td>
-      <td pEditableColumn>
-        <p-cellEditor>
-          <ng-template pTemplate="input">
-            <input pInputText type="text" [(ngModel)]="banque.banque" style="width:100%">
-          </ng-template>
-          <ng-template pTemplate="output">
-            <div style="width:100%;word-break: break-word;">
-              {{banque.banque}}
-            </div>
-          </ng-template>
-        </p-cellEditor>
+      <td >
+        {{banque.banque}}
       </td>
-      <td pEditableColumn>
-        <p-cellEditor>
-          <ng-template pTemplate="input">
-            <input pInputText type="text" [(ngModel)]="banque.rib" style="width:100%">
-          </ng-template>
-          <ng-template pTemplate="output">
-            <div style="width:100%;word-break: break-word;">
-              {{banque.rib}}
-            </div>
-
-          </ng-template>
-        </p-cellEditor>
+      <td>
+        {{banque.rib}}
       </td>
-      <td pEditableColumn>
-        <p-cellEditor>
-          <ng-template pTemplate="input">
-            <input pInputText type="text" [(ngModel)]="banque.iban" style="width:100%">
-          </ng-template>
-          <ng-template pTemplate="output">
-            {{banque.iban}}
-          </ng-template>
-        </p-cellEditor>
+      <td >
+        {{banque.iban}}
       </td>
       <td>
         <i class="pi pi-trash cursor" pTooltip="Enlever" (click)="removeBanque(banque)"></i>
@@ -78,13 +53,13 @@
     <div class="p-field p-grid">
       <label for="iban" class="p-col-fixed" style="width:100px">IBAN</label>
       <div class="p-col">
-        <input id="iban" type="text" pInputText formControlName="iban">
+        <p-inputMask id="iban" formControlName="iban" mask="aa99-9999-9999-9999-9999-9999-999" ></p-inputMask>
       </div>
     </div>
     <div class="p-field p-grid">
       <label for="rib" class="p-col-fixed" style="width:100px">RIB</label>
       <div class="p-col">
-        <input id="rib" type="text" pInputText formControlName="rib">
+        <p-inputMask id="rib" formControlName="rib" mask="99999-99999-99999999999-99" ></p-inputMask>
       </div>
     </div>
     <div class="p-field p-grid">

@@ -51,7 +51,7 @@ export class CrudBanqueComponent implements OnInit {
   save() {
 
     if (!this.form.valid) {
-      this.warnMsg = 'Les champs sont obligatoires.';
+      this.warnMsg = 'Tous les champs sont obligatoires.';
       return;
     }
 

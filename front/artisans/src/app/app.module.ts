@@ -32,6 +32,7 @@ import {TableModule} from 'primeng/table';
 import {RadioButtonModule} from 'primeng/radiobutton';
 import {CrudBanqueComponent} from './components/crud-banque/crud-banque.component';
 import {DialogModule} from 'primeng/dialog';
+import {InputMaskModule} from 'primeng/inputmask';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import {DialogModule} from 'primeng/dialog';
     CheckboxModule,
     TableModule,
     RadioButtonModule,
-    DialogModule
+    DialogModule,
+    InputMaskModule
 
   ],
   providers: [
