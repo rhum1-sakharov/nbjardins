@@ -4,7 +4,7 @@
          dataKey="id">
   <ng-template pTemplate="header">
     <tr>
-      <th>
+      <th class="wh-60">
         <button pButton icon="pi pi-plus" pTooltip="Ajouter une banque"
                 (click)="openDialog(crudMode.ADD,null)"
         ></button>
@@ -16,12 +16,12 @@
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-banque>
-    <tr>
-      <td>
+    <tr >
+      <td >
         <p-checkbox [binary]="true" [ngModel]="banque.prefere" [disabled]="banque.prefere"
                     (ngModelChange)="updateBanquePrefere(banque,artisanBanqueList,$event)"></p-checkbox>
       </td>
-      <td>
+      <td class="banque">
         {{banque.banque}}
       </td>
       <td>
@@ -31,14 +31,16 @@
         {{banque.iban}}
       </td>
       <td>
-        <i class="pi pi-trash cursor" pTooltip="Enlever" (click)="removeBanque(banque)"></i>
-        <i class="pi pi-pencil cursor" pTooltip="Modifier" (click)="openDialog(crudMode.EDIT,banque)"></i>
+        <i class="pi pi-search cursor" (click)="openDialog(crudMode.EDIT,banque)" pTooltip="Modifier / Supprimer"></i>
       </td>
+
     </tr>
   </ng-template>
 </p-table>
 
 <p-dialog
+
+          [dismissableMask]="true"
           (onHide)="closeDialog()"
           [modal]="true"
           [(visible)]="display">
@@ -58,29 +60,30 @@
 
   <form [formGroup]="form">
     <div class="p-field p-grid">
-      <label for="banque" class="p-col-fixed" style="width:100px">Banque</label>
+      <label for="banque" class="p-col-fixed" style="width:100px" >Banque</label>
       <div class="p-col">
-        <input id="banque" type="text" pInputText formControlName="banque" required>
+        <input id="banque" type="text" pInputText formControlName="banque"  (keydown.enter)="save(selectedCrudMode)" required>
       </div>
     </div>
     <div class="p-field p-grid">
       <label for="iban" class="p-col-fixed" style="width:100px">IBAN</label>
       <div class="p-col">
-        <p-inputMask id="iban" formControlName="iban" mask="aa99-9999-9999-9999-9999-9999-999"></p-inputMask>
+        <p-inputMask id="iban" formControlName="iban" mask="aa99-9999-9999-9999-9999-9999-999" (keydown.enter)="save(selectedCrudMode)"></p-inputMask>
       </div>
     </div>
     <div class="p-field p-grid">
       <label for="rib" class="p-col-fixed" style="width:100px">RIB</label>
       <div class="p-col">
-        <p-inputMask id="rib" formControlName="rib" mask="99999-99999-99999999999-99"></p-inputMask>
+        <p-inputMask id="rib" formControlName="rib" mask="99999-99999-99999999999-99" (keydown.enter)="save(selectedCrudMode)"></p-inputMask>
       </div>
     </div>
     <div class="p-field p-grid">
-      <label for="prefere" class="p-col-fixed" style="width:100px">Banque préférée</label>
+      <label for="prefere" class="p-col-fixed" style="width:100px" >Banque préférée</label>
       <div class="p-col">
         <p-selectButton
           id="prefere"
           [options]="[{label:'oui',value:true},{label:'non',value:false}]"
+          (keydown.enter)="save(selectedCrudMode)"
           formControlName="prefere"
           optionLabel="label"
           optionValue="value"
@@ -91,16 +94,16 @@
   </form>
 
 
-
   <p-footer>
 
 
     <ng-container [ngSwitch]="selectedCrudMode">
       <ng-container *ngSwitchCase="crudMode.ADD">
-        <button pButton icon="pi pi-plus" label="Ajouter" (click)="save(crudMode.ADD)"></button>
+        <button pButton icon="pi pi-plus" label="Ajouter"   (click)="save(crudMode.ADD)"></button>
       </ng-container>
       <ng-container *ngSwitchCase="crudMode.EDIT">
-        <button pButton icon="pi pi-pencil" label="Modifier" (click)="save(crudMode.EDIT)"></button>
+        <button pButton icon="pi pi-pencil" label="Modifier"  (click)="save(crudMode.EDIT)"></button>
+        <button pButton icon="pi pi-trash" label="Supprimer" (click)="removeArtisanBanque(selectedArtisanBanque)"></button>
       </ng-container>
     </ng-container>
 

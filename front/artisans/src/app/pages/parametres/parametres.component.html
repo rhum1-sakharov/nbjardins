@@ -2,7 +2,7 @@
   <div class="p-d-flex p-flex-column p-flex-md-row">
     <div class="mg-b-10">
       <p-accordion [multiple]="false">
-        <p-accordionTab header="Identification">
+        <p-accordionTab header="Identification"  [selected]="true">
 
           <div class="p-field p-grid">
             <label for="siret" class="p-col-fixed"><strong>SIRET</strong></label>
@@ -135,7 +135,7 @@
 
 
         </p-accordionTab>
-        <p-accordionTab header="Banque"  [selected]="true">
+        <p-accordionTab header="Banque" >
 
           <h5>{{getModeleOptionLabel(coordonneesBanquaires)}}</h5>
           <p-selectButton [options]="[{label:'oui',value:true},{label:'non',value:false}]"

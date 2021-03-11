@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {KEY_JWT_TOKEN} from '../constants/constants';
-import {LocalstorageService} from './localstorage.service';
+import {KEY_JWT_TOKEN} from '../../constants/constants';
+import {LocalstorageService} from '../localstorage/localstorage.service';
 
 
 @Injectable()

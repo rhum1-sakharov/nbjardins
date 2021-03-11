@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {Router} from '@angular/router';
-import {KEY_JWT_TOKEN, KEY_REDIRECT_AUTHORIZED_URL, KEY_USER} from '../constants/constants';
+import {KEY_JWT_TOKEN, KEY_REDIRECT_AUTHORIZED_URL, KEY_USER} from '../../constants/constants';
 import {ConfirmationService} from 'primeng/api';
-import {LocalstorageService} from './localstorage.service';
+import {LocalstorageService} from '../localstorage/localstorage.service';
 import {BehaviorSubject} from 'rxjs';
 
 

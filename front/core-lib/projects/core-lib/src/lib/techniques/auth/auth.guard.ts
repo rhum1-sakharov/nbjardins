@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
 import {Observable} from 'rxjs';
 import {AuthService, UserRight} from './auth.service';
-import {KEY_REDIRECT_AUTHORIZED_URL, KEY_USER} from '../constants/constants';
-import {LocalstorageService} from './localstorage.service';
+import {KEY_REDIRECT_AUTHORIZED_URL, KEY_USER} from '../../constants/constants';
+import {LocalstorageService} from '../localstorage/localstorage.service';
 
 
 @Injectable({

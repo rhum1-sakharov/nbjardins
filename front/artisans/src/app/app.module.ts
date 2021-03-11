@@ -3,10 +3,9 @@ import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {LoginComponent} from './components/login/login.component';
-import {CoreLibModule} from 'rhum1-sakharov-core-lib';
 import {ConfirmationService, MessageService} from 'primeng/api';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {AuthInterceptorService} from '../../../core-lib/projects/core-lib/src/lib/techniques/auth-interceptor.service';
+import {AuthInterceptorService} from '../../../core-lib/projects/core-lib/src/lib/techniques/auth/auth-interceptor.service';
 import {ToastModule} from 'primeng/toast';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
@@ -54,7 +53,6 @@ import {InputMaskModule} from 'primeng/inputmask';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    CoreLibModule,
     ToastModule,
     HttpClientModule,
     ConfirmDialogModule,

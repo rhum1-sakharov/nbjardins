@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
-import {HttpService, MArtisan, MArtisanBanque, MArtisanOption, UtilsService} from 'rhum1-sakharov-core-lib';
+import {CollectionUtils, HttpService, MArtisan, MArtisanBanque, MArtisanOption} from 'rhum1-sakharov-core-lib';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ParametresHttpService {
 
-  constructor(private httpSvc: HttpService, private utils:UtilsService) {
+  constructor(private httpSvc: HttpService) {
 
   }
 
@@ -108,7 +108,7 @@ export class ParametresHttpService {
 
     let str = '';
 
-    if(!this.utils.isCollectionNoe(artisanBanqueList)){
+    if(!CollectionUtils.isNoe(artisanBanqueList)){
 
       str += ` saveArtisanBanqueList( artisanBanqueList:[`;
       let index=1;

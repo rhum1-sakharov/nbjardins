@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import {catchError, delay, filter, finalize} from 'rxjs/operators';
-import {MSG_KEY, MSG_SEVERITY, ToasterService} from './toaster.service';
-import {LoadingService} from './loading.service';
-import {MError} from '../models/m-error';
+import {MSG_KEY, MSG_SEVERITY, ToasterService} from '../messages/toaster.service';
+import {LoadingService} from '../loading/loading.service';
+import {MError} from '../../models/m-error';
 import {Observable, of} from 'rxjs';
 import {Router} from '@angular/router';
-import {AuthService} from './auth.service';
+import {AuthService} from '../auth/auth.service';
 
 
 @Injectable({

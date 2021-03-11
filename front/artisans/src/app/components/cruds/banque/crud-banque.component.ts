@@ -1,16 +1,17 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {
   AbstractCrud,
+  CollectionUtils,
   CRUD_MODE,
   MArtisan,
   MArtisanBanque,
   MSG_KEY,
   MSG_SEVERITY,
-  ToasterService,
-  UtilsService
+  ToasterService
 } from 'rhum1-sakharov-core-lib';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Error} from 'tslint/lib/error';
+
 
 @Component({
   selector: 'app-crud-banque',
@@ -27,9 +28,10 @@ export class CrudBanqueComponent extends AbstractCrud<MArtisanBanque> implements
 
   form !: FormGroup;
   warnMsg: string = '';
+  selectedArtisanBanque !: MArtisanBanque | null;
 
 
-  constructor(public utils: UtilsService, private toastSvc: ToasterService) {
+  constructor(private toastSvc: ToasterService) {
     super();
   }
 
@@ -56,7 +58,7 @@ export class CrudBanqueComponent extends AbstractCrud<MArtisanBanque> implements
           throw new Error('model is null, cannot init form in edit mode');
         }
         this.form = new FormGroup({
-          id: new FormControl(model.id, Validators.required),
+          id: new FormControl(model.id),
           banque: new FormControl(model.banque, Validators.required),
           iban: new FormControl(model.iban, Validators.required),
           rib: new FormControl(model.rib, Validators.required),
@@ -70,8 +72,9 @@ export class CrudBanqueComponent extends AbstractCrud<MArtisanBanque> implements
   openDialog(crudMode: CRUD_MODE, artisanBanque: MArtisanBanque | null) {
     this.display = true;
     this.selectedCrudMode = crudMode;
+    this.selectedArtisanBanque = artisanBanque || null;
 
-    this.initForm(this.selectedCrudMode, artisanBanque);
+    this.initForm(this.selectedCrudMode, this.selectedArtisanBanque);
 
   }
 
@@ -89,51 +92,24 @@ export class CrudBanqueComponent extends AbstractCrud<MArtisanBanque> implements
     artisanBanque.iban = this.form.controls['iban'].value;
     artisanBanque.rib = this.form.controls['rib'].value;
     artisanBanque.banque = this.form.controls['banque'].value;
-    artisanBanque.artisan = this.artisan;
+    artisanBanque.artisan = this.form.controls['artisan'].value;
 
     switch (crudMode) {
       case CRUD_MODE.ADD:
-        this.artisanBanqueList = [...this.create(artisanBanque, this.artisanBanqueList)];
+        this.artisanBanqueList = [...CollectionUtils.addElement(artisanBanque, this.artisanBanqueList)];
         break;
       case CRUD_MODE.EDIT:
-        this.artisanBanqueList = [...this.update(artisanBanque, this.artisanBanqueList)];
+        this.artisanBanqueList = [...CollectionUtils.updateElement(artisanBanque, 'id', this.artisanBanqueList)];
         break;
 
     }
 
     this.updateBanquePrefere(artisanBanque, this.artisanBanqueList, artisanBanque.prefere);
 
-    this.outArtisanBanqueList.emit(this.artisanBanqueList);
-
     this.closeDialog();
 
   }
 
-  create(artisanBanque: MArtisanBanque, artisanBanqueList: MArtisanBanque[]) {
-
-    let abList = artisanBanqueList;
-    if (this.utils.isCollectionNoe(abList)) {
-      abList = [];
-    }
-    abList.push(artisanBanque);
-
-    return abList;
-
-  }
-
-  update(artisanBanque: MArtisanBanque, artisanBanqueList: MArtisanBanque[]): MArtisanBanque[] {
-
-    const abList = [];
-    for (const ab of artisanBanqueList) {
-      if (ab.id === artisanBanque.id) {
-        abList.push(artisanBanque);
-        break;
-      } else {
-        abList.push(ab);
-      }
-    }
-    return abList;
-  }
 
   updateBanquePrefere(banque: MArtisanBanque, artisanBanqueList: MArtisanBanque[], prefere: boolean) {
 
@@ -159,16 +135,29 @@ export class CrudBanqueComponent extends AbstractCrud<MArtisanBanque> implements
 
   }
 
-  removeBanque(banque: MArtisanBanque) {
-    this.artisanBanqueList = this.artisanBanqueList.filter(item => item !== banque);
-    this.outArtisanBanqueList.emit(this.artisanBanqueList);
+  removeArtisanBanque(artisanBanque: MArtisanBanque | null) {
+
+    if (artisanBanque && artisanBanque.prefere) {
+      this.toastSvc.showMsg(MSG_KEY.ROOT, MSG_SEVERITY.WARN, 'Vous ne pouvez pas supprimer votre banque préférée.');
+    }else{
+      this.artisanBanqueList = this.artisanBanqueList.filter(item => item !== artisanBanque);
+    }
+
+
+    this.closeDialog();
   }
 
   closeDialog(): void {
 
     this.display = false;
     this.warnMsg = '';
+    this.selectedArtisanBanque = null;
+    this.outArtisanBanqueList.emit(this.artisanBanqueList);
   }
 
+
+  onRowSelect(event: any) {
+    this.openDialog(CRUD_MODE.EDIT, event.data);
+  }
 
 }

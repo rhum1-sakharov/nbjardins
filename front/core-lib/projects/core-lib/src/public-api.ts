@@ -2,9 +2,6 @@
  * Public API Surface of core-lib
  */
 
-export * from './lib/core-lib.service';
-export * from './lib/core-lib.component';
-export * from './lib/core-lib.module';
 
 export * from './lib/models/referentiel/applications/m-application';
 export * from './lib/models/personnes/clients/m-client';
@@ -26,15 +23,16 @@ export * from './lib/enums/e-crud-mode';
 
 export * from './lib/crud/abstract-crud';
 
-export * from './lib/techniques/http.service';
-export * from './lib/techniques/loading.service';
-export * from './lib/techniques/localstorage.service';
-export * from './lib/techniques/toaster.service';
-export * from './lib/techniques/validators.service';
-export * from './lib/techniques/utils.service';
-export * from './lib/techniques/auth.guard';
-export * from './lib/techniques/auth.service';
-export * from './lib/techniques/auth-interceptor.service';
+export * from './lib/techniques/http/http.service';
+export * from './lib/techniques/loading/loading.service';
+export * from './lib/techniques/localstorage/localstorage.service';
+export * from './lib/techniques/messages/toaster.service';
+export * from './lib/techniques/validators/validators.service';
+export * from './lib/techniques/utils/observable-utils';
+export * from './lib/techniques/utils/collection-utils';
+export * from './lib/techniques/auth/auth.guard';
+export * from './lib/techniques/auth/auth.service';
+export * from './lib/techniques/auth/auth-interceptor.service';
 
 
 

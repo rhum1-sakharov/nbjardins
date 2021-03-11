@@ -2,6 +2,7 @@ import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {
+  CollectionUtils,
   MArtisan,
   MArtisanBanque,
   MArtisanOption,
@@ -10,9 +11,9 @@ import {
   MSG_KEY,
   MSG_SEVERITY,
   MTaxe,
+  ObservableUtils,
   ToasterService,
-  Utilisateur,
-  UtilsService
+  Utilisateur
 } from 'rhum1-sakharov-core-lib';
 import {ParametresHttpService} from '../../http/parametres-http.service';
 
@@ -44,7 +45,7 @@ export class ParametresComponent implements OnInit, OnDestroy {
   tvaSaisissableParLigne = MODELE_OPTION.TVA_SAISISSABLE_PAR_LIGNE;
 
 
-  constructor(public route: ActivatedRoute, private utils: UtilsService,
+  constructor(public route: ActivatedRoute,
               private toastSvc: ToasterService,
               private cd: ChangeDetectorRef,
               private parametresHttp: ParametresHttpService) {
@@ -67,15 +68,15 @@ export class ParametresComponent implements OnInit, OnDestroy {
       this.artisanBanque = this.getArtisanBanquePrefere(this.artisanBanqueList) as MArtisanBanque;
 
 
-      this.artisan.taxe = this.utils.preselectSingleElement(this.taxes, this.artisan.taxe);
-      this.artisan.conditionDeReglement = this.utils.preselectSingleElement(this.conditionsReglements, this.artisan.conditionDeReglement);
+      this.artisan.taxe = CollectionUtils.preselectSingleElement(this.taxes, this.artisan.taxe);
+      this.artisan.conditionDeReglement = CollectionUtils.preselectSingleElement(this.conditionsReglements, this.artisan.conditionDeReglement);
 
 
     });
   }
 
   ngOnDestroy(): void {
-    this.utils.unsubscribe(this.subRoute);
+    ObservableUtils.unsubscribe(this.subRoute);
   }
 
   save() {
@@ -85,7 +86,7 @@ export class ParametresComponent implements OnInit, OnDestroy {
 
     this.parametresHttp.save(this.artisan, this.artisanOptionList, this.artisanBanqueList).subscribe((response: any) => {
 
-      if(!this.utils.isCollectionNoe(response.data.saveArtisanBanqueList)){
+      if(!CollectionUtils.isNoe(response.data.saveArtisanBanqueList)){
         this.artisanBanqueList = [...response.data.saveArtisanBanqueList];
         this.artisanBanque = this.getArtisanBanquePrefere(this.artisanBanqueList) as MArtisanBanque;
       }
@@ -152,7 +153,7 @@ export class ParametresComponent implements OnInit, OnDestroy {
   updateArtisanBanqueList($event: MArtisanBanque[]) {
 
     this.artisanBanqueList = $event;
-    if (!this.utils.isCollectionNoe(this.artisanBanqueList)) {
+    if (!CollectionUtils.isNoe(this.artisanBanqueList)) {
       for (const ab of this.artisanBanqueList) {
         if (ab.prefere) {
           this.artisanBanque = ab;

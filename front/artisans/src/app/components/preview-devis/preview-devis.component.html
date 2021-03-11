@@ -88,6 +88,23 @@
     </div>
 
     <div class="p-col-8">
+      <ng-container *ngIf="isActif(coordonneesBanquaires) && artisanBanque">
+        <table>
+          <tr>
+            <td>Banque</td>
+            <td>{{artisanBanque.banque}}</td>
+          </tr>
+          <tr>
+            <td>RIB</td>
+            <td>{{artisanBanque.rib}}</td>
+          </tr>
+          <tr>
+            <td>IBAN</td>
+            <td>{{artisanBanque.iban}}</td>
+          </tr>
+        </table>
+
+      </ng-container>
     </div>
     <div class="p-col-4">
       <table id="totaux" style="width:100%">
@@ -135,9 +152,9 @@
     </div>
 
     <div class="p-col-12">
-      <span class="mg-r-5">Règlement à l'ordre de : </span>
+      <strong class="mg-r-5">Règlement à l'ordre de : </strong>
       <span class="mg-r-5">
-            <strong>{{artisan.personne.societe}}</strong>
+            {{artisan.personne.societe}}
           </span>
       <span class="mg-r-5">-</span>
       <span class="mg-r-5">{{artisan.personne.adresse}}</span>
@@ -147,24 +164,7 @@
     </div>
 
 
-    <ng-container *ngIf="isActif(coordonneesBanquaires) && artisanBanque">
 
-      <div class="p-col-12">
-        <span class="mg-r-5">Banque : </span>
-        <span class="mg-r-5">{{artisanBanque.banque}}</span>
-      </div>
-
-      <div class="p-col-12">
-        <span class="mg-r-5">RIB : </span>
-        <span class="mg-r-5">{{artisanBanque.rib}}</span>
-      </div>
-
-
-      <div class="p-col-12">
-        <span class="mg-r-5">IBAN : </span>
-        <span class="mg-r-5">{{artisanBanque.iban}}</span>
-      </div>
-    </ng-container>
 
 
     <div class="p-col-12">
