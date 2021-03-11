@@ -20,6 +20,7 @@ import {AutresServicesComponent} from './components/content/autres-services/autr
 import {MeContacterComponent} from './components/content/me-contacter/me-contacter.component';
 import {ContactMeComponent} from './components/svg/contact-me/contact-me.component';
 import {TooltipModule} from 'primeng/tooltip';
+import {CesuComponent} from './components/svg/cesu/cesu.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import {TooltipModule} from 'primeng/tooltip';
     FooterComponent,
     MeContacterComponent,
     AutresServicesComponent,
-    ContactMeComponent
+    ContactMeComponent,
+    CesuComponent
   ],
   imports: [
     BrowserModule,

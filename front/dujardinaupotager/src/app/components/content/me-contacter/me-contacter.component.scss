@@ -1,0 +1,14 @@
+@import 'variables';
+
+
+a{
+  text-decoration: none;
+  background-color: $color-href;
+  color: white;
+  padding: 8px;
+  border-radius: 4px;
+
+  &:hover{
+    background-color: $color-href-hover;
+  }
+}
