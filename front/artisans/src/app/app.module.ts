@@ -30,7 +30,7 @@ import {StatsComponent} from './pages/stats/stats.component';
 import {CheckboxModule} from 'primeng/checkbox';
 import {TableModule} from 'primeng/table';
 import {RadioButtonModule} from 'primeng/radiobutton';
-import {CrudBanqueComponent} from './components/crud-banque/crud-banque.component';
+import {CrudBanqueComponent} from './components/cruds/banque/crud-banque.component';
 import {DialogModule} from 'primeng/dialog';
 import {InputMaskModule} from 'primeng/inputmask';
 

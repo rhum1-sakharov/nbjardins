@@ -22,6 +22,9 @@ export * from './lib/models/model';
 
 export * from './lib/constants/constants';
 export * from './lib/enums/e-modele-option';
+export * from './lib/enums/e-crud-mode';
+
+export * from './lib/crud/abstract-crud';
 
 export * from './lib/techniques/http.service';
 export * from './lib/techniques/loading.service';
