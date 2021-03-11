@@ -1,0 +1,95 @@
+@import 'variables';
+
+.menu {
+  height: 140px;
+  background-color: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 997;
+  box-shadow: 0 0 4px rgb(0 0 0 / 25%);
+  border-bottom: 1px solid $color-border;
+  display: flex;
+  align-items: center;
+
+}
+
+.logo{
+  height:140px;
+}
+
+.me-contacter{
+
+  position: relative;
+  top:10px;
+  height:120px;
+  line-height: 120px;
+
+
+  &:hover{
+    border-bottom: 3px solid $color-hover;
+  }
+}
+
+.link{
+
+  display: block;
+  height:140px;
+  line-height: 140px;
+
+  &:hover{
+
+    border-bottom: 3px solid $color-hover;
+  }
+
+  &:focus{
+    outline: none;
+  }
+
+}
+
+.routeActive {
+  display: block;
+}
+
+
+.threeBarButton{
+  display: none;
+  height:140px;
+  line-height: 140px;
+
+  &:hover{
+    background-color: $color-hover;
+    color:white;
+  }
+
+  .pi-bars{
+    font-size: 2rem;
+    padding: 1rem;
+  }
+
+}
+
+@media screen and (max-width: 960px) {
+
+
+  .threeBarButton{
+    display: block;
+  }
+
+  .link{
+    display: none;
+  }
+
+
+
+}
+
+@media screen and (max-width: 414px) {
+  .logo{
+    height:70px;
+  }
+}
+
+
