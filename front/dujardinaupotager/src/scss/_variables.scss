@@ -14,6 +14,7 @@ $color-hover: #A5BE79 ;
     .lh-#{$i} {
       line-height: #{$i}px;
     }
+
   }
 
   .ht-#{$i} {
@@ -34,6 +35,22 @@ $color-hover: #A5BE79 ;
 
   .pg-#{$i} {
     padding: #{$i}px;
+  }
+
+  .pg-b-#{$i} {
+    padding-bottom: #{$i}px;
+  }
+
+  .pg-t-#{$i} {
+    padding-top: #{$i}px;
+  }
+
+  .pg-l-#{$i} {
+    padding-left: #{$i}px;
+  }
+
+  .pg-r-#{$i} {
+    padding-right: #{$i}px;
   }
 
   .mg-#{$i} {

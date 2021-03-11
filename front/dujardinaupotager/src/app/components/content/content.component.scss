@@ -1,4 +1,21 @@
+@import 'variables';
+
 .content{
   position: absolute;
   top: 140px;
+  width:100%;
+  height : calc(100vh - 140px);
+}
+
+.accroche{
+  height : 200px;
+  background: url('../../../assets/images/entretien-jardin.png') ;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+.rubriques{
+  background-color: white;
+  min-height : calc(100vh - 340px);
 }
