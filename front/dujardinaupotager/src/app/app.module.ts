@@ -21,6 +21,7 @@ import {MeContacterComponent} from './components/content/me-contacter/me-contact
 import {ContactMeComponent} from './components/svg/contact-me/contact-me.component';
 import {TooltipModule} from 'primeng/tooltip';
 import {CesuComponent} from './components/svg/cesu/cesu.component';
+import {CardModule} from 'primeng/card';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import {CesuComponent} from './components/svg/cesu/cesu.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    TooltipModule
+    TooltipModule,
+    CardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

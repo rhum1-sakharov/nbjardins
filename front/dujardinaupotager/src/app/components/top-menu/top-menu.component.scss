@@ -15,35 +15,55 @@
 
 }
 
-.logo{
-  height:140px;
+.logo {
+  height: 140px;
 }
 
-.me-contacter{
+.me-contacter {
 
   position: relative;
-  top:10px;
-  height:120px;
+  top: 10px;
+  height: 120px;
   line-height: 120px;
 
-
-  &:hover{
+  &:hover {
     border-bottom: 3px solid $color-hover;
   }
 }
 
-.link{
+.title1 {
+  font-family: 'Rouge Script', cursive;
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.title2 {
+  font-family: 'Rouge Script', cursive;
+  font-size: 40px;
+  font-weight: bold;
+  color: $color-subtitle;
+  white-space: nowrap;
+}
+
+.title3 {
+  font-family: 'Rouge Script', cursive;
+  font-size: 40px;
+  font-weight: bold;
+  color: $color-subsubtitle;
+}
+
+.link {
 
   display: block;
-  height:140px;
+  height: 140px;
   line-height: 140px;
 
-  &:hover{
+  &:hover {
 
     border-bottom: 3px solid $color-hover;
   }
 
-  &:focus{
+  &:focus {
     outline: none;
   }
 
@@ -53,18 +73,17 @@
   display: block;
 }
 
-
-.threeBarButton{
+.threeBarButton {
   display: none;
-  height:140px;
+  height: 140px;
   line-height: 140px;
 
-  &:hover{
+  &:hover {
     background-color: $color-hover;
-    color:white;
+    color: white;
   }
 
-  .pi-bars{
+  .pi-bars {
     font-size: 2rem;
     padding: 1rem;
   }
@@ -73,22 +92,15 @@
 
 @media screen and (max-width: 960px) {
 
-
-  .threeBarButton{
-    display: block;
-  }
-
-  .link{
+  .link {
     display: none;
   }
-
-
 
 }
 
 @media screen and (max-width: 414px) {
-  .logo{
-    height:70px;
+  .logo {
+    height: 70px;
   }
 }
 

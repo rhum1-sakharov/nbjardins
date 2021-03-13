@@ -12,4 +12,8 @@ export class TopMenuComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  callMe() {
+      window.location.href='tel:06 51 15 88 92';
+      console.log('callMe');
+  }
 }

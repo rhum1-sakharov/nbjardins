@@ -1,80 +1,92 @@
-<div class="p-d-flex p-jc-center  mg-b-40 pg-t-40">
-  <div>
-    <strong class="font-24">Les services que je propose</strong>
+<div class="p-d-flex p-jc-center mg-b-20 pg-20">
+  <div id="services-proposes">
+    <p-card>
+      <ng-template pTemplate="header">
+        <strong class="font-24 pg-20">Les services que je propose</strong>
+      </ng-template>
+      <div class="p-d-flex mg-l-20">
+        <table>
+          <tr>
+            <td>
+              <app-tonte></app-tonte>
+            </td>
+            <td class="pg-30 font-20">
+              tonte et entretien de la pelouse
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-desherbage></app-desherbage>
+            </td>
+            <td class="pg-30 font-20">
+              désherbage (plates-bandes, potagers, allées)
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-taille></app-taille>
+            </td>
+            <td class="pg-30 font-20">
+              taille (haies, rosiers, arbustes)
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-plantation></app-plantation>
+            </td>
+            <td class="pg-30 font-20">
+              plantation (fleurs, arbustes, légumes)
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-leaves-bag></app-leaves-bag>
+            </td>
+            <td class="pg-30 font-20">
+              enlèvement des végétaux, broyage et paillage
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-entretien-piscine></app-entretien-piscine>
+            </td>
+            <td class="pg-30 font-20">
+              entretien de piscine (selon vos conseils)
+            </td>
+          </tr>
+        </table>
+      </div>
+    </p-card>
+  </div>
+
+</div>
+
+<div class="p-d-flex p-jc-center  mg-b-20 pg-20">
+  <div id="type-paiement">
+    <p-card>
+      <ng-template pTemplate="header">
+        <strong class="font-24 pg-20">Type de paiement</strong>
+      </ng-template>
+
+      <div class="p-d-flex mg-l-20">
+        <table>
+          <tr>
+            <td>
+              <app-cesu></app-cesu>
+            </td>
+            <td class="pg-30 font-20">
+              chèque emploi service (CESU)
+            </td>
+          </tr>
+        </table>
+
+      </div>
+
+    </p-card>
   </div>
 </div>
 
-<div class="p-d-flex p-flex-column p-flex-md-row p-jc-center p-flex-wrap text-align-center mg-l-40">
 
-  <div class=" mg-r-40 mg-b-40 ">
-    <div >
-      <app-tonte></app-tonte>
-    </div>
-    <div>
-      Tonte et entretien de la pelouse
-    </div>
-  </div>
-
-  <div class="mg-r-40 mg-b-40">
-    <div class="text-align-center">
-      <app-desherbage></app-desherbage>
-    </div>
-    <div>
-      Désherbage (plates-bandes, potagers, allées)
-    </div>
-  </div>
-
-  <div class="mg-r-40  mg-b-40">
-    <div class="text-align-center">
-      <app-taille></app-taille>
-    </div>
-    <div>
-      Taille (haies, rosiers, arbustes)
-    </div>
-  </div>
-
-  <div class="mg-r-40 mg-b-40">
-    <div class="text-align-center">
-      <app-plantation></app-plantation>
-    </div>
-    <div>
-      Plantation (fleurs, arbustes, légumes)
-    </div>
-  </div>
-
-  <div class="mg-r-40 mg-b-40">
-    <div class="text-align-center">
-      <app-leaves-bag></app-leaves-bag>
-    </div>
-    <div>
-      Enlèvement des végétaux, Broyage / paillage
-    </div>
-  </div>
-
-  <div class="mg-r-40 mg-b-40">
-    <div class="text-align-center">
-      <app-entretien-piscine></app-entretien-piscine>
-    </div>
-    <div>
-      Entretien de piscine (selon vos conseils)
-    </div>
-  </div>
-
-</div>
-
-<div class="p-d-flex  p-jc-center mg-b-20  pg-t-40">
-  <div>
-    <strong class="font-24">Type de paiement</strong>
-  </div>
-</div>
-<div class="p-d-flex  p-jc-center  mg-b-20">
-  <div>
-    chèque emploi service (CESU)
-  </div>
-</div>
-<div class="p-d-flex  p-jc-center  mg-b-40">
-  <app-cesu></app-cesu>
-</div>
 
 
 

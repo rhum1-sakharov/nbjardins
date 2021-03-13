@@ -4,18 +4,27 @@
   position: absolute;
   top: 140px;
   width:100%;
-  height : calc(100vh - 140px);
-}
+  min-height : calc(100vh - 140px);
 
-.accroche{
-  height : 200px;
-  background: url('../../../assets/images/entretien-jardin.png') ;
+  background-image: url('../../../assets/images/logo.png') ;
   background-repeat: no-repeat;
   background-attachment: fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
   background-size: cover;
 }
 
+.accroche{
+  text-align: center;
+  //background-image: url('../../../assets/images/entretien-jardin.png') ;
+  //background-repeat: no-repeat;
+  //background-attachment: fixed;
+  //background-size: cover;
+}
+
 .rubriques{
-  background-color: white;
+  //background-color: $color-background;
   min-height : calc(100vh - 340px);
+  padding-bottom: 40px;
 }
