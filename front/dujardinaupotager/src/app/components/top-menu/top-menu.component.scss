@@ -86,3 +86,18 @@
 }
 
 
+
+.titlePersonne {
+  font-family: 'Suravaram', serif;
+  font-size: 40px;
+  font-weight: bold;
+  color: $color-subtitle;
+}
+
+.titleFonction {
+  font-family: 'Suravaram', serif;
+  font-size: 40px;
+  font-weight: bold;
+  white-space: nowrap;
+  color: $color-subsubtitle;
+}

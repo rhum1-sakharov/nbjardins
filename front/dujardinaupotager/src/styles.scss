@@ -29,7 +29,7 @@ body {
 
 #coordonnees, #rayon-action, #services-proposes, #type-paiement {
   width: 800px;
-  opacity: 0.95;
+  opacity: 1;
 }
 
 @media screen and (max-width: 960px) {
@@ -70,8 +70,7 @@ body {
 }
 
 .title4 {
-  //font-family: 'Rouge Script', cursive;
-  color: $color-subsubtitle;
+  font-family: 'Suravaram', serif;
   font-size: 40px;
   font-weight: bold;
   white-space: nowrap;

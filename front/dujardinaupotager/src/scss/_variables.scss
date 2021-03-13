@@ -7,12 +7,9 @@ $color-href-hover: #ad927b;
 $color-subtitle: #ad927b;
 $color-subsubtitle: #7b3332;
 
-//@font-face {
-//  font-family: "RougeScript";
-//  src: url("../assets/fonts/RougeScript-Regular.ttf") format("ttf");
-//
-//}
+
 @import url('https://fonts.googleapis.com/css2?family=Rouge+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Suravaram&display=swap');
 
 @for $i from 1 through 1000 {
 
