@@ -34,6 +34,8 @@ export * from './lib/techniques/auth/auth.guard';
 export * from './lib/techniques/auth/auth.service';
 export * from './lib/techniques/auth/auth-interceptor.service';
 
+export * from './lib/interfaces/can-save';
+
 
 
 

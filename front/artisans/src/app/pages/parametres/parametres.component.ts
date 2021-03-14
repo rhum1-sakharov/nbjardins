@@ -1,7 +1,8 @@
-import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {
+  CanSave,
   CollectionUtils,
   MArtisan,
   MArtisanBanque,
@@ -15,7 +16,7 @@ import {
   ToasterService,
   Utilisateur
 } from 'rhum1-sakharov-core-lib';
-import {ParametresHttpService} from '../../http/parametres-http.service';
+import {ParametresHttpService} from '../../services/http/parametres-http.service';
 
 
 @Component({
@@ -23,7 +24,7 @@ import {ParametresHttpService} from '../../http/parametres-http.service';
   templateUrl: './parametres.component.html',
   styleUrls: ['./parametres.component.scss']
 })
-export class ParametresComponent implements OnInit, OnDestroy {
+export class ParametresComponent implements OnInit, OnDestroy, CanSave, AfterViewInit {
 
   taxes: MTaxe[] = [];
   conditionsReglements: MConditionReglement[] = [];
@@ -40,16 +41,19 @@ export class ParametresComponent implements OnInit, OnDestroy {
   ];
   selectedPreview = 'devis';
 
+
   coordonneesBanquaires = MODELE_OPTION.COORDONNEES_BANQUAIRES;
   colonneQuantite = MODELE_OPTION.COLONNE_QUANTITE;
   tvaSaisissableParLigne = MODELE_OPTION.TVA_SAISISSABLE_PAR_LIGNE;
 
+  source!: any[];
 
   constructor(public route: ActivatedRoute,
               private toastSvc: ToasterService,
               private cd: ChangeDetectorRef,
               private parametresHttp: ParametresHttpService) {
   }
+
 
   ngOnInit() {
     this.routeSubscription();
@@ -64,7 +68,6 @@ export class ParametresComponent implements OnInit, OnDestroy {
       this.artisanOptionList = data.parametresSupplier.data.artisanOptionFindByEmail;
       this.artisan = data.parametresSupplier.data.artisanFindByEmail as MArtisan;
       this.artisanBanqueList = data.parametresSupplier.data.artisanBanqueFindByEmail;
-
       this.artisanBanque = this.getArtisanBanquePrefere(this.artisanBanqueList) as MArtisanBanque;
 
 
@@ -86,13 +89,13 @@ export class ParametresComponent implements OnInit, OnDestroy {
 
     this.parametresHttp.save(this.artisan, this.artisanOptionList, this.artisanBanqueList).subscribe((response: any) => {
 
-      if(!CollectionUtils.isNoe(response.data.saveArtisanBanqueList)){
+      if (!CollectionUtils.isNoe(response.data.saveArtisanBanqueList)) {
         this.artisanBanqueList = [...response.data.saveArtisanBanqueList];
         this.artisanBanque = this.getArtisanBanquePrefere(this.artisanBanqueList) as MArtisanBanque;
       }
-
       this.toastSvc.showMsg(MSG_KEY.ROOT, MSG_SEVERITY.SUCCESS, 'Paramètres enregistrés avec succès.');
     });
+
   }
 
 
@@ -161,5 +164,13 @@ export class ParametresComponent implements OnInit, OnDestroy {
         }
       }
     }
+  }
+
+  isDirty(): boolean {
+    return true;
+  }
+
+  ngAfterViewInit(): void {
+
   }
 }

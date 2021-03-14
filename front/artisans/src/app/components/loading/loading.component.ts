@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {LoadingService} from '../../services/loading.service';
+import {LoadingService} from '../../services/loading/loading.service';
 import {Observable} from 'rxjs';
 
 @Component({

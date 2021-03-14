@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from '../../../core-lib/projects/core-lib/src/lib/techniques/auth/auth.service';
-import {HttpService, MSG_KEY, MSG_POSITION} from 'rhum1-sakharov-core-lib';
-import {LoadingService} from './services/loading.service';
+import {AuthService, HttpService, MSG_KEY, MSG_POSITION} from 'rhum1-sakharov-core-lib';
+import {LoadingService} from './services/loading/loading.service';
 
 
 @Component({
