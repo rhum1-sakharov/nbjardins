@@ -63,7 +63,7 @@ public class TransactionalAspect {
 
 
         } catch (Throwable throwable) {
-
+            throwable.printStackTrace();
             if (Objects.nonNull(tm)) {
                 tm.rollback(dpm);
             }

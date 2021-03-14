@@ -157,7 +157,8 @@ public class GetAuthorizationUE extends AbstractUsecase {
         ArtisanDN artisan = new ArtisanDN();
 
         if (Objects.isNull(personne)) {
-            artisan.setPersonne(initNewPersonne(authorization));
+            personne = initNewPersonne(authorization);
+            artisan.setPersonne(personne);
         } else {
             artisan.setPersonne(personne);
         }

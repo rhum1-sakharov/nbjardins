@@ -52,6 +52,7 @@ export class ParametresHttpService {
        artisanFindByEmail(email: "${email}"){
           id
           provision
+          emailPro
           siret
           validiteDevisMois     
           logo    
@@ -151,10 +152,11 @@ export class ParametresHttpService {
     let str = `
 
     saveArtisan(artisan:{
-      id: "${artisan.id}",
+      id: "${artisan.id}"
+      emailPro: "${artisan.emailPro}"
         taxe: {
         id: "${artisan.taxe.id}"
-        nom: "${artisan.taxe.nom}"
+        nom: "${artisan.taxe.nom}"        
         taux: ${artisan.taxe.taux}
           }
       conditionDeReglement: {

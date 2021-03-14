@@ -14,6 +14,7 @@ export class MArtisan extends Model {
   siret: string = '';
   validiteDevisMois: number = 1;
   signature: string = '';
+  emailPro : string='';
 
 
 }
