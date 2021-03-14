@@ -38,7 +38,6 @@ public class TransactionalAspect {
         TransactionManagerPT tm = null;
 
         try {
-            LOG.debug("TransactionalAspect's aroundAdvice's body is now executed Before yourMethodAround is called.");
 
             tm = getInstanceOfTm(joinPoint);
             int indexDpmArg = Precondition.getIndexClassType(parameterTypes, DataProviderManager.class);
@@ -71,8 +70,6 @@ public class TransactionalAspect {
             throw throwable;
 
         } finally {
-
-            LOG.debug("TransactionalAspect's aroundAdvice's body is now executed After yourMethodAround is called.");
 
             if (Objects.nonNull(tm)) {
                 tm.close(dpm);
