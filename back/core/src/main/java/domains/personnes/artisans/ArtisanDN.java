@@ -23,5 +23,6 @@ public class ArtisanDN extends Domain {
     private ApplicationDN application;
     private String siret;
     private int validiteDevisMois;
+    private String emailPro;
 
 }

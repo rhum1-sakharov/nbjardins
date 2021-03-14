@@ -176,6 +176,7 @@ public class GetAuthorizationUE extends AbstractUsecase {
             artisan.setValiditeDevisMois(artisanDb.getValiditeDevisMois());
             artisan.setConditionDeReglement(artisanDb.getConditionDeReglement());
             artisan.setTaxe(artisanDb.getTaxe());
+            artisan.setEmailPro(artisanDb.getEmailPro());
         }
         // creation
         else {
@@ -188,8 +189,7 @@ public class GetAuthorizationUE extends AbstractUsecase {
             List<TaxeDN> taxeList = findAllTaxeUE.execute(dpm);
             artisan.setTaxe(taxeList.get(0));
             artisan.setApplication(null);
-
-
+            artisan.setEmailPro(personne.getEmail());
         }
 
         map.put(IS_CREATION, creation);

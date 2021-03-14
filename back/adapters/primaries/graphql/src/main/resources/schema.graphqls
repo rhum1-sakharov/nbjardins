@@ -53,6 +53,7 @@ input ArtisanInput{
     siret: String
     validiteDevisMois: Int
     personne : PersonneInput
+    emailPro: String
 }
 
 type Deleted{
@@ -106,6 +107,7 @@ type Artisan {
     siret: String
     validiteDevisMois: Int
     personne : Personne
+    emailPro : String
 }
 
 type ArtisanBanque{

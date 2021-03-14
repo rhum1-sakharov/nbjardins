@@ -61,5 +61,21 @@
         </comment>
     </changeSet>
 
+    <changeSet id="202103141442" author="rvl">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="artisans" columnName="EMAIL_PRO"></columnExists>
+            </not>
+        </preConditions>
+        <sql>
+            ALTER TABLE `artisans`
+            ADD COLUMN `EMAIL_PRO` VARCHAR(50) NOT NULL AFTER `ID_CONDITION_DE_REGLEMENT`;
+
+        </sql>
+        <comment>
+            Ajout de la colonne email_pro sur artisans
+        </comment>
+    </changeSet>
+
 
 </databaseChangeLog>

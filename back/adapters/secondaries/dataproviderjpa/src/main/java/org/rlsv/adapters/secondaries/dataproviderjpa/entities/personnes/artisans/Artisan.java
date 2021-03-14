@@ -32,6 +32,9 @@ public class Artisan extends org.rlsv.adapters.secondaries.dataproviderjpa.entit
     @JoinColumn(name = "ID_CONDITION_DE_REGLEMENT")
     private ConditionDeReglement conditionDeReglement;
 
+    @Column(name="EMAIL_PRO")
+    private String emailPro;
+
     @Column(name="LOGO")
     private String logo;
 
