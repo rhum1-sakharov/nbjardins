@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import static localizations.MessageKeys.SERVER_ERROR;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -33,7 +31,7 @@ public class Precondition {
         }
 
         if (isError) {
-            throw new TechnicalException(sb.toString(), null, SERVER_ERROR, new String[]{""});
+            throw new TechnicalException(sb.toString());
         }
 
     }

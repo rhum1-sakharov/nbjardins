@@ -5,6 +5,7 @@ import exceptions.PersistenceException;
 import transactions.DataProviderManager;
 
 import java.util.Date;
+import java.util.List;
 
 public interface DevisRepoPT {
 
@@ -14,4 +15,5 @@ public interface DevisRepoPT {
 
     Long existsNumeroDevis(DataProviderManager dpm,String numeroDevis);
 
+    List<DevisDN> findByEmailArtisan(DataProviderManager dpm, String email);
 }
