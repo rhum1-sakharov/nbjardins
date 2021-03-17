@@ -1,6 +1,7 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.repositories.devis;
 
 import domains.devis.DevisDN;
+import enums.STATUT_DEVIS;
 import exceptions.PersistenceException;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.devis.Devis;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.personnes.artisans.Artisan;
@@ -112,5 +113,15 @@ public class DevisRepoAR extends RepoAR implements DevisRepoPT {
 
         return DevisMapper.INSTANCE.entitiesToDomains(devisList);
 
+    }
+
+    @Override
+    public Integer deleteById(DataProviderManager dpm, String idDevis) {
+        return null;
+    }
+
+    @Override
+    public DevisDN changeStatus(DataProviderManager dpm, String idDevis, STATUT_DEVIS statutDevis) {
+        return null;
     }
 }

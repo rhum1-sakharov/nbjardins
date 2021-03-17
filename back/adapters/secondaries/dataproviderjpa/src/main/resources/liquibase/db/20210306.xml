@@ -77,5 +77,20 @@
         </comment>
     </changeSet>
 
+    <changeSet id="202103172127" author="rvl">
+        <preConditions onFail="MARK_RAN">
+                <columnExists tableName="devis" columnName="STATUT"></columnExists>
+        </preConditions>
+        <sql>
+           delete from devis;
+            ALTER TABLE `devis`
+            CHANGE COLUMN `STATUT` `STATUT` ENUM('A_TRAITER','TRAITE','ACCEPTE','REFUSE','ABANDON') NOT NULL COLLATE 'utf8_general_ci' AFTER `MESSAGE`;
+
+        </sql>
+        <comment>
+            modification des statuts d'un devis
+        </comment>
+    </changeSet>
+
 
 </databaseChangeLog>

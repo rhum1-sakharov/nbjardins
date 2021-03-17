@@ -21,9 +21,9 @@ import static localizations.MessageKeys.PARAMETRE_DEVIS_OBLIGATOIRE;
 
 
 @RunWith(MockitoJUnitRunner.class)
-public class GenererDevisPdfUETest {
+public class GenerateDevisPdfUETest {
 
-    GenererDevisPdfUE genererDevisPdfUE;
+    GenerateDevisPdfUE generateDevisPdfUE;
     Locale locale;
     ApplicationDN application;
 
@@ -45,7 +45,7 @@ public class GenererDevisPdfUETest {
 
         application = new ApplicationDN();
 
-        genererDevisPdfUE = new GenererDevisPdfUE(localizeService, transactionManager,providerPdf);
+        generateDevisPdfUE = new GenerateDevisPdfUE(localizeService, transactionManager,providerPdf);
 
     }
 
@@ -56,7 +56,7 @@ public class GenererDevisPdfUETest {
     @Test
     public void execute_should_have_parameter_devis() throws Exception {
 
-        genererDevisPdfUE.execute(initDevis());
+        generateDevisPdfUE.execute(initDevis());
 
     }
 
@@ -65,7 +65,7 @@ public class GenererDevisPdfUETest {
     @Test
     public void execute_should_return_bytearrayoutputstream_in_response_body() throws Exception {
 
-        ByteArrayOutputStream baos= genererDevisPdfUE.execute(initDevis());
+        ByteArrayOutputStream baos= generateDevisPdfUE.execute(initDevis());
 
         Assertions.assertThat(baos).isInstanceOf(ByteArrayOutputStream.class);
 

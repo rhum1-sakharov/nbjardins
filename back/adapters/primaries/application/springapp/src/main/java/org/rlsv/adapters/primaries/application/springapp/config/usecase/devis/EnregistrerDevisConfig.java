@@ -5,17 +5,17 @@ import org.springframework.context.annotation.Configuration;
 import ports.localization.LocalizeServicePT;
 import ports.repositories.devis.DevisRepoPT;
 import ports.transactions.TransactionManagerPT;
-import usecases.devis.EnregistrerUE;
+import usecases.devis.SaveDevisUE;
 
 @Configuration
 public class EnregistrerDevisConfig {
 
     @Bean
-    public EnregistrerUE enregistrerUE(LocalizeServicePT localizeService,
-                                    TransactionManagerPT transactionManager,
-                                    DevisRepoPT devisRepo
+    public SaveDevisUE enregistrerUE(LocalizeServicePT localizeService,
+                                     TransactionManagerPT transactionManager,
+                                     DevisRepoPT devisRepo
     ) {
-        return new EnregistrerUE(localizeService, transactionManager, devisRepo);
+        return new SaveDevisUE(localizeService, transactionManager, devisRepo);
     }
 
 

@@ -9,11 +9,11 @@ import ports.transactions.TransactionManagerPT;
 import transactions.DataProviderManager;
 import usecases.AbstractUsecase;
 
-public class EnregistrerUE extends AbstractUsecase {
+public class SaveDevisUE extends AbstractUsecase {
 
     DevisRepoPT devisRepo;
 
-    public EnregistrerUE(LocalizeServicePT localizeService, TransactionManagerPT transactionManager, DevisRepoPT devisRepo) {
+    public SaveDevisUE(LocalizeServicePT localizeService, TransactionManagerPT transactionManager, DevisRepoPT devisRepo) {
         super(localizeService, transactionManager);
         this.devisRepo = devisRepo;
     }

@@ -1,6 +1,7 @@
 package ports.repositories.devis;
 
 import domains.devis.DevisDN;
+import enums.STATUT_DEVIS;
 import exceptions.PersistenceException;
 import transactions.DataProviderManager;
 
@@ -16,4 +17,8 @@ public interface DevisRepoPT {
     Long existsNumeroDevis(DataProviderManager dpm,String numeroDevis);
 
     List<DevisDN> findByEmailArtisan(DataProviderManager dpm, String email);
+
+    Integer deleteById(DataProviderManager dpm, String idDevis);
+
+    DevisDN changeStatus(DataProviderManager dpm, String idDevis, STATUT_DEVIS statutDevis);
 }

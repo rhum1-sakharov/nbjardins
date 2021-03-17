@@ -7,7 +7,7 @@ import ports.localization.LocalizeServicePT;
 import ports.mails.MailDevisServicePT;
 import ports.transactions.TransactionManagerPT;
 import usecases.devis.DemandeDeDevisUE;
-import usecases.devis.EnregistrerUE;
+import usecases.devis.SaveDevisUE;
 import usecases.personnes.artisans.FindByApplicationTokenUE;
 import usecases.personnes.artisans.FindByEmailUE;
 import usecases.personnes.artisans.banques.FindByEmailAndPrefereUE;
@@ -37,7 +37,7 @@ public class DemandeDevisConfig {
                                           FindTauxByEmailArtisanUE findTauxByEmailArtisanUE,
                                           FindConditionByEmailArtisanUE findConditionByEmailArtisanUE,
                                           FindByEmailAndPrefereUE findByEmailAndPrefereUE,
-                                          EnregistrerUE enregistrerDevisUE
+                                          SaveDevisUE enregistrerDevisUE
 
 
     ) {

@@ -49,7 +49,7 @@ public class DemandeDeDevisUE extends AbstractUsecase {
     private final FindTauxByEmailArtisanUE findTauxByEmailArtisanUE;
     private final FindConditionByEmailArtisanUE findConditionByEmailArtisanUE;
     private final FindByEmailAndPrefereUE findByEmailAndPrefereUE;
-    private final EnregistrerUE enregistrerDevisUE;
+    private final SaveDevisUE enregistrerDevisUE;
 
 
     public DemandeDeDevisUE(TransactionManagerPT transactionManager,
@@ -62,7 +62,7 @@ public class DemandeDeDevisUE extends AbstractUsecase {
                             FindTauxByEmailArtisanUE findTauxByEmailArtisanUE,
                             FindConditionByEmailArtisanUE findConditionByEmailArtisanUE,
                             FindByEmailAndPrefereUE findByEmailAndPrefereUE,
-                            EnregistrerUE enregistrerDevisUE
+                            SaveDevisUE enregistrerDevisUE
     ) {
         super(localizeService, transactionManager);
         this.mailDevisService = mailDevisService;
@@ -168,7 +168,7 @@ public class DemandeDeDevisUE extends AbstractUsecase {
             devis.setValiditeDevisMois(artisan.getValiditeDevisMois());
 
             // statut
-            devis.setStatut(STATUT_DEVIS.DEMANDE);
+            devis.setStatut(STATUT_DEVIS.A_TRAITER);
 
             // numero devis
             String numeroDevis = getUniqueCodeUE.execute(dpm, UNIQUE_CODE.NUMERO_DEVIS);

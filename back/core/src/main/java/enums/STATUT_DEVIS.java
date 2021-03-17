@@ -3,11 +3,11 @@ package enums;
 import lombok.Getter;
 
 public enum STATUT_DEVIS {
-    DEMANDE("DEMANDE"),
-    TRAITEMENT_EN_COURS("TRAITEMENT_EN_COURS"),
-    ENVOYE("ENVOYE"),
-    PERDU("PERDU"),
-    GAGNE("GAGNE");
+    A_TRAITER("A_TRAITER"),
+    TRAITE("TRAITE"),
+    ACCEPTE("ACCEPTE"),
+    REFUSE("REFUSE"),
+    ABANDON("ABANDON");
 
     @Getter
     String value;

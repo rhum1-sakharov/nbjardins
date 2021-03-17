@@ -9,12 +9,12 @@ import usecases.AbstractUsecase;
 
 import java.io.ByteArrayOutputStream;
 
-public class GenererDevisPdfUE extends AbstractUsecase {
+public class GenerateDevisPdfUE extends AbstractUsecase {
 
 
     private final ProviderPdfPT providerPdf;
 
-    public GenererDevisPdfUE(LocalizeServicePT localizeService, TransactionManagerPT transactionManager, ProviderPdfPT providerPdf) {
+    public GenerateDevisPdfUE(LocalizeServicePT localizeService, TransactionManagerPT transactionManager, ProviderPdfPT providerPdf) {
         super(localizeService, transactionManager);
         this.providerPdf = providerPdf;
     }
