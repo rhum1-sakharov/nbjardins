@@ -10,6 +10,7 @@ import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.RepoAR;
 import org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence.PersistenceUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ports.localization.LocalizeServicePT;
 import ports.repositories.personnes.PersonneRepoPT;
 import transactions.DataProviderManager;
 
@@ -23,6 +24,10 @@ import static localizations.MessageKeys.JPA_ERREUR_SAUVEGARDE_CLIENT;
 public class PersonneRepoAR extends RepoAR implements PersonneRepoPT {
 
     private static final Logger LOG = LoggerFactory.getLogger(PersonneRepoAR.class);
+
+    public PersonneRepoAR(LocalizeServicePT localizeService) {
+        super(localizeService);
+    }
 
 
     @Override

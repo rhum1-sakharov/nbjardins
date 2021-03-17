@@ -10,6 +10,7 @@ import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.RepoAR;
 import org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence.PersistenceUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ports.localization.LocalizeServicePT;
 import ports.repositories.personnes.PersonneRepoPT;
 import ports.repositories.personnes.roles.PersonneRoleRepoPT;
 import ports.repositories.referentiel.roles.RoleRepoPT;
@@ -30,12 +31,11 @@ public class PersonneRoleRepoAR extends RepoAR implements PersonneRoleRepoPT {
     RoleRepoPT roleRepo;
 
 
-    public PersonneRoleRepoAR(PersonneRepoPT personneRepo, RoleRepoPT roleRepo) {
-        super();
+    public PersonneRoleRepoAR(LocalizeServicePT localizeService, PersonneRepoPT personneRepo, RoleRepoPT roleRepo) {
+        super(localizeService);
         this.personneRepo = personneRepo;
         this.roleRepo = roleRepo;
     }
-
 
     @Override
     public Personne__RoleDN saveRoleClient(DataProviderManager dpm, String idPersonne) throws exceptions.PersistenceException {

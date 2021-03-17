@@ -7,6 +7,7 @@ import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.RepoAR;
 import org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence.PersistenceUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ports.localization.LocalizeServicePT;
 import ports.repositories.referentiel.taxes.TaxeRepoPT;
 import transactions.DataProviderManager;
 
@@ -19,6 +20,10 @@ import java.util.List;
 public class TaxeRepoAR extends RepoAR implements TaxeRepoPT {
 
     private static final Logger LOG = LoggerFactory.getLogger(TaxeRepoAR.class);
+
+    public TaxeRepoAR(LocalizeServicePT localizeService) {
+        super(localizeService);
+    }
 
     @Override
     public BigDecimal findTauxByEmailArtisan(DataProviderManager dpm, String email) {

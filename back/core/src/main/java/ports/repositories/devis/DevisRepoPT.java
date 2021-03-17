@@ -18,7 +18,7 @@ public interface DevisRepoPT {
 
     List<DevisDN> findByEmailArtisan(DataProviderManager dpm, String email);
 
-    Integer deleteById(DataProviderManager dpm, String idDevis);
+    String deleteById(DataProviderManager dpm, String idDevis);
 
     DevisDN changeStatus(DataProviderManager dpm, String idDevis, STATUT_DEVIS statutDevis);
 }

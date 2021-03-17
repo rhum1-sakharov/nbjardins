@@ -11,6 +11,7 @@ import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.RepoAR;
 import org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence.PersistenceUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ports.localization.LocalizeServicePT;
 import ports.repositories.devis.DevisRepoPT;
 import ports.repositories.personnes.artisans.ArtisanRepoPT;
 import ports.repositories.personnes.clients.ClientRepoPT;
@@ -31,12 +32,11 @@ public class DevisRepoAR extends RepoAR implements DevisRepoPT {
     private ArtisanRepoPT artisanRepo;
     private ClientRepoPT clientRepo;
 
-    public DevisRepoAR(ArtisanRepoPT artisanRepo, ClientRepoPT clientRepo) {
-        super();
+    public DevisRepoAR(LocalizeServicePT localizeService, ArtisanRepoPT artisanRepo, ClientRepoPT clientRepo) {
+        super(localizeService);
         this.artisanRepo = artisanRepo;
         this.clientRepo = clientRepo;
     }
-
 
     @Override
     public DevisDN save(DataProviderManager dpm, DevisDN devis) throws PersistenceException {
@@ -116,7 +116,8 @@ public class DevisRepoAR extends RepoAR implements DevisRepoPT {
     }
 
     @Override
-    public Integer deleteById(DataProviderManager dpm, String idDevis) {
+    public String deleteById(DataProviderManager dpm, String idDevis) {
+
         return null;
     }
 

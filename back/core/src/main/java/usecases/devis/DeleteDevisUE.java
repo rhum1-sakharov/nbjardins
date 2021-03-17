@@ -23,7 +23,7 @@ public class DeleteDevisUE extends AbstractUsecase {
     }
 
     @Transactional
-    public Integer execute(DataProviderManager dpm, String idDevis) throws CleanException {
+    public String execute(DataProviderManager dpm, String idDevis) throws CleanException {
 
         Precondition.validate(
                 Precondition.init(ls.getMsg(ARG_IS_REQUIRED, "id devis"), Objects.nonNull(idDevis))

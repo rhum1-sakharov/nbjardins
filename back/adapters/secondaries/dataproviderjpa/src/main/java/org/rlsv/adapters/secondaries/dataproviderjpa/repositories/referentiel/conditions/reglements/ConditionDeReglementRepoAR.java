@@ -7,6 +7,7 @@ import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.RepoAR;
 import org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence.PersistenceUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ports.localization.LocalizeServicePT;
 import ports.repositories.referentiel.conditions.reglements.ConditionDeReglementRepoPT;
 import transactions.DataProviderManager;
 
@@ -17,6 +18,10 @@ import java.util.List;
 public class ConditionDeReglementRepoAR extends RepoAR implements ConditionDeReglementRepoPT {
 
     private static final Logger LOG = LoggerFactory.getLogger(ConditionDeReglementRepoAR.class);
+
+    public ConditionDeReglementRepoAR(LocalizeServicePT localizeService) {
+        super(localizeService);
+    }
 
 
     @Override

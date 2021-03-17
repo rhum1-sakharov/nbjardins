@@ -9,6 +9,7 @@ import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.RepoAR;
 import org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence.PersistenceUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ports.localization.LocalizeServicePT;
 import ports.repositories.referentiel.roles.RoleRepoPT;
 import transactions.DataProviderManager;
 
@@ -19,6 +20,10 @@ import java.util.List;
 public class RoleRepoAR extends RepoAR implements RoleRepoPT {
 
     private static final Logger LOG = LoggerFactory.getLogger(RoleRepoAR.class);
+
+    public RoleRepoAR(LocalizeServicePT localizeService) {
+        super(localizeService);
+    }
 
 
     @Override

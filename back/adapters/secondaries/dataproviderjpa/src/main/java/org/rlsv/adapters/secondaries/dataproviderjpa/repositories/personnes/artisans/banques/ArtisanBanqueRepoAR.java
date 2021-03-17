@@ -8,6 +8,7 @@ import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.RepoAR;
 import org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence.PersistenceUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ports.localization.LocalizeServicePT;
 import ports.repositories.personnes.artisans.banques.ArtisanBanqueRepoPT;
 import transactions.DataProviderManager;
 
@@ -19,6 +20,10 @@ import java.util.List;
 public class ArtisanBanqueRepoAR extends RepoAR implements ArtisanBanqueRepoPT {
 
     private static final Logger LOG = LoggerFactory.getLogger(ArtisanBanqueRepoAR.class);
+
+    public ArtisanBanqueRepoAR(LocalizeServicePT localizeService) {
+        super(localizeService);
+    }
 
     @Override
     public List<ArtisanBanqueDN> findByEmailAndPrefere(DataProviderManager dpm, String email, boolean prefere) {

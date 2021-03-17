@@ -8,6 +8,7 @@ import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.RepoAR;
 import org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence.PersistenceUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ports.localization.LocalizeServicePT;
 import ports.repositories.personnes.artisans.ArtisanRepoPT;
 import transactions.DataProviderManager;
 
@@ -17,6 +18,10 @@ import javax.persistence.TypedQuery;
 public class ArtisanRepoAR extends RepoAR implements ArtisanRepoPT {
 
     private static final Logger LOG = LoggerFactory.getLogger(ArtisanRepoAR.class);
+
+    public ArtisanRepoAR(LocalizeServicePT localizeService) {
+        super(localizeService);
+    }
 
     @Override
     public ArtisanDN findByEmail(DataProviderManager dpm, String email) {
