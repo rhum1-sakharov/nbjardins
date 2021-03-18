@@ -11,6 +11,7 @@ import org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence.Persisten
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ports.localization.LocalizeServicePT;
+import ports.repositories.RepoPT;
 import transactions.DataProviderManager;
 
 import javax.persistence.EntityManager;
@@ -22,7 +23,7 @@ import java.util.Objects;
 import static localizations.MessageKeys.ARG_IS_REQUIRED;
 import static localizations.MessageKeys.LIST_IS_EMPTY;
 
-public class RepoJpa<D extends Domain, E extends Entity> {
+public class RepoJpa<D extends Domain, E extends Entity> implements RepoPT {
 
     private static final Logger LOG = LoggerFactory.getLogger(RepoJpa.class);
 
@@ -64,9 +65,7 @@ public class RepoJpa<D extends Domain, E extends Entity> {
                 Precondition.init(ls.getMsg(ARG_IS_REQUIRED, "dataProviderManager"), Objects.nonNull(dpm))
         );
 
-        Class<E> entityClass = MapperUtils.mapDomainClassToEntityClass(domainClass);
-
-        List<String> idsDeleted = deleteByIdList(dpm, entityClass, Arrays.asList(id));
+        List<String> idsDeleted = deleteByIdList(dpm, domainClass, Arrays.asList(id));
 
         Precondition.validate(
                 Precondition.init(ls.getMsg(LIST_IS_EMPTY, "ids"), CollectionUtils.isNotEmpty(idsDeleted))
@@ -76,28 +75,7 @@ public class RepoJpa<D extends Domain, E extends Entity> {
         return idsDeleted.get(0);
     }
 
-    public List<String> deleteByIdList(DataProviderManager dpm, Class<E> clazz, List<String> idList) throws TechnicalException {
 
-        Precondition.validate(
-                Precondition.init(ls.getMsg(LIST_IS_EMPTY, "idList"), CollectionUtils.isNotEmpty(idList)),
-                Precondition.init(ls.getMsg(ARG_IS_REQUIRED, "clazz"), Objects.nonNull(clazz)),
-                Precondition.init(ls.getMsg(ARG_IS_REQUIRED, "dataProviderManager"), Objects.nonNull(dpm))
-        );
-
-
-        EntityManager em = PersistenceUtils.getEntityManager(dpm);
-
-        TypedQuery<E> query = em.createQuery("delete from " + clazz.getSimpleName() +
-                " where id in (:idList) ", clazz);
-
-        query.setParameter("idList", idList);
-
-        query.executeUpdate();
-
-        em.flush();
-
-        return idList;
-    }
 
     private E persistOrMerge(EntityManager em, E entity) {
 
@@ -110,5 +88,29 @@ public class RepoJpa<D extends Domain, E extends Entity> {
 
         return entity;
 
+    }
+
+    @Override
+    public List<String> deleteByIdList(DataProviderManager dpm, Class clazz, List idList) throws TechnicalException {
+        Precondition.validate(
+                Precondition.init(ls.getMsg(LIST_IS_EMPTY, "idList"), CollectionUtils.isNotEmpty(idList)),
+                Precondition.init(ls.getMsg(ARG_IS_REQUIRED, "clazz"), Objects.nonNull(clazz)),
+                Precondition.init(ls.getMsg(ARG_IS_REQUIRED, "dataProviderManager"), Objects.nonNull(dpm))
+        );
+
+        EntityManager em = PersistenceUtils.getEntityManager(dpm);
+
+        Class<E> entityClass = MapperUtils.mapDomainClassToEntityClass(clazz);
+
+        TypedQuery<E> query = em.createQuery("delete from " + clazz.getSimpleName() +
+                " where id in (:idList) ", entityClass);
+
+        query.setParameter("idList", idList);
+
+        query.executeUpdate();
+
+        em.flush();
+
+        return idList;
     }
 }
