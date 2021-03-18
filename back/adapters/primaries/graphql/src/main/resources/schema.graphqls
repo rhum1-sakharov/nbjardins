@@ -1,3 +1,5 @@
+scalar Date
+
 schema {
     query: Query
     mutation: Mutation
@@ -10,6 +12,7 @@ type Query {
     artisanBanqueFindByEmailAndPrefere(email: String, prefere: Boolean) : ArtisanBanque
     artisanBanqueFindByEmail(email: String) : [ArtisanBanque!]
     artisanOptionFindByEmail(email: String) : [ArtisanOption!]
+    devisFindByEmailArtisan(email: String) : Devis
 
 }
 
@@ -18,6 +21,7 @@ type Mutation{
     saveArtisanOption (artisanOption: ArtisanOptionInput!): ArtisanOption!
     saveArtisanBanqueList (artisanBanqueList: [ArtisanBanqueInput!]): [ArtisanBanque!]
     removeArtisanBanqueByEmail( email: EmailInput): Deleted
+    saveDevis (devis: DevisInput!): Devis!
 }
 
 input EmailInput{
@@ -84,10 +88,45 @@ input PersonneInput {
     societe: String
 }
 
+input DevisInput{
+
+    id : ID
+    sujet : String
+    message : String
+    numeroDevis : String
+    lieu : String
+    dateDemande : Date
+    dateEnCours : Date
+    dateEnvoye : Date
+    dateCreation : Date
+    totalHT : Float
+    tva : Float
+    remarque : String
+    nota : String
+    conditionDeReglement : String
+    ordre : String
+    statut : STATUT_DEVIS
+    iban : String
+    rib : String
+    logo : String
+    provision : Float
+    signature : String
+    validiteDevisMois : Int
+
+}
+
 enum MODELE_OPTION{
     TVA_SAISISSABLE_PAR_LIGNE
     COLONNE_QUANTITE
     COORDONNEES_BANQUAIRES
+}
+
+enum STATUT_DEVIS{
+    A_TRAITER,
+    TRAITE
+    ACCEPTE
+    REFUSE
+    ABANDON
 }
 
 type ArtisanOption{
@@ -141,4 +180,31 @@ type Taxe {
 type ConditionReglement {
     id : ID
     condition: String
+}
+
+type Devis{
+
+    id : ID
+    sujet : String
+    message : String
+    numeroDevis : String
+    lieu : String
+    dateDemande : Date
+    dateEnCours : Date
+    dateEnvoye : Date
+    dateCreation : Date
+    totalHT : Float
+    tva : Float
+    remarque : String
+    nota : String
+    conditionDeReglement : String
+    ordre : String
+    statut : STATUT_DEVIS
+    iban : String
+    rib : String
+    logo : String
+    provision : Float
+    signature : String
+    validiteDevisMois : Int
+
 }

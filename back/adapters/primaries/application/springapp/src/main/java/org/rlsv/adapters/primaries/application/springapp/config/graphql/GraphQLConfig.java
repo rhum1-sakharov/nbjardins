@@ -3,6 +3,7 @@ package org.rlsv.adapters.primaries.application.springapp.config.graphql;
 import exceptions.CleanException;
 import graphql.GraphQL;
 import org.rlsv.graphql.GraphQLProvider;
+import org.rlsv.graphql.data.fetcher.devis.DevisDataFetcher;
 import org.rlsv.graphql.data.fetcher.personnes.artisans.ArtisanDataFetcher;
 import org.rlsv.graphql.data.fetcher.personnes.artisans.banques.ArtisanBanqueDataFetcher;
 import org.rlsv.graphql.data.fetcher.personnes.artisans.options.ArtisanOptionDataFetcher;
@@ -10,6 +11,10 @@ import org.rlsv.graphql.data.fetcher.referentiel.conditions.reglements.Condition
 import org.rlsv.graphql.data.fetcher.referentiel.taxes.TaxeDataFetcher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import usecases.devis.ChangeStatusDevisUE;
+import usecases.devis.DeleteDevisUE;
+import usecases.devis.FindByEmailArtisanUE;
+import usecases.devis.SaveDevisUE;
 import usecases.personnes.artisans.SaveArtisanUE;
 import usecases.personnes.artisans.banques.FindByEmailAndPrefereUE;
 import usecases.personnes.artisans.banques.RemoveArtisanBanqueByEmailUE;
@@ -33,8 +38,8 @@ public class GraphQLConfig {
     public ArtisanBanqueDataFetcher artisanBanqueDataFetcher(FindByEmailAndPrefereUE findByEmailAndPrefereUE, usecases.personnes.artisans.banques.FindByEmailUE findByEmailUE,
                                                              SaveArtisanBanqueUE saveArtisanBanqueUE,
                                                              RemoveArtisanBanqueByEmailUE removeArtisanBanqueByEmailUE
-                                                             ) {
-        return new ArtisanBanqueDataFetcher(findByEmailAndPrefereUE, findByEmailUE, saveArtisanBanqueUE,removeArtisanBanqueByEmailUE);
+    ) {
+        return new ArtisanBanqueDataFetcher(findByEmailAndPrefereUE, findByEmailUE, saveArtisanBanqueUE, removeArtisanBanqueByEmailUE);
     }
 
     @Bean
@@ -53,17 +58,24 @@ public class GraphQLConfig {
     }
 
     @Bean
+    public DevisDataFetcher getGraphQLDevisDataFetcher(FindByEmailArtisanUE findByEmailArtisanUE, DeleteDevisUE deleteDevisUE, ChangeStatusDevisUE changeStatusDevisUE, SaveDevisUE saveDevisUE) {
+        return new DevisDataFetcher(findByEmailArtisanUE, deleteDevisUE, changeStatusDevisUE, saveDevisUE);
+    }
+
+    @Bean
     public GraphQLProvider getGraphQLProvider(TaxeDataFetcher taxeDataFetcher,
                                               ConditionReglementDataFetcher conditionReglementDataFetcher,
                                               ArtisanDataFetcher artisanDataFetcher,
                                               ArtisanBanqueDataFetcher artisanBanqueDataFetcher,
-                                              ArtisanOptionDataFetcher artisanOptionDataFetcher
+                                              ArtisanOptionDataFetcher artisanOptionDataFetcher,
+                                              DevisDataFetcher devisDataFetcher
     ) throws IOException, CleanException {
         return new GraphQLProvider(taxeDataFetcher,
                 conditionReglementDataFetcher,
                 artisanDataFetcher,
                 artisanBanqueDataFetcher,
-                artisanOptionDataFetcher
+                artisanOptionDataFetcher,
+                devisDataFetcher
         );
     }
 
