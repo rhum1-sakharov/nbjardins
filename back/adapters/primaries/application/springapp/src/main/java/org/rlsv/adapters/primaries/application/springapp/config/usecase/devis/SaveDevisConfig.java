@@ -8,10 +8,10 @@ import ports.transactions.TransactionManagerPT;
 import usecases.devis.SaveDevisUE;
 
 @Configuration
-public class EnregistrerDevisConfig {
+public class SaveDevisConfig {
 
     @Bean
-    public SaveDevisUE enregistrerUE(LocalizeServicePT localizeService,
+    public SaveDevisUE saveDevisUE(LocalizeServicePT localizeService,
                                      TransactionManagerPT transactionManager,
                                      DevisRepoPT devisRepo
     ) {
