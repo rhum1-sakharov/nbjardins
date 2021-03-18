@@ -1,17 +1,30 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.utils.mapper;
 
+import domains.Domain;
 import domains.personnes.artisans.ArtisanBanqueDN;
 import domains.personnes.artisans.ArtisanDN;
 import exceptions.TechnicalException;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
+import org.reflections.Reflections;
+import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Entity;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.personnes.artisans.Artisan;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.personnes.artisans.banques.ArtisanBanque;
 
 import java.util.Optional;
 
+@RunWith(MockitoJUnitRunner.class)
 public class MapperUtilsTest {
+
+    @Mock
+    Reflections reflections;
+
+    @Mock
+    MapperUtils mapperUtils;
 
     @Before
     public void setUp() throws Exception {
@@ -93,5 +106,61 @@ public class MapperUtilsTest {
     }
 
 
+    @Test
+    public void mapEntityClassToDomainClass_should_throw_error_when_arg_is_null() throws TechnicalException {
+
+        final String errMsg = "L'argument entityClass est obligatoire.";
+
+        Assertions.assertThatCode(() -> MapperUtils.mapEntityClassToDomainClass(null))
+                .isInstanceOf(TechnicalException.class)
+                .hasMessageContaining(errMsg);
+    }
+
+    @Test
+    public void mapEntityClassToDomainClass() throws TechnicalException {
+
+        Class<ArtisanDN> clazz = MapperUtils.mapEntityClassToDomainClass(Artisan.class);
+        Assertions.assertThat(clazz).isNotNull();
+        Assertions.assertThat(clazz.getName()).isEqualTo(ArtisanDN.class.getName());
+    }
+
+    @Test
+    public void mapEntityClassToDomainClass_should_throw_error_when_domainClass_is_not_found() throws TechnicalException {
+
+        final String errMsg =  "La classe domain EntityDN est introuvable.";
+
+        Assertions.assertThatCode(() -> MapperUtils.mapEntityClassToDomainClass(Entity.class))
+                .isInstanceOf(TechnicalException.class)
+                .hasMessageContaining(errMsg);
+    }
+
+    @Test
+    public void mapDomainClassToEntityClass() throws TechnicalException {
+
+        Class<Artisan> clazz = MapperUtils.mapDomainClassToEntityClass(ArtisanDN.class);
+        Assertions.assertThat(clazz).isNotNull();
+        Assertions.assertThat(clazz.getName()).isEqualTo(Artisan.class.getName());
+    }
+
+    @Test
+    public void mapDomainClassToEntityClass_should_throw_error_when_arg_is_null() throws TechnicalException {
+
+        final String errMsg = "L'argument domainClass est obligatoire.";
+
+        Assertions.assertThatCode(() -> MapperUtils.mapDomainClassToEntityClass(null))
+                .isInstanceOf(TechnicalException.class)
+                .hasMessageContaining(errMsg);
+    }
+
+
+    @Test
+    public void mapDomainClassToEntityClass_should_throw_error_when_entityClass_is_not_found() throws TechnicalException {
+
+        final String errMsg =  "La classe entity Domain est introuvable.";
+
+        Assertions.assertThatCode(() -> MapperUtils.mapDomainClassToEntityClass(Domain.class))
+                .isInstanceOf(TechnicalException.class)
+                .hasMessageContaining(errMsg);
+    }
 
 }

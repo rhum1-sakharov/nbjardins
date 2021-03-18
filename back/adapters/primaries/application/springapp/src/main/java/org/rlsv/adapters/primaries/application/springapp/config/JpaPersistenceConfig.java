@@ -2,16 +2,16 @@ package org.rlsv.adapters.primaries.application.springapp.config;
 
 import org.rlsv.adapters.secondaries.dataproviderjpa.config.DatabaseConnectionConfig;
 import org.rlsv.adapters.secondaries.dataproviderjpa.config.JtaConfig;
-import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.devis.DevisRepoAR;
-import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.personnes.PersonneRepoAR;
-import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.personnes.artisans.ArtisanRepoAR;
-import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.personnes.artisans.banques.ArtisanBanqueRepoAR;
-import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.personnes.artisans.options.ArtisanOptionRepoAR;
-import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.personnes.clients.ClientRepoAR;
-import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.personnes.roles.PersonneRoleRepoAR;
-import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.referentiel.conditions.reglements.ConditionDeReglementRepoAR;
-import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.referentiel.roles.RoleRepoAR;
-import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.referentiel.taxes.TaxeRepoAR;
+import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.devis.DevisRepoJpa;
+import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.personnes.PersonneRepoJpa;
+import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.personnes.artisans.ArtisanRepoJpa;
+import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.personnes.artisans.banques.ArtisanBanqueRepoJpa;
+import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.personnes.artisans.options.ArtisanOptionRepoJpa;
+import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.personnes.clients.ClientRepoJpa;
+import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.personnes.roles.PersonneRoleRepoJpa;
+import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.referentiel.conditions.reglements.ConditionDeReglementRepoJpa;
+import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.referentiel.roles.RoleRepoJpa;
+import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.referentiel.taxes.TaxeRepoJpa;
 import org.rlsv.adapters.secondaries.dataproviderjpa.transactions.TransactionManagerAR;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -40,26 +40,26 @@ public class JpaPersistenceConfig {
     @Bean
     @DependsOn("databaseConnectionConfig")
     public PersonneRepoPT personneRepoPT() {
-        return new PersonneRepoAR();
+        return new PersonneRepoJpa();
     }
 
     @Bean
     @DependsOn("databaseConnectionConfig")
     public RoleRepoPT roleRepoPT() {
-        return new RoleRepoAR();
+        return new RoleRepoJpa();
     }
 
     @Bean
     @DependsOn("databaseConnectionConfig")
     public DevisRepoPT demandeDeDevisRepoPT(ArtisanRepoPT artisanRepo, ClientRepoPT clientRepo) {
-        return new DevisRepoAR(artisanRepo, clientRepo);
+        return new DevisRepoJpa(artisanRepo, clientRepo);
     }
 
 
     @Bean
     @DependsOn("databaseConnectionConfig")
     public PersonneRoleRepoPT personneRoleRepoPT(PersonneRepoPT personneRepo, RoleRepoPT roleRepo) {
-        return new PersonneRoleRepoAR(personneRepo, roleRepo);
+        return new PersonneRoleRepoJpa(personneRepo, roleRepo);
     }
 
     @Bean
@@ -71,37 +71,37 @@ public class JpaPersistenceConfig {
     @Bean
     @DependsOn("databaseConnectionConfig")
     public ClientRepoPT clientRepoPT() {
-        return new ClientRepoAR();
+        return new ClientRepoJpa();
     }
 
     @Bean
     @DependsOn("databaseConnectionConfig")
     public TaxeRepoPT taxeRepoPT() {
-        return new TaxeRepoAR();
+        return new TaxeRepoJpa();
     }
 
     @Bean
     @DependsOn("databaseConnectionConfig")
     public ArtisanBanqueRepoPT artisanBanqueRepoPT() {
-        return new ArtisanBanqueRepoAR();
+        return new ArtisanBanqueRepoJpa();
     }
 
     @Bean
     @DependsOn("databaseConnectionConfig")
     public ConditionDeReglementRepoPT conditionDeReglementRepoPT() {
-        return new ConditionDeReglementRepoAR();
+        return new ConditionDeReglementRepoJpa();
     }
 
     @Bean
     @DependsOn("databaseConnectionConfig")
     public ArtisanRepoPT artisanRepoPT() {
-        return new ArtisanRepoAR();
+        return new ArtisanRepoJpa();
     }
 
     @Bean
     @DependsOn("databaseConnectionConfig")
     public ArtisanOptionRepoPT artisanOptionRepoPT() {
-        return new ArtisanOptionRepoAR();
+        return new ArtisanOptionRepoJpa();
     }
 
 

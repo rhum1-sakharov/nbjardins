@@ -2,7 +2,7 @@ package org.rlsv.adapters.secondaries.dataproviderjpa.config;
 
 import bitronix.tm.TransactionManagerServices;
 import bitronix.tm.resource.jdbc.PoolingDataSource;
-import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.personnes.clients.ClientRepoAR;
+import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.personnes.clients.ClientRepoJpa;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,7 +20,7 @@ public class JtaConfig {
     public static final String PERSISTENCE_UNIT_RLSV = "PERSISTENCE_UNIT_RLSV";
     private static final String SERVER_ID = "CLEAN_SERVER_1";
 
-    private static final Logger LOG = LoggerFactory.getLogger(ClientRepoAR.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ClientRepoJpa.class);
     protected final PoolingDataSource datasource;
     protected final Context context = new InitialContext();
     private static EntityManagerFactory emf;

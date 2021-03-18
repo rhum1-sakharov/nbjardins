@@ -22,14 +22,14 @@ import java.util.Objects;
 import static localizations.MessageKeys.ARG_IS_REQUIRED;
 import static localizations.MessageKeys.LIST_IS_EMPTY;
 
-public  class RepoAR<D extends Domain, E extends Entity> {
+public class RepoJpa<D extends Domain, E extends Entity> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(RepoAR.class);
+    private static final Logger LOG = LoggerFactory.getLogger(RepoJpa.class);
 
-    protected LocalizeServicePT localizeService;
+    protected LocalizeServicePT ls;
 
-    public RepoAR(LocalizeServicePT localizeService) {
-        this.localizeService = localizeService;
+    public RepoJpa(LocalizeServicePT ls) {
+        this.ls = ls;
     }
 
     private boolean isNew(String id) {
@@ -56,24 +56,34 @@ public  class RepoAR<D extends Domain, E extends Entity> {
         return entity;
     }
 
-    public String deleteById(DataProviderManager dpm, Class<E> clazz, String id) throws TechnicalException {
+    public String deleteById(DataProviderManager dpm, Class<D> domainClass, String id) throws TechnicalException {
 
         Precondition.validate(
-                Precondition.init(localizeService.getMsg(ARG_IS_REQUIRED, "id"), Objects.nonNull(id)),
-                Precondition.init(localizeService.getMsg(ARG_IS_REQUIRED, "clazz"), Objects.nonNull(clazz)),
-                Precondition.init(localizeService.getMsg(ARG_IS_REQUIRED, "dataProviderManager"), Objects.nonNull(dpm))
+                Precondition.init(ls.getMsg(ARG_IS_REQUIRED, "id"), Objects.nonNull(id)),
+                Precondition.init(ls.getMsg(ARG_IS_REQUIRED, "clazz"), Objects.nonNull(domainClass)),
+                Precondition.init(ls.getMsg(ARG_IS_REQUIRED, "dataProviderManager"), Objects.nonNull(dpm))
         );
 
-        List<String> idsDeleted = deleteByIdList(dpm,clazz, Arrays.asList(id));
+        Class<E> entityClass = MapperUtils.mapDomainClassToEntityClass(domainClass);
 
-        if(CollectionUtils.isEmpty(idsDeleted)){
-            throw new TechnicalException(localizeService.getMsg(LIST_IS_EMPTY, "ids"));
-        }
+        List<String> idsDeleted = deleteByIdList(dpm, entityClass, Arrays.asList(id));
+
+        Precondition.validate(
+                Precondition.init(ls.getMsg(LIST_IS_EMPTY, "ids"), CollectionUtils.isNotEmpty(idsDeleted))
+        );
+
 
         return idsDeleted.get(0);
     }
 
-    public List<String> deleteByIdList(DataProviderManager dpm, Class<E> clazz, List<String> idList) {
+    public List<String> deleteByIdList(DataProviderManager dpm, Class<E> clazz, List<String> idList) throws TechnicalException {
+
+        Precondition.validate(
+                Precondition.init(ls.getMsg(LIST_IS_EMPTY, "idList"), CollectionUtils.isNotEmpty(idList)),
+                Precondition.init(ls.getMsg(ARG_IS_REQUIRED, "clazz"), Objects.nonNull(clazz)),
+                Precondition.init(ls.getMsg(ARG_IS_REQUIRED, "dataProviderManager"), Objects.nonNull(dpm))
+        );
+
 
         EntityManager em = PersistenceUtils.getEntityManager(dpm);
 

@@ -13,18 +13,18 @@ import ports.localization.LocalizeServicePT;
 import transactions.DataProviderManager;
 
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 import java.util.Arrays;
+import java.util.Collections;
 
 import static localizations.MessageKeys.ARG_IS_REQUIRED;
 import static localizations.MessageKeys.LIST_IS_EMPTY;
 
 @RunWith(MockitoJUnitRunner.class)
-public class RepoARTest {
+public class RepoJpaTest {
 
 
     @Mock
-    RepoAR repo;
+    RepoJpa repo;
 
 
     @Mock
@@ -36,8 +36,6 @@ public class RepoARTest {
     @Mock
     EntityManager em;
 
-    @Mock
-    TypedQuery<Devis> query;
 
     @Before
     public void setUp() throws Exception {
@@ -45,7 +43,7 @@ public class RepoARTest {
         dpm = new DataProviderManager();
         dpm.setManager(em);
 
-        this.repo.localizeService =this.ls;
+        this.repo.ls =this.ls;
 
 
     }
@@ -93,6 +91,42 @@ public class RepoARTest {
         Assertions.assertThatCode(() -> this.repo.deleteById(dpm, Devis.class, "1"))
                 .isInstanceOf(TechnicalException.class)
                 .hasMessageContaining(errMsg1)
+        ;
+
+        Mockito.when(repo.deleteByIdList(dpm,Devis.class,Arrays.asList("1")))
+                .thenReturn(Collections.emptyList());
+
+        Assertions.assertThatCode(() -> this.repo.deleteById(dpm, Devis.class, "1"))
+                .isInstanceOf(TechnicalException.class)
+                .hasMessageContaining(errMsg1)
+        ;
+
+    }
+
+
+    @Test
+    public void deleteByIdList_should_not_have_null_args() throws TechnicalException {
+
+        final String errMsg1 = "La liste idList est vide.";
+        final String errMsg2 = "L'argument clazz est obligatoire.";
+        final String errMsg3 = "L'argument dataProviderManager est obligatoire.";
+
+        Mockito.when(this.repo.deleteByIdList(null, null, null)).thenCallRealMethod();
+
+        Mockito.when(this.ls.getMsg(LIST_IS_EMPTY, "idList"))
+                .thenReturn(errMsg1);
+
+        Mockito.when(this.ls.getMsg(ARG_IS_REQUIRED, "clazz"))
+                .thenReturn(errMsg2);
+
+        Mockito.when(this.ls.getMsg(ARG_IS_REQUIRED, "dataProviderManager"))
+                .thenReturn(errMsg3);
+
+        Assertions.assertThatCode(() -> this.repo.deleteByIdList(null, null, null))
+                .isInstanceOf(TechnicalException.class)
+                .hasMessageContaining(errMsg1)
+                .hasMessageContaining(errMsg2)
+                .hasMessageContaining(errMsg3)
         ;
 
     }

@@ -4,7 +4,7 @@ import domains.personnes.artisans.ArtisanBanqueDN;
 import exceptions.TechnicalException;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.personnes.artisans.banques.ArtisanBanque;
 import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.personnes.artisans.banques.ArtisanBanqueMapper;
-import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.RepoAR;
+import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.RepoJpa;
 import org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence.PersistenceUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,11 +17,11 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-public class ArtisanBanqueRepoAR extends RepoAR implements ArtisanBanqueRepoPT {
+public class ArtisanBanqueRepoJpa extends RepoJpa implements ArtisanBanqueRepoPT {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ArtisanBanqueRepoAR.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ArtisanBanqueRepoJpa.class);
 
-    public ArtisanBanqueRepoAR(LocalizeServicePT localizeService) {
+    public ArtisanBanqueRepoJpa(LocalizeServicePT localizeService) {
         super(localizeService);
     }
 

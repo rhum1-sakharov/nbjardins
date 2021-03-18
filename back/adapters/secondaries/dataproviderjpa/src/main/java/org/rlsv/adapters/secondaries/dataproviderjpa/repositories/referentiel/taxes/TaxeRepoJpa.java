@@ -3,7 +3,7 @@ package org.rlsv.adapters.secondaries.dataproviderjpa.repositories.referentiel.t
 import domains.referentiel.taxes.TaxeDN;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.referentiel.taxes.Taxe;
 import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.referentiel.taxes.TaxeMapper;
-import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.RepoAR;
+import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.RepoJpa;
 import org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence.PersistenceUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,11 +17,11 @@ import javax.persistence.TypedQuery;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class TaxeRepoAR extends RepoAR implements TaxeRepoPT {
+public class TaxeRepoJpa extends RepoJpa implements TaxeRepoPT {
 
-    private static final Logger LOG = LoggerFactory.getLogger(TaxeRepoAR.class);
+    private static final Logger LOG = LoggerFactory.getLogger(TaxeRepoJpa.class);
 
-    public TaxeRepoAR(LocalizeServicePT localizeService) {
+    public TaxeRepoJpa(LocalizeServicePT localizeService) {
         super(localizeService);
     }
 

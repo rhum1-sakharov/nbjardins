@@ -6,7 +6,7 @@ import org.rlsv.adapters.secondaries.dataproviderjpa.entities.personnes.Personne
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.personnes.roles.Personne__Role;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.referentiel.roles.Role;
 import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.personnes.roles.Personne__RoleMapper;
-import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.RepoAR;
+import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.RepoJpa;
 import org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence.PersistenceUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,15 +23,15 @@ import java.util.Objects;
 
 import static localizations.MessageKeys.JPA_ERREUR_SAUVEGARDE_CLIENT;
 
-public class PersonneRoleRepoAR extends RepoAR implements PersonneRoleRepoPT {
+public class PersonneRoleRepoJpa extends RepoJpa implements PersonneRoleRepoPT {
 
-    private static final Logger LOG = LoggerFactory.getLogger(PersonneRoleRepoAR.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PersonneRoleRepoJpa.class);
 
     PersonneRepoPT personneRepo;
     RoleRepoPT roleRepo;
 
 
-    public PersonneRoleRepoAR(LocalizeServicePT localizeService, PersonneRepoPT personneRepo, RoleRepoPT roleRepo) {
+    public PersonneRoleRepoJpa(LocalizeServicePT localizeService, PersonneRepoPT personneRepo, RoleRepoPT roleRepo) {
         super(localizeService);
         this.personneRepo = personneRepo;
         this.roleRepo = roleRepo;

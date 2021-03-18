@@ -2,6 +2,7 @@ package org.rlsv.adapters.secondaries.dataproviderjpa.utils.mapper;
 
 import domains.Domain;
 import exceptions.TechnicalException;
+import models.Precondition;
 import org.mapstruct.Mapper;
 import org.reflections.Reflections;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Entity;
@@ -9,14 +10,21 @@ import org.rlsv.adapters.secondaries.dataproviderjpa.enums.TypeConvertMapperEnum
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
 public class MapperUtils {
 
     private static final String INSTANCE = "INSTANCE";
+
     private static final String PACKAGE_MAPPERS = "org.rlsv.adapters.secondaries.dataproviderjpa.mappers";
     private static final String SUFFIX_MAPPER = "Mapper";
+
+    private static final String PACKAGE_ENTITIES = "org.rlsv.adapters.secondaries.dataproviderjpa.entities";
+    private static final String PACKAGE_DOMAINS = "domains";
+    private static final String SUFFIX_DOMAIN = "DN";
+
 
     public static <D extends Domain, E extends Entity> D mapEntityToDomain(E entity) throws TechnicalException {
 
@@ -42,6 +50,7 @@ public class MapperUtils {
         }
         throw new TechnicalException(error);
     }
+
 
     public static <D extends Domain, E extends Entity> E mapDomainToEntity(D domain) throws TechnicalException {
 
@@ -69,13 +78,12 @@ public class MapperUtils {
     }
 
 
-
     public static <D extends Domain> Optional<Class<?>> findMapperClassByDomain(D domain) {
         Reflections reflections = new Reflections(PACKAGE_MAPPERS);
         Set<Class<?>> clazzList = reflections.getTypesAnnotatedWith(Mapper.class);
 
         String domainName = domain.getClass().getSimpleName();
-        String mapperName = domainName.endsWith("DN") ? domainName.substring(0, domainName.length() - 2) : domainName;
+        String mapperName = domainName.endsWith(SUFFIX_DOMAIN) ? domainName.substring(0, domainName.length() - 2) : domainName;
 
         Optional<Class<?>> mapper = clazzList.stream().filter(o -> o.getSimpleName().equals(mapperName + SUFFIX_MAPPER))
                 .findFirst();
@@ -94,4 +102,46 @@ public class MapperUtils {
         return mapper;
     }
 
+
+    public static <E extends Entity, D extends Domain> Class<D> mapEntityClassToDomainClass(Class<E> entityClass) throws TechnicalException {
+
+        Precondition.validate(
+                Precondition.init("L'argument entityClass est obligatoire.", Objects.nonNull(entityClass))
+        );
+
+        Reflections reflections = new Reflections(PACKAGE_DOMAINS);
+        Set<Class<? extends Domain>> clazzSet = reflections.getSubTypesOf(Domain.class);
+
+        String domainName = entityClass.getSimpleName() + SUFFIX_DOMAIN;
+
+        final String error = "La classe domain " + domainName + " est introuvable.";
+
+        return (Class<D>) clazzSet.stream()
+                .filter(o -> o.getSimpleName().equals(domainName))
+                .findFirst()
+                .orElseThrow(() -> new TechnicalException(error));
+
+    }
+
+    public static <E extends Entity, D extends Domain> Class<E> mapDomainClassToEntityClass(Class<D> domainClass) throws TechnicalException {
+
+        Precondition.validate(
+                Precondition.init("L'argument domainClass est obligatoire.", Objects.nonNull(domainClass))
+        );
+
+        Reflections reflections = new Reflections(PACKAGE_ENTITIES);
+        Set<Class<? extends Entity>> clazzSet = reflections.getSubTypesOf(Entity.class);
+
+        String domainName = domainClass.getSimpleName();
+        String entityName = domainName.endsWith(SUFFIX_DOMAIN) ? domainName.substring(0, domainName.length() - 2) : domainName;
+
+        final String error = "La classe entity " + entityName + " est introuvable.";
+
+        return (Class<E>) clazzSet.stream()
+                .filter(o -> o.getSimpleName().equals(entityName))
+                .findFirst()
+                .orElseThrow(() -> new TechnicalException(error));
+
+
+    }
 }

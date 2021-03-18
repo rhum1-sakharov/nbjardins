@@ -7,7 +7,7 @@ import org.rlsv.adapters.secondaries.dataproviderjpa.entities.devis.Devis;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.personnes.artisans.Artisan;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.personnes.clients.Client;
 import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.devis.DevisMapper;
-import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.RepoAR;
+import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.RepoJpa;
 import org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence.PersistenceUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,14 +25,14 @@ import java.util.List;
 
 import static localizations.MessageKeys.JPA_ERREUR_SAUVEGARDE_DEMANDEDEDEVIS;
 
-public class DevisRepoAR extends RepoAR implements DevisRepoPT {
+public class DevisRepoJpa extends RepoJpa implements DevisRepoPT {
 
-    private static final Logger LOG = LoggerFactory.getLogger(DevisRepoAR.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DevisRepoJpa.class);
 
     private ArtisanRepoPT artisanRepo;
     private ClientRepoPT clientRepo;
 
-    public DevisRepoAR(LocalizeServicePT localizeService, ArtisanRepoPT artisanRepo, ClientRepoPT clientRepo) {
+    public DevisRepoJpa(LocalizeServicePT localizeService, ArtisanRepoPT artisanRepo, ClientRepoPT clientRepo) {
         super(localizeService);
         this.artisanRepo = artisanRepo;
         this.clientRepo = clientRepo;

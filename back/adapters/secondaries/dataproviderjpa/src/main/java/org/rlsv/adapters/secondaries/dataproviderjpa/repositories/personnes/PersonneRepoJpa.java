@@ -6,7 +6,7 @@ import exceptions.PersistenceException;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.personnes.Personne;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.personnes.roles.Personne__Role;
 import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.personnes.PersonneMapper;
-import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.RepoAR;
+import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.RepoJpa;
 import org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence.PersistenceUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,11 +21,11 @@ import java.util.Objects;
 import static localizations.MessageKeys.CLIENT_ARTISAN_CONFLIT_SAUVEGARDE;
 import static localizations.MessageKeys.JPA_ERREUR_SAUVEGARDE_CLIENT;
 
-public class PersonneRepoAR extends RepoAR implements PersonneRepoPT {
+public class PersonneRepoJpa extends RepoJpa implements PersonneRepoPT {
 
-    private static final Logger LOG = LoggerFactory.getLogger(PersonneRepoAR.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PersonneRepoJpa.class);
 
-    public PersonneRepoAR(LocalizeServicePT localizeService) {
+    public PersonneRepoJpa(LocalizeServicePT localizeService) {
         super(localizeService);
     }
 

@@ -3,7 +3,7 @@ package org.rlsv.adapters.secondaries.dataproviderjpa.repositories.referentiel.c
 import domains.referentiel.condition.reglement.ConditionDeReglementDN;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.referentiel.conditions.reglements.ConditionDeReglement;
 import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.referentiel.conditions.reglements.ConditionDeReglementMapper;
-import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.RepoAR;
+import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.RepoJpa;
 import org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence.PersistenceUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,11 +15,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-public class ConditionDeReglementRepoAR extends RepoAR implements ConditionDeReglementRepoPT {
+public class ConditionDeReglementRepoJpa extends RepoJpa implements ConditionDeReglementRepoPT {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ConditionDeReglementRepoAR.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ConditionDeReglementRepoJpa.class);
 
-    public ConditionDeReglementRepoAR(LocalizeServicePT localizeService) {
+    public ConditionDeReglementRepoJpa(LocalizeServicePT localizeService) {
         super(localizeService);
     }
 

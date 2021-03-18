@@ -5,7 +5,7 @@ import exceptions.PersistenceException;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.personnes.Personne;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.personnes.clients.Client;
 import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.personnes.clients.ClientMapper;
-import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.RepoAR;
+import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.RepoJpa;
 import org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence.PersistenceUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,11 +17,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.Objects;
 
-public class ClientRepoAR extends RepoAR implements ClientRepoPT {
+public class ClientRepoJpa extends RepoJpa implements ClientRepoPT {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ClientRepoAR.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ClientRepoJpa.class);
 
-    public ClientRepoAR(LocalizeServicePT localizeService) {
+    public ClientRepoJpa(LocalizeServicePT localizeService) {
         super(localizeService);
     }
 

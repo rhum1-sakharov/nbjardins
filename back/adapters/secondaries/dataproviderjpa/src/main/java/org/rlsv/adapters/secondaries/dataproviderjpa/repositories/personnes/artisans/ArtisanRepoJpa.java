@@ -4,7 +4,7 @@ import domains.personnes.artisans.ArtisanDN;
 import exceptions.TechnicalException;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.personnes.artisans.Artisan;
 import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.personnes.artisans.ArtisanMapper;
-import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.RepoAR;
+import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.RepoJpa;
 import org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence.PersistenceUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,11 +15,11 @@ import transactions.DataProviderManager;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-public class ArtisanRepoAR extends RepoAR implements ArtisanRepoPT {
+public class ArtisanRepoJpa extends RepoJpa implements ArtisanRepoPT {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ArtisanRepoAR.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ArtisanRepoJpa.class);
 
-    public ArtisanRepoAR(LocalizeServicePT localizeService) {
+    public ArtisanRepoJpa(LocalizeServicePT localizeService) {
         super(localizeService);
     }
 

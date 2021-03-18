@@ -5,7 +5,7 @@ import domains.referentiel.roles.RoleDN;
 import exceptions.PersistenceException;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.referentiel.roles.Role;
 import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.referentiel.roles.RoleMapper;
-import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.RepoAR;
+import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.RepoJpa;
 import org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence.PersistenceUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,11 +17,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-public class RoleRepoAR extends RepoAR implements RoleRepoPT {
+public class RoleRepoJpa extends RepoJpa implements RoleRepoPT {
 
-    private static final Logger LOG = LoggerFactory.getLogger(RoleRepoAR.class);
+    private static final Logger LOG = LoggerFactory.getLogger(RoleRepoJpa.class);
 
-    public RoleRepoAR(LocalizeServicePT localizeService) {
+    public RoleRepoJpa(LocalizeServicePT localizeService) {
         super(localizeService);
     }
 
