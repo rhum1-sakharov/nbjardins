@@ -14,7 +14,6 @@ import org.junit.Test;
 import java.io.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -102,12 +101,12 @@ public class PdfGeneratorARTest {
         DevisDN devis = new DevisDN();
 
         devis.setArtisan(artisan);
-        devis.setClient(client);
+
 
         devis.setValiditeDevisMois(3);
         devis.setNumeroDevis("20201230-001-ABN");
         devis.setLieu(artisan.getPersonne().getVille());
-        devis.setDateEnCours(new Date());
+
         devis.setTva(new BigDecimal(10));
         devis.setSujet("Elagage des arbres de la propriété du 544 chemin de Fontblanque à Mazan");
 
@@ -117,7 +116,7 @@ public class PdfGeneratorARTest {
             List<DevisLigneDN> devisLigneDNList = new ArrayList<>();
             devisLigneDNList.add(devisLigne1);
             devisLigneDNList.add(devisLigne2);
-            devis.setDevisLigneList(devisLigneDNList);
+//            devis.setDevisLigneList(devisLigneDNList);
 
         }
 
@@ -128,8 +127,7 @@ public class PdfGeneratorARTest {
 
         devis.setProvision(new BigDecimal(30));
 
-        devis.setLogo("logo_nb_jardins.png");
-        devis.setSignature("signature_nb_jardins.png");
+
 
 
         return devis;

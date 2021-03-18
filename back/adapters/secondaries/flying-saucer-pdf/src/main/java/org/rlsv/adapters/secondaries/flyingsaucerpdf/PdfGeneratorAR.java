@@ -3,18 +3,15 @@ package org.rlsv.adapters.secondaries.flyingsaucerpdf;
 import com.lowagie.text.DocumentException;
 import domains.devis.DevisDN;
 import exceptions.PdfException;
-import org.apache.commons.collections4.CollectionUtils;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import org.xhtmlrenderer.pdf.ITextRenderer;
 import ports.pdfs.ProviderPdfPT;
-import utils.Utils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.net.URL;
 
 import static localizations.MessageKeys.PDF_GENERATION_ERROR;
@@ -41,21 +38,23 @@ public class PdfGeneratorAR implements ProviderPdfPT {
     @Override
     public ByteArrayOutputStream genererDevisPDF(DevisDN devis) throws PdfException {
 
-        Context context = new Context();
-        context.setVariable("devis", devis);
+//        Context context = new Context();
+//        context.setVariable("devis", devis);
+//
+//        if (CollectionUtils.isNotEmpty(devis.getDevisLigneList())) {
+//            BigDecimal sommeHT = devis.getDevisLigneList().stream().map(item -> item.getMontantHT()).reduce(BigDecimal.ZERO, Utils::add);
+//            context.setVariable("sommeHT", sommeHT);
+//
+//            BigDecimal sommeTVA = sommeHT.multiply(devis.getTva().divide(new BigDecimal(100)));
+//            context.setVariable("sommeTVA", sommeTVA);
+//
+//            context.setVariable("sommeTTC", sommeHT.add(sommeTVA));
+//        }
+//
+//
+//        return processTemplateToPdf(REPORT_DEVIS, RESOURCE_FONT_NUNITO, context);
 
-        if (CollectionUtils.isNotEmpty(devis.getDevisLigneList())) {
-            BigDecimal sommeHT = devis.getDevisLigneList().stream().map(item -> item.getMontantHT()).reduce(BigDecimal.ZERO, Utils::add);
-            context.setVariable("sommeHT", sommeHT);
-
-            BigDecimal sommeTVA = sommeHT.multiply(devis.getTva().divide(new BigDecimal(100)));
-            context.setVariable("sommeTVA", sommeTVA);
-
-            context.setVariable("sommeTTC", sommeHT.add(sommeTVA));
-        }
-
-
-        return processTemplateToPdf(REPORT_DEVIS, RESOURCE_FONT_NUNITO, context);
+        return null;
     }
 
     private ByteArrayOutputStream processTemplateToPdf(String reportName, String fontResource, Context context) throws PdfException {

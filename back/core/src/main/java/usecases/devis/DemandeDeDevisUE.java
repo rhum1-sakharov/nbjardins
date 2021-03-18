@@ -4,14 +4,10 @@ package usecases.devis;
 import aop.Transactional;
 import domains.applications.ApplicationDN;
 import domains.devis.DevisDN;
-import domains.personnes.artisans.ArtisanBanqueDN;
 import domains.personnes.artisans.ArtisanDN;
-import enums.STATUT_DEVIS;
-import enums.UNIQUE_CODE;
 import exceptions.CleanException;
 import exceptions.DemandeDeDevisException;
 import exceptions.MailException;
-import exceptions.PersistenceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ports.localization.LocalizeServicePT;
@@ -27,13 +23,9 @@ import usecases.referentiel.conditions.reglements.FindConditionByEmailArtisanUE;
 import usecases.referentiel.taxes.FindTauxByEmailArtisanUE;
 import usecases.uniquecode.GetUniqueCodeUE;
 
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 import static localizations.MessageKeys.AUCUN_ARTISAN_APPLICATION;
-import static localizations.MessageKeys.SERVER_ERROR;
 
 
 public class DemandeDeDevisUE extends AbstractUsecase {
@@ -87,34 +79,34 @@ public class DemandeDeDevisUE extends AbstractUsecase {
     @Transactional
     public DevisDN execute(DevisDN devis, Locale locale, ApplicationDN application, DataProviderManager dpm) throws CleanException {
 
-        try {
-
-            // recuperer l'artisan et le mettre dans la demande de devis
-            addArtisanToDemandeDeDevis(dpm, application.getToken(), devis);
-
-            // enregistrer le client
-            saveClientUE.execute(dpm, devis.getClient());
-
-
-            //enregistrer la demande de devis
-            saveDemandeDeDevis(dpm, devis);
-
-            // envoyer la demande de devis à l'artisan
-            sendToWorker(application.getNom(), devis);
-
-
-            // envoyer l'accusé réception au client
-            sendAcknowledgementToSender(application.getNom(), devis);
-
-        } catch (DemandeDeDevisException de) {
-            throw new DemandeDeDevisException(de.getMessage(), de, de.getMsgKey());
-        } catch (Exception ex) {
-            throw new DemandeDeDevisException(ex.getMessage(), ex, SERVER_ERROR, new String[]{ex.getMessage()});
-        }
-
-        // ne pas renvoyer l'artisan à l'appelant
-        devis.setArtisan(null);
-
+//        try {
+//
+//            // recuperer l'artisan et le mettre dans la demande de devis
+//            addArtisanToDemandeDeDevis(dpm, application.getToken(), devis);
+//
+//            // enregistrer le client
+//            saveClientUE.execute(dpm, devis.getClient());
+//
+//
+//            //enregistrer la demande de devis
+//            saveDemandeDeDevis(dpm, devis);
+//
+//            // envoyer la demande de devis à l'artisan
+//            sendToWorker(application.getNom(), devis);
+//
+//
+//            // envoyer l'accusé réception au client
+//            sendAcknowledgementToSender(application.getNom(), devis);
+//
+//        } catch (DemandeDeDevisException de) {
+//            throw new DemandeDeDevisException(de.getMessage(), de, de.getMsgKey());
+//        } catch (Exception ex) {
+//            throw new DemandeDeDevisException(ex.getMessage(), ex, SERVER_ERROR, new String[]{ex.getMessage()});
+//        }
+//
+//        // ne pas renvoyer l'artisan à l'appelant
+//        devis.setArtisan(null);
+//
         return devis;
     }
 
@@ -131,60 +123,60 @@ public class DemandeDeDevisUE extends AbstractUsecase {
      * @throws DemandeDeDevisException
      */
     private void saveDemandeDeDevis(DataProviderManager dpm, DevisDN devis) throws Exception {
-        try {
-
-
-            String emailArtisan = devis.getArtisan().getPersonne().getEmail();
-            ArtisanDN artisan = artisanFindByEmailUE.execute(dpm, emailArtisan);
-
-            // tva
-            BigDecimal tva = findTauxByEmailArtisanUE.execute(dpm, emailArtisan);
-            devis.setTva(tva);
-
-
-            Date now = new Date();
-            // date de creation
-            devis.setDateCreation(now);
-            // date demande
-            devis.setDateDemande(now);
-
-            // condition de reglement
-            String conditionReglement = findConditionByEmailArtisanUE.execute(dpm, emailArtisan);
-            devis.setConditionDeReglement(conditionReglement);
-
-            // logo
-            devis.setLogo(artisan.getLogo());
-
-            // lieu
-            devis.setLieu(artisan.getPersonne().getVille());
-
-            // signature
-            devis.setSignature(artisan.getSignature());
-
-            // provision
-            devis.setProvision(artisan.getProvision());
-
-            // validite devis
-            devis.setValiditeDevisMois(artisan.getValiditeDevisMois());
-
-            // statut
-            devis.setStatut(STATUT_DEVIS.A_TRAITER);
-
-            // numero devis
-            String numeroDevis = getUniqueCodeUE.execute(dpm, UNIQUE_CODE.NUMERO_DEVIS);
-            devis.setNumeroDevis(numeroDevis);
-
-            // rib et iban
-            List<ArtisanBanqueDN> artisanBanqueList = findByEmailAndPrefereUE.execute(dpm, emailArtisan, true);
-            devis.setIban(artisanBanqueList.get(0).getIban());
-            devis.setRib(artisanBanqueList.get(0).getRib());
-
-            // enregistrement
-            enregistrerDevisUE.execute(dpm, devis);
-
-        } catch (PersistenceException pe) {
-            throw new DemandeDeDevisException(pe.getMessage(), pe, pe.getMsgKey(), pe.getArgs());
-        }
+//        try {
+//
+//
+//            String emailArtisan = devis.getArtisan().getPersonne().getEmail();
+//            ArtisanDN artisan = artisanFindByEmailUE.execute(dpm, emailArtisan);
+//
+//            // tva
+//            BigDecimal tva = findTauxByEmailArtisanUE.execute(dpm, emailArtisan);
+//            devis.setTva(tva);
+//
+//
+//            Date now = new Date();
+//            // date de creation
+//            devis.setDateCreation(now);
+//            // date demande
+//            devis.setDateDemande(now);
+//
+//            // condition de reglement
+//            String conditionReglement = findConditionByEmailArtisanUE.execute(dpm, emailArtisan);
+//            devis.setConditionDeReglement(conditionReglement);
+//
+//            // logo
+//            devis.setLogo(artisan.getLogo());
+//
+//            // lieu
+//            devis.setLieu(artisan.getPersonne().getVille());
+//
+//            // signature
+//            devis.setSignature(artisan.getSignature());
+//
+//            // provision
+//            devis.setProvision(artisan.getProvision());
+//
+//            // validite devis
+//            devis.setValiditeDevisMois(artisan.getValiditeDevisMois());
+//
+//            // statut
+//            devis.setStatut(STATUT_DEVIS.A_TRAITER);
+//
+//            // numero devis
+//            String numeroDevis = getUniqueCodeUE.execute(dpm, UNIQUE_CODE.NUMERO_DEVIS);
+//            devis.setNumeroDevis(numeroDevis);
+//
+//            // rib et iban
+//            List<ArtisanBanqueDN> artisanBanqueList = findByEmailAndPrefereUE.execute(dpm, emailArtisan, true);
+//            devis.setIban(artisanBanqueList.get(0).getIban());
+//            devis.setRib(artisanBanqueList.get(0).getRib());
+//
+//            // enregistrement
+//            enregistrerDevisUE.execute(dpm, devis);
+//
+//        } catch (PersistenceException pe) {
+//            throw new DemandeDeDevisException(pe.getMessage(), pe, pe.getMsgKey(), pe.getArgs());
+//        }
     }
 
     private void addArtisanToDemandeDeDevis(DataProviderManager dpm, String applicationToken, DevisDN devis) throws DemandeDeDevisException {

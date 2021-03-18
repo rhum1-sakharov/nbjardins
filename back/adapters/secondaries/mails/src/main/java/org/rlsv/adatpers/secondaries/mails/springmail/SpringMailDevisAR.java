@@ -2,8 +2,6 @@ package org.rlsv.adatpers.secondaries.mails.springmail;
 
 import domains.devis.DevisDN;
 import domains.mails.MailDN;
-import domains.personnes.artisans.ArtisanDN;
-import domains.personnes.clients.ClientDN;
 import org.rlsv.adatpers.secondaries.mails.AbstractMail;
 import org.rlsv.adatpers.secondaries.mails.ServerMail;
 import org.slf4j.Logger;
@@ -14,17 +12,15 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.Context;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import ports.localization.LocalizeServicePT;
 import ports.mails.MailDevisServicePT;
 
 import java.nio.charset.StandardCharsets;
-import java.text.MessageFormat;
 import java.util.Properties;
 
-import static localizations.MessageKeys.*;
+import static localizations.MessageKeys.MAIL_ERROR;
 
 
 public class SpringMailDevisAR extends AbstractMail implements MailDevisServicePT {
@@ -87,22 +83,24 @@ public class SpringMailDevisAR extends AbstractMail implements MailDevisServiceP
     public DevisDN sendToWorker(DevisDN devis, String applicationName) throws exceptions.MailException {
 
 
-        ClientDN asker = devis.getClient();
-        ArtisanDN worker = devis.getArtisan();
-        String sujet = localize.getMsg(SUJET_DEVIS) + " " + devis.getSujet();
-
-        return prepareAndSend(devis, asker.getPersonne().getEmail(), worker.getPersonne().getEmail(), TemplateLocation.DEMANDE_DEVIS_TO_WORKER, applicationName, sujet);
+//        ClientDN asker = devis.getClient();
+//        ArtisanDN worker = devis.getArtisan();
+//        String sujet = localize.getMsg(SUJET_DEVIS) + " " + devis.getSujet();
+//
+//        return prepareAndSend(devis, asker.getPersonne().getEmail(), worker.getPersonne().getEmail(), TemplateLocation.DEMANDE_DEVIS_TO_WORKER, applicationName, sujet);
+        return null;
     }
 
     @Override
     public DevisDN sendAcknowledgementToSender(DevisDN devis, String applicationName) throws exceptions.MailException {
 
-        ClientDN asker = devis.getClient();
-        ArtisanDN worker = devis.getArtisan();
-
-        String sujet = MessageFormat.format(localize.getMsg(ACK_DEVIS), applicationName);
-
-        return prepareAndSend(devis, worker.getPersonne().getEmail(), asker.getPersonne().getEmail(), TemplateLocation.ACKNOWLEDGEMENT_DEMANDE_DEVIS_TO_SENDER, applicationName, sujet);
+//        ClientDN asker = devis.getClient();
+//        ArtisanDN worker = devis.getArtisan();
+//
+//        String sujet = MessageFormat.format(localize.getMsg(ACK_DEVIS), applicationName);
+//
+//        return prepareAndSend(devis, worker.getPersonne().getEmail(), asker.getPersonne().getEmail(), TemplateLocation.ACKNOWLEDGEMENT_DEMANDE_DEVIS_TO_SENDER, applicationName, sujet);
+        return null;
     }
 
     private DevisDN prepareAndSend(DevisDN devis, String emailEmetteur, String emailDestinataire, TemplateLocation templateLocation, String application, String sujet) throws exceptions.MailException {
@@ -121,7 +119,7 @@ public class SpringMailDevisAR extends AbstractMail implements MailDevisServiceP
             mailSender.send(messagePreparator);
         } catch (MailException e) {
             LOG.error(e.getMessage());
-            throw new exceptions.MailException(localize.getMsg(MAIL_ERROR),e.getCause(),MAIL_ERROR);
+            throw new exceptions.MailException(localize.getMsg(MAIL_ERROR), e.getCause(), MAIL_ERROR);
         }
 
 
@@ -130,23 +128,24 @@ public class SpringMailDevisAR extends AbstractMail implements MailDevisServiceP
 
     private String buildDemandeDeDevis(DevisDN devisDN, TemplateLocation templateLocation, String application) {
 
-        Context context = new Context();
-        context.setVariable("asker", devisDN.getClient());
-        context.setVariable("worker", devisDN.getArtisan());
-        context.setVariable("application", application);
-        context.setVariable("resourceUrl", serverMail.getResourceUrl());
-
-        switch (templateLocation) {
-
-            case ACKNOWLEDGEMENT_DEMANDE_DEVIS_TO_SENDER:
-                break;
-            case DEMANDE_DEVIS_TO_WORKER:
-                context.setVariable("message", devisDN.getMessage());
-                break;
-            default:
-                break;
-        }
-
-        return templateEngine.process(templateLocation.getHtmlLocation(), context);
+//        Context context = new Context();
+//        context.setVariable("asker", devisDN.getClient());
+//        context.setVariable("worker", devisDN.getArtisan());
+//        context.setVariable("application", application);
+//        context.setVariable("resourceUrl", serverMail.getResourceUrl());
+//
+//        switch (templateLocation) {
+//
+//            case ACKNOWLEDGEMENT_DEMANDE_DEVIS_TO_SENDER:
+//                break;
+//            case DEMANDE_DEVIS_TO_WORKER:
+//                context.setVariable("message", devisDN.getMessage());
+//                break;
+//            default:
+//                break;
+//        }
+//
+//        return templateEngine.process(templateLocation.getHtmlLocation(), context);
+        return null;
     }
 }

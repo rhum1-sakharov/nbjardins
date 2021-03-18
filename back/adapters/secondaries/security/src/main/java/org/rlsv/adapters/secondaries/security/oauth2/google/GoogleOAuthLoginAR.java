@@ -112,7 +112,7 @@ public class GoogleOAuthLoginAR implements ILoginPT {
                     .getSubject();
 
         } catch (JwtException ex) {
-            LOG.error(ex.getMessage(), ex);
+            LOG.error(ex.getMessage());
             throw new LoginException("L'autorisation n'est pas ou plus valide pour le token : " + token, ex, TOKEN_NOT_VALID);
         }
 

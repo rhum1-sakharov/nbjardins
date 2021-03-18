@@ -2,7 +2,6 @@ package domains.devis;
 
 import domains.Domain;
 import domains.personnes.artisans.ArtisanDN;
-import domains.personnes.clients.ClientDN;
 import enums.STATUT_DEVIS;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,7 +9,6 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,33 +17,44 @@ public class DevisDN extends Domain {
 
     ArtisanDN artisan;
 
-//    String artisanEmail;
-//    String artisan
+    String artisanLogo;
+    String artisanSiret;
+    String artisanSociete;
+    String artisanFonction;
+    String artisanAdresse;
+    String artisanVille;
+    String artisanCodePostal;
+    String artisanTelephone;
+    String artisanEmail;
+    String artisanSignature;
 
+    String clientNom;
+    String clientPrenom;
+    String clientAdresse;
+    String clientVille;
+    String clientCodePostal;
+    String clientTelephone;
+    String clientEmail;
+    String clientSignature;
 
-    ClientDN client;
+    Date dateATraiter;
+    Date dateTraite;
+    Date dateRefuse;
+    Date dateAbandon;
 
     String sujet;
-    String message;
     String numeroDevis;
     String lieu;
-    Date dateDemande;
-    Date dateEnCours;
-    Date dateEnvoye;
-    Date dateCreation;
     BigDecimal totalHT;
     BigDecimal tva;
     String remarque;
-    String nota;
     String conditionDeReglement;
     String ordre;
     STATUT_DEVIS statut;
+    String banque;
     String iban;
     String rib;
-    String logo;
     BigDecimal provision;
-    String signature;
-    List<DevisLigneDN> devisLigneList;
     int validiteDevisMois;
 
 }
