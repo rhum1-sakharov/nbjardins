@@ -2,10 +2,7 @@ package org.rlsv.adapters.secondaries.dataproviderjpa.repositories.devis;
 
 import domains.devis.DevisDN;
 import enums.STATUT_DEVIS;
-import exceptions.PersistenceException;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.devis.Devis;
-import org.rlsv.adapters.secondaries.dataproviderjpa.entities.personnes.artisans.Artisan;
-import org.rlsv.adapters.secondaries.dataproviderjpa.entities.personnes.clients.Client;
 import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.devis.DevisMapper;
 import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.RepoJpa;
 import org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence.PersistenceUtils;
@@ -23,8 +20,6 @@ import javax.persistence.TypedQuery;
 import java.util.Date;
 import java.util.List;
 
-import static localizations.MessageKeys.JPA_ERREUR_SAUVEGARDE_DEMANDEDEDEVIS;
-
 public class DevisRepoJpa extends RepoJpa implements DevisRepoPT {
 
     private static final Logger LOG = LoggerFactory.getLogger(DevisRepoJpa.class);
@@ -38,28 +33,6 @@ public class DevisRepoJpa extends RepoJpa implements DevisRepoPT {
         this.clientRepo = clientRepo;
     }
 
-    @Override
-    public DevisDN save(DataProviderManager dpm, DevisDN devis) throws PersistenceException {
-
-        try {
-            EntityManager em = PersistenceUtils.getEntityManager(dpm);
-
-            Devis dd = DevisMapper.INSTANCE.domainToEntity(devis);
-
-            String idArtisan = artisanRepo.findIdByEmail(dpm, devis.getArtisan().getPersonne().getEmail());
-            String idClient = clientRepo.findIdByEmail(dpm, devis.getClient().getPersonne().getEmail());
-
-            dd.setArtisan(em.getReference(Artisan.class, idArtisan));
-            dd.setClient(em.getReference(Client.class, idClient));
-
-            save(dpm, dd);
-
-            return DevisMapper.INSTANCE.entityToDomain(dd);
-        } catch (Exception ex) {
-            LOG.error(ex.getMessage(), ex);
-            throw new PersistenceException(ex.getMessage(), ex, JPA_ERREUR_SAUVEGARDE_DEMANDEDEDEVIS, new String[]{devis.getMessage()});
-        }
-    }
 
     @Override
     public Long countDevisOfMonth(DataProviderManager dpm, Date dateCreation) {
@@ -113,12 +86,6 @@ public class DevisRepoJpa extends RepoJpa implements DevisRepoPT {
 
         return DevisMapper.INSTANCE.entitiesToDomains(devisList);
 
-    }
-
-    @Override
-    public String deleteById(DataProviderManager dpm, String idDevis) {
-
-        return null;
     }
 
     @Override

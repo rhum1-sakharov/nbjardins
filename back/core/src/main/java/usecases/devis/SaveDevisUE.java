@@ -21,6 +21,6 @@ public class SaveDevisUE extends AbstractUsecase {
     @Transactional
     public DevisDN execute(DataProviderManager dpm, DevisDN devis) throws CleanException {
 
-        return devisRepo.save(dpm, devis);
+        return (DevisDN) devisRepo.save(dpm, devis);
     }
 }

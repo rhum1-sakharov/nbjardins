@@ -93,7 +93,7 @@ public class RepoJpa<D extends Domain, E extends Entity> implements RepoPT {
     }
 
     @Override
-    public Domain save(DataProviderManager dpm, Domain domain) throws TechnicalException {
+    public D save(DataProviderManager dpm, Domain domain) throws TechnicalException {
         EntityManager em = PersistenceUtils.getEntityManager(dpm);
 
         E entity = MapperUtils.mapDomainToEntity(domain);

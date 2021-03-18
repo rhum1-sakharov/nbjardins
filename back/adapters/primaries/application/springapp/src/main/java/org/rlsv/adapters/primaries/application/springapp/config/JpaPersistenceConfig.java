@@ -17,6 +17,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.core.env.Environment;
+import ports.localization.LocalizeServicePT;
 import ports.repositories.devis.DevisRepoPT;
 import ports.repositories.personnes.PersonneRepoPT;
 import ports.repositories.personnes.artisans.ArtisanRepoPT;
@@ -39,69 +40,69 @@ public class JpaPersistenceConfig {
 
     @Bean
     @DependsOn("databaseConnectionConfig")
-    public PersonneRepoPT personneRepoPT() {
-        return new PersonneRepoJpa();
+    public PersonneRepoPT personneRepoPT(LocalizeServicePT ls) {
+        return new PersonneRepoJpa(ls);
     }
 
     @Bean
     @DependsOn("databaseConnectionConfig")
-    public RoleRepoPT roleRepoPT() {
-        return new RoleRepoJpa();
+    public RoleRepoPT roleRepoPT(LocalizeServicePT ls) {
+        return new RoleRepoJpa(ls);
     }
 
     @Bean
     @DependsOn("databaseConnectionConfig")
-    public DevisRepoPT demandeDeDevisRepoPT(ArtisanRepoPT artisanRepo, ClientRepoPT clientRepo) {
-        return new DevisRepoJpa(artisanRepo, clientRepo);
+    public DevisRepoPT demandeDeDevisRepoPT(LocalizeServicePT ls,ArtisanRepoPT artisanRepo, ClientRepoPT clientRepo) {
+        return new DevisRepoJpa(ls,artisanRepo, clientRepo);
     }
 
 
     @Bean
     @DependsOn("databaseConnectionConfig")
-    public PersonneRoleRepoPT personneRoleRepoPT(PersonneRepoPT personneRepo, RoleRepoPT roleRepo) {
-        return new PersonneRoleRepoJpa(personneRepo, roleRepo);
+    public PersonneRoleRepoPT personneRoleRepoPT(LocalizeServicePT ls,PersonneRepoPT personneRepo, RoleRepoPT roleRepo) {
+        return new PersonneRoleRepoJpa(ls,personneRepo, roleRepo);
     }
 
     @Bean
     @DependsOn("databaseConnectionConfig")
-    public TransactionManagerPT transactionManagerPT() {
+    public TransactionManagerPT transactionManagerPT(LocalizeServicePT ls) {
         return new TransactionManagerAR();
     }
 
     @Bean
     @DependsOn("databaseConnectionConfig")
-    public ClientRepoPT clientRepoPT() {
-        return new ClientRepoJpa();
+    public ClientRepoPT clientRepoPT(LocalizeServicePT ls) {
+        return new ClientRepoJpa(ls);
     }
 
     @Bean
     @DependsOn("databaseConnectionConfig")
-    public TaxeRepoPT taxeRepoPT() {
-        return new TaxeRepoJpa();
+    public TaxeRepoPT taxeRepoPT(LocalizeServicePT ls) {
+        return new TaxeRepoJpa(ls);
     }
 
     @Bean
     @DependsOn("databaseConnectionConfig")
-    public ArtisanBanqueRepoPT artisanBanqueRepoPT() {
-        return new ArtisanBanqueRepoJpa();
+    public ArtisanBanqueRepoPT artisanBanqueRepoPT(LocalizeServicePT ls) {
+        return new ArtisanBanqueRepoJpa(ls);
     }
 
     @Bean
     @DependsOn("databaseConnectionConfig")
-    public ConditionDeReglementRepoPT conditionDeReglementRepoPT() {
-        return new ConditionDeReglementRepoJpa();
+    public ConditionDeReglementRepoPT conditionDeReglementRepoPT(LocalizeServicePT ls) {
+        return new ConditionDeReglementRepoJpa(ls);
     }
 
     @Bean
     @DependsOn("databaseConnectionConfig")
-    public ArtisanRepoPT artisanRepoPT() {
-        return new ArtisanRepoJpa();
+    public ArtisanRepoPT artisanRepoPT(LocalizeServicePT ls) {
+        return new ArtisanRepoJpa(ls);
     }
 
     @Bean
     @DependsOn("databaseConnectionConfig")
-    public ArtisanOptionRepoPT artisanOptionRepoPT() {
-        return new ArtisanOptionRepoJpa();
+    public ArtisanOptionRepoPT artisanOptionRepoPT(LocalizeServicePT ls) {
+        return new ArtisanOptionRepoJpa(ls);
     }
 
 

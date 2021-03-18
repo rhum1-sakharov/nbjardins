@@ -1,6 +1,7 @@
 package usecases.devis;
 
 import aop.Transactional;
+import domains.devis.DevisDN;
 import exceptions.CleanException;
 import models.Precondition;
 import ports.localization.LocalizeServicePT;
@@ -17,6 +18,7 @@ public class DeleteDevisUE extends AbstractUsecase {
 
     DevisRepoPT devisRepo;
 
+
     public DeleteDevisUE(LocalizeServicePT localizeService, TransactionManagerPT transactionManager, DevisRepoPT devisRepo) {
         super(localizeService, transactionManager);
         this.devisRepo = devisRepo;
@@ -29,6 +31,6 @@ public class DeleteDevisUE extends AbstractUsecase {
                 Precondition.init(ls.getMsg(ARG_IS_REQUIRED, "id devis"), Objects.nonNull(idDevis))
         );
 
-        return devisRepo.deleteById(dpm, idDevis);
+        return devisRepo.deleteById(dpm, DevisDN.class, idDevis);
     }
 }
