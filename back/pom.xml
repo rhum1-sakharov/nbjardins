@@ -27,7 +27,6 @@
         <version.lombok>1.18.16</version.lombok>
         <version.springboot>2.4.0</version.springboot>
         <version.hibernate>5.4.25.Final</version.hibernate>
-        <version.cucumber>6.8.1</version.cucumber>
         <version.liquibase>3.10.3</version.liquibase>
     </properties>
 
@@ -164,19 +163,6 @@
                 <scope>test</scope>
             </dependency>
 
-            <dependency>
-                <groupId>io.cucumber</groupId>
-                <artifactId>cucumber-java8</artifactId>
-                <version>${version.cucumber}</version>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>io.cucumber</groupId>
-                <artifactId>cucumber-junit</artifactId>
-                <version>${version.cucumber}</version>
-                <scope>test</scope>
-            </dependency>
 
             <dependency>
                 <groupId>org.hibernate</groupId>
