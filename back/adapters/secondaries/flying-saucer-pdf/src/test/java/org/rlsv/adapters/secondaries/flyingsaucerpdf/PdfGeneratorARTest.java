@@ -2,7 +2,7 @@ package org.rlsv.adapters.secondaries.flyingsaucerpdf;
 
 import domains.applications.ApplicationDN;
 import domains.devis.DevisDN;
-import domains.devis.DevisLigneDN;
+import domains.devis.lignes.DevisLigneDN;
 import domains.personnes.PersonneDN;
 import domains.personnes.artisans.ArtisanDN;
 import domains.personnes.clients.ClientDN;

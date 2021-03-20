@@ -1,4 +1,4 @@
-package domains.devis;
+package domains.devis.lignes;
 
 import domains.Domain;
 import lombok.AllArgsConstructor;
