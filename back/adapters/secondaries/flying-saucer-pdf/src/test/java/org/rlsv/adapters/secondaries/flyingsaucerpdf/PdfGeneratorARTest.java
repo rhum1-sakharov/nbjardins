@@ -27,7 +27,7 @@ public class PdfGeneratorARTest {
     public void genererDevisPDF(){
 //        ByteArrayOutputStream baos = null;
 //
-//        try (OutputStream os = new FileOutputStream("test-devis.pdf")) {
+//        try (OutputStream os = new FileOutputStream("test-devisATraiter.pdf")) {
 //            baos = pdfGeneratorAR.genererDevisPDF(initDevis(true));
 //            baos.writeTo(os);
 //
@@ -48,7 +48,7 @@ public class PdfGeneratorARTest {
 
 //        ByteArrayOutputStream baos =null;
 //
-//        try (OutputStream os = new FileOutputStream("test-devis-2.pdf")) {
+//        try (OutputStream os = new FileOutputStream("test-devisATraiter-2.pdf")) {
 //            baos = pdfGeneratorAR.genererDevisPDF(initDevis(false));
 //            baos.writeTo(os);
 //
@@ -112,7 +112,7 @@ public class PdfGeneratorARTest {
             List<DevisLigneDN> devisLigneDNList = new ArrayList<>();
             devisLigneDNList.add(devisLigne1);
             devisLigneDNList.add(devisLigne2);
-//            devis.setDevisLigneList(devisLigneDNList);
+//            devisATraiter.setDevisLigneList(devisLigneDNList);
 
         }
 

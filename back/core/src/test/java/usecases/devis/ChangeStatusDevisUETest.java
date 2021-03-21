@@ -40,13 +40,13 @@ public class ChangeStatusDevisUETest {
     @Test
     public void args_should_not_be_null() {
 
-        final String errMsg1 = "L'argument id devis est obligatoire.";
-        final String errMsg2 = "L'argument statut devis est obligatoire.";
+        final String errMsg1 = "L'argument id devisATraiter est obligatoire.";
+        final String errMsg2 = "L'argument statut devisATraiter est obligatoire.";
 
-        Mockito.when(this.ls.getMsg(ARG_IS_REQUIRED, "id devis"))
+        Mockito.when(this.ls.getMsg(ARG_IS_REQUIRED, "id devisATraiter"))
                 .thenReturn(errMsg1);
 
-        Mockito.when(this.ls.getMsg(ARG_IS_REQUIRED, "statut devis"))
+        Mockito.when(this.ls.getMsg(ARG_IS_REQUIRED, "statut devisATraiter"))
                 .thenReturn(errMsg2);
 
         Assertions.assertThatCode(() -> this.usecase.execute(null, null, null))

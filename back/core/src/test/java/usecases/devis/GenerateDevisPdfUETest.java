@@ -40,7 +40,7 @@ public class GenerateDevisPdfUETest {
     public void setUp() throws Exception {
 
         Mockito.when(localizeService.getFrenchLocale()).thenReturn(new Locale("fr", "FR"));
-        Mockito.when(localizeService.getMsg(PARAMETRE_DEVIS_OBLIGATOIRE)).thenReturn("Le paramètre devis est obligatoire");
+        Mockito.when(localizeService.getMsg(PARAMETRE_DEVIS_OBLIGATOIRE)).thenReturn("Le paramètre devisATraiter est obligatoire");
         Mockito.when(providerPdf.genererDevisPDF(initDevis())).thenReturn(new ByteArrayOutputStream());
 
         application = new ApplicationDN();

@@ -13,6 +13,7 @@ import ports.transactions.TransactionManagerPT;
 import transactions.DataProviderManager;
 import usecases.AbstractUsecase;
 import usecases.devis.options.SaveOptionUE;
+import usecases.personnes.artisans.FindByEmailUE;
 
 import java.util.*;
 
@@ -25,23 +26,26 @@ public class CreateDevisATraiterUE extends AbstractUsecase {
 
     SaveDevisUE saveDevisUE;
     SaveOptionUE saveOptionUE;
+    FindByEmailUE findByEmailUE;
 
-    public CreateDevisATraiterUE(LocalizeServicePT ls, TransactionManagerPT transactionManager, SaveDevisUE saveDevisUE, SaveOptionUE saveOptionUE) {
+
+    public CreateDevisATraiterUE(LocalizeServicePT ls, TransactionManagerPT transactionManager, SaveDevisUE saveDevisUE, SaveOptionUE saveOptionUE, FindByEmailUE findByEmailUE) {
         super(ls, transactionManager);
         this.saveDevisUE = saveDevisUE;
         this.saveOptionUE = saveOptionUE;
+        this.findByEmailUE = findByEmailUE;
     }
 
     @Transactional
-    public Map<String, Object> execute(DataProviderManager dpm, String idArtisan) throws CleanException {
+    public Map<String, Object> execute(DataProviderManager dpm, String emailArtisan) throws CleanException {
 
         Precondition.validate(
-                Precondition.init(ls.getMsg(ARG_IS_REQUIRED, "id artisan"), Objects.nonNull(idArtisan))
+                Precondition.init(ls.getMsg(ARG_IS_REQUIRED, "email artisan"), Objects.nonNull(emailArtisan))
         );
 
         Map<String, Object> resultMap = new HashMap<>();
 
-        DevisDN devis = initDevisATraiter(dpm,idArtisan);
+        DevisDN devis = initDevisATraiter(dpm, emailArtisan);
         resultMap.put(DEVIS, devis);
 
 
@@ -55,7 +59,7 @@ public class CreateDevisATraiterUE extends AbstractUsecase {
         return resultMap;
     }
 
-    protected DevisOptionDN initDevisOption(DataProviderManager dpm, DevisDN devis, MODELE_OPTION modeleOption) throws CleanException {
+    private DevisOptionDN initDevisOption(DataProviderManager dpm, DevisDN devis, MODELE_OPTION modeleOption) throws CleanException {
         DevisOptionDN devisOption = new DevisOptionDN();
         devisOption.setActif(true);
         devisOption.setDevis(devis);
@@ -65,20 +69,42 @@ public class CreateDevisATraiterUE extends AbstractUsecase {
         return devisOption;
     }
 
-    protected DevisDN initDevisATraiter(DataProviderManager dpm, String idArtisan) throws CleanException {
+    /**
+     * STATUT A TRAITER
+     * Recuperer infos artisans
+     *
+     * @param dpm
+     * @param emailArtisan
+     * @return
+     * @throws CleanException
+     */
+    private DevisDN initDevisATraiter(DataProviderManager dpm, String emailArtisan) throws CleanException {
 
         DevisDN devis = new DevisDN();
         devis.setStatut(STATUT_DEVIS.A_TRAITER);
-        devis.setArtisan(initArtisan(idArtisan));
+
+        ArtisanDN artisan = findByEmailUE.execute(dpm, emailArtisan);
+        devis.setArtisan(artisan);
+
         devis.setDateATraiter(new Date());
         devis = saveDevisUE.execute(dpm, devis);
+
+        devis.setArtisanAdresse(artisan.getPersonne().getAdresse());
+        devis.setArtisanCodePostal(artisan.getPersonne().getCodePostal());
+        devis.setArtisanEmail(artisan.getEmailPro());
+        devis.setArtisanFonction(artisan.getPersonne().getFonction());
+        devis.setArtisanSiret(artisan.getSiret());
+        devis.setArtisanSociete(artisan.getPersonne().getSociete());
+        devis.setArtisanTelephone(artisan.getPersonne().getNumeroTelephone());
+        devis.setArtisanVille(artisan.getPersonne().getVille());
+
+        devis.setProvision(artisan.getProvision());
+        devis.setConditionDeReglement(artisan.getConditionDeReglement().getCondition());
+
+        devis.setLieu(artisan.getPersonne().getVille());
+        devis.setValiditeDevisMois(artisan.getValiditeDevisMois());
+
+
         return devis;
-    }
-
-
-    private ArtisanDN initArtisan(String idArtisan) {
-        ArtisanDN artisan = new ArtisanDN();
-        artisan.setId(idArtisan);
-        return artisan;
     }
 }

@@ -37,9 +37,9 @@ public class SaveOptionUETest {
     @Test
     public void args_should_not_be_null(){
 
-        final String errMsg = "L'argument devis option est obligatoire.";
+        final String errMsg = "L'argument devisATraiter option est obligatoire.";
 
-        Mockito.when(this.ls.getMsg(ARG_IS_REQUIRED,"devis option"))
+        Mockito.when(this.ls.getMsg(ARG_IS_REQUIRED,"devisATraiter option"))
                 .thenReturn(errMsg);
 
         Assertions.assertThatCode(() -> this.usecase.execute(null, null))

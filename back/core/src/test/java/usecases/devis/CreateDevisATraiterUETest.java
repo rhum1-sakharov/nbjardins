@@ -16,6 +16,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import ports.localization.LocalizeServicePT;
 import ports.transactions.TransactionManagerPT;
 import usecases.devis.options.SaveOptionUE;
+import usecases.personnes.artisans.FindByEmailUE;
 
 import java.util.Calendar;
 import java.util.List;
@@ -24,6 +25,7 @@ import java.util.Map;
 import static localizations.MessageKeys.ARG_IS_REQUIRED;
 import static usecases.devis.CreateDevisATraiterUE.DEVIS;
 import static usecases.devis.CreateDevisATraiterUE.OPTIONS;
+import static usecases.devis.StubsDevis.ARTISAN_EMAIL;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CreateDevisATraiterUETest {
@@ -40,27 +42,34 @@ public class CreateDevisATraiterUETest {
     SaveOptionUE saveOptionUE;
 
     @Mock
+    FindByEmailUE findByEmailUE;
+
+    @Mock
     LocalizeServicePT ls;
 
     DevisDN devis;
 
+
     @Before
     public void setUp() throws Exception {
 
-        usecase = new CreateDevisATraiterUE(ls, transactionManager, saveDevisUE, saveOptionUE);
+        usecase = new CreateDevisATraiterUE(ls, transactionManager, saveDevisUE, saveOptionUE, findByEmailUE);
 
-        Mockito.when(saveDevisUE.execute(Mockito.any(),Mockito.any(DevisDN.class))).thenAnswer(i->i.getArguments()[1]);
-        Mockito.when(saveOptionUE.execute(Mockito.any(),Mockito.any(DevisOptionDN.class))).thenAnswer(i->i.getArguments()[1]);
+        devis = StubsDevis.devisATraiter(StubsDevis.artisan(StubsDevis.personne(), StubsDevis.conditionDeReglement()));
+
+        Mockito.when(saveDevisUE.execute(Mockito.any(), Mockito.any(DevisDN.class))).thenAnswer(i -> i.getArguments()[1]);
+        Mockito.when(saveOptionUE.execute(Mockito.any(), Mockito.any(DevisOptionDN.class))).thenAnswer(i -> i.getArguments()[1]);
+        Mockito.when(findByEmailUE.execute(Mockito.any(), Mockito.anyString())).thenAnswer(i -> devis.getArtisan());
 
     }
 
     @Test
     public void args_should_not_be_null() throws CleanException {
 
-        final String errMsg1 = "L'argument id artisan est obligatoire.";
+        final String errMsg1 = "L'argument email artisan est obligatoire.";
 
 
-        Mockito.when(this.ls.getMsg(ARG_IS_REQUIRED, "id artisan"))
+        Mockito.when(this.ls.getMsg(ARG_IS_REQUIRED, "email artisan"))
                 .thenReturn(errMsg1);
 
 
@@ -73,8 +82,7 @@ public class CreateDevisATraiterUETest {
     public void should_create_devis_with_status_a_traiter() throws CleanException {
 
 
-
-        Map<String, Object> result = usecase.execute(null, "1");
+        Map<String, Object> result = usecase.execute(null, ARTISAN_EMAIL);
         DevisDN devis = (DevisDN) result.get(DEVIS);
 
         Assertions.assertThat(devis).isNotNull();
@@ -85,7 +93,7 @@ public class CreateDevisATraiterUETest {
     @Test
     public void should_create_devis_with_artisan_1() throws CleanException {
 
-        Map<String, Object> result = this.usecase.execute(null, "1");
+        Map<String, Object> result = this.usecase.execute(null, ARTISAN_EMAIL);
         DevisDN devis = (DevisDN) result.get(DEVIS);
 
         Assertions.assertThat(devis).isNotNull();
@@ -99,7 +107,7 @@ public class CreateDevisATraiterUETest {
 
         Calendar calNow = Calendar.getInstance();
 
-        Map<String, Object> result = this.usecase.execute(null, "1");
+        Map<String, Object> result = this.usecase.execute(null, ARTISAN_EMAIL);
         DevisDN devis = (DevisDN) result.get(DEVIS);
 
         Assertions.assertThat(devis).isNotNull();
@@ -117,7 +125,7 @@ public class CreateDevisATraiterUETest {
     @Test
     public void should_create_options_from_artisan_options() throws CleanException {
 
-        Map<String, Object> result = this.usecase.execute(null, "1");
+        Map<String, Object> result = this.usecase.execute(null, ARTISAN_EMAIL);
         List<DevisOptionDN> options = (List<DevisOptionDN>) result.get(OPTIONS);
 
         Assertions.assertThat(options).isNotNull();

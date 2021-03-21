@@ -20,7 +20,7 @@ public class SpringMailDNDevisARTest {
 //        smtpServer = new GreenMail(new ServerSetup(serverMail.getPort(), null, "smtp"));
 //        smtpServer.start();
 
-//        devisDN = new DevisDN("nomEmetteur", "prenomEmetteur", "0699457899", "blelezfz0", "", "", "360 route de londres", null, "[Demande de devis]", "from@test.fr", "to@test.fr", "nbjardins",null,null,null,null,null);
+//        devisDN = new DevisDN("nomEmetteur", "prenomEmetteur", "0699457899", "blelezfz0", "", "", "360 route de londres", null, "[Demande de devisATraiter]", "from@test.fr", "to@test.fr", "nbjardins",null,null,null,null,null);
 
 //        springMailDevisAR = new SpringMailDevisAR(serverMail, null);
     }
