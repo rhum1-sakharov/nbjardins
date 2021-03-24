@@ -1,0 +1,40 @@
+@import 'variables';
+
+.footer{
+  background-color: white;
+  text-align: center;
+  height: 160px;
+  padding: 20px;
+  border-top : 1px solid $color-border;
+  box-shadow: 0 0 4px rgb(0 0 0 / 25%);
+}
+
+a{
+  text-decoration: none;
+  background-color: $color-href;
+  color: white;
+  padding: 8px;
+  border-radius: 4px;
+  border : 1px solid $color-href-hover;
+
+  &:hover{
+    background-color: $color-href-hover;
+  }
+}
+
+.text-contact{
+
+  font-size: 24px;
+}
+
+@media screen and (max-width: 960px) {
+
+  #coordonnees, #rayon-action, #services-proposes, #type-paiement {
+    max-width: 700px;
+  }
+
+  .text-contact{
+    font-size: 16px;
+  }
+
+}

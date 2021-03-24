@@ -71,10 +71,42 @@
 
 }
 
+.titleSite{
+  font-family: 'Rouge Script', cursive;
+  font-size: 60px;
+  font-weight: bold;
+}
+
+.titlePersonne {
+  font-family: 'Suravaram', serif;
+  font-size: 40px;
+  font-weight: bold;
+  color: $color-subtitle;
+  white-space: nowrap;
+}
+
+.titleFonction {
+  font-family: 'Suravaram', serif;
+  font-size: 40px;
+  font-weight: bold;
+  white-space: nowrap;
+  color: $color-subsubtitle;
+}
+
+
+
 @media screen and (max-width: 960px) {
 
   .link {
     display: none;
+  }
+
+  .titleSite{
+    font-size: 30px;
+  }
+
+  .titlePersonne, .titleFonction {
+    font-size: 20px;
   }
 
 }
@@ -85,19 +117,3 @@
   }
 }
 
-
-
-.titlePersonne {
-  font-family: 'Suravaram', serif;
-  font-size: 40px;
-  font-weight: bold;
-  color: $color-subtitle;
-}
-
-.titleFonction {
-  font-family: 'Suravaram', serif;
-  font-size: 40px;
-  font-weight: bold;
-  white-space: nowrap;
-  color: $color-subsubtitle;
-}

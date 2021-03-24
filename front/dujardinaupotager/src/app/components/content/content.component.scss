@@ -1,20 +1,36 @@
 @import 'variables';
 
 .content{
-  position: absolute;
-  top: 140px;
-  width:100%;
-  min-height : calc(100vh - 140px);
 
-  background-image: url('../../../assets/images/logo.png') ;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+  height : calc(100vh - 300px);
+  max-height : calc(100vh - 300px);
+
+  margin: auto;
+  margin-top: 140px;
+  overflow: auto;
+
+
 }
 
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: $color-border;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: $color-href;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: $color-href-hover;
+}
 
 .rubriques{
   //background-color: $color-background;
