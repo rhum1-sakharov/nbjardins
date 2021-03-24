@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {timer} from 'rxjs';
 
 @Component({
   selector: 'app-footer',
@@ -7,9 +8,19 @@ import {Component, OnInit} from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-  constructor() { }
+  comeon = false;
+
+  constructor() {
+  }
 
   ngOnInit(): void {
+
+    const sourceStart$ = timer(6000);
+     const sourceStop$ = timer(18000);
+
+    sourceStart$.subscribe(response => this.comeon = true);
+    sourceStop$.subscribe(response => this.comeon = false);
+
   }
 
 }

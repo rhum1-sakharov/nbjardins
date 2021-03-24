@@ -38,3 +38,23 @@ a{
   }
 
 }
+
+.comeon-disabled{
+  transition-duration: 1s;
+  border: none;
+  box-shadow: none;
+}
+
+.comeon{
+  //transition-duration: 1s;
+  //border: 3px solid $color-href-hover;
+  //box-shadow: 4px 4px 4px rgb(0 0 0 / 25%);
+
+  display: inline-block;
+  margin: 0 0.5rem;
+
+  animation: pulse; /* referring directly to the animation's @keyframe declaration */
+  animation-duration: 1s; /* don't forget to set a duration! */
+  animation-iteration-count: infinite;
+
+}
