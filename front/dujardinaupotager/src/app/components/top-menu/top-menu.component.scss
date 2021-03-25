@@ -95,7 +95,13 @@
   color: $color-subsubtitle;
 }
 
+@media screen and (max-height: 400px) {
 
+  .menu{
+    height:90px;
+  }
+
+}
 
 @media screen and (max-width: 960px) {
 

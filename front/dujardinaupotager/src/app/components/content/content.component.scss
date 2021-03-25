@@ -11,6 +11,16 @@
 
 
 }
+@media screen and (max-height: 400px) {
+
+  .content{
+    height : calc(100vh - 150px);
+    max-height : calc(100vh - 150px);
+    margin-top: 90px;
+  }
+
+}
+
 
 /* width */
 ::-webkit-scrollbar {
