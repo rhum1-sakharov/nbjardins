@@ -17,6 +17,11 @@ a{
   font-size: 24px;
 }
 
+#map {
+  height: 400px;
+  width: 100%;
+}
+
 @media screen and (max-width: 960px) {
 
   #coordonnees, #rayon-action, #services-proposes, #type-paiement {
