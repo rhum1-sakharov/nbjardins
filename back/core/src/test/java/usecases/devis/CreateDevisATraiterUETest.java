@@ -245,5 +245,24 @@ public class CreateDevisATraiterUETest {
 
     }
 
-    // TODO provision, condition reglement
+    @Test
+    public void should_init_provision_with_artisanProvision() throws CleanException {
+
+        Map<String, Object> result = this.usecase.execute(null, ARTISAN_EMAIL);
+        DevisDN devis = (DevisDN) result.get(DEVIS);
+
+        Assertions.assertThat(devis).isNotNull();
+        Assertions.assertThat(devis.getProvision()).isEqualTo(artisan.getProvision());
+    }
+
+    @Test
+    public void should_init_conditionReglement_with_artisanReglement() throws CleanException {
+
+        Map<String, Object> result = this.usecase.execute(null, ARTISAN_EMAIL);
+        DevisDN devis = (DevisDN) result.get(DEVIS);
+
+        Assertions.assertThat(devis).isNotNull();
+        Assertions.assertThat(devis.getConditionDeReglement()).isEqualTo(artisan.getConditionDeReglement().getCondition());
+    }
+
 }
