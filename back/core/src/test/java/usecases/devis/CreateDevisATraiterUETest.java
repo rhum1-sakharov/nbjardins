@@ -23,6 +23,7 @@ import ports.localization.LocalizeServicePT;
 import ports.transactions.TransactionManagerPT;
 import usecases.devis.options.SaveOptionUE;
 import usecases.personnes.artisans.FindByEmailUE;
+import usecases.personnes.artisans.banques.FindByEmailAndPrefereUE;
 
 import java.util.Calendar;
 import java.util.List;
@@ -51,6 +52,9 @@ public class CreateDevisATraiterUETest {
     FindByEmailUE findByEmailUE;
 
     @Mock
+    FindByEmailAndPrefereUE findByEmailAndPrefereUE;
+
+    @Mock
     LocalizeServicePT ls;
 
     DevisDN devis;
@@ -72,7 +76,7 @@ public class CreateDevisATraiterUETest {
     @Before
     public void setUp() throws Exception {
 
-        usecase = new CreateDevisATraiterUE(ls, transactionManager, saveDevisUE, saveOptionUE, findByEmailUE);
+        usecase = new CreateDevisATraiterUE(ls, transactionManager, saveDevisUE, saveOptionUE, findByEmailUE, findByEmailAndPrefereUE);
 
         personneArtisan1 = StubsDevis.personneArtisan1();
         personneClient1 = StubsDevis.personneClient1();
@@ -88,6 +92,7 @@ public class CreateDevisATraiterUETest {
         Mockito.when(saveDevisUE.execute(Mockito.any(), Mockito.any(DevisDN.class))).thenAnswer(i -> i.getArguments()[1]);
         Mockito.when(saveOptionUE.execute(Mockito.any(), Mockito.any(DevisOptionDN.class))).thenAnswer(i -> i.getArguments()[1]);
         Mockito.when(findByEmailUE.execute(Mockito.any(), Mockito.anyString())).thenAnswer(i -> devis.getArtisan());
+        Mockito.when(findByEmailAndPrefereUE.execute(Mockito.any(), Mockito.anyString(),Mockito.anyBoolean())).thenAnswer(i -> artisanBanque);
 
     }
 
@@ -168,7 +173,7 @@ public class CreateDevisATraiterUETest {
     }
 
     @Test
-    public void createDevisATraiterUE_should_not_init_client() throws CleanException {
+    public void should_not_init_client() throws CleanException {
 
         Map<String, Object> result = this.usecase.execute(null, ARTISAN_EMAIL);
         DevisDN devis = (DevisDN) result.get(DEVIS);
@@ -188,7 +193,7 @@ public class CreateDevisATraiterUETest {
     }
 
     @Test
-    public void createDevisATraiterUE_should_init_email_artisan_with_emailpro() throws CleanException {
+    public void should_init_email_artisan_with_emailpro() throws CleanException {
 
         Map<String, Object> result = this.usecase.execute(null, ARTISAN_EMAIL);
         DevisDN devis = (DevisDN) result.get(DEVIS);
@@ -199,23 +204,46 @@ public class CreateDevisATraiterUETest {
     }
 
     @Test
-    public void createDevisATraiterUE_should_init_artisan_with_no_null_value() throws CleanException {
+    public void should_init_artisan() throws CleanException {
 
         Map<String, Object> result = this.usecase.execute(null, ARTISAN_EMAIL);
         DevisDN devis = (DevisDN) result.get(DEVIS);
 
         Assertions.assertThat(devis).isNotNull();
-        Assertions.assertThat(devis.getArtisanEmail()).isNotNull();
-        Assertions.assertThat(devis.getArtisanAdresse()).isNotNull();
-        Assertions.assertThat(devis.getArtisanCodePostal()).isNotNull();
-        Assertions.assertThat(devis.getArtisanFonction()).isNotNull();
-        Assertions.assertThat(devis.getArtisanSiret()).isNotNull();
-        Assertions.assertThat(devis.getArtisanSociete()).isNotNull();
-        Assertions.assertThat(devis.getArtisanTelephone()).isNotNull();
-        Assertions.assertThat(devis.getArtisanVille()).isNotNull();
+        Assertions.assertThat(devis.getArtisanEmail()).isEqualTo(artisan.getEmailPro());
+        Assertions.assertThat(devis.getArtisanAdresse()).isEqualTo(personneArtisan1.getAdresse());
+        Assertions.assertThat(devis.getArtisanCodePostal()).isEqualTo(personneArtisan1.getCodePostal());
+        Assertions.assertThat(devis.getArtisanFonction()).isEqualTo(personneArtisan1.getFonction());
+        Assertions.assertThat(devis.getArtisanSiret()).isEqualTo(artisan.getSiret());
+        Assertions.assertThat(devis.getArtisanSociete()).isEqualTo(personneArtisan1.getSociete());
+        Assertions.assertThat(devis.getArtisanTelephone()).isEqualTo(personneArtisan1.getNumeroTelephone());
+        Assertions.assertThat(devis.getArtisanVille()).isEqualTo(personneArtisan1.getVille());
         Assertions.assertThat(devis.getArtisan()).isNotNull();
+    }
 
+    @Test
+    public void should_init_taxe() throws CleanException {
+
+        Map<String, Object> result = this.usecase.execute(null, ARTISAN_EMAIL);
+        DevisDN devis = (DevisDN) result.get(DEVIS);
+
+        Assertions.assertThat(devis).isNotNull();
+        Assertions.assertThat(devis.getTva()).isEqualTo(taxe.getTaux());
 
     }
 
+    @Test
+    public void should_init_artisanBanque() throws CleanException {
+
+        Map<String, Object> result = this.usecase.execute(null, ARTISAN_EMAIL);
+        DevisDN devis = (DevisDN) result.get(DEVIS);
+
+        Assertions.assertThat(devis).isNotNull();
+        Assertions.assertThat(devis.getRib()).isEqualTo(artisanBanque.getRib());
+        Assertions.assertThat(devis.getIban()).isEqualTo(artisanBanque.getIban());
+        Assertions.assertThat(devis.getBanque()).isEqualTo(artisanBanque.getBanque());
+
+    }
+
+    // TODO provision, condition reglement
 }

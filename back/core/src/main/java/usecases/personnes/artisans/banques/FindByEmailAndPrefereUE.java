@@ -9,8 +9,6 @@ import ports.transactions.TransactionManagerPT;
 import transactions.DataProviderManager;
 import usecases.AbstractUsecase;
 
-import java.util.List;
-
 public class FindByEmailAndPrefereUE extends AbstractUsecase {
 
     ArtisanBanqueRepoPT artisanBanqueRepo;
@@ -21,7 +19,7 @@ public class FindByEmailAndPrefereUE extends AbstractUsecase {
     }
 
     @Transactional
-    public List<ArtisanBanqueDN> execute(DataProviderManager dpm, String email, boolean prefere) throws CleanException {
+    public ArtisanBanqueDN execute(DataProviderManager dpm, String email, boolean prefere) throws CleanException {
 
         return artisanBanqueRepo.findByEmailAndPrefere(dpm, email, prefere);
     }

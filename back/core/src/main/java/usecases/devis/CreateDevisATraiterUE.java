@@ -3,6 +3,7 @@ package usecases.devis;
 import aop.Transactional;
 import domains.devis.DevisDN;
 import domains.devis.options.DevisOptionDN;
+import domains.personnes.artisans.ArtisanBanqueDN;
 import domains.personnes.artisans.ArtisanDN;
 import enums.MODELE_OPTION;
 import enums.STATUT_DEVIS;
@@ -14,6 +15,7 @@ import transactions.DataProviderManager;
 import usecases.AbstractUsecase;
 import usecases.devis.options.SaveOptionUE;
 import usecases.personnes.artisans.FindByEmailUE;
+import usecases.personnes.artisans.banques.FindByEmailAndPrefereUE;
 
 import java.util.*;
 
@@ -26,14 +28,15 @@ public class CreateDevisATraiterUE extends AbstractUsecase {
 
     SaveDevisUE saveDevisUE;
     SaveOptionUE saveOptionUE;
-    FindByEmailUE findByEmailUE;
+    FindByEmailUE artisanfindByEmailUE;
+    FindByEmailAndPrefereUE artisanBanqueFindByEmailAndPrefereUE;
 
-
-    public CreateDevisATraiterUE(LocalizeServicePT ls, TransactionManagerPT transactionManager, SaveDevisUE saveDevisUE, SaveOptionUE saveOptionUE, FindByEmailUE findByEmailUE) {
+    public CreateDevisATraiterUE(LocalizeServicePT ls, TransactionManagerPT transactionManager, SaveDevisUE saveDevisUE, SaveOptionUE saveOptionUE, FindByEmailUE artisanfindByEmailUE, FindByEmailAndPrefereUE artisanBanqueFindByEmailAndPrefereUE) {
         super(ls, transactionManager);
         this.saveDevisUE = saveDevisUE;
         this.saveOptionUE = saveOptionUE;
-        this.findByEmailUE = findByEmailUE;
+        this.artisanfindByEmailUE = artisanfindByEmailUE;
+        this.artisanBanqueFindByEmailAndPrefereUE = artisanBanqueFindByEmailAndPrefereUE;
     }
 
     @Transactional
@@ -83,12 +86,12 @@ public class CreateDevisATraiterUE extends AbstractUsecase {
         DevisDN devis = new DevisDN();
         devis.setStatut(STATUT_DEVIS.A_TRAITER);
 
-        ArtisanDN artisan = findByEmailUE.execute(dpm, emailArtisan);
-        devis.setArtisan(artisan);
+        ArtisanDN artisan = artisanfindByEmailUE.execute(dpm, emailArtisan);
+        ArtisanBanqueDN artisanBanque = artisanBanqueFindByEmailAndPrefereUE.execute(dpm, emailArtisan, true);
 
         devis.setDateATraiter(new Date());
-        devis = saveDevisUE.execute(dpm, devis);
 
+        devis.setArtisan(artisan);
         devis.setArtisanAdresse(artisan.getPersonne().getAdresse());
         devis.setArtisanCodePostal(artisan.getPersonne().getCodePostal());
         devis.setArtisanEmail(artisan.getEmailPro());
@@ -104,8 +107,17 @@ public class CreateDevisATraiterUE extends AbstractUsecase {
         devis.setLieu(artisan.getPersonne().getVille());
         devis.setValiditeDevisMois(artisan.getValiditeDevisMois());
 
+        devis.setTva(artisan.getTaxe().getTaux());
+
+        devis.setRib(artisanBanque.getRib());
+        devis.setIban(artisanBanque.getIban());
+        devis.setBanque(artisanBanque.getBanque());
+
+        devis = saveDevisUE.execute(dpm, devis);
 
 
         return devis;
     }
+
+
 }

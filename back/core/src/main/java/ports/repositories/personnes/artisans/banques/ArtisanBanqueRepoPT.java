@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ArtisanBanqueRepoPT {
 
-    List<ArtisanBanqueDN> findByEmailAndPrefere(DataProviderManager dpm, String email, boolean prefere);
+    ArtisanBanqueDN findByEmailAndPrefere(DataProviderManager dpm, String email, boolean prefere);
 
     List<ArtisanBanqueDN> findAllByEmail(DataProviderManager dpm, String email);
 
