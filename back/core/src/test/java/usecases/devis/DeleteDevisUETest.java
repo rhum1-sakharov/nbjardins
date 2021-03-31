@@ -37,9 +37,9 @@ public class DeleteDevisUETest {
     @Test
     public void args_should_not_be_null(){
 
-        final String errMsg = "L'argument id devisATraiter est obligatoire.";
+        final String errMsg = "L'argument id devis est obligatoire.";
 
-        Mockito.when(this.ls.getMsg(ARG_IS_REQUIRED,"id devisATraiter"))
+        Mockito.when(this.ls.getMsg(ARG_IS_REQUIRED,"id devis"))
                 .thenReturn(errMsg);
 
         Assertions.assertThatCode(() -> this.usecase.execute(null, null))
