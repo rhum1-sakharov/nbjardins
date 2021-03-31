@@ -75,5 +75,19 @@ public class ClientRepoJpa extends RepoJpa implements ClientRepoPT {
 
     }
 
+    @Override
+    public ClientDN findByEmail(DataProviderManager dpm, String email) {
+        EntityManager em = PersistenceUtils.getEntityManager(dpm);
+
+        TypedQuery<Client> query = em.createQuery("SELECT c from Client c " +
+                " join c.personne p " +
+                "where p.email=:email", Client.class);
+        query.setParameter("email", email);
+
+        Client client= PersistenceUtils.getSingleResult(query);
+
+        return ClientMapper.INSTANCE.entityToDomain(client);
+    }
+
 
 }

@@ -14,8 +14,22 @@ import usecases.personnes.artisans.banques.FindByEmailAndPrefereUE;
 public class CreateDevisATraiterConfig {
 
     @Bean
-    public CreateDevisATraiterUE createDevisATraiterUE(LocalizeServicePT ls, TransactionManagerPT transactionManager, SaveDevisUE saveDevisUE, SaveOptionUE saveOptionUE, FindByEmailUE artisanfindByEmailUE, FindByEmailAndPrefereUE artisanBanqueFindByEmailAndPrefereUE) {
-        return new CreateDevisATraiterUE(ls, transactionManager, saveDevisUE, saveOptionUE, artisanfindByEmailUE, artisanBanqueFindByEmailAndPrefereUE);
+    public CreateDevisATraiterUE createDevisATraiterUE(LocalizeServicePT ls,
+                                                       TransactionManagerPT transactionManager,
+                                                       SaveDevisUE saveDevisUE,
+                                                       SaveOptionUE saveOptionUE,
+                                                       FindByEmailUE artisanfindByEmailUE,
+                                                       FindByEmailAndPrefereUE artisanBanqueFindByEmailAndPrefereUE,
+                                                       usecases.personnes.clients.FindByEmailUE clientFindByEmailUE
+                                                       ) {
+        return new CreateDevisATraiterUE(ls,
+                transactionManager,
+                saveDevisUE,
+                saveOptionUE,
+                artisanfindByEmailUE,
+                artisanBanqueFindByEmailAndPrefereUE,
+                clientFindByEmailUE
+                );
     }
 
 
