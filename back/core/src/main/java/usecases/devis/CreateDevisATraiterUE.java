@@ -105,6 +105,7 @@ public class CreateDevisATraiterUE extends AbstractUsecase {
         devis.setValiditeDevisMois(artisan.getValiditeDevisMois());
 
 
+
         return devis;
     }
 }

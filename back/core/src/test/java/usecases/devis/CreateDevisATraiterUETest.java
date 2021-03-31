@@ -167,5 +167,55 @@ public class CreateDevisATraiterUETest {
 
     }
 
+    @Test
+    public void createDevisATraiterUE_should_not_init_client() throws CleanException {
+
+        Map<String, Object> result = this.usecase.execute(null, ARTISAN_EMAIL);
+        DevisDN devis = (DevisDN) result.get(DEVIS);
+
+        Assertions.assertThat(devis).isNotNull();
+        Assertions.assertThat(devis.getClient()).isNull();
+        Assertions.assertThat(devis.getClientAdresse()).isNull();
+        Assertions.assertThat(devis.getClientCodePostal()).isNull();
+        Assertions.assertThat(devis.getClientEmail()).isNull();
+        Assertions.assertThat(devis.getClientFonction()).isNull();
+        Assertions.assertThat(devis.getClientNom()).isNull();
+        Assertions.assertThat(devis.getClientPrenom()).isNull();
+        Assertions.assertThat(devis.getClientSignature()).isNull();
+        Assertions.assertThat(devis.getClientSiret()).isNull();
+        Assertions.assertThat(devis.getClientSociete()).isNull();
+
+    }
+
+    @Test
+    public void createDevisATraiterUE_should_init_email_artisan_with_emailpro() throws CleanException {
+
+        Map<String, Object> result = this.usecase.execute(null, ARTISAN_EMAIL);
+        DevisDN devis = (DevisDN) result.get(DEVIS);
+
+        Assertions.assertThat(devis).isNotNull();
+        Assertions.assertThat(devis.getArtisanEmail()).isEqualTo(artisan.getEmailPro());
+
+    }
+
+    @Test
+    public void createDevisATraiterUE_should_init_artisan_with_no_null_value() throws CleanException {
+
+        Map<String, Object> result = this.usecase.execute(null, ARTISAN_EMAIL);
+        DevisDN devis = (DevisDN) result.get(DEVIS);
+
+        Assertions.assertThat(devis).isNotNull();
+        Assertions.assertThat(devis.getArtisanEmail()).isNotNull();
+        Assertions.assertThat(devis.getArtisanAdresse()).isNotNull();
+        Assertions.assertThat(devis.getArtisanCodePostal()).isNotNull();
+        Assertions.assertThat(devis.getArtisanFonction()).isNotNull();
+        Assertions.assertThat(devis.getArtisanSiret()).isNotNull();
+        Assertions.assertThat(devis.getArtisanSociete()).isNotNull();
+        Assertions.assertThat(devis.getArtisanTelephone()).isNotNull();
+        Assertions.assertThat(devis.getArtisanVille()).isNotNull();
+        Assertions.assertThat(devis.getArtisan()).isNotNull();
+
+
+    }
 
 }
