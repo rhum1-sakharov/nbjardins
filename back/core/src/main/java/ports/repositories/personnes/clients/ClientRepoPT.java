@@ -11,4 +11,6 @@ public interface ClientRepoPT {
     String findIdByIdPersonne(DataProviderManager dpm, String idPersonne);
 
     String findIdByEmail(DataProviderManager dpm,String email) throws PersistenceException;
+
+    ClientDN findByEmail(DataProviderManager dpm, String email);
 }

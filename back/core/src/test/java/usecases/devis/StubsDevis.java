@@ -16,7 +16,7 @@ import java.util.Date;
 
 public class StubsDevis {
 
-    public static final String ARTISAN_EMAIL = "artisan@test.fr";
+
 
     public static DevisDN devisATraiter(ArtisanDN artisan, ArtisanBanqueDN artisanBanque, ClientDN client, String sujet, String numeroDevis) {
 

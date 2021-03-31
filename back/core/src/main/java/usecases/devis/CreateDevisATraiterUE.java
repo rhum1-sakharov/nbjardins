@@ -31,6 +31,7 @@ public class CreateDevisATraiterUE extends AbstractUsecase {
     FindByEmailUE artisanfindByEmailUE;
     FindByEmailAndPrefereUE artisanBanqueFindByEmailAndPrefereUE;
 
+
     public CreateDevisATraiterUE(LocalizeServicePT ls, TransactionManagerPT transactionManager, SaveDevisUE saveDevisUE, SaveOptionUE saveOptionUE, FindByEmailUE artisanfindByEmailUE, FindByEmailAndPrefereUE artisanBanqueFindByEmailAndPrefereUE) {
         super(ls, transactionManager);
         this.saveDevisUE = saveDevisUE;
@@ -40,7 +41,7 @@ public class CreateDevisATraiterUE extends AbstractUsecase {
     }
 
     @Transactional
-    public Map<String, Object> execute(DataProviderManager dpm, String emailArtisan) throws CleanException {
+    public Map<String, Object> execute(DataProviderManager dpm, String emailArtisan, String emailClient) throws CleanException {
 
         Precondition.validate(
                 Precondition.init(ls.getMsg(ARG_IS_REQUIRED, "email artisan"), Objects.nonNull(emailArtisan))
@@ -112,6 +113,8 @@ public class CreateDevisATraiterUE extends AbstractUsecase {
         devis.setRib(artisanBanque.getRib());
         devis.setIban(artisanBanque.getIban());
         devis.setBanque(artisanBanque.getBanque());
+
+        devis.setOrdre(artisan.getPersonne().getSociete());
 
         devis = saveDevisUE.execute(dpm, devis);
 
