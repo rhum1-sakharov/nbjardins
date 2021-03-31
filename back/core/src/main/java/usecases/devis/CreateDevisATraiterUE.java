@@ -132,18 +132,23 @@ public class CreateDevisATraiterUE extends AbstractUsecase {
 
     private void initClient(DevisDN devis, ClientDN client) {
 
-        devis.setClient(client);
-        devis.setClientNom(client.getPersonne().getNom());
-        devis.setClientPrenom(client.getPersonne().getPrenom());
-        devis.setClientAdresse(client.getPersonne().getAdresse());
-        devis.setClientVille(client.getPersonne().getVille());
-        devis.setClientCodePostal(client.getPersonne().getCodePostal());
-        devis.setClientTelephone(client.getPersonne().getNumeroTelephone());
-        devis.setClientEmail(client.getPersonne().getEmail());
-        devis.setClientSignature(client.getSignature());
-        devis.setClientSiret(client.getSiret());
-        devis.setClientSociete(client.getPersonne().getSociete());
-        devis.setClientFonction(client.getPersonne().getFonction());
+        if(Objects.nonNull(client)){
+
+            devis.setClient(client);
+            devis.setClientNom(client.getPersonne().getNom());
+            devis.setClientPrenom(client.getPersonne().getPrenom());
+            devis.setClientAdresse(client.getPersonne().getAdresse());
+            devis.setClientVille(client.getPersonne().getVille());
+            devis.setClientCodePostal(client.getPersonne().getCodePostal());
+            devis.setClientTelephone(client.getPersonne().getNumeroTelephone());
+            devis.setClientEmail(client.getPersonne().getEmail());
+            devis.setClientSignature(client.getSignature());
+            devis.setClientSiret(client.getSiret());
+            devis.setClientSociete(client.getPersonne().getSociete());
+            devis.setClientFonction(client.getPersonne().getFonction());
+
+        }
+
 
 
     }

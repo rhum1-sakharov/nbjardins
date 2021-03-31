@@ -94,7 +94,7 @@ public class CreateDevisATraiterUETest {
         Mockito.when(saveDevisUE.execute(Mockito.any(), Mockito.any(DevisDN.class))).thenAnswer(i -> i.getArguments()[1]);
         Mockito.when(saveOptionUE.execute(Mockito.any(), Mockito.any(DevisOptionDN.class))).thenAnswer(i -> i.getArguments()[1]);
         Mockito.when(artisanFindByEmailUE.execute(Mockito.any(), Mockito.anyString())).thenAnswer(i -> artisan);
-        Mockito.when(clientFindByEmailUE.execute(Mockito.any(), Mockito.anyString())).thenAnswer(i -> client1);
+
         Mockito.when(artisanBanqueFindByEmailAndPrefereUE.execute(Mockito.any(), Mockito.anyString(), Mockito.anyBoolean())).thenAnswer(i -> artisanBanque);
 
     }
@@ -180,7 +180,9 @@ public class CreateDevisATraiterUETest {
     }
 
     @Test
-    public void should_init_client() throws CleanException {
+    public void should_init_client_if_client_is_not_null() throws CleanException {
+
+        Mockito.when(clientFindByEmailUE.execute(Mockito.any(), Mockito.anyString())).thenAnswer(i -> client1);
 
         Map<String, Object> result = this.usecase.execute(null, personneArtisan1.getEmail(), personneClient1.getEmail());
         DevisDN devis = (DevisDN) result.get(DEVIS);
@@ -196,6 +198,28 @@ public class CreateDevisATraiterUETest {
         Assertions.assertThat(devis.getClientSignature()).isEqualTo(client1.getSignature());
         Assertions.assertThat(devis.getClientSiret()).isEqualTo(client1.getSiret());
         Assertions.assertThat(devis.getClientSociete()).isEqualTo(client1.getPersonne().getSociete());
+
+    }
+
+    @Test
+    public void should_not_init_client_if_client_is_null() throws CleanException {
+
+        Mockito.when(clientFindByEmailUE.execute(Mockito.any(), Mockito.anyString())).thenAnswer(i -> null);
+
+        Map<String, Object> result = this.usecase.execute(null, personneArtisan1.getEmail(), personneClient1.getEmail());
+        DevisDN devis = (DevisDN) result.get(DEVIS);
+
+        Assertions.assertThat(devis).isNotNull();
+        Assertions.assertThat(devis.getClient()).isNull();
+        Assertions.assertThat(devis.getClientAdresse()).isNull();
+        Assertions.assertThat(devis.getClientCodePostal()).isNull();
+        Assertions.assertThat(devis.getClientEmail()).isNull();
+        Assertions.assertThat(devis.getClientFonction()).isNull();
+        Assertions.assertThat(devis.getClientNom()).isNull();
+        Assertions.assertThat(devis.getClientPrenom()).isNull();
+        Assertions.assertThat(devis.getClientSignature()).isNull();
+        Assertions.assertThat(devis.getClientSiret()).isNull();
+        Assertions.assertThat(devis.getClientSociete()).isNull();
 
     }
 
