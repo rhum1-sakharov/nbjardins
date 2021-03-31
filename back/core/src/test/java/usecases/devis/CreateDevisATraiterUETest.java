@@ -2,6 +2,12 @@ package usecases.devis;
 
 import domains.devis.DevisDN;
 import domains.devis.options.DevisOptionDN;
+import domains.personnes.PersonneDN;
+import domains.personnes.artisans.ArtisanBanqueDN;
+import domains.personnes.artisans.ArtisanDN;
+import domains.personnes.clients.ClientDN;
+import domains.referentiel.condition.reglement.ConditionDeReglementDN;
+import domains.referentiel.taxes.TaxeDN;
 import enums.MODELE_OPTION;
 import enums.STATUT_DEVIS;
 import exceptions.CleanException;
@@ -48,6 +54,19 @@ public class CreateDevisATraiterUETest {
     LocalizeServicePT ls;
 
     DevisDN devis;
+    PersonneDN personneArtisan1;
+    PersonneDN personneClient1;
+    ConditionDeReglementDN conditionDeReglement;
+    TaxeDN taxe;
+    ArtisanDN artisan;
+    ArtisanBanqueDN artisanBanque;
+    ClientDN client1;
+
+    final String rib = "12345";
+    final String iban = "53647A";
+    final String banque = "bnp paribase";
+    final String numeroDevis = "20210330-ABJ";
+    final String sujet = "construction d'un établis";
 
 
     @Before
@@ -55,7 +74,16 @@ public class CreateDevisATraiterUETest {
 
         usecase = new CreateDevisATraiterUE(ls, transactionManager, saveDevisUE, saveOptionUE, findByEmailUE);
 
-        devis = StubsDevis.devisATraiter(StubsDevis.artisan(StubsDevis.personne(), StubsDevis.conditionDeReglement()));
+        personneArtisan1 = StubsDevis.personneArtisan1();
+        personneClient1 = StubsDevis.personneClient1();
+        conditionDeReglement = StubsDevis.conditionDeReglement();
+        taxe = StubsDevis.taxe();
+        artisan = StubsDevis.artisan(conditionDeReglement, taxe);
+        artisanBanque = StubsDevis.artisanBanque("1", artisan, rib, iban, banque);
+        client1 = StubsDevis.client1();
+
+
+        devis = StubsDevis.devisATraiter(artisan, artisanBanque, client1, sujet, numeroDevis);
 
         Mockito.when(saveDevisUE.execute(Mockito.any(), Mockito.any(DevisDN.class))).thenAnswer(i -> i.getArguments()[1]);
         Mockito.when(saveOptionUE.execute(Mockito.any(), Mockito.any(DevisOptionDN.class))).thenAnswer(i -> i.getArguments()[1]);
@@ -136,7 +164,6 @@ public class CreateDevisATraiterUETest {
         Assertions.assertThat(options.get(1).isActif()).isTrue();
         Assertions.assertThat(options.get(2).getModeleOption()).isEqualTo(MODELE_OPTION.TVA_SAISISSABLE_PAR_LIGNE);
         Assertions.assertThat(options.get(2).isActif()).isTrue();
-
 
     }
 

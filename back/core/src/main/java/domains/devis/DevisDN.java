@@ -2,6 +2,7 @@ package domains.devis;
 
 import domains.Domain;
 import domains.personnes.artisans.ArtisanDN;
+import domains.personnes.clients.ClientDN;
 import enums.STATUT_DEVIS;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,6 +17,7 @@ import java.util.Date;
 public class DevisDN extends Domain {
 
     ArtisanDN artisan;
+    ClientDN client;
 
     String artisanLogo;
     String artisanSiret;
@@ -36,6 +38,10 @@ public class DevisDN extends Domain {
     String clientTelephone;
     String clientEmail;
     String clientSignature;
+    String clientSiret;
+    String clientSociete;
+    String clientFonction;
+
 
     Date dateATraiter;
     Date dateTraite;

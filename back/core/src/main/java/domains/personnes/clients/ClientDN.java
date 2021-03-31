@@ -14,4 +14,10 @@ import lombok.Setter;
 public class ClientDN extends Domain {
 
     private PersonneDN personne;
+    private String siret;
+    private String signature;
+
+    public ClientDN(PersonneDN personne) {
+        this.personne = personne;
+    }
 }

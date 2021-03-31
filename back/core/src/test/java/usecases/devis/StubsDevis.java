@@ -3,48 +3,133 @@ package usecases.devis;
 import domains.devis.DevisDN;
 import domains.devis.options.DevisOptionDN;
 import domains.personnes.PersonneDN;
+import domains.personnes.artisans.ArtisanBanqueDN;
 import domains.personnes.artisans.ArtisanDN;
+import domains.personnes.clients.ClientDN;
 import domains.referentiel.condition.reglement.ConditionDeReglementDN;
+import domains.referentiel.taxes.TaxeDN;
 import enums.MODELE_OPTION;
 import enums.STATUT_DEVIS;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class StubsDevis {
 
     public static final String ARTISAN_EMAIL = "artisan@test.fr";
 
-    public static DevisDN devisATraiter(ArtisanDN artisan) {
+    public static DevisDN devisATraiter(ArtisanDN artisan, ArtisanBanqueDN artisanBanque, ClientDN client, String sujet, String numeroDevis) {
 
-        DevisDN devisDN = new DevisDN();
-        devisDN.setId("1");
-        devisDN.setDateATraiter(new Date());
-        devisDN.setStatut(STATUT_DEVIS.A_TRAITER);
+        DevisDN devis = new DevisDN();
+        devis.setId("1");
+        devis.setDateATraiter(new Date());
+        devis.setStatut(STATUT_DEVIS.A_TRAITER);
+        devis.setSujet(sujet);
 
-        devisDN.setArtisan(artisan);
+        devis.setArtisan(artisan);
+        devis.setArtisanLogo(artisan.getLogo());
+        devis.setArtisanSignature(artisan.getSignature());
+        devis.setArtisanVille(artisan.getPersonne().getVille());
+        devis.setArtisanTelephone(artisan.getPersonne().getNumeroTelephone());
+        devis.setArtisanSociete(artisan.getPersonne().getSociete());
+        devis.setArtisanSiret(artisan.getSiret());
+        devis.setArtisanFonction(artisan.getPersonne().getFonction());
+        devis.setArtisanEmail(artisan.getEmailPro());
+        devis.setArtisanCodePostal(artisan.getPersonne().getCodePostal());
+        devis.setArtisanAdresse(artisan.getPersonne().getAdresse());
 
-        return devisDN;
+        devis.setClient(client);
+        devis.setClientSignature(null);
+        devis.setClientVille(client.getPersonne().getVille());
+        devis.setClientTelephone(client.getPersonne().getNumeroTelephone());
+        devis.setClientSociete(client.getPersonne().getSociete());
+        devis.setClientSiret(null);
+        devis.setClientFonction(client.getPersonne().getFonction());
+        devis.setClientEmail(client.getPersonne().getEmail());
+        devis.setClientCodePostal(client.getPersonne().getCodePostal());
+        devis.setClientAdresse(client.getPersonne().getAdresse());
+
+        devis.setLieu(artisan.getPersonne().getVille());
+        devis.setValiditeDevisMois(artisan.getValiditeDevisMois());
+
+        devis.setProvision(artisan.getProvision());
+        devis.setConditionDeReglement(artisan.getConditionDeReglement().getCondition());
+        devis.setNumeroDevis(numeroDevis);
+        devis.setTva(artisan.getTaxe().getTaux());
+
+
+        devis.setRib(artisanBanque.getRib());
+        devis.setIban(artisanBanque.getIban());
+        devis.setBanque(artisanBanque.getBanque());
+
+        return devis;
     }
 
-    public static ArtisanDN artisan(PersonneDN personne, ConditionDeReglementDN conditionDeReglement){
+    public static ClientDN client1() {
+        ClientDN clientDN = new ClientDN();
+
+        clientDN.setPersonne(personneClient1());
+        clientDN.setSiret(null);
+        clientDN.setSignature(null);
+        clientDN.setId("1");
+
+
+        return clientDN;
+
+    }
+
+    public static ArtisanBanqueDN artisanBanque(String id, ArtisanDN artisan, String rib, String iban, String banque) {
+
+        ArtisanBanqueDN artisanBanqueDN = new ArtisanBanqueDN();
+
+        artisanBanqueDN.setIban(iban);
+        artisanBanqueDN.setRib(rib);
+        artisanBanqueDN.setArtisan(artisan);
+        artisanBanqueDN.setBanque(banque);
+        artisanBanqueDN.setId(id);
+
+        return artisanBanqueDN;
+    }
+
+    public static ArtisanDN artisan( ConditionDeReglementDN conditionDeReglement, TaxeDN taxe) {
 
         ArtisanDN artisan = new ArtisanDN();
         artisan.setId("1");
-
-        artisan.setPersonne(personne);
+        artisan.setSiret("404 471 252 00027");
+        artisan.setPersonne(personneArtisan1());
         artisan.setConditionDeReglement(conditionDeReglement);
+        artisan.setProvision(new BigDecimal(33.2));
+        artisan.setTaxe(taxe);
+
+        artisan.setLogo("logo");
+        artisan.setSignature("signatureArtisan");
+        artisan.setValiditeDevisMois(2);
+        artisan.setEmailPro("artisan@emailpro.fr");
+
 
         return artisan;
     }
 
-    public static ConditionDeReglementDN conditionDeReglement(){
+    public static TaxeDN taxe() {
+
+        TaxeDN taxeDN = new TaxeDN();
+
+        taxeDN.setNom("TVA 5.5");
+        taxeDN.setTaux(new BigDecimal(5.5));
+        taxeDN.setId("1");
+
+        return taxeDN;
+
+    }
+
+    public static ConditionDeReglementDN conditionDeReglement() {
         ConditionDeReglementDN cd = new ConditionDeReglementDN();
         cd.setCondition("à réception de la facture");
         cd.setId("1");
         return cd;
     }
 
-    public static PersonneDN personne(){
+    public static PersonneDN personneArtisan1() {
 
         PersonneDN personne = new PersonneDN();
         personne.setAdresse("366 route de saint mathieu");
@@ -54,6 +139,18 @@ public class StubsDevis {
         personne.setSociete("la mélie");
         personne.setNumeroTelephone("0612345678");
         personne.setVille("les matelles");
+
+        return personne;
+    }
+
+    public static PersonneDN personneClient1() {
+
+        PersonneDN personne = new PersonneDN();
+        personne.setAdresse("70 route de saint test");
+        personne.setCodePostal("84810");
+        personne.setEmail("client@test.fr");
+        personne.setNumeroTelephone("0645558798");
+        personne.setVille("saint-didier");
 
         return personne;
     }
