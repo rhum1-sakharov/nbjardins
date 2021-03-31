@@ -2,12 +2,11 @@ package org.rlsv.adapters.secondaries.dataproviderjpa.repositories.personnes.art
 
 import domains.personnes.artisans.ArtisanBanqueDN;
 import exceptions.TechnicalException;
+import org.apache.commons.collections4.CollectionUtils;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.personnes.artisans.banques.ArtisanBanque;
 import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.personnes.artisans.banques.ArtisanBanqueMapper;
 import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.RepoJpa;
 import org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence.PersistenceUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import ports.localization.LocalizeServicePT;
 import ports.repositories.personnes.artisans.banques.ArtisanBanqueRepoPT;
 import transactions.DataProviderManager;
@@ -19,14 +18,13 @@ import java.util.List;
 
 public class ArtisanBanqueRepoJpa extends RepoJpa implements ArtisanBanqueRepoPT {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ArtisanBanqueRepoJpa.class);
 
     public ArtisanBanqueRepoJpa(LocalizeServicePT localizeService) {
         super(localizeService);
     }
 
     @Override
-    public List<ArtisanBanqueDN> findByEmailAndPrefere(DataProviderManager dpm, String email, boolean prefere) {
+    public ArtisanBanqueDN findByEmailAndPrefere(DataProviderManager dpm, String email, boolean prefere) {
 
         EntityManager em = PersistenceUtils.getEntityManager(dpm);
 
@@ -38,12 +36,15 @@ public class ArtisanBanqueRepoJpa extends RepoJpa implements ArtisanBanqueRepoPT
 
         query.setParameter("email", email)
                 .setParameter("prefere", prefere);
+        query.setMaxResults(1);
 
         List<ArtisanBanque> artisanBanqueList = PersistenceUtils.getResultList(query);
 
-        return ArtisanBanqueMapper.INSTANCE.entitiesToDomains(artisanBanqueList);
+        if (CollectionUtils.isEmpty(artisanBanqueList)) {
+            return null;
+        }
 
-
+        return ArtisanBanqueMapper.INSTANCE.entityToDomain(artisanBanqueList.get(0));
     }
 
     @Override

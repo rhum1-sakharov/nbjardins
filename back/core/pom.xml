@@ -63,7 +63,7 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
+                <groupId>com.nickwongdev</groupId>
                 <artifactId>aspectj-maven-plugin</artifactId>
                 <configuration>
                     <complianceLevel>1.8</complianceLevel>
@@ -72,7 +72,7 @@
                     <showWeaveInfo>true</showWeaveInfo>
                     <verbose>true</verbose>
                     <Xlint>ignore</Xlint>
-                    <encoding>UTF-8 </encoding>
+                    <encoding>UTF-8</encoding>
                     <sources></sources>
                     <forceAjcCompile>true</forceAjcCompile>
                     <weaveDirectories>
