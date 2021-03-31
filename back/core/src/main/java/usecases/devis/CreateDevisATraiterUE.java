@@ -5,6 +5,7 @@ import domains.devis.DevisDN;
 import domains.devis.options.DevisOptionDN;
 import domains.personnes.artisans.ArtisanBanqueDN;
 import domains.personnes.artisans.ArtisanDN;
+import domains.personnes.clients.ClientDN;
 import enums.MODELE_OPTION;
 import enums.STATUT_DEVIS;
 import exceptions.CleanException;
@@ -30,26 +31,35 @@ public class CreateDevisATraiterUE extends AbstractUsecase {
     SaveOptionUE saveOptionUE;
     FindByEmailUE artisanfindByEmailUE;
     FindByEmailAndPrefereUE artisanBanqueFindByEmailAndPrefereUE;
+    usecases.personnes.clients.FindByEmailUE clientFindByEmailUE;
 
 
-    public CreateDevisATraiterUE(LocalizeServicePT ls, TransactionManagerPT transactionManager, SaveDevisUE saveDevisUE, SaveOptionUE saveOptionUE, FindByEmailUE artisanfindByEmailUE, FindByEmailAndPrefereUE artisanBanqueFindByEmailAndPrefereUE) {
+    public CreateDevisATraiterUE(LocalizeServicePT ls,
+                                 TransactionManagerPT transactionManager,
+                                 SaveDevisUE saveDevisUE,
+                                 SaveOptionUE saveOptionUE,
+                                 FindByEmailUE artisanfindByEmailUE,
+                                 FindByEmailAndPrefereUE artisanBanqueFindByEmailAndPrefereUE,
+                                 usecases.personnes.clients.FindByEmailUE clientFindByEmailUE) {
         super(ls, transactionManager);
         this.saveDevisUE = saveDevisUE;
         this.saveOptionUE = saveOptionUE;
         this.artisanfindByEmailUE = artisanfindByEmailUE;
         this.artisanBanqueFindByEmailAndPrefereUE = artisanBanqueFindByEmailAndPrefereUE;
+        this.clientFindByEmailUE = clientFindByEmailUE;
     }
 
     @Transactional
     public Map<String, Object> execute(DataProviderManager dpm, String emailArtisan, String emailClient) throws CleanException {
 
         Precondition.validate(
-                Precondition.init(ls.getMsg(ARG_IS_REQUIRED, "email artisan"), Objects.nonNull(emailArtisan))
+                Precondition.init(ls.getMsg(ARG_IS_REQUIRED, "email artisan"), Objects.nonNull(emailArtisan)),
+                Precondition.init(ls.getMsg(ARG_IS_REQUIRED, "email client"), Objects.nonNull(emailClient))
         );
 
         Map<String, Object> resultMap = new HashMap<>();
 
-        DevisDN devis = initDevisATraiter(dpm, emailArtisan);
+        DevisDN devis = initDevisATraiter(dpm, emailArtisan, emailClient);
         resultMap.put(DEVIS, devis);
 
 
@@ -82,16 +92,64 @@ public class CreateDevisATraiterUE extends AbstractUsecase {
      * @return
      * @throws CleanException
      */
-    private DevisDN initDevisATraiter(DataProviderManager dpm, String emailArtisan) throws CleanException {
+    private DevisDN initDevisATraiter(DataProviderManager dpm, String emailArtisan, String emailClient) throws CleanException {
 
         DevisDN devis = new DevisDN();
-        devis.setStatut(STATUT_DEVIS.A_TRAITER);
 
         ArtisanDN artisan = artisanfindByEmailUE.execute(dpm, emailArtisan);
+        initArtisan(devis, artisan);
+
+        ClientDN client = clientFindByEmailUE.execute(dpm, emailClient);
+        initClient(devis, client);
+
         ArtisanBanqueDN artisanBanque = artisanBanqueFindByEmailAndPrefereUE.execute(dpm, emailArtisan, true);
+        initBanqueInfo(devis, artisan, artisanBanque);
 
+        initAutres(devis, artisan);
+
+        devis = saveDevisUE.execute(dpm, devis);
+
+
+        return devis;
+    }
+
+    private void initAutres(DevisDN devis, ArtisanDN artisan) {
+        devis.setStatut(STATUT_DEVIS.A_TRAITER);
         devis.setDateATraiter(new Date());
+        devis.setLieu(artisan.getPersonne().getVille());
+        devis.setValiditeDevisMois(artisan.getValiditeDevisMois());
+        devis.setTva(artisan.getTaxe().getTaux());
+    }
 
+    private void initBanqueInfo(DevisDN devis, ArtisanDN artisan, ArtisanBanqueDN artisanBanque) {
+        devis.setRib(artisanBanque.getRib());
+        devis.setIban(artisanBanque.getIban());
+        devis.setBanque(artisanBanque.getBanque());
+        devis.setProvision(artisan.getProvision());
+        devis.setConditionDeReglement(artisan.getConditionDeReglement().getCondition());
+        devis.setOrdre(artisan.getPersonne().getSociete());
+    }
+
+    private void initClient(DevisDN devis, ClientDN client) {
+
+        devis.setClient(client);
+        devis.setClientNom(client.getPersonne().getNom());
+        devis.setClientPrenom(client.getPersonne().getPrenom());
+        devis.setClientAdresse(client.getPersonne().getAdresse());
+        devis.setClientVille(client.getPersonne().getVille());
+        devis.setClientCodePostal(client.getPersonne().getCodePostal());
+        devis.setClientTelephone(client.getPersonne().getNumeroTelephone());
+        devis.setClientEmail(client.getPersonne().getEmail());
+        devis.setClientSignature(client.getSignature());
+        devis.setClientSiret(client.getSiret());
+        devis.setClientSociete(client.getPersonne().getSociete());
+        devis.setClientFonction(client.getPersonne().getFonction());
+
+
+    }
+
+
+    private void initArtisan(DevisDN devis, ArtisanDN artisan) {
         devis.setArtisan(artisan);
         devis.setArtisanAdresse(artisan.getPersonne().getAdresse());
         devis.setArtisanCodePostal(artisan.getPersonne().getCodePostal());
@@ -101,25 +159,6 @@ public class CreateDevisATraiterUE extends AbstractUsecase {
         devis.setArtisanSociete(artisan.getPersonne().getSociete());
         devis.setArtisanTelephone(artisan.getPersonne().getNumeroTelephone());
         devis.setArtisanVille(artisan.getPersonne().getVille());
-
-        devis.setProvision(artisan.getProvision());
-        devis.setConditionDeReglement(artisan.getConditionDeReglement().getCondition());
-
-        devis.setLieu(artisan.getPersonne().getVille());
-        devis.setValiditeDevisMois(artisan.getValiditeDevisMois());
-
-        devis.setTva(artisan.getTaxe().getTaux());
-
-        devis.setRib(artisanBanque.getRib());
-        devis.setIban(artisanBanque.getIban());
-        devis.setBanque(artisanBanque.getBanque());
-
-        devis.setOrdre(artisan.getPersonne().getSociete());
-
-        devis = saveDevisUE.execute(dpm, devis);
-
-
-        return devis;
     }
 
 

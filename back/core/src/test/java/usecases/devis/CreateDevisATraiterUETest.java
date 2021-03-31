@@ -48,10 +48,13 @@ public class CreateDevisATraiterUETest {
     SaveOptionUE saveOptionUE;
 
     @Mock
-    FindByEmailUE findByEmailUE;
+    FindByEmailUE artisanFindByEmailUE;
 
     @Mock
-    FindByEmailAndPrefereUE findByEmailAndPrefereUE;
+    usecases.personnes.clients.FindByEmailUE clientFindByEmailUE;
+
+    @Mock
+    FindByEmailAndPrefereUE artisanBanqueFindByEmailAndPrefereUE;
 
     @Mock
     LocalizeServicePT ls;
@@ -75,7 +78,7 @@ public class CreateDevisATraiterUETest {
     @Before
     public void setUp() throws Exception {
 
-        usecase = new CreateDevisATraiterUE(ls, transactionManager, saveDevisUE, saveOptionUE, findByEmailUE, findByEmailAndPrefereUE);
+        usecase = new CreateDevisATraiterUE(ls, transactionManager, saveDevisUE, saveOptionUE, artisanFindByEmailUE, artisanBanqueFindByEmailAndPrefereUE, clientFindByEmailUE);
 
         personneArtisan1 = StubsDevis.personneArtisan1();
         personneClient1 = StubsDevis.personneClient1();
@@ -90,8 +93,9 @@ public class CreateDevisATraiterUETest {
 
         Mockito.when(saveDevisUE.execute(Mockito.any(), Mockito.any(DevisDN.class))).thenAnswer(i -> i.getArguments()[1]);
         Mockito.when(saveOptionUE.execute(Mockito.any(), Mockito.any(DevisOptionDN.class))).thenAnswer(i -> i.getArguments()[1]);
-        Mockito.when(findByEmailUE.execute(Mockito.any(), Mockito.anyString())).thenAnswer(i -> devis.getArtisan());
-        Mockito.when(findByEmailAndPrefereUE.execute(Mockito.any(), Mockito.anyString(), Mockito.anyBoolean())).thenAnswer(i -> artisanBanque);
+        Mockito.when(artisanFindByEmailUE.execute(Mockito.any(), Mockito.anyString())).thenAnswer(i -> artisan);
+        Mockito.when(clientFindByEmailUE.execute(Mockito.any(), Mockito.anyString())).thenAnswer(i -> client1);
+        Mockito.when(artisanBanqueFindByEmailAndPrefereUE.execute(Mockito.any(), Mockito.anyString(), Mockito.anyBoolean())).thenAnswer(i -> artisanBanque);
 
     }
 
@@ -129,7 +133,7 @@ public class CreateDevisATraiterUETest {
     @Test
     public void should_create_devis_with_artisan_1() throws CleanException {
 
-        Map<String, Object> result = this.usecase.execute(null,  personneArtisan1.getEmail(), personneClient1.getEmail());
+        Map<String, Object> result = this.usecase.execute(null, personneArtisan1.getEmail(), personneClient1.getEmail());
         DevisDN devis = (DevisDN) result.get(DEVIS);
 
         Assertions.assertThat(devis).isNotNull();
@@ -143,7 +147,7 @@ public class CreateDevisATraiterUETest {
 
         Calendar calNow = Calendar.getInstance();
 
-        Map<String, Object> result = this.usecase.execute(null,  personneArtisan1.getEmail(), personneClient1.getEmail());
+        Map<String, Object> result = this.usecase.execute(null, personneArtisan1.getEmail(), personneClient1.getEmail());
         DevisDN devis = (DevisDN) result.get(DEVIS);
 
         Assertions.assertThat(devis).isNotNull();
@@ -161,7 +165,7 @@ public class CreateDevisATraiterUETest {
     @Test
     public void should_create_options_from_artisan_options() throws CleanException {
 
-        Map<String, Object> result = this.usecase.execute(null,  personneArtisan1.getEmail(), personneClient1.getEmail());
+        Map<String, Object> result = this.usecase.execute(null, personneArtisan1.getEmail(), personneClient1.getEmail());
         List<DevisOptionDN> options = (List<DevisOptionDN>) result.get(OPTIONS);
 
         Assertions.assertThat(options).isNotNull();
@@ -178,7 +182,7 @@ public class CreateDevisATraiterUETest {
     @Test
     public void should_init_client() throws CleanException {
 
-        Map<String, Object> result = this.usecase.execute(null,  personneArtisan1.getEmail(), personneClient1.getEmail());
+        Map<String, Object> result = this.usecase.execute(null, personneArtisan1.getEmail(), personneClient1.getEmail());
         DevisDN devis = (DevisDN) result.get(DEVIS);
 
         Assertions.assertThat(devis).isNotNull();
@@ -198,7 +202,7 @@ public class CreateDevisATraiterUETest {
     @Test
     public void should_init_email_artisan_with_emailpro() throws CleanException {
 
-        Map<String, Object> result = this.usecase.execute(null,  personneArtisan1.getEmail(), personneClient1.getEmail());
+        Map<String, Object> result = this.usecase.execute(null, personneArtisan1.getEmail(), personneClient1.getEmail());
         DevisDN devis = (DevisDN) result.get(DEVIS);
 
         Assertions.assertThat(devis).isNotNull();
@@ -209,7 +213,7 @@ public class CreateDevisATraiterUETest {
     @Test
     public void should_init_artisan() throws CleanException {
 
-        Map<String, Object> result = this.usecase.execute(null,  personneArtisan1.getEmail(), personneClient1.getEmail());
+        Map<String, Object> result = this.usecase.execute(null, personneArtisan1.getEmail(), personneClient1.getEmail());
         DevisDN devis = (DevisDN) result.get(DEVIS);
 
         Assertions.assertThat(devis).isNotNull();
@@ -227,7 +231,7 @@ public class CreateDevisATraiterUETest {
     @Test
     public void should_init_taxe() throws CleanException {
 
-        Map<String, Object> result = this.usecase.execute(null,  personneArtisan1.getEmail(), personneClient1.getEmail());
+        Map<String, Object> result = this.usecase.execute(null, personneArtisan1.getEmail(), personneClient1.getEmail());
         DevisDN devis = (DevisDN) result.get(DEVIS);
 
         Assertions.assertThat(devis).isNotNull();
@@ -238,7 +242,7 @@ public class CreateDevisATraiterUETest {
     @Test
     public void should_init_artisanBanque() throws CleanException {
 
-        Map<String, Object> result = this.usecase.execute(null,  personneArtisan1.getEmail(), personneClient1.getEmail());
+        Map<String, Object> result = this.usecase.execute(null, personneArtisan1.getEmail(), personneClient1.getEmail());
         DevisDN devis = (DevisDN) result.get(DEVIS);
 
         Assertions.assertThat(devis).isNotNull();
@@ -251,7 +255,7 @@ public class CreateDevisATraiterUETest {
     @Test
     public void should_init_provision_with_artisanProvision() throws CleanException {
 
-        Map<String, Object> result = this.usecase.execute(null,  personneArtisan1.getEmail(), personneClient1.getEmail());
+        Map<String, Object> result = this.usecase.execute(null, personneArtisan1.getEmail(), personneClient1.getEmail());
         DevisDN devis = (DevisDN) result.get(DEVIS);
 
         Assertions.assertThat(devis).isNotNull();
@@ -261,7 +265,7 @@ public class CreateDevisATraiterUETest {
     @Test
     public void should_init_conditionReglement_with_artisanReglement() throws CleanException {
 
-        Map<String, Object> result = this.usecase.execute(null,  personneArtisan1.getEmail(), personneClient1.getEmail());
+        Map<String, Object> result = this.usecase.execute(null, personneArtisan1.getEmail(), personneClient1.getEmail());
         DevisDN devis = (DevisDN) result.get(DEVIS);
 
         Assertions.assertThat(devis).isNotNull();
@@ -271,7 +275,7 @@ public class CreateDevisATraiterUETest {
     @Test
     public void should_init_validiteDevisMois_with_artisanValiditeDevisMois() throws CleanException {
 
-        Map<String, Object> result = this.usecase.execute(null,  personneArtisan1.getEmail(), personneClient1.getEmail());
+        Map<String, Object> result = this.usecase.execute(null, personneArtisan1.getEmail(), personneClient1.getEmail());
         DevisDN devis = (DevisDN) result.get(DEVIS);
 
         Assertions.assertThat(devis).isNotNull();
@@ -281,7 +285,7 @@ public class CreateDevisATraiterUETest {
     @Test
     public void should_init_lieu_with_artisanPersonneVille() throws CleanException {
 
-        Map<String, Object> result = this.usecase.execute(null,  personneArtisan1.getEmail(), personneClient1.getEmail());
+        Map<String, Object> result = this.usecase.execute(null, personneArtisan1.getEmail(), personneClient1.getEmail());
         DevisDN devis = (DevisDN) result.get(DEVIS);
 
         Assertions.assertThat(devis).isNotNull();
@@ -291,7 +295,7 @@ public class CreateDevisATraiterUETest {
     @Test
     public void should_init_remarque_with_null() throws CleanException {
 
-        Map<String, Object> result = this.usecase.execute(null,  personneArtisan1.getEmail(), personneClient1.getEmail());
+        Map<String, Object> result = this.usecase.execute(null, personneArtisan1.getEmail(), personneClient1.getEmail());
         DevisDN devis = (DevisDN) result.get(DEVIS);
 
         Assertions.assertThat(devis).isNotNull();
@@ -303,7 +307,7 @@ public class CreateDevisATraiterUETest {
 
         String ordre = String.format("%s", artisan.getPersonne().getSociete());
 
-        Map<String, Object> result = this.usecase.execute(null,  personneArtisan1.getEmail(), personneClient1.getEmail());
+        Map<String, Object> result = this.usecase.execute(null, personneArtisan1.getEmail(), personneClient1.getEmail());
         DevisDN devis = (DevisDN) result.get(DEVIS);
 
         Assertions.assertThat(devis).isNotNull();
