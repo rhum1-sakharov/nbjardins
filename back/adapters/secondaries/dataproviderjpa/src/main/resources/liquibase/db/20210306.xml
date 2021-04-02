@@ -118,5 +118,28 @@
         </comment>
     </changeSet>
 
+    <changeSet id="202104022057" author="rvl">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="clients" columnName="SIRET"></columnExists>
+                <columnExists tableName="clients" columnName="SIGNATURE"></columnExists>
+                <columnExists tableName="clients" columnName="ID_ARTISAN"></columnExists>
+            </not>
+        </preConditions>
+        <sql>
+            ALTER TABLE `clients`
+            ADD COLUMN `ID_ARTISAN` VARCHAR(50) NOT NULL AFTER `ID`,
+            ADD COLUMN `SIRET` VARCHAR(50) NULL DEFAULT NULL AFTER `ID_PERSONNE`,
+            ADD COLUMN `SIGNATURE` VARCHAR(256) NULL DEFAULT NULL AFTER `SIRET`,
+            ADD INDEX `ID_ARTISAN` (`ID_ARTISAN`),
+            ADD CONSTRAINT `FK_clients_artisans` FOREIGN KEY (`ID_ARTISAN`) REFERENCES `artisans` (`ID`) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+        </sql>
+        <comment>
+            ajout des colonnes siret, signature, id_artisan dans la table clients
+        </comment>
+    </changeSet>
+
 
 </databaseChangeLog>
