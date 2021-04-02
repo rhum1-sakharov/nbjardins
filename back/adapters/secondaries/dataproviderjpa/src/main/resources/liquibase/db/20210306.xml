@@ -141,5 +141,22 @@
         </comment>
     </changeSet>
 
+    <changeSet id="202104022103" author="rvl">
+        <preConditions onFail="MARK_RAN">
+            <indexExists tableName="clients" indexName="clients_ID_PERSONNE_uindex"></indexExists>
+            <not>
+                <indexExists tableName="clients" indexName="unique_artisan_personne"></indexExists>
+            </not>
+        </preConditions>
+        <sql>
+            ALTER TABLE `clients`
+            DROP INDEX `clients_ID_PERSONNE_uindex`,
+            ADD UNIQUE INDEX `unique_artisan_personne` (`ID_PERSONNE`, `ID_ARTISAN`);
+        </sql>
+        <comment>
+            ajout de l'unicité [id_personne / id_artisan] dans la table clients
+        </comment>
+    </changeSet>
+
 
 </databaseChangeLog>
