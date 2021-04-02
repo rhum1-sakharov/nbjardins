@@ -45,6 +45,7 @@ public class DevisDN extends Domain {
 
     Date dateATraiter;
     Date dateTraite;
+    Date dateAccepte;
     Date dateRefuse;
     Date dateAbandon;
 
