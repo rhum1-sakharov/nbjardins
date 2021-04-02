@@ -170,5 +170,44 @@
         </comment>
     </changeSet>
 
+    <changeSet id="202104022150" author="rvl">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="devis"></tableExists>
+            </not>
+        </preConditions>
+        <sql>
+            CREATE TABLE `devis` (
+            `ID` VARCHAR(36) NOT NULL,
+            `ID_ARTISAN` VARCHAR(36) NOT NULL,
+            `ID_CLIENT` VARCHAR(36) NOT NULL,
+            `ARTISAN_LOGO` VARCHAR(50) NULL,
+            `ARTISAN_SIRET` VARCHAR(50) NULL,
+            `ARTISAN_SOCIETE` VARCHAR(50) NULL,
+            `ARTISAN_FONCTION` VARCHAR(50) NULL,
+            `ARTISAN_ADRESSE` VARCHAR(50) NULL,
+            `ARTISAN_VILLE` VARCHAR(50) NULL,
+            `ARTISAN_CODE_POSTAL` VARCHAR(50) NULL,
+            `ARTISAN_TELEPHONE` VARCHAR(50) NULL,
+            `ARTISAN_EMAIL` VARCHAR(50) NULL,
+            `ARTISAN_SIGNATURE` VARCHAR(256) NULL,
+            `CLIENT_NOM` VARCHAR(50) NULL,
+            `CLIENT_PRENOM` VARCHAR(50) NULL,
+            `CLIENT_ADRESSE` VARCHAR(50) NULL,
+            `CLIENT_VILLE` VARCHAR(50) NULL,
+            `CLIENT_CODE_POSTAL` VARCHAR(50) NULL,
+            `CLIENT_TELEPHONE` VARCHAR(50) NULL,
+            `CLIENT_EMAIL` VARCHAR(50) NULL,
+            PRIMARY KEY (`ID`)
+            )
+            COLLATE='utf8mb4_0900_ai_ci'
+            ;
+
+        </sql>
+        <comment>
+            ajouter la table devis
+        </comment>
+    </changeSet>
+
 
 </databaseChangeLog>
