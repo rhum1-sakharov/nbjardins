@@ -182,6 +182,12 @@
             `NUMERO_DEVIS` VARCHAR(50) NOT NULL DEFAULT '',
             `ID_ARTISAN` VARCHAR(36) NOT NULL,
             `ID_CLIENT` VARCHAR(36) NOT NULL,
+            `STATUT` ENUM('A_TRAITER','TRAITE','ACCEPTE','REFUSE','ABANDON') NOT NULL DEFAULT 'A_TRAITER',
+            `DATE_A_TRAITER` DATE NOT NULL,
+            `DATE_TRAITE` DATE NULL,
+            `DATE_ACCEPTE` DATE NULL,
+            `DATE_REFUSE` DATE NULL,
+            `DATE_ABANDON` DATE NULL,
             `ARTISAN_LOGO` VARCHAR(50) NULL,
             `ARTISAN_SIRET` VARCHAR(50) NULL,
             `ARTISAN_SOCIETE` VARCHAR(50) NULL,
@@ -203,11 +209,6 @@
             `CLIENT_SIRET` VARCHAR(50) NULL,
             `CLIENT_SOCIETE` VARCHAR(50) NULL,
             `CLIENT_FONCTION` VARCHAR(50) NULL,
-            `DATE_A_TRAITER` DATE NOT NULL,
-            `DATE_TRAITE` DATE NULL,
-            `DATE_ACCEPTE` DATE NULL,
-            `DATE_REFUSE` DATE NULL,
-            `DATE_ABANDON` DATE NULL,
             `SUJET` VARCHAR(256) NULL DEFAULT '',
             `LIEU` VARCHAR(50) NULL DEFAULT '',
             `TOTAL_HT` DECIMAL(20,6) NOT NULL DEFAULT 0,
@@ -215,7 +216,6 @@
             `REMARQUE` VARCHAR(256) NULL DEFAULT NULL,
             `CONDITON_REGLEMENT` VARCHAR(256) NULL DEFAULT NULL,
             `ORDRE` VARCHAR(50) NULL DEFAULT NULL,
-            `STATUT` ENUM('A_TRAITER','TRAITE','ACCEPTE','REFUSE','ABANDON') NOT NULL DEFAULT 'A_TRAITER',
             `BANQUE` VARCHAR(50) NULL DEFAULT NULL,
             `IBAN` VARCHAR(50) NULL DEFAULT NULL,
             `RIB` VARCHAR(50) NULL DEFAULT NULL,
@@ -226,12 +226,10 @@
             INDEX `ID_CLIENT` (`ID_CLIENT`),
             UNIQUE INDEX `NUMERO_DEVIS` (`NUMERO_DEVIS`),
             CONSTRAINT `FK__devis_artisans` FOREIGN KEY (`ID_ARTISAN`) REFERENCES `artisans` (`ID`) ON UPDATE CASCADE ON DELETE CASCADE,
-            CONSTRAINT `FK__clients` FOREIGN KEY (`ID_CLIENT`) REFERENCES `clients` (`ID`)
+            CONSTRAINT `FK__devis_clients` FOREIGN KEY (`ID_CLIENT`) REFERENCES `clients` (`ID`)
             )
-            COLLATE='utf8mb4_0900_ai_ci'
+            COLLATE='utf8_general_ci'
             ;
-
-
         </sql>
         <comment>
             ajouter la table devis
