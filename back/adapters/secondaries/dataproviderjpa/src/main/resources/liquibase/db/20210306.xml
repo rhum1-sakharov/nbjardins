@@ -92,31 +92,7 @@
         </comment>
     </changeSet>
 
-    <changeSet id="202104022044" author="rvl">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <tableExists tableName="devis_options"></tableExists>
-            </not>
-        </preConditions>
-        <sql>
-            CREATE TABLE `devis_options` (
-            `ID` VARCHAR(36) NOT NULL,
-            `ID_DEVIS` VARCHAR(36) NOT NULL,
-            `MODELE_OPTION` ENUM('TVA_SAISISSABLE_PAR_LIGNE','COLONNE_QUANTITE','COORDONNEES_BANQUAIRES') NOT NULL ,
-            `ACTIF` TINYINT NOT NULL DEFAULT 0,
-            PRIMARY KEY (`ID`),
-            INDEX `ID_DEVIS` (`ID_DEVIS`),
-            UNIQUE INDEX `unique_devis_modele_option` (`ID_DEVIS`, `MODELE_OPTION`),
-            CONSTRAINT `FK__do_devis` FOREIGN KEY (`ID_DEVIS`) REFERENCES `devis` (`ID`) ON UPDATE CASCADE ON DELETE CASCADE
-            )
-            COLLATE='utf8_general_ci'
-            ;
 
-        </sql>
-        <comment>
-          ajout de la table devis options
-        </comment>
-    </changeSet>
 
     <changeSet id="202104022057" author="rvl">
         <preConditions onFail="MARK_RAN">
@@ -236,5 +212,30 @@
         </comment>
     </changeSet>
 
+    <changeSet id="202104022220" author="rvl">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="devis_options"></tableExists>
+            </not>
+        </preConditions>
+        <sql>
+            CREATE TABLE `devis_options` (
+            `ID` VARCHAR(36) NOT NULL,
+            `ID_DEVIS` VARCHAR(36) NOT NULL,
+            `MODELE_OPTION` ENUM('TVA_SAISISSABLE_PAR_LIGNE','COLONNE_QUANTITE','COORDONNEES_BANQUAIRES') NOT NULL ,
+            `ACTIF` TINYINT NOT NULL DEFAULT 0,
+            PRIMARY KEY (`ID`),
+            INDEX `ID_DEVIS` (`ID_DEVIS`),
+            UNIQUE INDEX `unique_devis_modele_option` (`ID_DEVIS`, `MODELE_OPTION`),
+            CONSTRAINT `FK__do_devis` FOREIGN KEY (`ID_DEVIS`) REFERENCES `devis` (`ID`) ON UPDATE CASCADE ON DELETE CASCADE
+            )
+            COLLATE='utf8_general_ci'
+            ;
+
+        </sql>
+        <comment>
+            ajout de la table devis options
+        </comment>
+    </changeSet>
 
 </databaseChangeLog>

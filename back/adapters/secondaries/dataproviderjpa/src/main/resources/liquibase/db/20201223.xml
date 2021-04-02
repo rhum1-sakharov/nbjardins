@@ -3,52 +3,7 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <changeSet id="202012232237" author="rvl" >
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <columnExists tableName="devis" columnName="IBAN"></columnExists>
-                <columnExists tableName="devis" columnName="RIB"></columnExists>
-            </not>
-        </preConditions>
-        <sql>
-            ALTER TABLE devis ADD IBAN varchar(50) NOT NULL;
-            ALTER TABLE devis ADD RIB varchar(50) NOT NULL;
-        </sql>
-        <comment>
-            Ajout des colonnes rib et iban dans la table devis
-        </comment>
-    </changeSet>
 
-    <changeSet id="202012241430" author="rvl" >
-        <preConditions onFail="MARK_RAN">
-                <columnExists tableName="devis" columnName="DATE_CREATION"></columnExists>
-        </preConditions>
-        <sql>
-            ALTER TABLE devis DROP DATE_CREATION;
-        </sql>
-        <comment>
-            Suppression de la colonne date_creation dans la table devis
-        </comment>
-    </changeSet>
-
-    <changeSet id="202012241432" author="rvl" >
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <columnExists tableName="devis" columnName="DATE_DEMANDE"></columnExists>
-                <columnExists tableName="devis" columnName="DATE_ENVOYE"></columnExists>
-                <columnExists tableName="devis" columnName="DATE_EN_COURS"></columnExists>
-            </not>
-
-        </preConditions>
-        <sql>
-            ALTER TABLE devis ADD DATE_DEMANDE date NULL;
-            ALTER TABLE devis ADD DATE_EN_COURS date NULL;
-            ALTER TABLE devis ADD DATE_ENVOYE date NULL;
-        </sql>
-        <comment>
-           ajout des colonnes DATE_DEMANDE, DATE_ENVOYE, DATE_EN_COURS dans la table devis
-        </comment>
-    </changeSet>
 
     <changeSet id="202012241439" author="rvl" >
         <preConditions onFail="MARK_RAN">
@@ -104,35 +59,9 @@
 
 
 
-    <changeSet id="202012241500" author="rvl">
-        <preConditions onFail="MARK_RAN">
-          <not>
-              <columnExists tableName="devis" columnName="ID_CONDITION_DE_REGLEMENT"></columnExists>
-          </not>
-        </preConditions>
-        <sql>
-            ALTER TABLE devis ADD CONDITION_DE_REGLEMENT VARCHAR(36) NOT NULL;
-        </sql>
-        <comment>
-          Ajout de la colonne condition de reglement dans devis
-        </comment>
-    </changeSet>
 
-    <changeSet id="202012291630" author="rvl">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <columnExists tableName="devis" columnName="DATE_CREATION"></columnExists>
-            </not>
-        </preConditions>
-        <sql>
-            ALTER TABLE devis ADD DATE_CREATION date NOT NULL;
-            ALTER TABLE devis
-            MODIFY COLUMN DATE_CREATION date NOT NULL AFTER RIB;
-        </sql>
-        <comment>
-            Ajout de la date de creation du devis
-        </comment>
-    </changeSet>
+
+
 
 
 </databaseChangeLog>

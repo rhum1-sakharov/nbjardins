@@ -3,26 +3,7 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <changeSet id="202012291656" author="rvl">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <columnExists tableName="devis" columnName="LIEU"></columnExists>
-                <columnExists tableName="devis" columnName="LOGO"></columnExists>
-                <columnExists tableName="devis" columnName="PROVISION"></columnExists>
-                <columnExists tableName="devis" columnName="SIGNATURE"></columnExists>
-            </not>
-        </preConditions>
-        <sql>
-            ALTER TABLE devis ADD LIEU varchar(50) NOT NULL;
-            ALTER TABLE devis ADD LOGO varchar(50) NOT NULL;
-            ALTER TABLE devis ADD SIGNATURE VARCHAR(50) NOT NULL;
-            ALTER TABLE devis ADD PROVISION DECIMAL(10,4) NOT NULL;
-            ALTER TABLE devis MODIFY CONDITION_DE_REGLEMENT varchar(50) NOT NULL;
-        </sql>
-        <comment>
-            Ajout des colonnes lieu, logo, provision, signature dans la table devis
-        </comment>
-    </changeSet>
+
 
     <changeSet id="202012291717" author="rvl">
         <preConditions onFail="MARK_RAN">
@@ -57,48 +38,8 @@
     </changeSet>
 
 
-    <changeSet id="202012311117" author="rvl">
-        <preConditions onFail="MARK_RAN">
-            <foreignKeyConstraintExists foreignKeyTableName="devis"
-                                        foreignKeyName="fk__dd__askerpersonne"></foreignKeyConstraintExists>
-            <foreignKeyConstraintExists foreignKeyTableName="devis"
-                                        foreignKeyName="fk__dd__workerpersonne"></foreignKeyConstraintExists>
-        </preConditions>
-        <sql>
-            ALTER TABLE `devis`
-            DROP INDEX `fk__dd__askerpersonne`,
-            DROP INDEX `fk__dd__workerpersonne`,
-            DROP FOREIGN KEY `fk__dd__workerpersonne`,
-            DROP FOREIGN KEY `fk__dd__askerpersonne`,
-            DROP COLUMN `ID_ASKER`,
-            DROP COLUMN `ID_WORKER`;
-        </sql>
-        <comment>
-            Suppression de fk__dd__askerpersonne et fk__dd__workerpersonne dans devis
-        </comment>
-    </changeSet>
 
-    <changeSet id="202012311121" author="rvl">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <columnExists tableName="devis" columnName="ID_WORKER"></columnExists>
-                <columnExists tableName="devis" columnName="ID_ASKER"></columnExists>
-            </not>
-        </preConditions>
-        <sql>
-            ALTER TABLE `devis`
-            ADD COLUMN `ID_ASKER` VARCHAR(36) NOT NULL AFTER `ID`,
-            ADD COLUMN `ID_WORKER` VARCHAR(36) NOT NULL AFTER `ID_ASKER`,
-            ADD INDEX `ID_WORKER` (`ID_WORKER`),
-            ADD INDEX `ID_ASKER` (`ID_ASKER`),
-            ADD CONSTRAINT `FK_devis_clients` FOREIGN KEY (`ID_ASKER`) REFERENCES `clients` (`ID`) ON UPDATE CASCADE,
-            ADD CONSTRAINT `FK_devis_artisans` FOREIGN KEY (`ID_WORKER`) REFERENCES `artisans` (`ID`) ON UPDATE CASCADE;
 
-        </sql>
-        <comment>
-            Recreation des colonnes ID_WORKER et ID_ASKER dans devis
-        </comment>
-    </changeSet>
 
     <changeSet id="202012311356" author="rvl">
         <preConditions onFail="MARK_RAN">
@@ -180,19 +121,7 @@
         </comment>
     </changeSet>
 
-    <changeSet id="202101021420" author="rvl">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <columnExists tableName="devis" columnName="VALIDITE_DEVIS_MOIS"></columnExists>
-            </not>
-        </preConditions>
-        <sql>
-            ALTER TABLE devis ADD VALIDITE_DEVIS_MOIS INT(2) NOT NULL;
-        </sql>
-        <comment>
-            ajouter la duree de validite d'un devis pour un devis
-        </comment>
-    </changeSet>
+
 
     <changeSet id="202101021359" author="rvl">
         <preConditions onFail="MARK_RAN">
@@ -243,54 +172,9 @@
         </comment>
     </changeSet>
 
-    <changeSet id="202101012057" author="rvl">
-        <preConditions onFail="MARK_RAN">
-            <columnExists tableName="devis" columnName="ID_WORKER"></columnExists>
-            <columnExists tableName="devis" columnName="ID_ASKER"></columnExists>
-        </preConditions>
-        <sql>
-            ALTER TABLE `devis`
-            DROP FOREIGN KEY `FK_devis_artisans`,
-            DROP FOREIGN KEY `FK_devis_clients`;
-            ALTER TABLE `devis`
-            CHANGE COLUMN `ID_ASKER` `ID_CLIENT` VARCHAR(36) NOT NULL COLLATE 'utf8_general_ci' AFTER `ID`,
-            CHANGE COLUMN `ID_WORKER` `ID_ARTISAN` VARCHAR(36) NOT NULL COLLATE 'utf8_general_ci' AFTER `ID_CLIENT`,
-            DROP INDEX `ID_WORKER`,
-            ADD INDEX `ID_ARTISAN` (`ID_ARTISAN`) USING BTREE,
-            DROP INDEX `ID_ASKER`,
-            ADD INDEX `ID_CLIENT` (`ID_CLIENT`) USING BTREE,
-            ADD CONSTRAINT `FK_devis_artisans` FOREIGN KEY (`ID_ARTISAN`) REFERENCES `artisans` (`ID`) ON UPDATE CASCADE ON DELETE CASCADE,
-            ADD CONSTRAINT `FK_devis_clients` FOREIGN KEY (`ID_CLIENT`) REFERENCES `clients` (`ID`) ON UPDATE CASCADE ON DELETE CASCADE;
 
-        </sql>
-        <comment>
-            renommer ID_WORKER en ID_ARTISAN dans la table devis
-        </comment>
-    </changeSet>
 
-    <changeSet id="202101012123" author="rvl">
-        <preConditions onFail="MARK_RAN">
-          <not>
-              <tableExists tableName="devis_lignes"></tableExists>
-          </not>
-        </preConditions>
-        <sql>
-            CREATE TABLE devis_lignes
-            (
-            ID VARCHAR(36) PRIMARY KEY NOT NULL,
-            ID_DEVIS varchar(36) NOT NULL,
-            DESIGNATION varchar(100) NOT NULL,
-            MONTANT_HT DECIMAL(10,4) NOT NULL,
-            CONSTRAINT devis_lignes_devis_ID_fk FOREIGN KEY (ID_DEVIS) REFERENCES devis (ID) ON DELETE CASCADE ON UPDATE CASCADE
-            )
-            COLLATE='utf8_general_ci'
-            ;
-            CREATE INDEX devis_lignes_ID_DEVIS_index ON devis_lignes (ID_DEVIS);
-        </sql>
-        <comment>
-            Creer la table devis_lignes
-        </comment>
-    </changeSet>
+
 
 
     <changeSet id="202102232156" author="rvl" runAlways="true">
