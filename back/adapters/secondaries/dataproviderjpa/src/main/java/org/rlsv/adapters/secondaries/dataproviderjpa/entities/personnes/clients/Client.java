@@ -33,4 +33,7 @@ public class Client extends Entity {
     private String signature;
 
 
+    public Client(Personne personne) {
+        this.personne = personne;
+    }
 }
