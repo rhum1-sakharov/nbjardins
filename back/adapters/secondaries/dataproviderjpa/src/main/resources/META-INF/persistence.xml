@@ -17,6 +17,7 @@
         <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.personnes.roles.Personne__Role</class>
         <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.referentiel.roles.Role</class>
         <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.devis.Devis</class>
+        <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.devis.options.DevisOption</class>
         <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.devis.lignes.DevisLigne</class>
         <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.personnes.artisans.banques.ArtisanBanque</class>
         <class>org.rlsv.adapters.secondaries.dataproviderjpa.entities.personnes.artisans.options.ArtisanOption</class>
@@ -32,6 +33,7 @@
             <property name="hibernate.show_sql" value="false"/>
             <property name="hibernate.format_sql" value="true"/>
             <property name="hibernate.use_sql_comments" value="true"/>
+
 
             <!-- Disable Hibernate scanning completely, we also don't want any hbm.xml files
                  discovered and added automatically. -->
