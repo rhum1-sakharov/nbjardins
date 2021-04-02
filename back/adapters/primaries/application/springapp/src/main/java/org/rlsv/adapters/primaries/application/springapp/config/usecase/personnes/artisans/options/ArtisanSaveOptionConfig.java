@@ -8,10 +8,10 @@ import ports.transactions.TransactionManagerPT;
 import usecases.personnes.artisans.options.SaveOptionUE;
 
 @Configuration
-public class SaveOptionConfig {
+public class ArtisanSaveOptionConfig {
 
     @Bean
-    public SaveOptionUE saveOptionUE(LocalizeServicePT ls, TransactionManagerPT tm, ArtisanOptionRepoPT artisanOptionRepo) {
+    public SaveOptionUE artisanSaveOptionUE(LocalizeServicePT ls, TransactionManagerPT tm, ArtisanOptionRepoPT artisanOptionRepo) {
         return new SaveOptionUE(ls, tm, artisanOptionRepo);
     }
 

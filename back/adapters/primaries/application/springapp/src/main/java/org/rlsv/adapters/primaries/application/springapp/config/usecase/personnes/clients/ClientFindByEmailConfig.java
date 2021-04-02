@@ -9,7 +9,7 @@ import usecases.personnes.clients.FindByEmailUE;
 
 
 @Configuration
-public class FindByEmailConfig {
+public class ClientFindByEmailConfig {
 
     @Bean
     public FindByEmailUE clientFindByEmailUE(LocalizeServicePT ls, TransactionManagerPT tm, ClientRepoPT clientRepo) {

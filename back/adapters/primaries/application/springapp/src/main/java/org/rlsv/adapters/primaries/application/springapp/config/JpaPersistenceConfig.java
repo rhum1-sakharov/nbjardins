@@ -3,6 +3,7 @@ package org.rlsv.adapters.primaries.application.springapp.config;
 import org.rlsv.adapters.secondaries.dataproviderjpa.config.DatabaseConnectionConfig;
 import org.rlsv.adapters.secondaries.dataproviderjpa.config.JtaConfig;
 import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.devis.DevisRepoJpa;
+import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.devis.options.DevisOptionRepoJpa;
 import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.personnes.PersonneRepoJpa;
 import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.personnes.artisans.ArtisanRepoJpa;
 import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.personnes.artisans.banques.ArtisanBanqueRepoJpa;
@@ -19,6 +20,7 @@ import org.springframework.context.annotation.DependsOn;
 import org.springframework.core.env.Environment;
 import ports.localization.LocalizeServicePT;
 import ports.repositories.devis.DevisRepoPT;
+import ports.repositories.devis.options.DevisOptionRepoPT;
 import ports.repositories.personnes.PersonneRepoPT;
 import ports.repositories.personnes.artisans.ArtisanRepoPT;
 import ports.repositories.personnes.artisans.banques.ArtisanBanqueRepoPT;
@@ -52,15 +54,15 @@ public class JpaPersistenceConfig {
 
     @Bean
     @DependsOn("databaseConnectionConfig")
-    public DevisRepoPT demandeDeDevisRepoPT(LocalizeServicePT ls,ArtisanRepoPT artisanRepo, ClientRepoPT clientRepo) {
-        return new DevisRepoJpa(ls,artisanRepo, clientRepo);
+    public DevisRepoPT demandeDeDevisRepoPT(LocalizeServicePT ls, ArtisanRepoPT artisanRepo, ClientRepoPT clientRepo) {
+        return new DevisRepoJpa(ls, artisanRepo, clientRepo);
     }
 
 
     @Bean
     @DependsOn("databaseConnectionConfig")
-    public PersonneRoleRepoPT personneRoleRepoPT(LocalizeServicePT ls,PersonneRepoPT personneRepo, RoleRepoPT roleRepo) {
-        return new PersonneRoleRepoJpa(ls,personneRepo, roleRepo);
+    public PersonneRoleRepoPT personneRoleRepoPT(LocalizeServicePT ls, PersonneRepoPT personneRepo, RoleRepoPT roleRepo) {
+        return new PersonneRoleRepoJpa(ls, personneRepo, roleRepo);
     }
 
     @Bean
@@ -103,6 +105,12 @@ public class JpaPersistenceConfig {
     @DependsOn("databaseConnectionConfig")
     public ArtisanOptionRepoPT artisanOptionRepoPT(LocalizeServicePT ls) {
         return new ArtisanOptionRepoJpa(ls);
+    }
+
+    @Bean
+    @DependsOn("databaseConnectionConfig")
+    public DevisOptionRepoPT devisOptionRepoPT(LocalizeServicePT ls) {
+        return new DevisOptionRepoJpa(ls);
     }
 
 
