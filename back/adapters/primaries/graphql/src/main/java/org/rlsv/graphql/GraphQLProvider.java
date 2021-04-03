@@ -76,6 +76,7 @@ public class GraphQLProvider {
                         .dataFetcher("artisanBanqueFindByEmail", artisanBanqueDataFetcher.artisanBanqueFindByEmailDataFetcher())
                         .dataFetcher("artisanOptionFindByEmail", artisanOptionDataFetcher.artisanOptionFindByEmailDataFetcher())
                         .dataFetcher("devisFindByEmailArtisan", devisDataFetcher.findByEmailArtisanDataFetcher())
+                        .dataFetcher("devisCountByEmailArtisanAndStatut", devisDataFetcher.countByEmailArtisanAndStatutDataFetcher())
                 )
                 .type(newTypeWiring("Mutation")
                         .dataFetcher("saveArtisan", artisanDataFetcher.saveArtisanDataFetcher())

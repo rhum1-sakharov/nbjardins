@@ -13,6 +13,7 @@ type Query {
     artisanBanqueFindByEmail(email: String) : [ArtisanBanque!]
     artisanOptionFindByEmail(email: String) : [ArtisanOption!]
     devisFindByEmailArtisan(email: String) : Devis
+    devisCountByEmailArtisanAndStatut(emailArtisan: String, statutDevis: STATUT_DEVIS) : Int
 
 }
 
