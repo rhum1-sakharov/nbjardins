@@ -11,10 +11,7 @@ import org.rlsv.graphql.data.fetcher.referentiel.conditions.reglements.Condition
 import org.rlsv.graphql.data.fetcher.referentiel.taxes.TaxeDataFetcher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import usecases.devis.ChangeStatusDevisUE;
-import usecases.devis.DeleteDevisUE;
-import usecases.devis.FindByEmailArtisanUE;
-import usecases.devis.SaveDevisUE;
+import usecases.devis.*;
 import usecases.personnes.artisans.SaveArtisanUE;
 import usecases.personnes.artisans.banques.FindByEmailAndPrefereUE;
 import usecases.personnes.artisans.banques.RemoveArtisanBanqueByEmailUE;
@@ -58,8 +55,18 @@ public class GraphQLConfig {
     }
 
     @Bean
-    public DevisDataFetcher getGraphQLDevisDataFetcher(FindByEmailArtisanUE findByEmailArtisanUE, DeleteDevisUE deleteDevisUE, ChangeStatusDevisUE changeStatusDevisUE, SaveDevisUE saveDevisUE) {
-        return new DevisDataFetcher(findByEmailArtisanUE, deleteDevisUE, changeStatusDevisUE, saveDevisUE);
+    public DevisDataFetcher getGraphQLDevisDataFetcher(FindByEmailArtisanUE findByEmailArtisanUE,
+                                                       DeleteDevisUE deleteDevisUE,
+                                                       ChangeStatusDevisUE changeStatusDevisUE,
+                                                       SaveDevisUE saveDevisUE,
+                                                       CountByEmailArtisanAndStatutUE countByEmailArtisanAndStatutUE
+                                                       ) {
+        return new DevisDataFetcher(findByEmailArtisanUE,
+                deleteDevisUE,
+                changeStatusDevisUE,
+                saveDevisUE,
+                countByEmailArtisanAndStatutUE
+                );
     }
 
     @Bean
