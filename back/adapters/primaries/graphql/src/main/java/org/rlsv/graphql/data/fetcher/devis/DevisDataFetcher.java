@@ -35,8 +35,8 @@ public class DevisDataFetcher {
     public DataFetcher countByEmailArtisanAndStatutDataFetcher() throws CleanException {
         return dataFetchingEnvironment -> {
             String emailArtisan = dataFetchingEnvironment.getArgument("emailArtisan");
-            STATUT_DEVIS statutDevis = dataFetchingEnvironment.getArgument("statutDevis");
-            return countByEmailArtisanAndStatutUE.execute(null, emailArtisan, statutDevis);
+            String statutDevisStr = dataFetchingEnvironment.getArgument("statutDevis");
+            return countByEmailArtisanAndStatutUE.execute(null, emailArtisan, STATUT_DEVIS.valueOf(statutDevisStr));
         };
     }
 

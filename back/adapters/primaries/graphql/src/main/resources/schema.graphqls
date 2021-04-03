@@ -13,7 +13,7 @@ type Query {
     artisanBanqueFindByEmail(email: String) : [ArtisanBanque!]
     artisanOptionFindByEmail(email: String) : [ArtisanOption!]
     devisFindByEmailArtisan(email: String) : Devis
-    devisCountByEmailArtisanAndStatut(emailArtisan: String, statutDevis: STATUT_DEVIS) : Int
+    devisCountByEmailArtisanAndStatut(emailArtisan: String, statutDevis: STATUT_DEVIS) : NbResult
 
 }
 
@@ -63,6 +63,10 @@ input ArtisanInput{
 
 type Deleted{
     nbDeleted: Int
+}
+
+type NbResult{
+    nbResult: Int
 }
 
 input TaxeInput{

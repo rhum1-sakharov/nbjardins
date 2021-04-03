@@ -6,6 +6,7 @@ import {AuthGuard, USER_RIGHT_ARTISAN} from 'rhum1-sakharov-core-lib';
 import {DevisComponent} from './pages/devis/devis.component';
 import {FacturesComponent} from './pages/factures/factures.component';
 import {StatsComponent} from './pages/stats/stats.component';
+import {DevisResolverService} from './pages/devis/devis-resolver.service';
 
 
 const routes: Routes = [
@@ -24,6 +25,9 @@ const routes: Routes = [
     component: DevisComponent,
     runGuardsAndResolvers: 'always',
     data: USER_RIGHT_ARTISAN,
+    resolve: {
+      devisSupplier: DevisResolverService
+    }
   },
   {
     path: 'factures',
@@ -43,4 +47,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

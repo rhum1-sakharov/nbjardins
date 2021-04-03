@@ -24,7 +24,7 @@ public class CountByEmailArtisanAndStatutUE extends AbstractUsecase {
     }
 
     @Transactional
-    public Integer execute(DataProviderManager dpm, String emailArtisan, STATUT_DEVIS statutDevis) throws CleanException {
+    public Long execute(DataProviderManager dpm, String emailArtisan, STATUT_DEVIS statutDevis) throws CleanException {
 
         Precondition.validate(
                 Precondition.init(ls.getMsg(ARG_IS_REQUIRED, "email artisan"), Objects.nonNull(emailArtisan)),

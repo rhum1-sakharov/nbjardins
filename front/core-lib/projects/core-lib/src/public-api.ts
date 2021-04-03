@@ -20,6 +20,7 @@ export * from './lib/models/model';
 export * from './lib/constants/constants';
 export * from './lib/enums/e-modele-option';
 export * from './lib/enums/e-crud-mode';
+export * from './lib/enums/e-statut-devis';
 
 export * from './lib/crud/abstract-crud';
 

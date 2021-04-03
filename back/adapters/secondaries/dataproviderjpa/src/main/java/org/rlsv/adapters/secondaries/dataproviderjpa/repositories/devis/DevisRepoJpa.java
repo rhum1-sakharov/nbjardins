@@ -95,15 +95,15 @@ public class DevisRepoJpa extends RepoJpa implements DevisRepoPT {
     }
 
     @Override
-    public Integer countByEmailArtisanAndStatutDevis(DataProviderManager dpm, String emailArtisan, STATUT_DEVIS statutDevis) {
+    public Long countByEmailArtisanAndStatutDevis(DataProviderManager dpm, String emailArtisan, STATUT_DEVIS statutDevis) {
 
         EntityManager em = PersistenceUtils.getEntityManager(dpm);
 
-        TypedQuery<Integer> query = em.createQuery("SELECT count(d.id) from Devis d " +
+        TypedQuery<Long> query = em.createQuery("SELECT count(d.id) from Devis d " +
                 " join d.artisan a " +
                 " join a.personne p " +
                 " where p.email=:emailArtisan " +
-                " and d.statut=:statutDevis ", Integer.class);
+                " and d.statut=:statutDevis ", Long.class);
         query.setParameter("emailArtisan", emailArtisan);
         query.setParameter("statutDevis", statutDevis);
 

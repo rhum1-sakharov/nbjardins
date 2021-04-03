@@ -18,5 +18,5 @@ public interface DevisRepoPT extends RepoPT {
 
     DevisDN changeStatus(DataProviderManager dpm, String idDevis, STATUT_DEVIS statutDevis);
 
-    Integer countByEmailArtisanAndStatutDevis(DataProviderManager dpm, String emailArtisan, STATUT_DEVIS statutDevis);
+    Long countByEmailArtisanAndStatutDevis(DataProviderManager dpm, String emailArtisan, STATUT_DEVIS statutDevis);
 }

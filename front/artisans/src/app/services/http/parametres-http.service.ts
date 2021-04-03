@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {CollectionUtils, HttpService, MArtisan, MArtisanBanque, MArtisanOption} from 'rhum1-sakharov-core-lib';
+import {CollectionUtils, HttpService, MArtisan, MArtisanBanque, MArtisanOption, URL_GRAPHQL} from 'rhum1-sakharov-core-lib';
 
 @Injectable({
   providedIn: 'root'
@@ -95,7 +95,7 @@ export class ParametresHttpService {
    
     }`;
 
-    return this.httpSvc.post('api/graphql', query);
+    return this.httpSvc.post(URL_GRAPHQL, query);
   }
 
   private generateRemoveArtisanBanqueByEmail(email: string) {
