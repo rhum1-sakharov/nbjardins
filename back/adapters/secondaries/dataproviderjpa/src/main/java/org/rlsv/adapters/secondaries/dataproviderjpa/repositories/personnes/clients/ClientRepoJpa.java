@@ -15,6 +15,7 @@ import transactions.DataProviderManager;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import java.util.List;
 import java.util.Objects;
 
 public class ClientRepoJpa extends RepoJpa implements ClientRepoPT {
@@ -84,9 +85,26 @@ public class ClientRepoJpa extends RepoJpa implements ClientRepoPT {
                 "where p.email=:email", Client.class);
         query.setParameter("email", email);
 
-        Client client= PersistenceUtils.getSingleResult(query);
+        Client client = PersistenceUtils.getSingleResult(query);
 
         return ClientMapper.INSTANCE.entityToDomain(client);
+    }
+
+    @Override
+    public List<ClientDN> findByEmailArtisan(DataProviderManager dpm, String emailArtisan) {
+
+        EntityManager em = PersistenceUtils.getEntityManager(dpm);
+
+        TypedQuery<Client> query = em.createQuery("SELECT c from Client c " +
+                " join c.artisan a " +
+                " join a.personne p " +
+                "where p.email=:emailArtisan", Client.class);
+        query.setParameter("emailArtisan", emailArtisan);
+
+        List<Client> clientList = PersistenceUtils.getResultList(query);
+
+        return ClientMapper.INSTANCE.entitiesToDomains(clientList);
+
     }
 
 
