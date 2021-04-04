@@ -17,11 +17,35 @@ export class DevisHttpService {
   prepare(emailArtisan: string) {
 
     const query = `{        
-       devisCountByEmailArtisanAndStatut(emailArtisan: "${emailArtisan}", statutDevis: ${STATUT_DEVIS.A_TRAITER}){
-         nbResult
-      }    
+      ${this.devisCountByEmailArtisanAndStatut(emailArtisan)}         
     }`;
 
     return this.httpSvc.post(URL_GRAPHQL, query);
   }
+
+  devisCountByEmailArtisanAndStatut(emailArtisan: string){
+
+    const query = `        
+       
+       nbDevisATraiter: devisCountByEmailArtisanAndStatut(emailArtisan: "${emailArtisan}", statutDevis: ${STATUT_DEVIS.A_TRAITER}){
+         nbResult }
+         
+       nbDevisTraites: devisCountByEmailArtisanAndStatut(emailArtisan: "${emailArtisan}", statutDevis: ${STATUT_DEVIS.TRAITE}){
+         nbResult }  
+         
+       nbDevisAcceptes: devisCountByEmailArtisanAndStatut(emailArtisan: "${emailArtisan}", statutDevis: ${STATUT_DEVIS.ACCEPTE}){
+         nbResult }    
+         
+       nbDevisRefuses: devisCountByEmailArtisanAndStatut(emailArtisan: "${emailArtisan}", statutDevis: ${STATUT_DEVIS.REFUSE}){
+         nbResult }    
+       
+       nbDevisAbandonnes: devisCountByEmailArtisanAndStatut(emailArtisan: "${emailArtisan}", statutDevis: ${STATUT_DEVIS.ABANDON}){
+         nbResult }          
+       
+         `;
+
+    return query;
+
+  }
+
 }
