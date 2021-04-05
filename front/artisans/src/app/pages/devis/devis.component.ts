@@ -88,4 +88,24 @@ export class DevisComponent implements OnInit, OnDestroy, AfterViewInit {
    return 0;
 
   }
+
+  getSeverityClass(index:number) {
+
+
+      switch (index) {
+        case 0:
+          return  '';
+        case 1:
+          return 'info';
+        case 2:
+          return 'success';
+        case 3:
+          return 'danger';
+        case 4:
+          return 'warning';
+        default:
+          return '';
+      }
+
+  }
 }

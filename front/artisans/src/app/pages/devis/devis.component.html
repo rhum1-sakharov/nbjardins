@@ -1,8 +1,7 @@
 <p-tabMenu [model]="items" [activeItem]="activeItem">
 
   <ng-template pTemplate="item" let-item let-i="index">
-
-    <span class="mg-r-5">{{item.label}}</span> <p-badge [value]="getNbDevis(i)"></p-badge>
+    <span class="mg-r-5">{{item.label}}</span> <p-badge [severity]="getSeverityClass(i)" [value]="getNbDevis(i)"></p-badge>
   </ng-template>
 
 </p-tabMenu>
