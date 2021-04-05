@@ -84,6 +84,7 @@ export class DevisComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     }
 
+
    return 0;
 
   }
