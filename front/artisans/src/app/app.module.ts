@@ -32,6 +32,14 @@ import {RadioButtonModule} from 'primeng/radiobutton';
 import {CrudBanqueComponent} from './components/cruds/banque/crud-banque.component';
 import {DialogModule} from 'primeng/dialog';
 import {InputMaskModule} from 'primeng/inputmask';
+import {TabViewModule} from 'primeng/tabview';
+import {BadgeModule} from 'primeng/badge';
+import {TabMenuModule} from 'primeng/tabmenu';
+import {ATraiterComponent} from './components/devis/a-traiter/a-traiter.component';
+import {TraitesComponent} from './components/devis/traites/traites.component';
+import {AcceptesComponent} from './components/devis/acceptes/acceptes.component';
+import {RefusesComponent} from './components/devis/refuses/refuses.component';
+import {AbandonnesComponent} from './components/devis/abandonnes/abandonnes.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +53,12 @@ import {InputMaskModule} from 'primeng/inputmask';
     PreviewDevisComponent,
     PreviewFactureComponent,
     StatsComponent,
-    CrudBanqueComponent
+    CrudBanqueComponent,
+    ATraiterComponent,
+    TraitesComponent,
+    AcceptesComponent,
+    RefusesComponent,
+    AbandonnesComponent
   ],
   imports: [
     BrowserModule,
@@ -68,7 +81,10 @@ import {InputMaskModule} from 'primeng/inputmask';
     TableModule,
     RadioButtonModule,
     DialogModule,
-    InputMaskModule
+    InputMaskModule,
+    TabViewModule,
+    BadgeModule,
+    TabMenuModule
 
   ],
   providers: [

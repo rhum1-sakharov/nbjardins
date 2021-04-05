@@ -4,6 +4,7 @@ import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
 import exceptions.CleanException;
 import graphql.GraphQL;
+import graphql.Scalars;
 import graphql.scalars.ExtendedScalars;
 import graphql.schema.GraphQLSchema;
 import graphql.schema.idl.RuntimeWiring;
@@ -49,6 +50,7 @@ public class GraphQLProvider {
 
         URL url = Resources.getResource("schema.graphqls");
         String sdl = Resources.toString(url, Charsets.UTF_8);
+
         GraphQLSchema graphQLSchema = buildSchema(sdl);
         this.graphQL = GraphQL.newGraphQL(graphQLSchema).build();
     }
@@ -68,6 +70,7 @@ public class GraphQLProvider {
 
         return RuntimeWiring.newRuntimeWiring()
                 .scalar(ExtendedScalars.Date)
+                .scalar(Scalars.GraphQLLong)
                 .type(newTypeWiring("Query")
                         .dataFetcher("taxeAll", taxeDataFetcher.getAllTaxesDataFetcher())
                         .dataFetcher("conditionReglementAll", conditionReglementDataFetcher.getAllConditionReglementDataFetcher())

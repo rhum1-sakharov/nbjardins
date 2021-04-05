@@ -4,6 +4,7 @@ import domains.devis.DevisDN;
 import enums.STATUT_DEVIS;
 import exceptions.CleanException;
 import graphql.schema.DataFetcher;
+import org.rlsv.graphql.models.NbResult;
 import org.rlsv.graphql.utils.MapperUtils;
 import usecases.devis.*;
 
@@ -36,7 +37,9 @@ public class DevisDataFetcher {
         return dataFetchingEnvironment -> {
             String emailArtisan = dataFetchingEnvironment.getArgument("emailArtisan");
             String statutDevisStr = dataFetchingEnvironment.getArgument("statutDevis");
-            return countByEmailArtisanAndStatutUE.execute(null, emailArtisan, STATUT_DEVIS.valueOf(statutDevisStr));
+            Long nbResult = countByEmailArtisanAndStatutUE.execute(null, emailArtisan, STATUT_DEVIS.valueOf(statutDevisStr));
+
+            return new NbResult(nbResult);
         };
     }
 

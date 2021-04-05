@@ -99,7 +99,7 @@ public class DevisRepoJpa extends RepoJpa implements DevisRepoPT {
 
         EntityManager em = PersistenceUtils.getEntityManager(dpm);
 
-        TypedQuery<Long> query = em.createQuery("SELECT count(d.id) from Devis d " +
+        TypedQuery<Long> query = em.createQuery("SELECT count(d) from Devis d " +
                 " join d.artisan a " +
                 " join a.personne p " +
                 " where p.email=:emailArtisan " +
@@ -107,7 +107,9 @@ public class DevisRepoJpa extends RepoJpa implements DevisRepoPT {
         query.setParameter("emailArtisan", emailArtisan);
         query.setParameter("statutDevis", statutDevis);
 
-        return PersistenceUtils.getSingleResult(query);
+        Long value = PersistenceUtils.getSingleResult(query);
+
+        return (value == null ? 0 : value);
 
 
     }
