@@ -32,6 +32,42 @@ export class DevisHttpService {
     return this.httpSvc.post(URL_GRAPHQL, query);
   }
 
+  prepareDevisTraites(emailArtisan: string) {
+
+    const query = `{        
+      ${this.devisFindByEmailArtisanAndStatut(emailArtisan, STATUT_DEVIS.TRAITE)}         
+    }`;
+
+    return this.httpSvc.post(URL_GRAPHQL, query);
+  }
+
+  prepareDevisAbandonnes(emailArtisan: string) {
+
+    const query = `{        
+      ${this.devisFindByEmailArtisanAndStatut(emailArtisan, STATUT_DEVIS.ABANDON)}         
+    }`;
+
+    return this.httpSvc.post(URL_GRAPHQL, query);
+  }
+
+  prepareDevisAcceptes(emailArtisan: string) {
+
+    const query = `{        
+      ${this.devisFindByEmailArtisanAndStatut(emailArtisan, STATUT_DEVIS.ACCEPTE)}         
+    }`;
+
+    return this.httpSvc.post(URL_GRAPHQL, query);
+  }
+
+  prepareDevisRefuses(emailArtisan: string) {
+
+    const query = `{        
+      ${this.devisFindByEmailArtisanAndStatut(emailArtisan, STATUT_DEVIS.REFUSE)}         
+    }`;
+
+    return this.httpSvc.post(URL_GRAPHQL, query);
+  }
+
   devisFindByEmailArtisanAndStatut(emailArtisan: string, statutDevis: STATUT_DEVIS) {
 
     const query = `        

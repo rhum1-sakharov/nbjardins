@@ -16,7 +16,7 @@ export class AbandonnesResolverService {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
 
     const user = this.ls.getItem(KEY_USER);
-    return this.devisHttp.prepareDevisATraiter(user.email);
+    return this.devisHttp.prepareDevisAbandonnes(user.email);
 
   }
 }
