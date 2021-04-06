@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
-import {ObservableUtils, ResponsiveUtils} from 'rhum1-sakharov-core-lib';
+import {DateUtils, ObservableUtils, ResponsiveUtils} from 'rhum1-sakharov-core-lib';
 
 @Component({
   selector: 'app-a-traiter',
@@ -13,10 +13,11 @@ export class ATraiterComponent implements OnInit, OnDestroy {
   subRoute !: Subscription;
 
   responsiveUtils = ResponsiveUtils;
+  dateUtils = DateUtils;
 
-  numeroDevisWidth=150;
-  clientWidth=350;
-  depuisWidth=100;
+  numeroDevisWidth = 170;
+  clientWidth = 350;
+  depuisWidth = 120;
 
   devisList !: any[];
 
@@ -33,6 +34,29 @@ export class ATraiterComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     ObservableUtils.unsubscribe(this.subRoute);
+  }
+
+  aTraiterSince(isoDate:string){
+
+    const dateATraiter= DateUtils.getDateFromIso(isoDate);
+    const now = new Date();
+    const nbDays = DateUtils.getNbDays(now,dateATraiter);
+
+    let display='';
+    switch(nbDays){
+      case 0:
+        display=`aujourd'hui`;
+        break;
+      case 1:
+        display=`1 jour.`;
+        break;
+      default:
+        display=`${nbDays} jours`;
+        break;
+    }
+
+    return display;
+
   }
 
 }

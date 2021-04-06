@@ -1,15 +1,27 @@
 <div class="d-flex">
 
-  <div class="max-wh-600">
+  <div class="max-wh-640">
     <p-table [value]="devisList"
              [scrollable]="true"
+
              [scrollHeight]="responsiveUtils.getHeightStr(200)"
     >
       <ng-template pTemplate="header">
         <tr>
-          <th [width]="numeroDevisWidth">Numéro devis</th>
-          <th [width]="clientWidth">Client</th>
-          <th [width]="depuisWidth">Depuis</th>
+          <th [width]="numeroDevisWidth" style="line-height:40px;" pSortableColumn="numeroDevis">
+
+            <button pButton icon="pi pi-plus" pTooltip="créer un devis"></button>
+            N° devis
+            <p-sortIcon field="numeroDevis"></p-sortIcon>
+          </th>
+          <th [width]="clientWidth" pSortableColumn="clientNom">
+            Client
+            <p-sortIcon field="clientNom"></p-sortIcon>
+          </th>
+          <th [width]="depuisWidth"  pSortableColumn="dateATraiter">
+            Depuis
+            <p-sortIcon field="dateATraiter"></p-sortIcon>
+          </th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-rowData>
@@ -18,10 +30,11 @@
             {{rowData.numeroDevis}}
           </td>
           <td [width]="clientWidth">
-            {{rowData.clientPrenom | titlecase}} {{rowData.clientNom | uppercase}}, <strong>{{rowData.clientSociete | uppercase}}</strong>
+            {{rowData.clientNom | uppercase}} {{rowData.clientPrenom | titlecase}} , <strong>{{rowData.clientSociete |
+            uppercase}}</strong>
           </td>
           <td [width]="depuisWidth">
-            {{rowData.numeroDevis}}
+            {{aTraiterSince(rowData.dateATraiter)}}
           </td>
         </tr>
       </ng-template>

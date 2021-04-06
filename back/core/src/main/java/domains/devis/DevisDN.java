@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -45,10 +44,10 @@ public class DevisDN extends Domain {
 
 
     LocalDate dateATraiter;
-    Date dateTraite;
-    Date dateAccepte;
-    Date dateRefuse;
-    Date dateAbandon;
+    LocalDate dateTraite;
+    LocalDate dateAccepte;
+    LocalDate dateRefuse;
+    LocalDate dateAbandon;
 
     String sujet;
     String numeroDevis;
