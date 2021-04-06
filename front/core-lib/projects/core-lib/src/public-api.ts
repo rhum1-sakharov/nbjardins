@@ -31,6 +31,7 @@ export * from './lib/techniques/messages/toaster.service';
 export * from './lib/techniques/validators/validators.service';
 export * from './lib/techniques/utils/observable-utils';
 export * from './lib/techniques/utils/collection-utils';
+export * from './lib/techniques/utils/responsive-utils';
 export * from './lib/techniques/auth/auth.guard';
 export * from './lib/techniques/auth/auth.service';
 export * from './lib/techniques/auth/auth-interceptor.service';

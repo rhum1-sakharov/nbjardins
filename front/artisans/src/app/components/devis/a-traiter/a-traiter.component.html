@@ -1,6 +1,34 @@
-<p>a-traiter works!</p>
+<div class="d-flex">
 
-<div style="height: calc(100vh - 200px);overflow: auto">
-  <pre>{{devisList | json  }}</pre>
+  <div class="max-wh-600">
+    <p-table [value]="devisList"
+             [scrollable]="true"
+             [scrollHeight]="responsiveUtils.getHeightStr(200)"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th [width]="numeroDevisWidth">Numéro devis</th>
+          <th [width]="clientWidth">Client</th>
+          <th [width]="depuisWidth">Depuis</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData>
+        <tr>
+          <td [width]="numeroDevisWidth">
+            {{rowData.numeroDevis}}
+          </td>
+          <td [width]="clientWidth">
+            {{rowData.clientPrenom | titlecase}} {{rowData.clientNom | uppercase}}, <strong>{{rowData.clientSociete | uppercase}}</strong>
+          </td>
+          <td [width]="depuisWidth">
+            {{rowData.numeroDevis}}
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <div>
+
+  </div>
+
 </div>
-
