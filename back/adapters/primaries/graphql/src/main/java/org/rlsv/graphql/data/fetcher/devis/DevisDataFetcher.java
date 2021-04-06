@@ -8,6 +8,7 @@ import org.rlsv.graphql.models.NbResult;
 import org.rlsv.graphql.utils.MapperUtils;
 import usecases.devis.*;
 
+import java.util.List;
 import java.util.Map;
 
 public class DevisDataFetcher {
@@ -17,13 +18,15 @@ public class DevisDataFetcher {
     ChangeStatusDevisUE changeStatusDevisUE;
     SaveDevisUE saveDevisUE;
     CountByEmailArtisanAndStatutUE countByEmailArtisanAndStatutUE;
+    FindByEmailArtisanAndStatutUE findByEmailArtisanAndStatutUE;
 
-    public DevisDataFetcher(FindByEmailArtisanUE findByEmailArtisanUE, DeleteDevisUE deleteDevisUE, ChangeStatusDevisUE changeStatusDevisUE, SaveDevisUE saveDevisUE, CountByEmailArtisanAndStatutUE countByEmailArtisanAndStatutUE) {
+    public DevisDataFetcher(FindByEmailArtisanUE findByEmailArtisanUE, DeleteDevisUE deleteDevisUE, ChangeStatusDevisUE changeStatusDevisUE, SaveDevisUE saveDevisUE, CountByEmailArtisanAndStatutUE countByEmailArtisanAndStatutUE, FindByEmailArtisanAndStatutUE findByEmailArtisanAndStatutUE) {
         this.findByEmailArtisanUE = findByEmailArtisanUE;
         this.deleteDevisUE = deleteDevisUE;
         this.changeStatusDevisUE = changeStatusDevisUE;
         this.saveDevisUE = saveDevisUE;
         this.countByEmailArtisanAndStatutUE = countByEmailArtisanAndStatutUE;
+        this.findByEmailArtisanAndStatutUE = findByEmailArtisanAndStatutUE;
     }
 
     public DataFetcher findByEmailArtisanDataFetcher() throws CleanException {
@@ -54,6 +57,20 @@ public class DevisDataFetcher {
 
             return devis;
         };
+    }
+
+    public DataFetcher findByEmailArtisanAndStatutDataFetcher() {
+
+        return dataFetchingEnvironment -> {
+
+            String emailArtisan = dataFetchingEnvironment.getArgument("emailArtisan");
+            String statutDevisStr = dataFetchingEnvironment.getArgument("statutDevis");
+
+            List<DevisDN> devisList = findByEmailArtisanAndStatutUE.execute(null, emailArtisan, STATUT_DEVIS.valueOf(statutDevisStr));
+
+            return devisList;
+        };
+
     }
 }
 

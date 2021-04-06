@@ -59,13 +59,15 @@ public class GraphQLConfig {
                                                        DeleteDevisUE deleteDevisUE,
                                                        ChangeStatusDevisUE changeStatusDevisUE,
                                                        SaveDevisUE saveDevisUE,
-                                                       CountByEmailArtisanAndStatutUE countByEmailArtisanAndStatutUE
+                                                       CountByEmailArtisanAndStatutUE countByEmailArtisanAndStatutUE,
+                                                       FindByEmailArtisanAndStatutUE findByEmailArtisanAndStatutUE
                                                        ) {
         return new DevisDataFetcher(findByEmailArtisanUE,
                 deleteDevisUE,
                 changeStatusDevisUE,
                 saveDevisUE,
-                countByEmailArtisanAndStatutUE
+                countByEmailArtisanAndStatutUE,
+                findByEmailArtisanAndStatutUE
                 );
     }
 

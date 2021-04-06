@@ -15,6 +15,7 @@ type Query {
     artisanOptionFindByEmail(email: String) : [ArtisanOption!]
     devisFindByEmailArtisan(email: String) : Devis
     devisCountByEmailArtisanAndStatut(emailArtisan: String, statutDevis: STATUT_DEVIS) : NbResult
+    devisFindByEmailArtisanAndStatut(emailArtisan: String, statutDevis: STATUT_DEVIS) : [Devis]
 
 }
 

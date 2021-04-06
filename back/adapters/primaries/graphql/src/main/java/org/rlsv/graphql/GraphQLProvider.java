@@ -80,6 +80,7 @@ public class GraphQLProvider {
                         .dataFetcher("artisanOptionFindByEmail", artisanOptionDataFetcher.artisanOptionFindByEmailDataFetcher())
                         .dataFetcher("devisFindByEmailArtisan", devisDataFetcher.findByEmailArtisanDataFetcher())
                         .dataFetcher("devisCountByEmailArtisanAndStatut", devisDataFetcher.countByEmailArtisanAndStatutDataFetcher())
+                        .dataFetcher("devisFindByEmailArtisanAndStatut", devisDataFetcher.findByEmailArtisanAndStatutDataFetcher())
                 )
                 .type(newTypeWiring("Mutation")
                         .dataFetcher("saveArtisan", artisanDataFetcher.saveArtisanDataFetcher())
