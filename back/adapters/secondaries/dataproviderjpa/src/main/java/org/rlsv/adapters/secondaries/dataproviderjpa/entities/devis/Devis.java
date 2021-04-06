@@ -8,9 +8,7 @@ import org.rlsv.adapters.secondaries.dataproviderjpa.entities.personnes.clients.
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Date;
-
-import static javax.persistence.TemporalType.DATE;
+import java.sql.Date;
 
 @Getter
 @Setter
@@ -90,23 +88,23 @@ public class Devis extends org.rlsv.adapters.secondaries.dataproviderjpa.entitie
     private String artisanSignature;
 
 
-    @Temporal(DATE)
+
     @Column(name="DATE_A_TRAITER")
     private Date dateATraiter;
 
-    @Temporal(DATE)
+
     @Column(name="DATE_TRAITE")
     private Date dateTraite;
 
-    @Temporal(DATE)
+
     @Column(name="DATE_ACCEPTE")
     private Date dateAccepte;
 
-    @Temporal(DATE)
+
     @Column(name="DATE_REFUSE")
     private Date dateRefuse;
 
-    @Temporal(DATE)
+
     @Column(name="DATE_ABANDON")
     private Date dateAbandon;
 
