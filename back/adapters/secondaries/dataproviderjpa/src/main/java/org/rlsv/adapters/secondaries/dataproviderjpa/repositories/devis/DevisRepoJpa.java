@@ -115,15 +115,40 @@ public class DevisRepoJpa extends RepoJpa implements DevisRepoPT {
     }
 
     @Override
-    public List<DevisDN> findByEmailArtisanAndStatut(DataProviderManager dpm, String emailArtisan, STATUT_DEVIS statutDevis) {
+    public List<DevisDN> findByEmailArtisanAndStatutWithOrder(DataProviderManager dpm, String emailArtisan, STATUT_DEVIS statutDevis) {
 
         EntityManager em = PersistenceUtils.getEntityManager(dpm);
+
+        String orderBy = " order by ";
+        String orderByClient = " d.clientSociete asc, d.clientNom asc, d.clientPrenom asc";
+
+        switch (statutDevis) {
+            case A_TRAITER:
+                orderBy += " d.dateATraiter asc, "+orderByClient;
+                break;
+            case ABANDON:
+                orderBy += " d.dateAbandon asc, "+orderByClient;
+                break;
+            case ACCEPTE:
+                orderBy += " d.dateAccepte asc, "+orderByClient;
+                break;
+            case REFUSE:
+                orderBy += " d.dateRefuse asc, "+orderByClient;
+                break;
+            case TRAITE:
+                orderBy += " d.dateTraite asc, "+orderByClient;
+                break;
+            default:
+                orderBy += orderByClient;
+                break;
+        }
 
         TypedQuery<Devis> query = em.createQuery("SELECT d from Devis d " +
                 " join d.artisan a " +
                 " join a.personne p " +
                 " where p.email=:emailArtisan " +
-                " and d.statut=:statutDevis  ", Devis.class);
+                " and d.statut=:statutDevis  " +
+                orderBy, Devis.class);
         query.setParameter("emailArtisan", emailArtisan);
         query.setParameter("statutDevis", statutDevis);
 

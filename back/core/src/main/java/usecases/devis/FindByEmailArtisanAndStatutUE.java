@@ -33,6 +33,6 @@ public class FindByEmailArtisanAndStatutUE extends AbstractUsecase {
                 Precondition.init(ls.getMsg(ARG_IS_REQUIRED, "statut devis"), Objects.nonNull(statutDevis))
         );
 
-        return devisRepo.findByEmailArtisanAndStatut(dpm,emailArtisan,statutDevis);
+        return devisRepo.findByEmailArtisanAndStatutWithOrder(dpm,emailArtisan,statutDevis);
     }
 }
