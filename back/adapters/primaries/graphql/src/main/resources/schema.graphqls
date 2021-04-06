@@ -156,6 +156,14 @@ type Artisan {
     emailPro : String
 }
 
+type Client {
+    id: ID
+    personne: Personne
+    siret: String
+    signature: String
+
+}
+
 type ArtisanBanque{
     id: ID
     iban: String
@@ -192,26 +200,21 @@ type ConditionReglement {
 type Devis{
 
     id : ID
-    sujet : String
-    message : String
-    numeroDevis : String
-    lieu : String
-    dateDemande : Date
-    dateEnCours : Date
-    dateEnvoye : Date
-    dateCreation : Date
-    totalHT : Float
-    tva : Float
-    remarque : String
-    nota : String
-    conditionDeReglement : String
-    ordre : String
-    statut : STATUT_DEVIS
-    iban : String
-    rib : String
-    logo : String
-    provision : Float
-    signature : String
-    validiteDevisMois : Int
+    numeroDevis: String
+    artisan: Artisan
+    client: Client
+    statut: STATUT_DEVIS
+
+    dateATraiter: Date
+    dateTraite: Date
+    dateAccepte: Date
+    dateRefuse: Date
+    dateAbandon: Date
+
+    clientNom: String
+    clientPrenom: String
+    clientSociete: String
+
+
 
 }

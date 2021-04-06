@@ -75,6 +75,12 @@ export class DevisHttpService {
         devisFindByEmailArtisanAndStatut(emailArtisan: "${emailArtisan}", statutDevis: ${statutDevis}){
          
          id
+         numeroDevis
+       
+       
+         clientNom
+         clientPrenom
+         clientSociete
          
           }        
        
