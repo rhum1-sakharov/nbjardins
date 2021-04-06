@@ -75,7 +75,7 @@ public class Devis extends org.rlsv.adapters.secondaries.dataproviderjpa.entitie
     @Column(name="ARTISAN_VILLE")
     private String artisanVille;
 
-    @Column(name="ARTISAN_CODEPOSTAL")
+    @Column(name="ARTISAN_CODE_POSTAL")
     private String artisanCodePostal;
 
     @Column(name="ARTISAN_TELEPHONE")

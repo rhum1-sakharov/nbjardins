@@ -12,6 +12,11 @@ import {TraitesComponent} from './components/devis/traites/traites.component';
 import {AcceptesComponent} from './components/devis/acceptes/acceptes.component';
 import {RefusesComponent} from './components/devis/refuses/refuses.component';
 import {AbandonnesComponent} from './components/devis/abandonnes/abandonnes.component';
+import {ATraiterResolverService} from './components/devis/a-traiter/a-traiter-resolver.service';
+import {TraitesResolverService} from './components/devis/traites/traites-resolver.service';
+import {AcceptesResolverService} from './components/devis/acceptes/acceptes-resolver.service';
+import {RefusesResolverService} from './components/devis/refuses/refuses-resolver.service';
+import {AbandonnesResolverService} from './components/devis/abandonnes/abandonnes-resolver.service';
 
 
 const routes: Routes = [
@@ -41,6 +46,9 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         runGuardsAndResolvers: 'always',
         data: USER_RIGHT_ARTISAN,
+        resolve: {
+          devisATraiterSupplier: ATraiterResolverService
+        },
       },
       {
         path: 'traites',
@@ -48,6 +56,9 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         runGuardsAndResolvers: 'always',
         data: USER_RIGHT_ARTISAN,
+        resolve: {
+          devisTraitesSupplier: TraitesResolverService
+        },
       },
       {
         path: 'acceptes',
@@ -55,6 +66,9 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         runGuardsAndResolvers: 'always',
         data: USER_RIGHT_ARTISAN,
+        resolve: {
+          devisAcceptesSupplier: AcceptesResolverService
+        },
       },
       {
         path: 'refuses',
@@ -62,6 +76,9 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         runGuardsAndResolvers: 'always',
         data: USER_RIGHT_ARTISAN,
+        resolve: {
+          devisRefusesSupplier: RefusesResolverService
+        },
       },
       {
         path: 'abandonnes',
@@ -69,6 +86,9 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         runGuardsAndResolvers: 'always',
         data: USER_RIGHT_ARTISAN,
+        resolve: {
+          devisAbandonnesSupplier: AbandonnesResolverService
+        },
       },
     ]
   },

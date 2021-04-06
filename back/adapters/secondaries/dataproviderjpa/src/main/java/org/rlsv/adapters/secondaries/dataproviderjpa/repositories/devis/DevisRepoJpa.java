@@ -119,11 +119,11 @@ public class DevisRepoJpa extends RepoJpa implements DevisRepoPT {
 
         EntityManager em = PersistenceUtils.getEntityManager(dpm);
 
-        TypedQuery<DevisDN> query = em.createQuery("SELECT d from Devis d " +
+        TypedQuery<Devis> query = em.createQuery("SELECT d from Devis d " +
                 " join d.artisan a " +
                 " join a.personne p " +
                 " where p.email=:emailArtisan " +
-                " and d.statut=:statutDevis ", DevisDN.class);
+                " and d.statut=:statutDevis ", Devis.class);
         query.setParameter("emailArtisan", emailArtisan);
         query.setParameter("statutDevis", statutDevis);
 

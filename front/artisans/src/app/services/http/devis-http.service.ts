@@ -23,7 +23,32 @@ export class DevisHttpService {
     return this.httpSvc.post(URL_GRAPHQL, query);
   }
 
-  devisCountByEmailArtisanAndStatut(emailArtisan: string){
+  prepareDevisATraiter(emailArtisan: string) {
+
+    const query = `{        
+      ${this.devisFindByEmailArtisanAndStatut(emailArtisan, STATUT_DEVIS.A_TRAITER)}         
+    }`;
+
+    return this.httpSvc.post(URL_GRAPHQL, query);
+  }
+
+  devisFindByEmailArtisanAndStatut(emailArtisan: string, statutDevis: STATUT_DEVIS) {
+
+    const query = `        
+       
+        devisFindByEmailArtisanAndStatut(emailArtisan: "${emailArtisan}", statutDevis: ${statutDevis}){
+         
+         id
+         
+          }        
+       
+         `;
+
+    return query;
+
+  }
+
+  devisCountByEmailArtisanAndStatut(emailArtisan: string) {
 
     const query = `        
        
