@@ -4,5 +4,7 @@
 [Artisan]-(Rechercher un devis)
 [Artisan]-(Supprimer un devis)
 [Artisan]-(Afficher mes devis)
+(Afficher mes devis)>(FindByEmailArtisanAndStatutUE)
+(Afficher mes devis)>(FindByEmailArtisanUE)
 [Artisan]-(Changer le statut d'un devis)
 [Artisan]-(Envoyer un devis par mail)

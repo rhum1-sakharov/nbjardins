@@ -113,4 +113,23 @@ public class DevisRepoJpa extends RepoJpa implements DevisRepoPT {
 
 
     }
+
+    @Override
+    public List<DevisDN> findByEmailArtisanAndStatut(DataProviderManager dpm, String emailArtisan, STATUT_DEVIS statutDevis) {
+
+        EntityManager em = PersistenceUtils.getEntityManager(dpm);
+
+        TypedQuery<DevisDN> query = em.createQuery("SELECT d from Devis d " +
+                " join d.artisan a " +
+                " join a.personne p " +
+                " where p.email=:emailArtisan " +
+                " and d.statut=:statutDevis ", DevisDN.class);
+        query.setParameter("emailArtisan", emailArtisan);
+        query.setParameter("statutDevis", statutDevis);
+
+        List<Devis> devisList = PersistenceUtils.getResultList(query);
+
+        return DevisMapper.INSTANCE.entitiesToDomains(devisList);
+
+    }
 }
