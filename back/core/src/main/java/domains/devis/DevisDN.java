@@ -9,8 +9,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.sql.Date;
-
+import java.time.LocalDate;
+import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -44,7 +44,7 @@ public class DevisDN extends Domain {
     String clientFonction;
 
 
-    Date dateATraiter;
+    LocalDate dateATraiter;
     Date dateTraite;
     Date dateAccepte;
     Date dateRefuse;

@@ -12,7 +12,7 @@ import enums.MODELE_OPTION;
 import enums.STATUT_DEVIS;
 
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.time.LocalDate;
 
 public class StubsDevis {
 
@@ -22,7 +22,7 @@ public class StubsDevis {
 
         DevisDN devis = new DevisDN();
         devis.setId("1");
-        devis.setDateATraiter(new Date(System.currentTimeMillis()));
+        devis.setDateATraiter(LocalDate.now());
         devis.setStatut(STATUT_DEVIS.A_TRAITER);
         devis.setSujet(sujet);
 

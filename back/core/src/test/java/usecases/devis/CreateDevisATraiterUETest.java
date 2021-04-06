@@ -25,7 +25,7 @@ import usecases.devis.options.SaveOptionUE;
 import usecases.personnes.artisans.FindByEmailUE;
 import usecases.personnes.artisans.banques.FindByEmailAndPrefereUE;
 
-import java.util.Calendar;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -145,7 +145,7 @@ public class CreateDevisATraiterUETest {
     @Test
     public void should_create_devis_with_dateATraiter_is_now() throws CleanException {
 
-        Calendar calNow = Calendar.getInstance();
+        LocalDate now= LocalDate.now();
 
         Map<String, Object> result = this.usecase.execute(null, personneArtisan1.getEmail(), personneClient1.getEmail());
         DevisDN devis = (DevisDN) result.get(DEVIS);
@@ -153,12 +153,13 @@ public class CreateDevisATraiterUETest {
         Assertions.assertThat(devis).isNotNull();
         Assertions.assertThat(devis.getDateATraiter()).isNotNull();
 
-        Calendar calATRaiter = Calendar.getInstance();
-        calATRaiter.setTime(devis.getDateATraiter());
+        LocalDate dateATraiter = devis.getDateATraiter();
 
-        Assertions.assertThat(calATRaiter.get(Calendar.DAY_OF_MONTH)).isEqualTo(calNow.get(Calendar.DAY_OF_MONTH));
-        Assertions.assertThat(calATRaiter.get(Calendar.MONTH)).isEqualTo(calNow.get(Calendar.MONTH));
-        Assertions.assertThat(calATRaiter.get(Calendar.YEAR)).isEqualTo(calNow.get(Calendar.YEAR));
+
+
+        Assertions.assertThat(dateATraiter.getDayOfMonth()).isEqualTo(now.getDayOfMonth());
+        Assertions.assertThat(dateATraiter.getMonthValue()).isEqualTo(now.getMonthValue());
+        Assertions.assertThat(dateATraiter.getYear()).isEqualTo(now.getYear());
 
     }
 
