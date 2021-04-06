@@ -52,7 +52,9 @@ export class DevisComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     }
 
-    return {};
+    this.router.navigate(['devis',items[0].routerLink[0]]);
+
+    return items[0];
 
   }
 
