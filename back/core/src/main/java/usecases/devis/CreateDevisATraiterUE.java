@@ -18,6 +18,7 @@ import usecases.devis.options.SaveOptionUE;
 import usecases.personnes.artisans.FindByEmailUE;
 import usecases.personnes.artisans.banques.FindByEmailAndPrefereUE;
 
+import java.sql.Date;
 import java.util.*;
 
 import static localizations.MessageKeys.ARG_IS_REQUIRED;
@@ -115,7 +116,7 @@ public class CreateDevisATraiterUE extends AbstractUsecase {
 
     private void initAutres(DevisDN devis, ArtisanDN artisan) {
         devis.setStatut(STATUT_DEVIS.A_TRAITER);
-        devis.setDateATraiter(new Date());
+        devis.setDateATraiter(new Date(System.currentTimeMillis()));
         devis.setLieu(artisan.getPersonne().getVille());
         devis.setValiditeDevisMois(artisan.getValiditeDevisMois());
         devis.setTva(artisan.getTaxe().getTaux());

@@ -76,8 +76,7 @@ export class DevisHttpService {
          
          id
          numeroDevis
-       
-       
+         dateATraiter       
          clientNom
          clientPrenom
          clientSociete
