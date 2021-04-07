@@ -16,7 +16,7 @@ export class CreateComponent extends RvlDialog implements OnInit, OnDestroy {
 
   subOpenDialog !: Subscription;
   clientList !: MClient[];
-  selectedClient !: MClient;
+  selectedClient !: MClient | null;
   emailArtisan !: string;
 
   constructor(private devisAnnounceSvc: DevisAnnouncesService,
@@ -33,6 +33,7 @@ export class CreateComponent extends RvlDialog implements OnInit, OnDestroy {
     this.subOpenDialog = this.devisAnnounceSvc.openDialogCreateDevis$
       .pipe(
         switchMap((response) => {
+          this.selectedClient=null;
           this.emailArtisan = response.emailArtisan;
           return this.clientHttpSvc.findByEmailArtisan(this.emailArtisan);
         })
