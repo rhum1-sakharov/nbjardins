@@ -27,6 +27,7 @@ import usecases.personnes.artisans.FindByEmailUE;
 import usecases.personnes.artisans.banques.FindByEmailAndPrefereUE;
 import usecases.uniquecode.GetUniqueCodeUE;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -273,6 +274,17 @@ public class CreateDevisATraiterUETest {
 
         Assertions.assertThat(devis).isNotNull();
         Assertions.assertThat(devis.getTva()).isEqualTo(taxe.getTaux());
+
+    }
+
+    @Test
+    public void should_init_totalht_with_0() throws CleanException {
+
+        Map<String, Object> result = this.usecase.execute(null, personneArtisan1.getEmail(), personneClient1.getEmail());
+        DevisDN devis = (DevisDN) result.get(DEVIS);
+
+        Assertions.assertThat(devis).isNotNull();
+        Assertions.assertThat(devis.getTotalHT()).isEqualTo(BigDecimal.ZERO);
 
     }
 

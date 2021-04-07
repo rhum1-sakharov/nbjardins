@@ -20,6 +20,7 @@ import usecases.personnes.artisans.FindByEmailUE;
 import usecases.personnes.artisans.banques.FindByEmailAndPrefereUE;
 import usecases.uniquecode.GetUniqueCodeUE;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -95,6 +96,7 @@ public class CreateDevisATraiterUE extends AbstractUsecase {
      * @return
      * @throws CleanException
      */
+    @Transactional
     private DevisDN initDevisATraiter(DataProviderManager dpm, String emailArtisan, String emailClient) throws CleanException {
 
         DevisDN devis = new DevisDN();
@@ -108,7 +110,7 @@ public class CreateDevisATraiterUE extends AbstractUsecase {
         ArtisanBanqueDN artisanBanque = artisanBanqueFindByEmailAndPrefereUE.execute(dpm, emailArtisan, true);
         initBanqueInfo(devis, artisan, artisanBanque);
 
-        initAutres(devis, artisan);
+        initAutres(dpm,devis, artisan);
 
         devis = saveDevisUE.execute(dpm, devis);
 
@@ -116,9 +118,9 @@ public class CreateDevisATraiterUE extends AbstractUsecase {
         return devis;
     }
 
-    private void initAutres(DevisDN devis, ArtisanDN artisan) throws CleanException {
+    private void initAutres(DataProviderManager dpm, DevisDN devis, ArtisanDN artisan) throws CleanException {
 
-        String numeroDevis = getUniqueCodeUE.execute(null, UNIQUE_CODE.NUMERO_DEVIS);
+        String numeroDevis = getUniqueCodeUE.execute(dpm, UNIQUE_CODE.NUMERO_DEVIS);
         devis.setNumeroDevis(numeroDevis);
 
         devis.setStatut(STATUT_DEVIS.A_TRAITER);
@@ -126,6 +128,7 @@ public class CreateDevisATraiterUE extends AbstractUsecase {
         devis.setLieu(artisan.getPersonne().getVille());
         devis.setValiditeDevisMois(artisan.getValiditeDevisMois());
         devis.setTva(artisan.getTaxe().getTaux());
+        devis.setTotalHT(BigDecimal.ZERO);
     }
 
     private void initBanqueInfo(DevisDN devis, ArtisanDN artisan, ArtisanBanqueDN artisanBanque) {
