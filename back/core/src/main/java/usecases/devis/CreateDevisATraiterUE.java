@@ -54,8 +54,7 @@ public class CreateDevisATraiterUE extends AbstractUsecase {
     public Map<String, Object> execute(DataProviderManager dpm, String emailArtisan, String emailClient) throws CleanException {
 
         Precondition.validate(
-                Precondition.init(ls.getMsg(ARG_IS_REQUIRED, "email artisan"), Objects.nonNull(emailArtisan)),
-                Precondition.init(ls.getMsg(ARG_IS_REQUIRED, "email client"), Objects.nonNull(emailClient))
+                Precondition.init(ls.getMsg(ARG_IS_REQUIRED, "email artisan"), Objects.nonNull(emailArtisan))
         );
 
         Map<String, Object> resultMap = new HashMap<>();

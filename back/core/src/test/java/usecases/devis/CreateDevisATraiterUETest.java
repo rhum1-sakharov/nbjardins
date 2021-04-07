@@ -100,22 +100,18 @@ public class CreateDevisATraiterUETest {
     }
 
     @Test
-    public void args_should_not_be_null() throws CleanException {
+    public void arg_emailArtisan_should_not_be_null() throws CleanException {
 
         final String errMsg1 = "L'argument email artisan est obligatoire.";
-        final String errMsg2 = "L'argument email client est obligatoire.";
 
 
         Mockito.when(this.ls.getMsg(ARG_IS_REQUIRED, "email artisan"))
                 .thenReturn(errMsg1);
-        Mockito.when(this.ls.getMsg(ARG_IS_REQUIRED, "email client"))
-                .thenReturn(errMsg2);
 
 
         Assertions.assertThatCode(() -> this.usecase.execute(null, null, null))
                 .isInstanceOf(TechnicalException.class)
-                .hasMessageContaining(errMsg1)
-                .hasMessageContaining(errMsg2);
+                .hasMessageContaining(errMsg1);
     }
 
     @Test
@@ -145,7 +141,7 @@ public class CreateDevisATraiterUETest {
     @Test
     public void should_create_devis_with_dateATraiter_is_now() throws CleanException {
 
-        LocalDate now= LocalDate.now();
+        LocalDate now = LocalDate.now();
 
         Map<String, Object> result = this.usecase.execute(null, personneArtisan1.getEmail(), personneClient1.getEmail());
         DevisDN devis = (DevisDN) result.get(DEVIS);
@@ -154,7 +150,6 @@ public class CreateDevisATraiterUETest {
         Assertions.assertThat(devis.getDateATraiter()).isNotNull();
 
         LocalDate dateATraiter = devis.getDateATraiter();
-
 
 
         Assertions.assertThat(dateATraiter.getDayOfMonth()).isEqualTo(now.getDayOfMonth());

@@ -30,6 +30,7 @@ type Mutation{
     saveArtisanBanqueList (artisanBanqueList: [ArtisanBanqueInput!]): [ArtisanBanque!]
     removeArtisanBanqueByEmail( email: EmailInput): Deleted
     saveDevis (devis: DevisInput!): Devis!
+    createDevisATraiter(emailArtisan : EmailInput!, emailClient: EmailInput!): Devis!
 }
 
 input EmailInput{

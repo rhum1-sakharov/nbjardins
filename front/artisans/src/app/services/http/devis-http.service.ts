@@ -118,8 +118,29 @@ export class DevisHttpService {
 
   }
 
-  createDevisATraiter(emailArtisan: string, idClient: string | null) {
-      console.log('createDevisATraiter', emailArtisan,idClient);
+  createDevisATraiter(emailArtisan: string, emailClient: string | null) {
+
+    const query = `      
+    mutation createDevisATraiter{
+    
+      createDevisATraiter( emailArtisan: {email: "${emailArtisan}"}, emailClient: {email: "${emailClient}"}){
+         id
+         numeroDevis
+         dateATraiter       
+         dateAbandon
+         dateRefuse
+         dateTraite
+         dateAccepte
+         clientNom
+         clientPrenom
+         clientSociete
+      }
+    
+         
+    }`;
+
+    return this.httpSvc.post(URL_GRAPHQL, query);
+
   }
 
 }

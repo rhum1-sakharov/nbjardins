@@ -33,31 +33,24 @@ export class CreateComponent extends RvlDialog implements OnInit, OnDestroy {
     this.subOpenDialog = this.devisAnnounceSvc.openDialogCreateDevis$
       .pipe(
         switchMap((response) => {
-          this.selectedClient=null;
+          this.selectedClient = null;
           this.emailArtisan = response.emailArtisan;
           return this.clientHttpSvc.findByEmailArtisan(this.emailArtisan);
         })
-      ).subscribe(
-        (
-          response: any
-        ) => {
-          this.clientList = response.data.clientFindByEmailArtisan;
-          this.displayDialog = true;
-        }
-      )
-    ;
+      ).subscribe((response: any) => {
+        this.clientList = response.data.clientFindByEmailArtisan;
+        this.displayDialog = true;
+      });
   }
 
-  ngOnDestroy()
-    :
-    void {
+  ngOnDestroy(): void {
     ObservableUtils.unsubscribe(this.subOpenDialog);
   }
 
   createDevisAtraiter() {
 
-    let idClient=this.selectedClient ? this.selectedClient.id:null;
+    let emailClient = this.selectedClient && this.selectedClient.personne ? this.selectedClient.personne.email : null;
 
-    this.devisHttpSvc.createDevisATraiter(this.emailArtisan,idClient);
+    this.devisHttpSvc.createDevisATraiter(this.emailArtisan, emailClient).subscribe((response: any) => console.log(response));
   }
 }
