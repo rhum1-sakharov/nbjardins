@@ -107,7 +107,14 @@ export class ATraiterComponent implements OnInit, OnDestroy {
       message: `Supprimer le devis ${devis.numeroDevis} ?`,
       accept: () => {
         this.devisHttpSvc.removeDevis(devis.id)
-          .subscribe((response: any) => this.toastSvc.showMsg(MSG_KEY.ROOT, MSG_SEVERITY.SUCCESS, `Devis ${devis.numeroDevis} supprimé.`));
+          .subscribe((response: any) => {
+            this.toastSvc.showMsg(MSG_KEY.ROOT, MSG_SEVERITY.SUCCESS, `Devis ${devis.numeroDevis} supprimé.`);
+
+            this.devisList = [...this.devisList];
+            this.devisList = this.devisList.filter(item => item.id !== devis.id);
+
+            this.devisAnnounceSvc.announceDevisRemoved(devis);
+          });
       }
     })
   }

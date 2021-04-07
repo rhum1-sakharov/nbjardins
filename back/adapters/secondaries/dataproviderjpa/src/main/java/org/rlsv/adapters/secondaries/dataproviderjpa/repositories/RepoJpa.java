@@ -15,7 +15,7 @@ import ports.repositories.RepoPT;
 import transactions.DataProviderManager;
 
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
+import javax.persistence.Query;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -62,8 +62,8 @@ public class RepoJpa<D extends Domain, E extends Entity> implements RepoPT {
 
         Class<E> entityClass = MapperUtils.mapDomainClassToEntityClass(clazz);
 
-        TypedQuery<E> query = em.createQuery("delete from " + clazz.getSimpleName() +
-                " where id in (:idList) ", entityClass);
+        Query query = em.createQuery("delete from " + entityClass.getSimpleName() +
+                " where id in (:idList) ");
 
         query.setParameter("idList", idList);
 

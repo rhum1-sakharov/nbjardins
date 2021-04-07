@@ -15,6 +15,7 @@ export class DevisComponent implements OnInit, OnDestroy, AfterViewInit {
 
   subRoute !: Subscription;
   subCloseDialogCreateDevis !: Subscription;
+  subDevisRemoved !:Subscription;
 
   items: MenuItem[] = [
     {label: 'à traiter', icon: 'pi pi-fw pi-home', routerLink: ['a-traiter']},
@@ -44,6 +45,8 @@ export class DevisComponent implements OnInit, OnDestroy, AfterViewInit {
 
     this.closeDialogCreateDevisSubscription();
 
+    this.devisRemovedSubscription();
+
   }
 
   closeDialogCreateDevisSubscription() {
@@ -51,6 +54,11 @@ export class DevisComponent implements OnInit, OnDestroy, AfterViewInit {
     this.subCloseDialogCreateDevis = this.devisAnnounceSvc.closeDialogCreateDevis$
       .subscribe(response => this.devisSupplier.nbDevisATraiter.nbResult = this.devisSupplier.nbDevisATraiter.nbResult + 1);
 
+  }
+
+  devisRemovedSubscription(){
+    this.subDevisRemoved = this.devisAnnounceSvc.devisRemoved$
+      .subscribe(response => this.devisSupplier.nbDevisATraiter.nbResult = this.devisSupplier.nbDevisATraiter.nbResult - 1);
   }
 
   routeSubscription() {
@@ -75,6 +83,7 @@ export class DevisComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnDestroy(): void {
     ObservableUtils.unsubscribe(this.subRoute);
     ObservableUtils.unsubscribe(this.subCloseDialogCreateDevis);
+    ObservableUtils.unsubscribe(this.subDevisRemoved);
   }
 
   ngAfterViewInit(): void {
