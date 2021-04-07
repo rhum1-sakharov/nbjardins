@@ -99,6 +99,7 @@ export class ATraiterComponent implements OnInit, OnDestroy {
   }
 
   onRowSelect(event: any) {
+
     this.devisAnnounceSvc.announceDevisSelected(this.selectedDevis);
   }
 

@@ -1,12 +1,14 @@
 import {Injectable} from '@angular/core';
 import {HttpService, STATUT_DEVIS, URL_GRAPHQL} from 'rhum1-sakharov-core-lib';
+import {finalize} from 'rxjs/operators';
+import {LoadingService} from '../loading/loading.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DevisHttpService {
 
-  constructor(private httpSvc: HttpService) {
+  constructor(private httpSvc: HttpService, private loadingSvc:LoadingService) {
 
   }
 
@@ -167,6 +169,35 @@ export class DevisHttpService {
     }`;
 
     return this.httpSvc.post(URL_GRAPHQL, query);
+
+  }
+
+  findDevis(idDevis: string) {
+
+    this.loadingSvc.announceLoading(true);
+
+    const query = `  {    
+      devisFindById( idDevis: "${idDevis}"){    
+        id
+        numeroDevis           
+        dateATraiter
+        
+        artisan{
+          id
+        }
+        client{
+          id
+        } 
+        clientNom
+        clientPrenom
+        clientSociete
+      }
+    }
+    `;
+
+    return this.httpSvc.post(URL_GRAPHQL, query).pipe(
+      finalize(()=>this.loadingSvc.announceLoading(false))
+    );
 
   }
 }
