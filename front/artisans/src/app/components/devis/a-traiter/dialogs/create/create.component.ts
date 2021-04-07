@@ -4,6 +4,7 @@ import {Subscription} from 'rxjs';
 import {DevisAnnouncesService} from '../../../../../services/announces/devis-announces.service';
 import {switchMap} from 'rxjs/operators';
 import {ClientsHttpService} from '../../../../../services/http/clients-http.service';
+import {DevisHttpService} from '../../../../../services/http/devis-http.service';
 
 
 @Component({
@@ -16,8 +17,11 @@ export class CreateComponent extends RvlDialog implements OnInit, OnDestroy {
   subOpenDialog !: Subscription;
   clientList !: MClient[];
   selectedClient !: MClient;
+  emailArtisan !: string;
 
-  constructor(private devisAnnounceSvc: DevisAnnouncesService, private clientHttpSvc: ClientsHttpService) {
+  constructor(private devisAnnounceSvc: DevisAnnouncesService,
+              private devisHttpSvc: DevisHttpService,
+              private clientHttpSvc: ClientsHttpService) {
     super();
   }
 
@@ -28,19 +32,31 @@ export class CreateComponent extends RvlDialog implements OnInit, OnDestroy {
   openDialogSubscription() {
     this.subOpenDialog = this.devisAnnounceSvc.openDialogCreateDevis$
       .pipe(
-        switchMap((response) => this.clientHttpSvc.findByEmailArtisan(response.emailArtisan))
+        switchMap((response) => {
+          this.emailArtisan = response.emailArtisan;
+          return this.clientHttpSvc.findByEmailArtisan(this.emailArtisan);
+        })
+      ).subscribe(
+        (
+          response: any
+        ) => {
+          this.clientList = response.data.clientFindByEmailArtisan;
+          this.displayDialog = true;
+        }
       )
-      .subscribe((response: any) => {
-        this.clientList = response.data.clientFindByEmailArtisan;
-        this.displayDialog = true;
-      });
+    ;
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy()
+    :
+    void {
     ObservableUtils.unsubscribe(this.subOpenDialog);
   }
 
-  createDevisAtraiter(){
+  createDevisAtraiter() {
 
+    let idClient=this.selectedClient ? this.selectedClient.id:null;
+
+    this.devisHttpSvc.createDevisATraiter(this.emailArtisan,idClient);
   }
 }

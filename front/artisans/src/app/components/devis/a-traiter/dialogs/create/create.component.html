@@ -6,8 +6,6 @@
 
          >
 
-
-  <h5>Client</h5>
   <p-dropdown [options]="clientList"
               [(ngModel)]="selectedClient"
               [filter]="true"
@@ -15,9 +13,7 @@
               [style]="{'width':'400px'}"
               optionLabel="personne.nom"
               placeholder="Sélectionner un client"
-              appendTo="body"
-
-  >
+              appendTo="body">
 
     <ng-template pTemplate="selectedItem">
       <div   *ngIf="selectedClient">

@@ -118,4 +118,8 @@ export class DevisHttpService {
 
   }
 
+  createDevisATraiter(emailArtisan: string, idClient: string | null) {
+      console.log('createDevisATraiter', emailArtisan,idClient);
+  }
+
 }
