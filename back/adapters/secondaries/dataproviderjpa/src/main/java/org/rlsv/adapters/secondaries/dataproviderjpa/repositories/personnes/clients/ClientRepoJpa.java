@@ -97,9 +97,10 @@ public class ClientRepoJpa extends RepoJpa implements ClientRepoPT {
 
         TypedQuery<Client> query = em.createQuery("SELECT c from Client c " +
                 " join c.artisan a " +
-                " join a.personne p " +
-                " where p.email=:emailArtisan " +
-                " order by p.nom asc, p.prenom asc, p.societe asc", Client.class);
+                " join a.personne pa " +
+                " join c.personne pc " +
+                " where pa.email=:emailArtisan " +
+                " order by pc.nom, pc.prenom, pc.societe", Client.class);
         query.setParameter("emailArtisan", emailArtisan);
 
         List<Client> clientList = PersistenceUtils.getResultList(query);
