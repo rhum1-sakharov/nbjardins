@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "devis_optoin")
+@Table(name = "devis_options")
 public class DevisOption extends org.rlsv.adapters.secondaries.dataproviderjpa.entities.Entity {
 
     @ManyToOne

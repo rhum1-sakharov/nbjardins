@@ -29,8 +29,10 @@
             {{rowData.numeroDevis}}
           </td>
           <td [width]="clientWidth">
-            {{rowData.clientNom | uppercase}} {{rowData.clientPrenom | titlecase}} , <strong>{{rowData.clientSociete |
-            uppercase}}</strong>
+            <ng-container *ngIf="rowData.client">
+              {{rowData.clientNom | uppercase}} {{rowData.clientPrenom | titlecase}} <strong class="mg-l-5" *ngIf="rowData.clientSociete">,{{rowData.clientSociete |
+              uppercase}}</strong>
+            </ng-container>
           </td>
           <td [width]="depuisWidth">
             {{aTraiterSince(rowData.dateATraiter)}}

@@ -11,6 +11,8 @@ import usecases.devis.*;
 import java.util.List;
 import java.util.Map;
 
+import static usecases.devis.CreateDevisATraiterUE.DEVIS;
+
 public class DevisDataFetcher {
 
     FindByEmailArtisanUE findByEmailArtisanUE;
@@ -86,7 +88,11 @@ public class DevisDataFetcher {
             String emailClient = (String) resultClient.get("email");
 
 
-            return this.createDevisATraiterUE.execute(null, emailArtisan, emailClient);
+            Map<String,Object> results= this.createDevisATraiterUE.execute(null, emailArtisan, emailClient);
+
+            DevisDN devis = (DevisDN) results.get(DEVIS);
+
+            return devis;
         };
     }
 }

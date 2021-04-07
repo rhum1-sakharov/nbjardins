@@ -21,7 +21,8 @@ export class ClientsHttpService {
                      id
                      nom
                      prenom
-                     societe                  
+                     societe       
+                     email           
                   }
                
                }

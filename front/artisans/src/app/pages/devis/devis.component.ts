@@ -3,6 +3,7 @@ import {MenuItem} from 'primeng/api';
 import {Subscription} from 'rxjs/internal/Subscription';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ObservableUtils} from 'rhum1-sakharov-core-lib';
+import {DevisAnnouncesService} from '../../services/announces/devis-announces.service';
 
 
 @Component({
@@ -13,6 +14,7 @@ import {ObservableUtils} from 'rhum1-sakharov-core-lib';
 export class DevisComponent implements OnInit, OnDestroy, AfterViewInit {
 
   subRoute !: Subscription;
+  subCloseDialogCreateDevis !: Subscription;
 
   items: MenuItem[] = [
     {label: 'à traiter', icon: 'pi pi-fw pi-home', routerLink: ['a-traiter']},
@@ -29,6 +31,7 @@ export class DevisComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(public route: ActivatedRoute,
               public router: Router,
+              private devisAnnounceSvc: DevisAnnouncesService,
               private cd: ChangeDetectorRef,) {
 
   }
@@ -38,6 +41,18 @@ export class DevisComponent implements OnInit, OnDestroy, AfterViewInit {
     this.activeItem = this.getActiveItem(this.router, this.items);
 
     this.routeSubscription();
+
+    this.closeDialogCreateDevisSubscription();
+
+  }
+
+  closeDialogCreateDevisSubscription() {
+
+    this.subCloseDialogCreateDevis = this.devisAnnounceSvc.closeDialogCreateDevis$
+      .subscribe(response => {
+        this.devisSupplier.nbDevisATraiter.nbResult = this.devisSupplier.nbDevisATraiter.nbResult + 1;
+      });
+
   }
 
   routeSubscription() {
@@ -52,7 +67,7 @@ export class DevisComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     }
 
-    this.router.navigate(['devis',items[0].routerLink[0]]);
+    this.router.navigate(['devis', items[0].routerLink[0]]);
 
     return items[0];
 
@@ -61,6 +76,7 @@ export class DevisComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnDestroy(): void {
     ObservableUtils.unsubscribe(this.subRoute);
+    ObservableUtils.unsubscribe(this.subCloseDialogCreateDevis);
   }
 
   ngAfterViewInit(): void {
@@ -69,7 +85,7 @@ export class DevisComponent implements OnInit, OnDestroy, AfterViewInit {
 
   getNbDevis(index: number) {
 
-    if(this.devisSupplier){
+    if (this.devisSupplier) {
       switch (index) {
         case 0:
           return this.devisSupplier.nbDevisATraiter.nbResult;
@@ -87,27 +103,27 @@ export class DevisComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
 
-   return 0;
+    return 0;
 
   }
 
-  getSeverityClass(index:number) {
+  getSeverityClass(index: number) {
 
 
-      switch (index) {
-        case 0:
-          return  '';
-        case 1:
-          return 'info';
-        case 2:
-          return 'success';
-        case 3:
-          return 'danger';
-        case 4:
-          return 'warning';
-        default:
-          return '';
-      }
+    switch (index) {
+      case 0:
+        return '';
+      case 1:
+        return 'info';
+      case 2:
+        return 'success';
+      case 3:
+        return 'danger';
+      case 4:
+        return 'warning';
+      default:
+        return '';
+    }
 
   }
 }

@@ -84,8 +84,11 @@ export class DevisHttpService {
          clientNom
          clientPrenom
          clientSociete
+         client{
+           id
+         }
          
-          }        
+       }        
        
          `;
 
@@ -134,6 +137,15 @@ export class DevisHttpService {
          clientNom
          clientPrenom
          clientSociete
+         client{
+           id
+           personne{
+             id
+             nom
+             prenom
+             email
+           }
+         }
       }
     
          

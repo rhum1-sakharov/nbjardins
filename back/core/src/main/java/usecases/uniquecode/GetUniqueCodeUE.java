@@ -49,10 +49,10 @@ public class GetUniqueCodeUE extends AbstractUsecase {
         SimpleDateFormat spd = new SimpleDateFormat("yyyyMM");
 
 
-        String generatedString = randomString(2, true, true).toUpperCase();
+        String generatedString = randomString(3, true, true).toUpperCase();
 
-        // 12 caracteres 202012-211NB
-        String numeroDevis = spd.format(now) + "-" + String.format("%03d", countDevisOfMonth + 1) + generatedString;
+        // 12 caracteres 202012211NB0
+        String numeroDevis = spd.format(now)  + String.format("%03d", countDevisOfMonth + 1) + generatedString;
 
         Long exists = devisRepo.existsNumeroDevis(dpm, numeroDevis);
 

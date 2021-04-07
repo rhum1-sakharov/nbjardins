@@ -12,6 +12,7 @@ import {DevisAnnouncesService, OpenDialogCreateDevisSupplier} from '../../../ser
 export class ATraiterComponent implements OnInit, OnDestroy {
 
   subRoute !: Subscription;
+  subCloseDialogDevis !: Subscription;
 
   responsiveUtils = ResponsiveUtils;
   dateUtils = DateUtils;
@@ -27,14 +28,25 @@ export class ATraiterComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.routeSubscription();
+
+    this.closeDialogCreateDevisSubscription();
   }
 
   routeSubscription() {
     this.subRoute = this.route.data.subscribe((data) => this.devisList = data.devisATraiterSupplier.data.devisFindByEmailArtisanAndStatut);
   }
 
+  closeDialogCreateDevisSubscription() {
+    this.subCloseDialogDevis = this.devisAnnounceSvc.closeDialogCreateDevis$
+      .subscribe(response => {
+        this.devisList = [...this.devisList];
+        this.devisList.unshift(response);
+      });
+  }
+
   ngOnDestroy(): void {
     ObservableUtils.unsubscribe(this.subRoute);
+    ObservableUtils.unsubscribe(this.subCloseDialogDevis);
   }
 
   aTraiterSince(isoDate: string) {
