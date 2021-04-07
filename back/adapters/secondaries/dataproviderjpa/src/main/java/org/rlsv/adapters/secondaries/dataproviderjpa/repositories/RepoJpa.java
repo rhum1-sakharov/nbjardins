@@ -103,6 +103,15 @@ public class RepoJpa<D extends Domain, E extends Entity> implements RepoPT {
         return MapperUtils.mapEntityToDomain(entity);
     }
 
+    @Override
+    public Domain findById(DataProviderManager dpm, Class domainClass, String id) throws TechnicalException {
+        EntityManager em = PersistenceUtils.getEntityManager(dpm);
+        Class<E> entityClass = MapperUtils.mapDomainClassToEntityClass(domainClass);
+        E instance = em.find(entityClass, id);
+        return MapperUtils.mapEntityToDomain(instance);
+    }
+
+
     public E save(DataProviderManager dpm, E entity) {
 
         EntityManager em = PersistenceUtils.getEntityManager(dpm);

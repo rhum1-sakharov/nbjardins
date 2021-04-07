@@ -22,9 +22,10 @@ public class DevisDataFetcher {
     CountByEmailArtisanAndStatutUE countByEmailArtisanAndStatutUE;
     FindByEmailArtisanAndStatutUE findByEmailArtisanAndStatutUE;
     CreateDevisATraiterUE createDevisATraiterUE;
+    FindByIdDevisUE findByIdDevisUE;
 
 
-    public DevisDataFetcher(FindByEmailArtisanUE findByEmailArtisanUE, RemoveDevisUE removeDevisUE, ChangeStatusDevisUE changeStatusDevisUE, SaveDevisUE saveDevisUE, CountByEmailArtisanAndStatutUE countByEmailArtisanAndStatutUE, FindByEmailArtisanAndStatutUE findByEmailArtisanAndStatutUE, CreateDevisATraiterUE createDevisATraiterUE) {
+    public DevisDataFetcher(FindByEmailArtisanUE findByEmailArtisanUE, RemoveDevisUE removeDevisUE, ChangeStatusDevisUE changeStatusDevisUE, SaveDevisUE saveDevisUE, CountByEmailArtisanAndStatutUE countByEmailArtisanAndStatutUE, FindByEmailArtisanAndStatutUE findByEmailArtisanAndStatutUE, CreateDevisATraiterUE createDevisATraiterUE, FindByIdDevisUE findByIdDevisUE) {
         this.findByEmailArtisanUE = findByEmailArtisanUE;
         this.removeDevisUE = removeDevisUE;
         this.changeStatusDevisUE = changeStatusDevisUE;
@@ -32,6 +33,7 @@ public class DevisDataFetcher {
         this.countByEmailArtisanAndStatutUE = countByEmailArtisanAndStatutUE;
         this.findByEmailArtisanAndStatutUE = findByEmailArtisanAndStatutUE;
         this.createDevisATraiterUE = createDevisATraiterUE;
+        this.findByIdDevisUE = findByIdDevisUE;
     }
 
     public DataFetcher findByEmailArtisanDataFetcher() throws CleanException {
@@ -105,6 +107,19 @@ public class DevisDataFetcher {
 
             return removeDevisUE.execute(null, idDevis);
 
+        };
+
+    }
+
+    public DataFetcher findByIdDataFetcher() {
+
+        return dataFetchingEnvironment -> {
+
+            String idArtisan= dataFetchingEnvironment.getArgument("idDevis");
+
+            DevisDN devis= findByIdDevisUE.execute(null, idArtisan);
+
+            return devis;
         };
 
     }

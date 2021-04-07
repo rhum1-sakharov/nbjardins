@@ -14,4 +14,6 @@ public interface RepoPT<D extends Domain> {
 
     D save(DataProviderManager dpm, D domain) throws TechnicalException;
 
+    D findById(DataProviderManager dpm,Class<D> domainClass, String id) throws TechnicalException;
+
 }

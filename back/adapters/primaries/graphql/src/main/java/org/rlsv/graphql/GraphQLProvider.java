@@ -89,6 +89,7 @@ public class GraphQLProvider {
                         .dataFetcher("devisFindByEmailArtisan", devisDataFetcher.findByEmailArtisanDataFetcher())
                         .dataFetcher("devisCountByEmailArtisanAndStatut", devisDataFetcher.countByEmailArtisanAndStatutDataFetcher())
                         .dataFetcher("devisFindByEmailArtisanAndStatut", devisDataFetcher.findByEmailArtisanAndStatutDataFetcher())
+                        .dataFetcher("devisFindById", devisDataFetcher.findByIdDataFetcher())
 
                         // CLIENT
                         .dataFetcher("clientFindByEmailArtisan", clientDataFetcher.clientFindByEmailArtisanDataFetcher())

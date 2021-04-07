@@ -21,4 +21,5 @@ public interface DevisRepoPT extends RepoPT {
     Long countByEmailArtisanAndStatutDevis(DataProviderManager dpm, String emailArtisan, STATUT_DEVIS statutDevis);
 
     List<DevisDN> findByEmailArtisanAndStatutWithOrder(DataProviderManager dpm, String emailArtisan, STATUT_DEVIS statutDevis);
+
 }

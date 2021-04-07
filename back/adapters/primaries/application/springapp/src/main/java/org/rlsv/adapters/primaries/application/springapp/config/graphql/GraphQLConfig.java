@@ -68,7 +68,8 @@ public class GraphQLConfig {
                                                        SaveDevisUE saveDevisUE,
                                                        CountByEmailArtisanAndStatutUE countByEmailArtisanAndStatutUE,
                                                        FindByEmailArtisanAndStatutUE findByEmailArtisanAndStatutUE,
-                                                       CreateDevisATraiterUE createDevisATraiterUE
+                                                       CreateDevisATraiterUE createDevisATraiterUE,
+                                                       FindByIdDevisUE findByIdDevisUE
                                                        ) {
         return new DevisDataFetcher(findByEmailArtisanUE,
                 removeDevisUE,
@@ -76,7 +77,8 @@ public class GraphQLConfig {
                 saveDevisUE,
                 countByEmailArtisanAndStatutUE,
                 findByEmailArtisanAndStatutUE,
-                createDevisATraiterUE
+                createDevisATraiterUE,
+                findByIdDevisUE
                 );
     }
 
