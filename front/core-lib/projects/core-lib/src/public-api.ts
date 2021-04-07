@@ -9,9 +9,11 @@ export * from './lib/models/referentiel/taxes/m-taxe';
 export * from './lib/models/personnes/artisans/m-artisan';
 export * from './lib/models/referentiel/conditions/reglements/m-condition-reglement';
 export * from './lib/models/devis/m-demande-de-devis';
+export * from './lib/models/devis/m-devis';
 export * from './lib/models/m-error';
 export * from './lib/models/personnes/m-personne';
 export * from './lib/models/m-request';
+
 export * from './lib/models/referentiel/villes/m-ville';
 export * from './lib/models/personnes/artisans/banques/m-artisan-banque';
 export * from './lib/models/personnes/artisans/options/m-artisan-option';
@@ -23,6 +25,7 @@ export * from './lib/enums/e-crud-mode';
 export * from './lib/enums/e-statut-devis';
 
 export * from './lib/crud/abstract-crud';
+export * from './lib/mothers/rvl-dialog';
 
 export * from './lib/techniques/http/http.service';
 export * from './lib/techniques/loading/loading.service';

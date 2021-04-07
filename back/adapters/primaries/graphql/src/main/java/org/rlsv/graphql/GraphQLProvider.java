@@ -15,6 +15,7 @@ import org.rlsv.graphql.data.fetcher.devis.DevisDataFetcher;
 import org.rlsv.graphql.data.fetcher.personnes.artisans.ArtisanDataFetcher;
 import org.rlsv.graphql.data.fetcher.personnes.artisans.banques.ArtisanBanqueDataFetcher;
 import org.rlsv.graphql.data.fetcher.personnes.artisans.options.ArtisanOptionDataFetcher;
+import org.rlsv.graphql.data.fetcher.personnes.clients.ClientDataFetcher;
 import org.rlsv.graphql.data.fetcher.referentiel.conditions.reglements.ConditionReglementDataFetcher;
 import org.rlsv.graphql.data.fetcher.referentiel.taxes.TaxeDataFetcher;
 
@@ -32,13 +33,15 @@ public class GraphQLProvider {
     private ArtisanBanqueDataFetcher artisanBanqueDataFetcher;
     private ArtisanOptionDataFetcher artisanOptionDataFetcher;
     private DevisDataFetcher devisDataFetcher;
+    private ClientDataFetcher clientDataFetcher;
 
     public GraphQLProvider(TaxeDataFetcher taxeDataFetcher,
                            ConditionReglementDataFetcher conditionReglementDataFetcher,
                            ArtisanDataFetcher artisanDataFetcher,
                            ArtisanBanqueDataFetcher artisanBanqueDataFetcher,
                            ArtisanOptionDataFetcher artisanOptionDataFetcher,
-                           DevisDataFetcher devisDataFetcher
+                           DevisDataFetcher devisDataFetcher,
+                           ClientDataFetcher clientDataFetcher
     ) throws IOException, CleanException {
 
         this.taxeDataFetcher = taxeDataFetcher;
@@ -47,6 +50,7 @@ public class GraphQLProvider {
         this.artisanBanqueDataFetcher = artisanBanqueDataFetcher;
         this.artisanOptionDataFetcher = artisanOptionDataFetcher;
         this.devisDataFetcher = devisDataFetcher;
+        this.clientDataFetcher = clientDataFetcher;
 
         URL url = Resources.getResource("schema.graphqls");
         String sdl = Resources.toString(url, Charsets.UTF_8);
@@ -74,13 +78,20 @@ public class GraphQLProvider {
                 .type(newTypeWiring("Query")
                         .dataFetcher("taxeAll", taxeDataFetcher.getAllTaxesDataFetcher())
                         .dataFetcher("conditionReglementAll", conditionReglementDataFetcher.getAllConditionReglementDataFetcher())
+
+                        // ARTISAN
                         .dataFetcher("artisanFindByEmail", artisanDataFetcher.artisanFindByEmailDataFetcher())
                         .dataFetcher("artisanBanqueFindByEmailAndPrefere", artisanBanqueDataFetcher.artisanBanqueFindByEmailAndPrefereDataFetcher())
                         .dataFetcher("artisanBanqueFindByEmail", artisanBanqueDataFetcher.artisanBanqueFindByEmailDataFetcher())
                         .dataFetcher("artisanOptionFindByEmail", artisanOptionDataFetcher.artisanOptionFindByEmailDataFetcher())
+
+                        // DEVIS
                         .dataFetcher("devisFindByEmailArtisan", devisDataFetcher.findByEmailArtisanDataFetcher())
                         .dataFetcher("devisCountByEmailArtisanAndStatut", devisDataFetcher.countByEmailArtisanAndStatutDataFetcher())
                         .dataFetcher("devisFindByEmailArtisanAndStatut", devisDataFetcher.findByEmailArtisanAndStatutDataFetcher())
+
+                        // CLIENT
+                        .dataFetcher("clientFindByEmailArtisan", clientDataFetcher.clientFindByEmailArtisanDataFetcher())
                 )
                 .type(newTypeWiring("Mutation")
                         .dataFetcher("saveArtisan", artisanDataFetcher.saveArtisanDataFetcher())

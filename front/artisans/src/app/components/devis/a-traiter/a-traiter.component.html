@@ -1,18 +1,17 @@
 <div class="d-flex">
 
-  <div class="max-wh-640">
+  <div class="max-wh-680">
     <p-table [value]="devisList"
              [scrollable]="true"
-
-             [scrollHeight]="responsiveUtils.getHeightStr(200)"
+             [scrollHeight]="responsiveUtils.getHeightStr(260)"
     >
       <ng-template pTemplate="header">
         <tr>
-          <th [width]="numeroDevisWidth" style="line-height:40px;" pSortableColumn="numeroDevis">
+          <th [width]="numeroDevisWidth" style="line-height:40px;" >
 
-            <button pButton icon="pi pi-plus" pTooltip="créer un devis"></button>
+            <button pButton icon="pi pi-plus" pTooltip="créer un devis" (click)="openDialogCreateDevis()"></button>
             N° devis
-            <p-sortIcon field="numeroDevis"></p-sortIcon>
+
           </th>
           <th [width]="clientWidth" pSortableColumn="clientNom">
             Client
@@ -45,3 +44,6 @@
   </div>
 
 </div>
+
+<!--DIALOG CREER DEVIS A TRAITER-->
+<app-create></app-create>

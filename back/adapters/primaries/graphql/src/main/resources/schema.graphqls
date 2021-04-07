@@ -9,13 +9,18 @@ schema {
 type Query {
     taxeAll: [Taxe]
     conditionReglementAll: [ConditionReglement]
+
     artisanFindByEmail(email: String) : Artisan
     artisanBanqueFindByEmailAndPrefere(email: String, prefere: Boolean) : ArtisanBanque
     artisanBanqueFindByEmail(email: String) : [ArtisanBanque!]
     artisanOptionFindByEmail(email: String) : [ArtisanOption!]
+
+
     devisFindByEmailArtisan(email: String) : Devis
     devisCountByEmailArtisanAndStatut(emailArtisan: String, statutDevis: STATUT_DEVIS) : NbResult
     devisFindByEmailArtisanAndStatut(emailArtisan: String, statutDevis: STATUT_DEVIS) : [Devis!]
+
+    clientFindByEmailArtisan(emailArtisan: String) : [Client!]
 
 }
 

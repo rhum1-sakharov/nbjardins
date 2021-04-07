@@ -1,0 +1,37 @@
+<p-dialog header="Créer un devis"
+          [dismissableMask]="true"
+          [modal]="true"
+          [(visible)]="displayDialog"
+          [style]="{width: '450px'}"
+
+         >
+
+
+  <h5>Client</h5>
+  <p-dropdown [options]="clientList"
+              [(ngModel)]="selectedClient"
+              [filter]="true"
+              [showClear]="true"
+              [style]="{'width':'400px'}"
+              optionLabel="personne.nom"
+              placeholder="Sélectionner un client"
+              appendTo="body"
+
+  >
+
+    <ng-template pTemplate="selectedItem">
+      <div   *ngIf="selectedClient">
+        {{selectedClient.personne.nom | uppercase}} {{selectedClient.personne.prenom | titlecase}} <strong class="mg-l-5" *ngIf="selectedClient.personne.societe">- {{selectedClient.personne.societe | uppercase}}</strong>
+      </div>
+    </ng-template>
+    <ng-template let-item pTemplate="item">
+        <div>
+          {{item.personne.nom | uppercase}} {{item.personne.prenom | titlecase}}<strong class="mg-l-5" *ngIf="item.personne.societe">- {{item.personne.societe | uppercase}}</strong>
+        </div>
+    </ng-template>
+  </p-dropdown>
+
+  <ng-template pTemplate="footer">
+    <p-button icon="pi pi-plus" (click)="createDevisAtraiter()" label="Créer" ></p-button>
+  </ng-template>
+</p-dialog>

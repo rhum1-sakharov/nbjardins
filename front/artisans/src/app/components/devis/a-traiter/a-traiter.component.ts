@@ -1,7 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
-import {DateUtils, ObservableUtils, ResponsiveUtils} from 'rhum1-sakharov-core-lib';
+import {DateUtils, KEY_USER, LocalstorageService, MDevis, ObservableUtils, ResponsiveUtils} from 'rhum1-sakharov-core-lib';
+import {DevisAnnouncesService, OpenDialogCreateDevisSupplier} from '../../../services/announces/devis-announces.service';
 
 @Component({
   selector: 'app-a-traiter',
@@ -19,9 +20,9 @@ export class ATraiterComponent implements OnInit, OnDestroy {
   clientWidth = 350;
   depuisWidth = 120;
 
-  devisList !: any[];
+  devisList !: MDevis[];
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private devisAnnounceSvc: DevisAnnouncesService, private ls: LocalstorageService) {
   }
 
   ngOnInit(): void {
@@ -36,22 +37,22 @@ export class ATraiterComponent implements OnInit, OnDestroy {
     ObservableUtils.unsubscribe(this.subRoute);
   }
 
-  aTraiterSince(isoDate:string){
+  aTraiterSince(isoDate: string) {
 
-    const dateATraiter= DateUtils.getDateFromIso(isoDate);
+    const dateATraiter = DateUtils.getDateFromIso(isoDate);
     const now = new Date();
-    const nbDays = DateUtils.getNbDays(now,dateATraiter);
+    const nbDays = DateUtils.getNbDays(now, dateATraiter);
 
-    let display='';
-    switch(nbDays){
+    let display = '';
+    switch (nbDays) {
       case 0:
-        display=`aujourd'hui`;
+        display = `aujourd'hui`;
         break;
       case 1:
-        display=`1 jour.`;
+        display = `1 jour.`;
         break;
       default:
-        display=`${nbDays} jours`;
+        display = `${nbDays} jours`;
         break;
     }
 
@@ -59,4 +60,10 @@ export class ATraiterComponent implements OnInit, OnDestroy {
 
   }
 
+  openDialogCreateDevis() {
+
+    const user = this.ls.getItem(KEY_USER);
+    const odcd = new OpenDialogCreateDevisSupplier(user.email);
+    this.devisAnnounceSvc.announceOpenDialogCreateDevis(odcd);
+  }
 }

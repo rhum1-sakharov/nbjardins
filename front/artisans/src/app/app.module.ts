@@ -40,6 +40,8 @@ import {TraitesComponent} from './components/devis/traites/traites.component';
 import {AcceptesComponent} from './components/devis/acceptes/acceptes.component';
 import {RefusesComponent} from './components/devis/refuses/refuses.component';
 import {AbandonnesComponent} from './components/devis/abandonnes/abandonnes.component';
+import {CreateComponent} from './components/devis/a-traiter/dialogs/create/create.component';
+import {DropdownModule} from 'primeng/dropdown';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,8 @@ import {AbandonnesComponent} from './components/devis/abandonnes/abandonnes.comp
     TraitesComponent,
     AcceptesComponent,
     RefusesComponent,
-    AbandonnesComponent
+    AbandonnesComponent,
+    CreateComponent
   ],
   imports: [
     BrowserModule,
@@ -84,7 +87,8 @@ import {AbandonnesComponent} from './components/devis/abandonnes/abandonnes.comp
     InputMaskModule,
     TabViewModule,
     BadgeModule,
-    TabMenuModule
+    TabMenuModule,
+    DropdownModule
 
   ],
   providers: [
