@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {MClient, MDevis, ObservableUtils, RvlDialog} from 'rhum1-sakharov-core-lib';
+import {MClient, ObservableUtils, RvlDialog} from 'rhum1-sakharov-core-lib';
 import {Subscription} from 'rxjs';
 import {DevisAnnouncesService} from '../../../../../services/announces/devis-announces.service';
 import {switchMap} from 'rxjs/operators';
@@ -52,8 +52,8 @@ export class CreateComponent extends RvlDialog implements OnInit, OnDestroy {
     let emailClient = this.selectedClient && this.selectedClient.personne ? this.selectedClient.personne.email : null;
 
     this.devisHttpSvc.createDevisATraiter(this.emailArtisan, emailClient)
-      .subscribe((response: MDevis) => {
-        this.devisAnnounceSvc.announceCloseDialogCreateDevis(response);
+      .subscribe((response: any) => {
+        this.devisAnnounceSvc.announceCloseDialogCreateDevis(response.data.createDevisATraiter);
         this.close();
       });
   }

@@ -39,6 +39,7 @@ export class ATraiterComponent implements OnInit, OnDestroy {
   closeDialogCreateDevisSubscription() {
     this.subCloseDialogDevis = this.devisAnnounceSvc.closeDialogCreateDevis$
       .subscribe(response => {
+        console.log(response);
         this.devisList = [...this.devisList];
         this.devisList.unshift(response);
       });

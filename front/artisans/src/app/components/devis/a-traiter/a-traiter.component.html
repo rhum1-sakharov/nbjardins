@@ -7,7 +7,7 @@
     >
       <ng-template pTemplate="header">
         <tr>
-          <th [width]="numeroDevisWidth" style="line-height:40px;" >
+          <th [width]="numeroDevisWidth" style="line-height:40px;">
 
             <button pButton icon="pi pi-plus" pTooltip="créer un devis" (click)="openDialogCreateDevis()"></button>
             N° devis
@@ -17,7 +17,7 @@
             Client
             <p-sortIcon field="clientNom"></p-sortIcon>
           </th>
-          <th [width]="depuisWidth"  pSortableColumn="dateATraiter">
+          <th [width]="depuisWidth" pSortableColumn="dateATraiter">
             Depuis
             <p-sortIcon field="dateATraiter"></p-sortIcon>
           </th>
@@ -30,8 +30,14 @@
           </td>
           <td [width]="clientWidth">
             <ng-container *ngIf="rowData.client">
-              {{rowData.clientNom | uppercase}} {{rowData.clientPrenom | titlecase}} <strong class="mg-l-5" *ngIf="rowData.clientSociete">,{{rowData.clientSociete |
-              uppercase}}</strong>
+              <span class="mg-r-1">
+                {{rowData.clientNom | uppercase}} {{rowData.clientPrenom | titlecase}}
+              </span>
+              <span *ngIf="rowData.clientSociete">
+                <strong  class="mg-l-5">
+                  {{rowData.clientSociete |  uppercase}}
+                </strong>
+              </span>
             </ng-container>
           </td>
           <td [width]="depuisWidth">

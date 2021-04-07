@@ -49,9 +49,7 @@ export class DevisComponent implements OnInit, OnDestroy, AfterViewInit {
   closeDialogCreateDevisSubscription() {
 
     this.subCloseDialogCreateDevis = this.devisAnnounceSvc.closeDialogCreateDevis$
-      .subscribe(response => {
-        this.devisSupplier.nbDevisATraiter.nbResult = this.devisSupplier.nbDevisATraiter.nbResult + 1;
-      });
+      .subscribe(response => this.devisSupplier.nbDevisATraiter.nbResult = this.devisSupplier.nbDevisATraiter.nbResult + 1);
 
   }
 
