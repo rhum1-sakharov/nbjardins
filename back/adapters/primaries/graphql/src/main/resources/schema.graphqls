@@ -31,6 +31,11 @@ type Mutation{
     removeArtisanBanqueByEmail( email: EmailInput): Deleted
     saveDevis (devis: DevisInput!): Devis!
     createDevisATraiter(emailArtisan : EmailInput!, emailClient: EmailInput!): Devis!
+    removeDevis(idDevis: IdInput!): IdResult!
+}
+
+input IdInput{
+    id: String
 }
 
 input EmailInput{
@@ -67,6 +72,10 @@ input ArtisanInput{
     validiteDevisMois: Int
     personne : PersonneInput
     emailPro: String
+}
+
+type IdResult{
+    id: String
 }
 
 type Deleted{

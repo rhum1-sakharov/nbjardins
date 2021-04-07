@@ -14,12 +14,12 @@ import java.util.Objects;
 
 import static localizations.MessageKeys.ARG_IS_REQUIRED;
 
-public class DeleteDevisUE extends AbstractUsecase {
+public class RemoveDevisUE extends AbstractUsecase {
 
     DevisRepoPT devisRepo;
 
 
-    public DeleteDevisUE(LocalizeServicePT localizeService, TransactionManagerPT transactionManager, DevisRepoPT devisRepo) {
+    public RemoveDevisUE(LocalizeServicePT localizeService, TransactionManagerPT transactionManager, DevisRepoPT devisRepo) {
         super(localizeService, transactionManager);
         this.devisRepo = devisRepo;
     }

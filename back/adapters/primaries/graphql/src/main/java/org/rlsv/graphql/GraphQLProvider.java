@@ -100,6 +100,7 @@ public class GraphQLProvider {
                         .dataFetcher("removeArtisanBanqueByEmail", artisanBanqueDataFetcher.removeArtisanBanqueByEmailDataFetcher())
                         .dataFetcher("saveDevis", devisDataFetcher.saveDevisDataFetcher())
                         .dataFetcher("createDevisATraiter", devisDataFetcher.createDevisATraiterDataFetcher())
+                        .dataFetcher("removeDevis", devisDataFetcher.removeDevisDataFetcher())
 
                 )
                 .build();

@@ -16,16 +16,17 @@ import static usecases.devis.CreateDevisATraiterUE.DEVIS;
 public class DevisDataFetcher {
 
     FindByEmailArtisanUE findByEmailArtisanUE;
-    DeleteDevisUE deleteDevisUE;
+    RemoveDevisUE removeDevisUE;
     ChangeStatusDevisUE changeStatusDevisUE;
     SaveDevisUE saveDevisUE;
     CountByEmailArtisanAndStatutUE countByEmailArtisanAndStatutUE;
     FindByEmailArtisanAndStatutUE findByEmailArtisanAndStatutUE;
     CreateDevisATraiterUE createDevisATraiterUE;
 
-    public DevisDataFetcher(FindByEmailArtisanUE findByEmailArtisanUE, DeleteDevisUE deleteDevisUE, ChangeStatusDevisUE changeStatusDevisUE, SaveDevisUE saveDevisUE, CountByEmailArtisanAndStatutUE countByEmailArtisanAndStatutUE, FindByEmailArtisanAndStatutUE findByEmailArtisanAndStatutUE, CreateDevisATraiterUE createDevisATraiterUE) {
+
+    public DevisDataFetcher(FindByEmailArtisanUE findByEmailArtisanUE, RemoveDevisUE removeDevisUE, ChangeStatusDevisUE changeStatusDevisUE, SaveDevisUE saveDevisUE, CountByEmailArtisanAndStatutUE countByEmailArtisanAndStatutUE, FindByEmailArtisanAndStatutUE findByEmailArtisanAndStatutUE, CreateDevisATraiterUE createDevisATraiterUE) {
         this.findByEmailArtisanUE = findByEmailArtisanUE;
-        this.deleteDevisUE = deleteDevisUE;
+        this.removeDevisUE = removeDevisUE;
         this.changeStatusDevisUE = changeStatusDevisUE;
         this.saveDevisUE = saveDevisUE;
         this.countByEmailArtisanAndStatutUE = countByEmailArtisanAndStatutUE;
@@ -88,12 +89,24 @@ public class DevisDataFetcher {
             String emailClient = (String) resultClient.get("email");
 
 
-            Map<String,Object> results= this.createDevisATraiterUE.execute(null, emailArtisan, emailClient);
+            Map<String, Object> results = this.createDevisATraiterUE.execute(null, emailArtisan, emailClient);
 
             DevisDN devis = (DevisDN) results.get(DEVIS);
 
             return devis;
         };
+    }
+
+    public DataFetcher removeDevisDataFetcher() {
+
+        return dataFetchingEnvironment -> {
+            Map<String, Object> result = dataFetchingEnvironment.getArgument("idDevis");
+            String idDevis = (String) result.get("id");
+
+            return removeDevisUE.execute(null, idDevis);
+
+        };
+
     }
 }
 

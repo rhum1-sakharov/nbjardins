@@ -15,9 +15,9 @@ import ports.transactions.TransactionManagerPT;
 import static localizations.MessageKeys.ARG_IS_REQUIRED;
 
 @RunWith(MockitoJUnitRunner.class)
-public class DeleteDevisUETest {
+public class RemoveDevisUETest {
 
-    DeleteDevisUE usecase;
+    RemoveDevisUE usecase;
 
     @Mock
     DevisRepoPT devisRepoPT;
@@ -31,7 +31,7 @@ public class DeleteDevisUETest {
     @Before
     public void setUp() throws Exception {
 
-        usecase = new DeleteDevisUE(ls, transactionManager, devisRepoPT);
+        usecase = new RemoveDevisUE(ls, transactionManager, devisRepoPT);
     }
 
     @Test

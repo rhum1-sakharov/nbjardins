@@ -63,7 +63,7 @@ public class GraphQLConfig {
 
     @Bean
     public DevisDataFetcher getGraphQLDevisDataFetcher(FindByEmailArtisanUE findByEmailArtisanUE,
-                                                       DeleteDevisUE deleteDevisUE,
+                                                       RemoveDevisUE removeDevisUE,
                                                        ChangeStatusDevisUE changeStatusDevisUE,
                                                        SaveDevisUE saveDevisUE,
                                                        CountByEmailArtisanAndStatutUE countByEmailArtisanAndStatutUE,
@@ -71,7 +71,7 @@ public class GraphQLConfig {
                                                        CreateDevisATraiterUE createDevisATraiterUE
                                                        ) {
         return new DevisDataFetcher(findByEmailArtisanUE,
-                deleteDevisUE,
+                removeDevisUE,
                 changeStatusDevisUE,
                 saveDevisUE,
                 countByEmailArtisanAndStatutUE,

@@ -5,17 +5,17 @@ import org.springframework.context.annotation.Configuration;
 import ports.localization.LocalizeServicePT;
 import ports.repositories.devis.DevisRepoPT;
 import ports.transactions.TransactionManagerPT;
-import usecases.devis.DeleteDevisUE;
+import usecases.devis.RemoveDevisUE;
 
 @Configuration
 public class DeleteDevisConfig {
 
     @Bean
-    public DeleteDevisUE deleteDevisUE(LocalizeServicePT localizeService,
-                                             TransactionManagerPT transactionManager,
-                                             DevisRepoPT devisRepo
+    public RemoveDevisUE deleteDevisUE(LocalizeServicePT localizeService,
+                                       TransactionManagerPT transactionManager,
+                                       DevisRepoPT devisRepo
     ) {
-        return new DeleteDevisUE(localizeService, transactionManager, devisRepo);
+        return new RemoveDevisUE(localizeService, transactionManager, devisRepo);
     }
 
 

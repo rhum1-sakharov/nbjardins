@@ -155,4 +155,18 @@ export class DevisHttpService {
 
   }
 
+  removeDevis(idDevis: string) {
+
+    const query = `      
+    mutation removeDevis{
+    
+      removeDevis( idDevis: {id: "${idDevis}"}){
+         id         
+      }   
+         
+    }`;
+
+    return this.httpSvc.post(URL_GRAPHQL, query);
+
+  }
 }

@@ -1,6 +1,6 @@
 <div class="d-flex">
 
-  <div class="max-wh-680">
+  <div class="max-wh-620">
     <p-table [value]="devisList"
              [scrollable]="true"
              [scrollHeight]="responsiveUtils.getHeightStr(260)"
@@ -12,10 +12,8 @@
       <ng-template pTemplate="header">
         <tr>
           <th [width]="numeroDevisWidth" style="line-height:40px;">
-
-            <button pButton icon="pi pi-plus" pTooltip="créer un devis" (click)="openDialogCreateDevis()"></button>
+            <button pButton icon="pi pi-plus"  pTooltip="créer un devis" (click)="openDialogCreateDevis()"></button>
             N° devis
-
           </th>
           <th [width]="clientWidth" pSortableColumn="clientNom">
             Client
@@ -24,6 +22,8 @@
           <th [width]="depuisWidth" pSortableColumn="dateATraiter">
             Depuis
             <p-sortIcon field="dateATraiter"></p-sortIcon>
+          </th>
+          <th>
           </th>
         </tr>
       </ng-template>
@@ -38,7 +38,7 @@
                 {{rowData.clientNom | uppercase}} {{rowData.clientPrenom | titlecase}}
               </span>
               <span *ngIf="rowData.clientSociete">
-                <strong  class="mg-l-5">
+                <strong  style="white-space: nowrap">
                   {{rowData.clientSociete |  uppercase}}
                 </strong>
               </span>
@@ -46,6 +46,9 @@
           </td>
           <td [width]="depuisWidth">
             {{aTraiterSince(rowData.dateATraiter)}}
+          </td>
+          <td>
+            <button pButton icon="pi pi-trash" pRipple class="p-button-secondary p-button-text"  pTooltip="supprimer un devis" (click)="confirmRemoveDevis(rowData)" ></button>
           </td>
         </tr>
       </ng-template>
