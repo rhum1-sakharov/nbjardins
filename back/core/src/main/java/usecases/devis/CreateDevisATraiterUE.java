@@ -180,6 +180,7 @@ public class CreateDevisATraiterUE extends AbstractUsecase {
         devis.setArtisanSociete(artisan.getPersonne().getSociete());
         devis.setArtisanTelephone(artisan.getPersonne().getNumeroTelephone());
         devis.setArtisanVille(artisan.getPersonne().getVille());
+
     }
 
 

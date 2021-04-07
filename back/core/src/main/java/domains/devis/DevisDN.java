@@ -30,6 +30,7 @@ public class DevisDN extends Domain {
     String artisanEmail;
     String artisanSignature;
 
+
     String clientNom;
     String clientPrenom;
     String clientAdresse;

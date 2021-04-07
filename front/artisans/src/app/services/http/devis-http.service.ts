@@ -184,7 +184,14 @@ export class DevisHttpService {
         
         artisan{
           id
+          personne{
+            nom
+            prenom
+            societe
+          }
         }
+      
+        
         client{
           id
         } 
