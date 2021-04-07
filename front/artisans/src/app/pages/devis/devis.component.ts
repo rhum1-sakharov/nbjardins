@@ -14,7 +14,7 @@ import {DevisAnnouncesService} from '../../services/announces/devis-announces.se
 export class DevisComponent implements OnInit, OnDestroy, AfterViewInit {
 
   subRoute !: Subscription;
-  subCloseDialogCreateDevis !: Subscription;
+  subDevisCreated !: Subscription;
   subDevisRemoved !:Subscription;
 
   items: MenuItem[] = [
@@ -43,15 +43,15 @@ export class DevisComponent implements OnInit, OnDestroy, AfterViewInit {
 
     this.routeSubscription();
 
-    this.closeDialogCreateDevisSubscription();
+    this.devisCreatedSubscription();
 
     this.devisRemovedSubscription();
 
   }
 
-  closeDialogCreateDevisSubscription() {
+  devisCreatedSubscription() {
 
-    this.subCloseDialogCreateDevis = this.devisAnnounceSvc.closeDialogCreateDevis$
+    this.subDevisCreated = this.devisAnnounceSvc.devisCreated$
       .subscribe(response => this.devisSupplier.nbDevisATraiter.nbResult = this.devisSupplier.nbDevisATraiter.nbResult + 1);
 
   }
@@ -82,7 +82,7 @@ export class DevisComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnDestroy(): void {
     ObservableUtils.unsubscribe(this.subRoute);
-    ObservableUtils.unsubscribe(this.subCloseDialogCreateDevis);
+    ObservableUtils.unsubscribe(this.subDevisCreated);
     ObservableUtils.unsubscribe(this.subDevisRemoved);
   }
 

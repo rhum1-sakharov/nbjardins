@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {ObservableUtils} from '../../../../../../core-lib/dist/core-lib';
+import {ObservableUtils} from 'rhum1-sakharov-core-lib';
 import {Subscription} from 'rxjs';
 
 @Component({

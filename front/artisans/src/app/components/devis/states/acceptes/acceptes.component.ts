@@ -1,14 +1,14 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {ObservableUtils} from '../../../../../../core-lib/dist/core-lib';
+import {ObservableUtils} from 'rhum1-sakharov-core-lib';
 import {Subscription} from 'rxjs';
 
 @Component({
-  selector: 'app-abandonnes',
-  templateUrl: './abandonnes.component.html',
-  styleUrls: ['./abandonnes.component.scss']
+  selector: 'app-acceptes',
+  templateUrl: './acceptes.component.html',
+  styleUrls: ['./acceptes.component.scss']
 })
-export class AbandonnesComponent implements OnInit, OnDestroy {
+export class AcceptesComponent implements OnInit, OnDestroy {
 
   subRoute !: Subscription;
 
@@ -22,7 +22,7 @@ export class AbandonnesComponent implements OnInit, OnDestroy {
   }
 
   routeSubscription() {
-    this.subRoute = this.route.data.subscribe((data) => this.devisList = data.devisAbandonnesSupplier.data.devisFindByEmailArtisanAndStatut);
+    this.subRoute = this.route.data.subscribe((data) => this.devisList = data.devisAcceptesSupplier.data.devisFindByEmailArtisanAndStatut);
   }
 
   ngOnDestroy(): void {

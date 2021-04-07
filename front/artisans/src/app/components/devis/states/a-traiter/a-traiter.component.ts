@@ -12,9 +12,9 @@ import {
   ResponsiveUtils,
   ToasterService
 } from 'rhum1-sakharov-core-lib';
-import {DevisAnnouncesService, OpenDialogCreateDevisSupplier} from '../../../services/announces/devis-announces.service';
+import {DevisAnnouncesService, OpenDialogCreateDevisSupplier} from '../../../../services/announces/devis-announces.service';
 import {ConfirmationService} from 'primeng/api';
-import {DevisHttpService} from '../../../services/http/devis-http.service';
+import {DevisHttpService} from '../../../../services/http/devis-http.service';
 
 @Component({
   selector: 'app-a-traiter',
@@ -47,17 +47,17 @@ export class ATraiterComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.routeSubscription();
 
-    this.closeDialogCreateDevisSubscription();
+    this.devisCreatedSubscription();
   }
 
   routeSubscription() {
     this.subRoute = this.route.data.subscribe((data) => this.devisList = data.devisATraiterSupplier.data.devisFindByEmailArtisanAndStatut);
   }
 
-  closeDialogCreateDevisSubscription() {
-    this.subCloseDialogDevis = this.devisAnnounceSvc.closeDialogCreateDevis$
+  devisCreatedSubscription() {
+    this.subCloseDialogDevis = this.devisAnnounceSvc.devisCreated$
       .subscribe(response => {
-        console.log(response);
+
         this.devisList = [...this.devisList];
         this.devisList.unshift(response);
       });
@@ -99,7 +99,7 @@ export class ATraiterComponent implements OnInit, OnDestroy {
   }
 
   onRowSelect(event: any) {
-    console.log('onRowSelect', this.selectedDevis);
+    this.devisAnnounceSvc.announceDevisSelected(this.selectedDevis);
   }
 
   confirmRemoveDevis(devis: MDevis) {

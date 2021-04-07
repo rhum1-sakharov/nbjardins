@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Promise} from 'q';
-import {DevisHttpService} from '../../../services/http/devis-http.service';
-import {AuthService, KEY_USER, LocalstorageService} from '../../../../../../core-lib/dist/core-lib';
+import {DevisHttpService} from '../../../../services/http/devis-http.service';
+import {AuthService, KEY_USER, LocalstorageService} from 'rhum1-sakharov-core-lib';
 import {ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
 import {Observable} from 'rxjs';
 

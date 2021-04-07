@@ -35,13 +35,14 @@ import {InputMaskModule} from 'primeng/inputmask';
 import {TabViewModule} from 'primeng/tabview';
 import {BadgeModule} from 'primeng/badge';
 import {TabMenuModule} from 'primeng/tabmenu';
-import {ATraiterComponent} from './components/devis/a-traiter/a-traiter.component';
-import {TraitesComponent} from './components/devis/traites/traites.component';
-import {AcceptesComponent} from './components/devis/acceptes/acceptes.component';
-import {RefusesComponent} from './components/devis/refuses/refuses.component';
-import {AbandonnesComponent} from './components/devis/abandonnes/abandonnes.component';
-import {CreateComponent} from './components/devis/a-traiter/dialogs/create/create.component';
+import {ATraiterComponent} from './components/devis/states/a-traiter/a-traiter.component';
+import {TraitesComponent} from './components/devis/states/traites/traites.component';
+import {AcceptesComponent} from './components/devis/states/acceptes/acceptes.component';
+import {RefusesComponent} from './components/devis/states/refuses/refuses.component';
+import {AbandonnesComponent} from './components/devis/states/abandonnes/abandonnes.component';
+import {CreateComponent} from './components/devis/states/a-traiter/dialogs/create/create.component';
 import {DropdownModule} from 'primeng/dropdown';
+import {DesignerComponent} from './components/devis/designer/designer.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import {DropdownModule} from 'primeng/dropdown';
     AcceptesComponent,
     RefusesComponent,
     AbandonnesComponent,
-    CreateComponent
+    CreateComponent,
+    DesignerComponent
   ],
   imports: [
     BrowserModule,

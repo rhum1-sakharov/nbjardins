@@ -10,11 +10,14 @@ export class DevisAnnouncesService {
   private subjectOpenDialogCreateDevis = new Subject<OpenDialogCreateDevisSupplier>();
   openDialogCreateDevis$ = this.subjectOpenDialogCreateDevis.asObservable();
 
-  private subjectCloseDialogCreateDevis = new Subject<MDevis>();
-  closeDialogCreateDevis$ = this.subjectCloseDialogCreateDevis.asObservable();
+  private subjectDevisCreated = new Subject<MDevis>();
+  devisCreated$ = this.subjectDevisCreated.asObservable();
 
   private subjectDevisRemoved = new Subject<MDevis>();
   devisRemoved$ = this.subjectDevisRemoved.asObservable();
+
+  private subjectDevisSelected = new Subject<MDevis>();
+  devisSelected$ = this.subjectDevisSelected.asObservable();
 
   constructor() {
   }
@@ -23,12 +26,16 @@ export class DevisAnnouncesService {
     this.subjectOpenDialogCreateDevis.next(odcd);
   }
 
-  announceCloseDialogCreateDevis(devis: MDevis) {
-    this.subjectCloseDialogCreateDevis.next(devis);
+  announceDevisCreated(devis: MDevis) {
+    this.subjectDevisCreated.next(devis);
   }
 
   announceDevisRemoved(devis: MDevis) {
     this.subjectDevisRemoved.next(devis);
+  }
+
+  announceDevisSelected(devis: MDevis) {
+    this.subjectDevisSelected.next(devis);
   }
 }
 
