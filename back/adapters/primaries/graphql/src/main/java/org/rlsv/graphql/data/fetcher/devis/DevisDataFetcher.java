@@ -78,8 +78,14 @@ public class DevisDataFetcher {
     public DataFetcher createDevisATraiterDataFetcher() {
 
         return dataFetchingEnvironment -> {
-            String emailArtisan = dataFetchingEnvironment.getArgument("emailArtisan");
-            String emailClient = dataFetchingEnvironment.getArgument("emailClient");
+
+            Map<String, Object> resultArtisan = dataFetchingEnvironment.getArgument("emailArtisan");
+            String emailArtisan = (String) resultArtisan.get("email");
+
+            Map<String, Object> resultClient = dataFetchingEnvironment.getArgument("emailClient");
+            String emailClient = (String) resultClient.get("email");
+
+
             return this.createDevisATraiterUE.execute(null, emailArtisan, emailClient);
         };
     }

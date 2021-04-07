@@ -35,15 +35,15 @@ public class DevisRepoJpa extends RepoJpa implements DevisRepoPT {
 
 
     @Override
-    public Long countDevisOfMonth(DataProviderManager dpm, Date dateCreation) {
+    public Long countDevisOfMonth(DataProviderManager dpm, Date dateATraiter) {
 
         try {
 
             EntityManager em = PersistenceUtils.getEntityManager(dpm);
 
             TypedQuery<Long> query = em.createQuery("SELECT count(d.id) from Devis d " +
-                    " where month(d.dateCreation)=month(:dateCreation) and year(d.dateCreation)=year(:dateCreation)", Long.class);
-            Long nbDevisOfMonth = query.setParameter("dateCreation", dateCreation).getSingleResult();
+                    " where month(d.dateATraiter)=month(:dateATraiter) and year(d.dateATraiter)=year(:dateATraiter)", Long.class);
+            Long nbDevisOfMonth = query.setParameter("dateATraiter", dateATraiter).getSingleResult();
 
             return nbDevisOfMonth;
 

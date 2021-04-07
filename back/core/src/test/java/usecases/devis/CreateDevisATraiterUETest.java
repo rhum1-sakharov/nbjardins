@@ -10,6 +10,7 @@ import domains.referentiel.condition.reglement.ConditionDeReglementDN;
 import domains.referentiel.taxes.TaxeDN;
 import enums.MODELE_OPTION;
 import enums.STATUT_DEVIS;
+import enums.UNIQUE_CODE;
 import exceptions.CleanException;
 import exceptions.TechnicalException;
 import org.assertj.core.api.Assertions;
@@ -24,6 +25,7 @@ import ports.transactions.TransactionManagerPT;
 import usecases.devis.options.SaveOptionUE;
 import usecases.personnes.artisans.FindByEmailUE;
 import usecases.personnes.artisans.banques.FindByEmailAndPrefereUE;
+import usecases.uniquecode.GetUniqueCodeUE;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -54,6 +56,9 @@ public class CreateDevisATraiterUETest {
     usecases.personnes.clients.FindByEmailUE clientFindByEmailUE;
 
     @Mock
+    GetUniqueCodeUE getUniqueCodeUE;
+
+    @Mock
     FindByEmailAndPrefereUE artisanBanqueFindByEmailAndPrefereUE;
 
     @Mock
@@ -78,7 +83,7 @@ public class CreateDevisATraiterUETest {
     @Before
     public void setUp() throws Exception {
 
-        usecase = new CreateDevisATraiterUE(ls, transactionManager, saveDevisUE, saveOptionUE, artisanFindByEmailUE, artisanBanqueFindByEmailAndPrefereUE, clientFindByEmailUE);
+        usecase = new CreateDevisATraiterUE(ls, transactionManager, saveDevisUE, saveOptionUE, artisanFindByEmailUE, artisanBanqueFindByEmailAndPrefereUE, clientFindByEmailUE, getUniqueCodeUE);
 
         personneArtisan1 = StubsDevis.personneArtisan1();
         personneClient1 = StubsDevis.personneClient1();
@@ -96,6 +101,7 @@ public class CreateDevisATraiterUETest {
         Mockito.when(artisanFindByEmailUE.execute(Mockito.any(), Mockito.anyString())).thenAnswer(i -> artisan);
 
         Mockito.when(artisanBanqueFindByEmailAndPrefereUE.execute(Mockito.any(), Mockito.anyString(), Mockito.anyBoolean())).thenAnswer(i -> artisanBanque);
+        Mockito.when(getUniqueCodeUE.execute(Mockito.any(),Mockito.any(UNIQUE_CODE.class))).thenAnswer(i -> numeroDevis);
 
     }
 
@@ -249,6 +255,17 @@ public class CreateDevisATraiterUETest {
     }
 
     @Test
+    public void should_init_numeroDevis() throws CleanException {
+
+        Map<String, Object> result = this.usecase.execute(null, personneArtisan1.getEmail(), personneClient1.getEmail());
+        DevisDN devis = (DevisDN) result.get(DEVIS);
+
+        Assertions.assertThat(devis).isNotNull();
+        Assertions.assertThat(devis.getNumeroDevis()).isEqualTo(numeroDevis);
+
+    }
+
+    @Test
     public void should_init_taxe() throws CleanException {
 
         Map<String, Object> result = this.usecase.execute(null, personneArtisan1.getEmail(), personneClient1.getEmail());
@@ -269,6 +286,21 @@ public class CreateDevisATraiterUETest {
         Assertions.assertThat(devis.getRib()).isEqualTo(artisanBanque.getRib());
         Assertions.assertThat(devis.getIban()).isEqualTo(artisanBanque.getIban());
         Assertions.assertThat(devis.getBanque()).isEqualTo(artisanBanque.getBanque());
+
+    }
+
+    @Test
+    public void should_not_init_artisanBanque_if_artisanBanque_is_null() throws CleanException {
+
+        Mockito.when(artisanBanqueFindByEmailAndPrefereUE.execute(Mockito.any(), Mockito.anyString(), Mockito.anyBoolean())).thenAnswer(i -> null);
+
+        Map<String, Object> result = this.usecase.execute(null, personneArtisan1.getEmail(), personneClient1.getEmail());
+        DevisDN devis = (DevisDN) result.get(DEVIS);
+
+        Assertions.assertThat(devis).isNotNull();
+        Assertions.assertThat(devis.getRib()).isNull();
+        Assertions.assertThat(devis.getIban()).isNull();
+        Assertions.assertThat(devis.getBanque()).isNull();
 
     }
 

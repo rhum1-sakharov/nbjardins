@@ -9,6 +9,7 @@ import usecases.devis.SaveDevisUE;
 import usecases.devis.options.SaveOptionUE;
 import usecases.personnes.artisans.FindByEmailUE;
 import usecases.personnes.artisans.banques.FindByEmailAndPrefereUE;
+import usecases.uniquecode.GetUniqueCodeUE;
 
 @Configuration
 public class CreateDevisATraiterConfig {
@@ -20,7 +21,8 @@ public class CreateDevisATraiterConfig {
                                                        SaveOptionUE saveOptionUE,
                                                        FindByEmailUE artisanfindByEmailUE,
                                                        FindByEmailAndPrefereUE artisanBanqueFindByEmailAndPrefereUE,
-                                                       usecases.personnes.clients.FindByEmailUE clientFindByEmailUE
+                                                       usecases.personnes.clients.FindByEmailUE clientFindByEmailUE,
+                                                       GetUniqueCodeUE getUniqueCodeUE
                                                        ) {
         return new CreateDevisATraiterUE(ls,
                 transactionManager,
@@ -28,7 +30,8 @@ public class CreateDevisATraiterConfig {
                 saveOptionUE,
                 artisanfindByEmailUE,
                 artisanBanqueFindByEmailAndPrefereUE,
-                clientFindByEmailUE
+                clientFindByEmailUE,
+                getUniqueCodeUE
                 );
     }
 

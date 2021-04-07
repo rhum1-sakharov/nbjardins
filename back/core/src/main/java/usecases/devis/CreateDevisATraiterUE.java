@@ -8,6 +8,7 @@ import domains.personnes.artisans.ArtisanDN;
 import domains.personnes.clients.ClientDN;
 import enums.MODELE_OPTION;
 import enums.STATUT_DEVIS;
+import enums.UNIQUE_CODE;
 import exceptions.CleanException;
 import models.Precondition;
 import ports.localization.LocalizeServicePT;
@@ -17,6 +18,7 @@ import usecases.AbstractUsecase;
 import usecases.devis.options.SaveOptionUE;
 import usecases.personnes.artisans.FindByEmailUE;
 import usecases.personnes.artisans.banques.FindByEmailAndPrefereUE;
+import usecases.uniquecode.GetUniqueCodeUE;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -33,21 +35,17 @@ public class CreateDevisATraiterUE extends AbstractUsecase {
     FindByEmailUE artisanfindByEmailUE;
     FindByEmailAndPrefereUE artisanBanqueFindByEmailAndPrefereUE;
     usecases.personnes.clients.FindByEmailUE clientFindByEmailUE;
+    GetUniqueCodeUE getUniqueCodeUE;
 
 
-    public CreateDevisATraiterUE(LocalizeServicePT ls,
-                                 TransactionManagerPT transactionManager,
-                                 SaveDevisUE saveDevisUE,
-                                 SaveOptionUE saveOptionUE,
-                                 FindByEmailUE artisanfindByEmailUE,
-                                 FindByEmailAndPrefereUE artisanBanqueFindByEmailAndPrefereUE,
-                                 usecases.personnes.clients.FindByEmailUE clientFindByEmailUE) {
+    public CreateDevisATraiterUE(LocalizeServicePT ls, TransactionManagerPT transactionManager, SaveDevisUE saveDevisUE, SaveOptionUE saveOptionUE, FindByEmailUE artisanfindByEmailUE, FindByEmailAndPrefereUE artisanBanqueFindByEmailAndPrefereUE, usecases.personnes.clients.FindByEmailUE clientFindByEmailUE, GetUniqueCodeUE getUniqueCodeUE) {
         super(ls, transactionManager);
         this.saveDevisUE = saveDevisUE;
         this.saveOptionUE = saveOptionUE;
         this.artisanfindByEmailUE = artisanfindByEmailUE;
         this.artisanBanqueFindByEmailAndPrefereUE = artisanBanqueFindByEmailAndPrefereUE;
         this.clientFindByEmailUE = clientFindByEmailUE;
+        this.getUniqueCodeUE = getUniqueCodeUE;
     }
 
     @Transactional
@@ -63,14 +61,19 @@ public class CreateDevisATraiterUE extends AbstractUsecase {
         resultMap.put(DEVIS, devis);
 
 
-        List<DevisOptionDN> devisOptionList = new ArrayList<>();
-        devisOptionList.add(initDevisOption(dpm, devis, MODELE_OPTION.COLONNE_QUANTITE));
-        devisOptionList.add(initDevisOption(dpm, devis, MODELE_OPTION.COORDONNEES_BANQUAIRES));
-        devisOptionList.add(initDevisOption(dpm, devis, MODELE_OPTION.TVA_SAISISSABLE_PAR_LIGNE));
+        List<DevisOptionDN> devisOptionList = initDevisOptionList(dpm, devis);
         resultMap.put(OPTIONS, devisOptionList);
 
 
         return resultMap;
+    }
+
+    private List<DevisOptionDN> initDevisOptionList(DataProviderManager dpm, DevisDN devis) throws CleanException {
+        List<DevisOptionDN> devisOptionList = new ArrayList<>();
+        devisOptionList.add(initDevisOption(dpm, devis, MODELE_OPTION.COLONNE_QUANTITE));
+        devisOptionList.add(initDevisOption(dpm, devis, MODELE_OPTION.COORDONNEES_BANQUAIRES));
+        devisOptionList.add(initDevisOption(dpm, devis, MODELE_OPTION.TVA_SAISISSABLE_PAR_LIGNE));
+        return devisOptionList;
     }
 
     private DevisOptionDN initDevisOption(DataProviderManager dpm, DevisDN devis, MODELE_OPTION modeleOption) throws CleanException {
@@ -113,7 +116,11 @@ public class CreateDevisATraiterUE extends AbstractUsecase {
         return devis;
     }
 
-    private void initAutres(DevisDN devis, ArtisanDN artisan) {
+    private void initAutres(DevisDN devis, ArtisanDN artisan) throws CleanException {
+
+        String numeroDevis = getUniqueCodeUE.execute(null, UNIQUE_CODE.NUMERO_DEVIS);
+        devis.setNumeroDevis(numeroDevis);
+
         devis.setStatut(STATUT_DEVIS.A_TRAITER);
         devis.setDateATraiter(LocalDate.now());
         devis.setLieu(artisan.getPersonne().getVille());
@@ -122,17 +129,24 @@ public class CreateDevisATraiterUE extends AbstractUsecase {
     }
 
     private void initBanqueInfo(DevisDN devis, ArtisanDN artisan, ArtisanBanqueDN artisanBanque) {
-        devis.setRib(artisanBanque.getRib());
-        devis.setIban(artisanBanque.getIban());
-        devis.setBanque(artisanBanque.getBanque());
-        devis.setProvision(artisan.getProvision());
-        devis.setConditionDeReglement(artisan.getConditionDeReglement().getCondition());
-        devis.setOrdre(artisan.getPersonne().getSociete());
+
+        if (Objects.nonNull(artisanBanque)) {
+
+            devis.setRib(artisanBanque.getRib());
+            devis.setIban(artisanBanque.getIban());
+            devis.setBanque(artisanBanque.getBanque());
+            devis.setProvision(artisan.getProvision());
+            devis.setConditionDeReglement(artisan.getConditionDeReglement().getCondition());
+            devis.setOrdre(artisan.getPersonne().getSociete());
+
+        }
+
+
     }
 
     private void initClient(DevisDN devis, ClientDN client) {
 
-        if(Objects.nonNull(client)){
+        if (Objects.nonNull(client)) {
 
             devis.setClient(client);
             devis.setClientNom(client.getPersonne().getNom());
@@ -148,7 +162,6 @@ public class CreateDevisATraiterUE extends AbstractUsecase {
             devis.setClientFonction(client.getPersonne().getFonction());
 
         }
-
 
 
     }
