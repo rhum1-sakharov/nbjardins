@@ -22,6 +22,7 @@ export class ATraiterComponent implements OnInit, OnDestroy {
   depuisWidth = 120;
 
   devisList !: MDevis[];
+  selectedDevis !:MDevis;
 
   constructor(private route: ActivatedRoute, private devisAnnounceSvc: DevisAnnouncesService, private ls: LocalstorageService) {
   }
@@ -78,5 +79,9 @@ export class ATraiterComponent implements OnInit, OnDestroy {
     const user = this.ls.getItem(KEY_USER);
     const odcd = new OpenDialogCreateDevisSupplier(user.email);
     this.devisAnnounceSvc.announceOpenDialogCreateDevis(odcd);
+  }
+
+  onRowSelect(event:any) {
+    console.log('onRowSelect',this.selectedDevis);
   }
 }

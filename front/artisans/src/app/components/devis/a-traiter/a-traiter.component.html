@@ -4,6 +4,10 @@
     <p-table [value]="devisList"
              [scrollable]="true"
              [scrollHeight]="responsiveUtils.getHeightStr(260)"
+             selectionMode="single"
+             [(selection)]="selectedDevis"
+             (onRowSelect)="onRowSelect($event)"
+             dataKey="id"
     >
       <ng-template pTemplate="header">
         <tr>
@@ -24,7 +28,7 @@
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-rowData>
-        <tr>
+        <tr [pSelectableRow]="rowData">
           <td [width]="numeroDevisWidth">
             {{rowData.numeroDevis}}
           </td>
