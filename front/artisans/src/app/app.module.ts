@@ -43,6 +43,7 @@ import {AbandonnesComponent} from './components/devis/states/abandonnes/abandonn
 import {CreateComponent} from './components/devis/states/a-traiter/dialogs/create/create.component';
 import {DropdownModule} from 'primeng/dropdown';
 import {DesignerComponent} from './components/devis/designer/designer.component';
+import {EditTextFieldComponent} from './components/devis/designer/edit-text-field/edit-text-field.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import {DesignerComponent} from './components/devis/designer/designer.component'
     RefusesComponent,
     AbandonnesComponent,
     CreateComponent,
-    DesignerComponent
+    DesignerComponent,
+    EditTextFieldComponent
   ],
   imports: [
     BrowserModule,

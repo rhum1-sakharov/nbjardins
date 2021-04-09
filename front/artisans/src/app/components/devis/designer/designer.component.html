@@ -1,4 +1,205 @@
-<p>designer works!</p>
-<pre>
-  {{devis | json}}
-</pre>
+<ng-container *ngIf="devis">
+
+  <div class="p-grid devis-preview pg-8 mg-t-10 mg-l-1">
+    <div class="p-col-6">
+
+      <div>
+        logo
+        <img [src]="''" height="40">
+      </div>
+      <div class="p-d-flex">
+        <div class="not-editable mg-r-5">SIRET : </div>
+        <app-edit-text-field [inputValue]="devis.artisanSiret" (emit)="devis.artisanSiret=$event" [width]="200"></app-edit-text-field>
+      </div>
+      <app-edit-text-field [inputValue]="devis.artisanSociete" (emit)="devis.artisanSociete=$event" [width]="260"></app-edit-text-field>
+
+      <div>
+        artisanAdresse
+      </div>
+      <div>
+        <span class="mg-r-5">artisanCodePostal</span>
+        <span>artisanVille</span>
+      </div>
+      <div>
+        <span class="mg-r-5">Tél :</span>
+        <span>artisanNumeroTelephone</span>
+      </div>
+      <div class="p-d-flex">
+        <div >Email : </div>
+        <div>{{devis.artisanEmail}}</div>
+      </div>
+
+
+    </div>
+    <div class="p-col-6">
+      <div>
+        <strong>{{devis.clientPrenom}} {{devis.clientNom}}</strong>
+      </div>
+      <div>
+        544 chemin de fontblanque
+      </div>
+      <div>
+        84350 Mazan
+      </div>
+    </div>
+
+    <div class="p-col-6">
+      <strong>Devis n° {{devis.numeroDevis}}</strong>
+    </div>
+    <div class="p-col-6">
+      Elagage des arbres de la propriété du 544 chemin de fontblaqune à Mazan
+    </div>
+
+    <div class="p-col-6">
+      <span class="mg-r-5">artisanVille</span>, le dd/mm/yyyy
+    </div>
+    <div class="p-col-6">
+    </div>
+
+    <!--<div id="designation" class="p-col-12">-->
+    <!--<table style="width:100%">-->
+    <!--<thead>-->
+    <!--<tr>-->
+    <!--<th>Désignation</th>-->
+    <!--<th *ngIf="isActif(colonneQuantite)">Quantité</th>-->
+    <!--<th *ngIf="isActif(colonneQuantite)">Prix unitaire HT</th>-->
+    <!--<th *ngIf="isActif(tvaSaisissableParLigne)">Taux TVA</th>-->
+    <!--<th>Prix total HT</th>-->
+    <!--</tr>-->
+    <!--</thead>-->
+    <!--<tbody>-->
+    <!--<tr>-->
+    <!--<td>Modificatif de l'état descriptif</td>-->
+    <!--<td class="montant" *ngIf="isActif(colonneQuantite)">1</td>-->
+    <!--<td class="montant" *ngIf="isActif(colonneQuantite)">550.25 €</td>-->
+    <!--<td class="montant" *ngIf="isActif(tvaSaisissableParLigne)">20%</td>-->
+    <!--<td class="montant">550.25 €</td>-->
+    <!--</tr>-->
+    <!--<tr>-->
+    <!--<td>Attestation de surface loi carrez</td>-->
+    <!--<td class="montant" *ngIf="isActif(colonneQuantite)">2</td>-->
+    <!--<td class="montant" *ngIf="isActif(colonneQuantite)">62.89 €</td>-->
+    <!--<td class="montant" *ngIf="isActif(tvaSaisissableParLigne)">5.5%</td>-->
+    <!--<td class="montant">125.78 €</td>-->
+    <!--</tr>-->
+    <!--</tbody>-->
+    <!--</table>-->
+    <!--</div>-->
+
+    <!--<div class="p-col-8">-->
+    <!--<ng-container *ngIf="isActif(coordonneesBanquaires) && artisanBanque">-->
+    <!--<table>-->
+    <!--<tr>-->
+    <!--<td>Banque</td>-->
+    <!--<td>{{artisanBanque.banque}}</td>-->
+    <!--</tr>-->
+    <!--<tr>-->
+    <!--<td>RIB</td>-->
+    <!--<td>{{artisanBanque.rib}}</td>-->
+    <!--</tr>-->
+    <!--<tr>-->
+    <!--<td>IBAN</td>-->
+    <!--<td>{{artisanBanque.iban}}</td>-->
+    <!--</tr>-->
+    <!--</table>-->
+
+    <!--</ng-container>-->
+    <!--</div>-->
+    <!--<div class="p-col-4">-->
+    <!--<table id="totaux" style="width:100%">-->
+    <!--<tbody>-->
+    <!--<tr>-->
+    <!--<td><strong>TOTAL HT</strong></td>-->
+    <!--<td class="montant"><strong>676.03 €</strong></td>-->
+    <!--</tr>-->
+
+
+    <!--<ng-container [ngSwitch]="isActif(tvaSaisissableParLigne)">-->
+    <!--<ng-container *ngSwitchCase="false">-->
+    <!--<tr>-->
+    <!--<td>TOTAL TVA ({{artisan.taxe.taux}}%)</td>-->
+    <!--<td class="montant">{{676.03 * (artisan.taxe.taux/100) | number:'1.2-2'}} €</td>-->
+    <!--</tr>-->
+    <!--<tr>-->
+    <!--<td><strong>TOTAL TTC</strong></td>-->
+    <!--<td class="montant"><strong>{{676.03 * (1+(artisan.taxe.taux/100 )) | number:'1.2-2'}} €</strong></td>-->
+    <!--</tr>-->
+    <!--</ng-container>-->
+    <!--<ng-container *ngSwitchCase="true">-->
+    <!--<tr>-->
+    <!--<td>TOTAL TVA</td>-->
+    <!--<td class="montant">116.97 €</td>-->
+    <!--</tr>-->
+    <!--<tr>-->
+    <!--<td><strong>TOTAL TTC</strong></td>-->
+    <!--<td class="montant"><strong>{{793 | number:'1.2-2' }} €</strong></td>-->
+    <!--</tr>-->
+    <!--</ng-container>-->
+    <!--</ng-container>-->
+
+
+    <!--</tbody>-->
+    <!--</table>-->
+    <!--</div>-->
+
+    <div class="p-col-12">
+          <span class="mg-r-5">
+            <strong>Conditions de réglement :</strong>
+          </span>
+      <span>condition</span>
+    </div>
+
+    <div class="p-col-12">
+      <strong class="mg-r-5">Règlement à l'ordre de : </strong>
+      <span class="mg-r-5">
+            artisanSociete
+          </span>
+      <span class="mg-r-5">-</span>
+      <span class="mg-r-5">artisanAdresse</span>
+      <span class="mg-r-5">-</span>
+      <span class="mg-r-5">artisanCodePostal</span>
+      <span class="mg-r-5">artisanVille</span>
+    </div>
+
+
+    <div class="p-col-12">
+          <span class="mg-r-5">
+            <strong>Devis valable validiteDevisMois mois.</strong>
+          </span>
+    </div>
+
+    <!--<div class="p-col-12" *ngIf="artisan.provision>0" data-test="provision">-->
+    <!--<span class="mg-r-5">-->
+    <!--Acceptation du devis accompagné d'une provision de-->
+    <!--</span>-->
+    <!--<span class="mg-r-5">-->
+    <!--{{artisan.provision}} %-->
+    <!--</span>-->
+    <!--</div>-->
+
+    <div class="p-col-12">
+          <span class="mg-r-5">
+            Bon pour commande,
+          </span>
+    </div>
+
+    <div class="p-col-12">
+          <span class="mg-r-5">
+            Le ...........................................
+          </span>
+    </div>
+
+    <div class="p-col-6">
+          <span class="mg-r-5">
+           Signature et nom du signataire
+          </span>
+    </div>
+    <div class="p-col-6">
+          <span class="mg-r-5">
+           TODO signature artisan
+          </span>
+    </div>
+
+  </div>
+</ng-container>
+

@@ -1,0 +1,30 @@
+@import 'variables';
+
+.editable {
+  color: #969da2;
+  background-color: #fbc02d1c;
+  padding: 4px;
+  height: 32px;
+  cursor: pointer;
+  margin-top: 4px;
+}
+
+input{
+  background-color:  #fbc02d1c;
+  font-size: 14px;
+  color: #969da2;
+  height: 32px;
+  padding: 4px;
+  margin-top: 4px;
+  border: 0;
+  outline: none;
+
+
+  &:focus{
+    border: 0;
+    outline: none;
+    font-size: 16px;
+  }
+}
+
+

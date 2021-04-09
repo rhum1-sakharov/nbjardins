@@ -190,7 +190,17 @@ export class DevisHttpService {
             societe
           }
         }
-      
+        
+        artisanLogo 
+        artisanSiret 
+        artisanSociete 
+        artisanFonction 
+        artisanAdresse 
+        artisanVille 
+        artisanCodePostal 
+        artisanTelephone 
+        artisanEmail 
+        artisanSignature    
         
         client{
           id

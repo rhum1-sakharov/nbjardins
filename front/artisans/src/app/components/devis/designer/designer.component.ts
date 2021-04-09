@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {DevisAnnouncesService} from '../../../services/announces/devis-announces.service';
-import {MDevis} from 'rhum1-sakharov-core-lib';
-import {switchMap} from 'rxjs/operators';
+import {MDevis, ObservableUtils} from 'rhum1-sakharov-core-lib';
+import {filter, switchMap} from 'rxjs/operators';
 import {DevisHttpService} from '../../../services/http/devis-http.service';
 
 @Component({
@@ -10,10 +10,12 @@ import {DevisHttpService} from '../../../services/http/devis-http.service';
   templateUrl: './designer.component.html',
   styleUrls: ['./designer.component.scss']
 })
-export class DesignerComponent implements OnInit {
+export class DesignerComponent implements OnInit, OnDestroy {
 
   subDevisSelected !: Subscription;
-  devis !: MDevis;
+  subDevisRemoved !: Subscription;
+  devis !: MDevis | null;
+
 
   constructor(private devisAnnounceSvc: DevisAnnouncesService, private devisHttpSvc: DevisHttpService) {
   }
@@ -22,15 +24,31 @@ export class DesignerComponent implements OnInit {
 
     this.devisSelectedSubscription();
 
+    this.devisRemovedSubscription();
+
+  }
+
+  devisRemovedSubscription() {
+
+    this.subDevisRemoved = this.devisAnnounceSvc.devisRemoved$.pipe(
+      filter((response: any) => this.devis && response && response.id === this.devis.id)
+    ).subscribe(response => this.devis = null);
+
   }
 
   devisSelectedSubscription() {
+
     this.subDevisSelected = this.devisAnnounceSvc.devisSelected$.pipe(
       switchMap(response => this.devisHttpSvc.findDevis(response.id))
     )
       .subscribe((response: any) => {
         this.devis = response.data.devisFindById;
       });
+  }
+
+  ngOnDestroy(): void {
+    ObservableUtils.unsubscribe(this.subDevisRemoved);
+    ObservableUtils.unsubscribe(this.subDevisSelected);
   }
 
 

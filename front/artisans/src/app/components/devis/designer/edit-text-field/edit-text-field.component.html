@@ -1,0 +1,14 @@
+<ng-container [ngSwitch]="isReadonly">
+  <ng-container *ngSwitchCase="true">
+    <div [style.width.px]="width" class="editable" (click)="setReadOnly(false)">
+      {{inputValue}}
+    </div>
+  </ng-container>
+  <ng-container *ngSwitchCase="false">
+    <input [style.width.px]="width" type="text" [(ngModel)]="inputValue"
+           (focusout)="setReadOnly(true)"
+           (keydown.enter)="setReadOnly(true)" #input>
+  </ng-container>
+
+</ng-container>
+

@@ -34,6 +34,10 @@ $color-button: #2196f3;
     max-width: #{$i}px;
   }
 
+  .min-wh-#{$i} {
+    min-width: #{$i}px;
+  }
+
   .pg-#{$i} {
     padding: #{$i}px;
   }

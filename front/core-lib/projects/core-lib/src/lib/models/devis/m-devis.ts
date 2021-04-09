@@ -9,9 +9,22 @@ export class MDevis extends Model {
   dateRefuse!: Date;
   dateTraite!: Date;
   dateAccepte!: Date;
+
   clientNom!: string;
   clientPrenom!: string;
   clientSociete!: string;
+
+
+  artisanLogo !: string;
+  artisanSiret !: string;
+  artisanSociete !: string;
+  artisanFonction !: string;
+  artisanAdresse !: string;
+  artisanVille !: string;
+  artisanCodePostal !: string;
+  artisanTelephone !: string;
+  artisanEmail !: string;
+  artisanSignature !: string;
 
 
 }

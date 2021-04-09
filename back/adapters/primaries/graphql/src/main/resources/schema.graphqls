@@ -227,6 +227,17 @@ type Devis{
     dateRefuse: Date
     dateAbandon: Date
 
+    artisanLogo: String
+    artisanSiret: String
+    artisanSociete: String
+    artisanFonction: String
+    artisanAdresse: String
+    artisanVille: String
+    artisanCodePostal: String
+    artisanTelephone: String
+    artisanEmail: String
+    artisanSignature: String
+
     clientNom: String
     clientPrenom: String
     clientSociete: String
