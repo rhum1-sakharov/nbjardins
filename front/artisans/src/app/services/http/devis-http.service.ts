@@ -181,6 +181,7 @@ export class DevisHttpService {
         id
         numeroDevis           
         dateATraiter
+        lieu
         
         artisan{
           id
@@ -205,9 +206,17 @@ export class DevisHttpService {
         client{
           id
         } 
-        clientNom
-        clientPrenom
-        clientSociete
+       clientNom 
+       clientPrenom 
+       clientAdresse 
+       clientVille 
+       clientCodePostal 
+       clientTelephone 
+       clientEmail 
+       clientSignature 
+       clientSiret 
+       clientSociete 
+       clientFonction 
       }
     }
     `;

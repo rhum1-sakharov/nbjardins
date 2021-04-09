@@ -238,10 +238,19 @@ type Devis{
     artisanEmail: String
     artisanSignature: String
 
-    clientNom: String
-    clientPrenom: String
-    clientSociete: String
 
+    clientNom : String
+    clientPrenom : String
+    clientAdresse : String
+    clientVille : String
+    clientCodePostal : String
+    clientTelephone : String
+    clientEmail : String
+    clientSignature : String
+    clientSiret : String
+    clientSociete : String
+    clientFonction : String
 
+    lieu : String
 
 }

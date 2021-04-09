@@ -10,7 +10,7 @@
       <div class="p-d-flex">
         <div class="not-editable mg-r-5">SIRET : </div>
         <app-edit-text-field [inputValue]="devis.artisanSiret"
-                             placeholder="..."
+                             placeholder="siret..."
                              (emit)="devis.artisanSiret=$event" [width]="240"></app-edit-text-field>
       </div>
       <app-edit-text-field [inputValue]="devis.artisanSociete"
@@ -47,14 +47,34 @@
 
     </div>
     <div class="p-col-6">
-      <div>
-        <strong>{{devis.clientPrenom}} {{devis.clientNom}}</strong>
+      <div class="p-d-flex">
+
+        <span class="mg-r-5">
+        <app-edit-text-field [inputValue]="devis.clientPrenom"
+                             placeholder="prénom client..."
+                             (emit)="devis.clientPrenom=$event" [width]="120"></app-edit-text-field>
+        </span>
+
+        <app-edit-text-field [inputValue]="devis.clientNom"
+                             placeholder="nom client..."
+                             (emit)="devis.clientNom=$event" [width]="175"></app-edit-text-field>
       </div>
       <div>
-        544 chemin de fontblanque
+        <app-edit-text-field [inputValue]="devis.clientAdresse"
+                             placeholder="adresse client..."
+                             (emit)="devis.clientNom=$event" [width]="300"></app-edit-text-field>
       </div>
-      <div>
-        84350 Mazan
+      <div class="p-d-flex">
+        <span class="mg-r-5">
+            <app-edit-text-field [inputValue]="devis.clientCodePostal"
+                                 placeholder="code postal..."
+                                 (emit)="devis.clientCodePostal=$event" [width]="120"></app-edit-text-field>
+        </span>
+        <span>
+            <app-edit-text-field [inputValue]="devis.clientVille"
+                                 placeholder="ville client..."
+                                 (emit)="devis.clientVille=$event" [width]="175"></app-edit-text-field>
+        </span>
       </div>
     </div>
 
@@ -66,7 +86,16 @@
     </div>
 
     <div class="p-col-6">
-      <span class="mg-r-5">artisanVille</span>, le dd/mm/yyyy
+      <div class="p-d-flex">
+
+        <span class="mg-r-5">
+          <app-edit-text-field [inputValue]="devis.lieu"
+                               placeholder="lieu..."
+                               (emit)="devis.lieu=$event" [width]="195"></app-edit-text-field>
+        </span>
+        <span>, le dd/mm/yyyy</span>
+      </div>
+
     </div>
     <div class="p-col-6">
     </div>
