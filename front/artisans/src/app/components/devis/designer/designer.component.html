@@ -9,16 +9,31 @@
       </div>
       <div class="p-d-flex">
         <div class="not-editable mg-r-5">SIRET : </div>
-        <app-edit-text-field [inputValue]="devis.artisanSiret" (emit)="devis.artisanSiret=$event" [width]="200"></app-edit-text-field>
+        <app-edit-text-field [inputValue]="devis.artisanSiret"
+                             placeholder="..."
+                             (emit)="devis.artisanSiret=$event" [width]="240"></app-edit-text-field>
       </div>
-      <app-edit-text-field [inputValue]="devis.artisanSociete" (emit)="devis.artisanSociete=$event" [width]="260"></app-edit-text-field>
+      <app-edit-text-field [inputValue]="devis.artisanSociete"
+                           (emit)="devis.artisanSociete=$event"
+                           placeholder="société..."
+                           [width]="300"></app-edit-text-field>
 
-      <div>
-        artisanAdresse
-      </div>
-      <div>
-        <span class="mg-r-5">artisanCodePostal</span>
-        <span>artisanVille</span>
+      <app-edit-text-field [inputValue]="devis.artisanAdresse"
+                           placeholder="adresse..."
+                           (emit)="devis.artisanAdresse=$event" [width]="300"></app-edit-text-field>
+
+
+      <div class="p-d-flex">
+        <span class="mg-r-5">
+            <app-edit-text-field [inputValue]="devis.artisanCodePostal"
+                                 placeholder="code postal..."
+                                 (emit)="devis.artisanCodePostal=$event" [width]="100"></app-edit-text-field>
+        </span>
+        <span>
+           <app-edit-text-field [inputValue]="devis.artisanVille"
+                                placeholder="ville..."
+                                (emit)="devis.artisanVille=$event" [width]="195"></app-edit-text-field>
+        </span>
       </div>
       <div>
         <span class="mg-r-5">Tél :</span>

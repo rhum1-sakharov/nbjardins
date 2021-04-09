@@ -7,7 +7,8 @@ import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} f
 })
 export class EditTextFieldComponent implements OnInit {
 
-  @Input() inputValue: any;
+  @Input() inputValue: string;
+  @Input() placeholder: string;
   @Input() width: number;
 
   @Output() emit = new EventEmitter<string>();
