@@ -26,6 +26,7 @@ export * from './lib/enums/e-statut-devis';
 
 export * from './lib/crud/abstract-crud';
 export * from './lib/mothers/rvl-dialog';
+export * from './lib/mothers/rvl-edit-field';
 
 export * from './lib/techniques/http/http.service';
 export * from './lib/techniques/loading/loading.service';

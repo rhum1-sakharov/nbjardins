@@ -1,41 +1,22 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {RvlEditField} from 'rhum1-sakharov-core-lib';
 
 @Component({
   selector: 'app-edit-text-field',
   templateUrl: './edit-text-field.component.html',
   styleUrls: ['./edit-text-field.component.scss']
 })
-export class EditTextFieldComponent implements OnInit {
+export class EditTextFieldComponent extends RvlEditField implements OnInit {
 
-  @Input() inputValue: string;
-  @Input() placeholder: string;
-  @Input() width: number;
-
-  @Output() emit = new EventEmitter<string>();
-
-  isReadonly = true;
-
-  @ViewChild('input') input: ElementRef;
 
   constructor() {
+    super();
   }
 
   ngOnInit(): void {
   }
 
-  setReadOnly(isReadonly: boolean) {
 
-    this.isReadonly = isReadonly;
-
-    if (this.isReadonly) {
-      this.emit.emit(this.inputValue);
-    } else {
-      setTimeout(() => {
-        this.input.nativeElement.focus();
-        this.input.nativeElement.select();
-      }, 0);
-    }
-  }
 
 
 }

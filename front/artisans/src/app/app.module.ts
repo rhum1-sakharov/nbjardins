@@ -44,6 +44,7 @@ import {CreateComponent} from './components/devis/states/a-traiter/dialogs/creat
 import {DropdownModule} from 'primeng/dropdown';
 import {DesignerComponent} from './components/devis/designer/designer.component';
 import {EditTextFieldComponent} from './components/devis/designer/edit-text-field/edit-text-field.component';
+import {EditDateFieldComponent} from './components/devis/designer/edit-date-field/edit-date-field.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import {EditTextFieldComponent} from './components/devis/designer/edit-text-fiel
     AbandonnesComponent,
     CreateComponent,
     DesignerComponent,
-    EditTextFieldComponent
+    EditTextFieldComponent,
+    EditDateFieldComponent
   ],
   imports: [
     BrowserModule,
