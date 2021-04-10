@@ -75,6 +75,14 @@ input ArtisanInput{
     emailPro: String
 }
 
+input ClientInput {
+    id: ID
+    personne: PersonneInput
+    siret: String
+    signature: String
+
+}
+
 type IdResult{
     id: String
 }
@@ -114,27 +122,44 @@ input PersonneInput {
 input DevisInput{
 
     id : ID
-    sujet : String
-    message : String
-    numeroDevis : String
+    numeroDevis: String
+    artisan: ArtisanInput
+    client: ClientInput
+    statut: STATUT_DEVIS
+    totalHT: Float
+
+    dateATraiter: Date
+    dateTraite: Date
+    dateAccepte: Date
+    dateRefuse: Date
+    dateAbandon: Date
+    dateDevis: Date
+
+    artisanLogo: String
+    artisanSiret: String
+    artisanSociete: String
+    artisanFonction: String
+    artisanAdresse: String
+    artisanVille: String
+    artisanCodePostal: String
+    artisanTelephone: String
+    artisanEmail: String
+    artisanSignature: String
+
+
+    clientNom : String
+    clientPrenom : String
+    clientAdresse : String
+    clientVille : String
+    clientCodePostal : String
+    clientTelephone : String
+    clientEmail : String
+    clientSignature : String
+    clientSiret : String
+    clientSociete : String
+    clientFonction : String
+
     lieu : String
-    dateDemande : Date
-    dateEnCours : Date
-    dateEnvoye : Date
-    dateCreation : Date
-    totalHT : Float
-    tva : Float
-    remarque : String
-    nota : String
-    conditionDeReglement : String
-    ordre : String
-    statut : STATUT_DEVIS
-    iban : String
-    rib : String
-    logo : String
-    provision : Float
-    signature : String
-    validiteDevisMois : Int
 
 }
 
@@ -220,6 +245,7 @@ type Devis{
     artisan: Artisan
     client: Client
     statut: STATUT_DEVIS
+    totalHT: Float
 
     dateATraiter: Date
     dateTraite: Date

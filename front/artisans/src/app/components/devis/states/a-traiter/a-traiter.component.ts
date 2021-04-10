@@ -67,7 +67,7 @@ export class ATraiterComponent implements OnInit, OnDestroy {
   }
 
   devisUpdatedSubscription() {
-    this.subDevisUpdated = this.devisAnnounceSvc.devisUpdated$.subscribe((response:any) => this.selectedDevis = response);
+    this.subDevisUpdated = this.devisAnnounceSvc.devisUpdated$.subscribe((response: any) => this.selectedDevis = response);
   }
 
   devisCreatedSubscription() {
@@ -145,6 +145,8 @@ export class ATraiterComponent implements OnInit, OnDestroy {
   }
 
   saveDevis() {
-    console.log('saveDevis', this.selectedDevis);
+
+    this.devisHttpSvc.saveDevis(this.selectedDevis)
+      .subscribe((response: any) => this.toastSvc.showMsg(MSG_KEY.ROOT, MSG_SEVERITY.SUCCESS, `Devis ${this.selectedDevis.numeroDevis} enregistré avec succès.`));
   }
 }

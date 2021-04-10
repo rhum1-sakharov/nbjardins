@@ -1,11 +1,19 @@
 import {Model} from '../model';
+import {MArtisan} from '../personnes/artisans/m-artisan';
+import {MClient} from '../personnes/clients/m-client';
+import {STATUT_DEVIS} from '../../enums/e-statut-devis';
 
 
 export class MDevis extends Model {
 
+  [propName: string]: string | number | STATUT_DEVIS | MClient | MArtisan;
+
   id !: string;
   numeroDevis!: string;
   lieu !: string;
+  statut !: STATUT_DEVIS;
+  totalHT !: number;
+
 
   dateATraiter!: string;
   dateAbandon!: string;
@@ -14,6 +22,7 @@ export class MDevis extends Model {
   dateAccepte!: string;
   dateDevis !: string;
 
+  client !: MClient;
   clientNom !: string;
   clientPrenom !: string;
   clientAdresse !: string;
@@ -26,6 +35,7 @@ export class MDevis extends Model {
   clientSociete !: string;
   clientFonction !: string;
 
+  artisan !: MArtisan;
   artisanLogo !: string;
   artisanSiret !: string;
   artisanSociete !: string;
@@ -36,7 +46,6 @@ export class MDevis extends Model {
   artisanTelephone !: string;
   artisanEmail !: string;
   artisanSignature !: string;
-
 
 
 }

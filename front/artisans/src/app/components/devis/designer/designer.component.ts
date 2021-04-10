@@ -28,7 +28,7 @@ export class DesignerComponent implements OnInit, OnDestroy {
 
   }
 
-  updateDevis(property: keyof MDevis, event: any) {
+  updateDevis(property: string, event: any) {
     this.devis[property] = event;
     this.devisAnnounceSvc.announceDevisUpdated(this.devis);
   }

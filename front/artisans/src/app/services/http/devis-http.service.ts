@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpService, STATUT_DEVIS, URL_GRAPHQL} from 'rhum1-sakharov-core-lib';
+import {HttpService, MDevis, STATUT_DEVIS, URL_GRAPHQL} from 'rhum1-sakharov-core-lib';
 import {finalize} from 'rxjs/operators';
 import {LoadingService} from '../loading/loading.service';
 
@@ -8,7 +8,7 @@ import {LoadingService} from '../loading/loading.service';
 })
 export class DevisHttpService {
 
-  constructor(private httpSvc: HttpService, private loadingSvc:LoadingService) {
+  constructor(private httpSvc: HttpService, private loadingSvc: LoadingService) {
 
   }
 
@@ -172,12 +172,48 @@ export class DevisHttpService {
 
   }
 
-  findDevis(idDevis: string) {
-
+  saveDevis(devis: MDevis) {
     this.loadingSvc.announceLoading(true);
 
-    const query = `  {    
-      devisFindById( idDevis: "${idDevis}"){    
+    const query = `  
+    mutation saveDevis{    
+      saveDevis( devis: {
+       id: "${devis.id}"
+       statut: ${devis.statut}
+       numeroDevis: "${devis.numeroDevis}"
+       totalHT: ${devis.totalHT}
+       lieu : "${devis.lieu}"
+       dateATraiter : "${devis.dateATraiter}"       
+       dateDevis: "${devis.dateDevis}"
+       artisan: {
+         id :  "${devis.artisan.id}"
+       }
+        artisanLogo : "${devis.artisanLogo}"
+        artisanSiret: "${devis.artisanSiret}" 
+        artisanSociete : "${devis.artisanSociete}"
+        artisanFonction : "${devis.artisanFonction}"
+        artisanAdresse : "${devis.artisanAdresse}"
+        artisanVille : "${devis.artisanVille}"
+        artisanCodePostal : "${devis.artisanCodePostal}"
+        artisanTelephone : "${devis.artisanTelephone}"
+        artisanEmail : "${devis.artisanEmail}"
+        artisanSignature    : "${devis.artisanSignature}"
+       
+    
+       
+       clientNom : "${devis.clientNom}"
+       clientPrenom : "${devis.clientPrenom}"
+       clientAdresse : "${devis.clientAdresse}"
+       clientVille : "${devis.clientVille}"
+       clientCodePostal : "${devis.clientCodePostal}"
+       clientTelephone : "${devis.clientTelephone}"
+       clientEmail : "${devis.clientEmail}"
+       clientSignature : "${devis.clientSignature}"
+       clientSiret : "${devis.clientSiret}"
+       clientSociete : "${devis.clientSociete}"
+       clientFonction : "${devis.clientFonction}"
+       
+      }){    
         id
         numeroDevis  
         lieu
@@ -228,7 +264,69 @@ export class DevisHttpService {
     `;
 
     return this.httpSvc.post(URL_GRAPHQL, query).pipe(
-      finalize(()=>this.loadingSvc.announceLoading(false))
+      finalize(() => this.loadingSvc.announceLoading(false))
+    );
+  }
+
+  findDevis(idDevis: string) {
+
+    this.loadingSvc.announceLoading(true);
+
+    const query = `  {    
+      devisFindById( idDevis: "${idDevis}"){    
+        id
+        numeroDevis  
+        statut
+        totalHT
+        lieu
+         dateATraiter
+         dateTraite
+         dateAccepte
+         dateRefuse
+         dateAbandon
+         dateDevis
+
+        
+        artisan{
+          id
+          personne{
+            nom
+            prenom
+            societe
+          }
+        }
+        
+        artisanLogo 
+        artisanSiret 
+        artisanSociete 
+        artisanFonction 
+        artisanAdresse 
+        artisanVille 
+        artisanCodePostal 
+        artisanTelephone 
+        artisanEmail 
+        artisanSignature    
+        
+        client{
+          id
+        } 
+       clientNom 
+       clientPrenom 
+       clientAdresse 
+       clientVille 
+       clientCodePostal 
+       clientTelephone 
+       clientEmail 
+       clientSignature 
+       clientSiret 
+       clientSociete 
+       clientFonction 
+      }
+    }
+    `;
+
+    return this.httpSvc.post(URL_GRAPHQL, query).pipe(
+      finalize(() => this.loadingSvc.announceLoading(false))
     );
 
   }

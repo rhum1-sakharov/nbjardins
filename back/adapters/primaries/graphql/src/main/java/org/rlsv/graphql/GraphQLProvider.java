@@ -63,6 +63,8 @@ public class GraphQLProvider {
     private GraphQLSchema buildSchema(String sdl) throws CleanException {
 
         TypeDefinitionRegistry typeRegistry = new SchemaParser().parse(sdl);
+
+
         RuntimeWiring runtimeWiring = buildWiring();
         SchemaGenerator schemaGenerator = new SchemaGenerator();
 
@@ -72,9 +74,11 @@ public class GraphQLProvider {
 
     private RuntimeWiring buildWiring() throws CleanException {
 
+
         return RuntimeWiring.newRuntimeWiring()
                 .scalar(ExtendedScalars.Date)
                 .scalar(Scalars.GraphQLLong)
+
                 .type(newTypeWiring("Query")
                         .dataFetcher("taxeAll", taxeDataFetcher.getAllTaxesDataFetcher())
                         .dataFetcher("conditionReglementAll", conditionReglementDataFetcher.getAllConditionReglementDataFetcher())
