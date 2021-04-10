@@ -5,7 +5,7 @@ export class RvlEditField {
   @Input() inputValue !: string;
   @Input() placeholder !: string;
   @Input() width !: number;
-  @Output() emit = new EventEmitter<string>();
+  @Output() emit = new EventEmitter<any>();
 
   @ViewChild('input') input !: ElementRef;
 
@@ -16,12 +16,15 @@ export class RvlEditField {
     this.isReadonly = isReadonly;
 
     if (this.isReadonly) {
-      this.emit.emit(this.inputValue);
+      this.emit.emit(this.input);
     } else {
-      setTimeout(() => {
-        this.input.nativeElement.focus();
-        this.input.nativeElement.select();
-      }, 0);
+
+      if(this.input){
+        setTimeout(() => {
+          this.input.nativeElement.focus();
+          this.input.nativeElement.select();
+        }, 0);
+      }
     }
   }
 

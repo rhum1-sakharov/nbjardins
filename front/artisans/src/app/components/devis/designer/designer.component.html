@@ -1,4 +1,4 @@
-<ng-container *ngIf="devis">
+<ng-container *ngIf="devis && devis.id">
 
   <div class="p-grid devis-preview pg-8 mg-t-10 mg-l-1">
     <div class="p-col-6">
@@ -11,28 +11,28 @@
         <div class="not-editable mg-r-5">SIRET : </div>
         <app-edit-text-field [inputValue]="devis.artisanSiret"
                              placeholder="siret..."
-                             (emit)="devis.artisanSiret=$event" [width]="240"></app-edit-text-field>
+                             (emit)="updateDevis('artisanSiret',$event)" [width]="240"></app-edit-text-field>
       </div>
       <app-edit-text-field [inputValue]="devis.artisanSociete"
-                           (emit)="devis.artisanSociete=$event"
+                           (emit)="updateDevis('artisanSociete',$event)"
                            placeholder="société..."
                            [width]="300"></app-edit-text-field>
 
       <app-edit-text-field [inputValue]="devis.artisanAdresse"
                            placeholder="adresse..."
-                           (emit)="devis.artisanAdresse=$event" [width]="300"></app-edit-text-field>
+                           (emit)="updateDevis('artisanAdresse',$event)" [width]="300"></app-edit-text-field>
 
 
       <div class="p-d-flex">
         <span class="mg-r-5">
             <app-edit-text-field [inputValue]="devis.artisanCodePostal"
                                  placeholder="code postal..."
-                                 (emit)="devis.artisanCodePostal=$event" [width]="100"></app-edit-text-field>
+                                 (emit)="updateDevis('artisanCodePostal',$event) " [width]="100"></app-edit-text-field>
         </span>
         <span>
            <app-edit-text-field [inputValue]="devis.artisanVille"
                                 placeholder="ville..."
-                                (emit)="devis.artisanVille=$event" [width]="195"></app-edit-text-field>
+                                (emit)="updateDevis('artisanVille',$event)" [width]="195"></app-edit-text-field>
         </span>
       </div>
       <div>
@@ -52,28 +52,28 @@
         <span class="mg-r-5">
         <app-edit-text-field [inputValue]="devis.clientPrenom"
                              placeholder="prénom client..."
-                             (emit)="devis.clientPrenom=$event" [width]="120"></app-edit-text-field>
+                             (emit)="updateDevis('clientPrenom',$event)" [width]="120"></app-edit-text-field>
         </span>
 
         <app-edit-text-field [inputValue]="devis.clientNom"
                              placeholder="nom client..."
-                             (emit)="devis.clientNom=$event" [width]="175"></app-edit-text-field>
+                             (emit)="updateDevis('clientNom',$event)" [width]="175"></app-edit-text-field>
       </div>
       <div>
         <app-edit-text-field [inputValue]="devis.clientAdresse"
                              placeholder="adresse client..."
-                             (emit)="devis.clientNom=$event" [width]="300"></app-edit-text-field>
+                             (emit)="updateDevis('clientAdresse',$event)" [width]="300"></app-edit-text-field>
       </div>
       <div class="p-d-flex">
         <span class="mg-r-5">
             <app-edit-text-field [inputValue]="devis.clientCodePostal"
                                  placeholder="code postal..."
-                                 (emit)="devis.clientCodePostal=$event" [width]="120"></app-edit-text-field>
+                                 (emit)="updateDevis('clientCodePostal',$event)" [width]="120"></app-edit-text-field>
         </span>
         <span>
             <app-edit-text-field [inputValue]="devis.clientVille"
                                  placeholder="ville client..."
-                                 (emit)="devis.clientVille=$event" [width]="175"></app-edit-text-field>
+                                 (emit)="updateDevis('clientVille',$event)" [width]="175"></app-edit-text-field>
         </span>
       </div>
     </div>
@@ -91,10 +91,12 @@
         <span class="mg-r-5">
           <app-edit-text-field [inputValue]="devis.lieu"
                                placeholder="lieu..."
-                               (emit)="devis.lieu=$event" [width]="195"></app-edit-text-field>
+                               (emit)="updateDevis('lieu',$event)" [width]="175"></app-edit-text-field>
         </span>
         <span>
-          {{devis.dateDevis}}
+          <app-edit-date-field [inputValue]="devis.dateDevis"
+                               placeholder="date..."
+                               (emit)="updateDevis('dateDevis',$event)" [width]="120"></app-edit-date-field>
         </span>
       </div>
 
@@ -247,5 +249,10 @@
     </div>
 
   </div>
+
+  <pre>
+    {{devis | json}}
+  </pre>
+
 </ng-container>
 

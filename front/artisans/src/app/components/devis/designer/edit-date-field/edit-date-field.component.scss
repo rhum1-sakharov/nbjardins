@@ -1,0 +1,11 @@
+@import 'variables';
+
+input{
+  color: $color-editable-field;
+  background-color:  $bg-color-editable-field;
+  height: 32px;
+  margin-top: 4px;
+  border: 0;
+  outline: none;
+
+}

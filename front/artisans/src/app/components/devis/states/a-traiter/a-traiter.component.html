@@ -54,7 +54,12 @@
       </ng-template>
     </p-table>
   </div>
-  <div class="mg-l-20">
+  <div class="mg-l-20" *ngIf="selectedDevis && selectedDevis.id">
+
+    <div class="p-d-flex">
+      <p-button icon="pi pi-save" pTooltip="Enregistrer les modifications" (onClick)="saveDevis()"
+                class="mg-r-10"></p-button>
+    </div>
     <app-designer></app-designer>
   </div>
 

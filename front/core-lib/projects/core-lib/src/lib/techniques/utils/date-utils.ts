@@ -1,4 +1,4 @@
-import {differenceInDays, parseISO} from 'date-fns';
+import {differenceInDays, formatISO, parseISO} from 'date-fns';
 
 export class DateUtils {
 
@@ -11,6 +11,10 @@ export class DateUtils {
   public static getDateFromIso(value: string): Date {
 
     return parseISO(value);
+  }
+
+  public static getIsoFromDate(value: Date): string {
+    return formatISO(value, { representation: 'date' });
   }
 
   public static getNbDays(laterDate: Date, earlierDate: Date) {

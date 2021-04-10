@@ -45,6 +45,7 @@ import {DropdownModule} from 'primeng/dropdown';
 import {DesignerComponent} from './components/devis/designer/designer.component';
 import {EditTextFieldComponent} from './components/devis/designer/edit-text-field/edit-text-field.component';
 import {EditDateFieldComponent} from './components/devis/designer/edit-date-field/edit-date-field.component';
+import {CalendarModule} from 'primeng/calendar';
 
 @NgModule({
   declarations: [
@@ -94,7 +95,8 @@ import {EditDateFieldComponent} from './components/devis/designer/edit-date-fiel
     TabViewModule,
     BadgeModule,
     TabMenuModule,
-    DropdownModule
+    DropdownModule,
+    CalendarModule
 
   ],
   providers: [

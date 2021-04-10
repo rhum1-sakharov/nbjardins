@@ -26,6 +26,7 @@ export class ATraiterComponent implements OnInit, OnDestroy {
 
   subRoute !: Subscription;
   subCloseDialogDevis !: Subscription;
+  subDevisUpdated !: Subscription;
 
   responsiveUtils = ResponsiveUtils;
   dateUtils = DateUtils;
@@ -49,6 +50,8 @@ export class ATraiterComponent implements OnInit, OnDestroy {
     this.routeSubscription();
 
     this.devisCreatedSubscription();
+
+    this.devisUpdatedSubscription();
   }
 
   routeSubscription() {
@@ -61,6 +64,10 @@ export class ATraiterComponent implements OnInit, OnDestroy {
       }
 
     });
+  }
+
+  devisUpdatedSubscription() {
+    this.subDevisUpdated = this.devisAnnounceSvc.devisUpdated$.subscribe((response:any) => this.selectedDevis = response);
   }
 
   devisCreatedSubscription() {
@@ -77,6 +84,7 @@ export class ATraiterComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     ObservableUtils.unsubscribe(this.subRoute);
     ObservableUtils.unsubscribe(this.subCloseDialogDevis);
+    ObservableUtils.unsubscribe(this.subDevisUpdated);
   }
 
   aTraiterSince(isoDate: string) {
@@ -134,5 +142,9 @@ export class ATraiterComponent implements OnInit, OnDestroy {
           });
       }
     })
+  }
+
+  saveDevis() {
+    console.log('saveDevis', this.selectedDevis);
   }
 }

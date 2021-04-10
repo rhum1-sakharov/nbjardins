@@ -1,17 +1,18 @@
 import {Model} from '../model';
 
+
 export class MDevis extends Model {
 
   id !: string;
   numeroDevis!: string;
   lieu !: string;
 
-  dateATraiter!: Date;
-  dateAbandon!: Date;
-  dateRefuse!: Date;
-  dateTraite!: Date;
-  dateAccepte!: Date;
-  dateDevis !: Date;
+  dateATraiter!: string;
+  dateAbandon!: string;
+  dateRefuse!: string;
+  dateTraite!: string;
+  dateAccepte!: string;
+  dateDevis !: string;
 
   clientNom !: string;
   clientPrenom !: string;

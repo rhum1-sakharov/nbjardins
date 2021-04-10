@@ -14,7 +14,7 @@ export class DesignerComponent implements OnInit, OnDestroy {
 
   subDevisSelected !: Subscription;
   subDevisRemoved !: Subscription;
-  devis !: MDevis | null;
+  devis !: MDevis;
 
 
   constructor(private devisAnnounceSvc: DevisAnnouncesService, private devisHttpSvc: DevisHttpService) {
@@ -28,11 +28,16 @@ export class DesignerComponent implements OnInit, OnDestroy {
 
   }
 
+  updateDevis(property: keyof MDevis, event: any) {
+    this.devis[property] = event;
+    this.devisAnnounceSvc.announceDevisUpdated(this.devis);
+  }
+
   devisRemovedSubscription() {
 
     this.subDevisRemoved = this.devisAnnounceSvc.devisRemoved$.pipe(
       filter((response: any) => this.devis && response && response.id === this.devis.id)
-    ).subscribe(response => this.devis = null);
+    ).subscribe(response => this.devis = new MDevis());
 
   }
 

@@ -22,6 +22,9 @@ export class DevisAnnouncesService {
   private subjectDevisMenuSelected = new Subject();
   devisMenuSelected$ = this.subjectDevisMenuSelected.asObservable();
 
+  private subjectDevisUpdated = new Subject();
+  devisUpdated$ = this.subjectDevisUpdated.asObservable();
+
   constructor() {
   }
 
@@ -43,6 +46,10 @@ export class DevisAnnouncesService {
 
   announceDevisMenuSelected() {
     this.subjectDevisMenuSelected.next();
+  }
+
+  announceDevisUpdated(devis: MDevis ) {
+    this.subjectDevisUpdated.next(devis);
   }
 }
 
