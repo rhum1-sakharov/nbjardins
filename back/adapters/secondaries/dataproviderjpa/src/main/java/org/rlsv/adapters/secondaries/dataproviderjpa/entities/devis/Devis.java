@@ -108,6 +108,9 @@ public class Devis extends org.rlsv.adapters.secondaries.dataproviderjpa.entitie
     @Column(name="DATE_ABANDON")
     private Date dateAbandon;
 
+    @Column(name="DATE_DEVIS")
+    private Date dateDevis;
+
 
     @Column(name="SUJET")
     private String sujet;

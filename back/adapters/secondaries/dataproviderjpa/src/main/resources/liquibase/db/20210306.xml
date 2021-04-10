@@ -238,4 +238,19 @@
         </comment>
     </changeSet>
 
+    <changeSet id="202104100856" author="rvl">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="devis" columnName="DATE_DEVIS"></columnExists>
+            </not>
+        </preConditions>
+        <sql>
+            ALTER TABLE `devis`
+            ADD COLUMN `DATE_DEVIS` DATE NULL DEFAULT NULL AFTER `DATE_ABANDON`;
+        </sql>
+        <comment>
+            ajout de la colonne DATE_DEVIS dans la table devis
+        </comment>
+    </changeSet>
+
 </databaseChangeLog>

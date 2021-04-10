@@ -226,6 +226,7 @@ type Devis{
     dateAccepte: Date
     dateRefuse: Date
     dateAbandon: Date
+    dateDevis: Date
 
     artisanLogo: String
     artisanSiret: String
@@ -252,5 +253,6 @@ type Devis{
     clientFonction : String
 
     lieu : String
+
 
 }

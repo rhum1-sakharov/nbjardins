@@ -179,9 +179,15 @@ export class DevisHttpService {
     const query = `  {    
       devisFindById( idDevis: "${idDevis}"){    
         id
-        numeroDevis           
-        dateATraiter
+        numeroDevis  
         lieu
+         dateATraiter
+         dateTraite
+         dateAccepte
+         dateRefuse
+         dateAbandon
+         dateDevis
+
         
         artisan{
           id

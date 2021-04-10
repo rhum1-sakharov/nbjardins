@@ -110,7 +110,7 @@ public class CreateDevisATraiterUE extends AbstractUsecase {
         ArtisanBanqueDN artisanBanque = artisanBanqueFindByEmailAndPrefereUE.execute(dpm, emailArtisan, true);
         initBanqueInfo(devis, artisan, artisanBanque);
 
-        initAutres(dpm,devis, artisan);
+        initAutres(dpm, devis, artisan);
 
         devis = saveDevisUE.execute(dpm, devis);
 
@@ -123,12 +123,16 @@ public class CreateDevisATraiterUE extends AbstractUsecase {
         String numeroDevis = getUniqueCodeUE.execute(dpm, UNIQUE_CODE.NUMERO_DEVIS);
         devis.setNumeroDevis(numeroDevis);
 
+        LocalDate now = LocalDate.now();
+
         devis.setStatut(STATUT_DEVIS.A_TRAITER);
-        devis.setDateATraiter(LocalDate.now());
+        devis.setDateATraiter(now);
+        devis.setDateDevis(now);
         devis.setLieu(artisan.getPersonne().getVille());
         devis.setValiditeDevisMois(artisan.getValiditeDevisMois());
         devis.setTva(artisan.getTaxe().getTaux());
         devis.setTotalHT(BigDecimal.ZERO);
+
     }
 
     private void initBanqueInfo(DevisDN devis, ArtisanDN artisan, ArtisanBanqueDN artisanBanque) {

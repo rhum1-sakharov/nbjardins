@@ -166,6 +166,26 @@ public class CreateDevisATraiterUETest {
     }
 
     @Test
+    public void should_create_devis_with_dateDevis_is_now() throws CleanException {
+
+        LocalDate now = LocalDate.now();
+
+        Map<String, Object> result = this.usecase.execute(null, personneArtisan1.getEmail(), personneClient1.getEmail());
+        DevisDN devis = (DevisDN) result.get(DEVIS);
+
+        Assertions.assertThat(devis).isNotNull();
+        Assertions.assertThat(devis.getDateDevis()).isNotNull();
+
+        LocalDate dateDevis = devis.getDateDevis();
+
+
+        Assertions.assertThat(dateDevis.getDayOfMonth()).isEqualTo(now.getDayOfMonth());
+        Assertions.assertThat(dateDevis.getMonthValue()).isEqualTo(now.getMonthValue());
+        Assertions.assertThat(dateDevis.getYear()).isEqualTo(now.getYear());
+
+    }
+
+    @Test
     public void should_create_options_from_artisan_options() throws CleanException {
 
         Map<String, Object> result = this.usecase.execute(null, personneArtisan1.getEmail(), personneClient1.getEmail());

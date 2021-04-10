@@ -4,11 +4,14 @@ export class MDevis extends Model {
 
   id !: string;
   numeroDevis!: string;
+  lieu !: string;
+
   dateATraiter!: Date;
   dateAbandon!: Date;
   dateRefuse!: Date;
   dateTraite!: Date;
   dateAccepte!: Date;
+  dateDevis !: Date;
 
   clientNom !: string;
   clientPrenom !: string;
@@ -33,6 +36,6 @@ export class MDevis extends Model {
   artisanEmail !: string;
   artisanSignature !: string;
 
-  lieu !: string;
+
 
 }

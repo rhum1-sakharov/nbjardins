@@ -49,6 +49,7 @@ public class DevisDN extends Domain {
     LocalDate dateAccepte;
     LocalDate dateRefuse;
     LocalDate dateAbandon;
+    LocalDate dateDevis;
 
     String sujet;
     String numeroDevis;
