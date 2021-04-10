@@ -19,6 +19,9 @@ export class DevisAnnouncesService {
   private subjectDevisSelected = new BehaviorSubject(new MDevis());
   devisSelected$ = this.subjectDevisSelected.asObservable();
 
+  private subjectDevisMenuSelected = new Subject();
+  devisMenuSelected$ = this.subjectDevisMenuSelected.asObservable();
+
   constructor() {
   }
 
@@ -36,6 +39,10 @@ export class DevisAnnouncesService {
 
   announceDevisSelected(devis: MDevis) {
     this.subjectDevisSelected.next(devis);
+  }
+
+  announceDevisMenuSelected() {
+    this.subjectDevisMenuSelected.next();
   }
 }
 

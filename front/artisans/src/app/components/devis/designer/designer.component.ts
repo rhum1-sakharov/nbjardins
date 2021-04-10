@@ -39,6 +39,7 @@ export class DesignerComponent implements OnInit, OnDestroy {
   devisSelectedSubscription() {
 
     this.subDevisSelected = this.devisAnnounceSvc.devisSelected$.pipe(
+      filter((response: any) => response && response.id),
       switchMap(response => this.devisHttpSvc.findDevis(response.id))
     )
       .subscribe((response: any) => {

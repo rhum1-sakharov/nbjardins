@@ -28,7 +28,12 @@ public class MapperUtils {
 
     public static <D extends Domain, E extends Entity> D mapEntityToDomain(E entity) throws TechnicalException {
 
+        if (Objects.isNull(entity)) {
+            return null;
+        }
+
         String entityToDomainMethod = TypeConvertMapperEnum.ENTITY_TO_DOMAIN.getValue();
+
         final String entityName = entity.getClass().getSimpleName();
 
         final String error = "Le mapper de l'entity " + entityName + " est introuvable";
@@ -46,13 +51,16 @@ public class MapperUtils {
                         SUFFIX_MAPPER);
             }
         } catch (Exception cnfe) {
-            cnfe.printStackTrace();
+            throw new TechnicalException(error);
         }
-        throw new TechnicalException(error);
     }
 
 
     public static <D extends Domain, E extends Entity> E mapDomainToEntity(D domain) throws TechnicalException {
+
+        if (Objects.isNull(domain)) {
+            return null;
+        }
 
         String domainToEntityMethod = TypeConvertMapperEnum.DOMAIN_TO_ENTITY.getValue();
         final String domainName = domain.getClass().getSimpleName();

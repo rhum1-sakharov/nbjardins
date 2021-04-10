@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {DevisAnnouncesService} from '../../services/announces/devis-announces.service';
 
 @Component({
   selector: 'app-top-menu',
@@ -7,9 +8,12 @@ import {Component, OnInit} from '@angular/core';
 })
 export class TopMenuComponent implements OnInit {
 
-  constructor() { }
+  constructor(private devisAnnounceSvc:DevisAnnouncesService) { }
 
   ngOnInit(): void {
   }
 
+  devisSelected() {
+    this.devisAnnounceSvc.announceDevisMenuSelected();
+  }
 }

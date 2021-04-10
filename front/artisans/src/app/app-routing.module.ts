@@ -34,7 +34,6 @@ const routes: Routes = [
     path: 'devis',
     component: DevisComponent,
     canActivate: [AuthGuard],
-    runGuardsAndResolvers: 'always',
     data: USER_RIGHT_ARTISAN,
     resolve: {
       devisSupplier: DevisResolverService

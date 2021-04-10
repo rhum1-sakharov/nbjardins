@@ -105,6 +105,21 @@ public class MapperUtilsTest {
 
     }
 
+    @Test
+    public void  mapEntityToDomain_arg_entity_null_should_return_null() throws TechnicalException {
+        Domain d = MapperUtils.mapEntityToDomain(null);
+
+        Assertions.assertThat(d).isNull();
+    }
+
+
+    @Test
+    public void  mapDomainToEntity_arg_domain_null_should_return_null() throws TechnicalException {
+        Entity e = MapperUtils.mapDomainToEntity(null);
+
+        Assertions.assertThat(e).isNull();
+    }
+
 
     @Test
     public void mapEntityClassToDomainClass_should_throw_error_when_arg_is_null() throws TechnicalException {

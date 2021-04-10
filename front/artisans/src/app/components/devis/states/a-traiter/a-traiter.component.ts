@@ -55,7 +55,7 @@ export class ATraiterComponent implements OnInit, OnDestroy {
     this.subRoute = this.route.data.subscribe((data) => {
       this.devisList = data.devisATraiterSupplier.data.devisFindByEmailArtisanAndStatut;
 
-      if(!CollectionUtils.isNoe(this.devisList)){
+      if (!CollectionUtils.isNoe(this.devisList)) {
         this.selectedDevis = this.devisList[0];
         this.devisAnnounceSvc.announceDevisSelected(this.selectedDevis);
       }
@@ -124,6 +124,11 @@ export class ATraiterComponent implements OnInit, OnDestroy {
 
             this.devisList = [...this.devisList];
             this.devisList = this.devisList.filter(item => item.id !== devis.id);
+
+            if (this.selectedDevis && this.selectedDevis.id === devis.id) {
+              this.selectedDevis = new MDevis();
+              this.devisAnnounceSvc.announceDevisSelected(this.selectedDevis);
+            }
 
             this.devisAnnounceSvc.announceDevisRemoved(devis);
           });
