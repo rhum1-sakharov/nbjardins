@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
 import {
+  CollectionUtils,
   DateUtils,
   KEY_USER,
   LocalstorageService,
@@ -51,7 +52,15 @@ export class ATraiterComponent implements OnInit, OnDestroy {
   }
 
   routeSubscription() {
-    this.subRoute = this.route.data.subscribe((data) => this.devisList = data.devisATraiterSupplier.data.devisFindByEmailArtisanAndStatut);
+    this.subRoute = this.route.data.subscribe((data) => {
+      this.devisList = data.devisATraiterSupplier.data.devisFindByEmailArtisanAndStatut;
+
+      if(!CollectionUtils.isNoe(this.devisList)){
+        this.selectedDevis = this.devisList[0];
+        this.devisAnnounceSvc.announceDevisSelected(this.selectedDevis);
+      }
+
+    });
   }
 
   devisCreatedSubscription() {
@@ -60,6 +69,8 @@ export class ATraiterComponent implements OnInit, OnDestroy {
 
         this.devisList = [...this.devisList];
         this.devisList.unshift(response);
+        this.selectedDevis = response;
+        this.devisAnnounceSvc.announceDevisSelected(this.selectedDevis);
       });
   }
 

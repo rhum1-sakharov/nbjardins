@@ -93,7 +93,9 @@
                                placeholder="lieu..."
                                (emit)="devis.lieu=$event" [width]="195"></app-edit-text-field>
         </span>
-        <span class="not-editable">, le dd/mm/yyyy</span>
+        <span>
+          {{devis.dateDevis}}
+        </span>
       </div>
 
     </div>

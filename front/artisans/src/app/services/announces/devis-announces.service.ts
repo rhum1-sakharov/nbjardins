@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Subject} from 'rxjs';
+import {BehaviorSubject, Subject} from 'rxjs';
 import {MDevis} from 'rhum1-sakharov-core-lib';
 
 @Injectable({
@@ -16,7 +16,7 @@ export class DevisAnnouncesService {
   private subjectDevisRemoved = new Subject<MDevis>();
   devisRemoved$ = this.subjectDevisRemoved.asObservable();
 
-  private subjectDevisSelected = new Subject<MDevis>();
+  private subjectDevisSelected = new BehaviorSubject(new MDevis());
   devisSelected$ = this.subjectDevisSelected.asObservable();
 
   constructor() {
