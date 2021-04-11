@@ -37,7 +37,6 @@ export class SettingsComponent extends RvlDialog implements OnInit, OnDestroy {
   }
 
   saveOptionsDevis() {
-    console.log('saveOptionsDevis');
     this.close();
   }
 
