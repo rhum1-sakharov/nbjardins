@@ -23,6 +23,7 @@ export * from './lib/constants/constants';
 export * from './lib/enums/e-modele-option';
 export * from './lib/enums/e-crud-mode';
 export * from './lib/enums/e-statut-devis';
+export * from './lib/enums/e-graphql-type';
 
 export * from './lib/crud/abstract-crud';
 export * from './lib/mothers/rvl-dialog';
@@ -37,6 +38,7 @@ export * from './lib/techniques/utils/observable-utils';
 export * from './lib/techniques/utils/collection-utils';
 export * from './lib/techniques/utils/responsive-utils';
 export * from './lib/techniques/utils/date-utils';
+export * from './lib/techniques/utils/graphql-utils';
 export * from './lib/techniques/auth/auth.guard';
 export * from './lib/techniques/auth/auth.service';
 export * from './lib/techniques/auth/auth-interceptor.service';

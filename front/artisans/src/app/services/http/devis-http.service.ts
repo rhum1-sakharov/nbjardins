@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpService, MDevis, STATUT_DEVIS, URL_GRAPHQL} from 'rhum1-sakharov-core-lib';
+import {GRAPHQL_TYPE, GraphqlUtils, HttpService, MDevis, STATUT_DEVIS, URL_GRAPHQL} from 'rhum1-sakharov-core-lib';
 import {finalize} from 'rxjs/operators';
 import {LoadingService} from '../loading/loading.service';
 
@@ -178,40 +178,51 @@ export class DevisHttpService {
     const query = `  
     mutation saveDevis{    
       saveDevis( devis: {
-       id: "${devis.id}"
-       statut: ${devis.statut}
-       numeroDevis: "${devis.numeroDevis}"
-       totalHT: ${devis.totalHT}
-       lieu : "${devis.lieu}"
-       dateATraiter : "${devis.dateATraiter}"       
-       dateDevis: "${devis.dateDevis}"
-       artisan: {
-         id :  "${devis.artisan.id}"
+      
+       ${GraphqlUtils.setInput(devis,'id',GRAPHQL_TYPE.STRING)}              
+       ${GraphqlUtils.setInput(devis,'statut',GRAPHQL_TYPE.ENUM)}
+       ${GraphqlUtils.setInput(devis,'numeroDevis',GRAPHQL_TYPE.STRING)}
+       ${GraphqlUtils.setInput(devis,'totalHT',GRAPHQL_TYPE.NUMBER)}    
+       ${GraphqlUtils.setInput(devis,'lieu',GRAPHQL_TYPE.STRING)}
+       
+       ${GraphqlUtils.setInput(devis,'dateATraiter',GRAPHQL_TYPE.DATE)}
+       ${GraphqlUtils.setInput(devis,'dateAbandon',GRAPHQL_TYPE.DATE)}
+       ${GraphqlUtils.setInput(devis,'dateRefuse',GRAPHQL_TYPE.DATE)}
+       ${GraphqlUtils.setInput(devis,'dateTraite',GRAPHQL_TYPE.DATE)}
+       ${GraphqlUtils.setInput(devis,'dateAccepte',GRAPHQL_TYPE.DATE)}
+       ${GraphqlUtils.setInput(devis,'dateDevis',GRAPHQL_TYPE.DATE)}       
+      
+       
+       artisan: {         
+         ${GraphqlUtils.setInput(devis.artisan,'id',GRAPHQL_TYPE.STRING)}       
+        
        }
-        artisanLogo : "${devis.artisanLogo}"
-        artisanSiret: "${devis.artisanSiret}" 
-        artisanSociete : "${devis.artisanSociete}"
-        artisanFonction : "${devis.artisanFonction}"
-        artisanAdresse : "${devis.artisanAdresse}"
-        artisanVille : "${devis.artisanVille}"
-        artisanCodePostal : "${devis.artisanCodePostal}"
-        artisanTelephone : "${devis.artisanTelephone}"
-        artisanEmail : "${devis.artisanEmail}"
-        artisanSignature    : "${devis.artisanSignature}"
+        
+        ${GraphqlUtils.setInput(devis,'artisanLogo',GRAPHQL_TYPE.STRING)}       
+        ${GraphqlUtils.setInput(devis,'artisanSiret',GRAPHQL_TYPE.STRING)}       
+        ${GraphqlUtils.setInput(devis,'artisanSociete',GRAPHQL_TYPE.STRING)}       
+        ${GraphqlUtils.setInput(devis,'artisanFonction',GRAPHQL_TYPE.STRING)}       
+        ${GraphqlUtils.setInput(devis,'artisanAdresse',GRAPHQL_TYPE.STRING)}       
+        ${GraphqlUtils.setInput(devis,'artisanVille',GRAPHQL_TYPE.STRING)}       
+        ${GraphqlUtils.setInput(devis,'artisanCodePostal',GRAPHQL_TYPE.STRING)}       
+        ${GraphqlUtils.setInput(devis,'artisanTelephone',GRAPHQL_TYPE.STRING)}       
+        ${GraphqlUtils.setInput(devis,'artisanEmail',GRAPHQL_TYPE.STRING)}       
+        ${GraphqlUtils.setInput(devis,'artisanSignature',GRAPHQL_TYPE.STRING)}               
        
-    
+           
        
-       clientNom : "${devis.clientNom}"
-       clientPrenom : "${devis.clientPrenom}"
-       clientAdresse : "${devis.clientAdresse}"
-       clientVille : "${devis.clientVille}"
-       clientCodePostal : "${devis.clientCodePostal}"
-       clientTelephone : "${devis.clientTelephone}"
-       clientEmail : "${devis.clientEmail}"
-       clientSignature : "${devis.clientSignature}"
-       clientSiret : "${devis.clientSiret}"
-       clientSociete : "${devis.clientSociete}"
-       clientFonction : "${devis.clientFonction}"
+       ${GraphqlUtils.setInput(devis,'clientNom',GRAPHQL_TYPE.STRING)}       
+       ${GraphqlUtils.setInput(devis,'clientPrenom',GRAPHQL_TYPE.STRING)}       
+       ${GraphqlUtils.setInput(devis,'clientAdresse',GRAPHQL_TYPE.STRING)}      
+       ${GraphqlUtils.setInput(devis,'clientVille',GRAPHQL_TYPE.STRING)}      
+       ${GraphqlUtils.setInput(devis,'clientCodePostal',GRAPHQL_TYPE.STRING)}       
+       ${GraphqlUtils.setInput(devis,'clientTelephone',GRAPHQL_TYPE.STRING)}      
+       ${GraphqlUtils.setInput(devis,'clientEmail',GRAPHQL_TYPE.STRING)}   
+       ${GraphqlUtils.setInput(devis,'clientSignature',GRAPHQL_TYPE.STRING)}      
+       ${GraphqlUtils.setInput(devis,'clientSiret',GRAPHQL_TYPE.STRING)}      
+       ${GraphqlUtils.setInput(devis,'clientSociete',GRAPHQL_TYPE.STRING)}      
+       ${GraphqlUtils.setInput(devis,'clientFonction',GRAPHQL_TYPE.STRING)}       
+       
        
       }){    
         id
