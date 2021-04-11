@@ -13,7 +13,11 @@ import {
   ResponsiveUtils,
   ToasterService
 } from 'rhum1-sakharov-core-lib';
-import {DevisAnnouncesService, OpenDialogCreateDevisSupplier} from '../../../../services/announces/devis-announces.service';
+import {
+  DevisAnnouncesService,
+  OpenDialogCreateDevisSupplier,
+  OpenDialogDevisOptionsSupplier
+} from '../../../../services/announces/devis-announces.service';
 import {ConfirmationService} from 'primeng/api';
 import {DevisHttpService} from '../../../../services/http/devis-http.service';
 
@@ -33,7 +37,7 @@ export class ATraiterComponent implements OnInit, OnDestroy {
 
   numeroDevisWidth = 170;
   clientWidth = 220;
-  depuisWidth = 120;
+  depuisWidth = 110;
 
   devisList !: MDevis[];
   selectedDevis !: MDevis;
@@ -119,6 +123,7 @@ export class ATraiterComponent implements OnInit, OnDestroy {
     this.devisAnnounceSvc.announceOpenDialogCreateDevis(odcd);
   }
 
+
   onRowSelect(event: any) {
 
     this.devisAnnounceSvc.announceDevisSelected(this.selectedDevis);
@@ -154,6 +159,10 @@ export class ATraiterComponent implements OnInit, OnDestroy {
   }
 
   openDialogOptionsDevis() {
-    console.log('openDialogOptionsDevis');
+    if (this.selectedDevis && this.selectedDevis.id) {
+      const oddo = new OpenDialogDevisOptionsSupplier(this.selectedDevis.id);
+      this.devisAnnounceSvc.announceOpenDialogDevisOptions(oddo);
+    }
+
   }
 }

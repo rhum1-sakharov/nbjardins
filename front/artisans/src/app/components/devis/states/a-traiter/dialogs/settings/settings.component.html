@@ -1,0 +1,33 @@
+<p-dialog header="Options du devis"
+          [dismissableMask]="true"
+          [modal]="true"
+          [(visible)]="displayDialog"
+          [style]="{width: '550px'}">
+
+  <ng-container *ngIf="devisOptionList">
+    <ng-container *ngFor="let do of devisOptionList">
+
+
+      <div class="p-d-flex mg-t-10">
+        <div class="mg-r-5">
+          <p-selectButton [options]="[{label:'oui',value:true},{label:'non',value:false}]"
+                          [ngModel]="getDevisOption(do.modeleOption)"
+                          (ngModelChange)="setDevisOption(do.modeleOption,$event)"
+                          optionLabel="label"
+                          optionValue="value"
+          ></p-selectButton>
+        </div>
+        <div class="pg-8">
+          {{getModeleOptionLabel(do.modeleOption)}}
+        </div>
+      </div>
+
+    </ng-container>
+  </ng-container>
+
+
+  <ng-template pTemplate="footer">
+    <p-button icon="pi pi-save" (click)="saveOptionsDevis()" label="Enregistrer" ></p-button>
+  </ng-template>
+</p-dialog>
+

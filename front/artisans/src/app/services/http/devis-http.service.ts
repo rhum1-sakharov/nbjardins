@@ -305,6 +305,21 @@ export class DevisHttpService {
 
   }
 
+  findOptionsDevis(idDevis: string) {
+
+    this.loadingSvc.announceLoading(true);
+
+    const query = `  {      
+        ${this.generateDevisOptionFindByIdDevis(idDevis)}
+    }
+    `;
+
+    return this.httpSvc.post(URL_GRAPHQL, query).pipe(
+      finalize(() => this.loadingSvc.announceLoading(false))
+    );
+
+  }
+
   private generateDevisOptionFindByIdDevis(idDevis:string){
     const query = `
     

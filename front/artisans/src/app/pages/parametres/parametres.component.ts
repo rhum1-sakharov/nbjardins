@@ -143,8 +143,6 @@ export class ParametresComponent implements OnInit, OnDestroy, CanSave, AfterVie
 
 
   setArtisanOption(mo: MODELE_OPTION, $event: any) {
-
-
     if (this.artisanOptionList) {
       for (const ao of this.artisanOptionList) {
         if (ao.modeleOption === mo) {
@@ -152,8 +150,6 @@ export class ParametresComponent implements OnInit, OnDestroy, CanSave, AfterVie
         }
       }
     }
-
-
   }
 
   updateArtisanBanqueList($event: MArtisanBanque[]) {

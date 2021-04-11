@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject, Subject} from 'rxjs';
 import {MDevis} from 'rhum1-sakharov-core-lib';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -24,6 +25,9 @@ export class DevisAnnouncesService {
 
   private subjectDevisUpdated = new Subject();
   devisUpdated$ = this.subjectDevisUpdated.asObservable();
+
+  private subjectOpenDialogDevisOptions = new Subject<OpenDialogDevisOptionsSupplier>();
+  openDialogDevisOptions$ = this.subjectOpenDialogDevisOptions.asObservable();
 
   constructor() {
   }
@@ -48,8 +52,12 @@ export class DevisAnnouncesService {
     this.subjectDevisMenuSelected.next();
   }
 
-  announceDevisUpdated(devis: MDevis ) {
+  announceDevisUpdated(devis: MDevis) {
     this.subjectDevisUpdated.next(devis);
+  }
+
+  announceOpenDialogDevisOptions(oddo: OpenDialogDevisOptionsSupplier) {
+    this.subjectOpenDialogDevisOptions.next(oddo);
   }
 }
 
@@ -60,5 +68,15 @@ export class OpenDialogCreateDevisSupplier {
 
   constructor(emailArtisan: string) {
     this.emailArtisan = emailArtisan;
+  }
+}
+
+
+export class OpenDialogDevisOptionsSupplier {
+  idDevis !: string;
+
+
+  constructor(idDevis: string) {
+    this.idDevis = idDevis;
   }
 }
