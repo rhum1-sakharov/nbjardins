@@ -74,6 +74,7 @@ public class CreateDevisATraiterUE extends AbstractUsecase {
         devisOptionList.add(initDevisOption(dpm, devis, MODELE_OPTION.COLONNE_QUANTITE));
         devisOptionList.add(initDevisOption(dpm, devis, MODELE_OPTION.COORDONNEES_BANQUAIRES));
         devisOptionList.add(initDevisOption(dpm, devis, MODELE_OPTION.TVA_SAISISSABLE_PAR_LIGNE));
+        devisOptionList.add(initDevisOption(dpm, devis, MODELE_OPTION.PROVISION));
         return devisOptionList;
     }
 

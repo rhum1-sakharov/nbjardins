@@ -45,6 +45,7 @@ export class ParametresComponent implements OnInit, OnDestroy, CanSave, AfterVie
   coordonneesBanquaires = MODELE_OPTION.COORDONNEES_BANQUAIRES;
   colonneQuantite = MODELE_OPTION.COLONNE_QUANTITE;
   tvaSaisissableParLigne = MODELE_OPTION.TVA_SAISISSABLE_PAR_LIGNE;
+  provision = MODELE_OPTION.PROVISION;
 
   source!: any[];
 

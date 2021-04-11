@@ -192,13 +192,15 @@ public class CreateDevisATraiterUETest {
         List<DevisOptionDN> options = (List<DevisOptionDN>) result.get(OPTIONS);
 
         Assertions.assertThat(options).isNotNull();
-        Assertions.assertThat(options).hasSize(3);
+        Assertions.assertThat(options).hasSize(4);
         Assertions.assertThat(options.get(0).getModeleOption()).isEqualTo(MODELE_OPTION.COLONNE_QUANTITE);
         Assertions.assertThat(options.get(0).isActif()).isTrue();
         Assertions.assertThat(options.get(1).getModeleOption()).isEqualTo(MODELE_OPTION.COORDONNEES_BANQUAIRES);
         Assertions.assertThat(options.get(1).isActif()).isTrue();
         Assertions.assertThat(options.get(2).getModeleOption()).isEqualTo(MODELE_OPTION.TVA_SAISISSABLE_PAR_LIGNE);
         Assertions.assertThat(options.get(2).isActif()).isTrue();
+        Assertions.assertThat(options.get(3).getModeleOption()).isEqualTo(MODELE_OPTION.PROVISION);
+        Assertions.assertThat(options.get(3).isActif()).isTrue();
 
     }
 

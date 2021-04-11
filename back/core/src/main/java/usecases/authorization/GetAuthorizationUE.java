@@ -207,12 +207,12 @@ public class GetAuthorizationUE extends AbstractUsecase {
             artisan.setId(idArtisan);
 
 
-            saveOptionUE.execute(dpm,new ArtisanOptionDN(artisan,MODELE_OPTION.COLONNE_QUANTITE,false));
-            saveOptionUE.execute(dpm, new ArtisanOptionDN(artisan,MODELE_OPTION.COORDONNEES_BANQUAIRES,false));
-            saveOptionUE.execute(dpm, new ArtisanOptionDN(artisan,MODELE_OPTION.TVA_SAISISSABLE_PAR_LIGNE,false));
+            saveOptionUE.execute(dpm, new ArtisanOptionDN(artisan, MODELE_OPTION.COLONNE_QUANTITE, false));
+            saveOptionUE.execute(dpm, new ArtisanOptionDN(artisan, MODELE_OPTION.COORDONNEES_BANQUAIRES, false));
+            saveOptionUE.execute(dpm, new ArtisanOptionDN(artisan, MODELE_OPTION.TVA_SAISISSABLE_PAR_LIGNE, false));
+            saveOptionUE.execute(dpm, new ArtisanOptionDN(artisan, MODELE_OPTION.PROVISION, false));
         }
     }
-
 
 
 }

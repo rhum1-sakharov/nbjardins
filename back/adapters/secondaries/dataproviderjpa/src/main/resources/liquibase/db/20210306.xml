@@ -253,4 +253,30 @@
         </comment>
     </changeSet>
 
+    <changeSet id="202104111837" author="rvl">
+        <preConditions onFail="MARK_RAN">
+                <columnExists tableName="artisans_options" columnName="MODELE_OPTION"></columnExists>
+        </preConditions>
+        <sql>
+            ALTER TABLE `artisans_options`
+            CHANGE COLUMN `MODELE_OPTION` `MODELE_OPTION` ENUM('TVA_SAISISSABLE_PAR_LIGNE','COLONNE_QUANTITE','COORDONNEES_BANQUAIRES','PROVISION') NOT NULL COLLATE 'utf8_general_ci' AFTER `ID_ARTISAN`;
+        </sql>
+        <comment>
+            ajout de la valeur PROVISION sur l'enum MODELE_OPTION de la table artisans_options
+        </comment>
+    </changeSet>
+
+    <changeSet id="202104111838" author="rvl">
+        <preConditions onFail="MARK_RAN">
+                <columnExists tableName="devis_options" columnName="MODELE_OPTION"></columnExists>
+        </preConditions>
+        <sql>
+            ALTER TABLE `devis_options`
+            CHANGE COLUMN `MODELE_OPTION` `MODELE_OPTION` ENUM('TVA_SAISISSABLE_PAR_LIGNE','COLONNE_QUANTITE','COORDONNEES_BANQUAIRES','PROVISION') NOT NULL COLLATE 'utf8_general_ci' AFTER `ID_ARTISAN`;
+        </sql>
+        <comment>
+            ajout de la valeur PROVISION sur l'enum MODELE_OPTION de la table devis_options
+        </comment>
+    </changeSet>
+
 </databaseChangeLog>

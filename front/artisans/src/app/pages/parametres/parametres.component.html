@@ -129,6 +129,16 @@
             </p-listbox>
           </div>
 
+          <div>
+            <h5>{{getModeleOptionLabel(provision)}}</h5>
+            <p-selectButton [options]="[{label:'oui',value:true},{label:'non',value:false}]"
+                            [ngModel]="getArtisanOption(provision)"
+                            (ngModelChange)="setArtisanOption(provision,$event)"
+                            optionLabel="label"
+                            optionValue="value"
+            ></p-selectButton>
+          </div>
+
           <div data-test="provision">
             <h5>Provision</h5>
             <p-inputNumber [(ngModel)]="artisan.provision" mode="decimal" [minFractionDigits]="2"
