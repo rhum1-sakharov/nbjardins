@@ -44,7 +44,7 @@
         </span>
       </div>
       <div class="p-d-flex">
-        <span class="not-editable mg-r-4" >Email</span>
+        <span class="not-editable mg-r-4">Email</span>
         <span>
            <app-edit-text-field [inputValue]="devis.artisanEmail"
                                 placeholder="email..."
@@ -87,12 +87,12 @@
     </div>
 
     <div class="p-col-6">
-      <strong>Devis n° {{devis.numeroDevis}}</strong>
+      <strong class="not-editable">Devis n° {{devis.numeroDevis}}</strong>
     </div>
     <div class="p-col-6">
       <app-edit-text-field [inputValue]="devis.sujet"
                            placeholder="sujet..."
-                           (emit)="updateDevis('sujet',$event)" [width]="230"></app-edit-text-field>
+                           (emit)="updateDevis('sujet',$event)" [width]="280"></app-edit-text-field>
     </div>
 
     <div class="p-col-6">
@@ -200,30 +200,42 @@
     <!--</table>-->
     <!--</div>-->
 
-    <div class="p-col-12">
-          <span class="mg-r-5">
-            <strong>Conditions de réglement :</strong>
+    <div class="p-d-flex">
+          <span class="mg-r-5 not-editable">
+            <strong>Conditions de réglement</strong>
           </span>
-      <span>condition</span>
+      <span>
+          <app-edit-text-field [inputValue]="devis.conditionDeReglement"
+                               placeholder="condition de réglement..."
+                               (emit)="updateDevis('conditionDeReglement',$event)" [width]="410"></app-edit-text-field>
+      </span>
     </div>
 
-    <div class="p-col-12">
-      <strong class="mg-r-5">Règlement à l'ordre de : </strong>
-      <span class="mg-r-5">
-            artisanSociete
+    <div class="p-d-flex">
+      <strong class="mg-r-19 not-editable">Règlement à l'ordre de</strong>
+      <span>
+             <app-edit-text-field [inputValue]="devis.ordre"
+                                  placeholder="à l'ordre de..."
+                                  (emit)="updateDevis('ordre',$event)"
+                                  [width]="410"></app-edit-text-field>
           </span>
-      <span class="mg-r-5">-</span>
-      <span class="mg-r-5">artisanAdresse</span>
-      <span class="mg-r-5">-</span>
-      <span class="mg-r-5">artisanCodePostal</span>
-      <span class="mg-r-5">artisanVille</span>
     </div>
 
 
-    <div class="p-col-12">
-          <span class="mg-r-5">
-            <strong>Devis valable validiteDevisMois mois.</strong>
+    <div class="p-d-flex">
+          <span class="mg-r-5 not-editable">
+            <strong>Devis valable</strong>
           </span>
+      <span>
+        TODO
+         <!--<app-edit-text-field [inputValue]="devis.validiteDevisMois"-->
+                              <!--placeholder="validité..."-->
+                              <!--(emit)="updateDevis('validiteDevisMois',$event)"-->
+                              <!--[width]="30"></app-edit-text-field>-->
+      </span>
+      <span class="mg-l-5 not-editable">
+        <strong>mois.</strong>
+      </span>
     </div>
 
     <!--<div class="p-col-12" *ngIf="artisan.provision>0" data-test="provision">-->

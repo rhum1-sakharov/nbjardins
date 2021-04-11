@@ -184,7 +184,15 @@ export class DevisHttpService {
        ${GraphqlUtils.setInput(devis,'numeroDevis',GRAPHQL_TYPE.STRING)}
        ${GraphqlUtils.setInput(devis,'totalHT',GRAPHQL_TYPE.NUMBER)}    
        ${GraphqlUtils.setInput(devis,'lieu',GRAPHQL_TYPE.STRING)}
-       ${GraphqlUtils.setInput(devis,'sujet',GRAPHQL_TYPE.STRING)}
+       ${GraphqlUtils.setInput(devis,'sujet',GRAPHQL_TYPE.STRING)}               
+       ${GraphqlUtils.setInput(devis,'remarque',GRAPHQL_TYPE.STRING)}        
+       ${GraphqlUtils.setInput(devis,'conditionDeReglement',GRAPHQL_TYPE.STRING)}        
+       ${GraphqlUtils.setInput(devis,'ordre',GRAPHQL_TYPE.STRING)}        
+       ${GraphqlUtils.setInput(devis,'banque',GRAPHQL_TYPE.STRING)}        
+       ${GraphqlUtils.setInput(devis,'iban',GRAPHQL_TYPE.STRING)}        
+       ${GraphqlUtils.setInput(devis,'rib',GRAPHQL_TYPE.STRING)}        
+       ${GraphqlUtils.setInput(devis,'provision',GRAPHQL_TYPE.NUMBER)}        
+       ${GraphqlUtils.setInput(devis,'validiteDevisMois',GRAPHQL_TYPE.NUMBER)}
        
        ${GraphqlUtils.setInput(devis,'dateATraiter',GRAPHQL_TYPE.DATE)}
        ${GraphqlUtils.setInput(devis,'dateAbandon',GRAPHQL_TYPE.DATE)}
@@ -293,6 +301,16 @@ export class DevisHttpService {
         totalHT
         lieu
         sujet
+        remarque 
+        conditionDeReglement 
+        ordre 
+        banque 
+        iban 
+        rib 
+        provision 
+        validiteDevisMois 
+        
+        
          dateATraiter
          dateTraite
          dateAccepte

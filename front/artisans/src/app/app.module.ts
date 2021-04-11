@@ -47,6 +47,7 @@ import {EditTextFieldComponent} from './components/devis/designer/edit-text-fiel
 import {EditDateFieldComponent} from './components/devis/designer/edit-date-field/edit-date-field.component';
 import {CalendarModule} from 'primeng/calendar';
 import {EditEmailFieldComponent} from './components/devis/designer/edit-email-field/edit-email-field.component';
+import {EditNumberFieldComponent} from './components/devis/designer/edit-number-field/edit-number-field.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import {EditEmailFieldComponent} from './components/devis/designer/edit-email-fi
     DesignerComponent,
     EditTextFieldComponent,
     EditDateFieldComponent,
-    EditEmailFieldComponent
+    EditEmailFieldComponent,
+    EditNumberFieldComponent
   ],
   imports: [
     BrowserModule,

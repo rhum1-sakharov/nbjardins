@@ -14,6 +14,14 @@ export class MDevis extends Model {
   statut !: STATUT_DEVIS;
   totalHT !: number;
   sujet !: string;
+  remarque !: string;
+  conditionDeReglement !: string;
+  ordre !: string;
+  banque !: string;
+  iban !: string;
+  rib !: string;
+  provision !: number;
+  validiteDevisMois !: number;
 
 
   dateATraiter!: string;
