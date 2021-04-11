@@ -227,11 +227,11 @@
             <strong>Devis valable</strong>
           </span>
       <span>
-        TODO
-         <!--<app-edit-text-field [inputValue]="devis.validiteDevisMois"-->
-                              <!--placeholder="validité..."-->
-                              <!--(emit)="updateDevis('validiteDevisMois',$event)"-->
-                              <!--[width]="30"></app-edit-text-field>-->
+
+         <app-edit-number-field [inputValue]="devis.validiteDevisMois"
+                                placeholder="validité..."
+                                (emit)="updateDevis('validiteDevisMois',$event)"
+                                [width]="30"></app-edit-number-field>
       </span>
       <span class="mg-l-5 not-editable">
         <strong>mois.</strong>
