@@ -179,58 +179,58 @@ export class DevisHttpService {
     mutation saveDevis{    
       saveDevis( devis: {
       
-       ${GraphqlUtils.setInput(devis,'id',GRAPHQL_TYPE.STRING)}              
-       ${GraphqlUtils.setInput(devis,'statut',GRAPHQL_TYPE.ENUM)}
-       ${GraphqlUtils.setInput(devis,'numeroDevis',GRAPHQL_TYPE.STRING)}
-       ${GraphqlUtils.setInput(devis,'totalHT',GRAPHQL_TYPE.NUMBER)}    
-       ${GraphqlUtils.setInput(devis,'lieu',GRAPHQL_TYPE.STRING)}
-       ${GraphqlUtils.setInput(devis,'sujet',GRAPHQL_TYPE.STRING)}               
-       ${GraphqlUtils.setInput(devis,'remarque',GRAPHQL_TYPE.STRING)}        
-       ${GraphqlUtils.setInput(devis,'conditionDeReglement',GRAPHQL_TYPE.STRING)}        
-       ${GraphqlUtils.setInput(devis,'ordre',GRAPHQL_TYPE.STRING)}        
-       ${GraphqlUtils.setInput(devis,'banque',GRAPHQL_TYPE.STRING)}        
-       ${GraphqlUtils.setInput(devis,'iban',GRAPHQL_TYPE.STRING)}        
-       ${GraphqlUtils.setInput(devis,'rib',GRAPHQL_TYPE.STRING)}        
-       ${GraphqlUtils.setInput(devis,'provision',GRAPHQL_TYPE.NUMBER)}        
-       ${GraphqlUtils.setInput(devis,'validiteDevisMois',GRAPHQL_TYPE.NUMBER)}
+       ${GraphqlUtils.setInput(devis, 'id', GRAPHQL_TYPE.STRING)}              
+       ${GraphqlUtils.setInput(devis, 'statut', GRAPHQL_TYPE.ENUM)}
+       ${GraphqlUtils.setInput(devis, 'numeroDevis', GRAPHQL_TYPE.STRING)}
+       ${GraphqlUtils.setInput(devis, 'totalHT', GRAPHQL_TYPE.NUMBER)}    
+       ${GraphqlUtils.setInput(devis, 'lieu', GRAPHQL_TYPE.STRING)}
+       ${GraphqlUtils.setInput(devis, 'sujet', GRAPHQL_TYPE.STRING)}               
+       ${GraphqlUtils.setInput(devis, 'remarque', GRAPHQL_TYPE.STRING)}        
+       ${GraphqlUtils.setInput(devis, 'conditionDeReglement', GRAPHQL_TYPE.STRING)}        
+       ${GraphqlUtils.setInput(devis, 'ordre', GRAPHQL_TYPE.STRING)}        
+       ${GraphqlUtils.setInput(devis, 'banque', GRAPHQL_TYPE.STRING)}        
+       ${GraphqlUtils.setInput(devis, 'iban', GRAPHQL_TYPE.STRING)}        
+       ${GraphqlUtils.setInput(devis, 'rib', GRAPHQL_TYPE.STRING)}        
+       ${GraphqlUtils.setInput(devis, 'provision', GRAPHQL_TYPE.NUMBER)}        
+       ${GraphqlUtils.setInput(devis, 'validiteDevisMois', GRAPHQL_TYPE.NUMBER)}
        
-       ${GraphqlUtils.setInput(devis,'dateATraiter',GRAPHQL_TYPE.DATE)}
-       ${GraphqlUtils.setInput(devis,'dateAbandon',GRAPHQL_TYPE.DATE)}
-       ${GraphqlUtils.setInput(devis,'dateRefuse',GRAPHQL_TYPE.DATE)}
-       ${GraphqlUtils.setInput(devis,'dateTraite',GRAPHQL_TYPE.DATE)}
-       ${GraphqlUtils.setInput(devis,'dateAccepte',GRAPHQL_TYPE.DATE)}
-       ${GraphqlUtils.setInput(devis,'dateDevis',GRAPHQL_TYPE.DATE)}       
+       ${GraphqlUtils.setInput(devis, 'dateATraiter', GRAPHQL_TYPE.DATE)}
+       ${GraphqlUtils.setInput(devis, 'dateAbandon', GRAPHQL_TYPE.DATE)}
+       ${GraphqlUtils.setInput(devis, 'dateRefuse', GRAPHQL_TYPE.DATE)}
+       ${GraphqlUtils.setInput(devis, 'dateTraite', GRAPHQL_TYPE.DATE)}
+       ${GraphqlUtils.setInput(devis, 'dateAccepte', GRAPHQL_TYPE.DATE)}
+       ${GraphqlUtils.setInput(devis, 'dateDevis', GRAPHQL_TYPE.DATE)}       
       
        
        artisan: {         
-         ${GraphqlUtils.setInput(devis.artisan,'id',GRAPHQL_TYPE.STRING)}       
+         ${GraphqlUtils.setInput(devis.artisan, 'id', GRAPHQL_TYPE.STRING)}       
         
        }
         
-        ${GraphqlUtils.setInput(devis,'artisanLogo',GRAPHQL_TYPE.STRING)}       
-        ${GraphqlUtils.setInput(devis,'artisanSiret',GRAPHQL_TYPE.STRING)}       
-        ${GraphqlUtils.setInput(devis,'artisanSociete',GRAPHQL_TYPE.STRING)}       
-        ${GraphqlUtils.setInput(devis,'artisanFonction',GRAPHQL_TYPE.STRING)}       
-        ${GraphqlUtils.setInput(devis,'artisanAdresse',GRAPHQL_TYPE.STRING)}       
-        ${GraphqlUtils.setInput(devis,'artisanVille',GRAPHQL_TYPE.STRING)}       
-        ${GraphqlUtils.setInput(devis,'artisanCodePostal',GRAPHQL_TYPE.STRING)}       
-        ${GraphqlUtils.setInput(devis,'artisanTelephone',GRAPHQL_TYPE.STRING)}       
-        ${GraphqlUtils.setInput(devis,'artisanEmail',GRAPHQL_TYPE.STRING)}       
-        ${GraphqlUtils.setInput(devis,'artisanSignature',GRAPHQL_TYPE.STRING)}               
+        ${GraphqlUtils.setInput(devis, 'artisanLogo', GRAPHQL_TYPE.STRING)}       
+        ${GraphqlUtils.setInput(devis, 'artisanSiret', GRAPHQL_TYPE.STRING)}       
+        ${GraphqlUtils.setInput(devis, 'artisanSociete', GRAPHQL_TYPE.STRING)}       
+        ${GraphqlUtils.setInput(devis, 'artisanFonction', GRAPHQL_TYPE.STRING)}       
+        ${GraphqlUtils.setInput(devis, 'artisanAdresse', GRAPHQL_TYPE.STRING)}       
+        ${GraphqlUtils.setInput(devis, 'artisanVille', GRAPHQL_TYPE.STRING)}       
+        ${GraphqlUtils.setInput(devis, 'artisanCodePostal', GRAPHQL_TYPE.STRING)}       
+        ${GraphqlUtils.setInput(devis, 'artisanTelephone', GRAPHQL_TYPE.STRING)}       
+        ${GraphqlUtils.setInput(devis, 'artisanEmail', GRAPHQL_TYPE.STRING)}       
+        ${GraphqlUtils.setInput(devis, 'artisanSignature', GRAPHQL_TYPE.STRING)}               
        
            
        
-       ${GraphqlUtils.setInput(devis,'clientNom',GRAPHQL_TYPE.STRING)}       
-       ${GraphqlUtils.setInput(devis,'clientPrenom',GRAPHQL_TYPE.STRING)}       
-       ${GraphqlUtils.setInput(devis,'clientAdresse',GRAPHQL_TYPE.STRING)}      
-       ${GraphqlUtils.setInput(devis,'clientVille',GRAPHQL_TYPE.STRING)}      
-       ${GraphqlUtils.setInput(devis,'clientCodePostal',GRAPHQL_TYPE.STRING)}       
-       ${GraphqlUtils.setInput(devis,'clientTelephone',GRAPHQL_TYPE.STRING)}      
-       ${GraphqlUtils.setInput(devis,'clientEmail',GRAPHQL_TYPE.STRING)}   
-       ${GraphqlUtils.setInput(devis,'clientSignature',GRAPHQL_TYPE.STRING)}      
-       ${GraphqlUtils.setInput(devis,'clientSiret',GRAPHQL_TYPE.STRING)}      
-       ${GraphqlUtils.setInput(devis,'clientSociete',GRAPHQL_TYPE.STRING)}      
-       ${GraphqlUtils.setInput(devis,'clientFonction',GRAPHQL_TYPE.STRING)}       
+       ${GraphqlUtils.setInput(devis, 'clientNom', GRAPHQL_TYPE.STRING)}       
+       ${GraphqlUtils.setInput(devis, 'clientPrenom', GRAPHQL_TYPE.STRING)}       
+       ${GraphqlUtils.setInput(devis, 'clientAdresse', GRAPHQL_TYPE.STRING)}      
+       ${GraphqlUtils.setInput(devis, 'clientVille', GRAPHQL_TYPE.STRING)}      
+       ${GraphqlUtils.setInput(devis, 'clientCodePostal', GRAPHQL_TYPE.STRING)}       
+       ${GraphqlUtils.setInput(devis, 'clientTelephone', GRAPHQL_TYPE.STRING)}      
+       ${GraphqlUtils.setInput(devis, 'clientEmail', GRAPHQL_TYPE.STRING)}   
+       ${GraphqlUtils.setInput(devis, 'clientSignature', GRAPHQL_TYPE.STRING)}      
+       ${GraphqlUtils.setInput(devis, 'clientSiret', GRAPHQL_TYPE.STRING)}      
+       ${GraphqlUtils.setInput(devis, 'clientSociete', GRAPHQL_TYPE.STRING)}      
+       ${GraphqlUtils.setInput(devis, 'clientFonction', GRAPHQL_TYPE.STRING)}       
        
        
       }){    
@@ -294,6 +294,18 @@ export class DevisHttpService {
     this.loadingSvc.announceLoading(true);
 
     const query = `  {    
+        ${this.generateDevisFindById(idDevis)}
+    }
+    `;
+
+    return this.httpSvc.post(URL_GRAPHQL, query).pipe(
+      finalize(() => this.loadingSvc.announceLoading(false))
+    );
+
+  }
+
+  private generateDevisFindById(idDevis: string): string {
+    const query = `
       devisFindById( idDevis: "${idDevis}"){    
         id
         numeroDevis  
@@ -354,12 +366,8 @@ export class DevisHttpService {
        clientSociete 
        clientFonction 
       }
-    }
     `;
 
-    return this.httpSvc.post(URL_GRAPHQL, query).pipe(
-      finalize(() => this.loadingSvc.announceLoading(false))
-    );
-
+    return query;
   }
 }

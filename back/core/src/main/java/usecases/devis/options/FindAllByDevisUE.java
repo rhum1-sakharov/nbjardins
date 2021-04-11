@@ -25,7 +25,7 @@ public class FindAllByDevisUE extends AbstractUsecase {
     }
 
     @Transactional
-    public List<DevisOptionDN> execute(DataProviderManager dpm, Integer idDevis) throws CleanException {
+    public List<DevisOptionDN> execute(DataProviderManager dpm, String idDevis) throws CleanException {
 
         Precondition.validate(
                 Precondition.init(ls.getMsg(ARG_IS_REQUIRED,"id devis"), Objects.nonNull(idDevis))

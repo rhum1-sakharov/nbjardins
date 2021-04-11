@@ -24,7 +24,7 @@ public class DevisOptionRepoJpa extends RepoJpa implements DevisOptionRepoPT {
     }
 
     @Override
-    public List<DevisOptionDN> findAllByIdDevis(DataProviderManager dpm, Integer idDevis) {
+    public List<DevisOptionDN> findAllByIdDevis(DataProviderManager dpm, String idDevis) {
         EntityManager em = PersistenceUtils.getEntityManager(dpm);
 
         TypedQuery<DevisOption> query = em.createQuery("SELECT do from DevisOption do " +

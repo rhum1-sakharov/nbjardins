@@ -5,6 +5,7 @@ import domains.devis.options.DevisOptionDN;
 import domains.personnes.PersonneDN;
 import domains.personnes.artisans.ArtisanBanqueDN;
 import domains.personnes.artisans.ArtisanDN;
+import domains.personnes.artisans.options.ArtisanOptionDN;
 import domains.personnes.clients.ClientDN;
 import domains.referentiel.condition.reglement.ConditionDeReglementDN;
 import domains.referentiel.taxes.TaxeDN;
@@ -63,6 +64,9 @@ public class CreateDevisATraiterUETest {
     FindByEmailAndPrefereUE artisanBanqueFindByEmailAndPrefereUE;
 
     @Mock
+    usecases.personnes.artisans.options.FindByEmailUE aoFindByEmailUE;
+
+    @Mock
     LocalizeServicePT ls;
 
     DevisDN devis;
@@ -73,6 +77,7 @@ public class CreateDevisATraiterUETest {
     ArtisanDN artisan;
     ArtisanBanqueDN artisanBanque;
     ClientDN client1;
+    List<ArtisanOptionDN> artisanOptionList;
 
     final String rib = "12345";
     final String iban = "53647A";
@@ -84,7 +89,11 @@ public class CreateDevisATraiterUETest {
     @Before
     public void setUp() throws Exception {
 
-        usecase = new CreateDevisATraiterUE(ls, transactionManager, saveDevisUE, saveOptionUE, artisanFindByEmailUE, artisanBanqueFindByEmailAndPrefereUE, clientFindByEmailUE, getUniqueCodeUE);
+        usecase = new CreateDevisATraiterUE(ls, transactionManager, saveDevisUE, saveOptionUE, artisanFindByEmailUE,
+                artisanBanqueFindByEmailAndPrefereUE, clientFindByEmailUE,
+                getUniqueCodeUE,
+                aoFindByEmailUE
+                );
 
         personneArtisan1 = StubsDevis.personneArtisan1();
         personneClient1 = StubsDevis.personneClient1();
@@ -93,6 +102,7 @@ public class CreateDevisATraiterUETest {
         artisan = StubsDevis.artisan(conditionDeReglement, taxe);
         artisanBanque = StubsDevis.artisanBanque("1", artisan, rib, iban, banque);
         client1 = StubsDevis.client1();
+        artisanOptionList = StubsDevis.artisanOptionList(artisan);
 
 
         devis = StubsDevis.devisATraiter(artisan, artisanBanque, client1, sujet, numeroDevis);
@@ -103,6 +113,8 @@ public class CreateDevisATraiterUETest {
 
         Mockito.when(artisanBanqueFindByEmailAndPrefereUE.execute(Mockito.any(), Mockito.anyString(), Mockito.anyBoolean())).thenAnswer(i -> artisanBanque);
         Mockito.when(getUniqueCodeUE.execute(Mockito.any(),Mockito.any(UNIQUE_CODE.class))).thenAnswer(i -> numeroDevis);
+
+        Mockito.when(aoFindByEmailUE.execute(Mockito.any(),Mockito.anyString())).thenAnswer(i -> artisanOptionList);
 
     }
 
@@ -194,13 +206,13 @@ public class CreateDevisATraiterUETest {
         Assertions.assertThat(options).isNotNull();
         Assertions.assertThat(options).hasSize(4);
         Assertions.assertThat(options.get(0).getModeleOption()).isEqualTo(MODELE_OPTION.COLONNE_QUANTITE);
-        Assertions.assertThat(options.get(0).isActif()).isTrue();
+        Assertions.assertThat(options.get(0).isActif()).isEqualTo(artisanOptionList.get(0).isActif());
         Assertions.assertThat(options.get(1).getModeleOption()).isEqualTo(MODELE_OPTION.COORDONNEES_BANQUAIRES);
-        Assertions.assertThat(options.get(1).isActif()).isTrue();
+        Assertions.assertThat(options.get(1).isActif()).isEqualTo(artisanOptionList.get(1).isActif());
         Assertions.assertThat(options.get(2).getModeleOption()).isEqualTo(MODELE_OPTION.TVA_SAISISSABLE_PAR_LIGNE);
-        Assertions.assertThat(options.get(2).isActif()).isTrue();
+        Assertions.assertThat(options.get(2).isActif()).isEqualTo(artisanOptionList.get(2).isActif());
         Assertions.assertThat(options.get(3).getModeleOption()).isEqualTo(MODELE_OPTION.PROVISION);
-        Assertions.assertThat(options.get(3).isActif()).isTrue();
+        Assertions.assertThat(options.get(3).isActif()).isEqualTo(artisanOptionList.get(3).isActif());
 
     }
 

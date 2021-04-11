@@ -20,6 +20,7 @@ type Query {
     devisCountByEmailArtisanAndStatut(emailArtisan: String, statutDevis: STATUT_DEVIS) : NbResult
     devisFindByEmailArtisanAndStatut(emailArtisan: String, statutDevis: STATUT_DEVIS) : [Devis!]
     devisFindById( idDevis: String) : Devis
+    devisOptionFindByIdDevis( idDevis: String): [DevisOption]
 
     clientFindByEmailArtisan(emailArtisan: String) : [Client!]
 
@@ -192,6 +193,13 @@ type ArtisanOption{
     artisan : Artisan
     modeleOption: MODELE_OPTION
     actif: Boolean
+}
+
+type DevisOption{
+
+    devis : Devis
+    modeleOption : MODELE_OPTION
+    actif : Boolean
 }
 
 type Artisan {

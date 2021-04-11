@@ -109,6 +109,8 @@ export class ParametresComponent implements OnInit, OnDestroy, CanSave, AfterVie
         return 'Afficher les coordonnées banquaires';
       case MODELE_OPTION.TVA_SAISISSABLE_PAR_LIGNE:
         return 'TVA saisissable par ligne';
+      case MODELE_OPTION.PROVISION:
+        return 'Afficher la provision';
       default :
         return 'Modele Option inconnu';
     }

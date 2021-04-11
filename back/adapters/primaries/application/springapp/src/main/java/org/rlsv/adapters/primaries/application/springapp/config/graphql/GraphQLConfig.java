@@ -4,6 +4,7 @@ import exceptions.CleanException;
 import graphql.GraphQL;
 import org.rlsv.graphql.GraphQLProvider;
 import org.rlsv.graphql.data.fetcher.devis.DevisDataFetcher;
+import org.rlsv.graphql.data.fetcher.devis.options.DevisOptionDataFetcher;
 import org.rlsv.graphql.data.fetcher.personnes.artisans.ArtisanDataFetcher;
 import org.rlsv.graphql.data.fetcher.personnes.artisans.banques.ArtisanBanqueDataFetcher;
 import org.rlsv.graphql.data.fetcher.personnes.artisans.options.ArtisanOptionDataFetcher;
@@ -13,6 +14,7 @@ import org.rlsv.graphql.data.fetcher.referentiel.taxes.TaxeDataFetcher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import usecases.devis.*;
+import usecases.devis.options.FindAllByDevisUE;
 import usecases.personnes.artisans.SaveArtisanUE;
 import usecases.personnes.artisans.banques.FindByEmailAndPrefereUE;
 import usecases.personnes.artisans.banques.RemoveArtisanBanqueByEmailUE;
@@ -31,6 +33,11 @@ public class GraphQLConfig {
     @Bean
     public ArtisanOptionDataFetcher artisanOptionDataFetcher(FindByEmailUE findByEmailUE, SaveOptionUE saveOptionUE) {
         return new ArtisanOptionDataFetcher(findByEmailUE, saveOptionUE);
+    }
+
+    @Bean
+    public DevisOptionDataFetcher devisOptionDataFetcher(FindAllByDevisUE findAllByDevisUE) {
+        return new DevisOptionDataFetcher(findAllByDevisUE);
     }
 
     @Bean
@@ -89,7 +96,8 @@ public class GraphQLConfig {
                                               ArtisanBanqueDataFetcher artisanBanqueDataFetcher,
                                               ArtisanOptionDataFetcher artisanOptionDataFetcher,
                                               DevisDataFetcher devisDataFetcher,
-                                              ClientDataFetcher clientDataFetcher
+                                              ClientDataFetcher clientDataFetcher,
+                                              DevisOptionDataFetcher devisOptionDataFetcher
     ) throws IOException, CleanException {
         return new GraphQLProvider(taxeDataFetcher,
                 conditionReglementDataFetcher,
@@ -97,7 +105,8 @@ public class GraphQLConfig {
                 artisanBanqueDataFetcher,
                 artisanOptionDataFetcher,
                 devisDataFetcher,
-                clientDataFetcher
+                clientDataFetcher,
+                devisOptionDataFetcher
         );
     }
 

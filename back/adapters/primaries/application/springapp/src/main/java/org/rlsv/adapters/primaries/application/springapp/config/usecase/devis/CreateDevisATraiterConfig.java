@@ -22,7 +22,8 @@ public class CreateDevisATraiterConfig {
                                                        FindByEmailUE artisanfindByEmailUE,
                                                        FindByEmailAndPrefereUE artisanBanqueFindByEmailAndPrefereUE,
                                                        usecases.personnes.clients.FindByEmailUE clientFindByEmailUE,
-                                                       GetUniqueCodeUE getUniqueCodeUE
+                                                       GetUniqueCodeUE getUniqueCodeUE,
+                                                       usecases.personnes.artisans.options.FindByEmailUE aoFindByEmailUE
                                                        ) {
         return new CreateDevisATraiterUE(ls,
                 transactionManager,
@@ -31,7 +32,8 @@ public class CreateDevisATraiterConfig {
                 artisanfindByEmailUE,
                 artisanBanqueFindByEmailAndPrefereUE,
                 clientFindByEmailUE,
-                getUniqueCodeUE
+                getUniqueCodeUE,
+                aoFindByEmailUE
                 );
     }
 

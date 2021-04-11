@@ -5,12 +5,13 @@ import domains.devis.DevisDN;
 import domains.devis.options.DevisOptionDN;
 import domains.personnes.artisans.ArtisanBanqueDN;
 import domains.personnes.artisans.ArtisanDN;
+import domains.personnes.artisans.options.ArtisanOptionDN;
 import domains.personnes.clients.ClientDN;
-import enums.MODELE_OPTION;
 import enums.STATUT_DEVIS;
 import enums.UNIQUE_CODE;
 import exceptions.CleanException;
 import models.Precondition;
+import org.apache.commons.collections4.CollectionUtils;
 import ports.localization.LocalizeServicePT;
 import ports.transactions.TransactionManagerPT;
 import transactions.DataProviderManager;
@@ -37,9 +38,10 @@ public class CreateDevisATraiterUE extends AbstractUsecase {
     FindByEmailAndPrefereUE artisanBanqueFindByEmailAndPrefereUE;
     usecases.personnes.clients.FindByEmailUE clientFindByEmailUE;
     GetUniqueCodeUE getUniqueCodeUE;
+    usecases.personnes.artisans.options.FindByEmailUE aoFindByEmailUE;
 
 
-    public CreateDevisATraiterUE(LocalizeServicePT ls, TransactionManagerPT transactionManager, SaveDevisUE saveDevisUE, SaveOptionUE saveOptionUE, FindByEmailUE artisanfindByEmailUE, FindByEmailAndPrefereUE artisanBanqueFindByEmailAndPrefereUE, usecases.personnes.clients.FindByEmailUE clientFindByEmailUE, GetUniqueCodeUE getUniqueCodeUE) {
+    public CreateDevisATraiterUE(LocalizeServicePT ls, TransactionManagerPT transactionManager, SaveDevisUE saveDevisUE, SaveOptionUE saveOptionUE, FindByEmailUE artisanfindByEmailUE, FindByEmailAndPrefereUE artisanBanqueFindByEmailAndPrefereUE, usecases.personnes.clients.FindByEmailUE clientFindByEmailUE, GetUniqueCodeUE getUniqueCodeUE, usecases.personnes.artisans.options.FindByEmailUE aoFindByEmailUE) {
         super(ls, transactionManager);
         this.saveDevisUE = saveDevisUE;
         this.saveOptionUE = saveOptionUE;
@@ -47,6 +49,7 @@ public class CreateDevisATraiterUE extends AbstractUsecase {
         this.artisanBanqueFindByEmailAndPrefereUE = artisanBanqueFindByEmailAndPrefereUE;
         this.clientFindByEmailUE = clientFindByEmailUE;
         this.getUniqueCodeUE = getUniqueCodeUE;
+        this.aoFindByEmailUE = aoFindByEmailUE;
     }
 
     @Transactional
@@ -62,27 +65,34 @@ public class CreateDevisATraiterUE extends AbstractUsecase {
         resultMap.put(DEVIS, devis);
 
 
-        List<DevisOptionDN> devisOptionList = initDevisOptionList(dpm, devis);
+        List<DevisOptionDN> devisOptionList = initDevisOptionList(dpm, emailArtisan,devis);
         resultMap.put(OPTIONS, devisOptionList);
 
 
         return resultMap;
     }
 
-    private List<DevisOptionDN> initDevisOptionList(DataProviderManager dpm, DevisDN devis) throws CleanException {
+    private List<DevisOptionDN> initDevisOptionList(DataProviderManager dpm, String emailArtisan, DevisDN devis) throws CleanException {
         List<DevisOptionDN> devisOptionList = new ArrayList<>();
-        devisOptionList.add(initDevisOption(dpm, devis, MODELE_OPTION.COLONNE_QUANTITE));
-        devisOptionList.add(initDevisOption(dpm, devis, MODELE_OPTION.COORDONNEES_BANQUAIRES));
-        devisOptionList.add(initDevisOption(dpm, devis, MODELE_OPTION.TVA_SAISISSABLE_PAR_LIGNE));
-        devisOptionList.add(initDevisOption(dpm, devis, MODELE_OPTION.PROVISION));
+
+        List<ArtisanOptionDN> artisanOptionList = aoFindByEmailUE.execute(dpm, emailArtisan);
+
+        if (CollectionUtils.isNotEmpty(artisanOptionList)) {
+            for (ArtisanOptionDN ao : artisanOptionList) {
+                devisOptionList.add(initDevisOption(dpm, devis, ao));
+            }
+        }
+
         return devisOptionList;
     }
 
-    private DevisOptionDN initDevisOption(DataProviderManager dpm, DevisDN devis, MODELE_OPTION modeleOption) throws CleanException {
+    private DevisOptionDN initDevisOption(DataProviderManager dpm, DevisDN devis, ArtisanOptionDN artisanOption) throws CleanException {
+
         DevisOptionDN devisOption = new DevisOptionDN();
-        devisOption.setActif(true);
+
+        devisOption.setActif(artisanOption.isActif());
         devisOption.setDevis(devis);
-        devisOption.setModeleOption(modeleOption);
+        devisOption.setModeleOption(artisanOption.getModeleOption());
         devisOption = saveOptionUE.execute(dpm, devisOption);
 
         return devisOption;

@@ -12,6 +12,7 @@ import graphql.schema.idl.SchemaGenerator;
 import graphql.schema.idl.SchemaParser;
 import graphql.schema.idl.TypeDefinitionRegistry;
 import org.rlsv.graphql.data.fetcher.devis.DevisDataFetcher;
+import org.rlsv.graphql.data.fetcher.devis.options.DevisOptionDataFetcher;
 import org.rlsv.graphql.data.fetcher.personnes.artisans.ArtisanDataFetcher;
 import org.rlsv.graphql.data.fetcher.personnes.artisans.banques.ArtisanBanqueDataFetcher;
 import org.rlsv.graphql.data.fetcher.personnes.artisans.options.ArtisanOptionDataFetcher;
@@ -34,6 +35,7 @@ public class GraphQLProvider {
     private ArtisanOptionDataFetcher artisanOptionDataFetcher;
     private DevisDataFetcher devisDataFetcher;
     private ClientDataFetcher clientDataFetcher;
+    private DevisOptionDataFetcher devisOptionDataFetcher;
 
     public GraphQLProvider(TaxeDataFetcher taxeDataFetcher,
                            ConditionReglementDataFetcher conditionReglementDataFetcher,
@@ -41,7 +43,8 @@ public class GraphQLProvider {
                            ArtisanBanqueDataFetcher artisanBanqueDataFetcher,
                            ArtisanOptionDataFetcher artisanOptionDataFetcher,
                            DevisDataFetcher devisDataFetcher,
-                           ClientDataFetcher clientDataFetcher
+                           ClientDataFetcher clientDataFetcher,
+                           DevisOptionDataFetcher devisOptionDataFetcher
     ) throws IOException, CleanException {
 
         this.taxeDataFetcher = taxeDataFetcher;
@@ -51,6 +54,7 @@ public class GraphQLProvider {
         this.artisanOptionDataFetcher = artisanOptionDataFetcher;
         this.devisDataFetcher = devisDataFetcher;
         this.clientDataFetcher = clientDataFetcher;
+        this.devisOptionDataFetcher = devisOptionDataFetcher;
 
         URL url = Resources.getResource("schema.graphqls");
         String sdl = Resources.toString(url, Charsets.UTF_8);
@@ -94,6 +98,8 @@ public class GraphQLProvider {
                         .dataFetcher("devisCountByEmailArtisanAndStatut", devisDataFetcher.countByEmailArtisanAndStatutDataFetcher())
                         .dataFetcher("devisFindByEmailArtisanAndStatut", devisDataFetcher.findByEmailArtisanAndStatutDataFetcher())
                         .dataFetcher("devisFindById", devisDataFetcher.findByIdDataFetcher())
+                        .dataFetcher("devisOptionFindByIdDevis", devisOptionDataFetcher.findByIdDevisDataFetcher())
+
 
                         // CLIENT
                         .dataFetcher("clientFindByEmailArtisan", clientDataFetcher.clientFindByEmailArtisanDataFetcher())

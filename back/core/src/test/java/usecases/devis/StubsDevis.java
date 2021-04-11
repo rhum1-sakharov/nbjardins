@@ -5,6 +5,7 @@ import domains.devis.options.DevisOptionDN;
 import domains.personnes.PersonneDN;
 import domains.personnes.artisans.ArtisanBanqueDN;
 import domains.personnes.artisans.ArtisanDN;
+import domains.personnes.artisans.options.ArtisanOptionDN;
 import domains.personnes.clients.ClientDN;
 import domains.referentiel.condition.reglement.ConditionDeReglementDN;
 import domains.referentiel.taxes.TaxeDN;
@@ -13,6 +14,8 @@ import enums.STATUT_DEVIS;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StubsDevis {
 
@@ -163,4 +166,25 @@ public class StubsDevis {
         return devisOption;
     }
 
+    public static List<ArtisanOptionDN> artisanOptionList(ArtisanDN artisan) {
+
+        List<ArtisanOptionDN> artisanOptionList = new ArrayList<>();
+
+        ArtisanOptionDN ao1 = new ArtisanOptionDN(artisan,MODELE_OPTION.COLONNE_QUANTITE,false);
+        artisanOptionList.add(ao1);
+
+        ArtisanOptionDN ao2 = new ArtisanOptionDN(artisan,MODELE_OPTION.COORDONNEES_BANQUAIRES,false);
+        artisanOptionList.add(ao2);
+
+        ArtisanOptionDN ao3 = new ArtisanOptionDN(artisan,MODELE_OPTION.TVA_SAISISSABLE_PAR_LIGNE,false);
+        artisanOptionList.add(ao3);
+
+        ArtisanOptionDN ao4 = new ArtisanOptionDN(artisan,MODELE_OPTION.PROVISION,true);
+        artisanOptionList.add(ao4);
+
+
+
+        return artisanOptionList;
+
+    }
 }

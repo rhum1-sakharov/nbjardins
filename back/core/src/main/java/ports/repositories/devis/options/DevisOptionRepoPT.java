@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface DevisOptionRepoPT extends RepoPT {
 
-    List<DevisOptionDN> findAllByIdDevis(DataProviderManager dpm, Integer idDevis);
+    List<DevisOptionDN> findAllByIdDevis(DataProviderManager dpm, String idDevis);
 }
