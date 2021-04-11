@@ -13,6 +13,7 @@ export class MDevis extends Model {
   lieu !: string;
   statut !: STATUT_DEVIS;
   totalHT !: number;
+  sujet !: string;
 
 
   dateATraiter!: string;

@@ -127,6 +127,7 @@ input DevisInput{
     client: ClientInput
     statut: STATUT_DEVIS
     totalHT: Float
+    sujet: String
 
     dateATraiter: Date
     dateTraite: Date
@@ -246,6 +247,7 @@ type Devis{
     client: Client
     statut: STATUT_DEVIS
     totalHT: Float
+    sujet: String
 
     dateATraiter: Date
     dateTraite: Date

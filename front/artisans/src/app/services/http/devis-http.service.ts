@@ -184,6 +184,7 @@ export class DevisHttpService {
        ${GraphqlUtils.setInput(devis,'numeroDevis',GRAPHQL_TYPE.STRING)}
        ${GraphqlUtils.setInput(devis,'totalHT',GRAPHQL_TYPE.NUMBER)}    
        ${GraphqlUtils.setInput(devis,'lieu',GRAPHQL_TYPE.STRING)}
+       ${GraphqlUtils.setInput(devis,'sujet',GRAPHQL_TYPE.STRING)}
        
        ${GraphqlUtils.setInput(devis,'dateATraiter',GRAPHQL_TYPE.DATE)}
        ${GraphqlUtils.setInput(devis,'dateAbandon',GRAPHQL_TYPE.DATE)}
@@ -228,6 +229,7 @@ export class DevisHttpService {
         id
         numeroDevis  
         lieu
+        sujet
          dateATraiter
          dateTraite
          dateAccepte
@@ -290,6 +292,7 @@ export class DevisHttpService {
         statut
         totalHT
         lieu
+        sujet
          dateATraiter
          dateTraite
          dateAccepte

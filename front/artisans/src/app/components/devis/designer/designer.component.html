@@ -35,13 +35,21 @@
                                 (emit)="updateDevis('artisanVille',$event)" [width]="175"></app-edit-text-field>
         </span>
       </div>
-      <div>
-        <span class="mg-r-5">Tél :</span>
-        <span>artisanNumeroTelephone</span>
+      <div class="p-d-flex">
+        <span class="mg-r-23 not-editable">Tél</span>
+        <span>
+           <app-edit-text-field [inputValue]="devis.artisanTelephone"
+                                placeholder="numéro de téléphone..."
+                                (emit)="updateDevis('artisanTelephone',$event)" [width]="230"></app-edit-text-field>
+        </span>
       </div>
       <div class="p-d-flex">
-        <div >Email : </div>
-        <div>{{devis.artisanEmail}}</div>
+        <span class="not-editable mg-r-4" >Email</span>
+        <span>
+           <app-edit-text-field [inputValue]="devis.artisanEmail"
+                                placeholder="email..."
+                                (emit)="updateDevis('artisanEmail',$event)" [width]="230"></app-edit-text-field>
+        </span>
       </div>
 
 
@@ -82,7 +90,9 @@
       <strong>Devis n° {{devis.numeroDevis}}</strong>
     </div>
     <div class="p-col-6">
-      Elagage des arbres de la propriété du 544 chemin de fontblaqune à Mazan
+      <app-edit-text-field [inputValue]="devis.sujet"
+                           placeholder="sujet..."
+                           (emit)="updateDevis('sujet',$event)" [width]="230"></app-edit-text-field>
     </div>
 
     <div class="p-col-6">
