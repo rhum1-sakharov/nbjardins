@@ -49,6 +49,7 @@ export class DesignerComponent implements OnInit, OnDestroy {
     )
       .subscribe((response: any) => {
         this.devis = response.data.devisFindById;
+        this.devisAnnounceSvc.announceDevisUpdated(this.devis);
       });
   }
 

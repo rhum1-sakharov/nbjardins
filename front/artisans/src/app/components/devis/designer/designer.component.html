@@ -8,19 +8,19 @@
         <img [src]="''" height="40">
       </div>
       <div class="p-d-flex">
-        <div class="not-editable mg-r-5">SIRET : </div>
+        <div class="not-editable mg-r-5">SIRET</div>
         <app-edit-text-field [inputValue]="devis.artisanSiret"
                              placeholder="siret..."
-                             (emit)="updateDevis('artisanSiret',$event)" [width]="240"></app-edit-text-field>
+                             (emit)="updateDevis('artisanSiret',$event)" [width]="228"></app-edit-text-field>
       </div>
       <app-edit-text-field [inputValue]="devis.artisanSociete"
                            (emit)="updateDevis('artisanSociete',$event)"
                            placeholder="société..."
-                           [width]="300"></app-edit-text-field>
+                           [width]="280"></app-edit-text-field>
 
       <app-edit-text-field [inputValue]="devis.artisanAdresse"
                            placeholder="adresse..."
-                           (emit)="updateDevis('artisanAdresse',$event)" [width]="300"></app-edit-text-field>
+                           (emit)="updateDevis('artisanAdresse',$event)" [width]="280"></app-edit-text-field>
 
 
       <div class="p-d-flex">
@@ -32,7 +32,7 @@
         <span>
            <app-edit-text-field [inputValue]="devis.artisanVille"
                                 placeholder="ville..."
-                                (emit)="updateDevis('artisanVille',$event)" [width]="195"></app-edit-text-field>
+                                (emit)="updateDevis('artisanVille',$event)" [width]="175"></app-edit-text-field>
         </span>
       </div>
       <div>
@@ -57,12 +57,12 @@
 
         <app-edit-text-field [inputValue]="devis.clientNom"
                              placeholder="nom client..."
-                             (emit)="updateDevis('clientNom',$event)" [width]="175"></app-edit-text-field>
+                             (emit)="updateDevis('clientNom',$event)" [width]="155"></app-edit-text-field>
       </div>
       <div>
         <app-edit-text-field [inputValue]="devis.clientAdresse"
                              placeholder="adresse client..."
-                             (emit)="updateDevis('clientAdresse',$event)" [width]="300"></app-edit-text-field>
+                             (emit)="updateDevis('clientAdresse',$event)" [width]="280"></app-edit-text-field>
       </div>
       <div class="p-d-flex">
         <span class="mg-r-5">
@@ -73,7 +73,7 @@
         <span>
             <app-edit-text-field [inputValue]="devis.clientVille"
                                  placeholder="ville client..."
-                                 (emit)="updateDevis('clientVille',$event)" [width]="175"></app-edit-text-field>
+                                 (emit)="updateDevis('clientVille',$event)" [width]="155"></app-edit-text-field>
         </span>
       </div>
     </div>
@@ -91,12 +91,12 @@
         <span class="mg-r-5">
           <app-edit-text-field [inputValue]="devis.lieu"
                                placeholder="lieu..."
-                               (emit)="updateDevis('lieu',$event)" [width]="175"></app-edit-text-field>
+                               (emit)="updateDevis('lieu',$event)" [width]="165"></app-edit-text-field>
         </span>
         <span>
           <app-edit-date-field [inputValue]="devis.dateDevis"
                                placeholder="date..."
-                               (emit)="updateDevis('dateDevis',$event)" [width]="120"></app-edit-date-field>
+                               (emit)="updateDevis('dateDevis',$event)" [width]="110"></app-edit-date-field>
         </span>
       </div>
 

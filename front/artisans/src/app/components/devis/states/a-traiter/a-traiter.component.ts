@@ -37,6 +37,7 @@ export class ATraiterComponent implements OnInit, OnDestroy {
 
   devisList !: MDevis[];
   selectedDevis !: MDevis;
+  devisToSave !: MDevis;
 
   constructor(private route: ActivatedRoute,
               private confirmationService: ConfirmationService,
@@ -52,6 +53,7 @@ export class ATraiterComponent implements OnInit, OnDestroy {
     this.devisCreatedSubscription();
 
     this.devisUpdatedSubscription();
+
   }
 
   routeSubscription() {
@@ -67,7 +69,7 @@ export class ATraiterComponent implements OnInit, OnDestroy {
   }
 
   devisUpdatedSubscription() {
-    this.subDevisUpdated = this.devisAnnounceSvc.devisUpdated$.subscribe((response: any) => this.selectedDevis = response);
+    this.subDevisUpdated = this.devisAnnounceSvc.devisUpdated$.subscribe((response: any) => this.devisToSave = response);
   }
 
   devisCreatedSubscription() {
@@ -146,7 +148,8 @@ export class ATraiterComponent implements OnInit, OnDestroy {
 
   saveDevis() {
 
-    this.devisHttpSvc.saveDevis(this.selectedDevis)
-      .subscribe((response: any) => this.toastSvc.showMsg(MSG_KEY.ROOT, MSG_SEVERITY.SUCCESS, `Devis ${this.selectedDevis.numeroDevis} enregistré avec succès.`));
+    this.devisHttpSvc.saveDevis(this.devisToSave)
+      .subscribe((response: any) => this.toastSvc.showMsg(MSG_KEY.ROOT, MSG_SEVERITY.SUCCESS, `Devis ${this.devisToSave.numeroDevis} enregistré avec succès.`));
+
   }
 }
