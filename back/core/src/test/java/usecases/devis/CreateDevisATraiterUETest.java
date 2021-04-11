@@ -344,6 +344,43 @@ public class CreateDevisATraiterUETest {
 
         Assertions.assertThat(devis).isNotNull();
         Assertions.assertThat(devis.getProvision()).isEqualTo(artisan.getProvision());
+
+    }
+
+    @Test
+    public void should_init_provision_with_artisanProvision_even_if_artisan_banque_is_null() throws CleanException {
+
+        Mockito.when(artisanBanqueFindByEmailAndPrefereUE.execute(Mockito.any(), Mockito.anyString(), Mockito.anyBoolean())).thenAnswer(i -> null);
+
+        Map<String, Object> result = this.usecase.execute(null, personneArtisan1.getEmail(), personneClient1.getEmail());
+        DevisDN devis = (DevisDN) result.get(DEVIS);
+
+        Assertions.assertThat(devis).isNotNull();
+        Assertions.assertThat(devis.getProvision()).isEqualTo(artisan.getProvision());
+    }
+
+    @Test
+    public void should_init_conditionReglement_with_artisanCondition_even_if_artisan_banque_is_null() throws CleanException {
+
+        Mockito.when(artisanBanqueFindByEmailAndPrefereUE.execute(Mockito.any(), Mockito.anyString(), Mockito.anyBoolean())).thenAnswer(i -> null);
+
+        Map<String, Object> result = this.usecase.execute(null, personneArtisan1.getEmail(), personneClient1.getEmail());
+        DevisDN devis = (DevisDN) result.get(DEVIS);
+
+        Assertions.assertThat(devis).isNotNull();
+        Assertions.assertThat(devis.getConditionDeReglement()).isEqualTo(artisan.getConditionDeReglement().getCondition());
+    }
+
+    @Test
+    public void should_init_ordre_with_artisanSociete_even_if_artisan_banque_is_null() throws CleanException {
+
+        Mockito.when(artisanBanqueFindByEmailAndPrefereUE.execute(Mockito.any(), Mockito.anyString(), Mockito.anyBoolean())).thenAnswer(i -> null);
+
+        Map<String, Object> result = this.usecase.execute(null, personneArtisan1.getEmail(), personneClient1.getEmail());
+        DevisDN devis = (DevisDN) result.get(DEVIS);
+
+        Assertions.assertThat(devis).isNotNull();
+        Assertions.assertThat(devis.getOrdre()).isEqualTo(artisan.getPersonne().getSociete());
     }
 
     @Test

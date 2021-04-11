@@ -1,1 +1,22 @@
-<p>edit-email-field works!</p>
+<ng-container [ngSwitch]="isReadonly">
+  <ng-container *ngSwitchCase="true">
+    <div [style.width.px]="width" [style.max-width.px]="width" class="editable" (click)="setReadOnly(false)">
+      <ng-container *ngIf="inputValue">
+        {{inputValue}}
+      </ng-container>
+      <ng-container *ngIf="!inputValue">
+        {{placeholder}}
+      </ng-container>
+    </div>
+  </ng-container>
+  <ng-container *ngSwitchCase="false">
+    <input pInputText [style.width.px]="width" type="text" [(ngModel)]="inputValue"
+           (focusout)="setReadOnly(true)"
+           (keydown.enter)="setReadOnly(true)" #input>
+
+
+
+  </ng-container>
+
+</ng-container>
+

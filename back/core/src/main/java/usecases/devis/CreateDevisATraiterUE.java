@@ -142,12 +142,11 @@ public class CreateDevisATraiterUE extends AbstractUsecase {
             devis.setRib(artisanBanque.getRib());
             devis.setIban(artisanBanque.getIban());
             devis.setBanque(artisanBanque.getBanque());
-            devis.setProvision(artisan.getProvision());
-            devis.setConditionDeReglement(artisan.getConditionDeReglement().getCondition());
-            devis.setOrdre(artisan.getPersonne().getSociete());
-
         }
 
+        devis.setConditionDeReglement(artisan.getConditionDeReglement().getCondition());
+        devis.setProvision(artisan.getProvision());
+        devis.setOrdre(artisan.getPersonne().getSociete());
 
     }
 

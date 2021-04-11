@@ -46,9 +46,9 @@
       <div class="p-d-flex">
         <span class="not-editable mg-r-4">Email</span>
         <span>
-           <app-edit-text-field [inputValue]="devis.artisanEmail"
+           <app-edit-email-field [inputValue]="devis.artisanEmail"
                                 placeholder="email..."
-                                (emit)="updateDevis('artisanEmail',$event)" [width]="230"></app-edit-text-field>
+                                (emit)="updateDevis('artisanEmail',$event)" [width]="230"></app-edit-email-field>
         </span>
       </div>
 
