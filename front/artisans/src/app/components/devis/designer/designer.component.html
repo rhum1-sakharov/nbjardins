@@ -228,24 +228,30 @@
           </span>
       <span>
 
-         <app-edit-number-field [inputValue]="devis.validiteDevisMois"
+         <app-edit-integer-field [inputValue]="devis.validiteDevisMois"
                                 placeholder="validité..."
                                 (emit)="updateDevis('validiteDevisMois',$event)"
-                                [width]="30"></app-edit-number-field>
+                                [width]="30"></app-edit-integer-field>
       </span>
       <span class="mg-l-5 not-editable">
         <strong>mois.</strong>
       </span>
     </div>
 
-    <!--<div class="p-col-12" *ngIf="artisan.provision>0" data-test="provision">-->
-    <!--<span class="mg-r-5">-->
-    <!--Acceptation du devis accompagné d'une provision de-->
-    <!--</span>-->
-    <!--<span class="mg-r-5">-->
-    <!--{{artisan.provision}} %-->
-    <!--</span>-->
-    <!--</div>-->
+    <div class="p-d-flex" data-test="provision">
+    <span class="mg-r-5 not-editable">
+    Acceptation du devis accompagné d'une provision de
+    </span>
+    <span class="mg-r-5">
+       <app-edit-decimal-field [inputValue]="devis.provision"
+                              placeholder="provision en %..."
+                              (emit)="updateDevis('provision',$event)"
+                              [width]="60"></app-edit-decimal-field>
+    </span>
+      <span class="mg-r-5 not-editable">
+        %
+      </span>
+    </div>
 
     <div class="p-col-12">
           <span class="mg-r-5">

@@ -1,0 +1,24 @@
+<ng-container [ngSwitch]="isReadonly">
+  <ng-container *ngSwitchCase="true">
+    <div [style.width.px]="width" [style.max-width.px]="width" class="editable" (click)="setReadOnly(false)">
+      <ng-container *ngIf="inputValue">
+        {{inputValue | number:'1.2-2'}}
+      </ng-container>
+      <ng-container *ngIf="!inputValue">
+        {{placeholder}}
+      </ng-container>
+    </div>
+  </ng-container>
+  <ng-container *ngSwitchCase="false">
+    <p-inputNumber [(ngModel)]="inputValue"
+                   mode="decimal"
+                   [minFractionDigits]="2"
+                   [maxFractionDigits]="2"
+                   [inputStyle]="{'width':width+'px'}"
+                   (focusout)="setReadOnly(true)"
+                   (keydown.enter)="setReadOnly(true)" #input
+    ></p-inputNumber>
+  </ng-container>
+
+</ng-container>
+

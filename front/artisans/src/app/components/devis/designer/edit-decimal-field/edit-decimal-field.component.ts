@@ -2,11 +2,11 @@ import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angula
 import {InputNumber} from 'primeng/inputnumber';
 
 @Component({
-  selector: 'app-edit-integer-field',
-  templateUrl: './edit-integer-field.component.html',
-  styleUrls: ['./edit-integer-field.component.scss']
+  selector: 'app-edit-decimal-field',
+  templateUrl: './edit-decimal-field.component.html',
+  styleUrls: ['./edit-decimal-field.component.scss']
 })
-export class EditIntegerFieldComponent implements OnInit {
+export class EditDecimalFieldComponent implements OnInit {
 
   @Input() inputValue !: number;
   @Input() placeholder !: string;
@@ -38,5 +38,6 @@ export class EditIntegerFieldComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
 
 }
