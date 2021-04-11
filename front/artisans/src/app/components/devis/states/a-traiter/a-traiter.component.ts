@@ -32,7 +32,7 @@ export class ATraiterComponent implements OnInit, OnDestroy {
   dateUtils = DateUtils;
 
   numeroDevisWidth = 170;
-  clientWidth = 250;
+  clientWidth = 220;
   depuisWidth = 120;
 
   devisList !: MDevis[];

@@ -7,7 +7,7 @@ $color-button: #2196f3;
 $color-editable-field: #969da2;
 $bg-color-editable-field: #fbc02d1c;
 
-@for $i from 1 through 1000 {
+@for $i from 1 through 1300 {
 
   @if ($i < 60) {
     .font-#{$i} {

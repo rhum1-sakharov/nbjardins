@@ -1,9 +1,9 @@
-<div class="p-d-flex" >
+<div class="p-d-flex p-flex-wrap  ">
 
-  <div class="max-wh-620">
+  <div class="max-wh-580 ">
     <p-table [value]="devisList"
              [scrollable]="true"
-             [scrollHeight]="responsiveUtils.getHeightStr(260)"
+             [scrollHeight]="responsiveUtils.getHeightStr(220)"
              selectionMode="single"
              [(selection)]="selectedDevis"
              (onRowSelect)="onRowSelect($event)"
@@ -54,13 +54,16 @@
       </ng-template>
     </p-table>
   </div>
-  <div class="mg-l-20 mg-t-17" *ngIf="selectedDevis && selectedDevis.id">
+  <div class="mg-l-10 mg-t-17 max-wh-660">
 
-    <div class="p-d-flex">
+    <div>
       <p-button icon="pi pi-save" pTooltip="Enregistrer les modifications" (onClick)="saveDevis()"
                 class="mg-r-10"></p-button>
     </div>
-    <app-designer></app-designer>
+    <div class="mg-t-10" style="height:calc( 100vh - 215px ); overflow: auto">
+      <app-designer></app-designer>
+    </div>
+
   </div>
 
 </div>
