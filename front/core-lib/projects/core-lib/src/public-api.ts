@@ -10,6 +10,7 @@ export * from './lib/models/personnes/artisans/m-artisan';
 export * from './lib/models/referentiel/conditions/reglements/m-condition-reglement';
 export * from './lib/models/devis/m-demande-de-devis';
 export * from './lib/models/devis/m-devis';
+export * from './lib/models/devis/options/m-devis-option';
 export * from './lib/models/m-error';
 export * from './lib/models/personnes/m-personne';
 export * from './lib/models/m-request';
