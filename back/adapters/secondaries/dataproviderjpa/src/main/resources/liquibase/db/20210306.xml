@@ -13,7 +13,7 @@
             CREATE TABLE `artisans_options` (
             `ID` VARCHAR(36) NOT NULL DEFAULT '',
             `ID_ARTISAN` VARCHAR(36) NOT NULL DEFAULT '',
-            `MODELE_OPTION` ENUM('TVA_SAISISSABLE_PAR_LIGNE','COLONNE_QUANTITE','COORDONNEES_BANQUAIRES') NOT NULL,
+            `MODELE_OPTION` ENUM('TVA_SAISISSABLE_PAR_LIGNE','COLONNE_QUANTITE','COORDONNEES_BANQUAIRES','PROVISION') NOT NULL,
             `ACTIF` TINYINT(1) NOT NULL DEFAULT '0',
             PRIMARY KEY (`ID`),
             UNIQUE INDEX `unique_artisan_option` (`ID_ARTISAN`, `MODELE_OPTION`),
@@ -40,6 +40,8 @@
             SELECT @rownum := @rownum + 1, a.ID, 'COLONNE_QUANTITE',0 FROM artisans a;
             INSERT INTO artisans_options (id, id_artisan, MODELE_OPTION, actif )
             SELECT @rownum := @rownum + 1, a.ID, 'COORDONNEES_BANQUAIRES',0 FROM artisans a;
+            INSERT INTO artisans_options (id, id_artisan, MODELE_OPTION, actif )
+            SELECT @rownum := @rownum + 1, a.ID, 'PROVISION',0 FROM artisans a;
         </sql>
         <comment>
             Ajout des options par défaut pour les artisans déjà présents
@@ -253,18 +255,6 @@
         </comment>
     </changeSet>
 
-    <changeSet id="202104111837" author="rvl">
-        <preConditions onFail="MARK_RAN">
-                <columnExists tableName="artisans_options" columnName="MODELE_OPTION"></columnExists>
-        </preConditions>
-        <sql>
-            ALTER TABLE `artisans_options`
-            CHANGE COLUMN `MODELE_OPTION` `MODELE_OPTION` ENUM('TVA_SAISISSABLE_PAR_LIGNE','COLONNE_QUANTITE','COORDONNEES_BANQUAIRES','PROVISION') NOT NULL COLLATE 'utf8_general_ci' AFTER `ID_ARTISAN`;
-        </sql>
-        <comment>
-            ajout de la valeur PROVISION sur l'enum MODELE_OPTION de la table artisans_options
-        </comment>
-    </changeSet>
 
     <changeSet id="202104111838" author="rvl">
         <preConditions onFail="MARK_RAN">
@@ -272,7 +262,7 @@
         </preConditions>
         <sql>
             ALTER TABLE `devis_options`
-            CHANGE COLUMN `MODELE_OPTION` `MODELE_OPTION` ENUM('TVA_SAISISSABLE_PAR_LIGNE','COLONNE_QUANTITE','COORDONNEES_BANQUAIRES','PROVISION') NOT NULL COLLATE 'utf8_general_ci' AFTER `ID_ARTISAN`;
+            CHANGE COLUMN `MODELE_OPTION` `MODELE_OPTION` ENUM('TVA_SAISISSABLE_PAR_LIGNE','COLONNE_QUANTITE','COORDONNEES_BANQUAIRES','PROVISION') NOT NULL COLLATE 'utf8_general_ci' AFTER `ID_DEVIS`;
         </sql>
         <comment>
             ajout de la valeur PROVISION sur l'enum MODELE_OPTION de la table devis_options
