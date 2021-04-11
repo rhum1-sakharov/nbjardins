@@ -152,4 +152,8 @@ export class ATraiterComponent implements OnInit, OnDestroy {
       .subscribe((response: any) => this.toastSvc.showMsg(MSG_KEY.ROOT, MSG_SEVERITY.SUCCESS, `Devis ${this.devisToSave.numeroDevis} enregistré avec succès.`));
 
   }
+
+  openDialogOptionsDevis() {
+    console.log('openDialogOptionsDevis');
+  }
 }

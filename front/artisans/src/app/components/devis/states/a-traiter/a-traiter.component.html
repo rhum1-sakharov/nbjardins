@@ -57,8 +57,15 @@
   <div class="mg-l-10 mg-t-17 max-wh-660" *ngIf="selectedDevis && selectedDevis.id">
 
     <div>
-      <p-button icon="pi pi-save" pTooltip="Enregistrer les modifications" (onClick)="saveDevis()"
+      <span class="mg-r-5">
+      <p-button icon="pi pi-save" pTooltip="enregistrer les modifications" (onClick)="saveDevis()"
                 class="mg-r-10"></p-button>
+      </span>
+      <span class="mg-r-5">
+        <p-button icon="pi pi-cog" pTooltip="options du devis" (onClick)="openDialogOptionsDevis()"
+                 ></p-button>
+      </span>
+
     </div>
     <div class="mg-t-10" style="height:calc( 100vh - 215px ); overflow: auto">
       <app-designer></app-designer>
