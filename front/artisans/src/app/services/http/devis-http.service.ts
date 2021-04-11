@@ -295,6 +295,7 @@ export class DevisHttpService {
 
     const query = `  {    
         ${this.generateDevisFindById(idDevis)}
+        ${this.generateDevisOptionFindByIdDevis(idDevis)}
     }
     `;
 
@@ -302,6 +303,25 @@ export class DevisHttpService {
       finalize(() => this.loadingSvc.announceLoading(false))
     );
 
+  }
+
+  private generateDevisOptionFindByIdDevis(idDevis:string){
+    const query = `
+    
+        devisOptionFindByIdDevis( idDevis: "${idDevis}"){
+        
+           id
+           modeleOption
+           actif
+           devis{
+             id
+           }
+        
+        }
+    
+    `;
+
+    return query;
   }
 
   private generateDevisFindById(idDevis: string): string {

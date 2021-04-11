@@ -197,6 +197,7 @@ type ArtisanOption{
 
 type DevisOption{
 
+    id: ID
     devis : Devis
     modeleOption : MODELE_OPTION
     actif : Boolean
