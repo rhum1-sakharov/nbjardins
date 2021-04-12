@@ -34,6 +34,7 @@ type Mutation{
     saveDevis (devis: DevisInput!): Devis!
     createDevisATraiter(emailArtisan : EmailInput!, emailClient: EmailInput!): Devis!
     removeDevis(idDevis: IdInput!): IdResult!
+    saveDevisOption(devisOption: DevisOptionInput!): DevisOption!
 }
 
 input IdInput{
@@ -171,6 +172,14 @@ input DevisInput{
 
     lieu : String
 
+}
+
+input DevisOptionInput{
+
+    id: ID
+    devis : DevisInput
+    modeleOption : MODELE_OPTION
+    actif : Boolean
 }
 
 enum MODELE_OPTION{

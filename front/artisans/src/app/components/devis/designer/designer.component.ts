@@ -14,6 +14,7 @@ export class DesignerComponent implements OnInit, OnDestroy {
 
   subDevisSelected !: Subscription;
   subDevisRemoved !: Subscription;
+  subDevisOptionListUpdated !: Subscription;
   devis !: MDevis;
   devisOptionList !: MDevisOption[];
 
@@ -27,11 +28,18 @@ export class DesignerComponent implements OnInit, OnDestroy {
 
     this.devisRemovedSubscription();
 
+    this.devisOptionListUpdatedSubscription();
+
   }
 
   updateDevis(property: string, event: any) {
     this.devis[property] = event;
     this.devisAnnounceSvc.announceDevisUpdated(this.devis);
+  }
+
+  devisOptionListUpdatedSubscription(){
+    this.subDevisOptionListUpdated = this.devisAnnounceSvc.devisOptionListUpdated$
+      .subscribe(response=>this.devisOptionList=response);
   }
 
   devisRemovedSubscription() {
@@ -61,6 +69,7 @@ export class DesignerComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     ObservableUtils.unsubscribe(this.subDevisRemoved);
     ObservableUtils.unsubscribe(this.subDevisSelected);
+    ObservableUtils.unsubscribe(this.subDevisOptionListUpdated);
   }
 
 

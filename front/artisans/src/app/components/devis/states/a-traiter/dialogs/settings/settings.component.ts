@@ -30,14 +30,21 @@ export class SettingsComponent extends RvlDialog implements OnInit, OnDestroy {
     this.subOpenDialog = this.devisAnnounceSvc.openDialogDevisOptions$.pipe(
       switchMap(response => this.devisHttpSvc.findOptionsDevis(response.idDevis))
     )
-      .subscribe((response:any) => {
+      .subscribe((response: any) => {
         this.displayDialog = true;
         this.devisOptionList = response.data.devisOptionFindByIdDevis;
       });
   }
 
-  saveOptionsDevis() {
-    this.close();
+  saveDevisOptions() {
+
+    this.devisHttpSvc.saveDevisOptionList(this.devisOptionList)
+      .subscribe((response: any) =>{
+
+        this.devisAnnounceSvc.announceDevisOptionListUpdated(this.devisOptionList);
+        this.close();
+      } );
+
   }
 
   ngOnDestroy(): void {

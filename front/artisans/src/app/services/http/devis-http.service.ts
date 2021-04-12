@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {GRAPHQL_TYPE, GraphqlUtils, HttpService, MDevis, STATUT_DEVIS, URL_GRAPHQL} from 'rhum1-sakharov-core-lib';
+import {GRAPHQL_TYPE, GraphqlUtils, HttpService, MDevis, MDevisOption, STATUT_DEVIS, URL_GRAPHQL} from 'rhum1-sakharov-core-lib';
 import {finalize} from 'rxjs/operators';
 import {LoadingService} from '../loading/loading.service';
 
@@ -320,7 +320,7 @@ export class DevisHttpService {
 
   }
 
-  private generateDevisOptionFindByIdDevis(idDevis:string){
+  private generateDevisOptionFindByIdDevis(idDevis: string) {
     const query = `
     
         devisOptionFindByIdDevis( idDevis: "${idDevis}"){
@@ -404,5 +404,47 @@ export class DevisHttpService {
     `;
 
     return query;
+  }
+
+  saveDevisOptionList(devisOptionList: MDevisOption[]) {
+
+    this.loadingSvc.announceLoading(true);
+
+    const query = `  
+    mutation saveDevisOptionList{ 
+       ${this.generateSaveDevisOptionList(devisOptionList)}
+    }
+    `;
+
+    return this.httpSvc.post(URL_GRAPHQL, query).pipe(
+      finalize(() => this.loadingSvc.announceLoading(false))
+    );
+
+  }
+
+  private generateSaveDevisOptionList(devisOptionList: MDevisOption[]): string {
+
+    let str = '';
+
+    for (const devisOption of devisOptionList) {
+      str += `
+      
+   ${devisOption.modeleOption} : saveDevisOption( devisOption: {
+             
+          id: "${devisOption.id}"      
+          devis: {
+            id: "${devisOption.devis.id}"
+          } 
+          modeleOption: ${devisOption.modeleOption}
+          actif: ${devisOption.actif}
+      
+      }){
+            id
+      }
+      
+      `;
+    }
+
+    return str;
   }
 }

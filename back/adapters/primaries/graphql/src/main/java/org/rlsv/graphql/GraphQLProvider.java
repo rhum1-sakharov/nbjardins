@@ -112,6 +112,7 @@ public class GraphQLProvider {
                         .dataFetcher("saveDevis", devisDataFetcher.saveDevisDataFetcher())
                         .dataFetcher("createDevisATraiter", devisDataFetcher.createDevisATraiterDataFetcher())
                         .dataFetcher("removeDevis", devisDataFetcher.removeDevisDataFetcher())
+                        .dataFetcher("saveDevisOption", devisOptionDataFetcher.saveDevisOptionDataFetcher())
 
                 )
                 .build();

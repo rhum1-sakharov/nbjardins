@@ -36,8 +36,8 @@ public class GraphQLConfig {
     }
 
     @Bean
-    public DevisOptionDataFetcher devisOptionDataFetcher(FindAllByDevisUE findAllByDevisUE) {
-        return new DevisOptionDataFetcher(findAllByDevisUE);
+    public DevisOptionDataFetcher devisOptionDataFetcher(FindAllByDevisUE findAllByDevisUE, usecases.devis.options.SaveOptionUE doSaveOptionUE) {
+        return new DevisOptionDataFetcher(findAllByDevisUE,doSaveOptionUE);
     }
 
     @Bean
