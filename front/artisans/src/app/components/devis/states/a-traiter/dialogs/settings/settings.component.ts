@@ -5,6 +5,7 @@ import {DevisAnnouncesService} from '../../../../../../services/announces/devis-
 import {DevisHttpService} from '../../../../../../services/http/devis-http.service';
 import {switchMap} from 'rxjs/operators';
 import {MODELE_OPTION} from '../../../../../../../../../core-lib/dist/core-lib';
+import {DevisOptionUtils} from '../../../../../../services/utils/devis/options/devis-option-utils';
 
 @Component({
   selector: 'app-settings',
@@ -15,6 +16,9 @@ export class SettingsComponent extends RvlDialog implements OnInit, OnDestroy {
 
   subOpenDialog !: Subscription;
   devisOptionList !: MDevisOption[];
+
+
+  doUtils = DevisOptionUtils;
 
   constructor(private devisAnnounceSvc: DevisAnnouncesService,
               private devisHttpSvc: DevisHttpService,) {
@@ -39,11 +43,11 @@ export class SettingsComponent extends RvlDialog implements OnInit, OnDestroy {
   saveDevisOptions() {
 
     this.devisHttpSvc.saveDevisOptionList(this.devisOptionList)
-      .subscribe((response: any) =>{
+      .subscribe((response: any) => {
 
         this.devisAnnounceSvc.announceDevisOptionListUpdated(this.devisOptionList);
         this.close();
-      } );
+      });
 
   }
 
@@ -51,29 +55,8 @@ export class SettingsComponent extends RvlDialog implements OnInit, OnDestroy {
     ObservableUtils.unsubscribe(this.subOpenDialog);
   }
 
-  getDevisOption(mo: MODELE_OPTION) {
-
-    if (this.devisOptionList) {
-      for (const ao of this.devisOptionList) {
-        if (ao.modeleOption === mo) {
-          return ao.actif;
-        }
-      }
-    }
-
-    return null;
-  }
 
 
-  setDevisOption(mo: MODELE_OPTION, $event: any) {
-    if (this.devisOptionList) {
-      for (const ao of this.devisOptionList) {
-        if (ao.modeleOption === mo) {
-          ao.actif = $event;
-        }
-      }
-    }
-  }
 
   getModeleOptionLabel(modeleOption: MODELE_OPTION) {
 

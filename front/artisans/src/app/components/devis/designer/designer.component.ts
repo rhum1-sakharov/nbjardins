@@ -4,6 +4,8 @@ import {DevisAnnouncesService} from '../../../services/announces/devis-announces
 import {MDevis, MDevisOption, ObservableUtils} from 'rhum1-sakharov-core-lib';
 import {filter, switchMap} from 'rxjs/operators';
 import {DevisHttpService} from '../../../services/http/devis-http.service';
+import {MODELE_OPTION} from '../../../../../../core-lib/dist/core-lib';
+import {DevisOptionUtils} from '../../../services/utils/devis/options/devis-option-utils';
 
 @Component({
   selector: 'app-designer',
@@ -18,6 +20,8 @@ export class DesignerComponent implements OnInit, OnDestroy {
   devis !: MDevis;
   devisOptionList !: MDevisOption[];
 
+  readonly mo = MODELE_OPTION;
+  doUtils = DevisOptionUtils;
 
   constructor(private devisAnnounceSvc: DevisAnnouncesService, private devisHttpSvc: DevisHttpService) {
   }
@@ -37,9 +41,9 @@ export class DesignerComponent implements OnInit, OnDestroy {
     this.devisAnnounceSvc.announceDevisUpdated(this.devis);
   }
 
-  devisOptionListUpdatedSubscription(){
+  devisOptionListUpdatedSubscription() {
     this.subDevisOptionListUpdated = this.devisAnnounceSvc.devisOptionListUpdated$
-      .subscribe(response=>this.devisOptionList=response);
+      .subscribe(response => this.devisOptionList = response);
   }
 
   devisRemovedSubscription() {
@@ -65,6 +69,8 @@ export class DesignerComponent implements OnInit, OnDestroy {
         this.devisAnnounceSvc.announceDevisUpdated(this.devis);
       });
   }
+
+
 
   ngOnDestroy(): void {
     ObservableUtils.unsubscribe(this.subDevisRemoved);
