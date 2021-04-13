@@ -1,11 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MDevisOption, ObservableUtils, RvlDialog} from 'rhum1-sakharov-core-lib';
 import {Subscription} from 'rxjs';
-import {DevisAnnouncesService} from '../../../../../../services/announces/devis-announces.service';
+import {DevisAnnouncesService} from '../../../../../../services/announces/devis/devis-announces.service';
 import {DevisHttpService} from '../../../../../../services/http/devis-http.service';
 import {switchMap} from 'rxjs/operators';
 import {MODELE_OPTION} from '../../../../../../../../../core-lib/dist/core-lib';
 import {DevisOptionUtils} from '../../../../../../services/utils/devis/options/devis-option-utils';
+import {DesignerAnnouncesService} from '../../../../../../services/announces/devis/designer/designer-announces.service';
 
 @Component({
   selector: 'app-settings',
@@ -21,6 +22,7 @@ export class SettingsComponent extends RvlDialog implements OnInit, OnDestroy {
   doUtils = DevisOptionUtils;
 
   constructor(private devisAnnounceSvc: DevisAnnouncesService,
+              private designerAnnounceSvc:DesignerAnnouncesService,
               private devisHttpSvc: DevisHttpService,) {
     super();
   }
@@ -31,7 +33,7 @@ export class SettingsComponent extends RvlDialog implements OnInit, OnDestroy {
   }
 
   openDialogSubscription() {
-    this.subOpenDialog = this.devisAnnounceSvc.openDialogDevisOptions$.pipe(
+    this.subOpenDialog = this.designerAnnounceSvc.openDialogDevisOptions$.pipe(
       switchMap(response => this.devisHttpSvc.findOptionsDevis(response.idDevis))
     )
       .subscribe((response: any) => {

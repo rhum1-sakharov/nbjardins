@@ -26,12 +26,10 @@ export class DevisAnnouncesService {
   private subjectDevisUpdated = new Subject();
   devisUpdated$ = this.subjectDevisUpdated.asObservable();
 
-  private subjectOpenDialogDevisOptions = new Subject<OpenDialogDevisOptionsSupplier>();
-  openDialogDevisOptions$ = this.subjectOpenDialogDevisOptions.asObservable();
-
-
   private subjectDevisOptionListUpdated = new Subject<MDevisOption[]>();
   devisOptionListUpdated$ = this.subjectDevisOptionListUpdated.asObservable();
+
+
 
   constructor() {
   }
@@ -60,14 +58,15 @@ export class DevisAnnouncesService {
     this.subjectDevisUpdated.next(devis);
   }
 
-  announceOpenDialogDevisOptions(oddo: OpenDialogDevisOptionsSupplier) {
-    this.subjectOpenDialogDevisOptions.next(oddo);
-  }
 
   announceDevisOptionListUpdated(devisOptionList: MDevisOption[]) {
     this.subjectDevisOptionListUpdated.next(devisOptionList);
   }
+
+
 }
+
+
 
 export class OpenDialogCreateDevisSupplier {
 
@@ -80,11 +79,3 @@ export class OpenDialogCreateDevisSupplier {
 }
 
 
-export class OpenDialogDevisOptionsSupplier {
-  idDevis !: string;
-
-
-  constructor(idDevis: string) {
-    this.idDevis = idDevis;
-  }
-}

@@ -1,12 +1,18 @@
 @import 'variables';
 
+.editable-block {
+  background-color: $bg-color-editable-field;
+  border-radius: 12px;
+  cursor: pointer;
+  padding: 8px;
+}
+
 .not-editable {
 
   padding: 4px;
   height: 32px;
   margin-top: 4px;
 }
-
 
 .devis-preview {
 

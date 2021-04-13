@@ -3,7 +3,7 @@ import {MenuItem} from 'primeng/api';
 import {Subscription} from 'rxjs/internal/Subscription';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ObservableUtils} from 'rhum1-sakharov-core-lib';
-import {DevisAnnouncesService} from '../../services/announces/devis-announces.service';
+import {DevisAnnouncesService} from '../../services/announces/devis/devis-announces.service';
 
 
 @Component({

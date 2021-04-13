@@ -1,7 +1,9 @@
 <ng-container *ngIf="devis && devis.id">
 
   <div class="p-grid devis-preview pg-8 mg-t-10 mg-l-1">
-    <div class="p-col-6">
+    <div class="p-col-6 " (click)="openDialogBlockArtisan()">
+
+      <div class="editable-block">
 
       <div>
         logo
@@ -52,9 +54,11 @@
         </span>
       </div>
 
+      </div>
 
     </div>
-    <div class="p-col-6">
+    <div class="p-col-6" (click)="openDialogBlockClient()">
+      <div class="editable-block mg-l-5">
       <div class="p-d-flex">
 
         <span class="mg-r-5">
@@ -83,6 +87,7 @@
                                  placeholder="ville client..."
                                  (emit)="updateDevis('clientVille',$event)" [width]="155"></app-edit-text-field>
         </span>
+      </div>
       </div>
     </div>
 
@@ -284,3 +289,8 @@
 
 </ng-container>
 
+<!--DIALOG ARTISAN-->
+<app-block-artisan></app-block-artisan>
+
+<!--DIALOG CLIENT-->
+<app-block-client></app-block-client>

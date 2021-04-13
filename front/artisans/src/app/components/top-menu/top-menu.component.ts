@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {DevisAnnouncesService} from '../../services/announces/devis-announces.service';
+import {DevisAnnouncesService} from '../../services/announces/devis/devis-announces.service';
 
 @Component({
   selector: 'app-top-menu',

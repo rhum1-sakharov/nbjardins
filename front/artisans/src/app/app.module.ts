@@ -50,6 +50,8 @@ import {EditEmailFieldComponent} from './components/devis/designer/edit-email-fi
 import {EditIntegerFieldComponent} from './components/devis/designer/edit-integer-field/edit-integer-field.component';
 import {EditDecimalFieldComponent} from './components/devis/designer/edit-decimal-field/edit-decimal-field.component';
 import {SettingsComponent} from './components/devis/states/a-traiter/dialogs/settings/settings.component';
+import {BlockClientComponent} from './components/devis/designer/dialogs/block-client/block-client.component';
+import {BlockArtisanComponent} from './components/devis/designer/dialogs/block-artisan/block-artisan.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +78,9 @@ import {SettingsComponent} from './components/devis/states/a-traiter/dialogs/set
     EditEmailFieldComponent,
     EditIntegerFieldComponent,
     EditDecimalFieldComponent,
-    SettingsComponent
+    SettingsComponent,
+    BlockClientComponent,
+    BlockArtisanComponent
   ],
   imports: [
     BrowserModule,

@@ -1,11 +1,16 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
-import {DevisAnnouncesService} from '../../../services/announces/devis-announces.service';
+import {DevisAnnouncesService} from '../../../services/announces/devis/devis-announces.service';
 import {MDevis, MDevisOption, ObservableUtils} from 'rhum1-sakharov-core-lib';
 import {filter, switchMap} from 'rxjs/operators';
 import {DevisHttpService} from '../../../services/http/devis-http.service';
 import {MODELE_OPTION} from '../../../../../../core-lib/dist/core-lib';
 import {DevisOptionUtils} from '../../../services/utils/devis/options/devis-option-utils';
+import {
+  DesignerAnnouncesService,
+  OpenDialogBlockArtisanSupplier,
+  OpenDialogBlockClientSupplier
+} from '../../../services/announces/devis/designer/designer-announces.service';
 
 @Component({
   selector: 'app-designer',
@@ -23,7 +28,9 @@ export class DesignerComponent implements OnInit, OnDestroy {
   readonly mo = MODELE_OPTION;
   doUtils = DevisOptionUtils;
 
-  constructor(private devisAnnounceSvc: DevisAnnouncesService, private devisHttpSvc: DevisHttpService) {
+  constructor(private devisAnnounceSvc: DevisAnnouncesService,
+              private designerAnnounceSvc:DesignerAnnouncesService,
+              private devisHttpSvc: DevisHttpService) {
   }
 
   ngOnInit(): void {
@@ -71,7 +78,6 @@ export class DesignerComponent implements OnInit, OnDestroy {
   }
 
 
-
   ngOnDestroy(): void {
     ObservableUtils.unsubscribe(this.subDevisRemoved);
     ObservableUtils.unsubscribe(this.subDevisSelected);
@@ -79,4 +85,13 @@ export class DesignerComponent implements OnInit, OnDestroy {
   }
 
 
+  openDialogBlockArtisan() {
+    const odba = new OpenDialogBlockArtisanSupplier(this.devis, this.devisOptionList);
+    this.designerAnnounceSvc.announceOpenDialogBlockArtisan(odba);
+  }
+
+  openDialogBlockClient() {
+    const odbc = new OpenDialogBlockClientSupplier(this.devis, this.devisOptionList);
+    this.designerAnnounceSvc.announceOpenDialogBlockClient(odbc);
+  }
 }

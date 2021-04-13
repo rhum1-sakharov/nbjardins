@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MClient, ObservableUtils, RvlDialog} from 'rhum1-sakharov-core-lib';
 import {Subscription} from 'rxjs';
-import {DevisAnnouncesService} from '../../../../../../services/announces/devis-announces.service';
+import {DevisAnnouncesService} from '../../../../../../services/announces/devis/devis-announces.service';
 import {switchMap} from 'rxjs/operators';
 import {ClientsHttpService} from '../../../../../../services/http/clients-http.service';
 import {DevisHttpService} from '../../../../../../services/http/devis-http.service';

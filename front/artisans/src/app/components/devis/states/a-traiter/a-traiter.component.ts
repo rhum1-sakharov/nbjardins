@@ -13,13 +13,13 @@ import {
   ResponsiveUtils,
   ToasterService
 } from 'rhum1-sakharov-core-lib';
-import {
-  DevisAnnouncesService,
-  OpenDialogCreateDevisSupplier,
-  OpenDialogDevisOptionsSupplier
-} from '../../../../services/announces/devis-announces.service';
+import {DevisAnnouncesService, OpenDialogCreateDevisSupplier,} from '../../../../services/announces/devis/devis-announces.service';
 import {ConfirmationService} from 'primeng/api';
 import {DevisHttpService} from '../../../../services/http/devis-http.service';
+import {
+  DesignerAnnouncesService,
+  OpenDialogDevisOptionsSupplier
+} from '../../../../services/announces/devis/designer/designer-announces.service';
 
 @Component({
   selector: 'app-a-traiter',
@@ -46,6 +46,7 @@ export class ATraiterComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute,
               private confirmationService: ConfirmationService,
               private devisAnnounceSvc: DevisAnnouncesService,
+              private designerAnnouceSvc: DesignerAnnouncesService,
               private devisHttpSvc: DevisHttpService,
               private toastSvc: ToasterService,
               private ls: LocalstorageService) {
@@ -161,7 +162,7 @@ export class ATraiterComponent implements OnInit, OnDestroy {
   openDialogOptionsDevis() {
     if (this.selectedDevis && this.selectedDevis.id) {
       const oddo = new OpenDialogDevisOptionsSupplier(this.selectedDevis.id);
-      this.devisAnnounceSvc.announceOpenDialogDevisOptions(oddo);
+      this.designerAnnouceSvc.announceOpenDialogDevisOptions(oddo);
     }
 
   }
