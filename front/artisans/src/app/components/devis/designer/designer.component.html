@@ -5,89 +5,107 @@
 
       <div class="editable-block">
 
-      <div>
-        logo
-        <img [src]="''" height="40">
-      </div>
-      <div class="p-d-flex">
-        <div class="not-editable mg-r-5">SIRET</div>
-        <app-edit-text-field [inputValue]="devis.artisanSiret"
-                             placeholder="siret..."
-                             (emit)="updateDevis('artisanSiret',$event)" [width]="228"></app-edit-text-field>
-      </div>
-      <app-edit-text-field [inputValue]="devis.artisanSociete"
-                           (emit)="updateDevis('artisanSociete',$event)"
-                           placeholder="société..."
-                           [width]="280"></app-edit-text-field>
+        <div>
+          logo
+          <img [src]="''" height="40">
+        </div>
+        <div class="p-d-flex">
+          <div class="not-editable mg-r-5">SIRET</div>
+          <app-edit-text-field [inputValue]="devis.artisanSiret"
+                               placeholder="siret..."
+                               (emit)="updateDevis('artisanSiret',$event)" [width]="228"></app-edit-text-field>
+        </div>
+        <app-edit-text-field [inputValue]="devis.artisanSociete"
+                             (emit)="updateDevis('artisanSociete',$event)"
+                             placeholder="société..."
+                             [width]="280"></app-edit-text-field>
 
-      <app-edit-text-field [inputValue]="devis.artisanAdresse"
-                           placeholder="adresse..."
-                           (emit)="updateDevis('artisanAdresse',$event)" [width]="280"></app-edit-text-field>
+        <app-edit-text-field [inputValue]="devis.artisanAdresse"
+                             placeholder="adresse..."
+                             (emit)="updateDevis('artisanAdresse',$event)" [width]="280"></app-edit-text-field>
 
 
-      <div class="p-d-flex">
+        <div class="p-d-flex">
         <span class="mg-r-5">
             <app-edit-text-field [inputValue]="devis.artisanCodePostal"
                                  placeholder="code postal..."
                                  (emit)="updateDevis('artisanCodePostal',$event) " [width]="100"></app-edit-text-field>
         </span>
-        <span>
+          <span>
            <app-edit-text-field [inputValue]="devis.artisanVille"
                                 placeholder="ville..."
                                 (emit)="updateDevis('artisanVille',$event)" [width]="175"></app-edit-text-field>
         </span>
-      </div>
-      <div class="p-d-flex">
-        <span class="mg-r-23 not-editable">Tél</span>
-        <span>
+        </div>
+        <div class="p-d-flex">
+          <span class="mg-r-23 not-editable">Tél</span>
+          <span>
            <app-edit-text-field [inputValue]="devis.artisanTelephone"
                                 placeholder="numéro de téléphone..."
                                 (emit)="updateDevis('artisanTelephone',$event)" [width]="230"></app-edit-text-field>
         </span>
-      </div>
-      <div class="p-d-flex">
-        <span class="not-editable mg-r-4">Email</span>
-        <span>
+        </div>
+        <div class="p-d-flex">
+          <span class="not-editable mg-r-4">Email</span>
+          <span>
            <app-edit-email-field [inputValue]="devis.artisanEmail"
-                                placeholder="email..."
-                                (emit)="updateDevis('artisanEmail',$event)" [width]="230"></app-edit-email-field>
+                                 placeholder="email..."
+                                 (emit)="updateDevis('artisanEmail',$event)" [width]="230"></app-edit-email-field>
         </span>
-      </div>
+        </div>
 
       </div>
 
     </div>
     <div class="p-col-6" (click)="openDialogBlockClient()">
       <div class="editable-block mg-l-5">
-      <div class="p-d-flex">
+        <div class="p-d-flex">
 
         <span class="mg-r-5">
-        <app-edit-text-field [inputValue]="devis.clientPrenom"
-                             placeholder="prénom client..."
-                             (emit)="updateDevis('clientPrenom',$event)" [width]="120"></app-edit-text-field>
+          <app-block-edit-field
+            [width]="120"
+            placeholder="prénom client..."
+            [inputValue]="devis.clientPrenom"
+            [type]="tf.TEXT">
+          </app-block-edit-field>
         </span>
 
-        <app-edit-text-field [inputValue]="devis.clientNom"
-                             placeholder="nom client..."
-                             (emit)="updateDevis('clientNom',$event)" [width]="155"></app-edit-text-field>
-      </div>
-      <div>
-        <app-edit-text-field [inputValue]="devis.clientAdresse"
-                             placeholder="adresse client..."
-                             (emit)="updateDevis('clientAdresse',$event)" [width]="280"></app-edit-text-field>
-      </div>
-      <div class="p-d-flex">
+          <app-block-edit-field
+            [width]="155"
+            placeholder="nom client..."
+            [inputValue]="devis.clientNom"
+            [type]="tf.TEXT">
+          </app-block-edit-field>
+
+        </div>
+        <div>
+          <app-block-edit-field
+            [width]="280"
+            placeholder="adresse client..."
+            [inputValue]="devis.clientAdresse"
+            [type]="tf.TEXT">
+          </app-block-edit-field>
+        </div>
+        <div class="p-d-flex">
         <span class="mg-r-5">
-            <app-edit-text-field [inputValue]="devis.clientCodePostal"
-                                 placeholder="code postal..."
-                                 (emit)="updateDevis('clientCodePostal',$event)" [width]="120"></app-edit-text-field>
+          <app-block-edit-field
+            [width]="120"
+            placeholder="code postal..."
+            [inputValue]="devis.clientCodePostal"
+            [type]="tf.TEXT">
+        </app-block-edit-field>
+
         </span>
-        <span>
-            <app-edit-text-field [inputValue]="devis.clientVille"
-                                 placeholder="ville client..."
-                                 (emit)="updateDevis('clientVille',$event)" [width]="155"></app-edit-text-field>
+          <span>
+           <app-block-edit-field
+             [width]="155"
+             placeholder="ville client..."
+             [inputValue]="devis.clientVille"
+             [type]="tf.TEXT">
+        </app-block-edit-field>
+
         </span>
-      </div>
+        </div>
       </div>
     </div>
 
@@ -234,9 +252,9 @@
       <span>
 
          <app-edit-integer-field [inputValue]="devis.validiteDevisMois"
-                                placeholder="validité..."
-                                (emit)="updateDevis('validiteDevisMois',$event)"
-                                [width]="30"></app-edit-integer-field>
+                                 placeholder="validité..."
+                                 (emit)="updateDevis('validiteDevisMois',$event)"
+                                 [width]="30"></app-edit-integer-field>
       </span>
       <span class="mg-l-5 not-editable">
         <strong>mois.</strong>
@@ -247,11 +265,11 @@
     <span class="mg-r-5 not-editable">
     Acceptation du devis accompagné d'une provision de
     </span>
-    <span class="mg-r-5">
+      <span class="mg-r-5">
        <app-edit-decimal-field [inputValue]="devis.provision"
-                              placeholder="provision en %..."
-                              (emit)="updateDevis('provision',$event)"
-                              [width]="60"></app-edit-decimal-field>
+                               placeholder="provision en %..."
+                               (emit)="updateDevis('provision',$event)"
+                               [width]="60"></app-edit-decimal-field>
     </span>
       <span class="mg-r-5 not-editable">
         %

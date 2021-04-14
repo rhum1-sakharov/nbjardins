@@ -14,8 +14,10 @@ export class BlockClientComponent extends RvlDialog implements OnInit, OnDestroy
   devis !: MDevis;
   devisOptionList !: MDevisOption[];
 
+
+
   constructor(
-              private designerAnnounceSvc:DesignerAnnouncesService
+    private designerAnnounceSvc: DesignerAnnouncesService
   ) {
     super();
   }

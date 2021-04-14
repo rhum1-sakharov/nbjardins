@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {DevisAnnouncesService} from '../../../services/announces/devis/devis-announces.service';
-import {MDevis, MDevisOption, ObservableUtils} from 'rhum1-sakharov-core-lib';
+import {MDevis, MDevisOption, ObservableUtils, TYPE_FIELD} from 'rhum1-sakharov-core-lib';
 import {filter, switchMap} from 'rxjs/operators';
 import {DevisHttpService} from '../../../services/http/devis-http.service';
 import {MODELE_OPTION} from '../../../../../../core-lib/dist/core-lib';
@@ -26,6 +26,7 @@ export class DesignerComponent implements OnInit, OnDestroy {
   devisOptionList !: MDevisOption[];
 
   readonly mo = MODELE_OPTION;
+  readonly tf = TYPE_FIELD;
   doUtils = DevisOptionUtils;
 
   constructor(private devisAnnounceSvc: DevisAnnouncesService,

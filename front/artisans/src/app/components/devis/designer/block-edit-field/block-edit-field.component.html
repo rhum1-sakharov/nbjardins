@@ -1,0 +1,32 @@
+<div class="p-d-flex">
+  {{inputValue}}
+  <div [style.width.px]="width">
+    <ng-container [ngSwitch]="objectUtils.isNoe(inputValue)">
+
+      <ng-container *ngSwitchCase="true">
+        {{placeholder}}
+      </ng-container>
+
+      <ng-container *ngSwitchDefault>
+
+        <ng-container [ngSwitch]="type">
+          <ng-container *ngSwitchCase="tf.TEXT">
+            {{inputValue}}
+          </ng-container>
+          <ng-container *ngSwitchCase="tf.INTEGER">
+            {{inputValue}}
+          </ng-container>
+          <ng-container *ngSwitchCase="tf.DECIMAL">
+            {{inputValue}}
+          </ng-container>
+          <ng-container *ngSwitchCase="tf.DATE">
+            {{inputValue}}
+          </ng-container>
+        </ng-container>
+
+
+      </ng-container>
+
+    </ng-container>
+  </div>
+</div>

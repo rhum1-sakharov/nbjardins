@@ -52,6 +52,7 @@ import {EditDecimalFieldComponent} from './components/devis/designer/edit-decima
 import {SettingsComponent} from './components/devis/states/a-traiter/dialogs/settings/settings.component';
 import {BlockClientComponent} from './components/devis/designer/dialogs/block-client/block-client.component';
 import {BlockArtisanComponent} from './components/devis/designer/dialogs/block-artisan/block-artisan.component';
+import {BlockEditFieldComponent} from './components/devis/designer/block-edit-field/block-edit-field.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import {BlockArtisanComponent} from './components/devis/designer/dialogs/block-a
     EditDecimalFieldComponent,
     SettingsComponent,
     BlockClientComponent,
-    BlockArtisanComponent
+    BlockArtisanComponent,
+    BlockEditFieldComponent
   ],
   imports: [
     BrowserModule,
