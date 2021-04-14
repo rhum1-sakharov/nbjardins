@@ -42,6 +42,7 @@ export * from './lib/techniques/utils/responsive-utils';
 export * from './lib/techniques/utils/date-utils';
 export * from './lib/techniques/utils/object-utils';
 export * from './lib/techniques/utils/graphql-utils';
+export * from './lib/techniques/utils/form-utils';
 export * from './lib/techniques/auth/auth.guard';
 export * from './lib/techniques/auth/auth.service';
 export * from './lib/techniques/auth/auth-interceptor.service';

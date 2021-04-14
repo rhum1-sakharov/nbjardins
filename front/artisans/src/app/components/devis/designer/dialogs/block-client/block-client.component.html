@@ -7,12 +7,12 @@
 
   <form [formGroup]="form" *ngIf="form" >
     <div class="p-fluid p-formgrid p-grid">
-      <div class="p-field p-col-12 p-md-6">
+      <div class="p-field p-col-12 p-md-5">
         <label for="firstname6">prénom</label>
         <input id="firstname6" formControlName="prenom" type="text"  pInputText>
 
       </div>
-      <div class="p-field p-col-12 p-md-6">
+      <div class="p-field p-col-12 p-md-7">
         <label for="lastname6">nom</label>
         <input id="lastname6" formControlName="nom" type="text" pInputText>
       </div>
@@ -33,6 +33,12 @@
       <div class="p-field p-col-12 p-md-9">
         <label for="email">email</label>
         <input id="email" formControlName="email" type="text"  pInputText>
+        <div class="ht-30">
+          <div *ngIf="validatorsSvc.shouldShowEmailPatternError(form.controls['email'])" class="color-danger font-11">
+            {{validatorsSvc.displayEmailPatternError(form.controls['email'])}}
+          </div>
+        </div>
+
 
       </div>
 

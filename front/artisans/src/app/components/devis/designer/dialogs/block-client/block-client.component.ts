@@ -1,9 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {MDevis, MDevisOption, ObservableUtils, RvlDialog} from '../../../../../../../../core-lib/dist/core-lib';
+import {FormUtils, MDevis, MDevisOption, ObservableUtils, RvlDialog, ValidatorsService} from 'rhum1-sakharov-core-lib';
 import {Subscription} from 'rxjs';
 import {DesignerAnnouncesService} from '../../../../../services/announces/devis/designer/designer-announces.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {DevisAnnouncesService} from '../../../../../services/announces/devis/devis-announces.service';
 
 @Component({
   selector: 'app-block-client',
@@ -16,32 +15,32 @@ export class BlockClientComponent extends RvlDialog implements OnInit, OnDestroy
   devis !: MDevis;
   devisOptionList !: MDevisOption[];
 
-  form !: FormGroup;
+  form  = new FormGroup({});
 
 
   constructor(
     private designerAnnounceSvc: DesignerAnnouncesService,
-    private devisAnnounceSvc:DevisAnnouncesService
-
+    public validatorsSvc: ValidatorsService
   ) {
     super();
   }
 
   ngOnInit(): void {
 
+    this.initForm(null);
 
     this.openDialogBlockClientSubscription();
   }
 
-  initForm(devis: MDevis) {
+  initForm(devis: MDevis | null) {
 
     this.form = new FormGroup({
-      prenom: new FormControl(devis.clientPrenom),
-      nom: new FormControl(devis.clientNom),
-      adresse: new FormControl(devis.clientAdresse),
-      ville: new FormControl(devis.clientVille),
-      codePostal: new FormControl(devis.clientCodePostal),
-      email: new FormControl(devis.clientEmail, [Validators.required, Validators.minLength(2), Validators.maxLength(50), Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
+      prenom: new FormControl(devis ? devis.clientPrenom :''),
+      nom: new FormControl(devis ? devis.clientNom:''),
+      adresse: new FormControl(devis ? devis.clientAdresse:''),
+      ville: new FormControl(devis ? devis.clientVille:''),
+      codePostal: new FormControl(devis ? devis.clientCodePostal:''),
+      email: new FormControl(devis ? devis.clientEmail :'', [ Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
     })
   }
 
@@ -60,12 +59,20 @@ export class BlockClientComponent extends RvlDialog implements OnInit, OnDestroy
   }
 
   updateClient() {
-    console.log('updateClient');
+
+    FormUtils.validateAllFormFields(this.form);
 
     if (this.form.valid) {
+
       this.devis.clientPrenom = this.form.controls['prenom'].value;
+      this.devis.clientNom = this.form.controls['nom'].value;
+      this.devis.clientAdresse = this.form.controls['adresse'].value;
+      this.devis.clientCodePostal = this.form.controls['codePostal'].value;
+      this.devis.clientVille = this.form.controls['ville'].value;
+      this.devis.clientEmail = this.form.controls['email'].value;
 
       this.designerAnnounceSvc.announceBlockClientUpdated(this.devis);
+      this.close();
     }
   }
 }

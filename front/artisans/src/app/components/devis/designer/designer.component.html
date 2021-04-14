@@ -7,20 +7,21 @@
         <div class="p-d-flex">
           <div class="color-editable-field mg-r-5">SIRET</div>
           <app-block-edit-field
-            [width]="228"
+            [width]="223"
             placeholder="siret..."
             [inputValue]="devis.artisanSiret"
             [type]="tf.TEXT">
           </app-block-edit-field>
         </div>
 
+        <div>
         <app-block-edit-field
-          [width]="280"
+          [width]="267"
           placeholder="adresse..."
           [inputValue]="devis.artisanAdresse"
           [type]="tf.TEXT">
         </app-block-edit-field>
-
+        </div>
 
         <div class="p-d-flex">
         <span class="mg-r-5">
@@ -33,7 +34,7 @@
         </span>
           <span>
             <app-block-edit-field
-              [width]="175"
+              [width]="162"
               placeholder="ville..."
               [inputValue]="devis.artisanVille"
               [type]="tf.TEXT">
@@ -45,7 +46,7 @@
           <span class="color-editable-field mg-r-23 ">Tél</span>
           <span>
             <app-block-edit-field
-              [width]="230"
+              [width]="225"
               placeholder="téléphone..."
               [inputValue]="devis.artisanTelephone"
               [type]="tf.TEXT">
@@ -56,7 +57,7 @@
           <span class="color-editable-field mg-r-4">Email</span>
           <span>
             <app-block-edit-field
-              [width]="230"
+              [width]="225"
               placeholder="email..."
               [inputValue]="devis.artisanEmail"
               [type]="tf.TEXT">
@@ -81,7 +82,7 @@
         </span>
 
           <app-block-edit-field
-            [width]="155"
+            [width]="132"
             placeholder="nom client..."
             [inputValue]="devis.clientNom"
             [type]="tf.TEXT">
@@ -90,7 +91,7 @@
         </div>
         <div>
           <app-block-edit-field
-            [width]="280"
+            [width]="150"
             placeholder="adresse client..."
             [inputValue]="devis.clientAdresse"
             [type]="tf.TEXT">
@@ -108,13 +109,22 @@
         </span>
           <span>
            <app-block-edit-field
-             [width]="155"
+             [width]="132"
              placeholder="ville client..."
              [inputValue]="devis.clientVille"
              [type]="tf.TEXT">
         </app-block-edit-field>
 
         </span>
+        </div>
+        <div class="p-d-flex">
+          <span class="color-editable-field mg-r-4">Email</span>
+          <app-block-edit-field
+            [width]="224"
+            placeholder="email client..."
+            [inputValue]="devis.clientEmail"
+            [type]="tf.TEXT">
+          </app-block-edit-field>
         </div>
       </div>
     </div>

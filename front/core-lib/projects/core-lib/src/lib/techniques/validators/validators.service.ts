@@ -28,7 +28,6 @@ export class ValidatorsService {
 
   shouldShowEmailPatternError(ctl: AbstractControl): boolean {
 
-
     return ctl.invalid && ctl.touched && ctl.hasError('pattern');
   }
 

@@ -1,2 +1,10 @@
 @import 'variables';
 
+.field{
+  color: $color-editable-field;
+  background-color: #fff;
+  border: 1px dashed $color-editable-field;
+  border-radius: 4px;
+  padding:4px;
+  margin-top:4px;
+}
