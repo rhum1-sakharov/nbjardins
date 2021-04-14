@@ -5,5 +5,42 @@
           [style]="{width: '450px'}"
 >
 
+  <form [formGroup]="form" *ngIf="form" >
+    <div class="p-fluid p-formgrid p-grid">
+      <div class="p-field p-col-12 p-md-6">
+        <label for="firstname6">prénom</label>
+        <input id="firstname6" formControlName="prenom" type="text"  pInputText>
+
+      </div>
+      <div class="p-field p-col-12 p-md-6">
+        <label for="lastname6">nom</label>
+        <input id="lastname6" formControlName="nom" type="text" pInputText>
+      </div>
+      <div class="p-field p-col-12">
+        <label for="address">adresse</label>
+        <input id="address" formControlName="adresse" type="text" pInputText>
+      </div>
+      <div class="p-field p-col-12 p-md-3">
+        <label for="codePostal">code postal</label>
+        <input id="codePostal" formControlName="codePostal" type="text" pInputText>
+      </div>
+
+      <div class="p-field p-col-12 p-md-9">
+        <label for="ville">ville</label>
+        <input id="ville" formControlName="ville" type="text" pInputText>
+      </div>
+
+      <div class="p-field p-col-12 p-md-9">
+        <label for="email">email</label>
+        <input id="email" formControlName="email" type="text"  pInputText>
+
+      </div>
+
+    </div>
+  </form>
+
+  <ng-template pTemplate="footer">
+    <p-button icon="pi pi-check" (click)="updateClient()" label="OK"></p-button>
+  </ng-template>
 
 </p-dialog>

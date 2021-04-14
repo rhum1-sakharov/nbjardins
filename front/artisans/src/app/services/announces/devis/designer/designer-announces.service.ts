@@ -16,6 +16,12 @@ export class DesignerAnnouncesService {
   private subjectOpenDialogDevisOptions = new Subject<OpenDialogDevisOptionsSupplier>();
   openDialogDevisOptions$ = this.subjectOpenDialogDevisOptions.asObservable();
 
+  private subjectBlockClientUpdated = new Subject<MDevis>();
+  blockClientUpdated$ = this.subjectBlockClientUpdated.asObservable();
+
+  private subjectBlockArtisanUpdated = new Subject<MDevis>();
+  blockArtisanUpdated$ = this.subjectBlockArtisanUpdated.asObservable();
+
   constructor() { }
 
   announceOpenDialogDevisOptions(oddo: OpenDialogDevisOptionsSupplier) {
@@ -29,6 +35,14 @@ export class DesignerAnnouncesService {
 
   announceOpenDialogBlockClient(odbc: OpenDialogBlockClientSupplier) {
     this.subjectOpenDialogBlockClient.next(odbc);
+  }
+
+  announceBlockClientUpdated(devis: MDevis) {
+    this.subjectBlockClientUpdated.next(devis);
+  }
+
+  announceBlockArtisanUpdated(devis: MDevis) {
+    this.subjectBlockArtisanUpdated.next(devis);
   }
 }
 

@@ -22,6 +22,9 @@ export class DesignerComponent implements OnInit, OnDestroy {
   subDevisSelected !: Subscription;
   subDevisRemoved !: Subscription;
   subDevisOptionListUpdated !: Subscription;
+  subBlockClientUpdated !: Subscription;
+  subBlockArtisanUpdated !: Subscription;
+
   devis !: MDevis;
   devisOptionList !: MDevisOption[];
 
@@ -30,7 +33,7 @@ export class DesignerComponent implements OnInit, OnDestroy {
   doUtils = DevisOptionUtils;
 
   constructor(private devisAnnounceSvc: DevisAnnouncesService,
-              private designerAnnounceSvc:DesignerAnnouncesService,
+              private designerAnnounceSvc: DesignerAnnouncesService,
               private devisHttpSvc: DevisHttpService) {
   }
 
@@ -42,11 +45,31 @@ export class DesignerComponent implements OnInit, OnDestroy {
 
     this.devisOptionListUpdatedSubscription();
 
+    this.blockArtisanUpdatedSubscription();
+
+    this.blockClientUpdatedSubscription();
+
   }
 
   updateDevis(property: string, event: any) {
     this.devis[property] = event;
     this.devisAnnounceSvc.announceDevisUpdated(this.devis);
+  }
+
+  blockClientUpdatedSubscription() {
+    this.subBlockClientUpdated = this.designerAnnounceSvc.blockClientUpdated$
+      .subscribe(response => {
+        this.devis = response;
+        this.devisAnnounceSvc.announceDevisUpdated(this.devis);
+      });
+  }
+
+  blockArtisanUpdatedSubscription() {
+    this.subBlockArtisanUpdated = this.designerAnnounceSvc.blockArtisanUpdated$
+      .subscribe(response => {
+        this.devis = response;
+        this.devisAnnounceSvc.announceDevisUpdated(this.devis);
+      });
   }
 
   devisOptionListUpdatedSubscription() {
@@ -83,6 +106,8 @@ export class DesignerComponent implements OnInit, OnDestroy {
     ObservableUtils.unsubscribe(this.subDevisRemoved);
     ObservableUtils.unsubscribe(this.subDevisSelected);
     ObservableUtils.unsubscribe(this.subDevisOptionListUpdated);
+    ObservableUtils.unsubscribe(this.subBlockArtisanUpdated);
+    ObservableUtils.unsubscribe(this.subBlockClientUpdated);
   }
 
 
