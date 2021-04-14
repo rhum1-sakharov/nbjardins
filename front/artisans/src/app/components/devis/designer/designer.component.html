@@ -4,53 +4,63 @@
     <div class="p-col-6 " (click)="openDialogBlockArtisan()">
 
       <div class="editable-block">
-
-        <div>
-          logo
-          <img [src]="''" height="40">
-        </div>
         <div class="p-d-flex">
-          <div class="not-editable mg-r-5">SIRET</div>
-          <app-edit-text-field [inputValue]="devis.artisanSiret"
-                               placeholder="siret..."
-                               (emit)="updateDevis('artisanSiret',$event)" [width]="228"></app-edit-text-field>
+          <div class="color-editable-field mg-r-5">SIRET</div>
+          <app-block-edit-field
+            [width]="228"
+            placeholder="siret..."
+            [inputValue]="devis.artisanSiret"
+            [type]="tf.TEXT">
+          </app-block-edit-field>
         </div>
-        <app-edit-text-field [inputValue]="devis.artisanSociete"
-                             (emit)="updateDevis('artisanSociete',$event)"
-                             placeholder="société..."
-                             [width]="280"></app-edit-text-field>
 
-        <app-edit-text-field [inputValue]="devis.artisanAdresse"
-                             placeholder="adresse..."
-                             (emit)="updateDevis('artisanAdresse',$event)" [width]="280"></app-edit-text-field>
+        <app-block-edit-field
+          [width]="280"
+          placeholder="adresse..."
+          [inputValue]="devis.artisanAdresse"
+          [type]="tf.TEXT">
+        </app-block-edit-field>
 
 
         <div class="p-d-flex">
         <span class="mg-r-5">
-            <app-edit-text-field [inputValue]="devis.artisanCodePostal"
-                                 placeholder="code postal..."
-                                 (emit)="updateDevis('artisanCodePostal',$event) " [width]="100"></app-edit-text-field>
+             <app-block-edit-field
+               [width]="100"
+               placeholder="code postal..."
+               [inputValue]="devis.artisanCodePostal"
+               [type]="tf.TEXT">
+        </app-block-edit-field>
         </span>
           <span>
-           <app-edit-text-field [inputValue]="devis.artisanVille"
-                                placeholder="ville..."
-                                (emit)="updateDevis('artisanVille',$event)" [width]="175"></app-edit-text-field>
+            <app-block-edit-field
+              [width]="175"
+              placeholder="ville..."
+              [inputValue]="devis.artisanVille"
+              [type]="tf.TEXT">
+        </app-block-edit-field>
+
         </span>
         </div>
         <div class="p-d-flex">
-          <span class="mg-r-23 not-editable">Tél</span>
+          <span class="color-editable-field mg-r-23 ">Tél</span>
           <span>
-           <app-edit-text-field [inputValue]="devis.artisanTelephone"
-                                placeholder="numéro de téléphone..."
-                                (emit)="updateDevis('artisanTelephone',$event)" [width]="230"></app-edit-text-field>
+            <app-block-edit-field
+              [width]="230"
+              placeholder="téléphone..."
+              [inputValue]="devis.artisanTelephone"
+              [type]="tf.TEXT">
+        </app-block-edit-field>
         </span>
         </div>
         <div class="p-d-flex">
-          <span class="not-editable mg-r-4">Email</span>
+          <span class="color-editable-field mg-r-4">Email</span>
           <span>
-           <app-edit-email-field [inputValue]="devis.artisanEmail"
-                                 placeholder="email..."
-                                 (emit)="updateDevis('artisanEmail',$event)" [width]="230"></app-edit-email-field>
+            <app-block-edit-field
+              [width]="230"
+              placeholder="email..."
+              [inputValue]="devis.artisanEmail"
+              [type]="tf.TEXT">
+              ></app-block-edit-field>
         </span>
         </div>
 

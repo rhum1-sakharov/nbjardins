@@ -1,5 +1,5 @@
-<div class="p-d-flex">
-  {{inputValue}}
+<div class="p-d-flex color-editable-field">
+
   <div [style.width.px]="width">
     <ng-container [ngSwitch]="objectUtils.isNoe(inputValue)">
 
@@ -10,6 +10,7 @@
       <ng-container *ngSwitchDefault>
 
         <ng-container [ngSwitch]="type">
+
           <ng-container *ngSwitchCase="tf.TEXT">
             {{inputValue}}
           </ng-container>
