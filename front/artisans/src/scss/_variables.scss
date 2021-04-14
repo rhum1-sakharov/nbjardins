@@ -65,7 +65,7 @@ $bg-color-editable-field: rgba(255, 196, 45, 0.05);
 
 }
 
-.ng-dirty.ng-invalid{
+::ng-deep .ng-dirty.ng-invalid{
   border-color : $color-danger;
 
 }
