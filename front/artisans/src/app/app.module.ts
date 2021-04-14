@@ -53,6 +53,8 @@ import {SettingsComponent} from './components/devis/states/a-traiter/dialogs/set
 import {BlockClientComponent} from './components/devis/designer/dialogs/block-client/block-client.component';
 import {BlockArtisanComponent} from './components/devis/designer/dialogs/block-artisan/block-artisan.component';
 import {BlockEditFieldComponent} from './components/devis/designer/block-edit-field/block-edit-field.component';
+import {ArticlesComponent} from './components/devis/designer/articles/articles.component';
+
 
 @NgModule({
   declarations: [
@@ -82,7 +84,8 @@ import {BlockEditFieldComponent} from './components/devis/designer/block-edit-fi
     SettingsComponent,
     BlockClientComponent,
     BlockArtisanComponent,
-    BlockEditFieldComponent
+    BlockEditFieldComponent,
+    ArticlesComponent
   ],
   imports: [
     BrowserModule,

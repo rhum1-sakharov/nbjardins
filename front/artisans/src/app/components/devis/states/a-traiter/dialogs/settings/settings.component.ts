@@ -1,10 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {MDevisOption, ObservableUtils, RvlDialog} from 'rhum1-sakharov-core-lib';
+import {MDevisOption, MODELE_OPTION, ObservableUtils, RvlDialog} from 'rhum1-sakharov-core-lib';
 import {Subscription} from 'rxjs';
 import {DevisAnnouncesService} from '../../../../../../services/announces/devis/devis-announces.service';
 import {DevisHttpService} from '../../../../../../services/http/devis-http.service';
 import {switchMap} from 'rxjs/operators';
-import {MODELE_OPTION} from '../../../../../../../../../core-lib/dist/core-lib';
 import {DevisOptionUtils} from '../../../../../../services/utils/devis/options/devis-option-utils';
 import {DesignerAnnouncesService} from '../../../../../../services/announces/devis/designer/designer-announces.service';
 

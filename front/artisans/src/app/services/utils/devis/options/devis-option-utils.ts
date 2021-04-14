@@ -25,4 +25,17 @@ export class DevisOptionUtils {
     }
   }
 
+  public static isActif(doList: MDevisOption[],modeleOption: MODELE_OPTION) {
+
+    for (const devisOption of doList) {
+
+      if (devisOption.modeleOption === modeleOption) {
+        return devisOption.actif;
+      }
+
+    }
+
+    return false;
+  }
+
 }
