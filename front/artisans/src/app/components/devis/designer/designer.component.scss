@@ -5,11 +5,11 @@
   border-radius: 12px;
   cursor: pointer;
   padding: 8px;
-  border : 1px solid rgba(255, 196, 45, 0.66);
+  border: 1px solid rgba(255, 196, 45, 0.66);
 }
 
 .not-editable {
-
+  color: $color-editable-field;
   padding: 4px;
   height: 32px;
   margin-top: 4px;
