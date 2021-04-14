@@ -2,8 +2,51 @@
           [dismissableMask]="true"
           [modal]="true"
           [(visible)]="displayDialog"
-          [style]="{width: '450px'}"
->
+          [style]="{width: '450px'}">
 
+  <form [formGroup]="form" *ngIf="form" >
+    <div class="p-fluid p-formgrid p-grid">
+      <div class="p-field p-col-12">
+        <label for="siret">siret</label>
+        <input id="siret" formControlName="siret" type="text" pInputText>
+      </div>
+      <div class="p-field p-col-12">
+        <label for="societe">société</label>
+        <input id="societe" formControlName="societe" type="text" pInputText>
+      </div>
+      <div class="p-field p-col-12">
+        <label for="address">adresse</label>
+        <input id="address" formControlName="adresse" type="text" pInputText>
+      </div>
+      <div class="p-field p-col-12 p-md-3">
+        <label for="codePostal">code postal</label>
+        <input id="codePostal" formControlName="codePostal" type="text" pInputText>
+      </div>
 
+      <div class="p-field p-col-12 p-md-9">
+        <label for="ville">ville</label>
+        <input id="ville" formControlName="ville" type="text" pInputText>
+      </div>
+
+      <div class="p-field p-col-12 p-md-9">
+        <label for="telephone">téléphone</label>
+        <input id="telephone" formControlName="telephone" type="text"  pInputText>
+      </div>
+
+      <div class="p-field p-col-12 p-md-9">
+        <label for="email">email</label>
+        <input id="email" formControlName="email" type="text"  pInputText>
+        <div class="ht-30">
+          <div *ngIf="validatorsSvc.shouldShowEmailPatternError(form.controls['email'])" class="color-danger font-11">
+            {{validatorsSvc.displayEmailPatternError(form.controls['email'])}}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </form>
+
+  <ng-template pTemplate="footer">
+    <p-button icon="pi pi-check" (click)="updateArtisan()" label="OK"></p-button>
+  </ng-template>
 </p-dialog>

@@ -6,6 +6,7 @@ $color-button: #2196f3;
 
 $color-editable-field: #7e8388;
 $bg-color-editable-field: rgba(255, 196, 45, 0.05);
+$border-color-editable-field: rgba(255, 196, 45, 0.66);
 
 @for $i from 1 through 1300 {
 
@@ -65,8 +66,8 @@ $bg-color-editable-field: rgba(255, 196, 45, 0.05);
 
 }
 
-::ng-deep .ng-dirty.ng-invalid{
-  border-color : $color-danger;
+:host ::ng-deep .p-inputtext.ng-dirty.ng-invalid{
+  border-color : $color-danger !important;
 
 }
 
