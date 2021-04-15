@@ -2,7 +2,6 @@ package org.rlsv.adapters.secondaries.flyingsaucerpdf;
 
 import domains.applications.ApplicationDN;
 import domains.devis.DevisDN;
-import domains.devis.lignes.DevisLigneDN;
 import domains.personnes.PersonneDN;
 import domains.personnes.artisans.ArtisanDN;
 import domains.personnes.clients.ClientDN;
@@ -10,8 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 public class PdfGeneratorARTest {
 
@@ -92,7 +89,7 @@ public class PdfGeneratorARTest {
         asker.setAdresse("544 chemin de Fontblanque");
         asker.setVille("Mazan");
         asker.setCodePostal("84350");
-        client.setPersonne(asker);
+
 
         DevisDN devis = new DevisDN();
 
@@ -106,15 +103,15 @@ public class PdfGeneratorARTest {
         devis.setTva(new BigDecimal(10));
         devis.setSujet("Elagage des arbres de la propriété du 544 chemin de Fontblanque à Mazan");
 
-        if (enableLignes) {
-            DevisLigneDN devisLigne1 = new DevisLigneDN("Modificatif de l'etat descriptif", new BigDecimal(550.25));
-            DevisLigneDN devisLigne2 = new DevisLigneDN("Attestation de surface loi carrez", new BigDecimal(125.78));
-            List<DevisLigneDN> devisLigneDNList = new ArrayList<>();
-            devisLigneDNList.add(devisLigne1);
-            devisLigneDNList.add(devisLigne2);
-//            devisATraiter.setDevisLigneList(devisLigneDNList);
-
-        }
+//        if (enableLignes) {
+//            DevisLigneDN devisLigne1 = new DevisLigneDN("Modificatif de l'etat descriptif", new BigDecimal(550.25));
+//            DevisLigneDN devisLigne2 = new DevisLigneDN("Attestation de surface loi carrez", new BigDecimal(125.78));
+//            List<DevisLigneDN> devisLigneDNList = new ArrayList<>();
+//            devisLigneDNList.add(devisLigne1);
+//            devisLigneDNList.add(devisLigne2);
+////            devisATraiter.setDevisLigneList(devisLigneDNList);
+//
+//        }
 
         devis.setConditionDeReglement("à réception de la facture");
 
