@@ -1,6 +1,8 @@
 package domains.devis.lignes;
 
 import domains.Domain;
+import domains.devis.DevisDN;
+import domains.produits.ProduitDN;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,6 +14,8 @@ import java.math.BigDecimal;
 @Data
 public class DevisLigneDN extends Domain {
 
-    String designation;
-    BigDecimal montantHT;
+    DevisDN devis;
+    ProduitDN produit;
+    BigDecimal quantite;
+    BigDecimal prixTotalHT;
 }
