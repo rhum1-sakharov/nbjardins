@@ -5,7 +5,6 @@ import domains.authorizations.AuthorizationDN;
 import domains.personnes.PersonneDN;
 import domains.personnes.artisans.ArtisanDN;
 import domains.personnes.artisans.options.ArtisanOptionDN;
-import domains.personnes.clients.ClientDN;
 import domains.referentiel.condition.reglement.ConditionDeReglementDN;
 import domains.referentiel.roles.RoleDN;
 import domains.referentiel.taxes.TaxeDN;
@@ -86,21 +85,11 @@ public class GetAuthorizationUE extends AbstractUsecase {
 
             PersonneDN personne = personneFindByEmailUE.execute(dpm, authorization.getEmail());
 
-
-            switch (loginManager.getTypePersonne()) {
-                case CLIENT:
-                    ClientDN client = initClient(authorization);
-                    client = this.saveClientUE.execute(dpm, client);
-                    personne = client.getPersonne();
-                    break;
-                case ARTISAN:
-                    Map<String, Object> resultMap = initArtisan(personne, dpm, authorization);
-                    ArtisanDN artisan = (ArtisanDN) resultMap.get(ARTISAN);
-                    artisan = this.saveArtisanUE.execute(dpm, artisan);
-                    personne = artisan.getPersonne();
-                    initArtisanOption(dpm, artisan.getId(), (Boolean) resultMap.get(IS_CREATION));
-                    break;
-            }
+            Map<String, Object> resultMap = initArtisan(personne, dpm, authorization);
+            ArtisanDN artisan = (ArtisanDN) resultMap.get(ARTISAN);
+            artisan = this.saveArtisanUE.execute(dpm, artisan);
+            personne = artisan.getPersonne();
+            initArtisanOption(dpm, artisan.getId(), (Boolean) resultMap.get(IS_CREATION));
 
 
             List<String> roles = getRoles(dpm, personne);
@@ -125,11 +114,7 @@ public class GetAuthorizationUE extends AbstractUsecase {
         return roles;
     }
 
-    private ClientDN initClient(AuthorizationDN authorization) {
 
-        ClientDN client = new ClientDN(initNewPersonne(authorization));
-        return client;
-    }
 
     private PersonneDN initNewPersonne(AuthorizationDN authorization) {
 

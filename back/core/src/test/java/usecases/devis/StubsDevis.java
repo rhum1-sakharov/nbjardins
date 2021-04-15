@@ -43,14 +43,14 @@ public class StubsDevis {
 
         devis.setClient(client);
         devis.setClientSignature(null);
-        devis.setClientVille(client.getPersonne().getVille());
-        devis.setClientTelephone(client.getPersonne().getNumeroTelephone());
-        devis.setClientSociete(client.getPersonne().getSociete());
+        devis.setClientVille(client.getVille());
+        devis.setClientTelephone(client.getTelephone());
+        devis.setClientSociete(client.getSociete());
         devis.setClientSiret(null);
-        devis.setClientFonction(client.getPersonne().getFonction());
-        devis.setClientEmail(client.getPersonne().getEmail());
-        devis.setClientCodePostal(client.getPersonne().getCodePostal());
-        devis.setClientAdresse(client.getPersonne().getAdresse());
+        devis.setClientFonction(client.getFonction());
+        devis.setClientEmail(client.getEmail());
+        devis.setClientCodePostal(client.getCodePostal());
+        devis.setClientAdresse(client.getAdresse());
 
         devis.setLieu(artisan.getPersonne().getVille());
         devis.setValiditeDevisMois(artisan.getValiditeDevisMois());
@@ -71,10 +71,14 @@ public class StubsDevis {
     public static ClientDN client1() {
         ClientDN clientDN = new ClientDN();
 
-        clientDN.setPersonne(personneClient1());
+
         clientDN.setSiret(null);
         clientDN.setSignature(null);
         clientDN.setId("1");
+
+        ArtisanDN artisan = new ArtisanDN();
+        artisan.setId("1");
+        clientDN.setArtisan(artisan);
 
 
         return clientDN;

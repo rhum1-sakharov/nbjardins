@@ -23,7 +23,7 @@ import java.util.Objects;
 import static localizations.MessageKeys.ARG_IS_REQUIRED;
 import static localizations.MessageKeys.LIST_IS_EMPTY;
 
-public class RepoJpa<D extends Domain, E extends Entity> implements RepoPT {
+public class RepoJpa<D extends Domain,E extends Entity> implements RepoPT<D> {
 
     private static final Logger LOG = LoggerFactory.getLogger(RepoJpa.class);
 
@@ -93,7 +93,7 @@ public class RepoJpa<D extends Domain, E extends Entity> implements RepoPT {
     }
 
     @Override
-    public D save(DataProviderManager dpm, Domain domain) throws TechnicalException {
+    public D save(DataProviderManager dpm, D domain) throws TechnicalException {
         EntityManager em = PersistenceUtils.getEntityManager(dpm);
 
         E entity = MapperUtils.mapDomainToEntity(domain);
@@ -104,7 +104,7 @@ public class RepoJpa<D extends Domain, E extends Entity> implements RepoPT {
     }
 
     @Override
-    public Domain findById(DataProviderManager dpm, Class domainClass, String id) throws TechnicalException {
+    public D findById(DataProviderManager dpm, Class<D> domainClass, String id) throws TechnicalException {
         EntityManager em = PersistenceUtils.getEntityManager(dpm);
         Class<E> entityClass = MapperUtils.mapDomainClassToEntityClass(domainClass);
         E instance = em.find(entityClass, id);

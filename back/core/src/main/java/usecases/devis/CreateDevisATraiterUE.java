@@ -65,7 +65,7 @@ public class CreateDevisATraiterUE extends AbstractUsecase {
         resultMap.put(DEVIS, devis);
 
 
-        List<DevisOptionDN> devisOptionList = initDevisOptionList(dpm, emailArtisan,devis);
+        List<DevisOptionDN> devisOptionList = initDevisOptionList(dpm, emailArtisan, devis);
         resultMap.put(OPTIONS, devisOptionList);
 
 
@@ -166,17 +166,17 @@ public class CreateDevisATraiterUE extends AbstractUsecase {
         if (Objects.nonNull(client)) {
 
             devis.setClient(client);
-            devis.setClientNom(client.getPersonne().getNom());
-            devis.setClientPrenom(client.getPersonne().getPrenom());
-            devis.setClientAdresse(client.getPersonne().getAdresse());
-            devis.setClientVille(client.getPersonne().getVille());
-            devis.setClientCodePostal(client.getPersonne().getCodePostal());
-            devis.setClientTelephone(client.getPersonne().getNumeroTelephone());
-            devis.setClientEmail(client.getPersonne().getEmail());
+            devis.setClientNom(client.getNom());
+            devis.setClientPrenom(client.getPrenom());
+            devis.setClientAdresse(client.getAdresse());
+            devis.setClientVille(client.getVille());
+            devis.setClientCodePostal(client.getCodePostal());
+            devis.setClientTelephone(client.getTelephone());
+            devis.setClientEmail(client.getEmail());
             devis.setClientSignature(client.getSignature());
             devis.setClientSiret(client.getSiret());
-            devis.setClientSociete(client.getPersonne().getSociete());
-            devis.setClientFonction(client.getPersonne().getFonction());
+            devis.setClientSociete(client.getSociete());
+            devis.setClientFonction(client.getFonction());
 
         }
 

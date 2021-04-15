@@ -1,7 +1,6 @@
 package domains.personnes.clients;
 
 import domains.Domain;
-import domains.personnes.PersonneDN;
 import domains.personnes.artisans.ArtisanDN;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,12 +13,18 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ClientDN extends Domain {
 
-    private PersonneDN personne;
-    private String siret;
-    private String signature;
     private ArtisanDN artisan;
+    private String nom;
+    private String prenom;
+    private String adresse;
+    private String ville;
+    private String codePostal;
+    private String telephone;
+    private String email;
+    private String signature;
+    private String siret;
+    private String societe;
+    private String fonction;
 
-    public ClientDN(PersonneDN personne) {
-        this.personne = personne;
-    }
+
 }

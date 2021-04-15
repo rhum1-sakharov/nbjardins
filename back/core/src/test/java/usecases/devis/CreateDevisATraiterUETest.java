@@ -226,15 +226,16 @@ public class CreateDevisATraiterUETest {
 
         Assertions.assertThat(devis).isNotNull();
         Assertions.assertThat(devis.getClient()).isNotNull();
-        Assertions.assertThat(devis.getClientAdresse()).isEqualTo(client1.getPersonne().getAdresse());
-        Assertions.assertThat(devis.getClientCodePostal()).isEqualTo(client1.getPersonne().getCodePostal());
-        Assertions.assertThat(devis.getClientEmail()).isEqualTo(client1.getPersonne().getEmail());
-        Assertions.assertThat(devis.getClientFonction()).isEqualTo(client1.getPersonne().getFonction());
-        Assertions.assertThat(devis.getClientNom()).isEqualTo(client1.getPersonne().getNom());
-        Assertions.assertThat(devis.getClientPrenom()).isEqualTo(client1.getPersonne().getPrenom());
+        Assertions.assertThat(devis.getClientAdresse()).isEqualTo(client1.getAdresse());
+        Assertions.assertThat(devis.getClientCodePostal()).isEqualTo(client1.getCodePostal());
+        Assertions.assertThat(devis.getClientEmail()).isEqualTo(client1.getEmail());
+        Assertions.assertThat(devis.getClientTelephone()).isEqualTo(client1.getTelephone());
+        Assertions.assertThat(devis.getClientFonction()).isEqualTo(client1.getFonction());
+        Assertions.assertThat(devis.getClientNom()).isEqualTo(client1.getNom());
+        Assertions.assertThat(devis.getClientPrenom()).isEqualTo(client1.getPrenom());
         Assertions.assertThat(devis.getClientSignature()).isEqualTo(client1.getSignature());
         Assertions.assertThat(devis.getClientSiret()).isEqualTo(client1.getSiret());
-        Assertions.assertThat(devis.getClientSociete()).isEqualTo(client1.getPersonne().getSociete());
+        Assertions.assertThat(devis.getClientSociete()).isEqualTo(client1.getSociete());
 
     }
 
