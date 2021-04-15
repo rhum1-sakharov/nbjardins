@@ -29,8 +29,7 @@ public class ClientRepoJpa extends RepoJpa<ClientDN,Client> implements ClientRep
         EntityManager em = PersistenceUtils.getEntityManager(dpm);
 
         TypedQuery<Client> query = em.createQuery("SELECT c from Client c " +
-                " join c.personne p " +
-                "where p.email=:email", Client.class);
+                "where c.email=:email", Client.class);
         query.setParameter("email", email);
 
         Client client = PersistenceUtils.getSingleResult(query);
@@ -46,9 +45,8 @@ public class ClientRepoJpa extends RepoJpa<ClientDN,Client> implements ClientRep
         TypedQuery<Client> query = em.createQuery("SELECT c from Client c " +
                 " join c.artisan a " +
                 " join a.personne pa " +
-                " join c.personne pc " +
                 " where pa.email=:emailArtisan " +
-                " order by pc.nom, pc.prenom, pc.societe", Client.class);
+                " order by c.nom, c.prenom, c.societe", Client.class);
         query.setParameter("emailArtisan", emailArtisan);
 
         List<Client> clientList = PersistenceUtils.getResultList(query);

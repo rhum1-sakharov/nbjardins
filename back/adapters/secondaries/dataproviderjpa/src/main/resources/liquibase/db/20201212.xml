@@ -233,24 +233,35 @@
 
 
 
-
-    <changeSet id="202012190852" author="rvl" >
+    <changeSet id="202103062040" author="rvl">
         <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="clients"></tableExists>
             </not>
         </preConditions>
         <sql>
-            CREATE TABLE clients
-            (
-            ID varchar(36) PRIMARY KEY NOT NULL,
-            ID_PERSONNE varchar(36) NOT NULL,
-            CONSTRAINT clients_personnes_ID_fk FOREIGN KEY (ID_PERSONNE) REFERENCES personnes (ID) ON DELETE CASCADE ON UPDATE CASCADE
+            CREATE TABLE `clients` (
+            `ID` VARCHAR(36) NOT NULL ,
+            `ID_ARTISAN` VARCHAR(50) NOT NULL,
+            `NOM` VARCHAR(50) NULL DEFAULT NULL,
+            `PRENOM` VARCHAR(50) NULL DEFAULT NULL,
+            `ADRESSE` VARCHAR(50) NULL DEFAULT NULL,
+            `VILLE` VARCHAR(50) NULL DEFAULT NULL,
+            `CODE_POSTAL` VARCHAR(50) NULL DEFAULT NULL,
+            `TELEPHONE` VARCHAR(50) NULL DEFAULT NULL,
+            `EMAIL` VARCHAR(50) NULL DEFAULT NULL,
+            `SIGNATURE` VARCHAR(256) NULL DEFAULT NULL ,
+            `SIRET` VARCHAR(50) NULL DEFAULT NULL ,
+            `SOCIETE` VARCHAR(50) NULL DEFAULT NULL,
+            `FONCTION` VARCHAR(50) NULL DEFAULT NULL,
+            PRIMARY KEY (`ID`) USING BTREE,
+            INDEX `ID_ARTISAN` (`ID_ARTISAN`) USING BTREE,
+            CONSTRAINT `FK_clients_artisans` FOREIGN KEY (`ID_ARTISAN`) REFERENCES `artisans` (`ID`) ON UPDATE CASCADE ON DELETE CASCADE
             )
             COLLATE='utf8_general_ci'
+            ENGINE=InnoDB
             ;
-            CREATE UNIQUE INDEX clients_ID_PERSONNE_uindex ON clients (ID_PERSONNE);
-            CREATE INDEX clients_ID_PERSONNE_index ON clients (ID_PERSONNE);
+
         </sql>
         <comment>
             créer la table clients
