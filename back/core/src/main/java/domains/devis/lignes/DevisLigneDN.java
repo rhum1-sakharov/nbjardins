@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 public class DevisLigneDN extends Domain {
 
     DevisDN devis;
-    ArtisanProduitDN produit;
+    ArtisanProduitDN artisanProduit;
     BigDecimal quantite;
     BigDecimal prixTotalHT;
 }

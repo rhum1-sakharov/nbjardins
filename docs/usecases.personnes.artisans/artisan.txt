@@ -8,3 +8,4 @@
 (Afficher mes devis)>(FindByEmailArtisanUE)
 [Artisan]-(Changer le statut d'un devis)
 [Artisan]-(Envoyer un devis par mail)
+[Artisan]-(Modifier un devis)

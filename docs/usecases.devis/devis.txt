@@ -1,0 +1,5 @@
+[Artisan]-(Modifier un devis "à traiter")
+(Modifier un devis "à traiter")>(Modifier les infos du client)
+(Modifier un devis "à traiter")>(Modifier les infos de l'artisan)
+(Modifier les infos du client)>(rendre disponible les informations modifiées pour les prochains devis)
+(Modifier les infos de l'artisan)>(rendre disponible les informations modifiées pour les prochains devis)
