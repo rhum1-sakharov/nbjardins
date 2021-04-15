@@ -2,7 +2,7 @@ package domains.devis.lignes;
 
 import domains.Domain;
 import domains.devis.DevisDN;
-import domains.produits.ProduitDN;
+import domains.personnes.artisans.produits.ArtisanProduitDN;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 public class DevisLigneDN extends Domain {
 
     DevisDN devis;
-    ProduitDN produit;
+    ArtisanProduitDN produit;
     BigDecimal quantite;
     BigDecimal prixTotalHT;
 }
