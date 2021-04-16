@@ -8,7 +8,7 @@ import ports.transactions.TransactionManagerPT;
 import usecases.personnes.clients.SaveClientUE;
 
 @Configuration
-public class EnregistrerClientConfig {
+public class SaveClientConfig {
 
     @Bean
     public SaveClientUE enregistrerClientUE(LocalizeServicePT localizeService, ClientRepoPT clientRepo, TransactionManagerPT transactionManager) {
