@@ -139,14 +139,11 @@ export class DevisHttpService {
          clientNom
          clientPrenom
          clientSociete
-         client{
-           id
-           personne{
+         client{         
              id
              nom
              prenom
-             email
-           }
+             email           
          }
       }
     
