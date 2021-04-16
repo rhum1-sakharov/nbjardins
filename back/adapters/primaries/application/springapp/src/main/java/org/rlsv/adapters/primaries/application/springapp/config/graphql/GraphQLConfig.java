@@ -22,6 +22,7 @@ import usecases.personnes.artisans.banques.SaveArtisanBanqueUE;
 import usecases.personnes.artisans.options.FindByEmailUE;
 import usecases.personnes.artisans.options.SaveOptionUE;
 import usecases.personnes.clients.FindClientsOfArtisanUE;
+import usecases.personnes.clients.ShareInfosDevisUE;
 import usecases.referentiel.conditions.reglements.FindAllConditionReglementUE;
 import usecases.referentiel.taxes.FindAllTaxeUE;
 
@@ -54,8 +55,8 @@ public class GraphQLConfig {
     }
 
     @Bean
-    public ClientDataFetcher clientDataFetcher(FindClientsOfArtisanUE findClientsOfArtisanUE) {
-        return new ClientDataFetcher(findClientsOfArtisanUE);
+    public ClientDataFetcher clientDataFetcher(FindClientsOfArtisanUE findClientsOfArtisanUE, ShareInfosDevisUE shareInfosDevisUE) {
+        return new ClientDataFetcher(findClientsOfArtisanUE, shareInfosDevisUE);
     }
 
     @Bean

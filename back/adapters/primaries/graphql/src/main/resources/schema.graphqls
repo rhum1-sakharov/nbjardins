@@ -24,6 +24,7 @@ type Query {
 
     clientFindByEmailArtisan(emailArtisan: String) : [Client!]
 
+
 }
 
 type Mutation{
@@ -35,6 +36,7 @@ type Mutation{
     createDevisATraiter(emailArtisan : EmailInput!, emailClient: EmailInput!): Devis!
     removeDevis(idDevis: IdInput!): IdResult!
     saveDevisOption(devisOption: DevisOptionInput!): DevisOption!
+    clientShareInfosDevis(devis: DevisInput!): Client!
 }
 
 input IdInput{

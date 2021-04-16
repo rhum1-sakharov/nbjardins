@@ -105,14 +105,21 @@ public class GraphQLProvider {
                         .dataFetcher("clientFindByEmailArtisan", clientDataFetcher.clientFindByEmailArtisanDataFetcher())
                 )
                 .type(newTypeWiring("Mutation")
+
+                        // ARTISAN
                         .dataFetcher("saveArtisan", artisanDataFetcher.saveArtisanDataFetcher())
                         .dataFetcher("saveArtisanOption", artisanOptionDataFetcher.saveArtisanOptionDataFetcher())
                         .dataFetcher("saveArtisanBanqueList", artisanBanqueDataFetcher.saveArtisanBanqueListDataFetcher())
                         .dataFetcher("removeArtisanBanqueByEmail", artisanBanqueDataFetcher.removeArtisanBanqueByEmailDataFetcher())
+
+                        // DEVIS
                         .dataFetcher("saveDevis", devisDataFetcher.saveDevisDataFetcher())
                         .dataFetcher("createDevisATraiter", devisDataFetcher.createDevisATraiterDataFetcher())
                         .dataFetcher("removeDevis", devisDataFetcher.removeDevisDataFetcher())
                         .dataFetcher("saveDevisOption", devisOptionDataFetcher.saveDevisOptionDataFetcher())
+
+                        // CLIENT
+                        .dataFetcher("clientShareInfosDevis", clientDataFetcher.clientShareInfosDevisDataFetcher())
 
                 )
                 .build();
