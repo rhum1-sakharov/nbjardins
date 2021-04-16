@@ -21,10 +21,12 @@ public class ShareInfosDevisUE extends AbstractUsecase {
     private static final Logger LOG = LoggerFactory.getLogger(ShareInfosDevisUE.class);
 
     SaveClientUE saveClientUE;
+    FindByEmailUE findClientByEmailUE;
 
-    public ShareInfosDevisUE(LocalizeServicePT ls, TransactionManagerPT transactionManager, SaveClientUE saveClientUE) {
+    public ShareInfosDevisUE(LocalizeServicePT ls, TransactionManagerPT transactionManager, SaveClientUE saveClientUE, FindByEmailUE findClientByEmailUE) {
         super(ls, transactionManager);
         this.saveClientUE = saveClientUE;
+        this.findClientByEmailUE = findClientByEmailUE;
     }
 
     @Transactional
@@ -34,7 +36,16 @@ public class ShareInfosDevisUE extends AbstractUsecase {
                 Precondition.init(ls.getMsg(ARG_IS_REQUIRED, "devis"), Objects.nonNull(devis))
         );
 
+        String emailClient = devis.getClientEmail();
         ClientDN client = new ClientDN();
+        if(Objects.nonNull(emailClient)){
+            ClientDN clientStore= findClientByEmailUE.execute(dpm,emailClient);
+            if(Objects.nonNull(clientStore)){
+                client.setId(clientStore.getId());
+            }
+        }
+
+
 
         client.setArtisan(devis.getArtisan());
         client.setNom(devis.getClientNom());

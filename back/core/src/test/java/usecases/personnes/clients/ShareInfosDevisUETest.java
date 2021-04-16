@@ -34,6 +34,9 @@ public class ShareInfosDevisUETest {
     SaveClientUE saveClientUE;
 
     @Mock
+    FindByEmailUE findClientByEmailUE;
+
+    @Mock
     LocalizeServicePT ls;
 
     @Mock
@@ -58,7 +61,7 @@ public class ShareInfosDevisUETest {
     @Before
     public void setUp() throws Exception {
 
-        this.usecase = new ShareInfosDevisUE(ls, transactionManager, saveClientUE);
+        this.usecase = new ShareInfosDevisUE(ls, transactionManager, saveClientUE, findClientByEmailUE);
 
 
         personneArtisan1 = StubsDevis.personneArtisan1();
@@ -101,6 +104,34 @@ public class ShareInfosDevisUETest {
         ClientDN client = usecase.execute(null, devis);
         Assertions.assertThat(client.getArtisan()).isNotNull();
         Assertions.assertThat(client.getArtisan().getId()).isNotNull();
+    }
+
+    @Test
+    public void idclient_must_1store_when_emailClient_is_not_null_and_client_exists_in_store() throws CleanException {
+
+        devis.setClientEmail("test@toto.fr");
+        ClientDN clientStore = new ClientDN();
+        clientStore.setId("1-store");
+
+        Mockito.when(findClientByEmailUE.execute(null,devis.getClientEmail())).thenReturn(clientStore);
+        Mockito.when(saveClientUE.execute(Mockito.any(), Mockito.any(ClientDN.class))).thenReturn(clientStore);
+
+        ClientDN client = usecase.execute(null, devis);
+        Assertions.assertThat(client.getId()).isEqualTo(clientStore.getId());
+
+    }
+
+    @Test
+    public void idclient_must_be_1_when_emailClient_is_not_null_and_client_not_exists_in_store() throws CleanException {
+
+        devis.setClientEmail("test@toto.fr");
+
+        Mockito.when(findClientByEmailUE.execute(null,devis.getClientEmail())).thenReturn(null);
+        Mockito.when(saveClientUE.execute(Mockito.any(), Mockito.any(ClientDN.class))).thenReturn(client1);
+
+        ClientDN client = usecase.execute(null, devis);
+        Assertions.assertThat(client.getId()).isEqualTo(client.getId());
+
     }
 
 }
