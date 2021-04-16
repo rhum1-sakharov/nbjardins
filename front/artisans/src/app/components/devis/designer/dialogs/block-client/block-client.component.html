@@ -38,9 +38,14 @@
             {{validatorsSvc.displayEmailPatternError(form.controls['email'])}}
           </div>
         </div>
-
-
       </div>
+
+      <div class="p-field-checkbox">
+        <p-checkbox formControlName="majClient" [binary]="true" inputId="binary"></p-checkbox>
+        <label for="binary">Mettre à jour le client pour les prochains devis</label>
+      </div>
+
+
 
     </div>
   </form>

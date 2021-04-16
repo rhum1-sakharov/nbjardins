@@ -229,9 +229,10 @@ type Artisan {
 
 type Client {
     id: ID
-    personne: Personne
-    siret: String
-    signature: String
+    nom : String
+    prenom: String
+    societe: String
+    email: String
 
 }
 

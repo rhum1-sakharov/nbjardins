@@ -34,7 +34,9 @@ public class ClientDataFetcher {
 
             DevisDN devis = MapperUtils.fromMap(args, DevisDN.class);
 
-            return shareInfosDevisUE.execute(null, devis);
+            Map<String, Object> map = shareInfosDevisUE.execute(null, devis);
+
+            return map.get(ShareInfosDevisUE.CLIENT);
         };
     }
 

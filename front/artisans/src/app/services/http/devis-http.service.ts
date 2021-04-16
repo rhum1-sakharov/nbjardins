@@ -447,4 +447,41 @@ export class DevisHttpService {
 
     return str;
   }
+
+  shareInfosDevis(devis: MDevis) {
+
+    const query = `  
+    mutation clientShareInfosDevis{    
+      clientShareInfosDevis( devis: {
+      
+       ${GraphqlUtils.setInput(devis, 'id', GRAPHQL_TYPE.STRING)}       
+       
+       artisan: {         
+         ${GraphqlUtils.setInput(devis.artisan, 'id', GRAPHQL_TYPE.STRING)}         
+       }          
+       
+       ${GraphqlUtils.setInput(devis, 'clientNom', GRAPHQL_TYPE.STRING)}       
+       ${GraphqlUtils.setInput(devis, 'clientPrenom', GRAPHQL_TYPE.STRING)}       
+       ${GraphqlUtils.setInput(devis, 'clientAdresse', GRAPHQL_TYPE.STRING)}      
+       ${GraphqlUtils.setInput(devis, 'clientVille', GRAPHQL_TYPE.STRING)}      
+       ${GraphqlUtils.setInput(devis, 'clientCodePostal', GRAPHQL_TYPE.STRING)}       
+       ${GraphqlUtils.setInput(devis, 'clientTelephone', GRAPHQL_TYPE.STRING)}      
+       ${GraphqlUtils.setInput(devis, 'clientEmail', GRAPHQL_TYPE.STRING)}   
+       ${GraphqlUtils.setInput(devis, 'clientSignature', GRAPHQL_TYPE.STRING)}      
+       ${GraphqlUtils.setInput(devis, 'clientSiret', GRAPHQL_TYPE.STRING)}      
+       ${GraphqlUtils.setInput(devis, 'clientSociete', GRAPHQL_TYPE.STRING)}      
+       ${GraphqlUtils.setInput(devis, 'clientFonction', GRAPHQL_TYPE.STRING)}       
+       
+       
+      }){    
+        id       
+      }
+    }
+    `;
+
+    return this.httpSvc.post(URL_GRAPHQL, query).pipe(
+      finalize(() => this.loadingSvc.announceLoading(false))
+    );
+
+  }
 }

@@ -16,15 +16,11 @@ export class ClientsHttpService {
 
     const query = `{        
                clientFindByEmailArtisan( emailArtisan: "${emailArtisan}"){
-                  id
-                  personne{
-                     id
-                     nom
-                     prenom
-                     societe       
-                     email           
-                  }
-               
+                  id             
+                  nom
+                  prenom
+                  societe       
+                  email                
                }
     }`;
 

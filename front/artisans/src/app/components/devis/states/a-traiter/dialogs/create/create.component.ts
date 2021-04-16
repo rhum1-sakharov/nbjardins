@@ -49,7 +49,7 @@ export class CreateComponent extends RvlDialog implements OnInit, OnDestroy {
 
   createDevisAtraiter() {
 
-    let emailClient = this.selectedClient && this.selectedClient.personne ? this.selectedClient.personne.email : null;
+    let emailClient = this.selectedClient  ? this.selectedClient.email : null;
 
     this.devisHttpSvc.createDevisATraiter(this.emailArtisan, emailClient)
       .subscribe((response: any) => {

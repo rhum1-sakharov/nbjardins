@@ -3,6 +3,7 @@ import {FormUtils, MDevis, MDevisOption, ObservableUtils, RvlDialog, ValidatorsS
 import {Subscription} from 'rxjs';
 import {DesignerAnnouncesService} from '../../../../../services/announces/devis/designer/designer-announces.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {DevisHttpService} from '../../../../../services/http/devis-http.service';
 
 @Component({
   selector: 'app-block-client',
@@ -15,11 +16,12 @@ export class BlockClientComponent extends RvlDialog implements OnInit, OnDestroy
   devis !: MDevis;
   devisOptionList !: MDevisOption[];
 
-  form  = new FormGroup({});
+  form = new FormGroup({});
 
 
   constructor(
     private designerAnnounceSvc: DesignerAnnouncesService,
+    private devisHttpSvc: DevisHttpService,
     public validatorsSvc: ValidatorsService
   ) {
     super();
@@ -35,12 +37,13 @@ export class BlockClientComponent extends RvlDialog implements OnInit, OnDestroy
   initForm(devis: MDevis | null) {
 
     this.form = new FormGroup({
-      prenom: new FormControl(devis ? devis.clientPrenom :''),
-      nom: new FormControl(devis ? devis.clientNom:''),
-      adresse: new FormControl(devis ? devis.clientAdresse:''),
-      ville: new FormControl(devis ? devis.clientVille:''),
-      codePostal: new FormControl(devis ? devis.clientCodePostal:''),
-      email: new FormControl(devis ? devis.clientEmail :'', [ Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
+      prenom: new FormControl(devis ? devis.clientPrenom : ''),
+      nom: new FormControl(devis ? devis.clientNom : ''),
+      adresse: new FormControl(devis ? devis.clientAdresse : ''),
+      ville: new FormControl(devis ? devis.clientVille : ''),
+      codePostal: new FormControl(devis ? devis.clientCodePostal : ''),
+      email: new FormControl(devis ? devis.clientEmail : '', [Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
+      majClient: new FormControl(true, Validators.required)
     })
   }
 
@@ -70,6 +73,10 @@ export class BlockClientComponent extends RvlDialog implements OnInit, OnDestroy
       this.devis.clientCodePostal = this.form.controls['codePostal'].value;
       this.devis.clientVille = this.form.controls['ville'].value;
       this.devis.clientEmail = this.form.controls['email'].value;
+
+      if (this.form.controls['majClient'].value) {
+        this.devisHttpSvc.shareInfosDevis(this.devis).subscribe();
+      }
 
       this.designerAnnounceSvc.announceBlockClientUpdated(this.devis);
       this.close();
