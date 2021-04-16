@@ -130,8 +130,9 @@ public class ShareInfosDevisUETest {
         Mockito.when(saveClientUE.execute(Mockito.any(), Mockito.any(ClientDN.class))).thenReturn(client1);
 
         ClientDN client = usecase.execute(null, devis);
-        Assertions.assertThat(client.getId()).isEqualTo(client.getId());
+        Assertions.assertThat(client.getId()).isEqualTo(client1.getId());
 
     }
+
 
 }

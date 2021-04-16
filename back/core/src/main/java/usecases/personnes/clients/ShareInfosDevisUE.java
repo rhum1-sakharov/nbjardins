@@ -5,6 +5,7 @@ import domains.devis.DevisDN;
 import domains.personnes.clients.ClientDN;
 import exceptions.CleanException;
 import models.Precondition;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ports.localization.LocalizeServicePT;
@@ -38,13 +39,12 @@ public class ShareInfosDevisUE extends AbstractUsecase {
 
         String emailClient = devis.getClientEmail();
         ClientDN client = new ClientDN();
-        if(Objects.nonNull(emailClient)){
-            ClientDN clientStore= findClientByEmailUE.execute(dpm,emailClient);
-            if(Objects.nonNull(clientStore)){
+        if (StringUtils.isNotEmpty(emailClient)) {
+            ClientDN clientStore = findClientByEmailUE.execute(dpm, emailClient);
+            if (Objects.nonNull(clientStore)) {
                 client.setId(clientStore.getId());
             }
         }
-
 
 
         client.setArtisan(devis.getArtisan());
