@@ -22,8 +22,10 @@ import ports.transactions.TransactionManagerPT;
 import usecases.devis.StubsDevis;
 
 import java.util.List;
+import java.util.Map;
 
 import static localizations.MessageKeys.ARG_IS_REQUIRED;
+import static usecases.personnes.clients.ShareInfosDevisUE.CLIENT_STORE;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ShareInfosDevisUETest {
@@ -94,43 +96,65 @@ public class ShareInfosDevisUETest {
     @Test
     public void client_should_not_be_null() throws CleanException {
 
-        ClientDN client = usecase.execute(null, devis);
-        Assertions.assertThat(client).isNotNull();
+        Map<String, Object> execute = usecase.execute(null, devis);
+        Assertions.assertThat(execute).isNotNull();
     }
 
     @Test
     public void artisanId_should_not_be_null() throws CleanException {
 
-        ClientDN client = usecase.execute(null, devis);
+        Map<String, Object> map = usecase.execute(null, devis);
+        ClientDN client = (ClientDN) map.get(ShareInfosDevisUE.CLIENT);
+
         Assertions.assertThat(client.getArtisan()).isNotNull();
         Assertions.assertThat(client.getArtisan().getId()).isNotNull();
     }
 
+
+
     @Test
-    public void idclient_must_1store_when_emailClient_is_not_null_and_client_exists_in_store() throws CleanException {
+    public void when_emailclient_is_empty_clientstore_should_be_null() throws CleanException {
 
-        devis.setClientEmail("test@toto.fr");
-        ClientDN clientStore = new ClientDN();
-        clientStore.setId("1-store");
+        devis.setClientEmail("");
 
-        Mockito.when(findClientByEmailUE.execute(null,devis.getClientEmail())).thenReturn(clientStore);
-        Mockito.when(saveClientUE.execute(Mockito.any(), Mockito.any(ClientDN.class))).thenReturn(clientStore);
+        Mockito.when(findClientByEmailUE.execute(null,devis.getClientEmail())).thenReturn(client1);
+        Mockito.when(saveClientUE.execute(Mockito.any(), Mockito.any(ClientDN.class))).thenReturn(client1);
 
-        ClientDN client = usecase.execute(null, devis);
-        Assertions.assertThat(client.getId()).isEqualTo(clientStore.getId());
+        Map<String, Object> map = usecase.execute(null, devis);
+        ClientDN clientStore = (ClientDN) map.get(CLIENT_STORE);
+
+        Assertions.assertThat(clientStore).isNull();
 
     }
 
     @Test
-    public void idclient_must_be_1_when_emailClient_is_not_null_and_client_not_exists_in_store() throws CleanException {
+    public void when_emailclient_is_null_clientstore_should_be_null() throws CleanException {
+
+        devis.setClientEmail(null);
+
+        Mockito.when(findClientByEmailUE.execute(null,devis.getClientEmail())).thenReturn(client1);
+        Mockito.when(saveClientUE.execute(Mockito.any(), Mockito.any(ClientDN.class))).thenReturn(client1);
+
+        Map<String, Object> map = usecase.execute(null, devis);
+        ClientDN clientStore = (ClientDN) map.get(CLIENT_STORE);
+
+        Assertions.assertThat(clientStore).isNull();
+
+    }
+
+    @Test
+    public void when_clientstore_is_not_null_then_clientid_should_be_equal_to_clientstoreid() throws CleanException {
 
         devis.setClientEmail("test@toto.fr");
 
-        Mockito.when(findClientByEmailUE.execute(null,devis.getClientEmail())).thenReturn(null);
+        Mockito.when(findClientByEmailUE.execute(null,devis.getClientEmail())).thenReturn(client1);
         Mockito.when(saveClientUE.execute(Mockito.any(), Mockito.any(ClientDN.class))).thenReturn(client1);
 
-        ClientDN client = usecase.execute(null, devis);
-        Assertions.assertThat(client.getId()).isEqualTo(client1.getId());
+        Map<String, Object> map = usecase.execute(null, devis);
+        ClientDN clientStore = (ClientDN) map.get(CLIENT_STORE);
+        ClientDN client = (ClientDN) map.get(ShareInfosDevisUE.CLIENT);
+
+        Assertions.assertThat(clientStore.getId()).isEqualTo(client.getId());
 
     }
 
