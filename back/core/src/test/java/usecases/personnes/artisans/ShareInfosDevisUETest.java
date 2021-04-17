@@ -178,6 +178,7 @@ public class ShareInfosDevisUETest {
 
         Assertions.assertThat(artisan.getSignature()).isEqualTo(devis.getArtisanSignature());
         Assertions.assertThat(artisan.getSiret()).isEqualTo(devis.getArtisanSiret());
+        Assertions.assertThat(artisan.getEmailPro()).isEqualTo(devis.getArtisanEmail());
 
 
 
