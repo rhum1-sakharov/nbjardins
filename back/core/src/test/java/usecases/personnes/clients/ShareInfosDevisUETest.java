@@ -94,10 +94,13 @@ public class ShareInfosDevisUETest {
     }
 
     @Test
-    public void client_should_not_be_null() throws CleanException {
+    public void client_should_not_be_null_and_have_id() throws CleanException {
 
         Map<String, Object> execute = usecase.execute(null, devis);
-        Assertions.assertThat(execute).isNotNull();
+        ClientDN client = (ClientDN) execute.get(ShareInfosDevisUE.CLIENT);
+
+        Assertions.assertThat(client).isNotNull();
+        Assertions.assertThat(client.getId()).isNotEmpty();
     }
 
     @Test

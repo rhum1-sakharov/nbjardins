@@ -1,4 +1,6 @@
-package exceptions;
+package exceptions.devis;
+
+import exceptions.CleanException;
 
 public class DemandeDeDevisException extends CleanException {
 

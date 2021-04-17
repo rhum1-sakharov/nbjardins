@@ -26,4 +26,7 @@ public class MessageKeys {
     public static final String TOKEN_NOT_VALID = "token.not.valid";
     public static final String ARG_IS_REQUIRED = "arg.is.required";
     public static final String LIST_IS_EMPTY= "list.is.empty";
+
+    // ARTISAN
+    public static final String OBJECT_IS_REQUIRED = "object.is.null";
 }
