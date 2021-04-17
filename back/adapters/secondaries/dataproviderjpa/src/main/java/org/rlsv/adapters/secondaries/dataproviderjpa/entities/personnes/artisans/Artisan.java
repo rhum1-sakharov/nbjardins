@@ -3,7 +3,6 @@ package org.rlsv.adapters.secondaries.dataproviderjpa.entities.personnes.artisan
 import lombok.Getter;
 import lombok.Setter;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.personnes.Personne;
-import org.rlsv.adapters.secondaries.dataproviderjpa.entities.referentiel.applications.Application;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.referentiel.conditions.reglements.ConditionDeReglement;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.referentiel.taxes.Taxe;
 
@@ -20,8 +19,7 @@ public class Artisan extends org.rlsv.adapters.secondaries.dataproviderjpa.entit
     @JoinColumn(name = "ID_PERSONNE")
     private Personne personne;
 
-    @OneToOne(mappedBy = "artisan")
-    private Application application;
+
 
 
     @ManyToOne

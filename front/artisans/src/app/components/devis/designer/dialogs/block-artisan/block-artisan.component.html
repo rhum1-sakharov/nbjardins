@@ -40,6 +40,9 @@
           <div *ngIf="validatorsSvc.shouldShowEmailPatternError(form.controls['email'])" class="color-danger font-11">
             {{validatorsSvc.displayEmailPatternError(form.controls['email'])}}
           </div>
+          <div *ngIf="validatorsSvc.shouldShowRequiredError(form.controls['email'])" class="color-danger font-11">
+            L'email est obligatoire.
+          </div>
         </div>
       </div>
 

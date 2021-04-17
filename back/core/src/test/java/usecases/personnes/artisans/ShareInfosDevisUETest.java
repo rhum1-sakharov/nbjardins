@@ -161,6 +161,28 @@ public class ShareInfosDevisUETest {
 
     }
 
+    @Test
+    public void when_emailpro_is_empty_throw_emailpro_is_required() throws CleanException {
+
+        devis.getArtisan().setEmailPro(null);
+
+        final String errMsg = "L'objet devis.artisan.emailPro est obligatoire.";
+
+        Mockito.when(this.ls.getMsg(OBJECT_IS_REQUIRED, "devis.artisan.emailPro"))
+                .thenReturn(errMsg);
+
+        Assertions.assertThatCode(() -> this.usecase.execute(null, devis))
+                .isInstanceOf(ShareInfosDevisException.class)
+                .hasMessageContaining(errMsg);
+
+        devis.getArtisan().setEmailPro("");
+
+        Assertions.assertThatCode(() -> this.usecase.execute(null, devis))
+                .isInstanceOf(ShareInfosDevisException.class)
+                .hasMessageContaining(errMsg);
+
+    }
+
 
     @Test
     public void when_artisan_saved_then_fields_should_have_devis_infos() throws CleanException {

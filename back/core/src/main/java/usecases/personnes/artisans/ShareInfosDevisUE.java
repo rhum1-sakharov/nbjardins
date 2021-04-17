@@ -53,6 +53,10 @@ public class ShareInfosDevisUE extends AbstractUsecase {
             throw new ShareInfosDevisException(ls.getMsg(OBJECT_IS_REQUIRED, "devis.artisan.personne.email"));
         }
 
+        if (StringUtils.isEmpty(devis.getArtisan().getEmailPro())) {
+            throw new ShareInfosDevisException(ls.getMsg(OBJECT_IS_REQUIRED, "devis.artisan.emailPro"));
+        }
+
         String emailArtisan = devis.getArtisan().getPersonne().getEmail();
 
         ArtisanDN artisan = findByEmailUE.execute(dpm, emailArtisan);

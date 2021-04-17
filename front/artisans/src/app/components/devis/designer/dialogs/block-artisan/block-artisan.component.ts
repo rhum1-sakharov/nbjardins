@@ -41,7 +41,7 @@ export class BlockArtisanComponent extends RvlDialog implements OnInit, OnDestro
       ville: new FormControl(devis ? devis.artisanVille : ''),
       codePostal: new FormControl(devis ? devis.artisanCodePostal : ''),
       telephone: new FormControl(devis ? devis.artisanTelephone : ''),
-      email: new FormControl(devis ? devis.artisanEmail : '', [Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
+      email: new FormControl(devis ? devis.artisanEmail : '', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
       majArtisan: new FormControl(true, Validators.required)
     })
   }
