@@ -166,9 +166,9 @@ public class ShareInfosDevisUETest {
 
         devis.setArtisanEmail(null);
 
-        final String errMsg = "L'objet devis.artisan.emailPro est obligatoire.";
+        final String errMsg = "L'objet devis.artisanEmail est obligatoire.";
 
-        Mockito.when(this.ls.getMsg(OBJECT_IS_REQUIRED, "devis.artisan.emailPro"))
+        Mockito.when(this.ls.getMsg(OBJECT_IS_REQUIRED, "devis.artisanEmail"))
                 .thenReturn(errMsg);
 
         Assertions.assertThatCode(() -> this.usecase.execute(null, devis))
