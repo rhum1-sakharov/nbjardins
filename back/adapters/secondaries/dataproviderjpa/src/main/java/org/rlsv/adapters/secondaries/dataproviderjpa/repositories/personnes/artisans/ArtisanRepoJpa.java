@@ -1,7 +1,6 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.repositories.personnes.artisans;
 
 import domains.personnes.artisans.ArtisanDN;
-import exceptions.TechnicalException;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.personnes.artisans.Artisan;
 import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.personnes.artisans.ArtisanMapper;
 import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.RepoJpa;
@@ -15,7 +14,7 @@ import transactions.DataProviderManager;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-public class ArtisanRepoJpa extends RepoJpa implements ArtisanRepoPT {
+public class ArtisanRepoJpa extends RepoJpa<ArtisanDN,Artisan> implements ArtisanRepoPT {
 
     private static final Logger LOG = LoggerFactory.getLogger(ArtisanRepoJpa.class);
 
@@ -75,10 +74,5 @@ public class ArtisanRepoJpa extends RepoJpa implements ArtisanRepoPT {
         return null;
     }
 
-    @Override
-    public ArtisanDN save(DataProviderManager dpm, ArtisanDN artisan) throws TechnicalException {
 
-        return (ArtisanDN) super.save(dpm, artisan);
-
-    }
 }

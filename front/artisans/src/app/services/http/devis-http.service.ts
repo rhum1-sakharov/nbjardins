@@ -369,7 +369,9 @@ export class DevisHttpService {
             nom
             prenom
             societe
+            email
           }
+          application
         }
         
         artisanLogo 
