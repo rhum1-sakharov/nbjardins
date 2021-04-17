@@ -235,4 +235,37 @@
         </comment>
     </changeSet>
 
+    <changeSet id="202104172216" author="rvl">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="personnes" columnName="NUMERO_TELEPHONE"></columnExists>
+        </preConditions>
+        <sql>
+            ALTER TABLE `personnes`
+            CHANGE COLUMN `NUMERO_TELEPHONE` `NUMERO_TELEPHONE` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8_general_ci' AFTER `EMAIL`;
+
+        </sql>
+        <comment>
+          Agrandir la taille du numéro de téléphone à 50 sur table personnes.
+        </comment>
+    </changeSet>
+
+    <changeSet id="202104172224" author="rvl">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="artisans"></tableExists>
+        </preConditions>
+        <sql>
+            ALTER TABLE `artisans`
+            CHANGE COLUMN `LOGO` `LOGO` VARCHAR(256) NULL COLLATE 'utf8_general_ci' AFTER `ID_CONDITION_DE_REGLEMENT`,
+            CHANGE COLUMN `EMAIL_PRO` `EMAIL_PRO` VARCHAR(50) NULL COLLATE 'utf8_general_ci' AFTER `LOGO`,
+            CHANGE COLUMN `SIGNATURE` `SIGNATURE` VARCHAR(50) NULL COLLATE 'utf8_general_ci' AFTER `EMAIL_PRO`,
+            CHANGE COLUMN `PROVISION` `PROVISION` DECIMAL(10,4) NULL COMMENT 'en euros' AFTER `SIGNATURE`,
+            CHANGE COLUMN `SIRET` `SIRET` VARCHAR(50) NULL COLLATE 'utf8_general_ci' AFTER `PROVISION`,
+            CHANGE COLUMN `VALIDITE_DEVIS_MOIS` `VALIDITE_DEVIS_MOIS` INT(10) NULL AFTER `SIRET`;
+
+        </sql>
+        <comment>
+            Rendre les champs nullable logo, email_pro, signature, provision, siret, validite_devis_mois sur la table artisans
+        </comment>
+    </changeSet>
+
 </databaseChangeLog>

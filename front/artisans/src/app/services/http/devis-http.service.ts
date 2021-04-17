@@ -507,7 +507,8 @@ export class DevisHttpService {
        ${GraphqlUtils.setInput(devis, 'artisanSignature', GRAPHQL_TYPE.STRING)}      
        ${GraphqlUtils.setInput(devis, 'artisanSiret', GRAPHQL_TYPE.STRING)}      
        ${GraphqlUtils.setInput(devis, 'artisanSociete', GRAPHQL_TYPE.STRING)}      
-       ${GraphqlUtils.setInput(devis, 'artisanFonction', GRAPHQL_TYPE.STRING)}              
+       ${GraphqlUtils.setInput(devis, 'artisanFonction', GRAPHQL_TYPE.STRING)}
+       ${GraphqlUtils.setInput(devis, 'artisanEmail', GRAPHQL_TYPE.STRING)}              
        
       }){    
         id       

@@ -164,7 +164,7 @@ public class ShareInfosDevisUETest {
     @Test
     public void when_emailpro_is_empty_throw_emailpro_is_required() throws CleanException {
 
-        devis.getArtisan().setEmailPro(null);
+        devis.setArtisanEmail(null);
 
         final String errMsg = "L'objet devis.artisan.emailPro est obligatoire.";
 
@@ -175,7 +175,7 @@ public class ShareInfosDevisUETest {
                 .isInstanceOf(ShareInfosDevisException.class)
                 .hasMessageContaining(errMsg);
 
-        devis.getArtisan().setEmailPro("");
+        devis.setArtisanEmail("");
 
         Assertions.assertThatCode(() -> this.usecase.execute(null, devis))
                 .isInstanceOf(ShareInfosDevisException.class)
@@ -205,6 +205,9 @@ public class ShareInfosDevisUETest {
 
 
     }
+
+
+
 
 
 }

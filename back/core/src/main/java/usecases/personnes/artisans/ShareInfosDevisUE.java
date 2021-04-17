@@ -53,7 +53,7 @@ public class ShareInfosDevisUE extends AbstractUsecase {
             throw new ShareInfosDevisException(ls.getMsg(OBJECT_IS_REQUIRED, "devis.artisan.personne.email"));
         }
 
-        if (StringUtils.isEmpty(devis.getArtisan().getEmailPro())) {
+        if (StringUtils.isEmpty(devis.getArtisanEmail())) {
             throw new ShareInfosDevisException(ls.getMsg(OBJECT_IS_REQUIRED, "devis.artisan.emailPro"));
         }
 
@@ -73,6 +73,8 @@ public class ShareInfosDevisUE extends AbstractUsecase {
         artisan.setEmailPro(devis.getArtisanEmail());
         artisan.setSiret(devis.getArtisanSiret());
         artisan.setSignature(devis.getArtisanSignature());
+
+
 
 
        return saveArtisanUE.execute(dpm, artisan);
