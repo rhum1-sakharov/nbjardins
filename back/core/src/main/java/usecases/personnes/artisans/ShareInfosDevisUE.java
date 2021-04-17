@@ -24,8 +24,6 @@ public class ShareInfosDevisUE extends AbstractUsecase {
 
     private static final Logger LOG = LoggerFactory.getLogger(ShareInfosDevisUE.class);
 
-    public static final String ARTISAN = "ARTISAN";
-    public static final String ARTISAN_STORE = "ARTISAN_STORE";
 
     SaveArtisanUE saveArtisanUE;
     FindByEmailUE findByEmailUE;
