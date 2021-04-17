@@ -38,7 +38,7 @@ public class GraphQLConfig {
 
     @Bean
     public DevisOptionDataFetcher devisOptionDataFetcher(FindAllByDevisUE findAllByDevisUE, usecases.devis.options.SaveOptionUE doSaveOptionUE) {
-        return new DevisOptionDataFetcher(findAllByDevisUE,doSaveOptionUE);
+        return new DevisOptionDataFetcher(findAllByDevisUE, doSaveOptionUE);
     }
 
     @Bean
@@ -50,8 +50,8 @@ public class GraphQLConfig {
     }
 
     @Bean
-    public ArtisanDataFetcher artisanDataFetcher(usecases.personnes.artisans.FindByEmailUE findByEmailUE, SaveArtisanUE saveArtisanUE) {
-        return new ArtisanDataFetcher(findByEmailUE, saveArtisanUE);
+    public ArtisanDataFetcher artisanDataFetcher(usecases.personnes.artisans.FindByEmailUE findByEmailUE, SaveArtisanUE saveArtisanUE, usecases.personnes.artisans.ShareInfosDevisUE shareInfosDevisUE) {
+        return new ArtisanDataFetcher(findByEmailUE, saveArtisanUE, shareInfosDevisUE);
     }
 
     @Bean
@@ -78,7 +78,7 @@ public class GraphQLConfig {
                                                        FindByEmailArtisanAndStatutUE findByEmailArtisanAndStatutUE,
                                                        CreateDevisATraiterUE createDevisATraiterUE,
                                                        FindByIdDevisUE findByIdDevisUE
-                                                       ) {
+    ) {
         return new DevisDataFetcher(findByEmailArtisanUE,
                 removeDevisUE,
                 changeStatusDevisUE,
@@ -87,7 +87,7 @@ public class GraphQLConfig {
                 findByEmailArtisanAndStatutUE,
                 createDevisATraiterUE,
                 findByIdDevisUE
-                );
+        );
     }
 
     @Bean

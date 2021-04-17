@@ -75,7 +75,7 @@ export class BlockClientComponent extends RvlDialog implements OnInit, OnDestroy
       this.devis.clientEmail = this.form.controls['email'].value;
 
       if (this.form.controls['majClient'].value) {
-        this.devisHttpSvc.shareInfosDevis(this.devis).subscribe();
+        this.devisHttpSvc.clientShareInfosDevis(this.devis).subscribe();
       }
 
       this.designerAnnounceSvc.announceBlockClientUpdated(this.devis);

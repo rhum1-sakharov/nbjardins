@@ -9,13 +9,13 @@ import usecases.personnes.clients.SaveClientUE;
 import usecases.personnes.clients.ShareInfosDevisUE;
 
 @Configuration
-public class ShareInfosDevisConfig {
+public class ClientShareInfosDevisConfig {
 
     @Bean
-    public ShareInfosDevisUE shareInfosDevisUE(LocalizeServicePT localizeService,
-                                               TransactionManagerPT transactionManager,
-                                               SaveClientUE saveClientUE,
-                                               FindByEmailUE clientFindByEmail
+    public ShareInfosDevisUE clientShareInfosDevisUE(LocalizeServicePT localizeService,
+                                                     TransactionManagerPT transactionManager,
+                                                     SaveClientUE saveClientUE,
+                                                     FindByEmailUE clientFindByEmail
     ) {
         return new ShareInfosDevisUE(localizeService, transactionManager, saveClientUE, clientFindByEmail);
     }

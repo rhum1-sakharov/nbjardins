@@ -176,6 +176,9 @@ public class ShareInfosDevisUETest {
         Assertions.assertThat(personne.getSociete()).isEqualTo(devis.getArtisanSociete());
         Assertions.assertThat(personne.getNumeroTelephone()).isEqualTo(devis.getArtisanTelephone());
 
+        Assertions.assertThat(artisan.getSignature()).isEqualTo(devis.getArtisanSignature());
+        Assertions.assertThat(artisan.getSiret()).isEqualTo(devis.getArtisanSiret());
+
 
 
     }

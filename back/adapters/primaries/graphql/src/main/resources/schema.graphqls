@@ -37,6 +37,7 @@ type Mutation{
     removeDevis(idDevis: IdInput!): IdResult!
     saveDevisOption(devisOption: DevisOptionInput!): DevisOption!
     clientShareInfosDevis(devis: DevisInput!): Client!
+    artisanShareInfosDevis(devis: DevisInput!): Artisan!
 }
 
 input IdInput{

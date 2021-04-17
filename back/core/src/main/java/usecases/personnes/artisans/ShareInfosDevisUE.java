@@ -66,6 +66,9 @@ public class ShareInfosDevisUE extends AbstractUsecase {
         personne.setSociete(devis.getArtisanSociete());
         personne.setNumeroTelephone(devis.getArtisanTelephone());
 
+        artisan.setSiret(devis.getArtisanSiret());
+        artisan.setSignature(devis.getArtisanSignature());
+
        return saveArtisanUE.execute(dpm, artisan);
     }
 
