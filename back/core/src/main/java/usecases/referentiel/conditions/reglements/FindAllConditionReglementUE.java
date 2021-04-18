@@ -23,7 +23,7 @@ public class FindAllConditionReglementUE extends AbstractUsecase {
     @Transactional
     public List<ConditionDeReglementDN> execute(DataProviderManager dpm) throws CleanException {
 
-        List<ConditionDeReglementDN> conditionDeReglementDNList = conditionDeReglementRepo.findAll(dpm);
+        List<ConditionDeReglementDN> conditionDeReglementDNList = conditionDeReglementRepo.findAll(dpm,ConditionDeReglementDN.class);
 
         return conditionDeReglementDNList;
     }

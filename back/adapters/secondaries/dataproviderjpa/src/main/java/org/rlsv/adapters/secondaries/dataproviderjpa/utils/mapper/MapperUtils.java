@@ -3,6 +3,7 @@ package org.rlsv.adapters.secondaries.dataproviderjpa.utils.mapper;
 import domains.Domain;
 import exceptions.TechnicalException;
 import models.Precondition;
+import org.apache.commons.collections4.CollectionUtils;
 import org.mapstruct.Mapper;
 import org.reflections.Reflections;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Entity;
@@ -10,6 +11,7 @@ import org.rlsv.adapters.secondaries.dataproviderjpa.enums.TypeConvertMapperEnum
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -80,9 +82,9 @@ public class MapperUtils {
                         SUFFIX_MAPPER);
             }
         } catch (Exception cnfe) {
-            cnfe.printStackTrace();
+
+            throw new TechnicalException(error);
         }
-        throw new TechnicalException(error);
     }
 
 
@@ -151,5 +153,70 @@ public class MapperUtils {
                 .orElseThrow(() -> new TechnicalException(error));
 
 
+    }
+
+    public static <D extends Domain, E extends Entity> List<E> mapDomainsToEntities(List<D> instances) throws TechnicalException {
+
+        if(CollectionUtils.isNotEmpty(instances)){
+
+            String domainToEntityMethod = TypeConvertMapperEnum.DOMAINS_TO_ENTITIES.getValue();
+
+            D instanceOne = instances.get(0);
+            final String domainName = instanceOne.getClass().getSimpleName();
+
+            final String error = "Le mapper du domain " + domainName + " est introuvable";
+            try {
+                Class<?> mapperClazz = findMapperClassByDomain(instanceOne).orElseThrow(() -> new TechnicalException(error));
+
+                Field fieldInstance = mapperClazz.getField(INSTANCE);
+                Class cImpl = fieldInstance.get(domainToEntityMethod).getClass();
+                Method m = cImpl.getMethod(domainToEntityMethod, List.class);
+
+                try {
+                    return (List<E>) m.invoke(cImpl.newInstance(), instances);
+                } catch (Exception e) {
+                    throw new TechnicalException("Impossible d'exécuter la fonction " + m.getName() + " pour le mapper " + mapperClazz.getSimpleName() +
+                            SUFFIX_MAPPER);
+                }
+            } catch (Exception cnfe) {
+
+                throw new TechnicalException(error);
+            }
+
+        }
+
+        return null;
+    }
+
+    public static <D extends Domain, E extends Entity> List<D> mapEntitiesToDomains(List<E> instances) throws TechnicalException {
+
+        if(CollectionUtils.isNotEmpty(instances)){
+
+            String entityToDomainMethod = TypeConvertMapperEnum.ENTITIES_TO_DOMAINS.getValue();
+
+            E instanceOne = instances.get(0);
+            final String entityName = instanceOne.getClass().getSimpleName();
+
+            final String error = "Le mapper de l'entity " + entityName + " est introuvable";
+            try {
+                Class<?> mapperClazz = findMapperClassByEntity(instanceOne).orElseThrow(() -> new TechnicalException(error));
+
+                Field fieldInstance = mapperClazz.getField(INSTANCE);
+                Class cImpl = fieldInstance.get(entityToDomainMethod).getClass();
+                Method m = cImpl.getMethod(entityToDomainMethod, List.class);
+
+                try {
+                    return (List<D>) m.invoke(cImpl.newInstance(), instances);
+                } catch (Exception e) {
+                    throw new TechnicalException("Impossible d'exécuter la fonction " + m.getName() + " pour le mapper " + mapperClazz.getSimpleName() +
+                            SUFFIX_MAPPER);
+                }
+            } catch (Exception cnfe) {
+                throw new TechnicalException(error);
+            }
+        }
+
+
+        return null;
     }
 }

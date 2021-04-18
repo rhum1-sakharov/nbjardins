@@ -8,7 +8,7 @@ import transactions.DataProviderManager;
 import java.util.Date;
 import java.util.List;
 
-public interface DevisRepoPT extends RepoPT {
+public interface DevisRepoPT  extends RepoPT<DevisDN> {
 
     Long countDevisOfMonth(DataProviderManager dpm,Date date);
 

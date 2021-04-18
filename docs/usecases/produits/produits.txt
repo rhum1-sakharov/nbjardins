@@ -1,0 +1,6 @@
+[Artisan]-(Créer un produit)
+(Créer un produit)>(SaveProduitUE)
+[Artisan]-(Modifier un produit)
+(Modifier un produit)>(SaveProduitUE)
+[Artisan]-(Supprimer un produit)
+(Supprimer un produit)>(RemoveProduitUE)

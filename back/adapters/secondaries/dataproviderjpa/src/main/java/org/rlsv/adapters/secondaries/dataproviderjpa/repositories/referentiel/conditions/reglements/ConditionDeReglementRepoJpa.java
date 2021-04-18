@@ -2,7 +2,6 @@ package org.rlsv.adapters.secondaries.dataproviderjpa.repositories.referentiel.c
 
 import domains.referentiel.condition.reglement.ConditionDeReglementDN;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.referentiel.conditions.reglements.ConditionDeReglement;
-import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.referentiel.conditions.reglements.ConditionDeReglementMapper;
 import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.RepoJpa;
 import org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence.PersistenceUtils;
 import org.slf4j.Logger;
@@ -13,9 +12,8 @@ import transactions.DataProviderManager;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import java.util.List;
 
-public class ConditionDeReglementRepoJpa extends RepoJpa implements ConditionDeReglementRepoPT {
+public class ConditionDeReglementRepoJpa extends RepoJpa<ConditionDeReglementDN,ConditionDeReglement>  implements ConditionDeReglementRepoPT {
 
     private static final Logger LOG = LoggerFactory.getLogger(ConditionDeReglementRepoJpa.class);
 
@@ -39,30 +37,5 @@ public class ConditionDeReglementRepoJpa extends RepoJpa implements ConditionDeR
 
     }
 
-    @Override
-    public ConditionDeReglementDN findFirst(DataProviderManager dpm) {
 
-        EntityManager em = PersistenceUtils.getEntityManager(dpm);
-
-        TypedQuery<ConditionDeReglement> query = em.createQuery("SELECT cdr from ConditionDeReglement  cdr ", ConditionDeReglement.class)
-                .setMaxResults(1);
-
-        ConditionDeReglement cdr= PersistenceUtils.getSingleResult(query);
-
-        return ConditionDeReglementMapper.INSTANCE.entityToDomain(cdr);
-
-    }
-
-    @Override
-    public List<ConditionDeReglementDN> findAll(DataProviderManager dpm) {
-
-        EntityManager em = PersistenceUtils.getEntityManager(dpm);
-
-        TypedQuery<ConditionDeReglement> query = em.createQuery("SELECT cr from ConditionDeReglement  cr order by cr.condition", ConditionDeReglement.class);
-
-        List<ConditionDeReglement> conditionDeReglementList = PersistenceUtils.getResultList(query);
-
-        return ConditionDeReglementMapper.INSTANCE.entitiesToDomains(conditionDeReglementList);
-
-    }
 }

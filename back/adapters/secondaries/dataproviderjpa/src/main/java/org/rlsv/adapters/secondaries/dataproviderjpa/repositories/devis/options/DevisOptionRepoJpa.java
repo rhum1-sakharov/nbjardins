@@ -15,7 +15,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-public class DevisOptionRepoJpa extends RepoJpa implements DevisOptionRepoPT {
+public class DevisOptionRepoJpa extends RepoJpa<DevisOptionDN,DevisOption>  implements DevisOptionRepoPT {
 
     private static final Logger LOG = LoggerFactory.getLogger(DevisOptionRepoJpa.class);
 

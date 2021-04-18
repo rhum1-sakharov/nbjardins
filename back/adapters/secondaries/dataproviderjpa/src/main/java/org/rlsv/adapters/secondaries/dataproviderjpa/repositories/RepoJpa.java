@@ -16,6 +16,7 @@ import transactions.DataProviderManager;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -23,7 +24,7 @@ import java.util.Objects;
 import static localizations.MessageKeys.ARG_IS_REQUIRED;
 import static localizations.MessageKeys.LIST_IS_EMPTY;
 
-public class RepoJpa<D extends Domain,E extends Entity> implements RepoPT<D> {
+public class RepoJpa<D extends Domain, E extends Entity> implements RepoPT<D> {
 
     private static final Logger LOG = LoggerFactory.getLogger(RepoJpa.class);
 
@@ -109,6 +110,17 @@ public class RepoJpa<D extends Domain,E extends Entity> implements RepoPT<D> {
         Class<E> entityClass = MapperUtils.mapDomainClassToEntityClass(domainClass);
         E instance = em.find(entityClass, id);
         return MapperUtils.mapEntityToDomain(instance);
+    }
+
+    @Override
+    public List<D> findAll(DataProviderManager dpm, Class<D> domainClass) throws TechnicalException {
+
+        EntityManager em = PersistenceUtils.getEntityManager(dpm);
+
+        TypedQuery<D> query = em.createQuery("SELECT o from " + domainClass.getSimpleName() + "  o ", domainClass);
+        List<E> instances= PersistenceUtils.getResultList(query);
+
+        return MapperUtils.mapEntitiesToDomains(instances);
     }
 
 

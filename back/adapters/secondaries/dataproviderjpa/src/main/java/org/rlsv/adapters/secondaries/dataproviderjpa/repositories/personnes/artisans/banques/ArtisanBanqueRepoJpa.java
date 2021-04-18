@@ -16,7 +16,7 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-public class ArtisanBanqueRepoJpa extends RepoJpa implements ArtisanBanqueRepoPT {
+public class ArtisanBanqueRepoJpa extends RepoJpa<ArtisanBanqueDN,ArtisanBanque>  implements ArtisanBanqueRepoPT {
 
 
     public ArtisanBanqueRepoJpa(LocalizeServicePT localizeService) {

@@ -1,18 +1,13 @@
 package ports.repositories.personnes;
 
 import domains.personnes.PersonneDN;
-import exceptions.PersistenceException;
+import ports.repositories.RepoPT;
 import transactions.DataProviderManager;
 
-public interface PersonneRepoPT {
-
-
-    PersonneDN saveClient(DataProviderManager dpm, PersonneDN personneDN) throws PersistenceException;
+public interface PersonneRepoPT  extends RepoPT<PersonneDN> {
 
     PersonneDN findByEmail(DataProviderManager dpm, String email);
 
     String findIdByEmail(DataProviderManager dpm, String email);
 
-
-    PersonneDN save(DataProviderManager dpm, PersonneDN personne);
 }

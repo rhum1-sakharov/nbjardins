@@ -3,6 +3,7 @@ package org.rlsv.adapters.secondaries.dataproviderjpa.utils.mapper;
 import domains.Domain;
 import domains.personnes.artisans.ArtisanBanqueDN;
 import domains.personnes.artisans.ArtisanDN;
+import domains.referentiel.taxes.TaxeDN;
 import exceptions.TechnicalException;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
@@ -14,8 +15,12 @@ import org.reflections.Reflections;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Entity;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.personnes.artisans.Artisan;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.personnes.artisans.banques.ArtisanBanque;
+import org.rlsv.adapters.secondaries.dataproviderjpa.entities.referentiel.taxes.Taxe;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MapperUtilsTest {
@@ -102,6 +107,48 @@ public class MapperUtilsTest {
         Assertions.assertThat(domain.getBanque()).isEqualTo("banque populaire");
         Assertions.assertThat(domain.getIban()).isEqualTo("ggg");
         Assertions.assertThat(domain.getRib()).isEqualTo("eee");
+
+    }
+
+    @Test
+    public void mapEntitiesToDomains() throws TechnicalException {
+
+
+
+        Taxe t1 = new Taxe();
+        t1.setId("1");
+        Taxe t2 = new Taxe();
+        t2.setId("2");
+
+        List<Taxe> taxes= Stream.of(t1,t2).collect(Collectors.toList());
+
+        List<TaxeDN> domainList = MapperUtils.mapEntitiesToDomains(taxes);
+
+        Assertions.assertThat(domainList).isNotNull();
+        Assertions.assertThat(domainList).hasSize(2);
+        Assertions.assertThat(domainList.get(0).getId()).isEqualTo("1");
+        Assertions.assertThat(domainList.get(1).getId()).isEqualTo("2");
+
+    }
+
+    @Test
+    public void mapDomainsToEntities() throws TechnicalException {
+
+
+
+        TaxeDN t1 = new TaxeDN();
+        t1.setId("1");
+        TaxeDN t2 = new TaxeDN();
+        t2.setId("2");
+
+        List<TaxeDN> taxes= Stream.of(t1,t2).collect(Collectors.toList());
+
+        List<Taxe> entitiesList = MapperUtils.mapDomainsToEntities(taxes);
+
+        Assertions.assertThat(entitiesList).isNotNull();
+        Assertions.assertThat(entitiesList).hasSize(2);
+        Assertions.assertThat(entitiesList.get(0).getId()).isEqualTo("1");
+        Assertions.assertThat(entitiesList.get(1).getId()).isEqualTo("2");
 
     }
 

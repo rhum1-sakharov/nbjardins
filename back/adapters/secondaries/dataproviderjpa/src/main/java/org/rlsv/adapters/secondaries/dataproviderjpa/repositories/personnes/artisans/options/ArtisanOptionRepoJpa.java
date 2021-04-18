@@ -16,7 +16,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-public class ArtisanOptionRepoJpa extends RepoJpa implements ArtisanOptionRepoPT {
+public class ArtisanOptionRepoJpa extends RepoJpa<ArtisanOptionDN,ArtisanOption>  implements ArtisanOptionRepoPT {
 
     private static final Logger LOG = LoggerFactory.getLogger(ArtisanOptionRepoJpa.class);
 

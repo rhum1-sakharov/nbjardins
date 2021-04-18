@@ -16,4 +16,6 @@ public interface RepoPT<D extends Domain> {
 
     D findById(DataProviderManager dpm,Class<D> domainClass, String id) throws TechnicalException;
 
+    List<D> findAll(DataProviderManager dpm, Class<D> domainClass) throws TechnicalException;
+
 }

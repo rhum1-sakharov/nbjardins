@@ -1,15 +1,11 @@
 package ports.repositories.referentiel.conditions.reglements;
 
 import domains.referentiel.condition.reglement.ConditionDeReglementDN;
+import ports.repositories.RepoPT;
 import transactions.DataProviderManager;
 
-import java.util.List;
-
-public interface ConditionDeReglementRepoPT {
+public interface ConditionDeReglementRepoPT  extends RepoPT<ConditionDeReglementDN> {
 
     String findConditionByEmailArtisan(DataProviderManager dpm, String email);
 
-    ConditionDeReglementDN findFirst(DataProviderManager dpm);
-
-    List<ConditionDeReglementDN> findAll(DataProviderManager dpm);
 }

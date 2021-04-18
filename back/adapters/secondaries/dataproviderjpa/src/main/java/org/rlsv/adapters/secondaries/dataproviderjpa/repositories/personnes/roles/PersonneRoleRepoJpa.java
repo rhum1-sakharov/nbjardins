@@ -23,7 +23,7 @@ import java.util.Objects;
 
 import static localizations.MessageKeys.JPA_ERREUR_SAUVEGARDE_CLIENT;
 
-public class PersonneRoleRepoJpa extends RepoJpa implements PersonneRoleRepoPT {
+public class PersonneRoleRepoJpa extends RepoJpa<Personne__RoleDN,Personne__Role>  implements PersonneRoleRepoPT {
 
     private static final Logger LOG = LoggerFactory.getLogger(PersonneRoleRepoJpa.class);
 

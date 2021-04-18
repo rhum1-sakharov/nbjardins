@@ -3,13 +3,13 @@ package ports.repositories.referentiel.roles;
 import domains.personnes.PersonneDN;
 import domains.referentiel.roles.RoleDN;
 import exceptions.PersistenceException;
+import ports.repositories.RepoPT;
 import transactions.DataProviderManager;
 
 import java.util.List;
 
-public interface RoleRepoPT  {
+public interface RoleRepoPT  extends RepoPT<RoleDN> {
 
-    RoleDN findByNom(DataProviderManager dpm, String nom) throws PersistenceException;
 
     String findIdByNom(DataProviderManager dpm,String nom) throws PersistenceException;
 

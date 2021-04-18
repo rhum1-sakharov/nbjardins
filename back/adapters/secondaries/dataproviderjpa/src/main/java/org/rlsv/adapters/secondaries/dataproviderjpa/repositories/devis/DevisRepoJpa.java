@@ -20,7 +20,7 @@ import javax.persistence.TypedQuery;
 import java.util.Date;
 import java.util.List;
 
-public class DevisRepoJpa extends RepoJpa implements DevisRepoPT {
+public class DevisRepoJpa extends RepoJpa<DevisDN,Devis>  implements DevisRepoPT {
 
     private static final Logger LOG = LoggerFactory.getLogger(DevisRepoJpa.class);
 

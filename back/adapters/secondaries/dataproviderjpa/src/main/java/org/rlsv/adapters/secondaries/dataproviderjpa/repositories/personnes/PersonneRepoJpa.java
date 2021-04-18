@@ -1,8 +1,6 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.repositories.personnes;
 
 import domains.personnes.PersonneDN;
-import enums.ROLES;
-import exceptions.PersistenceException;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.personnes.Personne;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.personnes.roles.Personne__Role;
 import org.rlsv.adapters.secondaries.dataproviderjpa.mappers.personnes.PersonneMapper;
@@ -16,12 +14,8 @@ import transactions.DataProviderManager;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import java.util.Objects;
 
-import static localizations.MessageKeys.CLIENT_ARTISAN_CONFLIT_SAUVEGARDE;
-import static localizations.MessageKeys.JPA_ERREUR_SAUVEGARDE_CLIENT;
-
-public class PersonneRepoJpa extends RepoJpa implements PersonneRepoPT {
+public class PersonneRepoJpa extends RepoJpa<PersonneDN,Personne>  implements PersonneRepoPT {
 
     private static final Logger LOG = LoggerFactory.getLogger(PersonneRepoJpa.class);
 
@@ -30,35 +24,7 @@ public class PersonneRepoJpa extends RepoJpa implements PersonneRepoPT {
     }
 
 
-    @Override
-    public PersonneDN saveClient(DataProviderManager dpm, PersonneDN personneDN) throws PersistenceException {
 
-        try {
-
-            Personne personne = PersonneMapper.INSTANCE.domainToEntity(personneDN);
-
-            Personne personneDb = findEntityByEmail(dpm, personneDN.getEmail());
-
-            if (Objects.nonNull(personneDb)) {
-
-                Personne__Role prDb = findByEmailAndNomRole(dpm, personneDb.getEmail(), ROLES.ROLE_ARTISAN.getValue());
-                if (Objects.nonNull(prDb)) {
-                    throw new PersistenceException(String.format("Impossible de modifier l'artisan %s, alors qu'on veut enregistrer un client !", personneDb.getEmail()),
-                            null, CLIENT_ARTISAN_CONFLIT_SAUVEGARDE, new String[]{personneDb.getEmail()});
-                }
-
-                personne.setId(personneDb.getId());
-            }
-
-            save(dpm, personne);
-
-            return PersonneMapper.INSTANCE.entityToDomain(personne);
-
-        } catch (Exception ex) {
-            LOG.error(ex.getMessage());
-            throw new PersistenceException(ex.getMessage(), ex, JPA_ERREUR_SAUVEGARDE_CLIENT, new String[]{personneDN.getEmail()});
-        }
-    }
 
     @Override
     public PersonneDN findByEmail(DataProviderManager dpm, String email) {

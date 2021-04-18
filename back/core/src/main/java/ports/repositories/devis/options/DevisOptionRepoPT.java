@@ -6,7 +6,7 @@ import transactions.DataProviderManager;
 
 import java.util.List;
 
-public interface DevisOptionRepoPT extends RepoPT {
+public interface DevisOptionRepoPT  extends RepoPT<DevisOptionDN> {
 
     List<DevisOptionDN> findAllByIdDevis(DataProviderManager dpm, String idDevis);
 }

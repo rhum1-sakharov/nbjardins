@@ -17,7 +17,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-public class RoleRepoJpa extends RepoJpa implements RoleRepoPT {
+public class RoleRepoJpa extends RepoJpa<RoleDN,Role>  implements RoleRepoPT {
 
     private static final Logger LOG = LoggerFactory.getLogger(RoleRepoJpa.class);
 
@@ -26,19 +26,6 @@ public class RoleRepoJpa extends RepoJpa implements RoleRepoPT {
     }
 
 
-    @Override
-    public RoleDN findByNom(DataProviderManager dpm, String nom) throws PersistenceException {
-
-        EntityManager em = PersistenceUtils.getEntityManager(dpm);
-
-        TypedQuery<Role> query = em.createQuery("SELECT r from Role r where r.nom=:nom", Role.class);
-        query.setParameter("nom", nom);
-
-        Role role = PersistenceUtils.getSingleResult(query);
-
-        return RoleMapper.INSTANCE.entityToDomain(role);
-
-    }
 
     @Override
     public String findIdByNom(DataProviderManager dpm, String nom) throws PersistenceException {
