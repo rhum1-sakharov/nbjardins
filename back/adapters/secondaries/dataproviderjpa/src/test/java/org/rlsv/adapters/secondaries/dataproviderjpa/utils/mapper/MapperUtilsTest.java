@@ -113,8 +113,6 @@ public class MapperUtilsTest {
     @Test
     public void mapEntitiesToDomains() throws TechnicalException {
 
-
-
         Taxe t1 = new Taxe();
         t1.setId("1");
         Taxe t2 = new Taxe();
@@ -133,8 +131,6 @@ public class MapperUtilsTest {
 
     @Test
     public void mapDomainsToEntities() throws TechnicalException {
-
-
 
         TaxeDN t1 = new TaxeDN();
         t1.setId("1");
