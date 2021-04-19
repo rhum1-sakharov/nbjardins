@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="202012121823-4" author="rvl" >
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="produits"></tableExists>
+            </not>
+        </preConditions>
+        <sql>
+            CREATE TABLE `produits` (
+            `ID` VARCHAR(36) NOT NULL,
+            `ID_TAXE` VARCHAR(36) NOT NULL,
+            `LIBELLE` VARCHAR(50) NOT NULL,
+            `DESCRIPTION` VARCHAR(255) NOT NULL,
+            `PRIX_UNITAIRE_HT` DECIMAL(10,4) NOT NULL DEFAULT 0,
+            PRIMARY KEY (`ID`),
+            INDEX `ID_TAXE` (`ID_TAXE`),
+            UNIQUE INDEX `unique_libelle_idx` (`LIBELLE`),
+            CONSTRAINT `FK__produits__taxes` FOREIGN KEY (`ID_TAXE`) REFERENCES `taxes` (`ID`)
+            )
+            COLLATE='utf8_general_ci'
+            ;
+
+        </sql>
+        <comment>
+            Creation de la table produits
+        </comment>
+    </changeSet>
+
+   </databaseChangeLog>
