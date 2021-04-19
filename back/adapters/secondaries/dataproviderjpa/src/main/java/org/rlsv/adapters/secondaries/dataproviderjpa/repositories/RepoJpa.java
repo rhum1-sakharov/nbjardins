@@ -117,7 +117,9 @@ public class RepoJpa<D extends Domain, E extends Entity> implements RepoPT<D> {
 
         EntityManager em = PersistenceUtils.getEntityManager(dpm);
 
-        TypedQuery<D> query = em.createQuery("SELECT o from " + domainClass.getSimpleName() + "  o ", domainClass);
+        Class<E> entityClass = MapperUtils.mapDomainClassToEntityClass(domainClass);
+
+        TypedQuery<E> query = em.createQuery("SELECT o from " + entityClass.getSimpleName() + "  o ", entityClass);
         List<E> instances= PersistenceUtils.getResultList(query);
 
         return MapperUtils.mapEntitiesToDomains(instances);

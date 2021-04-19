@@ -1,11 +1,11 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.entities.produits;
 
-import domains.referentiel.taxes.TaxeDN;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Entity;
+import org.rlsv.adapters.secondaries.dataproviderjpa.entities.referentiel.taxes.Taxe;
 
 import javax.persistence.Column;
 import javax.persistence.JoinColumn;
@@ -29,7 +29,7 @@ public class Produit extends Entity {
 
     @ManyToOne
     @JoinColumn(name = "ID_TAXE")
-    private TaxeDN taxe;
+    private Taxe taxe;
 
     @Column(name="PRIX_UNITAIRE_HT")
     private BigDecimal prixUnitaireHT;
