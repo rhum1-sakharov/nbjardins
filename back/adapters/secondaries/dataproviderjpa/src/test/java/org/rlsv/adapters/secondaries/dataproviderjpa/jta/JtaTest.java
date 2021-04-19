@@ -1,8 +1,8 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.jta;
 
+import init.InitDb;
 import org.junit.Before;
 import org.junit.Test;
-import org.rlsv.adapters.secondaries.dataproviderjpa.config.DatabaseConnectionConfig;
 import org.rlsv.adapters.secondaries.dataproviderjpa.config.JtaConfig;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.personnes.Personne;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.referentiel.roles.Role;
@@ -20,13 +20,7 @@ public class JtaTest {
 
     @Before
     public void setUp() {
-
-        String user = "root";
-        String password = "";
-        String url = "jdbc:mysql://localhost:3306/unit_tests_nbjardins?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-        String driver = "com.mysql.cj.jdbc.Driver";
-
-        JtaConfig.databaseConnectionConfig = new DatabaseConnectionConfig(user, password, url, driver, PERSISTENCE_UNIT_RLSV);
+        InitDb.init();
     }
 
 

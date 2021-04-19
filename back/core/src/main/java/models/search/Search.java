@@ -1,6 +1,7 @@
 package models.search;
 
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import models.search.filter.Filter;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@Builder
 public class Search {
 
     private Page page;
