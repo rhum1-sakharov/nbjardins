@@ -54,7 +54,7 @@ public class SaveProduitUETest {
     @Test
     public void should_not_return_null() throws CleanException {
 
-        ProduitDN produit = ProduitDN.builder().build();
+        ProduitDN produit =new  ProduitDN();
         produit.setId("1");
 
         Mockito.when(produitRepo.save(Mockito.any(), Mockito.any(ProduitDN.class))).thenReturn(produit);

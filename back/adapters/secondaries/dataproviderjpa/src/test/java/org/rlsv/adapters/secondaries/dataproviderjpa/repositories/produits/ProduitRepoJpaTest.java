@@ -101,20 +101,20 @@ public class ProduitRepoJpaTest {
         taxe2.setTaux(new BigDecimal(20));
         taxe2 = taxeRepoJpa.save(dpm, taxe2);
 
-        ProduitDN p1 = ProduitDN.builder()
-                .libelle("p1")
-                .description("p1 desc")
-                .prixUnitaireHT(new BigDecimal(1.54))
-                .taxe(taxe1)
-                .build();
+        ProduitDN p1 = new ProduitDN();
+        p1.setLibelle("p1");
+                p1.setDescription("p1 desc");
+                p1.setPrixUnitaireHT(new BigDecimal(1.54));
+                p1.setTaxe(taxe1);
+
         this.usecase.save(dpm, p1);
 
-        ProduitDN p2 = ProduitDN.builder()
-                .libelle("p2")
-                .description("p2 desc")
-                .prixUnitaireHT(new BigDecimal(95.45))
-                .taxe(taxe2)
-                .build();
+        ProduitDN p2 =new ProduitDN();
+                p2.setLibelle("p2");
+                p2.setDescription("p2 desc");
+                p2.setPrixUnitaireHT(new BigDecimal(95.45));
+                p2.setTaxe(taxe2);
+
         this.usecase.save(dpm, p2);
 
         tm.commit(dpm);
