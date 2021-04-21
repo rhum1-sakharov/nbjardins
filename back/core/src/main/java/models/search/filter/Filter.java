@@ -11,8 +11,9 @@ import lombok.Setter;
 @Builder
 public class Filter {
 
-   private String key;
-   private OPERATOR operator;
-   private String value;
+    private String key;
+    private OPERATOR operator;
+    private String value;
+
 
 }

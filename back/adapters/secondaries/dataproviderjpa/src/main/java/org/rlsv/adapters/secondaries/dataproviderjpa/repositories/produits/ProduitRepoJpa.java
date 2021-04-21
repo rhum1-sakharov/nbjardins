@@ -2,6 +2,7 @@ package org.rlsv.adapters.secondaries.dataproviderjpa.repositories.produits;
 
 import domains.produits.ProduitDN;
 import models.search.Search;
+import models.search.response.SearchResponse;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.produits.Produit;
 import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.RepoJpa;
 import org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence.PersistenceUtils;
@@ -12,7 +13,6 @@ import ports.repositories.produits.ProduitRepoPT;
 import transactions.DataProviderManager;
 
 import javax.persistence.EntityManager;
-import java.util.List;
 
 public class ProduitRepoJpa extends RepoJpa<ProduitDN, Produit> implements ProduitRepoPT {
 
@@ -24,7 +24,7 @@ public class ProduitRepoJpa extends RepoJpa<ProduitDN, Produit> implements Produ
 
 
     @Override
-    public List<ProduitDN> search(DataProviderManager dpm, Search search) {
+    public SearchResponse<ProduitDN> search(DataProviderManager dpm, Search search) {
 
         EntityManager em = PersistenceUtils.getEntityManager(dpm);
 

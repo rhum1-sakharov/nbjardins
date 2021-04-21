@@ -25,6 +25,8 @@ public class MessageKeys {
     public static final String USER_HAS_NO_ROLE = "user.has.no.role";
     public static final String TOKEN_NOT_VALID = "token.not.valid";
     public static final String ARG_IS_REQUIRED = "arg.is.required";
+    public static final String FILTER_KEY_IS_UNKNOWN = "filter.key.is.unknown";
+    public static final String SORT_KEY_IS_UNKNOWN = "sort.key.is.unknown";
     public static final String LIST_IS_EMPTY= "list.is.empty";
 
     // ARTISAN

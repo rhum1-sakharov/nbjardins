@@ -2,12 +2,11 @@ package ports.repositories.produits;
 
 import domains.produits.ProduitDN;
 import models.search.Search;
+import models.search.response.SearchResponse;
 import ports.repositories.RepoPT;
 import transactions.DataProviderManager;
 
-import java.util.List;
-
 public interface ProduitRepoPT extends RepoPT<ProduitDN> {
 
-    List<ProduitDN> search(DataProviderManager dpm, Search search);
+    SearchResponse<ProduitDN> search(DataProviderManager dpm, Search search);
 }

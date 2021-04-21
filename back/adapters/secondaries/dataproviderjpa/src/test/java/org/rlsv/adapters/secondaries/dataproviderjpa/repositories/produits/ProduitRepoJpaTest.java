@@ -33,7 +33,7 @@ import java.util.stream.Stream;
 @RunWith(MockitoJUnitRunner.class)
 public class ProduitRepoJpaTest {
 
-    ProduitRepoJpa usecase;
+    ProduitRepoJpa repo;
     TaxeRepoJpa taxeRepoJpa;
 
     TransactionManagerPT tm;
@@ -54,7 +54,7 @@ public class ProduitRepoJpaTest {
         this.tm = new TransactionManagerAR();
         this.dpm = this.tm.createDataProviderManager(null);
 
-        this.usecase = new ProduitRepoJpa(ls);
+        this.repo = new ProduitRepoJpa(ls);
         this.taxeRepoJpa = new TaxeRepoJpa(ls);
 
         this.reset();
@@ -77,7 +77,7 @@ public class ProduitRepoJpaTest {
                 .build();
 
         // TODO
-        this.usecase.search(this.dpm, search);
+        this.repo.search(this.dpm, search);
 
     }
 
@@ -101,21 +101,24 @@ public class ProduitRepoJpaTest {
         taxe2.setTaux(new BigDecimal(20));
         taxe2 = taxeRepoJpa.save(dpm, taxe2);
 
-        ProduitDN p1 = new ProduitDN();
-        p1.setLibelle("p1");
-                p1.setDescription("p1 desc");
-                p1.setPrixUnitaireHT(new BigDecimal(1.54));
-                p1.setTaxe(taxe1);
+        for (int i=0;i<25;i++) {
+            ProduitDN p = new ProduitDN();
+            p.setLibelle("p"+i);
+            p.setDescription("p"+i+" description");
+            p.setPrixUnitaireHT(new BigDecimal(1.54).add(new BigDecimal(i)));
+            p.setTaxe(taxe1);
+            this.repo.save(dpm, p);
+        }
 
-        this.usecase.save(dpm, p1);
+        for (int i=25;i<=50;i++) {
+            ProduitDN p = new ProduitDN();
+            p.setLibelle("p"+i);
+            p.setDescription("p"+i+" description");
+            p.setPrixUnitaireHT(new BigDecimal(2.4).add(new BigDecimal(i)));
+            p.setTaxe(taxe2);
+            this.repo.save(dpm, p);
+        }
 
-        ProduitDN p2 =new ProduitDN();
-                p2.setLibelle("p2");
-                p2.setDescription("p2 desc");
-                p2.setPrixUnitaireHT(new BigDecimal(95.45));
-                p2.setTaxe(taxe2);
-
-        this.usecase.save(dpm, p2);
 
         tm.commit(dpm);
     }
@@ -124,12 +127,12 @@ public class ProduitRepoJpaTest {
 
         tm.begin(dpm);
 
-        List<ProduitDN> produitDNList = this.usecase.findAll(this.dpm, ProduitDN.class);
+        List<ProduitDN> produitDNList = this.repo.findAll(this.dpm, ProduitDN.class);
 
         if (CollectionUtils.isNotEmpty(produitDNList)) {
             produitDNList.forEach(item -> {
                 try {
-                    this.usecase.deleteById(this.dpm, ProduitDN.class, item.getId());
+                    this.repo.deleteById(this.dpm, ProduitDN.class, item.getId());
                 } catch (TechnicalException e) {
                     e.printStackTrace();
                 }
