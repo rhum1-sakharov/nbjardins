@@ -52,10 +52,23 @@ public class SearchFilterHelperTest {
                         .build())
                 .collect(Collectors.toList());
 
-        Assertions.assertThatCode(() -> this.helper.checkFilters(filters,ProduitKey.class))
+        Assertions.assertThatCode(() -> this.helper.checkFilters(filters, ProduitKey.class))
                 .isInstanceOf(TechnicalException.class)
                 .hasMessageContaining(errMsgArtisanOption)
         ;
+    }
+
+    @Test
+    public void when_filter_value_is_null_or_empty_should_throw_exception() {
+
+
+        final String err = "La valeur est obligatoire pour la clé LIBELLE.";
+
+        //TODO
+
+        Assertions.assertThatCode(() -> this.helper.checkFilters(null, ProduitKey.class))
+                .isInstanceOf(TechnicalException.class)
+                .hasMessageContaining(err);
     }
 
     @Test
@@ -68,13 +81,13 @@ public class SearchFilterHelperTest {
         Mockito.when(this.ls.getMsg(SORT_KEY_IS_UNKNOWN, unknownKey, ProduitKey.class.getSimpleName()))
                 .thenReturn(errMsgArtisanOption);
 
-           List<Sort> sorts = Stream.of(
+        List<Sort> sorts = Stream.of(
                 Sort.builder()
                         .key(unknownKey)
                         .build())
                 .collect(Collectors.toList());
 
-        Assertions.assertThatCode(() -> this.helper.checkSorts(sorts,ProduitKey.class))
+        Assertions.assertThatCode(() -> this.helper.checkSorts(sorts, ProduitKey.class))
                 .isInstanceOf(TechnicalException.class)
                 .hasMessageContaining(errMsgArtisanOption)
         ;
@@ -98,7 +111,7 @@ public class SearchFilterHelperTest {
 
         Search search = Search.builder().filters(filters).build();
 
-        Assertions.assertThatCode(() -> this.helper.checkSearch(search,ProduitKey.class))
+        Assertions.assertThatCode(() -> this.helper.checkSearch(search, ProduitKey.class))
                 .isInstanceOf(TechnicalException.class)
                 .hasMessageContaining(errMsgArtisanOption)
         ;
@@ -122,7 +135,7 @@ public class SearchFilterHelperTest {
 
         Search search = Search.builder().sorts(sorts).build();
 
-        Assertions.assertThatCode(() -> this.helper.checkSearch(search,ProduitKey.class))
+        Assertions.assertThatCode(() -> this.helper.checkSearch(search, ProduitKey.class))
                 .isInstanceOf(TechnicalException.class)
                 .hasMessageContaining(errMsgArtisanOption)
         ;
