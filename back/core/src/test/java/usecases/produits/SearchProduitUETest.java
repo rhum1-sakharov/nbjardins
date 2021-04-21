@@ -42,14 +42,14 @@ public class SearchProduitUETest {
     @Test
     public void when_args_are_null_should_throw_exception() {
 
-        final String errMsgArtisanOption = "L'argument recherche produit est obligatoire.";
+        final String err = "L'argument recherche produit est obligatoire.";
 
         Mockito.when(this.ls.getMsg(ARG_IS_REQUIRED, "recherche produit"))
-                .thenReturn(errMsgArtisanOption);
+                .thenReturn(err);
 
         Assertions.assertThatCode(() -> this.usecase.execute(null, null))
                 .isInstanceOf(TechnicalException.class)
-                .hasMessageContaining(errMsgArtisanOption)
+                .hasMessageContaining(err)
         ;
     }
 
