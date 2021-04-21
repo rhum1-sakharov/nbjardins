@@ -39,7 +39,7 @@ public class JpqlSearchUtilsTest {
     }
 
     @Test
-    public void filters_have_2_contains_should_concatenate_with_and() {
+    public void filters_with_2_contains_should_concatenate_with_and() {
 
         final String produitLibelleAlias = "produit.libelle";
         FilterAlias filterLibelleAlias = new FilterAlias(ProduitKey.LIBELLE, OPERATOR.CONTAINS, "p", produitLibelleAlias);
