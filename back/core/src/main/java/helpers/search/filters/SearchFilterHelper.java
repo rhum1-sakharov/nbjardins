@@ -61,7 +61,7 @@ public class SearchFilterHelper<DK extends DomainKey> {
 
                 switch (filter.getOperator()) {
                     case ID_IN:
-                        if(Objects.isNull(filter.getIdList())){
+                        if(CollectionUtils.isEmpty(filter.getIdList())){
                             err.append(ls.getMsg(FILTER_VALUE_IS_NOT_A_LIST, kfClass.getSimpleName(), filter.getKey())).append(System.lineSeparator());
                         }
                         break;
