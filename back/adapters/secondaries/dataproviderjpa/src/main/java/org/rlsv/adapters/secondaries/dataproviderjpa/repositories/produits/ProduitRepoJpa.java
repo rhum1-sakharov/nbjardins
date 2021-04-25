@@ -28,6 +28,7 @@ public class ProduitRepoJpa extends RepoJpa<ProduitDN, Produit> implements Produ
 
         EntityManager em = PersistenceUtils.getEntityManager(dpm);
 
+
         return null;
     }
 }

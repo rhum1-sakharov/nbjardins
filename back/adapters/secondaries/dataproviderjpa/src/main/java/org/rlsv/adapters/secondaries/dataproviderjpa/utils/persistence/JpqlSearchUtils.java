@@ -1,17 +1,22 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence;
 
 import org.apache.commons.collections4.CollectionUtils;
+import org.rlsv.adapters.secondaries.dataproviderjpa.enums.SqlOperator;
 import org.rlsv.adapters.secondaries.dataproviderjpa.models.search.filters.FilterAlias;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
+import static org.rlsv.adapters.secondaries.dataproviderjpa.enums.SqlOperator.*;
+
 public class JpqlSearchUtils {
 
     private static final Logger LOG = LoggerFactory.getLogger(JpqlSearchUtils.class);
+
     private static final String SPACE = " ";
     private static final String LIKE_OPERATOR = "%";
+
 
     public static String buildFilters(List<FilterAlias> filterAliasList) {
         StringBuilder sb = new StringBuilder();
@@ -23,6 +28,21 @@ public class JpqlSearchUtils {
                 switch (filterAlias.getOperator()) {
                     case CONTAINS:
                         sb.append(contains(filterAlias));
+                        break;
+                    case STARTS_WITH:
+                        sb.append(startsWith(filterAlias));
+                        break;
+                    case GT:
+                        sb.append(greaterOrLessOperators(filterAlias, GT));
+                        break;
+                    case GTE:
+                        sb.append(greaterOrLessOperators(filterAlias, GTE));
+                        break;
+                    case LT:
+                        sb.append(greaterOrLessOperators(filterAlias, LT));
+                        break;
+                    case LTE:
+                        sb.append(greaterOrLessOperators(filterAlias, LTE));
                         break;
                     default:
                         break;
@@ -41,6 +61,23 @@ public class JpqlSearchUtils {
         return sb.toString();
     }
 
+    private static String greaterOrLessOperators(FilterAlias filterAlias, SqlOperator sqlOperator) {
+
+        StringBuilder sb = new StringBuilder();
+
+        String value = filterAlias.getValue().replace(",", ".");
+
+        sb.append(SPACE)
+                .append(filterAlias.getAlias())
+                .append(SPACE)
+                .append(sqlOperator.getValue())
+                .append(SPACE)
+                .append(value)
+                .append(SPACE);
+
+        return sb.toString();
+    }
+
     public static String contains(FilterAlias filterAlias) {
         StringBuilder sb = new StringBuilder();
 
@@ -50,9 +87,26 @@ public class JpqlSearchUtils {
         sb.append(SPACE)
                 .append(filterAlias.getAlias())
                 .append(SPACE)
-                .append("LIKE")
+                .append(SqlOperator.LIKE.getValue())
                 .append(SPACE)
                 .append("'" + LIKE_OPERATOR + value + LIKE_OPERATOR + "'")
+                .append(SPACE);
+
+        return sb.toString();
+    }
+
+    public static String startsWith(FilterAlias filterAlias) {
+        StringBuilder sb = new StringBuilder();
+
+        String value = filterAlias.getValue().replace("'", "''");
+        value = value.replace(SPACE, LIKE_OPERATOR);
+
+        sb.append(SPACE)
+                .append(filterAlias.getAlias())
+                .append(SPACE)
+                .append(SqlOperator.LIKE.getValue())
+                .append(SPACE)
+                .append("'" + value + LIKE_OPERATOR + "'")
                 .append(SPACE);
 
         return sb.toString();

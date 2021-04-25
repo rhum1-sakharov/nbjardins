@@ -8,6 +8,7 @@ public enum OPERATOR {
     LT("LESS_THAN"),
     LTE("LESS_THAN_OR_EQUALS"),
     CONTAINS("CONTAINS"),
+    EQUALS("EQUALS"),
     STARTS_WITH("STARTS_WITH"),
     ID_IN("ID_IN");
 
