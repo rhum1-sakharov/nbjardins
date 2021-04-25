@@ -54,7 +54,7 @@ public class SearchFilterHelper<DK extends DomainKey> {
         StringBuilder err = new StringBuilder();
 
 
-        if (ArrayUtils.isNotEmpty(fields)
+         if (ArrayUtils.isNotEmpty(fields)
                 && CollectionUtils.isNotEmpty(filters)) {
 
             for (Filter filter : filters) {

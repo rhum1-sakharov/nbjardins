@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static enums.search.filter.OPERATOR.CONTAINS;
 import static localizations.MessageKeys.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -58,18 +59,7 @@ public class SearchFilterHelperTest {
         ;
     }
 
-    @Test
-    public void when_filter_value_is_null_or_empty_should_throw_exception() {
 
-
-        final String err = "La valeur est obligatoire pour la clé LIBELLE.";
-
-        //TODO
-
-        Assertions.assertThatCode(() -> this.helper.checkFilters(null, ProduitKey.class))
-                .isInstanceOf(TechnicalException.class)
-                .hasMessageContaining(err);
-    }
 
     @Test
     public void when_sort_key_is_unknown_should_throw_exception() {
@@ -154,6 +144,7 @@ public class SearchFilterHelperTest {
                 Filter.builder()
                         .key(key)
                         .value(null)
+                        .operator(CONTAINS)
                         .build())
                 .collect(Collectors.toList());
 
