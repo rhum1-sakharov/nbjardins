@@ -4,6 +4,8 @@ package models.search.filter;
 import enums.search.filter.OPERATOR;
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Builder
@@ -14,6 +16,7 @@ public class Filter {
     private String key;
     private OPERATOR operator;
     private String value;
+    private List<String> idList;
 
 
 }

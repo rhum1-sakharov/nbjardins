@@ -1,5 +1,6 @@
 package helpers.search.filters;
 
+import enums.search.filter.OPERATOR;
 import exceptions.TechnicalException;
 import keys.produit.ProduitKey;
 import models.search.Search;
@@ -18,8 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static localizations.MessageKeys.FILTER_KEY_IS_UNKNOWN;
-import static localizations.MessageKeys.SORT_KEY_IS_UNKNOWN;
+import static localizations.MessageKeys.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SearchFilterHelperTest {
@@ -40,11 +40,11 @@ public class SearchFilterHelperTest {
     public void when_filter_key_is_unknown_should_throw_exception() {
 
         final String unknownKey = "toto";
-        final String errMsgArtisanOption = "La clé de filtre " + unknownKey + " n'existe pas dans ProduitKeyFilter.";
+        final String errMsg = "La clé de filtre " + unknownKey + " n'existe pas dans ProduitKeyFilter.";
 
 
         Mockito.when(this.ls.getMsg(FILTER_KEY_IS_UNKNOWN, unknownKey, ProduitKey.class.getSimpleName()))
-                .thenReturn(errMsgArtisanOption);
+                .thenReturn(errMsg);
 
         List<Filter> filters = Stream.of(
                 Filter.builder()
@@ -54,7 +54,7 @@ public class SearchFilterHelperTest {
 
         Assertions.assertThatCode(() -> this.helper.checkFilters(filters, ProduitKey.class))
                 .isInstanceOf(TechnicalException.class)
-                .hasMessageContaining(errMsgArtisanOption)
+                .hasMessageContaining(errMsg)
         ;
     }
 
@@ -75,11 +75,11 @@ public class SearchFilterHelperTest {
     public void when_sort_key_is_unknown_should_throw_exception() {
 
         final String unknownKey = "toto";
-        final String errMsgArtisanOption = "La clé de tri " + unknownKey + " n'existe pas dans ProduitKey.";
+        final String errMsg = "La clé de tri " + unknownKey + " n'existe pas dans ProduitKey.";
 
 
         Mockito.when(this.ls.getMsg(SORT_KEY_IS_UNKNOWN, unknownKey, ProduitKey.class.getSimpleName()))
-                .thenReturn(errMsgArtisanOption);
+                .thenReturn(errMsg);
 
         List<Sort> sorts = Stream.of(
                 Sort.builder()
@@ -89,7 +89,7 @@ public class SearchFilterHelperTest {
 
         Assertions.assertThatCode(() -> this.helper.checkSorts(sorts, ProduitKey.class))
                 .isInstanceOf(TechnicalException.class)
-                .hasMessageContaining(errMsgArtisanOption)
+                .hasMessageContaining(errMsg)
         ;
     }
 
@@ -97,11 +97,11 @@ public class SearchFilterHelperTest {
     public void checkSearch_has_to_check_filterKeys() {
 
         final String unknownKey = "toto";
-        final String errMsgArtisanOption = "La clé de tri " + unknownKey + " n'existe pas dans ProduitKey.";
+        final String errMsg = "La clé de tri " + unknownKey + " n'existe pas dans ProduitKey.";
 
 
         Mockito.when(this.ls.getMsg(FILTER_KEY_IS_UNKNOWN, unknownKey, ProduitKey.class.getSimpleName()))
-                .thenReturn(errMsgArtisanOption);
+                .thenReturn(errMsg);
 
         List<Filter> filters = Stream.of(
                 Filter.builder()
@@ -113,7 +113,7 @@ public class SearchFilterHelperTest {
 
         Assertions.assertThatCode(() -> this.helper.checkSearch(search, ProduitKey.class))
                 .isInstanceOf(TechnicalException.class)
-                .hasMessageContaining(errMsgArtisanOption)
+                .hasMessageContaining(errMsg)
         ;
     }
 
@@ -121,11 +121,11 @@ public class SearchFilterHelperTest {
     public void checkSearch_has_to_check_sortKeys() {
 
         final String unknownKey = "toto";
-        final String errMsgArtisanOption = "La clé de tri " + unknownKey + " n'existe pas dans ProduitKey.";
+        final String errMsg = "La clé de tri " + unknownKey + " n'existe pas dans ProduitKey.";
 
 
         Mockito.when(this.ls.getMsg(SORT_KEY_IS_UNKNOWN, unknownKey, ProduitKey.class.getSimpleName()))
-                .thenReturn(errMsgArtisanOption);
+                .thenReturn(errMsg);
 
         List<Sort> sorts = Stream.of(
                 Sort.builder()
@@ -137,7 +137,52 @@ public class SearchFilterHelperTest {
 
         Assertions.assertThatCode(() -> this.helper.checkSearch(search, ProduitKey.class))
                 .isInstanceOf(TechnicalException.class)
-                .hasMessageContaining(errMsgArtisanOption)
+                .hasMessageContaining(errMsg)
+        ;
+    }
+
+    @Test
+    public void checkFilters_has_to_throw_exception_when_value_is_null() {
+
+        final String key = ProduitKey.LIBELLE;
+        final String errMsg = "Le filtre [ProduitKey -> LIBELLE] doit avoir une valeur non nulle.";
+
+        Mockito.when(this.ls.getMsg(FILTER_VALUE_IS_NULL, ProduitKey.class.getSimpleName(), ProduitKey.LIBELLE))
+                .thenReturn(errMsg);
+
+        List<Filter> filters = Stream.of(
+                Filter.builder()
+                        .key(key)
+                        .value(null)
+                        .build())
+                .collect(Collectors.toList());
+
+        Assertions.assertThatCode(() -> this.helper.checkFilters(filters, ProduitKey.class))
+                .isInstanceOf(TechnicalException.class)
+                .hasMessageContaining(errMsg)
+        ;
+    }
+
+    @Test
+    public void checkFilters_with_operator_equals_ID_IN_has_to_throw_exception_when_idList_is_null() {
+
+        final String key = ProduitKey.LIBELLE;
+        final String errMsg = "Le filtre [ProduitKey -> LIBELLE] doit avoir une liste de valeur.";
+
+        Mockito.when(this.ls.getMsg(FILTER_VALUE_IS_NOT_A_LIST, ProduitKey.class.getSimpleName(), ProduitKey.LIBELLE))
+                .thenReturn(errMsg);
+
+        List<Filter> filters = Stream.of(
+                Filter.builder()
+                        .key(key)
+                       .idList(null)
+                        .operator(OPERATOR.ID_IN)
+                        .build())
+                .collect(Collectors.toList());
+
+        Assertions.assertThatCode(() -> this.helper.checkFilters(filters, ProduitKey.class))
+                .isInstanceOf(TechnicalException.class)
+                .hasMessageContaining(errMsg)
         ;
     }
 
