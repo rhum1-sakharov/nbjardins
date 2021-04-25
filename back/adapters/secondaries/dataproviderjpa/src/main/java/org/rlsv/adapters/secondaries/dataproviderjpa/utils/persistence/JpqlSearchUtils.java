@@ -32,6 +32,9 @@ public class JpqlSearchUtils {
                     case STARTS_WITH:
                         sb.append(startsWith(filterAlias));
                         break;
+                    case EQUALS:
+                        sb.append(equals(filterAlias));
+                        break;
                     case GT:
                         sb.append(greaterOrLessOperators(filterAlias, GT));
                         break;
@@ -107,6 +110,23 @@ public class JpqlSearchUtils {
                 .append(SqlOperator.LIKE.getValue())
                 .append(SPACE)
                 .append("'" + value + LIKE_OPERATOR + "'")
+                .append(SPACE);
+
+        return sb.toString();
+    }
+
+    public static String equals(FilterAlias filterAlias) {
+        StringBuilder sb = new StringBuilder();
+
+        String value = filterAlias.getValue().replace("'", "''");
+        value = value.replace(SPACE, LIKE_OPERATOR);
+
+        sb.append(SPACE)
+                .append(filterAlias.getAlias())
+                .append(SPACE)
+                .append(SqlOperator.EQUALS.getValue())
+                .append(SPACE)
+                .append("'" + value +"'")
                 .append(SPACE);
 
         return sb.toString();

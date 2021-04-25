@@ -51,6 +51,7 @@ public class JpqlSearchUtilsTest {
 
     }
 
+
     @Test
     public void startsWith_with_quotes_in_value_should_be_escaped(){
 
@@ -61,6 +62,33 @@ public class JpqlSearchUtilsTest {
         String contains = JpqlSearchUtils.startsWith(filterAlias);
 
         Assertions.assertThat(contains).isEqualTo(" produit.libelle LIKE 'p''1%' ");
+
+    }
+
+
+    @Test
+    public void equals(){
+
+        final String produitLibelleAlias = "produit.libelle";
+
+        FilterAlias filterAlias = new FilterAlias(ProduitKey.LIBELLE, OPERATOR.EQUALS, "p",null, produitLibelleAlias);
+
+        String contains = JpqlSearchUtils.equals(filterAlias);
+
+        Assertions.assertThat(contains).isEqualTo(" produit.libelle = 'p' ");
+
+    }
+
+    @Test
+    public void equals_with_quotes_in_value_should_be_escaped(){
+
+        final String produitLibelleAlias = "produit.libelle";
+
+        FilterAlias filterAlias = new FilterAlias(ProduitKey.LIBELLE, OPERATOR.STARTS_WITH, "p'1",null, produitLibelleAlias);
+
+        String contains = JpqlSearchUtils.equals(filterAlias);
+
+        Assertions.assertThat(contains).isEqualTo(" produit.libelle = 'p''1' ");
 
     }
 

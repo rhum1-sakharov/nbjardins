@@ -3,7 +3,7 @@ package org.rlsv.adapters.secondaries.dataproviderjpa.enums;
 import lombok.Getter;
 
 public enum SqlOperator {
-
+    EQUALS("="),
     LIKE("LIKE"),
     GT(">"),
     GTE(">="),
