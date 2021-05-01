@@ -61,7 +61,9 @@ public class JpqlSearchUtils {
         StringBuilder sb = new StringBuilder();
 
         FilterString fs = (FilterString) filter;
-        String input = fs.getValue();
+        String[] inputs = fs.getValue();
+        String input = inputs[0];
+
         switch (fs.getOperator()) {
             case CONTAINS:
                 sb.append(stringContains(alias, input));
@@ -71,6 +73,12 @@ public class JpqlSearchUtils {
                 break;
             case EQUALS:
                 sb.append(stringEquals(alias, input));
+                break;
+            case NOT_EQUALS:
+                sb.append(stringNotEquals(alias, input));
+                break;
+            case IN:
+                sb.append(stringIn(alias, inputs));
                 break;
             default:
                 break;
@@ -325,6 +333,51 @@ public class JpqlSearchUtils {
                 .append(SPACE)
                 .append("'" + value + "'")
                 .append(SPACE);
+
+        return sb.toString();
+    }
+
+    private static String stringNotEquals(String alias, String input) {
+        StringBuilder sb = new StringBuilder();
+
+        String value = input.replace("'", "''");
+        value = value.replace(SPACE, LIKE_OPERATOR);
+
+        sb.append(SPACE)
+                .append(alias)
+                .append(SPACE)
+                .append(SqlOperator.NOT_EQUALS.getValue())
+                .append(SPACE)
+                .append("'" + value + "'")
+                .append(SPACE);
+
+        return sb.toString();
+    }
+
+    private static String stringIn(String alias, String[] inputs) {
+        StringBuilder sb = new StringBuilder();
+
+        StringBuilder sbStrings = new StringBuilder();
+        for (int i = 0; i < inputs.length; i++) {
+            String input = inputs[i];
+            input = input.replace("'", "''");
+
+            sbStrings.append("'"+input+"'");
+
+            if (inputs.length > 1 && i < (inputs.length - 1)) {
+                sbStrings.append(COMMA)
+                        .append(SPACE);
+            }
+        }
+
+        sb.append(SPACE)
+                .append(alias)
+                .append(SPACE)
+                .append(SqlOperator.IN.getValue())
+                .append(SPACE)
+                .append("("+sbStrings.toString()+")")
+                .append(SPACE);
+
 
         return sb.toString();
     }

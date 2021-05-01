@@ -68,12 +68,14 @@ public class ProduitRepoJpaTest {
     @Test
     public void search() {
 
+        String[] strings={"p1"};
+
         Search search = Search.builder()
                 .filters(Stream.of(FilterString.builder()
                         .type(FILTER_TYPE.STRING)
                         .key("libelle")
                         .operator(OPERATOR_STRING.CONTAINS)
-                        .value("p1").build()).collect(Collectors.toList()))
+                        .value(strings).build()).collect(Collectors.toList()))
                 .page(Page.builder().pageIngex(0).pageSize(0).build())
                 .sorts(Stream.of(Sort.builder().direction(DIRECTION.DESC).key("libelle").build()).collect(Collectors.toList()))
                 .build();

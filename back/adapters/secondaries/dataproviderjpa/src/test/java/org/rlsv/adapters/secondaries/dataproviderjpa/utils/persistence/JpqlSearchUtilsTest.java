@@ -19,15 +19,15 @@ import java.util.stream.Stream;
 public class JpqlSearchUtilsTest {
 
     @Test
-    public void contains_produitlibelle() {
+    public void string_contains() {
 
-
+        String[] strings={"p"};
 
         FilterString fs = FilterString.builder()
                 .type(FILTER_TYPE.STRING)
                 .key(ProduitKey.LIBELLE)
                 .operator(OPERATOR_STRING.CONTAINS)
-                .value("p")
+                .value(strings)
                 .build();
 
 
@@ -42,15 +42,38 @@ public class JpqlSearchUtilsTest {
     }
 
     @Test
-    public void contains_produitlibelle_with_quotes_in_value_should_be_escaped() {
+    public void string_in() {
+
+        String[] strings={"p", "12'3a4"};
+
+        FilterString fs = FilterString.builder()
+                .type(FILTER_TYPE.STRING)
+                .key(ProduitKey.LIBELLE)
+                .operator(OPERATOR_STRING.IN)
+                .value(strings)
+                .build();
 
 
+        FilterAlias fa1 = FilterAlias.<FilterString>builder()
+                .alias("produit.libelle")
+                .filter(fs)
+                .build();
+
+        String contains =  JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
+
+        Assertions.assertThat(contains).isEqualTo(" produit.libelle IN ('p', '12''3a4') ");
+    }
+
+    @Test
+    public void string_contains_with_quotes_in_value_should_be_escaped() {
+
+        String[] strings={"p'1"};
 
         FilterString fs = FilterString.builder()
                 .type(FILTER_TYPE.STRING)
                 .key(ProduitKey.LIBELLE)
                 .operator(OPERATOR_STRING.CONTAINS)
-                .value("p'1")
+                .value(strings)
                 .build();
 
         FilterAlias fa1 = FilterAlias.<FilterString>builder()
@@ -65,14 +88,15 @@ public class JpqlSearchUtilsTest {
     }
 
     @Test
-    public void startsWith() {
+    public void string_startsWith() {
 
+        String[] strings={"p"};
 
         FilterString fs = FilterString.builder()
                 .type(FILTER_TYPE.STRING)
                 .key(ProduitKey.LIBELLE)
                 .operator(OPERATOR_STRING.STARTS_WITH)
-                .value("p")
+                .value(strings)
                 .build();
 
         FilterAlias fa1 = FilterAlias.<FilterString>builder()
@@ -89,15 +113,15 @@ public class JpqlSearchUtilsTest {
 
 
     @Test
-    public void startsWith_with_quotes_in_value_should_be_escaped() {
+    public void string_startsWith_with_quotes_in_value_should_be_escaped() {
 
-        final String produitLibelleAlias = "produit.libelle";
+        String[] strings={"p'1"};
 
         FilterString fs = FilterString.builder()
                 .type(FILTER_TYPE.STRING)
                 .key(ProduitKey.LIBELLE)
                 .operator(OPERATOR_STRING.STARTS_WITH)
-                .value("p'1")
+                .value(strings)
                 .build();
 
         FilterAlias fa1 = FilterAlias.<FilterString>builder()
@@ -115,12 +139,13 @@ public class JpqlSearchUtilsTest {
     @Test
     public void string_equals() {
 
+        String[] strings={"p"};
 
         FilterString fs = FilterString.builder()
                 .type(FILTER_TYPE.STRING)
                 .key(ProduitKey.LIBELLE)
                 .operator(OPERATOR_STRING.EQUALS)
-                .value("p")
+                .value(strings)
                 .build();
 
         FilterAlias fa1 = FilterAlias.<FilterString>builder()
@@ -135,15 +160,38 @@ public class JpqlSearchUtilsTest {
     }
 
     @Test
+    public void string_not_equals() {
+
+        String[] strings={"p"};
+
+        FilterString fs = FilterString.builder()
+                .type(FILTER_TYPE.STRING)
+                .key(ProduitKey.LIBELLE)
+                .operator(OPERATOR_STRING.NOT_EQUALS)
+                .value(strings)
+                .build();
+
+        FilterAlias fa1 = FilterAlias.<FilterString>builder()
+                .alias("produit.libelle")
+                .filter(fs)
+                .build();
+
+        String builder =  JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
+
+        Assertions.assertThat(builder).isEqualTo(" produit.libelle <> 'p' ");
+
+    }
+
+    @Test
     public void equals_with_quotes_in_value_should_be_escaped() {
 
-        final String produitLibelleAlias = "produit.libelle";
+        String[] strings={"p'1"};
 
         FilterString fs = FilterString.builder()
                 .type(FILTER_TYPE.STRING)
                 .key(ProduitKey.LIBELLE)
                 .operator(OPERATOR_STRING.EQUALS)
-                .value("p'1")
+                .value(strings)
                 .build();
 
         FilterAlias fa1 = FilterAlias.<FilterString>builder()
@@ -161,12 +209,13 @@ public class JpqlSearchUtilsTest {
     @Test
     public void filters_with_2_contains_should_concatenate_with_and() {
 
+        String[] strings={"p"};
 
         FilterString fs1 = FilterString.builder()
                 .type(FILTER_TYPE.STRING)
                 .key(ProduitKey.LIBELLE)
                 .operator(OPERATOR_STRING.CONTAINS)
-                .value("p")
+                .value(strings)
                 .build();
 
         FilterAlias fa1 = FilterAlias.<FilterString>builder()
@@ -174,11 +223,13 @@ public class JpqlSearchUtilsTest {
                 .filter(fs1)
                 .build();
 
+        String[] strings2={"p desc"};
+
         FilterString fs2 = FilterString.builder()
                 .type(FILTER_TYPE.STRING)
                 .key(ProduitKey.LIBELLE)
                 .operator(OPERATOR_STRING.CONTAINS)
-                .value("p desc")
+                .value(strings2)
                 .build();
 
         FilterAlias fa2 = FilterAlias.<FilterString>builder()

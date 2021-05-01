@@ -12,7 +12,7 @@ import lombok.experimental.SuperBuilder;
 public class FilterString extends Filter {
 
     private OPERATOR_STRING operator;
-    private String value;
+    private String[] value;
 
 
 }
