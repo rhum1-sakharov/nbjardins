@@ -124,7 +124,7 @@ public class JpqlSearchUtils {
 
     }
 
-    public static String numberBetweenExclusive(String alias, float[] inputs) {
+    private static String numberBetweenExclusive(String alias, float[] inputs) {
         StringBuilder sb = new StringBuilder();
 
         sb.append(SPACE)
@@ -147,7 +147,7 @@ public class JpqlSearchUtils {
     }
 
 
-    public static String numberBetweenInclusive(String alias, float[] inputs) {
+    private static String numberBetweenInclusive(String alias, float[] inputs) {
         StringBuilder sb = new StringBuilder();
 
         sb.append(SPACE)
@@ -169,7 +169,7 @@ public class JpqlSearchUtils {
         return sb.toString();
     }
 
-    public static String numberIn(String alias, float[] inputs) {
+    private static String numberIn(String alias, float[] inputs) {
         StringBuilder sb = new StringBuilder();
 
         StringBuilder sbNumbers = new StringBuilder();
@@ -194,7 +194,7 @@ public class JpqlSearchUtils {
         return sb.toString();
     }
 
-    public static String numberNotEquals(String alias, float input) {
+    private static String numberNotEquals(String alias, float input) {
         StringBuilder sb = new StringBuilder();
 
         sb.append(SPACE)
@@ -208,7 +208,7 @@ public class JpqlSearchUtils {
         return sb.toString();
     }
 
-    public static String numberEquals(String alias, float input) {
+    private static String numberEquals(String alias, float input) {
         StringBuilder sb = new StringBuilder();
 
         sb.append(SPACE)
@@ -222,7 +222,7 @@ public class JpqlSearchUtils {
         return sb.toString();
     }
 
-    public static String numberGreaterThan(String alias, float input) {
+    private static String numberGreaterThan(String alias, float input) {
         StringBuilder sb = new StringBuilder();
 
         sb.append(SPACE)
@@ -236,7 +236,7 @@ public class JpqlSearchUtils {
         return sb.toString();
     }
 
-    public static String numberGreaterThanOrEquals(String alias, float input) {
+    private static String numberGreaterThanOrEquals(String alias, float input) {
         StringBuilder sb = new StringBuilder();
 
         sb.append(SPACE)
@@ -250,7 +250,7 @@ public class JpqlSearchUtils {
         return sb.toString();
     }
 
-    public static String numberLessThan(String alias, float input) {
+    private static String numberLessThan(String alias, float input) {
         StringBuilder sb = new StringBuilder();
 
         sb.append(SPACE)
@@ -264,7 +264,7 @@ public class JpqlSearchUtils {
         return sb.toString();
     }
 
-    public static String numberLessThanOrEquals(String alias, float input) {
+    private static String numberLessThanOrEquals(String alias, float input) {
         StringBuilder sb = new StringBuilder();
 
         sb.append(SPACE)
@@ -278,7 +278,7 @@ public class JpqlSearchUtils {
         return sb.toString();
     }
 
-    public static String stringContains(String alias, String input) {
+    private static String stringContains(String alias, String input) {
         StringBuilder sb = new StringBuilder();
 
         String value = input.replace("'", "''");
@@ -295,7 +295,7 @@ public class JpqlSearchUtils {
         return sb.toString();
     }
 
-    public static String stringStartsWith(String alias, String input) {
+    private static String stringStartsWith(String alias, String input) {
         StringBuilder sb = new StringBuilder();
 
         String value = input.replace("'", "''");
@@ -312,7 +312,7 @@ public class JpqlSearchUtils {
         return sb.toString();
     }
 
-    public static String stringEquals(String alias, String input) {
+    private static String stringEquals(String alias, String input) {
         StringBuilder sb = new StringBuilder();
 
         String value = input.replace("'", "''");

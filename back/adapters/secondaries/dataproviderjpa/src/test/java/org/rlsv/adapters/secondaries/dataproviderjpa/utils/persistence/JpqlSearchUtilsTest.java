@@ -21,7 +21,7 @@ public class JpqlSearchUtilsTest {
     @Test
     public void contains_produitlibelle() {
 
-        final String produitLibelleAlias = "produit.libelle";
+
 
         FilterString fs = FilterString.builder()
                 .type(FILTER_TYPE.STRING)
@@ -30,7 +30,13 @@ public class JpqlSearchUtilsTest {
                 .value("p")
                 .build();
 
-        String contains = JpqlSearchUtils.stringContains(produitLibelleAlias, fs.getValue());
+
+        FilterAlias fa1 = FilterAlias.<FilterString>builder()
+                .alias("produit.libelle")
+                .filter(fs)
+                .build();
+
+        String contains =  JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
 
         Assertions.assertThat(contains).isEqualTo(" produit.libelle LIKE '%p%' ");
     }
@@ -38,7 +44,7 @@ public class JpqlSearchUtilsTest {
     @Test
     public void contains_produitlibelle_with_quotes_in_value_should_be_escaped() {
 
-        final String produitLibelleAlias = "produit.libelle";
+
 
         FilterString fs = FilterString.builder()
                 .type(FILTER_TYPE.STRING)
@@ -47,7 +53,12 @@ public class JpqlSearchUtilsTest {
                 .value("p'1")
                 .build();
 
-        String contains = JpqlSearchUtils.stringContains(produitLibelleAlias, fs.getValue());
+        FilterAlias fa1 = FilterAlias.<FilterString>builder()
+                .alias("produit.libelle")
+                .filter(fs)
+                .build();
+
+        String contains =  JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
 
 
         Assertions.assertThat(contains).isEqualTo(" produit.libelle LIKE '%p''1%' ");
@@ -55,8 +66,6 @@ public class JpqlSearchUtilsTest {
 
     @Test
     public void startsWith() {
-
-        final String produitLibelleAlias = "produit.libelle";
 
 
         FilterString fs = FilterString.builder()
@@ -66,9 +75,15 @@ public class JpqlSearchUtilsTest {
                 .value("p")
                 .build();
 
-        String startsWith = JpqlSearchUtils.stringStartsWith(produitLibelleAlias, fs.getValue());
+        FilterAlias fa1 = FilterAlias.<FilterString>builder()
+                .alias("produit.libelle")
+                .filter(fs)
+                .build();
 
-        Assertions.assertThat(startsWith).isEqualTo(" produit.libelle LIKE 'p%' ");
+        String builder =  JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
+
+
+        Assertions.assertThat(builder).isEqualTo(" produit.libelle LIKE 'p%' ");
 
     }
 
@@ -85,9 +100,14 @@ public class JpqlSearchUtilsTest {
                 .value("p'1")
                 .build();
 
-        String startsWith = JpqlSearchUtils.stringStartsWith(produitLibelleAlias, fs.getValue());
+        FilterAlias fa1 = FilterAlias.<FilterString>builder()
+                .alias("produit.libelle")
+                .filter(fs)
+                .build();
 
-        Assertions.assertThat(startsWith).isEqualTo(" produit.libelle LIKE 'p''1%' ");
+        String builder =  JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
+
+        Assertions.assertThat(builder).isEqualTo(" produit.libelle LIKE 'p''1%' ");
 
     }
 
@@ -95,7 +115,6 @@ public class JpqlSearchUtilsTest {
     @Test
     public void string_equals() {
 
-        final String produitLibelleAlias = "produit.libelle";
 
         FilterString fs = FilterString.builder()
                 .type(FILTER_TYPE.STRING)
@@ -104,10 +123,14 @@ public class JpqlSearchUtilsTest {
                 .value("p")
                 .build();
 
+        FilterAlias fa1 = FilterAlias.<FilterString>builder()
+                .alias("produit.libelle")
+                .filter(fs)
+                .build();
 
-        String equals = JpqlSearchUtils.stringEquals(produitLibelleAlias, fs.getValue());
+        String builder =  JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
 
-        Assertions.assertThat(equals).isEqualTo(" produit.libelle = 'p' ");
+        Assertions.assertThat(builder).isEqualTo(" produit.libelle = 'p' ");
 
     }
 
@@ -123,10 +146,15 @@ public class JpqlSearchUtilsTest {
                 .value("p'1")
                 .build();
 
-        String equals = JpqlSearchUtils.stringEquals(produitLibelleAlias, fs.getValue());
+        FilterAlias fa1 = FilterAlias.<FilterString>builder()
+                .alias("produit.libelle")
+                .filter(fs)
+                .build();
+
+        String builder =  JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
 
 
-        Assertions.assertThat(equals).isEqualTo(" produit.libelle = 'p''1' ");
+        Assertions.assertThat(builder).isEqualTo(" produit.libelle = 'p''1' ");
 
     }
 
