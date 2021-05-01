@@ -1,9 +1,11 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence;
 
 import enums.search.filter.FILTER_TYPE;
+import enums.search.filter.OPERATOR_DATE;
 import enums.search.filter.OPERATOR_NUMBER;
 import enums.search.filter.OPERATOR_STRING;
 import keys.produit.ProduitKey;
+import models.search.filter.FilterDate;
 import models.search.filter.FilterNumber;
 import models.search.filter.FilterString;
 import org.assertj.core.api.Assertions;
@@ -12,11 +14,175 @@ import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.rlsv.adapters.secondaries.dataproviderjpa.models.search.filters.FilterAlias;
 
+import java.time.LocalDate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @RunWith(MockitoJUnitRunner.class)
 public class JpqlSearchUtilsTest {
+
+    @Test
+    public void date_equals() {
+
+        LocalDate[] localDates={LocalDate.of(2021,2,4)};
+
+        FilterDate fd = FilterDate.builder()
+                .type(FILTER_TYPE.DATE)
+                .key(ProduitKey.LIBELLE)
+                .operator(OPERATOR_DATE.EQUALS)
+                .value(localDates)
+                .build();
+
+
+        FilterAlias fa1 = FilterAlias.<FilterDate>builder()
+                .alias("produit.date")
+                .filter(fd)
+                .build();
+
+        String builder =  JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
+
+        Assertions.assertThat(builder).isEqualTo(" produit.date = '2021-02-04' ");
+    }
+
+    @Test
+    public void date_greater_than() {
+
+        LocalDate[] localDates={LocalDate.of(2021,2,4)};
+
+        FilterDate fd = FilterDate.builder()
+                .type(FILTER_TYPE.DATE)
+                .key(ProduitKey.LIBELLE)
+                .operator(OPERATOR_DATE.GT)
+                .value(localDates)
+                .build();
+
+
+        FilterAlias fa1 = FilterAlias.<FilterDate>builder()
+                .alias("produit.date")
+                .filter(fd)
+                .build();
+
+        String builder =  JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
+
+        Assertions.assertThat(builder).isEqualTo(" produit.date > '2021-02-04' ");
+    }
+
+    @Test
+    public void date_greater_than_or_equals() {
+
+        LocalDate[] localDates={LocalDate.of(2021,2,4)};
+
+        FilterDate fd = FilterDate.builder()
+                .type(FILTER_TYPE.DATE)
+                .key(ProduitKey.LIBELLE)
+                .operator(OPERATOR_DATE.GTE)
+                .value(localDates)
+                .build();
+
+
+        FilterAlias fa1 = FilterAlias.<FilterDate>builder()
+                .alias("produit.date")
+                .filter(fd)
+                .build();
+
+        String builder =  JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
+
+        Assertions.assertThat(builder).isEqualTo(" produit.date >= '2021-02-04' ");
+    }
+
+
+    @Test
+    public void date_less_than() {
+
+        LocalDate[] localDates={LocalDate.of(2021,2,4)};
+
+        FilterDate fd = FilterDate.builder()
+                .type(FILTER_TYPE.DATE)
+                .key(ProduitKey.LIBELLE)
+                .operator(OPERATOR_DATE.LT)
+                .value(localDates)
+                .build();
+
+
+        FilterAlias fa1 = FilterAlias.<FilterDate>builder()
+                .alias("produit.date")
+                .filter(fd)
+                .build();
+
+        String builder =  JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
+
+        Assertions.assertThat(builder).isEqualTo(" produit.date < '2021-02-04' ");
+    }
+
+    @Test
+    public void date_less_than_or_equals() {
+
+        LocalDate[] localDates={LocalDate.of(2021,2,4)};
+
+        FilterDate fd = FilterDate.builder()
+                .type(FILTER_TYPE.DATE)
+                .key(ProduitKey.LIBELLE)
+                .operator(OPERATOR_DATE.LTE)
+                .value(localDates)
+                .build();
+
+
+        FilterAlias fa1 = FilterAlias.<FilterDate>builder()
+                .alias("produit.date")
+                .filter(fd)
+                .build();
+
+        String builder =  JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
+
+        Assertions.assertThat(builder).isEqualTo(" produit.date <= '2021-02-04' ");
+    }
+
+
+    @Test
+    public void date_between_inclusive() {
+
+        LocalDate[] localDates={LocalDate.of(2021,2,4),LocalDate.of(2022,3,12) };
+
+        FilterDate fd = FilterDate.builder()
+                .type(FILTER_TYPE.DATE)
+                .key(ProduitKey.LIBELLE)
+                .operator(OPERATOR_DATE.BETWEEN_INCLUSIVE)
+                .value(localDates)
+                .build();
+
+
+        FilterAlias fa1 = FilterAlias.<FilterDate>builder()
+                .alias("produit.date")
+                .filter(fd)
+                .build();
+
+        String builder =  JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
+
+        Assertions.assertThat(builder).isEqualTo(" produit.date >= '2021-02-04' AND produit.date <= '2022-03-12' ");
+    }
+
+    @Test
+    public void date_between_exclusive() {
+
+        LocalDate[] localDates={LocalDate.of(2021,2,4),LocalDate.of(2022,3,12) };
+
+        FilterDate fd = FilterDate.builder()
+                .type(FILTER_TYPE.DATE)
+                .key(ProduitKey.LIBELLE)
+                .operator(OPERATOR_DATE.BETWEEN_EXCLUSIVE)
+                .value(localDates)
+                .build();
+
+
+        FilterAlias fa1 = FilterAlias.<FilterDate>builder()
+                .alias("produit.date")
+                .filter(fd)
+                .build();
+
+        String builder =  JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
+
+        Assertions.assertThat(builder).isEqualTo(" produit.date > '2021-02-04' AND produit.date < '2022-03-12' ");
+    }
 
     @Test
     public void string_contains() {

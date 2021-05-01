@@ -1,6 +1,7 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence;
 
 import models.search.filter.Filter;
+import models.search.filter.FilterDate;
 import models.search.filter.FilterNumber;
 import models.search.filter.FilterString;
 import org.apache.commons.collections4.CollectionUtils;
@@ -9,6 +10,7 @@ import org.rlsv.adapters.secondaries.dataproviderjpa.models.search.filters.Filte
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class JpqlSearchUtils {
@@ -37,6 +39,9 @@ public class JpqlSearchUtils {
                         break;
                     case NUMBER:
                         sb.append(numberBuilder(alias, filter));
+                        break;
+                    case DATE:
+                        sb.append(dateBuilder(alias, filter));
                         break;
                     default:
                         break;
@@ -79,6 +84,44 @@ public class JpqlSearchUtils {
                 break;
             case IN:
                 sb.append(stringIn(alias, inputs));
+                break;
+            default:
+                break;
+        }
+
+        return sb.toString();
+
+    }
+
+    private static String dateBuilder(String alias, Filter filter) {
+
+        StringBuilder sb = new StringBuilder();
+
+        FilterDate fd = (FilterDate) filter;
+        LocalDate[] inputs = fd.getValue();
+        LocalDate input = inputs[0];
+
+        switch (fd.getOperator()) {
+            case EQUALS:
+                sb.append(dateEquals(alias, input));
+                break;
+            case BETWEEN_INCLUSIVE:
+                sb.append(dateBetweenInclusive(alias, inputs));
+                break;
+            case BETWEEN_EXCLUSIVE:
+                sb.append(dateBetweenExclusive(alias, inputs));
+                break;
+            case GT:
+                sb.append(dateGreaterThan(alias, input));
+                break;
+            case GTE:
+                sb.append(dateGreaterThanOrEquals(alias, input));
+                break;
+            case LT:
+                sb.append(dateLessThan(alias, input));
+                break;
+            case LTE:
+                sb.append(dateLessThanOrEquals(alias, input));
                 break;
             default:
                 break;
@@ -196,7 +239,7 @@ public class JpqlSearchUtils {
                 .append(SPACE)
                 .append(SqlOperator.IN.getValue())
                 .append(SPACE)
-                .append("("+sbNumbers.toString()+")")
+                .append("(" + sbNumbers.toString() + ")")
                 .append(SPACE);
 
         return sb.toString();
@@ -303,6 +346,77 @@ public class JpqlSearchUtils {
         return sb.toString();
     }
 
+    private static String dateEquals(String alias, LocalDate localDate) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(SPACE)
+                .append(alias)
+                .append(SPACE)
+                .append(SqlOperator.EQUALS.getValue())
+                .append(SPACE)
+                .append("'" + localDate.toString() + "'")
+                .append(SPACE);
+
+        return sb.toString();
+    }
+
+    private static String dateGreaterThan(String alias, LocalDate localDate) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(SPACE)
+                .append(alias)
+                .append(SPACE)
+                .append(SqlOperator.GT.getValue())
+                .append(SPACE)
+                .append("'" + localDate.toString() + "'")
+                .append(SPACE);
+
+        return sb.toString();
+    }
+
+    private static String dateGreaterThanOrEquals(String alias, LocalDate localDate) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(SPACE)
+                .append(alias)
+                .append(SPACE)
+                .append(SqlOperator.GTE.getValue())
+                .append(SPACE)
+                .append("'" + localDate.toString() + "'")
+                .append(SPACE);
+
+        return sb.toString();
+    }
+
+    private static String dateLessThanOrEquals(String alias, LocalDate localDate) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(SPACE)
+                .append(alias)
+                .append(SPACE)
+                .append(SqlOperator.LTE.getValue())
+                .append(SPACE)
+                .append("'" + localDate.toString() + "'")
+                .append(SPACE);
+
+        return sb.toString();
+    }
+
+    private static String dateLessThan(String alias, LocalDate localDate) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(SPACE)
+                .append(alias)
+                .append(SPACE)
+                .append(SqlOperator.LT.getValue())
+                .append(SPACE)
+                .append("'" + localDate.toString() + "'")
+                .append(SPACE);
+
+        return sb.toString();
+    }
+
+
     private static String stringStartsWith(String alias, String input) {
         StringBuilder sb = new StringBuilder();
 
@@ -362,7 +476,7 @@ public class JpqlSearchUtils {
             String input = inputs[i];
             input = input.replace("'", "''");
 
-            sbStrings.append("'"+input+"'");
+            sbStrings.append("'" + input + "'");
 
             if (inputs.length > 1 && i < (inputs.length - 1)) {
                 sbStrings.append(COMMA)
@@ -375,11 +489,57 @@ public class JpqlSearchUtils {
                 .append(SPACE)
                 .append(SqlOperator.IN.getValue())
                 .append(SPACE)
-                .append("("+sbStrings.toString()+")")
+                .append("(" + sbStrings.toString() + ")")
                 .append(SPACE);
 
 
         return sb.toString();
     }
 
+
+    private static String dateBetweenInclusive(String alias, LocalDate[] localDates) {
+
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(SPACE)
+                .append(alias)
+                .append(SPACE)
+                .append(SqlOperator.GTE.getValue())
+                .append(SPACE)
+                .append("'" + localDates[0].toString() + "'")
+                .append(SPACE)
+                .append(AND)
+                .append(SPACE)
+                .append(alias)
+                .append(SPACE)
+                .append(SqlOperator.LTE.getValue())
+                .append(SPACE)
+                .append("'" + localDates[1].toString() + "'")
+                .append(SPACE);
+
+        return sb.toString();
+    }
+
+    private static String dateBetweenExclusive(String alias, LocalDate[] localDates) {
+
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(SPACE)
+                .append(alias)
+                .append(SPACE)
+                .append(SqlOperator.GT.getValue())
+                .append(SPACE)
+                .append("'" + localDates[0].toString() + "'")
+                .append(SPACE)
+                .append(AND)
+                .append(SPACE)
+                .append(alias)
+                .append(SPACE)
+                .append(SqlOperator.LT.getValue())
+                .append(SPACE)
+                .append("'" + localDates[1].toString() + "'")
+                .append(SPACE);
+
+        return sb.toString();
+    }
 }

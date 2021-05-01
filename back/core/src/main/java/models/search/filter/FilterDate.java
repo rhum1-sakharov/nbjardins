@@ -14,7 +14,7 @@ import java.time.LocalDate;
 public class FilterDate extends Filter {
 
     private OPERATOR_DATE operator;
-    private LocalDate value;
+    private LocalDate[] value;
 
 
 }
