@@ -74,21 +74,21 @@ public class JpqlSearchUtils {
             int i = 0;
             for (FilterPath filterPath : filterPathList) {
 
-                String alias = filterPath.getPath();
+                String path = filterPath.getPath();
                 Filter filter = filterPath.getFilter();
 
                 switch (filter.getType()) {
                     case STRING:
-                        sb.append(stringBuilder(alias, filter));
+                        sb.append(stringBuilder(path, filter));
                         break;
                     case NUMBER:
-                        sb.append(numberBuilder(alias, filter));
+                        sb.append(numberBuilder(path, filter));
                         break;
                     case DATE:
-                        sb.append(dateBuilder(alias, filter));
+                        sb.append(dateBuilder(path, filter));
                         break;
                     case BOOLEAN:
-                        sb.append(booleanBuilder(alias, filter));
+                        sb.append(booleanBuilder(path, filter));
                         break;
                     default:
                         break;
@@ -108,7 +108,7 @@ public class JpqlSearchUtils {
         return sb.toString();
     }
 
-    private static String stringBuilder(String alias, Filter filter) {
+    private static String stringBuilder(String path, Filter filter) {
 
         StringBuilder sb = new StringBuilder();
 
@@ -118,19 +118,19 @@ public class JpqlSearchUtils {
 
         switch (fs.getOperator()) {
             case CONTAINS:
-                sb.append(stringContains(alias, input));
+                sb.append(stringContains(path, input));
                 break;
             case STARTS_WITH:
-                sb.append(stringStartsWith(alias, input));
+                sb.append(stringStartsWith(path, input));
                 break;
             case EQUALS:
-                sb.append(stringEquals(alias, input));
+                sb.append(stringEquals(path, input));
                 break;
             case NOT_EQUALS:
-                sb.append(stringNotEquals(alias, input));
+                sb.append(stringNotEquals(path, input));
                 break;
             case IN:
-                sb.append(stringIn(alias, inputs));
+                sb.append(stringIn(path, inputs));
                 break;
             default:
                 break;
@@ -140,7 +140,7 @@ public class JpqlSearchUtils {
 
     }
 
-    private static String booleanBuilder(String alias, Filter filter) {
+    private static String booleanBuilder(String path, Filter filter) {
 
         StringBuilder sb = new StringBuilder();
 
@@ -149,10 +149,10 @@ public class JpqlSearchUtils {
 
         switch (fb.getOperator()) {
             case EQUALS:
-                sb.append(booleanEquals(alias, input));
+                sb.append(booleanEquals(path, input));
                 break;
             case NOT_EQUALS:
-                sb.append(booleanNotEquals(alias, input));
+                sb.append(booleanNotEquals(path, input));
                 break;
             default:
                 break;
@@ -162,7 +162,7 @@ public class JpqlSearchUtils {
 
     }
 
-    private static String dateBuilder(String alias, Filter filter) {
+    private static String dateBuilder(String path, Filter filter) {
 
         StringBuilder sb = new StringBuilder();
 
@@ -172,28 +172,28 @@ public class JpqlSearchUtils {
 
         switch (fd.getOperator()) {
             case EQUALS:
-                sb.append(dateEquals(alias, input));
+                sb.append(dateEquals(path, input));
                 break;
             case NOT_EQUALS:
-                sb.append(dateNotEquals(alias, input));
+                sb.append(dateNotEquals(path, input));
                 break;
             case BETWEEN_INCLUSIVE:
-                sb.append(dateBetweenInclusive(alias, inputs));
+                sb.append(dateBetweenInclusive(path, inputs));
                 break;
             case BETWEEN_EXCLUSIVE:
-                sb.append(dateBetweenExclusive(alias, inputs));
+                sb.append(dateBetweenExclusive(path, inputs));
                 break;
             case GT:
-                sb.append(dateGreaterThan(alias, input));
+                sb.append(dateGreaterThan(path, input));
                 break;
             case GTE:
-                sb.append(dateGreaterThanOrEquals(alias, input));
+                sb.append(dateGreaterThanOrEquals(path, input));
                 break;
             case LT:
-                sb.append(dateLessThan(alias, input));
+                sb.append(dateLessThan(path, input));
                 break;
             case LTE:
-                sb.append(dateLessThanOrEquals(alias, input));
+                sb.append(dateLessThanOrEquals(path, input));
                 break;
             default:
                 break;
@@ -203,7 +203,7 @@ public class JpqlSearchUtils {
 
     }
 
-    private static String numberBuilder(String alias, Filter filter) {
+    private static String numberBuilder(String path, Filter filter) {
 
         StringBuilder sb = new StringBuilder();
 
@@ -213,31 +213,31 @@ public class JpqlSearchUtils {
 
         switch (fn.getOperator()) {
             case IN:
-                sb.append(numberIn(alias, inputs));
+                sb.append(numberIn(path, inputs));
                 break;
             case BETWEEN_EXCLUSIVE:
-                sb.append(numberBetweenExclusive(alias, inputs));
+                sb.append(numberBetweenExclusive(path, inputs));
                 break;
             case BETWEEN_INCLUSIVE:
-                sb.append(numberBetweenInclusive(alias, inputs));
+                sb.append(numberBetweenInclusive(path, inputs));
                 break;
             case EQUALS:
-                sb.append(numberEquals(alias, input));
+                sb.append(numberEquals(path, input));
                 break;
             case NOT_EQUALS:
-                sb.append(numberNotEquals(alias, input));
+                sb.append(numberNotEquals(path, input));
                 break;
             case GT:
-                sb.append(numberGreaterThan(alias, input));
+                sb.append(numberGreaterThan(path, input));
                 break;
             case GTE:
-                sb.append(numberGreaterThanOrEquals(alias, input));
+                sb.append(numberGreaterThanOrEquals(path, input));
                 break;
             case LT:
-                sb.append(numberLessThan(alias, input));
+                sb.append(numberLessThan(path, input));
                 break;
             case LTE:
-                sb.append(numberLessThanOrEquals(alias, input));
+                sb.append(numberLessThanOrEquals(path, input));
                 break;
             default:
                 break;
@@ -247,11 +247,11 @@ public class JpqlSearchUtils {
 
     }
 
-    private static String numberBetweenExclusive(String alias, float[] inputs) {
+    private static String numberBetweenExclusive(String path, float[] inputs) {
         StringBuilder sb = new StringBuilder();
 
         sb.append(SPACE)
-                .append(alias)
+                .append(path)
                 .append(SPACE)
                 .append(SqlOperator.GT.getValue())
                 .append(SPACE)
@@ -259,7 +259,7 @@ public class JpqlSearchUtils {
                 .append(SPACE)
                 .append(AND)
                 .append(SPACE)
-                .append(alias)
+                .append(path)
                 .append(SPACE)
                 .append(SqlOperator.LT.getValue())
                 .append(SPACE)
@@ -269,12 +269,11 @@ public class JpqlSearchUtils {
         return sb.toString();
     }
 
-
-    private static String numberBetweenInclusive(String alias, float[] inputs) {
+    private static String numberBetweenInclusive(String path, float[] inputs) {
         StringBuilder sb = new StringBuilder();
 
         sb.append(SPACE)
-                .append(alias)
+                .append(path)
                 .append(SPACE)
                 .append(SqlOperator.GTE.getValue())
                 .append(SPACE)
@@ -282,7 +281,7 @@ public class JpqlSearchUtils {
                 .append(SPACE)
                 .append(AND)
                 .append(SPACE)
-                .append(alias)
+                .append(path)
                 .append(SPACE)
                 .append(SqlOperator.LTE.getValue())
                 .append(SPACE)
@@ -292,7 +291,7 @@ public class JpqlSearchUtils {
         return sb.toString();
     }
 
-    private static String numberIn(String alias, float[] inputs) {
+    private static String numberIn(String path, float[] inputs) {
         StringBuilder sb = new StringBuilder();
 
         StringBuilder sbNumbers = new StringBuilder();
@@ -307,7 +306,7 @@ public class JpqlSearchUtils {
         }
 
         sb.append(SPACE)
-                .append(alias)
+                .append(path)
                 .append(SPACE)
                 .append(SqlOperator.IN.getValue())
                 .append(SPACE)
@@ -317,11 +316,11 @@ public class JpqlSearchUtils {
         return sb.toString();
     }
 
-    private static String numberNotEquals(String alias, float input) {
+    private static String numberNotEquals(String path, float input) {
         StringBuilder sb = new StringBuilder();
 
         sb.append(SPACE)
-                .append(alias)
+                .append(path)
                 .append(SPACE)
                 .append(SqlOperator.NOT_EQUALS.getValue())
                 .append(SPACE)
@@ -331,11 +330,11 @@ public class JpqlSearchUtils {
         return sb.toString();
     }
 
-    private static String numberEquals(String alias, float input) {
+    private static String numberEquals(String path, float input) {
         StringBuilder sb = new StringBuilder();
 
         sb.append(SPACE)
-                .append(alias)
+                .append(path)
                 .append(SPACE)
                 .append(SqlOperator.EQUALS.getValue())
                 .append(SPACE)
@@ -345,11 +344,11 @@ public class JpqlSearchUtils {
         return sb.toString();
     }
 
-    private static String numberGreaterThan(String alias, float input) {
+    private static String numberGreaterThan(String path, float input) {
         StringBuilder sb = new StringBuilder();
 
         sb.append(SPACE)
-                .append(alias)
+                .append(path)
                 .append(SPACE)
                 .append(SqlOperator.GT.getValue())
                 .append(SPACE)
@@ -359,11 +358,11 @@ public class JpqlSearchUtils {
         return sb.toString();
     }
 
-    private static String numberGreaterThanOrEquals(String alias, float input) {
+    private static String numberGreaterThanOrEquals(String path, float input) {
         StringBuilder sb = new StringBuilder();
 
         sb.append(SPACE)
-                .append(alias)
+                .append(path)
                 .append(SPACE)
                 .append(SqlOperator.GTE.getValue())
                 .append(SPACE)
@@ -373,11 +372,11 @@ public class JpqlSearchUtils {
         return sb.toString();
     }
 
-    private static String numberLessThan(String alias, float input) {
+    private static String numberLessThan(String path, float input) {
         StringBuilder sb = new StringBuilder();
 
         sb.append(SPACE)
-                .append(alias)
+                .append(path)
                 .append(SPACE)
                 .append(SqlOperator.LT.getValue())
                 .append(SPACE)
@@ -387,11 +386,11 @@ public class JpqlSearchUtils {
         return sb.toString();
     }
 
-    private static String numberLessThanOrEquals(String alias, float input) {
+    private static String numberLessThanOrEquals(String path, float input) {
         StringBuilder sb = new StringBuilder();
 
         sb.append(SPACE)
-                .append(alias)
+                .append(path)
                 .append(SPACE)
                 .append(SqlOperator.LTE.getValue())
                 .append(SPACE)
@@ -401,14 +400,14 @@ public class JpqlSearchUtils {
         return sb.toString();
     }
 
-    private static String stringContains(String alias, String input) {
+    private static String stringContains(String path, String input) {
         StringBuilder sb = new StringBuilder();
 
         String value = input.replace("'", "''");
         value = value.replace(SPACE, LIKE_OPERATOR);
 
         sb.append(SPACE)
-                .append(alias)
+                .append(path)
                 .append(SPACE)
                 .append(SqlOperator.LIKE.getValue())
                 .append(SPACE)
@@ -418,11 +417,11 @@ public class JpqlSearchUtils {
         return sb.toString();
     }
 
-    private static String dateEquals(String alias, LocalDate localDate) {
+    private static String dateEquals(String path, LocalDate localDate) {
         StringBuilder sb = new StringBuilder();
 
         sb.append(SPACE)
-                .append(alias)
+                .append(path)
                 .append(SPACE)
                 .append(SqlOperator.EQUALS.getValue())
                 .append(SPACE)
@@ -432,11 +431,11 @@ public class JpqlSearchUtils {
         return sb.toString();
     }
 
-    private static String booleanEquals(String alias, Boolean value) {
+    private static String booleanEquals(String path, Boolean value) {
         StringBuilder sb = new StringBuilder();
 
         sb.append(SPACE)
-                .append(alias)
+                .append(path)
                 .append(SPACE)
                 .append(SqlOperator.EQUALS.getValue())
                 .append(SPACE)
@@ -446,11 +445,11 @@ public class JpqlSearchUtils {
         return sb.toString();
     }
 
-    private static String booleanNotEquals(String alias, Boolean value) {
+    private static String booleanNotEquals(String path, Boolean value) {
         StringBuilder sb = new StringBuilder();
 
         sb.append(SPACE)
-                .append(alias)
+                .append(path)
                 .append(SPACE)
                 .append(SqlOperator.NOT_EQUALS.getValue())
                 .append(SPACE)
@@ -460,11 +459,11 @@ public class JpqlSearchUtils {
         return sb.toString();
     }
 
-    private static String dateNotEquals(String alias, LocalDate localDate) {
+    private static String dateNotEquals(String path, LocalDate localDate) {
         StringBuilder sb = new StringBuilder();
 
         sb.append(SPACE)
-                .append(alias)
+                .append(path)
                 .append(SPACE)
                 .append(SqlOperator.NOT_EQUALS.getValue())
                 .append(SPACE)
@@ -474,11 +473,11 @@ public class JpqlSearchUtils {
         return sb.toString();
     }
 
-    private static String dateGreaterThan(String alias, LocalDate localDate) {
+    private static String dateGreaterThan(String path, LocalDate localDate) {
         StringBuilder sb = new StringBuilder();
 
         sb.append(SPACE)
-                .append(alias)
+                .append(path)
                 .append(SPACE)
                 .append(SqlOperator.GT.getValue())
                 .append(SPACE)
@@ -488,11 +487,11 @@ public class JpqlSearchUtils {
         return sb.toString();
     }
 
-    private static String dateGreaterThanOrEquals(String alias, LocalDate localDate) {
+    private static String dateGreaterThanOrEquals(String path, LocalDate localDate) {
         StringBuilder sb = new StringBuilder();
 
         sb.append(SPACE)
-                .append(alias)
+                .append(path)
                 .append(SPACE)
                 .append(SqlOperator.GTE.getValue())
                 .append(SPACE)
@@ -502,11 +501,11 @@ public class JpqlSearchUtils {
         return sb.toString();
     }
 
-    private static String dateLessThanOrEquals(String alias, LocalDate localDate) {
+    private static String dateLessThanOrEquals(String path, LocalDate localDate) {
         StringBuilder sb = new StringBuilder();
 
         sb.append(SPACE)
-                .append(alias)
+                .append(path)
                 .append(SPACE)
                 .append(SqlOperator.LTE.getValue())
                 .append(SPACE)
@@ -516,11 +515,11 @@ public class JpqlSearchUtils {
         return sb.toString();
     }
 
-    private static String dateLessThan(String alias, LocalDate localDate) {
+    private static String dateLessThan(String path, LocalDate localDate) {
         StringBuilder sb = new StringBuilder();
 
         sb.append(SPACE)
-                .append(alias)
+                .append(path)
                 .append(SPACE)
                 .append(SqlOperator.LT.getValue())
                 .append(SPACE)
@@ -530,15 +529,14 @@ public class JpqlSearchUtils {
         return sb.toString();
     }
 
-
-    private static String stringStartsWith(String alias, String input) {
+    private static String stringStartsWith(String path, String input) {
         StringBuilder sb = new StringBuilder();
 
         String value = input.replace("'", "''");
         value = value.replace(SPACE, LIKE_OPERATOR);
 
         sb.append(SPACE)
-                .append(alias)
+                .append(path)
                 .append(SPACE)
                 .append(SqlOperator.LIKE.getValue())
                 .append(SPACE)
@@ -548,14 +546,14 @@ public class JpqlSearchUtils {
         return sb.toString();
     }
 
-    private static String stringEquals(String alias, String input) {
+    private static String stringEquals(String path, String input) {
         StringBuilder sb = new StringBuilder();
 
         String value = input.replace("'", "''");
         value = value.replace(SPACE, LIKE_OPERATOR);
 
         sb.append(SPACE)
-                .append(alias)
+                .append(path)
                 .append(SPACE)
                 .append(SqlOperator.EQUALS.getValue())
                 .append(SPACE)
@@ -565,14 +563,14 @@ public class JpqlSearchUtils {
         return sb.toString();
     }
 
-    private static String stringNotEquals(String alias, String input) {
+    private static String stringNotEquals(String path, String input) {
         StringBuilder sb = new StringBuilder();
 
         String value = input.replace("'", "''");
         value = value.replace(SPACE, LIKE_OPERATOR);
 
         sb.append(SPACE)
-                .append(alias)
+                .append(path)
                 .append(SPACE)
                 .append(SqlOperator.NOT_EQUALS.getValue())
                 .append(SPACE)
@@ -582,7 +580,7 @@ public class JpqlSearchUtils {
         return sb.toString();
     }
 
-    private static String stringIn(String alias, String[] inputs) {
+    private static String stringIn(String path, String[] inputs) {
         StringBuilder sb = new StringBuilder();
 
         StringBuilder sbStrings = new StringBuilder();
@@ -599,7 +597,7 @@ public class JpqlSearchUtils {
         }
 
         sb.append(SPACE)
-                .append(alias)
+                .append(path)
                 .append(SPACE)
                 .append(SqlOperator.IN.getValue())
                 .append(SPACE)
@@ -610,13 +608,12 @@ public class JpqlSearchUtils {
         return sb.toString();
     }
 
-
-    private static String dateBetweenInclusive(String alias, LocalDate[] localDates) {
+    private static String dateBetweenInclusive(String path, LocalDate[] localDates) {
 
         StringBuilder sb = new StringBuilder();
 
         sb.append(SPACE)
-                .append(alias)
+                .append(path)
                 .append(SPACE)
                 .append(SqlOperator.GTE.getValue())
                 .append(SPACE)
@@ -624,7 +621,7 @@ public class JpqlSearchUtils {
                 .append(SPACE)
                 .append(AND)
                 .append(SPACE)
-                .append(alias)
+                .append(path)
                 .append(SPACE)
                 .append(SqlOperator.LTE.getValue())
                 .append(SPACE)
@@ -634,12 +631,12 @@ public class JpqlSearchUtils {
         return sb.toString();
     }
 
-    private static String dateBetweenExclusive(String alias, LocalDate[] localDates) {
+    private static String dateBetweenExclusive(String path, LocalDate[] localDates) {
 
         StringBuilder sb = new StringBuilder();
 
         sb.append(SPACE)
-                .append(alias)
+                .append(path)
                 .append(SPACE)
                 .append(SqlOperator.GT.getValue())
                 .append(SPACE)
@@ -647,7 +644,7 @@ public class JpqlSearchUtils {
                 .append(SPACE)
                 .append(AND)
                 .append(SPACE)
-                .append(alias)
+                .append(path)
                 .append(SPACE)
                 .append(SqlOperator.LT.getValue())
                 .append(SPACE)
