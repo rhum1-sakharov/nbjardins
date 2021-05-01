@@ -1,10 +1,8 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence;
 
-import enums.search.filter.FILTER_TYPE;
-import enums.search.filter.OPERATOR_DATE;
-import enums.search.filter.OPERATOR_NUMBER;
-import enums.search.filter.OPERATOR_STRING;
+import enums.search.filter.*;
 import keys.produit.ProduitKey;
+import models.search.filter.FilterBoolean;
 import models.search.filter.FilterDate;
 import models.search.filter.FilterNumber;
 import models.search.filter.FilterString;
@@ -42,6 +40,71 @@ public class JpqlSearchUtilsTest {
         String builder =  JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
 
         Assertions.assertThat(builder).isEqualTo(" produit.date = '2021-02-04' ");
+    }
+
+    @Test
+    public void boolean_equals() {
+
+        FilterBoolean fb = FilterBoolean.builder()
+                .type(FILTER_TYPE.BOOLEAN)
+                .key(ProduitKey.LIBELLE)
+                .operator(OPERATOR_BOOLEAN.EQUALS)
+                .value(true)
+                .build();
+
+
+        FilterAlias fa1 = FilterAlias.<FilterBoolean>builder()
+                .alias("produit.actif")
+                .filter(fb)
+                .build();
+
+        String builder =  JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
+
+        Assertions.assertThat(builder).isEqualTo(" produit.actif = true ");
+    }
+
+    @Test
+    public void boolean_not_equals() {
+
+        FilterBoolean fb = FilterBoolean.builder()
+                .type(FILTER_TYPE.BOOLEAN)
+                .key(ProduitKey.LIBELLE)
+                .operator(OPERATOR_BOOLEAN.NOT_EQUALS)
+                .value(false)
+                .build();
+
+
+        FilterAlias fa1 = FilterAlias.<FilterBoolean>builder()
+                .alias("produit.actif")
+                .filter(fb)
+                .build();
+
+        String builder =  JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
+
+        Assertions.assertThat(builder).isEqualTo(" produit.actif <> false ");
+    }
+
+    @Test
+    public void date_not_equals() {
+
+        LocalDate[] localDates={LocalDate.of(2021,2,4)};
+
+        FilterDate fd = FilterDate.builder()
+                .type(FILTER_TYPE.DATE)
+                .key(ProduitKey.LIBELLE)
+                .operator(OPERATOR_DATE.NOT_EQUALS)
+                .value(localDates)
+                .build();
+
+
+        FilterAlias fa1 = FilterAlias.<FilterDate>builder()
+                .alias("produit.date")
+                .filter(fd)
+                .build();
+
+        String builder =  JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
+
+        Assertions.assertThat(builder).isEqualTo(" produit.date <> '2021-02-04' ");
     }
 
     @Test

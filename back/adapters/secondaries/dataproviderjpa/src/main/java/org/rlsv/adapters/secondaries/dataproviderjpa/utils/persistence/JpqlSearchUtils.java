@@ -1,9 +1,6 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence;
 
-import models.search.filter.Filter;
-import models.search.filter.FilterDate;
-import models.search.filter.FilterNumber;
-import models.search.filter.FilterString;
+import models.search.filter.*;
 import org.apache.commons.collections4.CollectionUtils;
 import org.rlsv.adapters.secondaries.dataproviderjpa.enums.SqlOperator;
 import org.rlsv.adapters.secondaries.dataproviderjpa.models.search.filters.FilterAlias;
@@ -42,6 +39,9 @@ public class JpqlSearchUtils {
                         break;
                     case DATE:
                         sb.append(dateBuilder(alias, filter));
+                        break;
+                    case BOOLEAN:
+                        sb.append(booleanBuilder(alias, filter));
                         break;
                     default:
                         break;
@@ -93,6 +93,28 @@ public class JpqlSearchUtils {
 
     }
 
+    private static String booleanBuilder(String alias, Filter filter) {
+
+        StringBuilder sb = new StringBuilder();
+
+        FilterBoolean fb = (FilterBoolean) filter;
+        Boolean input = fb.getValue();
+
+        switch (fb.getOperator()) {
+            case EQUALS:
+                sb.append(booleanEquals(alias, input));
+                break;
+            case NOT_EQUALS:
+                sb.append(booleanNotEquals(alias, input));
+                break;
+            default:
+                break;
+        }
+
+        return sb.toString();
+
+    }
+
     private static String dateBuilder(String alias, Filter filter) {
 
         StringBuilder sb = new StringBuilder();
@@ -104,6 +126,9 @@ public class JpqlSearchUtils {
         switch (fd.getOperator()) {
             case EQUALS:
                 sb.append(dateEquals(alias, input));
+                break;
+            case NOT_EQUALS:
+                sb.append(dateNotEquals(alias, input));
                 break;
             case BETWEEN_INCLUSIVE:
                 sb.append(dateBetweenInclusive(alias, inputs));
@@ -353,6 +378,48 @@ public class JpqlSearchUtils {
                 .append(alias)
                 .append(SPACE)
                 .append(SqlOperator.EQUALS.getValue())
+                .append(SPACE)
+                .append("'" + localDate.toString() + "'")
+                .append(SPACE);
+
+        return sb.toString();
+    }
+
+    private static String booleanEquals(String alias, Boolean value) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(SPACE)
+                .append(alias)
+                .append(SPACE)
+                .append(SqlOperator.EQUALS.getValue())
+                .append(SPACE)
+                .append(value)
+                .append(SPACE);
+
+        return sb.toString();
+    }
+
+    private static String booleanNotEquals(String alias, Boolean value) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(SPACE)
+                .append(alias)
+                .append(SPACE)
+                .append(SqlOperator.NOT_EQUALS.getValue())
+                .append(SPACE)
+                .append(value)
+                .append(SPACE);
+
+        return sb.toString();
+    }
+
+    private static String dateNotEquals(String alias, LocalDate localDate) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(SPACE)
+                .append(alias)
+                .append(SPACE)
+                .append(SqlOperator.NOT_EQUALS.getValue())
                 .append(SPACE)
                 .append("'" + localDate.toString() + "'")
                 .append(SPACE);
