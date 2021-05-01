@@ -8,9 +8,9 @@ import models.search.filter.Filter;
 @Getter
 @Setter
 @SuperBuilder
-public class FilterAlias<T extends Filter> {
+public class FilterPath<T extends Filter> {
 
-    private String alias;
+    private String path;
     private T filter;
 
 

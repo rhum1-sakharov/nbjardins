@@ -1,9 +1,11 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence;
 
+import enums.search.sort.DIRECTION;
 import models.search.filter.*;
 import org.apache.commons.collections4.CollectionUtils;
 import org.rlsv.adapters.secondaries.dataproviderjpa.enums.SqlOperator;
-import org.rlsv.adapters.secondaries.dataproviderjpa.models.search.filters.FilterAlias;
+import org.rlsv.adapters.secondaries.dataproviderjpa.models.search.filters.FilterPath;
+import org.rlsv.adapters.secondaries.dataproviderjpa.models.search.filters.SortPath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,18 +19,63 @@ public class JpqlSearchUtils {
     private static final String SPACE = " ";
     private static final String AND = "AND";
     private static final String COMMA = ",";
+    private static final String ORDER_BY = "ORDER BY";
     private static final String LIKE_OPERATOR = "%";
 
 
-    public static String buildFilters(List<FilterAlias> filterAliasList) {
+    private static String getDirection(DIRECTION direction) {
+
+        switch (direction) {
+            case ASC:
+                return "asc";
+            case DESC:
+                return "desc";
+            default:
+                return "asc";
+        }
+
+    }
+
+    public static String buildSorts(List<SortPath> sortPathList) {
+
         StringBuilder sb = new StringBuilder();
 
-        if (CollectionUtils.isNotEmpty(filterAliasList)) {
-            int i = 0;
-            for (FilterAlias filterAlias : filterAliasList) {
 
-                String alias = filterAlias.getAlias();
-                Filter filter = filterAlias.getFilter();
+        int i = 0;
+        for (SortPath sortPath : sortPathList) {
+
+            if (i == 0) {
+                sb.append(SPACE)
+                        .append(ORDER_BY)
+                        .append(SPACE);
+            }
+
+            sb.append(sortPath.getPath())
+                    .append(SPACE)
+                    .append(getDirection(sortPath.getSort().getDirection()))
+                    .append(SPACE)
+            ;
+
+            if (sortPathList.size() > 1 && i < (sortPathList.size() - 1)) {
+                sb.append(COMMA)
+                        .append(SPACE);
+            }
+
+            i++;
+        }
+
+        return sb.toString();
+    }
+
+    public static String buildFilters(List<FilterPath> filterPathList) {
+        StringBuilder sb = new StringBuilder();
+
+        if (CollectionUtils.isNotEmpty(filterPathList)) {
+            int i = 0;
+            for (FilterPath filterPath : filterPathList) {
+
+                String alias = filterPath.getPath();
+                Filter filter = filterPath.getFilter();
 
                 switch (filter.getType()) {
                     case STRING:
@@ -48,7 +95,7 @@ public class JpqlSearchUtils {
                 }
 
 
-                if (filterAliasList.size() > 1 && i < (filterAliasList.size() - 1)) {
+                if (filterPathList.size() > 1 && i < (filterPathList.size() - 1)) {
                     sb.append(SPACE)
                             .append(AND)
                             .append(SPACE);

@@ -1,16 +1,19 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence;
 
 import enums.search.filter.*;
+import enums.search.sort.DIRECTION;
 import keys.produit.ProduitKey;
 import models.search.filter.FilterBoolean;
 import models.search.filter.FilterDate;
 import models.search.filter.FilterNumber;
 import models.search.filter.FilterString;
+import models.search.sort.Sort;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.rlsv.adapters.secondaries.dataproviderjpa.models.search.filters.FilterAlias;
+import org.rlsv.adapters.secondaries.dataproviderjpa.models.search.filters.FilterPath;
+import org.rlsv.adapters.secondaries.dataproviderjpa.models.search.filters.SortPath;
 
 import java.time.LocalDate;
 import java.util.stream.Collectors;
@@ -20,9 +23,68 @@ import java.util.stream.Stream;
 public class JpqlSearchUtilsTest {
 
     @Test
+    public void sort_asc() {
+
+
+        SortPath sp1 = SortPath.builder()
+                .path("produit.libelle")
+                .sort(Sort.builder()
+                        .direction(DIRECTION.ASC)
+                        .key(ProduitKey.LIBELLE)
+                        .build())
+                .build();
+
+        String builder = JpqlSearchUtils.buildSorts(Stream.of(sp1).collect(Collectors.toList()));
+
+        Assertions.assertThat(builder).isEqualTo(" ORDER BY produit.libelle asc ");
+    }
+
+    @Test
+    public void sort_desc() {
+
+
+        SortPath sp1 = SortPath.builder()
+                .path("produit.libelle")
+                .sort(Sort.builder()
+                        .direction(DIRECTION.DESC)
+                        .key(ProduitKey.LIBELLE)
+                        .build())
+                .build();
+
+        String builder = JpqlSearchUtils.buildSorts(Stream.of(sp1).collect(Collectors.toList()));
+
+        Assertions.assertThat(builder).isEqualTo(" ORDER BY produit.libelle desc ");
+    }
+
+    @Test
+    public void combine_sorts() {
+
+
+        SortPath sp1 = SortPath.builder()
+                .path("produit.libelle")
+                .sort(Sort.builder()
+                        .direction(DIRECTION.DESC)
+                        .key(ProduitKey.LIBELLE)
+                        .build())
+                .build();
+
+        SortPath sp2 = SortPath.builder()
+                .path("produit.taxe")
+                .sort(Sort.builder()
+                        .direction(DIRECTION.ASC)
+                        .key(ProduitKey.ID_TAXE)
+                        .build())
+                .build();
+
+        String builder = JpqlSearchUtils.buildSorts(Stream.of(sp1,sp2).collect(Collectors.toList()));
+
+        Assertions.assertThat(builder).isEqualTo(" ORDER BY produit.libelle desc , produit.taxe asc ");
+    }
+
+    @Test
     public void date_equals() {
 
-        LocalDate[] localDates={LocalDate.of(2021,2,4)};
+        LocalDate[] localDates = {LocalDate.of(2021, 2, 4)};
 
         FilterDate fd = FilterDate.builder()
                 .type(FILTER_TYPE.DATE)
@@ -32,12 +94,12 @@ public class JpqlSearchUtilsTest {
                 .build();
 
 
-        FilterAlias fa1 = FilterAlias.<FilterDate>builder()
-                .alias("produit.date")
+        FilterPath fa1 = FilterPath.<FilterDate>builder()
+                .path("produit.date")
                 .filter(fd)
                 .build();
 
-        String builder =  JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
+        String builder = JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
 
         Assertions.assertThat(builder).isEqualTo(" produit.date = '2021-02-04' ");
     }
@@ -53,12 +115,12 @@ public class JpqlSearchUtilsTest {
                 .build();
 
 
-        FilterAlias fa1 = FilterAlias.<FilterBoolean>builder()
-                .alias("produit.actif")
+        FilterPath fa1 = FilterPath.<FilterBoolean>builder()
+                .path("produit.actif")
                 .filter(fb)
                 .build();
 
-        String builder =  JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
+        String builder = JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
 
         Assertions.assertThat(builder).isEqualTo(" produit.actif = true ");
     }
@@ -74,12 +136,12 @@ public class JpqlSearchUtilsTest {
                 .build();
 
 
-        FilterAlias fa1 = FilterAlias.<FilterBoolean>builder()
-                .alias("produit.actif")
+        FilterPath fa1 = FilterPath.<FilterBoolean>builder()
+                .path("produit.actif")
                 .filter(fb)
                 .build();
 
-        String builder =  JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
+        String builder = JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
 
         Assertions.assertThat(builder).isEqualTo(" produit.actif <> false ");
     }
@@ -87,7 +149,7 @@ public class JpqlSearchUtilsTest {
     @Test
     public void date_not_equals() {
 
-        LocalDate[] localDates={LocalDate.of(2021,2,4)};
+        LocalDate[] localDates = {LocalDate.of(2021, 2, 4)};
 
         FilterDate fd = FilterDate.builder()
                 .type(FILTER_TYPE.DATE)
@@ -97,12 +159,12 @@ public class JpqlSearchUtilsTest {
                 .build();
 
 
-        FilterAlias fa1 = FilterAlias.<FilterDate>builder()
-                .alias("produit.date")
+        FilterPath fa1 = FilterPath.<FilterDate>builder()
+                .path("produit.date")
                 .filter(fd)
                 .build();
 
-        String builder =  JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
+        String builder = JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
 
         Assertions.assertThat(builder).isEqualTo(" produit.date <> '2021-02-04' ");
     }
@@ -110,7 +172,7 @@ public class JpqlSearchUtilsTest {
     @Test
     public void date_greater_than() {
 
-        LocalDate[] localDates={LocalDate.of(2021,2,4)};
+        LocalDate[] localDates = {LocalDate.of(2021, 2, 4)};
 
         FilterDate fd = FilterDate.builder()
                 .type(FILTER_TYPE.DATE)
@@ -120,12 +182,12 @@ public class JpqlSearchUtilsTest {
                 .build();
 
 
-        FilterAlias fa1 = FilterAlias.<FilterDate>builder()
-                .alias("produit.date")
+        FilterPath fa1 = FilterPath.<FilterDate>builder()
+                .path("produit.date")
                 .filter(fd)
                 .build();
 
-        String builder =  JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
+        String builder = JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
 
         Assertions.assertThat(builder).isEqualTo(" produit.date > '2021-02-04' ");
     }
@@ -133,7 +195,7 @@ public class JpqlSearchUtilsTest {
     @Test
     public void date_greater_than_or_equals() {
 
-        LocalDate[] localDates={LocalDate.of(2021,2,4)};
+        LocalDate[] localDates = {LocalDate.of(2021, 2, 4)};
 
         FilterDate fd = FilterDate.builder()
                 .type(FILTER_TYPE.DATE)
@@ -143,12 +205,12 @@ public class JpqlSearchUtilsTest {
                 .build();
 
 
-        FilterAlias fa1 = FilterAlias.<FilterDate>builder()
-                .alias("produit.date")
+        FilterPath fa1 = FilterPath.<FilterDate>builder()
+                .path("produit.date")
                 .filter(fd)
                 .build();
 
-        String builder =  JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
+        String builder = JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
 
         Assertions.assertThat(builder).isEqualTo(" produit.date >= '2021-02-04' ");
     }
@@ -157,7 +219,7 @@ public class JpqlSearchUtilsTest {
     @Test
     public void date_less_than() {
 
-        LocalDate[] localDates={LocalDate.of(2021,2,4)};
+        LocalDate[] localDates = {LocalDate.of(2021, 2, 4)};
 
         FilterDate fd = FilterDate.builder()
                 .type(FILTER_TYPE.DATE)
@@ -167,12 +229,12 @@ public class JpqlSearchUtilsTest {
                 .build();
 
 
-        FilterAlias fa1 = FilterAlias.<FilterDate>builder()
-                .alias("produit.date")
+        FilterPath fa1 = FilterPath.<FilterDate>builder()
+                .path("produit.date")
                 .filter(fd)
                 .build();
 
-        String builder =  JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
+        String builder = JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
 
         Assertions.assertThat(builder).isEqualTo(" produit.date < '2021-02-04' ");
     }
@@ -180,7 +242,7 @@ public class JpqlSearchUtilsTest {
     @Test
     public void date_less_than_or_equals() {
 
-        LocalDate[] localDates={LocalDate.of(2021,2,4)};
+        LocalDate[] localDates = {LocalDate.of(2021, 2, 4)};
 
         FilterDate fd = FilterDate.builder()
                 .type(FILTER_TYPE.DATE)
@@ -190,12 +252,12 @@ public class JpqlSearchUtilsTest {
                 .build();
 
 
-        FilterAlias fa1 = FilterAlias.<FilterDate>builder()
-                .alias("produit.date")
+        FilterPath fa1 = FilterPath.<FilterDate>builder()
+                .path("produit.date")
                 .filter(fd)
                 .build();
 
-        String builder =  JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
+        String builder = JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
 
         Assertions.assertThat(builder).isEqualTo(" produit.date <= '2021-02-04' ");
     }
@@ -204,7 +266,7 @@ public class JpqlSearchUtilsTest {
     @Test
     public void date_between_inclusive() {
 
-        LocalDate[] localDates={LocalDate.of(2021,2,4),LocalDate.of(2022,3,12) };
+        LocalDate[] localDates = {LocalDate.of(2021, 2, 4), LocalDate.of(2022, 3, 12)};
 
         FilterDate fd = FilterDate.builder()
                 .type(FILTER_TYPE.DATE)
@@ -214,12 +276,12 @@ public class JpqlSearchUtilsTest {
                 .build();
 
 
-        FilterAlias fa1 = FilterAlias.<FilterDate>builder()
-                .alias("produit.date")
+        FilterPath fa1 = FilterPath.<FilterDate>builder()
+                .path("produit.date")
                 .filter(fd)
                 .build();
 
-        String builder =  JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
+        String builder = JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
 
         Assertions.assertThat(builder).isEqualTo(" produit.date >= '2021-02-04' AND produit.date <= '2022-03-12' ");
     }
@@ -227,7 +289,7 @@ public class JpqlSearchUtilsTest {
     @Test
     public void date_between_exclusive() {
 
-        LocalDate[] localDates={LocalDate.of(2021,2,4),LocalDate.of(2022,3,12) };
+        LocalDate[] localDates = {LocalDate.of(2021, 2, 4), LocalDate.of(2022, 3, 12)};
 
         FilterDate fd = FilterDate.builder()
                 .type(FILTER_TYPE.DATE)
@@ -237,12 +299,12 @@ public class JpqlSearchUtilsTest {
                 .build();
 
 
-        FilterAlias fa1 = FilterAlias.<FilterDate>builder()
-                .alias("produit.date")
+        FilterPath fa1 = FilterPath.<FilterDate>builder()
+                .path("produit.date")
                 .filter(fd)
                 .build();
 
-        String builder =  JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
+        String builder = JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
 
         Assertions.assertThat(builder).isEqualTo(" produit.date > '2021-02-04' AND produit.date < '2022-03-12' ");
     }
@@ -250,7 +312,7 @@ public class JpqlSearchUtilsTest {
     @Test
     public void string_contains() {
 
-        String[] strings={"p"};
+        String[] strings = {"p"};
 
         FilterString fs = FilterString.builder()
                 .type(FILTER_TYPE.STRING)
@@ -260,12 +322,12 @@ public class JpqlSearchUtilsTest {
                 .build();
 
 
-        FilterAlias fa1 = FilterAlias.<FilterString>builder()
-                .alias("produit.libelle")
+        FilterPath fa1 = FilterPath.<FilterString>builder()
+                .path("produit.libelle")
                 .filter(fs)
                 .build();
 
-        String contains =  JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
+        String contains = JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
 
         Assertions.assertThat(contains).isEqualTo(" produit.libelle LIKE '%p%' ");
     }
@@ -273,7 +335,7 @@ public class JpqlSearchUtilsTest {
     @Test
     public void string_in() {
 
-        String[] strings={"p", "12'3a4"};
+        String[] strings = {"p", "12'3a4"};
 
         FilterString fs = FilterString.builder()
                 .type(FILTER_TYPE.STRING)
@@ -283,12 +345,12 @@ public class JpqlSearchUtilsTest {
                 .build();
 
 
-        FilterAlias fa1 = FilterAlias.<FilterString>builder()
-                .alias("produit.libelle")
+        FilterPath fa1 = FilterPath.<FilterString>builder()
+                .path("produit.libelle")
                 .filter(fs)
                 .build();
 
-        String contains =  JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
+        String contains = JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
 
         Assertions.assertThat(contains).isEqualTo(" produit.libelle IN ('p', '12''3a4') ");
     }
@@ -296,7 +358,7 @@ public class JpqlSearchUtilsTest {
     @Test
     public void string_contains_with_quotes_in_value_should_be_escaped() {
 
-        String[] strings={"p'1"};
+        String[] strings = {"p'1"};
 
         FilterString fs = FilterString.builder()
                 .type(FILTER_TYPE.STRING)
@@ -305,12 +367,12 @@ public class JpqlSearchUtilsTest {
                 .value(strings)
                 .build();
 
-        FilterAlias fa1 = FilterAlias.<FilterString>builder()
-                .alias("produit.libelle")
+        FilterPath fa1 = FilterPath.<FilterString>builder()
+                .path("produit.libelle")
                 .filter(fs)
                 .build();
 
-        String contains =  JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
+        String contains = JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
 
 
         Assertions.assertThat(contains).isEqualTo(" produit.libelle LIKE '%p''1%' ");
@@ -319,7 +381,7 @@ public class JpqlSearchUtilsTest {
     @Test
     public void string_startsWith() {
 
-        String[] strings={"p"};
+        String[] strings = {"p"};
 
         FilterString fs = FilterString.builder()
                 .type(FILTER_TYPE.STRING)
@@ -328,12 +390,12 @@ public class JpqlSearchUtilsTest {
                 .value(strings)
                 .build();
 
-        FilterAlias fa1 = FilterAlias.<FilterString>builder()
-                .alias("produit.libelle")
+        FilterPath fa1 = FilterPath.<FilterString>builder()
+                .path("produit.libelle")
                 .filter(fs)
                 .build();
 
-        String builder =  JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
+        String builder = JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
 
 
         Assertions.assertThat(builder).isEqualTo(" produit.libelle LIKE 'p%' ");
@@ -344,7 +406,7 @@ public class JpqlSearchUtilsTest {
     @Test
     public void string_startsWith_with_quotes_in_value_should_be_escaped() {
 
-        String[] strings={"p'1"};
+        String[] strings = {"p'1"};
 
         FilterString fs = FilterString.builder()
                 .type(FILTER_TYPE.STRING)
@@ -353,12 +415,12 @@ public class JpqlSearchUtilsTest {
                 .value(strings)
                 .build();
 
-        FilterAlias fa1 = FilterAlias.<FilterString>builder()
-                .alias("produit.libelle")
+        FilterPath fa1 = FilterPath.<FilterString>builder()
+                .path("produit.libelle")
                 .filter(fs)
                 .build();
 
-        String builder =  JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
+        String builder = JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
 
         Assertions.assertThat(builder).isEqualTo(" produit.libelle LIKE 'p''1%' ");
 
@@ -368,7 +430,7 @@ public class JpqlSearchUtilsTest {
     @Test
     public void string_equals() {
 
-        String[] strings={"p"};
+        String[] strings = {"p"};
 
         FilterString fs = FilterString.builder()
                 .type(FILTER_TYPE.STRING)
@@ -377,12 +439,12 @@ public class JpqlSearchUtilsTest {
                 .value(strings)
                 .build();
 
-        FilterAlias fa1 = FilterAlias.<FilterString>builder()
-                .alias("produit.libelle")
+        FilterPath fa1 = FilterPath.<FilterString>builder()
+                .path("produit.libelle")
                 .filter(fs)
                 .build();
 
-        String builder =  JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
+        String builder = JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
 
         Assertions.assertThat(builder).isEqualTo(" produit.libelle = 'p' ");
 
@@ -391,7 +453,7 @@ public class JpqlSearchUtilsTest {
     @Test
     public void string_not_equals() {
 
-        String[] strings={"p"};
+        String[] strings = {"p"};
 
         FilterString fs = FilterString.builder()
                 .type(FILTER_TYPE.STRING)
@@ -400,12 +462,12 @@ public class JpqlSearchUtilsTest {
                 .value(strings)
                 .build();
 
-        FilterAlias fa1 = FilterAlias.<FilterString>builder()
-                .alias("produit.libelle")
+        FilterPath fa1 = FilterPath.<FilterString>builder()
+                .path("produit.libelle")
                 .filter(fs)
                 .build();
 
-        String builder =  JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
+        String builder = JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
 
         Assertions.assertThat(builder).isEqualTo(" produit.libelle <> 'p' ");
 
@@ -414,7 +476,7 @@ public class JpqlSearchUtilsTest {
     @Test
     public void equals_with_quotes_in_value_should_be_escaped() {
 
-        String[] strings={"p'1"};
+        String[] strings = {"p'1"};
 
         FilterString fs = FilterString.builder()
                 .type(FILTER_TYPE.STRING)
@@ -423,12 +485,12 @@ public class JpqlSearchUtilsTest {
                 .value(strings)
                 .build();
 
-        FilterAlias fa1 = FilterAlias.<FilterString>builder()
-                .alias("produit.libelle")
+        FilterPath fa1 = FilterPath.<FilterString>builder()
+                .path("produit.libelle")
                 .filter(fs)
                 .build();
 
-        String builder =  JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
+        String builder = JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
 
 
         Assertions.assertThat(builder).isEqualTo(" produit.libelle = 'p''1' ");
@@ -438,7 +500,7 @@ public class JpqlSearchUtilsTest {
     @Test
     public void filters_with_2_contains_should_concatenate_with_and() {
 
-        String[] strings={"p"};
+        String[] strings = {"p"};
 
         FilterString fs1 = FilterString.builder()
                 .type(FILTER_TYPE.STRING)
@@ -447,12 +509,12 @@ public class JpqlSearchUtilsTest {
                 .value(strings)
                 .build();
 
-        FilterAlias fa1 = FilterAlias.<FilterString>builder()
-                .alias("produit.libelle")
+        FilterPath fa1 = FilterPath.<FilterString>builder()
+                .path("produit.libelle")
                 .filter(fs1)
                 .build();
 
-        String[] strings2={"p desc"};
+        String[] strings2 = {"p desc"};
 
         FilterString fs2 = FilterString.builder()
                 .type(FILTER_TYPE.STRING)
@@ -461,8 +523,8 @@ public class JpqlSearchUtilsTest {
                 .value(strings2)
                 .build();
 
-        FilterAlias fa2 = FilterAlias.<FilterString>builder()
-                .alias("produit.descriptif")
+        FilterPath fa2 = FilterPath.<FilterString>builder()
+                .path("produit.descriptif")
                 .filter(fs2)
                 .build();
 
@@ -474,7 +536,7 @@ public class JpqlSearchUtilsTest {
 
     @Test
     public void numberGreaterThan() {
-        float[] inputs= {1.25f};
+        float[] inputs = {1.25f};
         final String produitPrixUnitaireHTAlias = "produit.prixUnitaireHT";
 
         FilterNumber fn1 = FilterNumber.builder()
@@ -484,8 +546,8 @@ public class JpqlSearchUtilsTest {
                 .value(inputs)
                 .build();
 
-        FilterAlias fa1 = FilterAlias.<FilterNumber>builder()
-                .alias(produitPrixUnitaireHTAlias)
+        FilterPath fa1 = FilterPath.<FilterNumber>builder()
+                .path(produitPrixUnitaireHTAlias)
                 .filter(fn1)
                 .build();
 
@@ -497,8 +559,8 @@ public class JpqlSearchUtilsTest {
     }
 
     @Test
-    public void greaterThanOrEquals(){
-        float[] inputs= {1.25f};
+    public void greaterThanOrEquals() {
+        float[] inputs = {1.25f};
         final String produitPrixUnitaireHTAlias = "produit.prixUnitaireHT";
 
         FilterNumber fn1 = FilterNumber.builder()
@@ -508,8 +570,8 @@ public class JpqlSearchUtilsTest {
                 .value(inputs)
                 .build();
 
-        FilterAlias fa1 = FilterAlias.<FilterNumber>builder()
-                .alias(produitPrixUnitaireHTAlias)
+        FilterPath fa1 = FilterPath.<FilterNumber>builder()
+                .path(produitPrixUnitaireHTAlias)
                 .filter(fn1)
                 .build();
 
@@ -521,8 +583,8 @@ public class JpqlSearchUtilsTest {
     }
 
     @Test
-    public void lessThan(){
-        float[] inputs= {1.25f};
+    public void lessThan() {
+        float[] inputs = {1.25f};
         final String produitPrixUnitaireHTAlias = "produit.prixUnitaireHT";
 
         FilterNumber fn1 = FilterNumber.builder()
@@ -532,8 +594,8 @@ public class JpqlSearchUtilsTest {
                 .value(inputs)
                 .build();
 
-        FilterAlias fa1 = FilterAlias.<FilterNumber>builder()
-                .alias(produitPrixUnitaireHTAlias)
+        FilterPath fa1 = FilterPath.<FilterNumber>builder()
+                .path(produitPrixUnitaireHTAlias)
                 .filter(fn1)
                 .build();
 
@@ -545,10 +607,9 @@ public class JpqlSearchUtilsTest {
     }
 
 
-
     @Test
-    public void lessThanOrEquals(){
-        float[] inputs= {1.25f};
+    public void lessThanOrEquals() {
+        float[] inputs = {1.25f};
         final String produitPrixUnitaireHTAlias = "produit.prixUnitaireHT";
 
         FilterNumber fn1 = FilterNumber.builder()
@@ -558,8 +619,8 @@ public class JpqlSearchUtilsTest {
                 .value(inputs)
                 .build();
 
-        FilterAlias fa1 = FilterAlias.<FilterNumber>builder()
-                .alias(produitPrixUnitaireHTAlias)
+        FilterPath fa1 = FilterPath.<FilterNumber>builder()
+                .path(produitPrixUnitaireHTAlias)
                 .filter(fn1)
                 .build();
 
@@ -570,8 +631,8 @@ public class JpqlSearchUtilsTest {
     }
 
     @Test
-    public void number_equals(){
-        float[] inputs= {1.25f};
+    public void number_equals() {
+        float[] inputs = {1.25f};
         final String produitPrixUnitaireHTAlias = "produit.prixUnitaireHT";
 
         FilterNumber fn1 = FilterNumber.builder()
@@ -581,8 +642,8 @@ public class JpqlSearchUtilsTest {
                 .value(inputs)
                 .build();
 
-        FilterAlias fa1 = FilterAlias.<FilterNumber>builder()
-                .alias(produitPrixUnitaireHTAlias)
+        FilterPath fa1 = FilterPath.<FilterNumber>builder()
+                .path(produitPrixUnitaireHTAlias)
                 .filter(fn1)
                 .build();
 
@@ -593,9 +654,9 @@ public class JpqlSearchUtilsTest {
     }
 
     @Test
-    public void number_not_equals(){
+    public void number_not_equals() {
 
-        float[] inputs= {1.25f};
+        float[] inputs = {1.25f};
 
 
         final String produitPrixUnitaireHTAlias = "produit.prixUnitaireHT";
@@ -607,8 +668,8 @@ public class JpqlSearchUtilsTest {
                 .value(inputs)
                 .build();
 
-        FilterAlias fa1 = FilterAlias.<FilterNumber>builder()
-                .alias(produitPrixUnitaireHTAlias)
+        FilterPath fa1 = FilterPath.<FilterNumber>builder()
+                .path(produitPrixUnitaireHTAlias)
                 .filter(fn1)
                 .build();
 
@@ -619,9 +680,9 @@ public class JpqlSearchUtilsTest {
     }
 
     @Test
-    public void number_between_inclusive(){
+    public void number_between_inclusive() {
 
-        float[] inputs= {1.25f, 2f};
+        float[] inputs = {1.25f, 2f};
 
 
         final String produitPrixUnitaireHTAlias = "produit.prixUnitaireHT";
@@ -633,8 +694,8 @@ public class JpqlSearchUtilsTest {
                 .value(inputs)
                 .build();
 
-        FilterAlias fa1 = FilterAlias.<FilterNumber>builder()
-                .alias(produitPrixUnitaireHTAlias)
+        FilterPath fa1 = FilterPath.<FilterNumber>builder()
+                .path(produitPrixUnitaireHTAlias)
                 .filter(fn1)
                 .build();
 
@@ -645,9 +706,9 @@ public class JpqlSearchUtilsTest {
     }
 
     @Test
-    public void number_between_exclusive(){
+    public void number_between_exclusive() {
 
-        float[] inputs= {1.25f, 2f};
+        float[] inputs = {1.25f, 2f};
 
 
         final String produitPrixUnitaireHTAlias = "produit.prixUnitaireHT";
@@ -659,8 +720,8 @@ public class JpqlSearchUtilsTest {
                 .value(inputs)
                 .build();
 
-        FilterAlias fa1 = FilterAlias.<FilterNumber>builder()
-                .alias(produitPrixUnitaireHTAlias)
+        FilterPath fa1 = FilterPath.<FilterNumber>builder()
+                .path(produitPrixUnitaireHTAlias)
                 .filter(fn1)
                 .build();
 
@@ -671,9 +732,9 @@ public class JpqlSearchUtilsTest {
     }
 
     @Test
-    public void number_in(){
+    public void number_in() {
 
-        float[] inputs= {1.25f, 2f,4};
+        float[] inputs = {1.25f, 2f, 4};
 
 
         final String produitPrixUnitaireHTAlias = "produit.prixUnitaireHT";
@@ -685,8 +746,8 @@ public class JpqlSearchUtilsTest {
                 .value(inputs)
                 .build();
 
-        FilterAlias fa1 = FilterAlias.<FilterNumber>builder()
-                .alias(produitPrixUnitaireHTAlias)
+        FilterPath fa1 = FilterPath.<FilterNumber>builder()
+                .path(produitPrixUnitaireHTAlias)
                 .filter(fn1)
                 .build();
 
@@ -698,9 +759,9 @@ public class JpqlSearchUtilsTest {
 
 
     @Test
-    public void filters_with_2_greaterThan_should_concatenate_with_and(){
+    public void filters_with_2_greaterThan_should_concatenate_with_and() {
 
-        float[] inputs= {1.2f};
+        float[] inputs = {1.2f};
 
         final String produitPrixUnitaireHTAlias = "produit.prixUnitaireHT";
 
@@ -712,12 +773,12 @@ public class JpqlSearchUtilsTest {
                 .value(inputs)
                 .build();
 
-        FilterAlias fa1 = FilterAlias.<FilterNumber>builder()
-                .alias(produitPrixUnitaireHTAlias)
+        FilterPath fa1 = FilterPath.<FilterNumber>builder()
+                .path(produitPrixUnitaireHTAlias)
                 .filter(fn1)
                 .build();
 
-        float[] inputs2= {2};
+        float[] inputs2 = {2};
         FilterNumber fn2 = FilterNumber.builder()
                 .type(FILTER_TYPE.NUMBER)
                 .key(ProduitKey.PRIX_UNITAIRE_HT)
@@ -725,12 +786,12 @@ public class JpqlSearchUtilsTest {
                 .value(inputs2)
                 .build();
 
-        FilterAlias fa2 = FilterAlias.<FilterNumber>builder()
-                .alias(produitPrixUnitaireHTAlias)
+        FilterPath fa2 = FilterPath.<FilterNumber>builder()
+                .path(produitPrixUnitaireHTAlias)
                 .filter(fn2)
                 .build();
 
-        String gt = JpqlSearchUtils.buildFilters(Stream.of( fa1,fa2).collect(Collectors.toList()));
+        String gt = JpqlSearchUtils.buildFilters(Stream.of(fa1, fa2).collect(Collectors.toList()));
 
         Assertions.assertThat(gt).isEqualTo(" produit.prixUnitaireHT > 1.2  AND  produit.prixUnitaireHT > 2.0 ");
 
