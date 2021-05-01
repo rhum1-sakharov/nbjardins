@@ -4,7 +4,9 @@ import lombok.Getter;
 
 public enum SqlOperator {
     EQUALS("="),
+    NOT_EQUALS("<>"),
     LIKE("LIKE"),
+    IN("IN"),
     GT(">"),
     GTE(">="),
     LT("<"),

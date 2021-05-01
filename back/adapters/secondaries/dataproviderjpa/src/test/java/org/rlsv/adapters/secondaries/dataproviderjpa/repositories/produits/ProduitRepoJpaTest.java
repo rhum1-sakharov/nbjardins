@@ -2,13 +2,14 @@ package org.rlsv.adapters.secondaries.dataproviderjpa.repositories.produits;
 
 import domains.produits.ProduitDN;
 import domains.referentiel.taxes.TaxeDN;
-import enums.search.filter.OPERATOR;
+import enums.search.filter.FILTER_TYPE;
+import enums.search.filter.OPERATOR_STRING;
 import enums.search.sort.DIRECTION;
 import exceptions.CleanException;
 import exceptions.TechnicalException;
 import init.InitDb;
 import models.search.Search;
-import models.search.filter.Filter;
+import models.search.filter.FilterString;
 import models.search.page.Page;
 import models.search.sort.Sort;
 import org.apache.commons.collections4.CollectionUtils;
@@ -68,9 +69,10 @@ public class ProduitRepoJpaTest {
     public void search() {
 
         Search search = Search.builder()
-                .filters(Stream.of(Filter.builder()
+                .filters(Stream.of(FilterString.builder()
+                        .type(FILTER_TYPE.STRING)
                         .key("libelle")
-                        .operator(OPERATOR.CONTAINS)
+                        .operator(OPERATOR_STRING.CONTAINS)
                         .value("p1").build()).collect(Collectors.toList()))
                 .page(Page.builder().pageIngex(0).pageSize(0).build())
                 .sorts(Stream.of(Sort.builder().direction(DIRECTION.DESC).key("libelle").build()).collect(Collectors.toList()))
@@ -101,19 +103,19 @@ public class ProduitRepoJpaTest {
         taxe2.setTaux(new BigDecimal(20));
         taxe2 = taxeRepoJpa.save(dpm, taxe2);
 
-        for (int i=0;i<25;i++) {
+        for (int i = 0; i < 25; i++) {
             ProduitDN p = new ProduitDN();
-            p.setLibelle("p"+i);
-            p.setDescription("p"+i+" description");
+            p.setLibelle("p" + i);
+            p.setDescription("p" + i + " description");
             p.setPrixUnitaireHT(new BigDecimal(1.54).add(new BigDecimal(i)));
             p.setTaxe(taxe1);
             this.repo.save(dpm, p);
         }
 
-        for (int i=25;i<=50;i++) {
+        for (int i = 25; i <= 50; i++) {
             ProduitDN p = new ProduitDN();
-            p.setLibelle("p"+i);
-            p.setDescription("p"+i+" description");
+            p.setLibelle("p" + i);
+            p.setDescription("p" + i + " description");
             p.setPrixUnitaireHT(new BigDecimal(2.4).add(new BigDecimal(i)));
             p.setTaxe(taxe2);
             this.repo.save(dpm, p);

@@ -1,10 +1,11 @@
 package helpers.search.filters;
 
-import enums.search.filter.OPERATOR;
+import enums.search.filter.FILTER_TYPE;
 import exceptions.TechnicalException;
 import keys.produit.ProduitKey;
 import models.search.Search;
 import models.search.filter.Filter;
+import models.search.filter.FilterDate;
 import models.search.sort.Sort;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
@@ -19,7 +20,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static enums.search.filter.OPERATOR.CONTAINS;
 import static localizations.MessageKeys.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -132,19 +132,20 @@ public class SearchFilterHelperTest {
     }
 
     @Test
-    public void checkFilters_has_to_throw_exception_when_value_is_null() {
+    public void checkFilters_has_to_throw_exception_when_type_is_null() {
 
         final String key = ProduitKey.LIBELLE;
-        final String errMsg = "Le filtre [ProduitKey -> LIBELLE] doit avoir une valeur non nulle.";
+        final String errMsg = "Le filtre [ProduitKey -> LIBELLE] doit avoir un type non nul.";
 
-        Mockito.when(this.ls.getMsg(FILTER_VALUE_IS_NULL, ProduitKey.class.getSimpleName(), ProduitKey.LIBELLE))
+        Mockito.when(this.ls.getMsg(FILTER_TYPE_IS_NULL, ProduitKey.class.getSimpleName(), ProduitKey.LIBELLE))
                 .thenReturn(errMsg);
 
         List<Filter> filters = Stream.of(
-                Filter.builder()
+                FilterDate.builder()
+                        .type(null)
                         .key(key)
                         .value(null)
-                        .operator(CONTAINS)
+                        .operator(null)
                         .build())
                 .collect(Collectors.toList());
 
@@ -155,19 +156,20 @@ public class SearchFilterHelperTest {
     }
 
     @Test
-    public void checkFilters_with_operator_equals_ID_IN_has_to_throw_exception_when_idList_is_null() {
+    public void checkFilters_has_to_throw_exception_when_value_is_null() {
 
         final String key = ProduitKey.LIBELLE;
-        final String errMsg = "Le filtre [ProduitKey -> LIBELLE] doit avoir une liste de valeur.";
+        final String errMsg = "Le filtre [ProduitKey -> LIBELLE] doit avoir une valeur non nulle.";
 
-        Mockito.when(this.ls.getMsg(FILTER_VALUE_IS_NOT_A_LIST, ProduitKey.class.getSimpleName(), ProduitKey.LIBELLE))
+        Mockito.when(this.ls.getMsg(FILTER_VALUE_IS_NULL, ProduitKey.class.getSimpleName(), ProduitKey.LIBELLE))
                 .thenReturn(errMsg);
 
         List<Filter> filters = Stream.of(
-                Filter.builder()
+                FilterDate.builder()
+                        .type(FILTER_TYPE.DATE)
                         .key(key)
-                       .idList(null)
-                        .operator(OPERATOR.ID_IN)
+                        .value(null)
+                        .operator(null)
                         .build())
                 .collect(Collectors.toList());
 
@@ -176,5 +178,7 @@ public class SearchFilterHelperTest {
                 .hasMessageContaining(errMsg)
         ;
     }
+
+
 
 }

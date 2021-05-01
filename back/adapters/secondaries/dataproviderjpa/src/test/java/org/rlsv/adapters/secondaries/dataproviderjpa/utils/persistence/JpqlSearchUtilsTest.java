@@ -1,7 +1,11 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence;
 
-import enums.search.filter.OPERATOR;
+import enums.search.filter.FILTER_TYPE;
+import enums.search.filter.OPERATOR_NUMBER;
+import enums.search.filter.OPERATOR_STRING;
 import keys.produit.ProduitKey;
+import models.search.filter.FilterNumber;
+import models.search.filter.FilterString;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,9 +23,14 @@ public class JpqlSearchUtilsTest {
 
         final String produitLibelleAlias = "produit.libelle";
 
-        FilterAlias filterAlias = new FilterAlias(ProduitKey.LIBELLE, OPERATOR.CONTAINS, "p",null, produitLibelleAlias);
+        FilterString fs = FilterString.builder()
+                .type(FILTER_TYPE.STRING)
+                .key(ProduitKey.LIBELLE)
+                .operator(OPERATOR_STRING.CONTAINS)
+                .value("p")
+                .build();
 
-        String contains = JpqlSearchUtils.contains(filterAlias);
+        String contains = JpqlSearchUtils.stringContains(produitLibelleAlias, fs.getValue());
 
         Assertions.assertThat(contains).isEqualTo(" produit.libelle LIKE '%p%' ");
     }
@@ -31,114 +40,199 @@ public class JpqlSearchUtilsTest {
 
         final String produitLibelleAlias = "produit.libelle";
 
-        FilterAlias filterAlias = new FilterAlias(ProduitKey.LIBELLE, OPERATOR.CONTAINS, "p'1", null,produitLibelleAlias);
+        FilterString fs = FilterString.builder()
+                .type(FILTER_TYPE.STRING)
+                .key(ProduitKey.LIBELLE)
+                .operator(OPERATOR_STRING.CONTAINS)
+                .value("p'1")
+                .build();
 
-        String contains = JpqlSearchUtils.contains(filterAlias);
+        String contains = JpqlSearchUtils.stringContains(produitLibelleAlias, fs.getValue());
+
 
         Assertions.assertThat(contains).isEqualTo(" produit.libelle LIKE '%p''1%' ");
     }
 
     @Test
-    public void startsWith(){
+    public void startsWith() {
 
         final String produitLibelleAlias = "produit.libelle";
 
-        FilterAlias filterAlias = new FilterAlias(ProduitKey.LIBELLE, OPERATOR.STARTS_WITH, "p",null, produitLibelleAlias);
 
-        String contains = JpqlSearchUtils.startsWith(filterAlias);
+        FilterString fs = FilterString.builder()
+                .type(FILTER_TYPE.STRING)
+                .key(ProduitKey.LIBELLE)
+                .operator(OPERATOR_STRING.STARTS_WITH)
+                .value("p")
+                .build();
 
-        Assertions.assertThat(contains).isEqualTo(" produit.libelle LIKE 'p%' ");
+        String startsWith = JpqlSearchUtils.stringStartsWith(produitLibelleAlias, fs.getValue());
+
+        Assertions.assertThat(startsWith).isEqualTo(" produit.libelle LIKE 'p%' ");
 
     }
 
 
     @Test
-    public void startsWith_with_quotes_in_value_should_be_escaped(){
+    public void startsWith_with_quotes_in_value_should_be_escaped() {
 
         final String produitLibelleAlias = "produit.libelle";
 
-        FilterAlias filterAlias = new FilterAlias(ProduitKey.LIBELLE, OPERATOR.STARTS_WITH, "p'1",null, produitLibelleAlias);
+        FilterString fs = FilterString.builder()
+                .type(FILTER_TYPE.STRING)
+                .key(ProduitKey.LIBELLE)
+                .operator(OPERATOR_STRING.STARTS_WITH)
+                .value("p'1")
+                .build();
 
-        String contains = JpqlSearchUtils.startsWith(filterAlias);
+        String startsWith = JpqlSearchUtils.stringStartsWith(produitLibelleAlias, fs.getValue());
 
-        Assertions.assertThat(contains).isEqualTo(" produit.libelle LIKE 'p''1%' ");
+        Assertions.assertThat(startsWith).isEqualTo(" produit.libelle LIKE 'p''1%' ");
 
     }
 
 
     @Test
-    public void equals(){
+    public void string_equals() {
 
         final String produitLibelleAlias = "produit.libelle";
 
-        FilterAlias filterAlias = new FilterAlias(ProduitKey.LIBELLE, OPERATOR.EQUALS, "p",null, produitLibelleAlias);
+        FilterString fs = FilterString.builder()
+                .type(FILTER_TYPE.STRING)
+                .key(ProduitKey.LIBELLE)
+                .operator(OPERATOR_STRING.EQUALS)
+                .value("p")
+                .build();
 
-        String contains = JpqlSearchUtils.equals(filterAlias);
 
-        Assertions.assertThat(contains).isEqualTo(" produit.libelle = 'p' ");
+        String equals = JpqlSearchUtils.stringEquals(produitLibelleAlias, fs.getValue());
+
+        Assertions.assertThat(equals).isEqualTo(" produit.libelle = 'p' ");
 
     }
 
     @Test
-    public void equals_with_quotes_in_value_should_be_escaped(){
+    public void equals_with_quotes_in_value_should_be_escaped() {
 
         final String produitLibelleAlias = "produit.libelle";
 
-        FilterAlias filterAlias = new FilterAlias(ProduitKey.LIBELLE, OPERATOR.STARTS_WITH, "p'1",null, produitLibelleAlias);
+        FilterString fs = FilterString.builder()
+                .type(FILTER_TYPE.STRING)
+                .key(ProduitKey.LIBELLE)
+                .operator(OPERATOR_STRING.EQUALS)
+                .value("p'1")
+                .build();
 
-        String contains = JpqlSearchUtils.equals(filterAlias);
+        String equals = JpqlSearchUtils.stringEquals(produitLibelleAlias, fs.getValue());
 
-        Assertions.assertThat(contains).isEqualTo(" produit.libelle = 'p''1' ");
+
+        Assertions.assertThat(equals).isEqualTo(" produit.libelle = 'p''1' ");
 
     }
 
     @Test
     public void filters_with_2_contains_should_concatenate_with_and() {
 
-        final String produitLibelleAlias = "produit.libelle";
-        FilterAlias filterLibelleAlias = new FilterAlias(ProduitKey.LIBELLE, OPERATOR.CONTAINS, "p",null, produitLibelleAlias);
 
-        final String produitDescriptifAlias = "produit.descriptif";
-        FilterAlias filterDescriptifAlias = new FilterAlias(ProduitKey.DESCRIPTION, OPERATOR.CONTAINS, "p desc",null, produitDescriptifAlias);
+        FilterString fs1 = FilterString.builder()
+                .type(FILTER_TYPE.STRING)
+                .key(ProduitKey.LIBELLE)
+                .operator(OPERATOR_STRING.CONTAINS)
+                .value("p")
+                .build();
 
-        String contains =  JpqlSearchUtils.buildFilters(Stream.of(filterLibelleAlias, filterDescriptifAlias).collect(Collectors.toList()));
+        FilterAlias fa1 = FilterAlias.<FilterString>builder()
+                .alias("produit.libelle")
+                .filter(fs1)
+                .build();
+
+        FilterString fs2 = FilterString.builder()
+                .type(FILTER_TYPE.STRING)
+                .key(ProduitKey.LIBELLE)
+                .operator(OPERATOR_STRING.CONTAINS)
+                .value("p desc")
+                .build();
+
+        FilterAlias fa2 = FilterAlias.<FilterString>builder()
+                .alias("produit.descriptif")
+                .filter(fs2)
+                .build();
+
+
+        String contains = JpqlSearchUtils.buildFilters(Stream.of(fa1, fa2).collect(Collectors.toList()));
 
         Assertions.assertThat(contains).isEqualTo(" produit.libelle LIKE '%p%'  AND  produit.descriptif LIKE '%p%desc%' ");
     }
 
     @Test
-    public void greaterThan(){
-
+    public void numberGreaterThan() {
+        float[] inputs= {1.25f};
         final String produitPrixUnitaireHTAlias = "produit.prixUnitaireHT";
-        FilterAlias filterPrixUnitaireHTAlias = new FilterAlias(ProduitKey.PRIX_UNITAIRE_HT, OPERATOR.GT, "1",null, produitPrixUnitaireHTAlias);
 
-        String gt = JpqlSearchUtils.buildFilters(Stream.of( filterPrixUnitaireHTAlias).collect(Collectors.toList()));
+        FilterNumber fn1 = FilterNumber.builder()
+                .type(FILTER_TYPE.NUMBER)
+                .key(ProduitKey.PRIX_UNITAIRE_HT)
+                .operator(OPERATOR_NUMBER.GT)
+                .value(inputs)
+                .build();
 
-        Assertions.assertThat(gt).isEqualTo(" produit.prixUnitaireHT > 1 ");
+        FilterAlias fa1 = FilterAlias.<FilterNumber>builder()
+                .alias(produitPrixUnitaireHTAlias)
+                .filter(fn1)
+                .build();
+
+
+        String gt = JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
+
+        Assertions.assertThat(gt).isEqualTo(" produit.prixUnitaireHT > 1.25 ");
 
     }
 
     @Test
     public void greaterThanOrEquals(){
-
+        float[] inputs= {1.25f};
         final String produitPrixUnitaireHTAlias = "produit.prixUnitaireHT";
-        FilterAlias filterPrixUnitaireHTAlias = new FilterAlias(ProduitKey.PRIX_UNITAIRE_HT, OPERATOR.GTE, "1",null, produitPrixUnitaireHTAlias);
 
-        String gt = JpqlSearchUtils.buildFilters(Stream.of( filterPrixUnitaireHTAlias).collect(Collectors.toList()));
+        FilterNumber fn1 = FilterNumber.builder()
+                .type(FILTER_TYPE.NUMBER)
+                .key(ProduitKey.PRIX_UNITAIRE_HT)
+                .operator(OPERATOR_NUMBER.GTE)
+                .value(inputs)
+                .build();
 
-        Assertions.assertThat(gt).isEqualTo(" produit.prixUnitaireHT >= 1 ");
+        FilterAlias fa1 = FilterAlias.<FilterNumber>builder()
+                .alias(produitPrixUnitaireHTAlias)
+                .filter(fn1)
+                .build();
+
+
+        String gt = JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
+
+        Assertions.assertThat(gt).isEqualTo(" produit.prixUnitaireHT >= 1.25 ");
 
     }
 
     @Test
     public void lessThan(){
-
+        float[] inputs= {1.25f};
         final String produitPrixUnitaireHTAlias = "produit.prixUnitaireHT";
-        FilterAlias filterPrixUnitaireHTAlias = new FilterAlias(ProduitKey.PRIX_UNITAIRE_HT, OPERATOR.LT, "1",null, produitPrixUnitaireHTAlias);
 
-        String gt = JpqlSearchUtils.buildFilters(Stream.of( filterPrixUnitaireHTAlias).collect(Collectors.toList()));
+        FilterNumber fn1 = FilterNumber.builder()
+                .type(FILTER_TYPE.NUMBER)
+                .key(ProduitKey.PRIX_UNITAIRE_HT)
+                .operator(OPERATOR_NUMBER.LT)
+                .value(inputs)
+                .build();
 
-        Assertions.assertThat(gt).isEqualTo(" produit.prixUnitaireHT < 1 ");
+        FilterAlias fa1 = FilterAlias.<FilterNumber>builder()
+                .alias(produitPrixUnitaireHTAlias)
+                .filter(fn1)
+                .build();
+
+
+        String gt = JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
+
+        Assertions.assertThat(gt).isEqualTo(" produit.prixUnitaireHT < 1.25 ");
 
     }
 
@@ -146,40 +240,191 @@ public class JpqlSearchUtilsTest {
 
     @Test
     public void lessThanOrEquals(){
-
+        float[] inputs= {1.25f};
         final String produitPrixUnitaireHTAlias = "produit.prixUnitaireHT";
-        FilterAlias filterPrixUnitaireHTAlias = new FilterAlias(ProduitKey.PRIX_UNITAIRE_HT, OPERATOR.LTE, "1",null, produitPrixUnitaireHTAlias);
 
-        String gt = JpqlSearchUtils.buildFilters(Stream.of( filterPrixUnitaireHTAlias).collect(Collectors.toList()));
+        FilterNumber fn1 = FilterNumber.builder()
+                .type(FILTER_TYPE.NUMBER)
+                .key(ProduitKey.PRIX_UNITAIRE_HT)
+                .operator(OPERATOR_NUMBER.LTE)
+                .value(inputs)
+                .build();
 
-        Assertions.assertThat(gt).isEqualTo(" produit.prixUnitaireHT <= 1 ");
+        FilterAlias fa1 = FilterAlias.<FilterNumber>builder()
+                .alias(produitPrixUnitaireHTAlias)
+                .filter(fn1)
+                .build();
 
+
+        String gt = JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
+
+        Assertions.assertThat(gt).isEqualTo(" produit.prixUnitaireHT <= 1.25 ");
     }
 
     @Test
-    public void greaterThan_should_replace_commas_with_points(){
+    public void number_equals(){
+        float[] inputs= {1.25f};
+        final String produitPrixUnitaireHTAlias = "produit.prixUnitaireHT";
+
+        FilterNumber fn1 = FilterNumber.builder()
+                .type(FILTER_TYPE.NUMBER)
+                .key(ProduitKey.PRIX_UNITAIRE_HT)
+                .operator(OPERATOR_NUMBER.EQUALS)
+                .value(inputs)
+                .build();
+
+        FilterAlias fa1 = FilterAlias.<FilterNumber>builder()
+                .alias(produitPrixUnitaireHTAlias)
+                .filter(fn1)
+                .build();
+
+
+        String gt = JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
+
+        Assertions.assertThat(gt).isEqualTo(" produit.prixUnitaireHT = 1.25 ");
+    }
+
+    @Test
+    public void number_not_equals(){
+
+        float[] inputs= {1.25f};
+
 
         final String produitPrixUnitaireHTAlias = "produit.prixUnitaireHT";
-        FilterAlias filterPrixUnitaireHTAlias = new FilterAlias(ProduitKey.PRIX_UNITAIRE_HT, OPERATOR.GT, "1,2",null, produitPrixUnitaireHTAlias);
 
-        String gt = JpqlSearchUtils.buildFilters(Stream.of( filterPrixUnitaireHTAlias).collect(Collectors.toList()));
+        FilterNumber fn1 = FilterNumber.builder()
+                .type(FILTER_TYPE.NUMBER)
+                .key(ProduitKey.PRIX_UNITAIRE_HT)
+                .operator(OPERATOR_NUMBER.NOT_EQUALS)
+                .value(inputs)
+                .build();
 
-        Assertions.assertThat(gt).isEqualTo(" produit.prixUnitaireHT > 1.2 ");
+        FilterAlias fa1 = FilterAlias.<FilterNumber>builder()
+                .alias(produitPrixUnitaireHTAlias)
+                .filter(fn1)
+                .build();
 
+
+        String gt = JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
+
+        Assertions.assertThat(gt).isEqualTo(" produit.prixUnitaireHT <> 1.25 ");
     }
+
+    @Test
+    public void number_between_inclusive(){
+
+        float[] inputs= {1.25f, 2f};
+
+
+        final String produitPrixUnitaireHTAlias = "produit.prixUnitaireHT";
+
+        FilterNumber fn1 = FilterNumber.builder()
+                .type(FILTER_TYPE.NUMBER)
+                .key(ProduitKey.PRIX_UNITAIRE_HT)
+                .operator(OPERATOR_NUMBER.BETWEEN_INCLUSIVE)
+                .value(inputs)
+                .build();
+
+        FilterAlias fa1 = FilterAlias.<FilterNumber>builder()
+                .alias(produitPrixUnitaireHTAlias)
+                .filter(fn1)
+                .build();
+
+
+        String gt = JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
+
+        Assertions.assertThat(gt).isEqualTo(" produit.prixUnitaireHT >= 1.25 AND produit.prixUnitaireHT <= 2.0 ");
+    }
+
+    @Test
+    public void number_between_exclusive(){
+
+        float[] inputs= {1.25f, 2f};
+
+
+        final String produitPrixUnitaireHTAlias = "produit.prixUnitaireHT";
+
+        FilterNumber fn1 = FilterNumber.builder()
+                .type(FILTER_TYPE.NUMBER)
+                .key(ProduitKey.PRIX_UNITAIRE_HT)
+                .operator(OPERATOR_NUMBER.BETWEEN_EXCLUSIVE)
+                .value(inputs)
+                .build();
+
+        FilterAlias fa1 = FilterAlias.<FilterNumber>builder()
+                .alias(produitPrixUnitaireHTAlias)
+                .filter(fn1)
+                .build();
+
+
+        String gt = JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
+
+        Assertions.assertThat(gt).isEqualTo(" produit.prixUnitaireHT > 1.25 AND produit.prixUnitaireHT < 2.0 ");
+    }
+
+    @Test
+    public void number_in(){
+
+        float[] inputs= {1.25f, 2f,4};
+
+
+        final String produitPrixUnitaireHTAlias = "produit.prixUnitaireHT";
+
+        FilterNumber fn1 = FilterNumber.builder()
+                .type(FILTER_TYPE.NUMBER)
+                .key(ProduitKey.PRIX_UNITAIRE_HT)
+                .operator(OPERATOR_NUMBER.IN)
+                .value(inputs)
+                .build();
+
+        FilterAlias fa1 = FilterAlias.<FilterNumber>builder()
+                .alias(produitPrixUnitaireHTAlias)
+                .filter(fn1)
+                .build();
+
+
+        String gt = JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
+
+        Assertions.assertThat(gt).isEqualTo(" produit.prixUnitaireHT IN (1.25, 2.0, 4.0) ");
+    }
+
 
     @Test
     public void filters_with_2_greaterThan_should_concatenate_with_and(){
 
+        float[] inputs= {1.2f};
+
         final String produitPrixUnitaireHTAlias = "produit.prixUnitaireHT";
-        FilterAlias filterPrixUnitaireHTAlias = new FilterAlias(ProduitKey.PRIX_UNITAIRE_HT, OPERATOR.GT, "1,2",null, produitPrixUnitaireHTAlias);
 
-        final String produitPrixUnitaireHTAlias2 = "produit.prixUnitaireHT";
-        FilterAlias filterPrixUnitaireHTAlias2 = new FilterAlias(ProduitKey.PRIX_UNITAIRE_HT, OPERATOR.GT, "2",null, produitPrixUnitaireHTAlias2);
 
-        String gt = JpqlSearchUtils.buildFilters(Stream.of( filterPrixUnitaireHTAlias, filterPrixUnitaireHTAlias2).collect(Collectors.toList()));
+        FilterNumber fn1 = FilterNumber.builder()
+                .type(FILTER_TYPE.NUMBER)
+                .key(ProduitKey.PRIX_UNITAIRE_HT)
+                .operator(OPERATOR_NUMBER.GT)
+                .value(inputs)
+                .build();
 
-        Assertions.assertThat(gt).isEqualTo(" produit.prixUnitaireHT > 1.2  AND  produit.prixUnitaireHT > 2 ");
+        FilterAlias fa1 = FilterAlias.<FilterNumber>builder()
+                .alias(produitPrixUnitaireHTAlias)
+                .filter(fn1)
+                .build();
+
+        float[] inputs2= {2};
+        FilterNumber fn2 = FilterNumber.builder()
+                .type(FILTER_TYPE.NUMBER)
+                .key(ProduitKey.PRIX_UNITAIRE_HT)
+                .operator(OPERATOR_NUMBER.GT)
+                .value(inputs2)
+                .build();
+
+        FilterAlias fa2 = FilterAlias.<FilterNumber>builder()
+                .alias(produitPrixUnitaireHTAlias)
+                .filter(fn2)
+                .build();
+
+        String gt = JpqlSearchUtils.buildFilters(Stream.of( fa1,fa2).collect(Collectors.toList()));
+
+        Assertions.assertThat(gt).isEqualTo(" produit.prixUnitaireHT > 1.2  AND  produit.prixUnitaireHT > 2.0 ");
 
     }
 

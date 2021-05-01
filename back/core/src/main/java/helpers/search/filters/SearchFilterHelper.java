@@ -3,7 +3,7 @@ package helpers.search.filters;
 import exceptions.TechnicalException;
 import keys.DomainKey;
 import models.search.Search;
-import models.search.filter.Filter;
+import models.search.filter.*;
 import models.search.sort.Sort;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ArrayUtils;
@@ -34,8 +34,10 @@ public class SearchFilterHelper<DK extends DomainKey> {
 
         if (CollectionUtils.isNotEmpty(filters)) {
             List<String> keyNames = filters.stream().map(item -> item.getKey()).collect(Collectors.toList());
+
             checkKeys(keyNames, kfClass, FILTER_KEY_IS_UNKNOWN);
 
+            checkFilterTypes(filters, kfClass);
 
             checkFilterValues(filters, kfClass);
         }
@@ -49,28 +51,20 @@ public class SearchFilterHelper<DK extends DomainKey> {
         }
     }
 
-    private void checkFilterValues(List<Filter> filters, Class<DK> kfClass) throws TechnicalException {
+    private void checkFilterTypes(List<Filter> filters, Class<DK> kfClass) throws TechnicalException {
         Field[] fields = kfClass.getFields();
         StringBuilder err = new StringBuilder();
 
 
-         if (ArrayUtils.isNotEmpty(fields)
+        if (ArrayUtils.isNotEmpty(fields)
                 && CollectionUtils.isNotEmpty(filters)) {
 
             for (Filter filter : filters) {
 
-                switch (filter.getOperator()) {
-                    case ID_IN:
-                        if(CollectionUtils.isEmpty(filter.getIdList())){
-                            err.append(ls.getMsg(FILTER_VALUE_IS_NOT_A_LIST, kfClass.getSimpleName(), filter.getKey())).append(System.lineSeparator());
-                        }
-                        break;
-                    default:
-                        if(Objects.isNull(filter.getValue())){
-                            err.append(ls.getMsg(FILTER_VALUE_IS_NULL, kfClass.getSimpleName(), filter.getKey())).append(System.lineSeparator());
-                        }
-                        break;
+                if (Objects.isNull(filter.getType())) {
+                    err.append(ls.getMsg(FILTER_TYPE_IS_NULL, kfClass.getSimpleName(), filter.getKey())).append(System.lineSeparator());
                 }
+
             }
         }
 
@@ -78,6 +72,62 @@ public class SearchFilterHelper<DK extends DomainKey> {
             throw new TechnicalException(err.toString());
         }
     }
+
+    private void checkFilterValues(List<Filter> filters, Class<DK> kfClass) throws TechnicalException {
+        Field[] fields = kfClass.getFields();
+        StringBuilder err = new StringBuilder();
+
+
+        if (ArrayUtils.isNotEmpty(fields)
+                && CollectionUtils.isNotEmpty(filters)) {
+
+            for (Filter filter : filters) {
+
+                Object value = null;
+
+                switch (filter.getType()) {
+                    case DATE:
+                        value = ((FilterDate) filter).getValue();
+                        break;
+                    case STRING:
+                        value = ((FilterString) filter).getValue();
+                        break;
+                    case NUMBER:
+                        value = ((FilterNumber) filter).getValue();
+                        break;
+                    case BOOLEAN:
+                        value = ((FilterBoolean) filter).getValue();
+                        break;
+                }
+
+                if (Objects.isNull(value)) {
+                    err.append(ls.getMsg(FILTER_VALUE_IS_NULL, kfClass.getSimpleName(), filter.getKey())).append(System.lineSeparator());
+                }
+
+            }
+        }
+
+        if (StringUtils.isNotEmpty(err.toString())) {
+            throw new TechnicalException(err.toString());
+        }
+    }
+
+    private Filter castToFilterType(Filter filter) {
+
+
+        switch (filter.getType()) {
+            case DATE:
+                return (FilterDate) filter;
+            case STRING:
+                return (FilterString) filter;
+            default:
+                return null;
+
+        }
+
+
+    }
+
 
     private void checkKeys(List<String> keyNames, Class<DK> kfClass, final String localeKeyMsg) throws TechnicalException {
         Field[] fields = kfClass.getFields();
