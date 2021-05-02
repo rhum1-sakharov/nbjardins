@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.rlsv.adapters.secondaries.dataproviderjpa.models.search.filters.FilterPath;
+import org.rlsv.adapters.secondaries.dataproviderjpa.models.search.filters.Path;
 import org.rlsv.adapters.secondaries.dataproviderjpa.models.search.filters.SortPath;
 
 import java.time.LocalDate;
@@ -95,7 +96,7 @@ public class JpqlSearchUtilsTest {
 
 
         FilterPath fa1 = FilterPath.<FilterDate>builder()
-                .path("produit.date")
+                .path(new Path("produit","date",true))
                 .filter(fd)
                 .build();
 
@@ -116,7 +117,7 @@ public class JpqlSearchUtilsTest {
 
 
         FilterPath fa1 = FilterPath.<FilterBoolean>builder()
-                .path("produit.actif")
+                .path(new Path("produit","actif",true))
                 .filter(fb)
                 .build();
 
@@ -137,7 +138,7 @@ public class JpqlSearchUtilsTest {
 
 
         FilterPath fa1 = FilterPath.<FilterBoolean>builder()
-                .path("produit.actif")
+                .path(new Path("produit","actif",true))
                 .filter(fb)
                 .build();
 
@@ -160,7 +161,7 @@ public class JpqlSearchUtilsTest {
 
 
         FilterPath fa1 = FilterPath.<FilterDate>builder()
-                .path("produit.date")
+                .path(new Path("produit","date",true))
                 .filter(fd)
                 .build();
 
@@ -183,7 +184,7 @@ public class JpqlSearchUtilsTest {
 
 
         FilterPath fa1 = FilterPath.<FilterDate>builder()
-                .path("produit.date")
+                .path(new Path("produit","date",true))
                 .filter(fd)
                 .build();
 
@@ -206,7 +207,7 @@ public class JpqlSearchUtilsTest {
 
 
         FilterPath fa1 = FilterPath.<FilterDate>builder()
-                .path("produit.date")
+                .path(new Path("produit","date",true))
                 .filter(fd)
                 .build();
 
@@ -230,7 +231,7 @@ public class JpqlSearchUtilsTest {
 
 
         FilterPath fa1 = FilterPath.<FilterDate>builder()
-                .path("produit.date")
+                .path(new Path("produit","date",true))
                 .filter(fd)
                 .build();
 
@@ -253,7 +254,7 @@ public class JpqlSearchUtilsTest {
 
 
         FilterPath fa1 = FilterPath.<FilterDate>builder()
-                .path("produit.date")
+                .path(new Path("produit","date",true))
                 .filter(fd)
                 .build();
 
@@ -277,7 +278,7 @@ public class JpqlSearchUtilsTest {
 
 
         FilterPath fa1 = FilterPath.<FilterDate>builder()
-                .path("produit.date")
+                .path(new Path("produit","date",true))
                 .filter(fd)
                 .build();
 
@@ -300,7 +301,7 @@ public class JpqlSearchUtilsTest {
 
 
         FilterPath fa1 = FilterPath.<FilterDate>builder()
-                .path("produit.date")
+                .path(new Path("produit","date",true))
                 .filter(fd)
                 .build();
 
@@ -323,7 +324,7 @@ public class JpqlSearchUtilsTest {
 
 
         FilterPath fa1 = FilterPath.<FilterString>builder()
-                .path("produit.libelle")
+                .path(new Path("produit","libelle",true))
                 .filter(fs)
                 .build();
 
@@ -346,7 +347,7 @@ public class JpqlSearchUtilsTest {
 
 
         FilterPath fa1 = FilterPath.<FilterString>builder()
-                .path("produit.libelle")
+                .path(new Path("produit","libelle",true))
                 .filter(fs)
                 .build();
 
@@ -368,7 +369,7 @@ public class JpqlSearchUtilsTest {
                 .build();
 
         FilterPath fa1 = FilterPath.<FilterString>builder()
-                .path("produit.libelle")
+                .path(new Path("produit","libelle",true))
                 .filter(fs)
                 .build();
 
@@ -391,7 +392,7 @@ public class JpqlSearchUtilsTest {
                 .build();
 
         FilterPath fa1 = FilterPath.<FilterString>builder()
-                .path("produit.libelle")
+                .path(new Path("produit","libelle",true))
                 .filter(fs)
                 .build();
 
@@ -416,7 +417,7 @@ public class JpqlSearchUtilsTest {
                 .build();
 
         FilterPath fa1 = FilterPath.<FilterString>builder()
-                .path("produit.libelle")
+                .path(new Path("produit","libelle",true))
                 .filter(fs)
                 .build();
 
@@ -440,7 +441,7 @@ public class JpqlSearchUtilsTest {
                 .build();
 
         FilterPath fa1 = FilterPath.<FilterString>builder()
-                .path("produit.libelle")
+                .path(new Path("produit","libelle",true))
                 .filter(fs)
                 .build();
 
@@ -463,7 +464,7 @@ public class JpqlSearchUtilsTest {
                 .build();
 
         FilterPath fa1 = FilterPath.<FilterString>builder()
-                .path("produit.libelle")
+                .path(new Path("produit","libelle",true))
                 .filter(fs)
                 .build();
 
@@ -486,7 +487,7 @@ public class JpqlSearchUtilsTest {
                 .build();
 
         FilterPath fa1 = FilterPath.<FilterString>builder()
-                .path("produit.libelle")
+               .path(new Path("produit","libelle",true))
                 .filter(fs)
                 .build();
 
@@ -510,7 +511,7 @@ public class JpqlSearchUtilsTest {
                 .build();
 
         FilterPath fa1 = FilterPath.<FilterString>builder()
-                .path("produit.libelle")
+                .path(new Path("produit","libelle",true))
                 .filter(fs1)
                 .build();
 
@@ -524,7 +525,7 @@ public class JpqlSearchUtilsTest {
                 .build();
 
         FilterPath fa2 = FilterPath.<FilterString>builder()
-                .path("produit.descriptif")
+               .path(new Path("produit","descriptif",true))
                 .filter(fs2)
                 .build();
 
@@ -537,7 +538,7 @@ public class JpqlSearchUtilsTest {
     @Test
     public void numberGreaterThan() {
         float[] inputs = {1.25f};
-        final String produitPrixUnitaireHTAlias = "produit.prixUnitaireHT";
+
 
         FilterNumber fn1 = FilterNumber.builder()
                 .type(FILTER_TYPE.NUMBER)
@@ -547,7 +548,7 @@ public class JpqlSearchUtilsTest {
                 .build();
 
         FilterPath fa1 = FilterPath.<FilterNumber>builder()
-                .path(produitPrixUnitaireHTAlias)
+                .path(new Path("produit","prixUnitaireHT",true))
                 .filter(fn1)
                 .build();
 
@@ -571,7 +572,7 @@ public class JpqlSearchUtilsTest {
                 .build();
 
         FilterPath fa1 = FilterPath.<FilterNumber>builder()
-                .path(produitPrixUnitaireHTAlias)
+                .path(new Path("produit","prixUnitaireHT",true))
                 .filter(fn1)
                 .build();
 
@@ -595,7 +596,7 @@ public class JpqlSearchUtilsTest {
                 .build();
 
         FilterPath fa1 = FilterPath.<FilterNumber>builder()
-                .path(produitPrixUnitaireHTAlias)
+                .path(new Path("produit","prixUnitaireHT",true))
                 .filter(fn1)
                 .build();
 
@@ -610,7 +611,6 @@ public class JpqlSearchUtilsTest {
     @Test
     public void lessThanOrEquals() {
         float[] inputs = {1.25f};
-        final String produitPrixUnitaireHTAlias = "produit.prixUnitaireHT";
 
         FilterNumber fn1 = FilterNumber.builder()
                 .type(FILTER_TYPE.NUMBER)
@@ -620,7 +620,7 @@ public class JpqlSearchUtilsTest {
                 .build();
 
         FilterPath fa1 = FilterPath.<FilterNumber>builder()
-                .path(produitPrixUnitaireHTAlias)
+                .path(new Path("produit","prixUnitaireHT",true))
                 .filter(fn1)
                 .build();
 
@@ -633,7 +633,6 @@ public class JpqlSearchUtilsTest {
     @Test
     public void number_equals() {
         float[] inputs = {1.25f};
-        final String produitPrixUnitaireHTAlias = "produit.prixUnitaireHT";
 
         FilterNumber fn1 = FilterNumber.builder()
                 .type(FILTER_TYPE.NUMBER)
@@ -643,7 +642,7 @@ public class JpqlSearchUtilsTest {
                 .build();
 
         FilterPath fa1 = FilterPath.<FilterNumber>builder()
-                .path(produitPrixUnitaireHTAlias)
+                .path(new Path("produit","prixUnitaireHT",true))
                 .filter(fn1)
                 .build();
 
@@ -658,9 +657,6 @@ public class JpqlSearchUtilsTest {
 
         float[] inputs = {1.25f};
 
-
-        final String produitPrixUnitaireHTAlias = "produit.prixUnitaireHT";
-
         FilterNumber fn1 = FilterNumber.builder()
                 .type(FILTER_TYPE.NUMBER)
                 .key(ProduitKey.PRIX_UNITAIRE_HT)
@@ -669,7 +665,7 @@ public class JpqlSearchUtilsTest {
                 .build();
 
         FilterPath fa1 = FilterPath.<FilterNumber>builder()
-                .path(produitPrixUnitaireHTAlias)
+                .path(new Path("produit","prixUnitaireHT",true))
                 .filter(fn1)
                 .build();
 
@@ -684,9 +680,6 @@ public class JpqlSearchUtilsTest {
 
         float[] inputs = {1.25f, 2f};
 
-
-        final String produitPrixUnitaireHTAlias = "produit.prixUnitaireHT";
-
         FilterNumber fn1 = FilterNumber.builder()
                 .type(FILTER_TYPE.NUMBER)
                 .key(ProduitKey.PRIX_UNITAIRE_HT)
@@ -695,7 +688,7 @@ public class JpqlSearchUtilsTest {
                 .build();
 
         FilterPath fa1 = FilterPath.<FilterNumber>builder()
-                .path(produitPrixUnitaireHTAlias)
+                .path(new Path("produit","prixUnitaireHT",true))
                 .filter(fn1)
                 .build();
 
@@ -711,8 +704,6 @@ public class JpqlSearchUtilsTest {
         float[] inputs = {1.25f, 2f};
 
 
-        final String produitPrixUnitaireHTAlias = "produit.prixUnitaireHT";
-
         FilterNumber fn1 = FilterNumber.builder()
                 .type(FILTER_TYPE.NUMBER)
                 .key(ProduitKey.PRIX_UNITAIRE_HT)
@@ -721,7 +712,7 @@ public class JpqlSearchUtilsTest {
                 .build();
 
         FilterPath fa1 = FilterPath.<FilterNumber>builder()
-                .path(produitPrixUnitaireHTAlias)
+                .path(new Path("produit","prixUnitaireHT",true))
                 .filter(fn1)
                 .build();
 
@@ -737,8 +728,6 @@ public class JpqlSearchUtilsTest {
         float[] inputs = {1.25f, 2f, 4};
 
 
-        final String produitPrixUnitaireHTAlias = "produit.prixUnitaireHT";
-
         FilterNumber fn1 = FilterNumber.builder()
                 .type(FILTER_TYPE.NUMBER)
                 .key(ProduitKey.PRIX_UNITAIRE_HT)
@@ -747,7 +736,7 @@ public class JpqlSearchUtilsTest {
                 .build();
 
         FilterPath fa1 = FilterPath.<FilterNumber>builder()
-                .path(produitPrixUnitaireHTAlias)
+                .path(new Path("produit","prixUnitaireHT",true))
                 .filter(fn1)
                 .build();
 
@@ -763,9 +752,6 @@ public class JpqlSearchUtilsTest {
 
         float[] inputs = {1.2f};
 
-        final String produitPrixUnitaireHTAlias = "produit.prixUnitaireHT";
-
-
         FilterNumber fn1 = FilterNumber.builder()
                 .type(FILTER_TYPE.NUMBER)
                 .key(ProduitKey.PRIX_UNITAIRE_HT)
@@ -774,7 +760,7 @@ public class JpqlSearchUtilsTest {
                 .build();
 
         FilterPath fa1 = FilterPath.<FilterNumber>builder()
-                .path(produitPrixUnitaireHTAlias)
+                .path(new Path("produit","prixUnitaireHT",true))
                 .filter(fn1)
                 .build();
 
@@ -787,7 +773,7 @@ public class JpqlSearchUtilsTest {
                 .build();
 
         FilterPath fa2 = FilterPath.<FilterNumber>builder()
-                .path(produitPrixUnitaireHTAlias)
+                .path(new Path("produit","prixUnitaireHT",true))
                 .filter(fn2)
                 .build();
 

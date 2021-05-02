@@ -10,7 +10,7 @@ import models.search.filter.Filter;
 @SuperBuilder
 public class FilterPath<T extends Filter> {
 
-    private String path;
+    private Path path;
     private T filter;
 
 

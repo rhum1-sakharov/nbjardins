@@ -23,17 +23,10 @@ public class JpqlSearchUtils {
     private static final String LIKE_OPERATOR = "%";
 
 
-    private static String getDirection(DIRECTION direction) {
+    public static String buildPaths(List<FilterPath> filterPathList) {
+        StringBuilder sb = new StringBuilder();
 
-        switch (direction) {
-            case ASC:
-                return "asc";
-            case DESC:
-                return "desc";
-            default:
-                return "asc";
-        }
-
+        return sb.toString();
     }
 
     public static String buildSorts(List<SortPath> sortPathList) {
@@ -74,7 +67,7 @@ public class JpqlSearchUtils {
             int i = 0;
             for (FilterPath filterPath : filterPathList) {
 
-                String path = filterPath.getPath();
+                String path = filterPath.getPath().getJoin() + "." + filterPath.getPath().getAlias();
                 Filter filter = filterPath.getFilter();
 
                 switch (filter.getType()) {
@@ -107,6 +100,20 @@ public class JpqlSearchUtils {
 
         return sb.toString();
     }
+
+    private static String getDirection(DIRECTION direction) {
+
+        switch (direction) {
+            case ASC:
+                return "asc";
+            case DESC:
+                return "desc";
+            default:
+                return "asc";
+        }
+
+    }
+
 
     private static String stringBuilder(String path, Filter filter) {
 
