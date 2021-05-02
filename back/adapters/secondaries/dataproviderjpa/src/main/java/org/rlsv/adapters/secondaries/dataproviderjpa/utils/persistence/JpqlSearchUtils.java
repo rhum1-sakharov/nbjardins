@@ -54,7 +54,11 @@ public class JpqlSearchUtils {
 
         sb.append(buildSorts(sortPathList));
 
-        return sb.toString().trim();
+        String queryBuilt  =sb.toString().trim();
+
+        LOG.debug("query built : {} ",queryBuilt);
+
+        return queryBuilt;
     }
 
 

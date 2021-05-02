@@ -3,16 +3,19 @@ package org.rlsv.adapters.secondaries.dataproviderjpa.repositories.produits;
 import domains.produits.ProduitDN;
 import domains.referentiel.taxes.TaxeDN;
 import enums.search.filter.FILTER_TYPE;
-import enums.search.filter.OPERATOR_STRING;
+import enums.search.filter.OPERATOR_NUMBER;
 import enums.search.sort.DIRECTION;
 import exceptions.CleanException;
 import exceptions.TechnicalException;
 import init.InitDb;
+import keys.produit.ProduitKey;
 import models.search.Search;
-import models.search.filter.FilterString;
+import models.search.filter.FilterNumber;
 import models.search.page.Page;
+import models.search.response.SearchResponse;
 import models.search.sort.Sort;
 import org.apache.commons.collections4.CollectionUtils;
+import org.assertj.core.api.Assertions;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -58,7 +61,7 @@ public class ProduitRepoJpaTest {
         this.repo = new ProduitRepoJpa(ls);
         this.taxeRepoJpa = new TaxeRepoJpa(ls);
 
-        this.reset();
+       this.reset();
 
         this.start();
 
@@ -69,20 +72,22 @@ public class ProduitRepoJpaTest {
     public void search() {
 
         String[] strings={"p1"};
+        float[] inputs={1.6f,25};
 
         Search search = Search.builder()
-                .filters(Stream.of(FilterString.builder()
-                        .type(FILTER_TYPE.STRING)
-                        .key("libelle")
-                        .operator(OPERATOR_STRING.CONTAINS)
-                        .value(strings).build()).collect(Collectors.toList()))
+                .filters(Stream.of(
+                        FilterNumber.builder()
+                                .type(FILTER_TYPE.NUMBER)
+                                .key(ProduitKey.PRIX_UNITAIRE_HT)
+                                .operator(OPERATOR_NUMBER.BETWEEN_INCLUSIVE)
+                                .value(inputs).build()
+                        ).collect(Collectors.toList()))
                 .page(Page.builder().pageIngex(0).pageSize(0).build())
-                .sorts(Stream.of(Sort.builder().direction(DIRECTION.DESC).key("libelle").build()).collect(Collectors.toList()))
+                .sorts(Stream.of(Sort.builder().direction(DIRECTION.ASC).key(ProduitKey.PRIX_UNITAIRE_HT).build()).collect(Collectors.toList()))
                 .build();
 
-        // TODO
-        this.repo.search(this.dpm, search);
-
+        SearchResponse<ProduitDN> response= this.repo.search(this.dpm, search);
+        Assertions.assertThat(response).isNotNull();
     }
 
     @After
