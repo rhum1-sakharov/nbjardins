@@ -88,6 +88,7 @@ public class ProduitRepoJpaTest {
 
         SearchResponse<ProduitDN> response= this.repo.search(this.dpm, search);
         Assertions.assertThat(response).isNotNull();
+        Assertions.assertThat(response.getResultList()).hasSize(23);
     }
 
     @After
