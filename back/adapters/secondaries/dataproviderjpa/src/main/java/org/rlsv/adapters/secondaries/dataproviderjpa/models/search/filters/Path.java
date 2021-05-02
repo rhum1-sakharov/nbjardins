@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Path {
 
-    private String join;
-    private String alias;
+    private String path;
+    private String field;
     private boolean rootPath;
 }

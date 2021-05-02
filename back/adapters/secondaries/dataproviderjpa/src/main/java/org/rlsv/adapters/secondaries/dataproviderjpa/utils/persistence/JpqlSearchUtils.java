@@ -10,7 +10,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 public class JpqlSearchUtils {
 
@@ -20,13 +23,40 @@ public class JpqlSearchUtils {
     private static final String AND = "AND";
     private static final String COMMA = ",";
     private static final String ORDER_BY = "ORDER BY";
+    private static final String JOIN = "JOIN";
     private static final String LIKE_OPERATOR = "%";
 
 
-    public static String buildPaths(List<FilterPath> filterPathList) {
+    public static String buildJoins(List<FilterPath> filterPathList) {
         StringBuilder sb = new StringBuilder();
 
+        Set<String> paths = new LinkedHashSet<>();
+        for (FilterPath filterPath : filterPathList) {
+
+            if (!filterPath.getPath().isRootPath()) {
+                String path = filterPath.getPath().getPath();
+                String alias = getAlias(path);
+                String join = String.format(" %s %s %s ", JOIN, path,  alias);
+                paths.add(join);
+            }
+        }
+
+        paths.stream().forEach(item -> sb.append(item));
+
         return sb.toString();
+    }
+
+    private static final String getAlias(String path) {
+        String alias = "";
+
+        String[] split = path.split("\\.");
+        if (Objects.nonNull(split) && split.length > 1) {
+            alias = split[split.length - 1];
+        } else {
+            alias = path;
+        }
+
+        return alias;
     }
 
     public static String buildSorts(List<SortPath> sortPathList) {
@@ -67,7 +97,7 @@ public class JpqlSearchUtils {
             int i = 0;
             for (FilterPath filterPath : filterPathList) {
 
-                String path = filterPath.getPath().getJoin() + "." + filterPath.getPath().getAlias();
+                String path = filterPath.getPath().getPath() + "." + filterPath.getPath().getField();
                 Filter filter = filterPath.getFilter();
 
                 switch (filter.getType()) {

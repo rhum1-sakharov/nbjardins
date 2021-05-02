@@ -24,6 +24,55 @@ import java.util.stream.Stream;
 public class JpqlSearchUtilsTest {
 
     @Test
+    public void build_joins(){
+
+        String[] strings = {"p"};
+
+        FilterString fs1 = FilterString.builder()
+                .type(FILTER_TYPE.STRING)
+                .key(ProduitKey.LIBELLE)
+                .operator(OPERATOR_STRING.CONTAINS)
+                .value(strings)
+                .build();
+
+        FilterPath fa1 = FilterPath.<FilterString>builder()
+                .path(new Path("produit","libelle",true))
+                .filter(fs1)
+                .build();
+
+        String[] strings2 = {"p desc"};
+
+        FilterString fs2 = FilterString.builder()
+                .type(FILTER_TYPE.STRING)
+                .key(ProduitKey.LIBELLE)
+                .operator(OPERATOR_STRING.CONTAINS)
+                .value(strings2)
+                .build();
+
+        FilterPath fa2 = FilterPath.<FilterString>builder()
+                .path(new Path("produit.taxe","id",false))
+                .filter(fs2)
+                .build();
+
+        FilterString fs3 = FilterString.builder()
+                .type(FILTER_TYPE.STRING)
+                .key(ProduitKey.LIBELLE)
+                .operator(OPERATOR_STRING.CONTAINS)
+                .value(strings2)
+                .build();
+
+        FilterPath fa3 = FilterPath.<FilterString>builder()
+                .path(new Path("taxe.regle","libelle",false))
+                .filter(fs2)
+                .build();
+
+        String builder= JpqlSearchUtils.buildJoins(Stream.of(fa1,fa2,fa3).collect(Collectors.toList()));
+
+        Assertions.assertThat(builder).isEqualTo(" JOIN produit.taxe taxe  JOIN taxe.regle regle ");
+
+    }
+
+    @Test
     public void sort_asc() {
 
 
