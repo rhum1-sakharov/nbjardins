@@ -1,9 +1,11 @@
 package org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence;
 
 import enums.search.sort.DIRECTION;
+import models.search.Search;
 import models.search.filter.*;
 import org.apache.commons.collections4.CollectionUtils;
 import org.rlsv.adapters.secondaries.dataproviderjpa.enums.SqlOperator;
+import org.rlsv.adapters.secondaries.dataproviderjpa.helpers.produits.ProduitPath;
 import org.rlsv.adapters.secondaries.dataproviderjpa.models.search.filters.FilterPath;
 import org.rlsv.adapters.secondaries.dataproviderjpa.models.search.filters.SortPath;
 import org.slf4j.Logger;
@@ -23,8 +25,39 @@ public class JpqlSearchUtils {
     private static final String AND = "AND";
     private static final String COMMA = ",";
     private static final String ORDER_BY = "ORDER BY";
-    private static final String JOIN = "JOIN";
+    private static final String WHERE = "WHERE";
     private static final String LIKE_OPERATOR = "%";
+
+
+    public static String buildSearchQuery(String select, Search search) {
+
+        StringBuilder sb = new StringBuilder();
+
+        ProduitPath produitPath = new ProduitPath();
+
+        sb.append(select);
+
+        if (CollectionUtils.isNotEmpty(search.getFilters())) {
+
+            List<FilterPath> filterPathList = produitPath.buildFilterPathList(search.getFilters());
+            sb.append(buildJoins(filterPathList));
+
+            sb.append(SPACE);
+            sb.append(WHERE);
+            sb.append(SPACE);
+
+            sb.append(buildFilters(filterPathList));
+
+        }
+
+        if (CollectionUtils.isNotEmpty(search.getSorts())) {
+            List<SortPath> sortPathList = produitPath.buildSortPathList(search.getSorts());
+            sb.append(buildSorts(sortPathList));
+        }
+
+
+        return sb.toString().trim();
+    }
 
 
     public static String buildJoins(List<FilterPath> filterPathList) {
@@ -36,8 +69,9 @@ public class JpqlSearchUtils {
             if (!filterPath.getPath().isRootPath()) {
                 String path = filterPath.getPath().getPath();
                 String alias = getAlias(path);
-                String join = String.format(" %s %s %s ", JOIN, path,  alias);
-                paths.add(join);
+                String join = filterPath.getPath().getSqlJoin().getValue();
+                String joinLine = String.format(" %s %s %s ", join, path, alias);
+                paths.add(joinLine);
             }
         }
 

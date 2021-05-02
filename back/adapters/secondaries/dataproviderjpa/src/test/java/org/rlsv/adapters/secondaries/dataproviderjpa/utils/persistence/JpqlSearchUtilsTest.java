@@ -3,6 +3,7 @@ package org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence;
 import enums.search.filter.*;
 import enums.search.sort.DIRECTION;
 import keys.produit.ProduitKey;
+import models.search.Search;
 import models.search.filter.FilterBoolean;
 import models.search.filter.FilterDate;
 import models.search.filter.FilterNumber;
@@ -12,6 +13,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.rlsv.adapters.secondaries.dataproviderjpa.enums.SqlJoin;
 import org.rlsv.adapters.secondaries.dataproviderjpa.models.search.filters.FilterPath;
 import org.rlsv.adapters.secondaries.dataproviderjpa.models.search.filters.Path;
 import org.rlsv.adapters.secondaries.dataproviderjpa.models.search.filters.SortPath;
@@ -24,51 +26,56 @@ import java.util.stream.Stream;
 public class JpqlSearchUtilsTest {
 
     @Test
-    public void build_joins(){
+    public void build_search_query(){
 
-        String[] strings = {"p"};
+        String[] inputs = {"hello"};
 
-        FilterString fs1 = FilterString.builder()
-                .type(FILTER_TYPE.STRING)
-                .key(ProduitKey.LIBELLE)
-                .operator(OPERATOR_STRING.CONTAINS)
-                .value(strings)
+        Search search = Search.builder()
+                .filters(Stream.of(
+                        FilterString.builder()
+                                .operator(OPERATOR_STRING.CONTAINS)
+                                .key(ProduitKey.LIBELLE)
+                                .type(FILTER_TYPE.STRING)
+                                .value(inputs)
+                        .build()
+                ).collect(Collectors.toList()))
+                .sorts(Stream.of(
+                        Sort.builder()
+                                .key(ProduitKey.LIBELLE)
+                                .direction(DIRECTION.ASC)
+                                .build()
+
+                ).collect(Collectors.toList()))
                 .build();
+
+
+        String firstLine = "select produit from Produit produit";
+        String builder= JpqlSearchUtils.buildSearchQuery(firstLine,search);
+
+        String result = firstLine+" WHERE  produit.libelle LIKE '%hello%'  ORDER BY produit.libelle asc";
+        Assertions.assertThat(builder).isEqualTo(result);
+
+    }
+
+    @Test
+    public void build_joins(){
 
         FilterPath fa1 = FilterPath.<FilterString>builder()
                 .path(new Path("produit","libelle",true))
-                .filter(fs1)
                 .build();
 
-        String[] strings2 = {"p desc"};
-
-        FilterString fs2 = FilterString.builder()
-                .type(FILTER_TYPE.STRING)
-                .key(ProduitKey.LIBELLE)
-                .operator(OPERATOR_STRING.CONTAINS)
-                .value(strings2)
-                .build();
 
         FilterPath fa2 = FilterPath.<FilterString>builder()
                 .path(new Path("produit.taxe","id",false))
-                .filter(fs2)
-                .build();
-
-        FilterString fs3 = FilterString.builder()
-                .type(FILTER_TYPE.STRING)
-                .key(ProduitKey.LIBELLE)
-                .operator(OPERATOR_STRING.CONTAINS)
-                .value(strings2)
                 .build();
 
         FilterPath fa3 = FilterPath.<FilterString>builder()
-                .path(new Path("taxe.regle","libelle",false))
-                .filter(fs2)
+                .path(new Path("taxe.regle","libelle",false,SqlJoin.LEFT_JOIN))
                 .build();
 
         String builder= JpqlSearchUtils.buildJoins(Stream.of(fa1,fa2,fa3).collect(Collectors.toList()));
 
-        Assertions.assertThat(builder).isEqualTo(" JOIN produit.taxe taxe  JOIN taxe.regle regle ");
+        Assertions.assertThat(builder).isEqualTo(" JOIN produit.taxe taxe  LEFT JOIN taxe.regle regle ");
 
     }
 
