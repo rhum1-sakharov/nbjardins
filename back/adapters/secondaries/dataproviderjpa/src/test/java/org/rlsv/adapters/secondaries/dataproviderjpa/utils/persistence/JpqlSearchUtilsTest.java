@@ -58,6 +58,49 @@ public class JpqlSearchUtilsTest {
     }
 
     @Test
+    public void build__complex_search_query(){
+
+        String[] inputs = {"hello"};
+        float[] range= {1.2f,3};
+
+        Search search = Search.builder()
+                .filters(Stream.of(
+                        FilterString.builder()
+                                .operator(OPERATOR_STRING.CONTAINS)
+                                .key(ProduitKey.LIBELLE)
+                                .type(FILTER_TYPE.STRING)
+                                .value(inputs)
+                                .build(),
+                        FilterNumber.builder()
+                                .operator(OPERATOR_NUMBER.BETWEEN_EXCLUSIVE)
+                                .key(ProduitKey.PRIX_UNITAIRE_HT)
+                                .type(FILTER_TYPE.NUMBER)
+                                .value(range)
+                                .build()
+                ).collect(Collectors.toList()))
+                .sorts(Stream.of(
+                        Sort.builder()
+                                .key(ProduitKey.LIBELLE)
+                                .direction(DIRECTION.ASC)
+                                .build(),
+                        Sort.builder()
+                                .key(ProduitKey.ID_TAXE)
+                                .direction(DIRECTION.DESC)
+                                .build()
+
+                ).collect(Collectors.toList()))
+                .build();
+
+
+        String firstLine = "select produit from Produit produit";
+        String builder= JpqlSearchUtils.buildSearchQuery(firstLine,search);
+
+        String result = firstLine+" JOIN produit.taxe taxe  WHERE  produit.libelle LIKE '%hello%'  AND  produit.prixUnitaireHT > 1.2 AND produit.prixUnitaireHT < 3.0  ORDER BY produit.libelle asc , taxe.id desc";
+        Assertions.assertThat(builder).isEqualTo(result);
+
+    }
+
+    @Test
     public void build_joins(){
 
         FilterPath fa1 = FilterPath.<FilterString>builder()
@@ -73,9 +116,22 @@ public class JpqlSearchUtilsTest {
                 .path(new Path("taxe.regle","libelle",false,SqlJoin.LEFT_JOIN))
                 .build();
 
-        String builder= JpqlSearchUtils.buildJoins(Stream.of(fa1,fa2,fa3).collect(Collectors.toList()));
+        String builder= JpqlSearchUtils.buildJoins(Stream.of(fa1,fa2,fa3).collect(Collectors.toList()),null);
 
         Assertions.assertThat(builder).isEqualTo(" JOIN produit.taxe taxe  LEFT JOIN taxe.regle regle ");
+
+    }
+
+    @Test
+    public void build_no_join(){
+
+        FilterPath fa1 = FilterPath.<FilterString>builder()
+                .path(new Path("produit","libelle",true))
+                .build();
+
+        String builder= JpqlSearchUtils.buildJoins(Stream.of(fa1).collect(Collectors.toList()),null);
+
+        Assertions.assertThat(builder).isEqualTo("");
 
     }
 
@@ -84,7 +140,7 @@ public class JpqlSearchUtilsTest {
 
 
         SortPath sp1 = SortPath.builder()
-                .path("produit.libelle")
+                .path(new Path("produit","libelle",true))
                 .sort(Sort.builder()
                         .direction(DIRECTION.ASC)
                         .key(ProduitKey.LIBELLE)
@@ -101,7 +157,7 @@ public class JpqlSearchUtilsTest {
 
 
         SortPath sp1 = SortPath.builder()
-                .path("produit.libelle")
+                .path(new Path("produit","libelle",true))
                 .sort(Sort.builder()
                         .direction(DIRECTION.DESC)
                         .key(ProduitKey.LIBELLE)
@@ -118,7 +174,7 @@ public class JpqlSearchUtilsTest {
 
 
         SortPath sp1 = SortPath.builder()
-                .path("produit.libelle")
+                .path(new Path("produit","libelle",true))
                 .sort(Sort.builder()
                         .direction(DIRECTION.DESC)
                         .key(ProduitKey.LIBELLE)
@@ -126,7 +182,7 @@ public class JpqlSearchUtilsTest {
                 .build();
 
         SortPath sp2 = SortPath.builder()
-                .path("produit.taxe")
+                .path(new Path("taxe","id",false))
                 .sort(Sort.builder()
                         .direction(DIRECTION.ASC)
                         .key(ProduitKey.ID_TAXE)
@@ -135,7 +191,7 @@ public class JpqlSearchUtilsTest {
 
         String builder = JpqlSearchUtils.buildSorts(Stream.of(sp1,sp2).collect(Collectors.toList()));
 
-        Assertions.assertThat(builder).isEqualTo(" ORDER BY produit.libelle desc , produit.taxe asc ");
+        Assertions.assertThat(builder).isEqualTo(" ORDER BY produit.libelle desc , taxe.id asc ");
     }
 
     @Test

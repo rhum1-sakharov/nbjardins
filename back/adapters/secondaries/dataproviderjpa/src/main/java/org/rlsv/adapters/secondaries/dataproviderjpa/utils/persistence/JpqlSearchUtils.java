@@ -12,10 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 public class JpqlSearchUtils {
 
@@ -37,41 +34,57 @@ public class JpqlSearchUtils {
 
         sb.append(select);
 
+        List<FilterPath> filterPathList = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(search.getFilters())) {
-
-            List<FilterPath> filterPathList = produitPath.buildFilterPathList(search.getFilters());
-            sb.append(buildJoins(filterPathList));
-
-            sb.append(SPACE);
-            sb.append(WHERE);
-            sb.append(SPACE);
-
-            sb.append(buildFilters(filterPathList));
-
+            filterPathList = produitPath.buildFilterPathList(search.getFilters());
         }
 
+        List<SortPath> sortPathList = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(search.getSorts())) {
-            List<SortPath> sortPathList = produitPath.buildSortPathList(search.getSorts());
-            sb.append(buildSorts(sortPathList));
+            sortPathList = produitPath.buildSortPathList(search.getSorts());
         }
 
+        sb.append(buildJoins(filterPathList, sortPathList));
+
+        sb.append(SPACE);
+        sb.append(WHERE);
+        sb.append(SPACE);
+
+        sb.append(buildFilters(filterPathList));
+
+        sb.append(buildSorts(sortPathList));
 
         return sb.toString().trim();
     }
 
 
-    public static String buildJoins(List<FilterPath> filterPathList) {
+    public static String buildJoins(List<FilterPath> filterPathList, List<SortPath> sortPathList) {
         StringBuilder sb = new StringBuilder();
 
         Set<String> paths = new LinkedHashSet<>();
-        for (FilterPath filterPath : filterPathList) {
 
-            if (!filterPath.getPath().isRootPath()) {
-                String path = filterPath.getPath().getPath();
-                String alias = getAlias(path);
-                String join = filterPath.getPath().getSqlJoin().getValue();
-                String joinLine = String.format(" %s %s %s ", join, path, alias);
-                paths.add(joinLine);
+        if(CollectionUtils.isNotEmpty(filterPathList)) {
+            for (FilterPath filterPath : filterPathList) {
+
+                if (!filterPath.getPath().isRootPath()) {
+                    String path = filterPath.getPath().getPath();
+                    String alias = getAlias(path);
+                    String join = filterPath.getPath().getSqlJoin().getValue();
+                    String joinLine = String.format(" %s %s %s ", join, path, alias);
+                    paths.add(joinLine);
+                }
+            }
+        }
+
+        if(CollectionUtils.isNotEmpty(sortPathList)) {
+            for (SortPath sortPath : sortPathList) {
+
+                if (!sortPath.getPath().isRootPath()) {
+                    String path = sortPath.getPath().getPath();
+                    String alias = getAlias(path);
+                    String joinLine = String.format(" %s %s %s ", "JOIN", path, alias);
+                    paths.add(joinLine);
+                }
             }
         }
 
@@ -107,7 +120,8 @@ public class JpqlSearchUtils {
                         .append(SPACE);
             }
 
-            sb.append(sortPath.getPath())
+            String alias = getAlias(sortPath.getPath().getPath());
+            sb.append(alias+"."+sortPath.getPath().getField())
                     .append(SPACE)
                     .append(getDirection(sortPath.getSort().getDirection()))
                     .append(SPACE)

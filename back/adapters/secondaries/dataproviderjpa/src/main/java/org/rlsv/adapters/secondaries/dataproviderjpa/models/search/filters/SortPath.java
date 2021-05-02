@@ -10,7 +10,7 @@ import models.search.sort.Sort;
 @SuperBuilder
 public class SortPath{
 
-    private String path;
+    private Path path;
     private Sort sort;
 
 

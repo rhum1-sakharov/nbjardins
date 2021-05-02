@@ -16,6 +16,11 @@ import java.util.List;
 
 public class ProduitPath extends HelperPath {
 
+    private Path produitLibelle= new Path("produit", "libelle", true);
+    private Path produitDescription = new Path("produit", "description", true);
+    private Path produitPrixUnitaireHT = new Path("produit", "prixUnitaireHT", true);
+    private Path taxeId = new Path("produit.taxe", "id", false);
+
     public  String firstLine() {
         return "select produit from Produit produit";
     }
@@ -31,7 +36,7 @@ public class ProduitPath extends HelperPath {
                 case ProduitKey.LIBELLE:
                     FilterPath<FilterString> filterLibelle = FilterPath.<FilterString>builder()
                             .filter((FilterString) filter)
-                            .path(new Path("produit", "libelle", true))
+                            .path(produitLibelle)
                             .build();
                     filterPathList.add(filterLibelle);
                     break;
@@ -39,7 +44,7 @@ public class ProduitPath extends HelperPath {
                 case ProduitKey.DESCRIPTION:
                     FilterPath<FilterString> filterDescription = FilterPath.<FilterString>builder()
                             .filter((FilterString) filter)
-                            .path(new Path("produit", "description", true))
+                            .path(produitDescription)
                             .build();
                     filterPathList.add(filterDescription);
                     break;
@@ -47,7 +52,7 @@ public class ProduitPath extends HelperPath {
                 case ProduitKey.PRIX_UNITAIRE_HT:
                     FilterPath<FilterNumber> filterPrixUnitaireHT = FilterPath.<FilterNumber>builder()
                             .filter((FilterNumber) filter)
-                            .path(new Path("produit", "prixUnitaireHT", false))
+                            .path(produitPrixUnitaireHT)
                             .build();
                     filterPathList.add(filterPrixUnitaireHT);
                     break;
@@ -55,7 +60,7 @@ public class ProduitPath extends HelperPath {
                 case ProduitKey.ID_TAXE:
                     FilterPath<FilterString> filterIdTaxe = FilterPath.<FilterString>builder()
                             .filter((FilterString) filter)
-                            .path(new Path("taxe", "id", false))
+                            .path(taxeId)
                             .build();
                     filterPathList.add(filterIdTaxe);
                     break;
@@ -78,7 +83,7 @@ public class ProduitPath extends HelperPath {
                 case ProduitKey.LIBELLE:
                     SortPath sortLibelle = SortPath.builder()
                             .sort(sort)
-                            .path("produit.libelle")
+                            .path(produitLibelle)
                             .build();
                     sortPathList.add(sortLibelle);
                     break;
@@ -86,7 +91,7 @@ public class ProduitPath extends HelperPath {
                 case ProduitKey.DESCRIPTION:
                     SortPath sortDescription = SortPath.builder()
                             .sort(sort)
-                            .path("produit.description")
+                            .path(produitDescription)
                             .build();
                     sortPathList.add(sortDescription);
                     break;
@@ -94,7 +99,7 @@ public class ProduitPath extends HelperPath {
                 case ProduitKey.PRIX_UNITAIRE_HT:
                     SortPath sortPrixUnitaireHT = SortPath.builder()
                             .sort(sort)
-                            .path("produit.prixUnitaireHT")
+                            .path(produitPrixUnitaireHT)
                             .build();
                     sortPathList.add(sortPrixUnitaireHT);
                     break;
@@ -102,7 +107,7 @@ public class ProduitPath extends HelperPath {
                 case ProduitKey.ID_TAXE:
                     SortPath sortIdTaxe = SortPath.builder()
                             .sort(sort)
-                            .path("taxe.id")
+                            .path(taxeId)
                             .build();
                     sortPathList.add(sortIdTaxe);
                     break;
