@@ -27,6 +27,7 @@ public class MessageKeys {
     public static final String ARG_IS_REQUIRED = "arg.is.required";
     public static final String FILTER_KEY_IS_UNKNOWN = "filter.key.is.unknown";
     public static final String FILTER_VALUE_IS_NULL = "filter.value.is.null";
+    public static final String FILTER_JOIN_IS_NULL = "filter.join.is.null";
     public static final String FILTER_TYPE_IS_NULL = "filter.type.is.null";
     public static final String FILTER_VALUE_IS_NOT_A_LIST="filter.value.is.not.a.list";
     public static final String SORT_KEY_IS_UNKNOWN = "sort.key.is.unknown";

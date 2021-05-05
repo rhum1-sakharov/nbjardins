@@ -1,11 +1,13 @@
 package helpers.search.filters;
 
+import enums.search.filter.FILTER_JOIN;
 import enums.search.filter.FILTER_TYPE;
 import exceptions.TechnicalException;
 import keys.produit.ProduitKey;
 import models.search.Search;
 import models.search.filter.Filter;
 import models.search.filter.FilterDate;
+import models.search.filter.FilterString;
 import models.search.sort.Sort;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
@@ -170,6 +172,32 @@ public class SearchFilterHelperTest {
                         .key(key)
                         .value(null)
                         .operator(null)
+                        .join(FILTER_JOIN.OR)
+                        .build())
+                .collect(Collectors.toList());
+
+        Assertions.assertThatCode(() -> this.helper.checkFilters(filters, ProduitKey.class))
+                .isInstanceOf(TechnicalException.class)
+                .hasMessageContaining(errMsg)
+        ;
+    }
+
+    @Test
+    public void checkFilters_has_to_throw_exception_when_join_is_null() {
+
+        final String key = ProduitKey.LIBELLE;
+        final String errMsg = "Le filtre [ProduitKey -> LIBELLE] doit avoir un join (AND, OR) non nul.";
+
+        Mockito.when(this.ls.getMsg(FILTER_JOIN_IS_NULL, ProduitKey.class.getSimpleName(), ProduitKey.LIBELLE))
+                .thenReturn(errMsg);
+
+        List<Filter> filters = Stream.of(
+                FilterString.builder()
+                        .type(FILTER_TYPE.DATE)
+                        .key(key)
+                        .value(null)
+                        .operator(null)
+                        .join(null)
                         .build())
                 .collect(Collectors.toList());
 

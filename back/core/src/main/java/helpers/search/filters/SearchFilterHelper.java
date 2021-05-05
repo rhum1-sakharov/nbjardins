@@ -39,6 +39,8 @@ public class SearchFilterHelper<DK extends DomainKey> {
 
             checkFilterTypes(filters, kfClass);
 
+            checkFilterJoins(filters, kfClass);
+
             checkFilterValues(filters, kfClass);
         }
 
@@ -72,6 +74,29 @@ public class SearchFilterHelper<DK extends DomainKey> {
             throw new TechnicalException(err.toString());
         }
     }
+
+    private void checkFilterJoins(List<Filter> filters, Class<DK> kfClass) throws TechnicalException {
+        Field[] fields = kfClass.getFields();
+        StringBuilder err = new StringBuilder();
+
+
+        if (ArrayUtils.isNotEmpty(fields)
+                && CollectionUtils.isNotEmpty(filters)) {
+
+            for (Filter filter : filters) {
+
+                if (Objects.isNull(filter.getJoin())) {
+                    err.append(ls.getMsg(FILTER_JOIN_IS_NULL, kfClass.getSimpleName(), filter.getKey())).append(System.lineSeparator());
+                }
+
+            }
+        }
+
+        if (StringUtils.isNotEmpty(err.toString())) {
+            throw new TechnicalException(err.toString());
+        }
+    }
+
 
     private void checkFilterValues(List<Filter> filters, Class<DK> kfClass) throws TechnicalException {
         Field[] fields = kfClass.getFields();
