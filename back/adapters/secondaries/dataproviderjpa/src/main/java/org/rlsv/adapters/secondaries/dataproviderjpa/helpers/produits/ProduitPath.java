@@ -21,8 +21,13 @@ public class ProduitPath extends HelperPath {
     private Path produitPrixUnitaireHT = new Path("produit", "prixUnitaireHT", true);
     private Path taxeId = new Path("produit.taxe", "id", false);
 
-    public  String firstLine() {
+    public  String selectLine() {
         return "select produit from Produit produit";
+    }
+
+    @Override
+    public String countLine() {
+        return "select count(produit) from Produit produit";
     }
 
     public  List<FilterPath> buildFilterPathList(List<Filter> filters) {

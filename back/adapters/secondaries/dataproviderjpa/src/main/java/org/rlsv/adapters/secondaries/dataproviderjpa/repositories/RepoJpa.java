@@ -3,10 +3,14 @@ package org.rlsv.adapters.secondaries.dataproviderjpa.repositories;
 import domains.Domain;
 import exceptions.TechnicalException;
 import models.Precondition;
+import models.search.Search;
+import models.search.response.SearchResponse;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Entity;
+import org.rlsv.adapters.secondaries.dataproviderjpa.helpers.HelperPath;
 import org.rlsv.adapters.secondaries.dataproviderjpa.utils.mapper.MapperUtils;
+import org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence.JpqlSearchUtils;
 import org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence.PersistenceUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -120,9 +124,37 @@ public class RepoJpa<D extends Domain, E extends Entity> implements RepoPT<D> {
         Class<E> entityClass = MapperUtils.mapDomainClassToEntityClass(domainClass);
 
         TypedQuery<E> query = em.createQuery("SELECT o from " + entityClass.getSimpleName() + "  o ", entityClass);
-        List<E> instances= PersistenceUtils.getResultList(query);
+        List<E> instances = PersistenceUtils.getResultList(query);
 
         return MapperUtils.mapEntitiesToDomains(instances);
+    }
+
+    @Override
+    public SearchResponse<D> search(DataProviderManager dpm, Search search, Class<D> domainClass) throws TechnicalException, InstantiationException, IllegalAccessException {
+
+        EntityManager em = PersistenceUtils.getEntityManager(dpm);
+
+        Class<E> entityClass = MapperUtils.mapDomainClassToEntityClass(domainClass);
+        Class<? extends HelperPath> pathClazz = MapperUtils.findPathClassByDomain(domainClass).orElseThrow(() -> new TechnicalException("Unknown path class for domain " + domainClass.getSimpleName()));
+        HelperPath pathClassInstance = pathClazz.newInstance();
+
+        String queryBuilt = JpqlSearchUtils.buildSearchQuery(search, pathClassInstance);
+
+        TypedQuery<E> query = em.createQuery(queryBuilt, entityClass);
+        List<E> entityList = query.getResultList();
+
+        String queryCountBuilt = JpqlSearchUtils.buildCountQuery(search,pathClassInstance);
+//
+        TypedQuery<Long> queryCount = em.createQuery(queryCountBuilt, Long.class);
+        Long nbElements = queryCount.getSingleResult();
+
+        SearchResponse<D> response = SearchResponse.<D>builder()
+                .resultList(MapperUtils.mapEntitiesToDomains(entityList))
+                .totalElements(nbElements)
+                .build();
+
+        return response;
+
     }
 
 

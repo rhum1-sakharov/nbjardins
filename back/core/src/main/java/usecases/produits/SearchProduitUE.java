@@ -35,12 +35,12 @@ public class SearchProduitUE extends AbstractUsecase {
     }
 
     @Transactional
-    public SearchResponse<ProduitDN> execute(DataProviderManager dpm, Search search) throws CleanException {
+    public SearchResponse<ProduitDN> execute(DataProviderManager dpm, Search search) throws CleanException, IllegalAccessException, InstantiationException {
 
         checkParameters(search);
         sfh.checkSearch(search,ProduitKey.class);
 
-        return produitRepo.search(dpm, search);
+        return produitRepo.search(dpm, search,ProduitDN.class);
     }
 
     private void checkParameters(Search search) throws TechnicalException {

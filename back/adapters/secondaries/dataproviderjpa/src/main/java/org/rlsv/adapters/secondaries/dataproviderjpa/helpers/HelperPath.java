@@ -10,7 +10,9 @@ import java.util.List;
 
 public abstract class HelperPath {
 
-    public abstract String firstLine();
+    public abstract String selectLine();
+
+    public abstract String countLine();
 
     public abstract List<FilterPath> buildFilterPathList(List<Filter> filters);
 

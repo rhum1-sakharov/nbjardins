@@ -3,6 +3,7 @@ package org.rlsv.adapters.secondaries.dataproviderjpa.utils.mapper;
 import domains.Domain;
 import domains.personnes.artisans.ArtisanBanqueDN;
 import domains.personnes.artisans.ArtisanDN;
+import domains.produits.ProduitDN;
 import domains.referentiel.taxes.TaxeDN;
 import exceptions.TechnicalException;
 import org.assertj.core.api.Assertions;
@@ -16,6 +17,7 @@ import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Entity;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.personnes.artisans.Artisan;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.personnes.artisans.banques.ArtisanBanque;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.referentiel.taxes.Taxe;
+import org.rlsv.adapters.secondaries.dataproviderjpa.helpers.HelperPath;
 
 import java.util.List;
 import java.util.Optional;
@@ -45,6 +47,14 @@ public class MapperUtilsTest {
 
         Assertions.assertThat(mapperByDomain.get()).isNotNull();
         Assertions.assertThat(mapperByDomain.get().getSimpleName()).endsWith("ArtisanBanqueMapper");
+    }
+
+    @Test
+    public void findPathClassByDomainClass() throws TechnicalException {
+
+        Class<? extends HelperPath> pathClazz = MapperUtils.findPathClassByDomain(ProduitDN.class).orElseThrow(()->new TechnicalException(""));
+
+        Assertions.assertThat(pathClazz.getSimpleName()).isEqualTo("ProduitPath");
     }
 
     @Test

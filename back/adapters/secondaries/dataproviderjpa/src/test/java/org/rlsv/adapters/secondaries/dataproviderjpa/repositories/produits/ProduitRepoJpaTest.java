@@ -69,7 +69,7 @@ public class ProduitRepoJpaTest {
 
 
     @Test
-    public void search() {
+    public void search() throws TechnicalException, IllegalAccessException, InstantiationException {
 
         String[] strings={"p1"};
         float[] inputs={1.6f,25};
@@ -86,9 +86,11 @@ public class ProduitRepoJpaTest {
                 .sorts(Stream.of(Sort.builder().direction(DIRECTION.ASC).key(ProduitKey.PRIX_UNITAIRE_HT).build()).collect(Collectors.toList()))
                 .build();
 
-        SearchResponse<ProduitDN> response= this.repo.search(this.dpm, search);
+        SearchResponse<ProduitDN> response= this.repo.search(this.dpm, search,ProduitDN.class);
         Assertions.assertThat(response).isNotNull();
         Assertions.assertThat(response.getResultList()).hasSize(23);
+        Assertions.assertThat(response.getTotalElements()).isEqualTo(23);
+
     }
 
     @After

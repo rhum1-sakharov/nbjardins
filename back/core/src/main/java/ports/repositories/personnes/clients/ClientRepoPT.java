@@ -13,4 +13,5 @@ public interface ClientRepoPT extends RepoPT<ClientDN> {
 
     List<ClientDN> findByEmailArtisan(DataProviderManager dpm, String emailArtisan);
 
+
 }

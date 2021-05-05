@@ -30,8 +30,13 @@ public class ClientPath extends HelperPath {
     private Path clientFonction = new Path("client", "fonction", true);
 
 
-    public String firstLine() {
+    public String selectLine() {
         return "select client from Client client";
+    }
+
+    @Override
+    public String countLine() {
+        return "select count(client) from Client client";
     }
 
     public List<FilterPath> buildFilterPathList(List<Filter> filters) {

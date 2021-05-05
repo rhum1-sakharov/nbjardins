@@ -8,6 +8,7 @@ import org.mapstruct.Mapper;
 import org.reflections.Reflections;
 import org.rlsv.adapters.secondaries.dataproviderjpa.entities.Entity;
 import org.rlsv.adapters.secondaries.dataproviderjpa.enums.TypeConvertMapperEnum;
+import org.rlsv.adapters.secondaries.dataproviderjpa.helpers.HelperPath;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -22,6 +23,9 @@ public class MapperUtils {
 
     private static final String PACKAGE_MAPPERS = "org.rlsv.adapters.secondaries.dataproviderjpa.mappers";
     private static final String SUFFIX_MAPPER = "Mapper";
+
+    private static final String PACKAGE_PATHS = "org.rlsv.adapters.secondaries.dataproviderjpa.helpers";
+    private static final String SUFFIX_PATH = "Path";
 
     private static final String PACKAGE_ENTITIES = "org.rlsv.adapters.secondaries.dataproviderjpa.entities";
     private static final String PACKAGE_DOMAINS = "domains";
@@ -218,5 +222,17 @@ public class MapperUtils {
 
 
         return null;
+    }
+
+    public static <D extends Domain> Optional<Class<? extends HelperPath>> findPathClassByDomain(Class<D> domainClass) {
+        Reflections reflections = new Reflections(PACKAGE_PATHS);
+        Set<Class<? extends HelperPath>> clazzList = reflections.getSubTypesOf(HelperPath.class);
+
+        String domainName = domainClass.getSimpleName();
+        String mapperName = domainName.endsWith(SUFFIX_DOMAIN) ? domainName.substring(0, domainName.length() - 2) : domainName;
+
+        Optional<Class<? extends HelperPath>> path = clazzList.stream().filter(o -> o.getSimpleName().equals(mapperName + SUFFIX_PATH))
+                .findFirst();
+        return path;
     }
 }

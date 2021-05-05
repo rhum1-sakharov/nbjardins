@@ -13,6 +13,6 @@ import java.util.List;
 public class SearchResponse<D extends Domain> {
 
     private List<D> resultList;
-    private int totalElements;
+    private long totalElements;
 
 }
