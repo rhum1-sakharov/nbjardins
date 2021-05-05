@@ -141,10 +141,12 @@ public class RepoJpa<D extends Domain, E extends Entity> implements RepoPT<D> {
         String queryBuilt = JpqlSearchUtils.buildSearchQuery(search, pathClassInstance);
 
         TypedQuery<E> query = em.createQuery(queryBuilt, entityClass);
+        query.setFirstResult( JpqlSearchUtils.getFirstResult(search.getPage()));
+        query.setMaxResults(search.getPage().getPageSize());
         List<E> entityList = query.getResultList();
 
-        String queryCountBuilt = JpqlSearchUtils.buildCountQuery(search,pathClassInstance);
-//
+        String queryCountBuilt = JpqlSearchUtils.buildCountQuery(search, pathClassInstance);
+
         TypedQuery<Long> queryCount = em.createQuery(queryCountBuilt, Long.class);
         Long nbElements = queryCount.getSingleResult();
 

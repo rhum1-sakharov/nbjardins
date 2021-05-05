@@ -10,7 +10,7 @@ import lombok.Setter;
 @Builder
 public class Page {
 
-    private int pageIngex;
+    private int pageIndex;
     private int pageSize;
 
 }

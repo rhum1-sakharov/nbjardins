@@ -82,13 +82,13 @@ public class ProduitRepoJpaTest {
                                 .operator(OPERATOR_NUMBER.BETWEEN_INCLUSIVE)
                                 .value(inputs).build()
                         ).collect(Collectors.toList()))
-                .page(Page.builder().pageIngex(0).pageSize(0).build())
+                .page(Page.builder().pageIndex(2).pageSize(10).build())
                 .sorts(Stream.of(Sort.builder().direction(DIRECTION.ASC).key(ProduitKey.PRIX_UNITAIRE_HT).build()).collect(Collectors.toList()))
                 .build();
 
         SearchResponse<ProduitDN> response= this.repo.search(this.dpm, search,ProduitDN.class);
         Assertions.assertThat(response).isNotNull();
-        Assertions.assertThat(response.getResultList()).hasSize(23);
+        Assertions.assertThat(response.getResultList()).hasSize(3);
         Assertions.assertThat(response.getTotalElements()).isEqualTo(23);
 
     }

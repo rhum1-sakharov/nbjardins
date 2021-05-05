@@ -8,6 +8,7 @@ import models.search.filter.FilterBoolean;
 import models.search.filter.FilterDate;
 import models.search.filter.FilterNumber;
 import models.search.filter.FilterString;
+import models.search.page.Page;
 import models.search.sort.Sort;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
@@ -54,6 +55,37 @@ public class JpqlSearchUtilsTest {
         String result = "select produit from Produit produit WHERE  produit.libelle LIKE '%hello%'  ORDER BY produit.libelle asc";
         Assertions.assertThat(builder).isEqualTo(result);
 
+    }
+
+    @Test
+    public void get_first_result(){
+
+        Page page = Page.builder()
+                .pageSize(5)
+                .pageIndex(1)
+                .build();
+
+       long pageFirstResult= JpqlSearchUtils.getFirstResult(page);
+
+       Assertions.assertThat(pageFirstResult).isEqualTo(5);
+
+         page = Page.builder()
+                .pageSize(5)
+                .pageIndex(2)
+                .build();
+
+         pageFirstResult= JpqlSearchUtils.getFirstResult(page);
+
+        Assertions.assertThat(pageFirstResult).isEqualTo(10);
+
+        page = Page.builder()
+                .pageSize(5)
+                .pageIndex(0)
+                .build();
+
+        pageFirstResult= JpqlSearchUtils.getFirstResult(page);
+
+        Assertions.assertThat(pageFirstResult).isEqualTo(0);
     }
 
     @Test

@@ -3,6 +3,7 @@ package org.rlsv.adapters.secondaries.dataproviderjpa.utils.persistence;
 import enums.search.sort.DIRECTION;
 import models.search.Search;
 import models.search.filter.*;
+import models.search.page.Page;
 import org.apache.commons.collections4.CollectionUtils;
 import org.rlsv.adapters.secondaries.dataproviderjpa.enums.SqlOperator;
 import org.rlsv.adapters.secondaries.dataproviderjpa.helpers.HelperPath;
@@ -35,6 +36,12 @@ public class JpqlSearchUtils {
 
     }
 
+    public static int getFirstResult(Page page){
+
+
+        return page.getPageIndex() * page.getPageSize();
+
+    }
 
     private static <HP extends HelperPath> String buildQuery(Search search, HP helperPath, boolean count) {
 
