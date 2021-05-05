@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.rlsv.adapters.secondaries.dataproviderjpa.enums.SqlJoin;
+import org.rlsv.adapters.secondaries.dataproviderjpa.helpers.produits.ProduitPath;
 import org.rlsv.adapters.secondaries.dataproviderjpa.models.search.filters.FilterPath;
 import org.rlsv.adapters.secondaries.dataproviderjpa.models.search.filters.Path;
 import org.rlsv.adapters.secondaries.dataproviderjpa.models.search.filters.SortPath;
@@ -48,11 +49,9 @@ public class JpqlSearchUtilsTest {
                 ).collect(Collectors.toList()))
                 .build();
 
+        String builder= JpqlSearchUtils.buildSearchQuery(search,new ProduitPath());
 
-        String firstLine = "select produit from Produit produit";
-        String builder= JpqlSearchUtils.buildSearchQuery(firstLine,search);
-
-        String result = firstLine+" WHERE  produit.libelle LIKE '%hello%'  ORDER BY produit.libelle asc";
+        String result = "select produit from Produit produit WHERE  produit.libelle LIKE '%hello%'  ORDER BY produit.libelle asc";
         Assertions.assertThat(builder).isEqualTo(result);
 
     }
@@ -69,12 +68,14 @@ public class JpqlSearchUtilsTest {
                                 .operator(OPERATOR_STRING.CONTAINS)
                                 .key(ProduitKey.LIBELLE)
                                 .type(FILTER_TYPE.STRING)
+                                .join(FILTER_JOIN.AND)
                                 .value(inputs)
                                 .build(),
                         FilterNumber.builder()
                                 .operator(OPERATOR_NUMBER.BETWEEN_EXCLUSIVE)
                                 .key(ProduitKey.PRIX_UNITAIRE_HT)
                                 .type(FILTER_TYPE.NUMBER)
+                                .join(FILTER_JOIN.OR)
                                 .value(range)
                                 .build()
                 ).collect(Collectors.toList()))
@@ -92,13 +93,15 @@ public class JpqlSearchUtilsTest {
                 .build();
 
 
-        String firstLine = "select produit from Produit produit";
-        String builder= JpqlSearchUtils.buildSearchQuery(firstLine,search);
 
-        String result = firstLine+" JOIN produit.taxe taxe  WHERE  produit.libelle LIKE '%hello%'  AND  produit.prixUnitaireHT > 1.2 AND produit.prixUnitaireHT < 3.0  ORDER BY produit.libelle asc , taxe.id desc";
+        String builder= JpqlSearchUtils.buildSearchQuery(search, new ProduitPath());
+
+        String result = "select produit from Produit produit JOIN produit.taxe taxe  WHERE  produit.libelle LIKE '%hello%'  OR  (produit.prixUnitaireHT > 1.2 AND produit.prixUnitaireHT < 3.0)  ORDER BY produit.libelle asc , taxe.id desc";
         Assertions.assertThat(builder).isEqualTo(result);
 
     }
+
+
 
     @Test
     public void build_joins(){
@@ -385,6 +388,7 @@ public class JpqlSearchUtilsTest {
                 .type(FILTER_TYPE.DATE)
                 .key(ProduitKey.LIBELLE)
                 .operator(OPERATOR_DATE.BETWEEN_INCLUSIVE)
+                .join(FILTER_JOIN.OR)
                 .value(localDates)
                 .build();
 
@@ -396,7 +400,7 @@ public class JpqlSearchUtilsTest {
 
         String builder = JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
 
-        Assertions.assertThat(builder).isEqualTo(" produit.date >= '2021-02-04' AND produit.date <= '2022-03-12' ");
+        Assertions.assertThat(builder).isEqualTo(" (produit.date >= '2021-02-04' AND produit.date <= '2022-03-12') ");
     }
 
     @Test
@@ -419,7 +423,7 @@ public class JpqlSearchUtilsTest {
 
         String builder = JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
 
-        Assertions.assertThat(builder).isEqualTo(" produit.date > '2021-02-04' AND produit.date < '2022-03-12' ");
+        Assertions.assertThat(builder).isEqualTo(" (produit.date > '2021-02-04' AND produit.date < '2022-03-12') ");
     }
 
     @Test
@@ -611,7 +615,7 @@ public class JpqlSearchUtilsTest {
     }
 
     @Test
-    public void filters_with_2_contains_should_concatenate_with_and() {
+    public void filters_with_2_contains_should_concatenate_with_or() {
 
         String[] strings = {"p"};
 
@@ -619,6 +623,7 @@ public class JpqlSearchUtilsTest {
                 .type(FILTER_TYPE.STRING)
                 .key(ProduitKey.LIBELLE)
                 .operator(OPERATOR_STRING.CONTAINS)
+                .join(FILTER_JOIN.OR)
                 .value(strings)
                 .build();
 
@@ -633,6 +638,7 @@ public class JpqlSearchUtilsTest {
                 .type(FILTER_TYPE.STRING)
                 .key(ProduitKey.LIBELLE)
                 .operator(OPERATOR_STRING.CONTAINS)
+                .join(FILTER_JOIN.OR)
                 .value(strings2)
                 .build();
 
@@ -644,7 +650,7 @@ public class JpqlSearchUtilsTest {
 
         String contains = JpqlSearchUtils.buildFilters(Stream.of(fa1, fa2).collect(Collectors.toList()));
 
-        Assertions.assertThat(contains).isEqualTo(" produit.libelle LIKE '%p%'  AND  produit.descriptif LIKE '%p%desc%' ");
+        Assertions.assertThat(contains).isEqualTo(" produit.libelle LIKE '%p%'  OR  produit.descriptif LIKE '%p%desc%' ");
     }
 
     @Test
@@ -807,7 +813,7 @@ public class JpqlSearchUtilsTest {
 
         String gt = JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
 
-        Assertions.assertThat(gt).isEqualTo(" produit.prixUnitaireHT >= 1.25 AND produit.prixUnitaireHT <= 2.0 ");
+        Assertions.assertThat(gt).isEqualTo(" (produit.prixUnitaireHT >= 1.25 AND produit.prixUnitaireHT <= 2.0) ");
     }
 
     @Test
@@ -831,7 +837,7 @@ public class JpqlSearchUtilsTest {
 
         String gt = JpqlSearchUtils.buildFilters(Stream.of(fa1).collect(Collectors.toList()));
 
-        Assertions.assertThat(gt).isEqualTo(" produit.prixUnitaireHT > 1.25 AND produit.prixUnitaireHT < 2.0 ");
+        Assertions.assertThat(gt).isEqualTo(" (produit.prixUnitaireHT > 1.25 AND produit.prixUnitaireHT < 2.0) ");
     }
 
     @Test
@@ -868,6 +874,7 @@ public class JpqlSearchUtilsTest {
                 .type(FILTER_TYPE.NUMBER)
                 .key(ProduitKey.PRIX_UNITAIRE_HT)
                 .operator(OPERATOR_NUMBER.GT)
+                .join(FILTER_JOIN.AND)
                 .value(inputs)
                 .build();
 
@@ -881,6 +888,7 @@ public class JpqlSearchUtilsTest {
                 .type(FILTER_TYPE.NUMBER)
                 .key(ProduitKey.PRIX_UNITAIRE_HT)
                 .operator(OPERATOR_NUMBER.GT)
+                .join(FILTER_JOIN.AND)
                 .value(inputs2)
                 .build();
 

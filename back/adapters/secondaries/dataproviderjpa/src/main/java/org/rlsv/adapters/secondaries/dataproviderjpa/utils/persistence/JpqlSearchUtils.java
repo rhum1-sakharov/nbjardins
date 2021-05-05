@@ -5,7 +5,7 @@ import models.search.Search;
 import models.search.filter.*;
 import org.apache.commons.collections4.CollectionUtils;
 import org.rlsv.adapters.secondaries.dataproviderjpa.enums.SqlOperator;
-import org.rlsv.adapters.secondaries.dataproviderjpa.helpers.produits.ProduitPath;
+import org.rlsv.adapters.secondaries.dataproviderjpa.helpers.HelperPath;
 import org.rlsv.adapters.secondaries.dataproviderjpa.models.search.filters.FilterPath;
 import org.rlsv.adapters.secondaries.dataproviderjpa.models.search.filters.SortPath;
 import org.slf4j.Logger;
@@ -26,22 +26,20 @@ public class JpqlSearchUtils {
     private static final String LIKE_OPERATOR = "%";
 
 
-    public static String buildSearchQuery(String select, Search search) {
+    public static <HP extends HelperPath> String buildSearchQuery(Search search, HP helperPath) {
 
         StringBuilder sb = new StringBuilder();
 
-        ProduitPath produitPath = new ProduitPath();
-
-        sb.append(select);
+        sb.append(helperPath.firstLine());
 
         List<FilterPath> filterPathList = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(search.getFilters())) {
-            filterPathList = produitPath.buildFilterPathList(search.getFilters());
+            filterPathList = helperPath.buildFilterPathList(search.getFilters());
         }
 
         List<SortPath> sortPathList = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(search.getSorts())) {
-            sortPathList = produitPath.buildSortPathList(search.getSorts());
+            sortPathList = helperPath.buildSortPathList(search.getSorts());
         }
 
         sb.append(buildJoins(filterPathList, sortPathList));
@@ -54,9 +52,9 @@ public class JpqlSearchUtils {
 
         sb.append(buildSorts(sortPathList));
 
-        String queryBuilt  =sb.toString().trim();
+        String queryBuilt = sb.toString().trim();
 
-        LOG.debug("query built : {} ",queryBuilt);
+        LOG.debug("query built : {} ", queryBuilt);
 
         return queryBuilt;
     }
@@ -67,7 +65,7 @@ public class JpqlSearchUtils {
 
         Set<String> paths = new LinkedHashSet<>();
 
-        if(CollectionUtils.isNotEmpty(filterPathList)) {
+        if (CollectionUtils.isNotEmpty(filterPathList)) {
             for (FilterPath filterPath : filterPathList) {
 
                 if (!filterPath.getPath().isRootPath()) {
@@ -80,7 +78,7 @@ public class JpqlSearchUtils {
             }
         }
 
-        if(CollectionUtils.isNotEmpty(sortPathList)) {
+        if (CollectionUtils.isNotEmpty(sortPathList)) {
             for (SortPath sortPath : sortPathList) {
 
                 if (!sortPath.getPath().isRootPath()) {
@@ -125,7 +123,7 @@ public class JpqlSearchUtils {
             }
 
             String alias = getAlias(sortPath.getPath().getPath());
-            sb.append(alias+"."+sortPath.getPath().getField())
+            sb.append(alias + "." + sortPath.getPath().getField())
                     .append(SPACE)
                     .append(getDirection(sortPath.getSort().getDirection()))
                     .append(SPACE)
@@ -152,6 +150,12 @@ public class JpqlSearchUtils {
                 String path = filterPath.getPath().getPath() + "." + filterPath.getPath().getField();
                 Filter filter = filterPath.getFilter();
 
+                if (i > 0) {
+                    sb.append(SPACE)
+                            .append(filterPath.getFilter().getJoin().getValue())
+                            .append(SPACE);
+                }
+
                 switch (filter.getType()) {
                     case STRING:
                         sb.append(stringBuilder(path, filter));
@@ -169,12 +173,6 @@ public class JpqlSearchUtils {
                         break;
                 }
 
-
-                if (filterPathList.size() > 1 && i < (filterPathList.size() - 1)) {
-                    sb.append(SPACE)
-                            .append(AND)
-                            .append(SPACE);
-                }
 
                 i++;
             }
@@ -340,6 +338,7 @@ public class JpqlSearchUtils {
         StringBuilder sb = new StringBuilder();
 
         sb.append(SPACE)
+                .append("(")
                 .append(path)
                 .append(SPACE)
                 .append(SqlOperator.GT.getValue())
@@ -353,6 +352,7 @@ public class JpqlSearchUtils {
                 .append(SqlOperator.LT.getValue())
                 .append(SPACE)
                 .append(inputs[1])
+                .append(")")
                 .append(SPACE);
 
         return sb.toString();
@@ -362,6 +362,7 @@ public class JpqlSearchUtils {
         StringBuilder sb = new StringBuilder();
 
         sb.append(SPACE)
+                .append("(")
                 .append(path)
                 .append(SPACE)
                 .append(SqlOperator.GTE.getValue())
@@ -375,6 +376,7 @@ public class JpqlSearchUtils {
                 .append(SqlOperator.LTE.getValue())
                 .append(SPACE)
                 .append(inputs[1])
+                .append(")")
                 .append(SPACE);
 
         return sb.toString();
@@ -702,6 +704,7 @@ public class JpqlSearchUtils {
         StringBuilder sb = new StringBuilder();
 
         sb.append(SPACE)
+                .append("(")
                 .append(path)
                 .append(SPACE)
                 .append(SqlOperator.GTE.getValue())
@@ -715,6 +718,7 @@ public class JpqlSearchUtils {
                 .append(SqlOperator.LTE.getValue())
                 .append(SPACE)
                 .append("'" + localDates[1].toString() + "'")
+                .append(")")
                 .append(SPACE);
 
         return sb.toString();
@@ -725,6 +729,7 @@ public class JpqlSearchUtils {
         StringBuilder sb = new StringBuilder();
 
         sb.append(SPACE)
+                .append("(")
                 .append(path)
                 .append(SPACE)
                 .append(SqlOperator.GT.getValue())
@@ -738,6 +743,7 @@ public class JpqlSearchUtils {
                 .append(SqlOperator.LT.getValue())
                 .append(SPACE)
                 .append("'" + localDates[1].toString() + "'")
+                .append(")")
                 .append(SPACE);
 
         return sb.toString();

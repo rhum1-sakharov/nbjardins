@@ -33,9 +33,7 @@ public class ProduitRepoJpa extends RepoJpa<ProduitDN, Produit> implements Produ
 
         EntityManager em = PersistenceUtils.getEntityManager(dpm);
 
-        ProduitPath produitPath = new ProduitPath();
-
-        String queryBuilt = JpqlSearchUtils.buildSearchQuery(produitPath.firstLine(), search);
+        String queryBuilt = JpqlSearchUtils.buildSearchQuery(search, new ProduitPath());
 
         TypedQuery<Produit> query = em.createQuery(queryBuilt, Produit.class);
         List<Produit> produitList= query.getResultList();
