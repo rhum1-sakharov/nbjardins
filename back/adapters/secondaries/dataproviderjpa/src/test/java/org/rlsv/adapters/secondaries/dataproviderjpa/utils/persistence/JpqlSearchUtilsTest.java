@@ -101,6 +101,51 @@ public class JpqlSearchUtilsTest {
 
     }
 
+    @Test
+    public void build__count_search_query(){
+
+        String[] inputs = {"hello"};
+        float[] range= {1.2f,3};
+
+        Search search = Search.builder()
+                .filters(Stream.of(
+                        FilterString.builder()
+                                .operator(OPERATOR_STRING.CONTAINS)
+                                .key(ProduitKey.LIBELLE)
+                                .type(FILTER_TYPE.STRING)
+                                .join(FILTER_JOIN.AND)
+                                .value(inputs)
+                                .build(),
+                        FilterNumber.builder()
+                                .operator(OPERATOR_NUMBER.BETWEEN_EXCLUSIVE)
+                                .key(ProduitKey.PRIX_UNITAIRE_HT)
+                                .type(FILTER_TYPE.NUMBER)
+                                .join(FILTER_JOIN.OR)
+                                .value(range)
+                                .build()
+                ).collect(Collectors.toList()))
+                .sorts(Stream.of(
+                        Sort.builder()
+                                .key(ProduitKey.LIBELLE)
+                                .direction(DIRECTION.ASC)
+                                .build(),
+                        Sort.builder()
+                                .key(ProduitKey.ID_TAXE)
+                                .direction(DIRECTION.DESC)
+                                .build()
+
+                ).collect(Collectors.toList()))
+                .build();
+
+
+
+        String builder= JpqlSearchUtils.buildCountQuery(search, new ProduitPath());
+
+        String result = "select count(produit) from Produit produit JOIN produit.taxe taxe  WHERE  produit.libelle LIKE '%hello%'  OR  (produit.prixUnitaireHT > 1.2 AND produit.prixUnitaireHT < 3.0)  ORDER BY produit.libelle asc , taxe.id desc";
+        Assertions.assertThat(builder).isEqualTo(result);
+
+    }
+
 
 
     @Test
