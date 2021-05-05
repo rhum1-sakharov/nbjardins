@@ -26,42 +26,26 @@ public class JpqlSearchUtils {
     private static final String LIKE_OPERATOR = "%";
 
     public static <HP extends HelperPath> String buildCountQuery(Search search, HP helperPath) {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append(helperPath.countLine());
-
-        List<FilterPath> filterPathList = new ArrayList<>();
-        if (CollectionUtils.isNotEmpty(search.getFilters())) {
-            filterPathList = helperPath.buildFilterPathList(search.getFilters());
-        }
-
-        List<SortPath> sortPathList = new ArrayList<>();
-        if (CollectionUtils.isNotEmpty(search.getSorts())) {
-            sortPathList = helperPath.buildSortPathList(search.getSorts());
-        }
-
-        sb.append(buildJoins(filterPathList, sortPathList));
-
-        sb.append(SPACE);
-        sb.append(WHERE);
-        sb.append(SPACE);
-
-        sb.append(buildFilters(filterPathList));
-
-        sb.append(buildSorts(sortPathList));
-
-        String queryBuilt = sb.toString().trim();
-
-        LOG.debug("query built : {} ", queryBuilt);
-
-        return queryBuilt;
+        return buildQuery(search, helperPath, true);
     }
 
     public static <HP extends HelperPath> String buildSearchQuery(Search search, HP helperPath) {
 
+        return buildQuery(search, helperPath, false);
+
+    }
+
+
+    private static <HP extends HelperPath> String buildQuery(Search search, HP helperPath, boolean count) {
+
         StringBuilder sb = new StringBuilder();
 
-        sb.append(helperPath.selectLine());
+        if (count) {
+            sb.append(helperPath.countLine());
+        } else {
+            sb.append(helperPath.selectLine());
+        }
+
 
         List<FilterPath> filterPathList = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(search.getFilters())) {
