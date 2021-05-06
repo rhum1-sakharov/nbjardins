@@ -8,6 +8,7 @@ import models.search.Search;
 import models.search.filter.Filter;
 import models.search.filter.FilterDate;
 import models.search.filter.FilterString;
+import models.search.page.Page;
 import models.search.sort.Sort;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
@@ -101,13 +102,41 @@ public class SearchFilterHelperTest {
                         .build())
                 .collect(Collectors.toList());
 
-        Search search = Search.builder().filters(filters).build();
+        Search search = Search.builder()
+                .page(Page.builder()
+                        .pageSize(10)
+                        .pageIndex(0)
+                        .build())
+                .filters(filters).build();
 
         Assertions.assertThatCode(() -> this.helper.checkSearch(search, ProduitKey.class))
                 .isInstanceOf(TechnicalException.class)
                 .hasMessageContaining(errMsg)
         ;
     }
+
+    @Test
+    public void checkSearch_has_to_check_page() {
+
+        final String errMsg = "L'argument page est obligatoire.";
+
+
+        Mockito.when(this.ls.getMsg(ARG_IS_REQUIRED, "page"))
+                .thenReturn(errMsg);
+
+
+        Search search = Search.builder()
+                .page(null)
+                .build();
+
+        Assertions.assertThatCode(() -> this.helper.checkSearch(search, ProduitKey.class))
+                .isInstanceOf(TechnicalException.class)
+                .hasMessageContaining(errMsg)
+        ;
+    }
+
+
+
 
     @Test
     public void checkSearch_has_to_check_sortKeys() {
@@ -125,7 +154,12 @@ public class SearchFilterHelperTest {
                         .build())
                 .collect(Collectors.toList());
 
-        Search search = Search.builder().sorts(sorts).build();
+        Search search = Search.builder()
+                .page(Page.builder()
+                        .pageSize(10)
+                        .pageIndex(0)
+                        .build())
+                .sorts(sorts).build();
 
         Assertions.assertThatCode(() -> this.helper.checkSearch(search, ProduitKey.class))
                 .isInstanceOf(TechnicalException.class)

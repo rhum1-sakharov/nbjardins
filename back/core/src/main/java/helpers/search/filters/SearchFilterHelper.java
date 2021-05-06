@@ -2,8 +2,10 @@ package helpers.search.filters;
 
 import exceptions.TechnicalException;
 import keys.DomainKey;
+import models.Precondition;
 import models.search.Search;
 import models.search.filter.*;
+import models.search.page.Page;
 import models.search.sort.Sort;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ArrayUtils;
@@ -26,8 +28,16 @@ public class SearchFilterHelper<DK extends DomainKey> {
     }
 
     public void checkSearch(Search search, Class<DK> kfClass) throws TechnicalException {
+
+        checkPage(search.getPage());
         checkFilters(search.getFilters(), kfClass);
         checkSorts(search.getSorts(), kfClass);
+    }
+
+    public void checkPage(Page page) throws TechnicalException {
+        Precondition.validate(
+                Precondition.init(ls.getMsg(ARG_IS_REQUIRED,"page"),Objects.nonNull(page))
+        );
     }
 
     public void checkFilters(List<Filter> filters, Class<DK> kfClass) throws TechnicalException {
