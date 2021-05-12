@@ -123,6 +123,8 @@ public class GraphQLProvider {
 
         return RuntimeWiring.newRuntimeWiring()
                 .scalar(ExtendedScalars.Date)
+                .scalar(ExtendedScalars.Object)
+                .scalar(ExtendedScalars.Json)
                 .scalar(Scalars.GraphQLLong)
                 .type("Filter", typeWiring -> typeWiring.typeResolver(getFilterTypeResolver()))
                 .type("FilterUnion", typeWiring -> typeWiring.typeResolver(getFilterTypeResolver()))

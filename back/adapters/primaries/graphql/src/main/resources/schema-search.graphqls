@@ -58,3 +58,8 @@ type Search{
     sorts: [Sort!]!
 }
 
+type SearchResponse{
+    resultList: [String!]!
+    totalElements: Long
+}
+

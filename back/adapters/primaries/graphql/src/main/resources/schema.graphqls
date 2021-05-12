@@ -1,5 +1,7 @@
 scalar Date
 scalar Long
+scalar Object
+scalar JSON
 
 schema {
     query: Query
@@ -23,6 +25,7 @@ type Query {
     devisOptionFindByIdDevis( idDevis: String): [DevisOption]
 
     clientFindByEmailArtisan(emailArtisan: String) : [Client!]
+    clientSearch(search: JSON): SearchResponse!
 
 
 }
