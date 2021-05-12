@@ -1,0 +1,60 @@
+
+interface Filter{
+    key: String
+    type: FILTER_TYPE
+    join: FILTER_JOIN
+}
+
+type FilterBoolean implements Filter{
+    key: String
+    type: FILTER_TYPE
+    join: FILTER_JOIN
+    operator: OPERATOR_BOOLEAN
+    value : Boolean
+}
+
+type FilterDate implements Filter{
+    key: String
+    type: FILTER_TYPE
+    join: FILTER_JOIN
+    operator: OPERATOR_DATE
+    value : [Date]
+}
+
+type FilterNumber implements Filter{
+    key: String
+    type: FILTER_TYPE
+    join: FILTER_JOIN
+    operator: OPERATOR_NUMBER
+    value: [Float]
+}
+
+type FilterString implements Filter{
+    key: String
+    type: FILTER_TYPE
+    join: FILTER_JOIN
+    operator: OPERATOR_STRING
+    value: [String]
+}
+
+union FilterUnion = FilterString | FilterNumber | FilterDate | FilterBoolean
+
+type Sort{
+    key: String
+    direction: DIRECTION
+}
+
+type Page{
+
+    pageIndex: Int
+    pageSize: Int
+
+}
+
+
+type Search{
+    page: Page!
+    filters: [FilterUnion!]!
+    sorts: [Sort!]!
+}
+

@@ -40,54 +40,6 @@ type Mutation{
     artisanShareInfosDevis(devis: DevisInput!): Artisan!
 }
 
-input IdInput{
-    id: String
-}
-
-input EmailInput{
-    email: String
-}
-
-
-
-input ArtisanBanqueInput{
-    id: ID
-    artisan: ArtisanInput
-    banque: String
-    iban: String
-    rib: String
-    prefere: Boolean
-}
-
-
-input ArtisanOptionInput{
-    id: ID
-    artisan: ArtisanInput
-    modeleOption: MODELE_OPTION
-    actif: Boolean
-}
-
-input ArtisanInput{
-    id: ID
-    taxe: TaxeInput
-    conditionDeReglement : ConditionReglementInput
-    logo: String
-    signature: String
-    provision: Float
-    siret: String
-    validiteDevisMois: Int
-    personne : PersonneInput
-    emailPro: String
-}
-
-input ClientInput {
-    id: ID
-    personne: PersonneInput
-    siret: String
-    signature: String
-
-}
-
 type IdResult{
     id: String
 }
@@ -100,105 +52,7 @@ type NbResult{
     nbResult: Int
 }
 
-input TaxeInput{
-    id: ID
-    nom: String
-    taux: Float
-}
 
-input ConditionReglementInput {
-    id : ID
-    condition: String
-}
-
-input PersonneInput {
-    id: ID
-    nom: String
-    prenom: String
-    email: String
-    numeroTelephone: String
-    adresse: String
-    codePostal : String
-    ville: String
-    fonction: String
-    societe: String
-}
-
-input DevisInput{
-
-    id : ID
-    numeroDevis: String
-    artisan: ArtisanInput
-    client: ClientInput
-    statut: STATUT_DEVIS
-    totalHT: Float
-    sujet: String
-    remarque : String
-    conditionDeReglement : String
-    ordre : String
-    banque : String
-    iban : String
-    rib : String
-    provision : Float
-    validiteDevisMois : Int
-
-    dateATraiter: Date
-    dateTraite: Date
-    dateAccepte: Date
-    dateRefuse: Date
-    dateAbandon: Date
-    dateDevis: Date
-
-    artisanLogo: String
-    artisanSiret: String
-    artisanSociete: String
-    artisanFonction: String
-    artisanAdresse: String
-    artisanVille: String
-    artisanCodePostal: String
-    artisanTelephone: String
-    artisanEmail: String
-    artisanSignature: String
-
-
-    clientNom : String
-    clientPrenom : String
-    clientAdresse : String
-    clientVille : String
-    clientCodePostal : String
-    clientTelephone : String
-    clientEmail : String
-    clientSignature : String
-    clientSiret : String
-    clientSociete : String
-    clientFonction : String
-
-    lieu : String
-
-}
-
-input DevisOptionInput{
-
-    id: ID
-    devis : DevisInput
-    modeleOption : MODELE_OPTION
-    actif : Boolean
-}
-
-enum MODELE_OPTION{
-    TVA_SAISISSABLE_PAR_LIGNE
-    COLONNE_QUANTITE
-    COORDONNEES_BANQUAIRES
-    PROVISION
-}
-
-enum STATUT_DEVIS{
-    A_TRAITER,
-    TRAITE
-    ACCEPTE
-    REFUSE
-    ABANDON
-}
 
 type ArtisanOption{
     id: ID
@@ -324,3 +178,142 @@ type Devis{
 
 
 }
+
+
+
+
+input TaxeInput{
+    id: ID
+    nom: String
+    taux: Float
+}
+
+input ConditionReglementInput {
+    id : ID
+    condition: String
+}
+
+input PersonneInput {
+    id: ID
+    nom: String
+    prenom: String
+    email: String
+    numeroTelephone: String
+    adresse: String
+    codePostal : String
+    ville: String
+    fonction: String
+    societe: String
+}
+
+input DevisInput{
+
+    id : ID
+    numeroDevis: String
+    artisan: ArtisanInput
+    client: ClientInput
+    statut: STATUT_DEVIS
+    totalHT: Float
+    sujet: String
+    remarque : String
+    conditionDeReglement : String
+    ordre : String
+    banque : String
+    iban : String
+    rib : String
+    provision : Float
+    validiteDevisMois : Int
+
+    dateATraiter: Date
+    dateTraite: Date
+    dateAccepte: Date
+    dateRefuse: Date
+    dateAbandon: Date
+    dateDevis: Date
+
+    artisanLogo: String
+    artisanSiret: String
+    artisanSociete: String
+    artisanFonction: String
+    artisanAdresse: String
+    artisanVille: String
+    artisanCodePostal: String
+    artisanTelephone: String
+    artisanEmail: String
+    artisanSignature: String
+
+
+    clientNom : String
+    clientPrenom : String
+    clientAdresse : String
+    clientVille : String
+    clientCodePostal : String
+    clientTelephone : String
+    clientEmail : String
+    clientSignature : String
+    clientSiret : String
+    clientSociete : String
+    clientFonction : String
+
+    lieu : String
+
+}
+
+input DevisOptionInput{
+
+    id: ID
+    devis : DevisInput
+    modeleOption : MODELE_OPTION
+    actif : Boolean
+}
+
+
+
+input IdInput{
+    id: String
+}
+
+input EmailInput{
+    email: String
+}
+
+
+
+input ArtisanBanqueInput{
+    id: ID
+    artisan: ArtisanInput
+    banque: String
+    iban: String
+    rib: String
+    prefere: Boolean
+}
+
+
+input ArtisanOptionInput{
+    id: ID
+    artisan: ArtisanInput
+    modeleOption: MODELE_OPTION
+    actif: Boolean
+}
+
+input ArtisanInput{
+    id: ID
+    taxe: TaxeInput
+    conditionDeReglement : ConditionReglementInput
+    logo: String
+    signature: String
+    provision: Float
+    siret: String
+    validiteDevisMois: Int
+    personne : PersonneInput
+    emailPro: String
+}
+
+input ClientInput {
+    id: ID
+    personne: PersonneInput
+    siret: String
+    signature: String
+
+}
+

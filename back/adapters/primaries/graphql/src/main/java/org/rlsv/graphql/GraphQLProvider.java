@@ -5,12 +5,19 @@ import com.google.common.io.Resources;
 import exceptions.CleanException;
 import graphql.GraphQL;
 import graphql.Scalars;
+import graphql.TypeResolutionEnvironment;
 import graphql.scalars.ExtendedScalars;
+import graphql.schema.GraphQLObjectType;
 import graphql.schema.GraphQLSchema;
+import graphql.schema.TypeResolver;
 import graphql.schema.idl.RuntimeWiring;
 import graphql.schema.idl.SchemaGenerator;
 import graphql.schema.idl.SchemaParser;
 import graphql.schema.idl.TypeDefinitionRegistry;
+import models.search.filter.FilterBoolean;
+import models.search.filter.FilterDate;
+import models.search.filter.FilterNumber;
+import models.search.filter.FilterString;
 import org.rlsv.graphql.data.fetcher.devis.DevisDataFetcher;
 import org.rlsv.graphql.data.fetcher.devis.options.DevisOptionDataFetcher;
 import org.rlsv.graphql.data.fetcher.personnes.artisans.ArtisanDataFetcher;
@@ -56,17 +63,28 @@ public class GraphQLProvider {
         this.clientDataFetcher = clientDataFetcher;
         this.devisOptionDataFetcher = devisOptionDataFetcher;
 
-        URL url = Resources.getResource("schema.graphqls");
-        String sdl = Resources.toString(url, Charsets.UTF_8);
 
-        GraphQLSchema graphQLSchema = buildSchema(sdl);
+        GraphQLSchema graphQLSchema = buildSchema();
         this.graphQL = GraphQL.newGraphQL(graphQLSchema).build();
     }
 
 
-    private GraphQLSchema buildSchema(String sdl) throws CleanException {
+    private GraphQLSchema buildSchema() throws CleanException, IOException {
 
-        TypeDefinitionRegistry typeRegistry = new SchemaParser().parse(sdl);
+        URL urlRoot = Resources.getResource("schema.graphqls");
+        String sdlRoot = Resources.toString(urlRoot, Charsets.UTF_8);
+
+        URL urlEnum = Resources.getResource("schema-enum.graphqls");
+        String sdlEnum = Resources.toString(urlEnum, Charsets.UTF_8);
+
+        URL urlSearch = Resources.getResource("schema-search.graphqls");
+        String sdlSearch = Resources.toString(urlSearch, Charsets.UTF_8);
+
+        TypeDefinitionRegistry typeRegistry = new TypeDefinitionRegistry();
+
+        typeRegistry.merge( new SchemaParser().parse(sdlRoot));
+        typeRegistry.merge( new SchemaParser().parse(sdlEnum));
+        typeRegistry.merge( new SchemaParser().parse(sdlSearch));
 
 
         RuntimeWiring runtimeWiring = buildWiring();
@@ -76,12 +94,38 @@ public class GraphQLProvider {
 
     }
 
+
+    private TypeResolver getFilterTypeResolver() {
+        TypeResolver typeResolver = new TypeResolver() {
+            @Override
+            public GraphQLObjectType getType(TypeResolutionEnvironment env) {
+                if (env.getObject() instanceof FilterDate) {
+                    return env.getSchema().getObjectType("FilterDate");
+                }
+                if (env.getObject() instanceof FilterString) {
+                    return env.getSchema().getObjectType("FilterString");
+                }
+                if (env.getObject() instanceof FilterNumber) {
+                    return env.getSchema().getObjectType("FilterNumber");
+                }
+                if (env.getObject() instanceof FilterBoolean) {
+                    return env.getSchema().getObjectType("FilterBoolean");
+                }
+                return null;
+            }
+        };
+
+        return typeResolver;
+    }
+
     private RuntimeWiring buildWiring() throws CleanException {
 
 
         return RuntimeWiring.newRuntimeWiring()
                 .scalar(ExtendedScalars.Date)
                 .scalar(Scalars.GraphQLLong)
+                .type("Filter", typeWiring -> typeWiring.typeResolver(getFilterTypeResolver()))
+                .type("FilterUnion", typeWiring -> typeWiring.typeResolver(getFilterTypeResolver()))
 
                 .type(newTypeWiring("Query")
                         .dataFetcher("taxeAll", taxeDataFetcher.getAllTaxesDataFetcher())
