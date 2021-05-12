@@ -149,6 +149,7 @@ public class GraphQLProvider {
 
                         // CLIENT
                         .dataFetcher("clientFindByEmailArtisan", clientDataFetcher.clientFindByEmailArtisanDataFetcher())
+                        .dataFetcher("clientSearch", clientDataFetcher.clientSearchDataFetcher())
                 )
                 .type(newTypeWiring("Mutation")
 

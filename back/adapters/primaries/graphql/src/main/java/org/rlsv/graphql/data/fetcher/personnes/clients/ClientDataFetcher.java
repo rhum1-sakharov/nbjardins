@@ -3,8 +3,10 @@ package org.rlsv.graphql.data.fetcher.personnes.clients;
 import domains.devis.DevisDN;
 import exceptions.CleanException;
 import graphql.schema.DataFetcher;
+import models.search.Search;
 import org.rlsv.graphql.utils.MapperUtils;
 import usecases.personnes.clients.FindClientsOfArtisanUE;
+import usecases.personnes.clients.SearchClientUE;
 import usecases.personnes.clients.ShareInfosDevisUE;
 
 import java.util.Map;
@@ -15,9 +17,13 @@ public class ClientDataFetcher {
 
     ShareInfosDevisUE shareInfosDevisUE;
 
-    public ClientDataFetcher(FindClientsOfArtisanUE findClientsOfArtisanUE, ShareInfosDevisUE shareInfosDevisUE) {
+    SearchClientUE searchClientUE;
+
+
+    public ClientDataFetcher(FindClientsOfArtisanUE findClientsOfArtisanUE, ShareInfosDevisUE shareInfosDevisUE, SearchClientUE searchClientUE) {
         this.findClientsOfArtisanUE = findClientsOfArtisanUE;
         this.shareInfosDevisUE = shareInfosDevisUE;
+        this.searchClientUE = searchClientUE;
     }
 
     public DataFetcher clientFindByEmailArtisanDataFetcher() throws CleanException {
@@ -41,6 +47,18 @@ public class ClientDataFetcher {
     }
 
 
+    public DataFetcher clientSearchDataFetcher() {
+
+        return dataFetchingEnvironment -> {
+
+            Map<String, Object> args = dataFetchingEnvironment.getArgument("search");
+
+            Search search = MapperUtils.fromMap(args, Search.class);
+
+            return searchClientUE.execute(null, search);
+
+        };
+    }
 }
 
 

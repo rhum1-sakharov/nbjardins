@@ -1,5 +1,7 @@
 package org.rlsv.adapters.primaries.application.springapp.config.usecase.personnes;
 
+import helpers.search.filters.SearchFilterHelper;
+import keys.client.ClientKey;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import ports.localization.LocalizeServicePT;
@@ -12,6 +14,7 @@ import usecases.personnes.artisans.banques.SaveArtisanBanqueUE;
 import usecases.personnes.artisans.options.SaveOptionUE;
 import usecases.personnes.clients.FindByEmailUE;
 import usecases.personnes.clients.FindClientsOfArtisanUE;
+import usecases.personnes.clients.SearchClientUE;
 
 
 @Configuration
@@ -53,13 +56,19 @@ public class PersonneConfig {
     }
 
     @Bean
+    public SearchClientUE searchClientUE(LocalizeServicePT ls, TransactionManagerPT tm, ClientRepoPT clientRepo, SearchFilterHelper<ClientKey> sfh){
+        return new SearchClientUE(ls,tm,clientRepo,sfh);
+    }
+
+    @Bean
     public PersonneUsecases personneUsecases(FindByEmailUE clientFindByEmailUE,
                                              FindClientsOfArtisanUE findClientsOfArtisanUE,
                                              usecases.personnes.artisans.options.FindByEmailUE optionsFindAllByEmailUE,
                                              SaveOptionUE artisanSaveOptionUE,
                                              SaveArtisanBanqueUE saveArtisanBanqueUE,
                                              RemoveArtisanBanqueByEmailUE removeArtisanBanqueByEmailUE,
-                                             usecases.personnes.artisans.banques.FindByEmailUE artisanBanqueFindByEmailUE
+                                             usecases.personnes.artisans.banques.FindByEmailUE artisanBanqueFindByEmailUE,
+                                             SearchClientUE searchClientUE
     ) {
 
         return PersonneUsecases.builder()
@@ -70,6 +79,7 @@ public class PersonneConfig {
                 .saveArtisanBanqueUE(saveArtisanBanqueUE)
                 .removeArtisanBanqueByEmailUE(removeArtisanBanqueByEmailUE)
                 .artisanBanqueFindByEmailUE(artisanBanqueFindByEmailUE)
+                .searchClientUE(searchClientUE)
                 .build();
 
     }

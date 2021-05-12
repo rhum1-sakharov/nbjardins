@@ -8,6 +8,7 @@ import usecases.personnes.artisans.banques.SaveArtisanBanqueUE;
 import usecases.personnes.artisans.options.SaveOptionUE;
 import usecases.personnes.clients.FindByEmailUE;
 import usecases.personnes.clients.FindClientsOfArtisanUE;
+import usecases.personnes.clients.SearchClientUE;
 
 @Getter
 @Setter
@@ -27,5 +28,7 @@ public class PersonneUsecases {
     RemoveArtisanBanqueByEmailUE removeArtisanBanqueByEmailUE;
 
     usecases.personnes.artisans.banques.FindByEmailUE artisanBanqueFindByEmailUE;
+
+    SearchClientUE searchClientUE;
 
 }
