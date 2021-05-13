@@ -25,7 +25,9 @@ type Query {
     devisOptionFindByIdDevis( idDevis: String): [DevisOption]
 
     clientFindByEmailArtisan(emailArtisan: String) : [Client!]
-    clientSearch(search: JSON): SearchResponse!
+    clientSearch(search: JSON!): SearchResponse!
+
+    produitSearch(search: JSON!): SearchResponse!
 
 
 }

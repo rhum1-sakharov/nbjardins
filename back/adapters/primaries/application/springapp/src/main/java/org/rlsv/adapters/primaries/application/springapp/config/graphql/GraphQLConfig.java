@@ -9,6 +9,7 @@ import org.rlsv.graphql.data.fetcher.personnes.artisans.ArtisanDataFetcher;
 import org.rlsv.graphql.data.fetcher.personnes.artisans.banques.ArtisanBanqueDataFetcher;
 import org.rlsv.graphql.data.fetcher.personnes.artisans.options.ArtisanOptionDataFetcher;
 import org.rlsv.graphql.data.fetcher.personnes.clients.ClientDataFetcher;
+import org.rlsv.graphql.data.fetcher.produits.ProduitDataFetcher;
 import org.rlsv.graphql.data.fetcher.referentiel.conditions.reglements.ConditionReglementDataFetcher;
 import org.rlsv.graphql.data.fetcher.referentiel.taxes.TaxeDataFetcher;
 import org.springframework.context.annotation.Bean;
@@ -24,6 +25,7 @@ import usecases.personnes.artisans.options.SaveOptionUE;
 import usecases.personnes.clients.FindClientsOfArtisanUE;
 import usecases.personnes.clients.SearchClientUE;
 import usecases.personnes.clients.ShareInfosDevisUE;
+import usecases.produits.SearchProduitUE;
 import usecases.referentiel.conditions.reglements.FindAllConditionReglementUE;
 import usecases.referentiel.taxes.FindAllTaxeUE;
 
@@ -58,7 +60,12 @@ public class GraphQLConfig {
     @Bean
     public ClientDataFetcher clientDataFetcher(FindClientsOfArtisanUE findClientsOfArtisanUE, ShareInfosDevisUE shareInfosDevisUE,
                                                SearchClientUE searchClientUE) {
-        return new ClientDataFetcher(findClientsOfArtisanUE, shareInfosDevisUE,searchClientUE);
+        return new ClientDataFetcher(findClientsOfArtisanUE, shareInfosDevisUE, searchClientUE);
+    }
+
+    @Bean
+    public ProduitDataFetcher produitDataFetcher(SearchProduitUE searchProduitUE) {
+        return new ProduitDataFetcher(searchProduitUE);
     }
 
     @Bean
@@ -100,7 +107,8 @@ public class GraphQLConfig {
                                               ArtisanOptionDataFetcher artisanOptionDataFetcher,
                                               DevisDataFetcher devisDataFetcher,
                                               ClientDataFetcher clientDataFetcher,
-                                              DevisOptionDataFetcher devisOptionDataFetcher
+                                              DevisOptionDataFetcher devisOptionDataFetcher,
+                                              ProduitDataFetcher produitDataFetcher
     ) throws IOException, CleanException {
         return new GraphQLProvider(taxeDataFetcher,
                 conditionReglementDataFetcher,
@@ -109,7 +117,8 @@ public class GraphQLConfig {
                 artisanOptionDataFetcher,
                 devisDataFetcher,
                 clientDataFetcher,
-                devisOptionDataFetcher
+                devisOptionDataFetcher,
+                produitDataFetcher
         );
     }
 

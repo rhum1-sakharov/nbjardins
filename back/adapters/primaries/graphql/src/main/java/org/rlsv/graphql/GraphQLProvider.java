@@ -24,6 +24,7 @@ import org.rlsv.graphql.data.fetcher.personnes.artisans.ArtisanDataFetcher;
 import org.rlsv.graphql.data.fetcher.personnes.artisans.banques.ArtisanBanqueDataFetcher;
 import org.rlsv.graphql.data.fetcher.personnes.artisans.options.ArtisanOptionDataFetcher;
 import org.rlsv.graphql.data.fetcher.personnes.clients.ClientDataFetcher;
+import org.rlsv.graphql.data.fetcher.produits.ProduitDataFetcher;
 import org.rlsv.graphql.data.fetcher.referentiel.conditions.reglements.ConditionReglementDataFetcher;
 import org.rlsv.graphql.data.fetcher.referentiel.taxes.TaxeDataFetcher;
 
@@ -43,6 +44,7 @@ public class GraphQLProvider {
     private DevisDataFetcher devisDataFetcher;
     private ClientDataFetcher clientDataFetcher;
     private DevisOptionDataFetcher devisOptionDataFetcher;
+    private ProduitDataFetcher produitDataFetcher;
 
     public GraphQLProvider(TaxeDataFetcher taxeDataFetcher,
                            ConditionReglementDataFetcher conditionReglementDataFetcher,
@@ -51,7 +53,8 @@ public class GraphQLProvider {
                            ArtisanOptionDataFetcher artisanOptionDataFetcher,
                            DevisDataFetcher devisDataFetcher,
                            ClientDataFetcher clientDataFetcher,
-                           DevisOptionDataFetcher devisOptionDataFetcher
+                           DevisOptionDataFetcher devisOptionDataFetcher,
+                           ProduitDataFetcher produitDataFetcher
     ) throws IOException, CleanException {
 
         this.taxeDataFetcher = taxeDataFetcher;
@@ -62,6 +65,7 @@ public class GraphQLProvider {
         this.devisDataFetcher = devisDataFetcher;
         this.clientDataFetcher = clientDataFetcher;
         this.devisOptionDataFetcher = devisOptionDataFetcher;
+        this.produitDataFetcher = produitDataFetcher;
 
 
         GraphQLSchema graphQLSchema = buildSchema();
@@ -82,9 +86,9 @@ public class GraphQLProvider {
 
         TypeDefinitionRegistry typeRegistry = new TypeDefinitionRegistry();
 
-        typeRegistry.merge( new SchemaParser().parse(sdlRoot));
-        typeRegistry.merge( new SchemaParser().parse(sdlEnum));
-        typeRegistry.merge( new SchemaParser().parse(sdlSearch));
+        typeRegistry.merge(new SchemaParser().parse(sdlRoot));
+        typeRegistry.merge(new SchemaParser().parse(sdlEnum));
+        typeRegistry.merge(new SchemaParser().parse(sdlSearch));
 
 
         RuntimeWiring runtimeWiring = buildWiring();
@@ -152,6 +156,7 @@ public class GraphQLProvider {
                         .dataFetcher("clientSearch", clientDataFetcher.clientSearchDataFetcher())
 
                         // PRODUIT
+                        .dataFetcher("produitSearch", produitDataFetcher.produitSearchDataFetcher())
 
                 )
                 .type(newTypeWiring("Mutation")

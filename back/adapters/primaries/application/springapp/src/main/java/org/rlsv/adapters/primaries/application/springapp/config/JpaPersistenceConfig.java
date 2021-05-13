@@ -10,6 +10,7 @@ import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.personnes.arti
 import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.personnes.artisans.options.ArtisanOptionRepoJpa;
 import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.personnes.clients.ClientRepoJpa;
 import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.personnes.roles.PersonneRoleRepoJpa;
+import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.produits.ProduitRepoJpa;
 import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.referentiel.conditions.reglements.ConditionDeReglementRepoJpa;
 import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.referentiel.roles.RoleRepoJpa;
 import org.rlsv.adapters.secondaries.dataproviderjpa.repositories.referentiel.taxes.TaxeRepoJpa;
@@ -27,6 +28,7 @@ import ports.repositories.personnes.artisans.banques.ArtisanBanqueRepoPT;
 import ports.repositories.personnes.artisans.options.ArtisanOptionRepoPT;
 import ports.repositories.personnes.clients.ClientRepoPT;
 import ports.repositories.personnes.roles.PersonneRoleRepoPT;
+import ports.repositories.produits.ProduitRepoPT;
 import ports.repositories.referentiel.conditions.reglements.ConditionDeReglementRepoPT;
 import ports.repositories.referentiel.roles.RoleRepoPT;
 import ports.repositories.referentiel.taxes.TaxeRepoPT;
@@ -111,6 +113,12 @@ public class JpaPersistenceConfig {
     @DependsOn("databaseConnectionConfig")
     public DevisOptionRepoPT devisOptionRepoPT(LocalizeServicePT ls) {
         return new DevisOptionRepoJpa(ls);
+    }
+
+    @Bean
+    @DependsOn("databaseConnectionConfig")
+    public ProduitRepoPT produitRepoPT(LocalizeServicePT ls) {
+        return new ProduitRepoJpa(ls);
     }
 
 
