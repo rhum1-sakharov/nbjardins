@@ -20,12 +20,28 @@ export * from './lib/models/personnes/artisans/banques/m-artisan-banque';
 export * from './lib/models/personnes/artisans/options/m-artisan-option';
 export * from './lib/models/model';
 
+export * from './lib/models/search/m-page';
+export * from './lib/models/search/m-search';
+export * from './lib/models/search/m-sort';
+export * from './lib/models/search/filter/m-filter-boolean';
+export * from './lib/models/search/filter/m-filter-date';
+export * from './lib/models/search/filter/m-filter-string';
+export * from './lib/models/search/filter/m-filter-number';
+
 export * from './lib/constants/constants';
 export * from './lib/enums/e-modele-option';
 export * from './lib/enums/e-crud-mode';
 export * from './lib/enums/e-statut-devis';
 export * from './lib/enums/e-graphql-type';
 export * from './lib/enums/e-type-field';
+
+export * from './lib/enums/search/e-direction';
+export * from './lib/enums/search/e-filter-join';
+export * from './lib/enums/search/e-filter-type';
+export * from './lib/enums/search/operator/e-operator-boolean';
+export * from './lib/enums/search/operator/e-operator-date';
+export * from './lib/enums/search/operator/e-operator-number';
+export * from './lib/enums/search/operator/e-operator-string';
 
 export * from './lib/crud/abstract-crud';
 export * from './lib/mothers/rvl-dialog';

@@ -1,0 +1,7 @@
+export enum FILTER_TYPE {
+
+  BOOLEAN = 'BOOLEAN',
+  STRING = 'STRING',
+  DATE = 'DATE',
+  NUMBER = 'NUMBER'
+}
