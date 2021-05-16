@@ -8,6 +8,7 @@ export class SearchClientUE extends AbstractUsecase {
     execute(search: MSearch) : SearchResponseML {
 
         ParameterUtil.isNotNull([search],['search']);
+        console.log('yo');
 
         return null;
     }
