@@ -11,7 +11,7 @@ describe('search client', () => {
 
     it('should have search arg not null' , () => {
 
-        assert.throw(()=> usecase.execute(null),FeatureError,"search arg is required");
+        assert.throw(()=> usecase.execute(null),FeatureError,"search argument is required");
 
     });
 
