@@ -9,9 +9,6 @@ export class SearchClientUE extends AbstractUsecase {
 
         ParameterUtil.isNotNull([search],['search']);
 
-
-        console.log('searchClientUE', search);
-
         return null;
     }
 
