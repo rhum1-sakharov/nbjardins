@@ -1,0 +1,1 @@
+export {SearchClientUE} from './usecase/personne/client/search-client-ue'
