@@ -6,6 +6,7 @@
   "dependencies": {
     "common-js": "^0.3.8",
     "rvl-core": "0.0.3",
+    "rvl-graphql": "^1.0.0",
     "ts-loader": "^9.1.2",
     "typescript": "^4.2.4",
     "webpack": "^5.37.0",
@@ -14,7 +15,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev":"webpack --mode development"
+    "dev": "npm link rvl-core && npm link rvl-graphql && webpack --mode development"
   },
   "keywords": [],
   "author": "",

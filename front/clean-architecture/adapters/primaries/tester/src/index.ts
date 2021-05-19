@@ -1,4 +1,9 @@
-import {SearchClientUE} from 'rvl-core';
+import {SearchClientUE, MSearch} from 'rvl-core';
+import {ClientRepoGL} from 'rvl-graphql';
 
-const sc = new SearchClientUE();
-sc.execute(null);
+
+const clientRepo = new ClientRepoGL();
+const sc = new SearchClientUE(clientRepo);
+
+const search = new MSearch();
+sc.execute(search);
