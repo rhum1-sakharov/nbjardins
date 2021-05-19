@@ -1,3 +1,4 @@
+import * as mocha from 'mocha';
 import * as chai from 'chai';
 import {SearchClientUE} from './search-client-ue';
 import {FeatureError} from '../../../exceptions/FeatureError';
