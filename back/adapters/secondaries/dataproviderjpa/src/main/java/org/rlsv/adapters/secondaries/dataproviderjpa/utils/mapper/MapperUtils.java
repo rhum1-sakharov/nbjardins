@@ -26,9 +26,18 @@ public class MapperUtils {
 
     private static final String PACKAGE_PATHS = "org.rlsv.adapters.secondaries.dataproviderjpa.helpers";
     private static final String SUFFIX_PATH = "Path";
+    private static final Reflections PACKAGE_PATHS_BY_REFLEXION = new Reflections(PACKAGE_PATHS);
+    private static final Set<Class<? extends HelperPath>> PATH_CLASS_LIST = PACKAGE_PATHS_BY_REFLEXION.getSubTypesOf(HelperPath.class);
 
     private static final String PACKAGE_ENTITIES = "org.rlsv.adapters.secondaries.dataproviderjpa.entities";
+    private static final Reflections PACKAGE_ENTITIES_BY_REFLEXION = new Reflections(PACKAGE_ENTITIES);
+    private static final Set<Class<? extends Entity>> ENTITIES_CLASS_LIST = PACKAGE_ENTITIES_BY_REFLEXION.getSubTypesOf(Entity.class);
+
     private static final String PACKAGE_DOMAINS = "domains";
+    private static final  Reflections PACKAGE_DOMAINS_BY_REFLEXION = new Reflections(PACKAGE_DOMAINS);
+    private static final Set<Class<? extends Domain>> DOMAINS_CLASS_LIST = PACKAGE_DOMAINS_BY_REFLEXION.getSubTypesOf(Domain.class);
+
+
     private static final String SUFFIX_DOMAIN = "DN";
 
 
@@ -123,14 +132,11 @@ public class MapperUtils {
                 Precondition.init("L'argument entityClass est obligatoire.", Objects.nonNull(entityClass))
         );
 
-        Reflections reflections = new Reflections(PACKAGE_DOMAINS);
-        Set<Class<? extends Domain>> clazzSet = reflections.getSubTypesOf(Domain.class);
-
         String domainName = entityClass.getSimpleName() + SUFFIX_DOMAIN;
 
         final String error = "La classe domain " + domainName + " est introuvable.";
 
-        return (Class<D>) clazzSet.stream()
+        return (Class<D>) DOMAINS_CLASS_LIST.stream()
                 .filter(o -> o.getSimpleName().equals(domainName))
                 .findFirst()
                 .orElseThrow(() -> new TechnicalException(error));
@@ -143,15 +149,12 @@ public class MapperUtils {
                 Precondition.init("L'argument domainClass est obligatoire.", Objects.nonNull(domainClass))
         );
 
-        Reflections reflections = new Reflections(PACKAGE_ENTITIES);
-        Set<Class<? extends Entity>> clazzSet = reflections.getSubTypesOf(Entity.class);
-
         String domainName = domainClass.getSimpleName();
         String entityName = domainName.endsWith(SUFFIX_DOMAIN) ? domainName.substring(0, domainName.length() - 2) : domainName;
 
         final String error = "La classe entity " + entityName + " est introuvable.";
 
-        return (Class<E>) clazzSet.stream()
+        return (Class<E>) ENTITIES_CLASS_LIST.stream()
                 .filter(o -> o.getSimpleName().equals(entityName))
                 .findFirst()
                 .orElseThrow(() -> new TechnicalException(error));
@@ -225,13 +228,11 @@ public class MapperUtils {
     }
 
     public static <D extends Domain> Optional<Class<? extends HelperPath>> findPathClassByDomain(Class<D> domainClass) {
-        Reflections reflections = new Reflections(PACKAGE_PATHS);
-        Set<Class<? extends HelperPath>> clazzList = reflections.getSubTypesOf(HelperPath.class);
 
         String domainName = domainClass.getSimpleName();
         String mapperName = domainName.endsWith(SUFFIX_DOMAIN) ? domainName.substring(0, domainName.length() - 2) : domainName;
 
-        Optional<Class<? extends HelperPath>> path = clazzList.stream().filter(o -> o.getSimpleName().equals(mapperName + SUFFIX_PATH))
+        Optional<Class<? extends HelperPath>> path = PATH_CLASS_LIST.stream().filter(o -> o.getSimpleName().equals(mapperName + SUFFIX_PATH))
                 .findFirst();
         return path;
     }
