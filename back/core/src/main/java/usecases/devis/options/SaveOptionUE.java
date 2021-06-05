@@ -1,6 +1,6 @@
 package usecases.devis.options;
 
-import annotations.Transactional;
+import annotations.RvlTransactional;
 import domains.devis.options.DevisOptionDN;
 import exceptions.CleanException;
 import models.Precondition;
@@ -27,7 +27,7 @@ public class SaveOptionUE extends AbstractUsecase {
         this.devisOptionRepo = devisOptionRepo;
     }
 
-    @Transactional
+    @RvlTransactional
     public DevisOptionDN execute(DataProviderManager dpm, DevisOptionDN devisOption) throws CleanException {
 
         Precondition.validate(

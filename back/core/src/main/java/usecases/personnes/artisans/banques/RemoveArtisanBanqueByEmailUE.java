@@ -1,6 +1,6 @@
 package usecases.personnes.artisans.banques;
 
-import annotations.Transactional;
+import annotations.RvlTransactional;
 import exceptions.CleanException;
 import models.Precondition;
 import ports.localization.LocalizeServicePT;
@@ -22,7 +22,7 @@ public class RemoveArtisanBanqueByEmailUE extends AbstractUsecase {
         this.artisanBanqueRepo = artisanBanqueRepo;
     }
 
-    @Transactional
+    @RvlTransactional
     public Integer execute(DataProviderManager dpm, String email) throws CleanException {
 
         Precondition.validate(

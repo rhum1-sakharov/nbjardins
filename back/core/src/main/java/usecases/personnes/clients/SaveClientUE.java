@@ -1,6 +1,6 @@
 package usecases.personnes.clients;
 
-import annotations.Transactional;
+import annotations.RvlTransactional;
 import domains.personnes.clients.ClientDN;
 import exceptions.CleanException;
 import models.Precondition;
@@ -29,7 +29,7 @@ public class SaveClientUE extends AbstractUsecase {
         this.clientRepo = clientRepo;
     }
 
-    @Transactional
+    @RvlTransactional
     public ClientDN execute(DataProviderManager dpm, ClientDN client) throws CleanException {
 
         Precondition.validate(

@@ -1,6 +1,6 @@
 package usecases.personnes.artisans;
 
-import annotations.Transactional;
+import annotations.RvlTransactional;
 import domains.personnes.PersonneDN;
 import domains.personnes.artisans.ArtisanDN;
 import domains.personnes.roles.Personne__RoleDN;
@@ -47,7 +47,7 @@ public class SaveArtisanUE extends AbstractUsecase {
      * Si oui, interdire l enregistrement
      * Si non, enregistrer la personne, l'associer au role artisan
      */
-    @Transactional
+    @RvlTransactional
     public ArtisanDN execute( DataProviderManager dpm, ArtisanDN artisan) throws CleanException {
 
         try {

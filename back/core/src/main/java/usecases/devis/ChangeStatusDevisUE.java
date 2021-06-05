@@ -1,6 +1,6 @@
 package usecases.devis;
 
-import annotations.Transactional;
+import annotations.RvlTransactional;
 import domains.devis.DevisDN;
 import enums.STATUT_DEVIS;
 import exceptions.CleanException;
@@ -24,7 +24,7 @@ public class ChangeStatusDevisUE extends AbstractUsecase {
         this.devisRepo = devisRepo;
     }
 
-    @Transactional
+    @RvlTransactional
     public DevisDN execute(DataProviderManager dpm, String idDevis, STATUT_DEVIS statutDevis) throws CleanException {
 
         Precondition.validate(

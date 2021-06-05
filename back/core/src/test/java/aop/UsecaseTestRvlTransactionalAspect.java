@@ -10,7 +10,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import ports.transactions.TransactionManagerPT;
 
 @RunWith(MockitoJUnitRunner.class)
-public class UsecaseTestTransactionalAspect {
+public class UsecaseTestRvlTransactionalAspect {
 
     UsecaseTransactionalAspect usecaseTransactionalAspect;
 

@@ -1,6 +1,6 @@
 package usecases.produits;
 
-import annotations.Transactional;
+import annotations.RvlTransactional;
 import domains.produits.ProduitDN;
 import exceptions.CleanException;
 import exceptions.TechnicalException;
@@ -34,7 +34,7 @@ public class SearchProduitUE extends AbstractUsecase {
         this.sfh = sfh;
     }
 
-    @Transactional
+    @RvlTransactional
     public SearchResponse<ProduitDN> execute(DataProviderManager dpm, Search search) throws CleanException, IllegalAccessException, InstantiationException {
 
         checkParameters(search);

@@ -22,7 +22,7 @@ public class TransactionalAspect {
 
     //Defines a pointcut where the @YourAnnotation exists
     //And combines that with a catch all pointcut with the scope of execution
-    @Around("@annotation(annotations.Transactional) && execution(* *(..))")
+    @Around("@annotation(annotations.RvlTransactional) && execution(* *(..))")
     //ProceedingJointPoint = the reference of the call to the method.
     //Difference between ProceedingJointPoint and JointPoint is that a JointPoint can't be continued(proceeded)
     //A ProceedingJointPoint can be continued(proceeded) and is needed for a Around advice
@@ -43,7 +43,7 @@ public class TransactionalAspect {
             int indexDpmArg = Precondition.getIndexClassType(parameterTypes, DataProviderManager.class);
 
             Precondition.validate(
-                    Precondition.init("no transaction manager provided. In order to use @Transactional annotation, your method class needs to extends AbstractUseCase. In fact AbstractUseCase init the transaction manager!", Objects.nonNull(tm)),
+                    Precondition.init("no transaction manager provided. In order to use @RvlTransactional annotation, your method class needs to extends AbstractUseCase. In fact AbstractUseCase init the transaction manager!", Objects.nonNull(tm)),
                     Precondition.init("no dpm provided", indexDpmArg != Precondition.INDEX_NOT_FOUND)
             );
 

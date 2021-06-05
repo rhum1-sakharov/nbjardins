@@ -1,6 +1,6 @@
 package usecases.personnes.clients;
 
-import annotations.Transactional;
+import annotations.RvlTransactional;
 import domains.personnes.clients.ClientDN;
 import exceptions.CleanException;
 import models.Precondition;
@@ -24,7 +24,7 @@ public class FindClientsOfArtisanUE extends AbstractUsecase {
         this.clientRepo = clientRepo;
     }
 
-    @Transactional
+    @RvlTransactional
     public List<ClientDN> execute(DataProviderManager dpm, String emailArtisan) throws CleanException {
 
         Precondition.validate(

@@ -1,6 +1,6 @@
 package usecases.referentiel.taxes;
 
-import annotations.Transactional;
+import annotations.RvlTransactional;
 import exceptions.CleanException;
 import ports.localization.LocalizeServicePT;
 import ports.repositories.referentiel.taxes.TaxeRepoPT;
@@ -19,7 +19,7 @@ public class FindTauxByEmailArtisanUE extends AbstractUsecase {
         this.taxeRepo = taxeRepo;
     }
 
-    @Transactional
+    @RvlTransactional
     public BigDecimal execute(DataProviderManager dpm, String emailArtisan) throws CleanException {
 
         return taxeRepo.findTauxByEmailArtisan(dpm, emailArtisan);

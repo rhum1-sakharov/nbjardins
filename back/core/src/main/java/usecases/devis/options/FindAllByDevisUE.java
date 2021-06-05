@@ -1,6 +1,6 @@
 package usecases.devis.options;
 
-import annotations.Transactional;
+import annotations.RvlTransactional;
 import domains.devis.options.DevisOptionDN;
 import exceptions.CleanException;
 import models.Precondition;
@@ -24,7 +24,7 @@ public class FindAllByDevisUE extends AbstractUsecase {
         this.devisOptionRepo = devisOptionRepo;
     }
 
-    @Transactional
+    @RvlTransactional
     public List<DevisOptionDN> execute(DataProviderManager dpm, String idDevis) throws CleanException {
 
         Precondition.validate(

@@ -1,6 +1,6 @@
 package usecases.referentiel.roles;
 
-import annotations.Transactional;
+import annotations.RvlTransactional;
 import domains.personnes.PersonneDN;
 import domains.referentiel.roles.RoleDN;
 import exceptions.CleanException;
@@ -21,7 +21,7 @@ public class FindByPersonneUE extends AbstractUsecase {
         this.roleRepo = roleRepo;
     }
 
-    @Transactional
+    @RvlTransactional
     public List<RoleDN> execute(DataProviderManager dpm, PersonneDN personne) throws CleanException {
 
         return roleRepo.findByPersonne(dpm,personne);

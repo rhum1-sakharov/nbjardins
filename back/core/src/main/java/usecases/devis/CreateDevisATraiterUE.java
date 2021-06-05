@@ -1,6 +1,6 @@
 package usecases.devis;
 
-import annotations.Transactional;
+import annotations.RvlTransactional;
 import domains.devis.DevisDN;
 import domains.devis.options.DevisOptionDN;
 import domains.personnes.artisans.ArtisanBanqueDN;
@@ -52,7 +52,7 @@ public class CreateDevisATraiterUE extends AbstractUsecase {
         this.aoFindByEmailUE = aoFindByEmailUE;
     }
 
-    @Transactional
+    @RvlTransactional
     public Map<String, Object> execute(DataProviderManager dpm, String emailArtisan, String emailClient) throws CleanException {
 
         Precondition.validate(
@@ -107,7 +107,7 @@ public class CreateDevisATraiterUE extends AbstractUsecase {
      * @return
      * @throws CleanException
      */
-    @Transactional
+    @RvlTransactional
     private DevisDN initDevisATraiter(DataProviderManager dpm, String emailArtisan, String emailClient) throws CleanException {
 
         DevisDN devis = new DevisDN();

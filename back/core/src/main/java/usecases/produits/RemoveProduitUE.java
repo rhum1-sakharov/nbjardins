@@ -1,6 +1,6 @@
 package usecases.produits;
 
-import annotations.Transactional;
+import annotations.RvlTransactional;
 import domains.produits.ProduitDN;
 import exceptions.CleanException;
 import models.Precondition;
@@ -23,7 +23,7 @@ public class RemoveProduitUE extends AbstractUsecase {
         this.produitRepo = produitRepo;
     }
 
-    @Transactional
+    @RvlTransactional
     public String execute(DataProviderManager dpm, String idProduit) throws CleanException {
 
         Precondition.validate(

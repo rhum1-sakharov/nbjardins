@@ -1,6 +1,6 @@
 package aop;
 
-import annotations.Transactional;
+import annotations.RvlTransactional;
 import transactions.DataProviderManager;
 
 public class UsecaseTransactionalAspect  {
@@ -16,14 +16,14 @@ public class UsecaseTransactionalAspect  {
         ut.execute(dpm);
     }
 
-    @Transactional
+    @RvlTransactional
     public void execute(DataProviderManager dpm) {
         System.out.println("Executing TestTarget.yourMethodAround()");
     }
 
 
 
-    @Transactional
+    @RvlTransactional
     public void execute() {
         System.out.println("Executing TestTarget.yourMethodAround()");
     }

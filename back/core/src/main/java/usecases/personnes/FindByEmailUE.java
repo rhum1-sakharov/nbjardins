@@ -1,6 +1,6 @@
 package usecases.personnes;
 
-import annotations.Transactional;
+import annotations.RvlTransactional;
 import domains.personnes.PersonneDN;
 import exceptions.CleanException;
 import ports.localization.LocalizeServicePT;
@@ -18,7 +18,7 @@ public class FindByEmailUE extends AbstractUsecase {
         this.personneRepo = personneRepo;
     }
 
-    @Transactional
+    @RvlTransactional
     public PersonneDN execute(DataProviderManager dpm, String email) throws CleanException {
 
         return personneRepo.findByEmail(dpm,email);

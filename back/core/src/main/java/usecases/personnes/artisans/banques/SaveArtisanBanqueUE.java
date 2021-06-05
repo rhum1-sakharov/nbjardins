@@ -1,6 +1,6 @@
 package usecases.personnes.artisans.banques;
 
-import annotations.Transactional;
+import annotations.RvlTransactional;
 import domains.personnes.artisans.ArtisanBanqueDN;
 import exceptions.CleanException;
 import models.Precondition;
@@ -23,7 +23,7 @@ public class SaveArtisanBanqueUE extends AbstractUsecase {
         this.artisanBanqueRepo = artisanBanqueRepo;
     }
 
-    @Transactional
+    @RvlTransactional
     public ArtisanBanqueDN execute(DataProviderManager dpm, ArtisanBanqueDN artisanBanque) throws CleanException {
 
         Precondition.validate(

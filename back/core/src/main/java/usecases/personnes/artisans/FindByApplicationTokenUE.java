@@ -1,6 +1,6 @@
 package usecases.personnes.artisans;
 
-import annotations.Transactional;
+import annotations.RvlTransactional;
 import domains.personnes.artisans.ArtisanDN;
 import exceptions.CleanException;
 import ports.localization.LocalizeServicePT;
@@ -18,7 +18,7 @@ public class FindByApplicationTokenUE extends AbstractUsecase {
         this.artisanRepo = artisanRepo;
     }
 
-    @Transactional
+    @RvlTransactional
     public ArtisanDN execute(DataProviderManager dpm, String appToken) throws CleanException {
 
         return artisanRepo.findArtisanByApplicationToken(dpm, appToken);

@@ -1,6 +1,6 @@
 package usecases.personnes.artisans;
 
-import annotations.Transactional;
+import annotations.RvlTransactional;
 import domains.devis.DevisDN;
 import domains.personnes.PersonneDN;
 import domains.personnes.artisans.ArtisanDN;
@@ -34,7 +34,7 @@ public class ShareInfosDevisUE extends AbstractUsecase {
         this.findByEmailUE = findByEmailUE;
     }
 
-    @Transactional
+    @RvlTransactional
     public ArtisanDN execute(DataProviderManager dpm, DevisDN devis) throws CleanException {
 
         Precondition.validate(

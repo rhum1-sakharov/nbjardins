@@ -1,6 +1,6 @@
 package usecases.devis;
 
-import annotations.Transactional;
+import annotations.RvlTransactional;
 import domains.devis.DevisDN;
 import exceptions.CleanException;
 import models.Precondition;
@@ -23,7 +23,7 @@ public class FindByIdDevisUE extends AbstractUsecase {
         this.devisRepo = devisRepo;
     }
 
-    @Transactional
+    @RvlTransactional
     public DevisDN execute(DataProviderManager dpm, String idDevis) throws CleanException {
 
         Precondition.validate(

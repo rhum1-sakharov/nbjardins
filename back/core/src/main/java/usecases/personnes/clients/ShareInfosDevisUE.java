@@ -1,6 +1,6 @@
 package usecases.personnes.clients;
 
-import annotations.Transactional;
+import annotations.RvlTransactional;
 import domains.devis.DevisDN;
 import domains.personnes.clients.ClientDN;
 import exceptions.CleanException;
@@ -36,7 +36,7 @@ public class ShareInfosDevisUE extends AbstractUsecase {
         this.findClientByEmailUE = findClientByEmailUE;
     }
 
-    @Transactional
+    @RvlTransactional
     public Map<String,Object> execute(DataProviderManager dpm, DevisDN devis) throws CleanException {
 
         Precondition.validate(

@@ -1,6 +1,6 @@
 package usecases.personnes.clients;
 
-import annotations.Transactional;
+import annotations.RvlTransactional;
 import domains.personnes.clients.ClientDN;
 import exceptions.CleanException;
 import exceptions.TechnicalException;
@@ -34,7 +34,7 @@ public class SearchClientUE extends AbstractUsecase {
         this.sfh = sfh;
     }
 
-    @Transactional
+    @RvlTransactional
     public SearchResponse<ClientDN> execute(DataProviderManager dpm, Search search) throws CleanException, IllegalAccessException, InstantiationException {
 
         checkParameters(search);

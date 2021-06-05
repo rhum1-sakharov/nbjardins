@@ -1,6 +1,6 @@
 package usecases.authorization;
 
-import annotations.Transactional;
+import annotations.RvlTransactional;
 import domains.authorizations.AuthorizationDN;
 import domains.personnes.PersonneDN;
 import domains.personnes.artisans.ArtisanDN;
@@ -70,7 +70,7 @@ public class GetAuthorizationUE extends AbstractUsecase {
      * @return
      * @throws Exception
      */
-    @Transactional
+    @RvlTransactional
     public AuthorizationDN execute(DataProviderManager dpm, LoginManager loginManager) throws CleanException {
 
         try {

@@ -1,6 +1,6 @@
 package usecases.personnes.clients;
 
-import annotations.Transactional;
+import annotations.RvlTransactional;
 import domains.personnes.clients.ClientDN;
 import exceptions.CleanException;
 import models.Precondition;
@@ -23,7 +23,7 @@ public class FindByEmailUE extends AbstractUsecase {
         this.clientRepo = clientRepo;
     }
 
-    @Transactional
+    @RvlTransactional
     public ClientDN execute(DataProviderManager dpm, String email) throws CleanException {
 
         Precondition.validate(

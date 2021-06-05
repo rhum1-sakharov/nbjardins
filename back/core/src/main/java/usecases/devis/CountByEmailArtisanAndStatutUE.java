@@ -1,6 +1,6 @@
 package usecases.devis;
 
-import annotations.Transactional;
+import annotations.RvlTransactional;
 import enums.STATUT_DEVIS;
 import exceptions.CleanException;
 import models.Precondition;
@@ -23,7 +23,7 @@ public class CountByEmailArtisanAndStatutUE extends AbstractUsecase {
         this.devisRepo = devisRepo;
     }
 
-    @Transactional
+    @RvlTransactional
     public Long execute(DataProviderManager dpm, String emailArtisan, STATUT_DEVIS statutDevis) throws CleanException {
 
         Precondition.validate(
