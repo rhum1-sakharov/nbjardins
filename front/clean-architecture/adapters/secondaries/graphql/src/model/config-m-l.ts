@@ -7,4 +7,4 @@ export class ConfigML {
     }
 }
 
-export const testConfig: ConfigML = new ConfigML('http://localhost:8080/api/graphql');
+export const TEST_CONFIG: ConfigML = new ConfigML('http://localhost:8080/api/graphql');

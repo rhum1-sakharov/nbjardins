@@ -1,6 +1,6 @@
 package usecases.personnes.artisans.banques;
 
-import aop.Transactional;
+import annotations.Transactional;
 import exceptions.CleanException;
 import models.Precondition;
 import ports.localization.LocalizeServicePT;

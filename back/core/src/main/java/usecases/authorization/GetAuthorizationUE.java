@@ -1,6 +1,6 @@
 package usecases.authorization;
 
-import aop.Transactional;
+import annotations.Transactional;
 import domains.authorizations.AuthorizationDN;
 import domains.personnes.PersonneDN;
 import domains.personnes.artisans.ArtisanDN;

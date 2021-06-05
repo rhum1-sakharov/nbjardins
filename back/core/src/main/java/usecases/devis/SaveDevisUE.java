@@ -1,6 +1,6 @@
 package usecases.devis;
 
-import aop.Transactional;
+import annotations.Transactional;
 import domains.devis.DevisDN;
 import exceptions.CleanException;
 import ports.localization.LocalizeServicePT;

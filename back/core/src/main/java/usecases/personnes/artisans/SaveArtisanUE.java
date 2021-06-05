@@ -1,6 +1,6 @@
 package usecases.personnes.artisans;
 
-import aop.Transactional;
+import annotations.Transactional;
 import domains.personnes.PersonneDN;
 import domains.personnes.artisans.ArtisanDN;
 import domains.personnes.roles.Personne__RoleDN;

@@ -1,6 +1,6 @@
 package usecases.uniquecode;
 
-import aop.Transactional;
+import annotations.Transactional;
 import enums.UNIQUE_CODE;
 import exceptions.CleanException;
 import org.apache.commons.lang3.RandomStringUtils;

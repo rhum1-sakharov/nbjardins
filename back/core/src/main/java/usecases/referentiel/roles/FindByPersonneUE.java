@@ -1,6 +1,6 @@
 package usecases.referentiel.roles;
 
-import aop.Transactional;
+import annotations.Transactional;
 import domains.personnes.PersonneDN;
 import domains.referentiel.roles.RoleDN;
 import exceptions.CleanException;

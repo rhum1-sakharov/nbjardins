@@ -1,6 +1,6 @@
 package usecases.personnes.clients;
 
-import aop.Transactional;
+import annotations.Transactional;
 import domains.devis.DevisDN;
 import domains.personnes.clients.ClientDN;
 import exceptions.CleanException;

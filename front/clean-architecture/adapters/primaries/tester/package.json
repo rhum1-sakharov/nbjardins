@@ -12,10 +12,14 @@
     "webpack": "^5.37.0",
     "webpack-cli": "^4.7.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "html-webpack-plugin": "^5.3.1",
+    "webpack-dev-server": "^3.11.2"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npm link rvl-core && npm link rvl-graphql && webpack --mode development"
+    "dev": "npm link rvl-core && npm link rvl-graphql && webpack --mode development ",
+    "server": "npx webpack serve --mode development"
   },
   "keywords": [],
   "author": "",

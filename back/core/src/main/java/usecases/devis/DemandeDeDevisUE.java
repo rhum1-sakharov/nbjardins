@@ -1,7 +1,7 @@
 package usecases.devis;
 
 
-import aop.Transactional;
+import annotations.Transactional;
 import domains.applications.ApplicationDN;
 import domains.devis.DevisDN;
 import domains.personnes.artisans.ArtisanDN;

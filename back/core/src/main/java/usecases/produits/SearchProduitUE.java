@@ -1,6 +1,6 @@
 package usecases.produits;
 
-import aop.Transactional;
+import annotations.Transactional;
 import domains.produits.ProduitDN;
 import exceptions.CleanException;
 import exceptions.TechnicalException;

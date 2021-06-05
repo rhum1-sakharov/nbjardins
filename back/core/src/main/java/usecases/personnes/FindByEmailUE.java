@@ -1,6 +1,6 @@
 package usecases.personnes;
 
-import aop.Transactional;
+import annotations.Transactional;
 import domains.personnes.PersonneDN;
 import exceptions.CleanException;
 import ports.localization.LocalizeServicePT;

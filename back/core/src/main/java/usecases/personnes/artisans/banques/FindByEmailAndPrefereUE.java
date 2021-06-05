@@ -1,6 +1,6 @@
 package usecases.personnes.artisans.banques;
 
-import aop.Transactional;
+import annotations.Transactional;
 import domains.personnes.artisans.ArtisanBanqueDN;
 import exceptions.CleanException;
 import ports.localization.LocalizeServicePT;

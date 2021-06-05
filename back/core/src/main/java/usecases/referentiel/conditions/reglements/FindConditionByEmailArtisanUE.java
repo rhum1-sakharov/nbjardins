@@ -1,6 +1,6 @@
 package usecases.referentiel.conditions.reglements;
 
-import aop.Transactional;
+import annotations.Transactional;
 import exceptions.CleanException;
 import ports.localization.LocalizeServicePT;
 import ports.repositories.referentiel.conditions.reglements.ConditionDeReglementRepoPT;

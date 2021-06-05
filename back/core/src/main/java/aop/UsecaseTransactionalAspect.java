@@ -1,5 +1,6 @@
 package aop;
 
+import annotations.Transactional;
 import transactions.DataProviderManager;
 
 public class UsecaseTransactionalAspect  {

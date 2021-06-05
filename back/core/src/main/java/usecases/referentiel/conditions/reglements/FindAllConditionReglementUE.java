@@ -1,6 +1,6 @@
 package usecases.referentiel.conditions.reglements;
 
-import aop.Transactional;
+import annotations.Transactional;
 import domains.referentiel.condition.reglement.ConditionDeReglementDN;
 import exceptions.CleanException;
 import ports.localization.LocalizeServicePT;

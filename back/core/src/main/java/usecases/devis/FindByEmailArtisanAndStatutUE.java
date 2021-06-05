@@ -1,6 +1,6 @@
 package usecases.devis;
 
-import aop.Transactional;
+import annotations.Transactional;
 import domains.devis.DevisDN;
 import enums.STATUT_DEVIS;
 import exceptions.CleanException;

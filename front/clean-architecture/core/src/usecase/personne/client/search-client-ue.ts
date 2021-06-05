@@ -13,11 +13,11 @@ export class SearchClientUE extends AbstractUsecase {
         this.clientRepo = clientRepo;
     }
 
-    execute(search: MSearch): SearchResponseML {
+     async execute(search: MSearch): Promise<SearchResponseML> {
 
         ParameterUtil.isNotNull([search], ['search']);
 
-        return this.clientRepo.searchClient(search);
+        return await this.clientRepo.searchClient(search);
 
     }
 

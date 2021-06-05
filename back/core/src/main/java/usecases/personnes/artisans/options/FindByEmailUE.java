@@ -1,6 +1,6 @@
 package usecases.personnes.artisans.options;
 
-import aop.Transactional;
+import annotations.Transactional;
 import domains.personnes.artisans.options.ArtisanOptionDN;
 import exceptions.CleanException;
 import models.Precondition;

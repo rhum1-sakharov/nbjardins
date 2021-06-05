@@ -1,6 +1,6 @@
 package usecases.devis;
 
-import aop.Transactional;
+import annotations.Transactional;
 import enums.STATUT_DEVIS;
 import exceptions.CleanException;
 import models.Precondition;

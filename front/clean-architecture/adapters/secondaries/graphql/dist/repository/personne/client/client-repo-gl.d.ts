@@ -1,4 +1,7 @@
 import { ClientRepoPT, MSearch, SearchResponseML } from 'rvl-core';
-export declare class ClientRepoGL implements ClientRepoPT {
-    searchClient(search: MSearch): SearchResponseML;
+import { AbstractRepo } from '../../abstract-repo';
+import { ConfigML } from '../../..';
+export declare class ClientRepoGL extends AbstractRepo implements ClientRepoPT {
+    constructor(config: ConfigML);
+    searchClient(search: MSearch): Promise<SearchResponseML>;
 }
