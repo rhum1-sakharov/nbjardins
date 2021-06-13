@@ -72,7 +72,7 @@ public class ProduitRepoJpaTest {
     public void search() throws TechnicalException, IllegalAccessException, InstantiationException {
 
         String[] strings={"p1"};
-        float[] inputs={1.6f,25};
+        float[] inputs={1.6f,25f};
 
         Search search = Search.builder()
                 .filters(Stream.of(
