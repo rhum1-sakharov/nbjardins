@@ -1,14 +1,9 @@
 package utils.threads;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
-import oshi.SystemInfo;
-import oshi.hardware.CentralProcessor;
-import oshi.hardware.HardwareAbstractionLayer;
 import utils.ThreadUtil;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -22,7 +17,7 @@ public class ThreadTest {
 
         System.out.println(ThreadUtil.showNbThreads());
 
-        int maxPool = ThreadUtil.adjustDbPool(0.4f);
+        int maxPool = ThreadUtil.maxDbPoolConnections(0.6f * 0.6f);
 
        System.out.println("max pool size : "+maxPool);
     }

@@ -36,11 +36,17 @@ public class ThreadUtil {
      *
      * @return
      */
-    public static int adjustDbPool(float poolRatio) {
+    public static int maxDbPoolConnections(float poolRatio) {
 
         int core_count = nbPhysicalCpuCores();
 
-        return (int) (((core_count * 2) + 1) * poolRatio);
+        int maxDbPoolConnections = (int) (((core_count * 2) + 1) * poolRatio);
+
+        if (maxDbPoolConnections < 1) {
+            maxDbPoolConnections = 1;
+        }
+
+        return maxDbPoolConnections;
 
     }
 }
