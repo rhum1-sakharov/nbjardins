@@ -42,8 +42,8 @@ public class ThreadUtil {
 
         int maxDbPoolConnections = (int) (((core_count * 2) + 1) * poolRatio);
 
-        if (maxDbPoolConnections < 1) {
-            maxDbPoolConnections = 1;
+        if (maxDbPoolConnections < 2) {
+            maxDbPoolConnections = 2;
         }
 
         return maxDbPoolConnections;

@@ -43,7 +43,7 @@
 
         <dependency>
             <groupId>org.rlsv.adapters.secondaries</groupId>
-            <artifactId>data-provider-jpa</artifactId>
+            <artifactId>provider-jpa</artifactId>
             <version>${project.version}</version>
         </dependency>
 

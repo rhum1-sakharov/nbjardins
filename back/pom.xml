@@ -14,7 +14,7 @@
         <module>adapters/secondaries/localization</module>
         <module>adapters/secondaries/mails</module>
         <module>adapters/secondaries/flying-saucer-pdf</module>
-        <module>adapters/secondaries/dataproviderjpa</module>
+        <module>adapters/secondaries/provider-jpa</module>
         <module>adapters/secondaries/security</module>
         <module>adapters/primaries/graphql</module>
         <module>adapters/primaries/application/springapp</module>
