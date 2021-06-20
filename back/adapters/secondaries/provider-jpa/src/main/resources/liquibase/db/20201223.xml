@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+
+
+    <changeSet id="202012241439" author="rvl" >
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="conditions_de_reglement" ></tableExists>
+            </not>
+        </preConditions>
+        <sql>
+            CREATE TABLE conditions_de_reglement
+            (
+            ID VARCHAR(36) PRIMARY KEY NOT NULL,
+            LIBELLE varchar(50) NOT NULL
+            )
+            COLLATE='utf8_general_ci'
+            ;
+            CREATE UNIQUE INDEX conditions_de_reglement_LIBELLE_uindex ON conditions_de_reglement (LIBELLE);
+        </sql>
+        <comment>
+            ajout de la table conditions de reglement
+        </comment>
+    </changeSet>
+
+    <changeSet id="202012241440" author="rvl" >
+        <preConditions onFail="MARK_RAN">
+           <sqlCheck expectedResult="0">select count(*) from conditions_de_reglement</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO `conditions_de_reglement` (`ID`, `LIBELLE`) VALUES ('1','À réception de la facture');
+            INSERT INTO `conditions_de_reglement` (`ID`, `LIBELLE`) VALUES ('2','Maximum 10 jours après la réception de la facture');
+        </sql>
+        <comment>
+            ajout des conditions de reglement
+        </comment>
+    </changeSet>
+
+    <changeSet id="202012241441" author="rvl" >
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="artisans" columnName="ID_CONDITION_DE_REGLEMENT" ></columnExists>
+            </not>
+        </preConditions>
+        <sql>
+            ALTER TABLE artisans ADD ID_CONDITION_DE_REGLEMENT VARCHAR(36) NOT NULL;
+            CREATE INDEX artisans_ID_CONDITION_DE_REGLEMENT__index ON artisans (ID_CONDITION_DE_REGLEMENT);
+            ALTER TABLE artisans
+            ADD CONSTRAINT artisans_conditions_de_reglement_ID_fk
+            FOREIGN KEY (ID_CONDITION_DE_REGLEMENT) REFERENCES conditions_de_reglement (ID) ON UPDATE CASCADE;
+        </sql>
+        <comment>
+            ajout du modes de reglement par defaut pour un artisan
+        </comment>
+    </changeSet>
+
+
+
+
+
+
+
+
+</databaseChangeLog>

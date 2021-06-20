@@ -1,14 +1,12 @@
 package model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class HikariConfigML {
 
 
@@ -16,7 +14,8 @@ public class HikariConfigML {
     private String password;
     private String url;
     private String driver;
-    private int maximumPoolSize;
+    private Integer maximumPoolSize;
+    private String poolName;
 
 
 }

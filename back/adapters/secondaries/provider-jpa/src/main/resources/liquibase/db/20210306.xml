@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+
+
+    <changeSet id="202103062041-1" author="rvl">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="artisans_options"></tableExists>
+            </not>
+        </preConditions>
+        <sql>
+            CREATE TABLE `artisans_options` (
+            `ID` VARCHAR(36) NOT NULL DEFAULT '',
+            `ID_ARTISAN` VARCHAR(36) NOT NULL DEFAULT '',
+            `MODELE_OPTION` ENUM('TVA_SAISISSABLE_PAR_LIGNE','COLONNE_QUANTITE','COORDONNEES_BANQUAIRES','PROVISION') NOT NULL,
+            `ACTIF` TINYINT(1) NOT NULL DEFAULT '0',
+            PRIMARY KEY (`ID`),
+            UNIQUE INDEX `unique_artisan_option` (`ID_ARTISAN`, `MODELE_OPTION`),
+            CONSTRAINT `FK__ao__artisans` FOREIGN KEY (`ID_ARTISAN`) REFERENCES `artisans` (`ID`) ON UPDATE CASCADE ON
+            DELETE CASCADE
+            )
+            COLLATE='utf8_general_ci'
+            ;
+        </sql>
+        <comment>
+            Ajout de la table artisans_options
+        </comment>
+    </changeSet>
+
+    <changeSet id="202103062109-1" author="rvl">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="artisans_options"></tableExists>
+        </preConditions>
+        <sql>
+            set @rownum := 0;
+            INSERT INTO artisans_options (id, id_artisan, MODELE_OPTION, actif )
+            SELECT @rownum := @rownum + 1, a.ID, 'TVA_SAISISSABLE_PAR_LIGNE',0 FROM artisans a;
+            INSERT INTO artisans_options (id, id_artisan, MODELE_OPTION, actif )
+            SELECT @rownum := @rownum + 1, a.ID, 'COLONNE_QUANTITE',0 FROM artisans a;
+            INSERT INTO artisans_options (id, id_artisan, MODELE_OPTION, actif )
+            SELECT @rownum := @rownum + 1, a.ID, 'COORDONNEES_BANQUAIRES',0 FROM artisans a;
+            INSERT INTO artisans_options (id, id_artisan, MODELE_OPTION, actif )
+            SELECT @rownum := @rownum + 1, a.ID, 'PROVISION',0 FROM artisans a;
+        </sql>
+        <comment>
+            Ajout des options par défaut pour les artisans déjà présents
+        </comment>
+    </changeSet>
+
+    <changeSet id="202103071836" author="rvl">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="artisans_banques" columnName="BANQUE"></columnExists>
+            </not>
+        </preConditions>
+        <sql>
+            ALTER TABLE `artisans_banques`
+            ADD COLUMN `BANQUE` VARCHAR(50) NOT NULL AFTER `RIB`;
+        </sql>
+        <comment>
+          Ajout de la colonne banque sur artisans_banques
+        </comment>
+    </changeSet>
+
+    <changeSet id="202103141442" author="rvl">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="artisans" columnName="EMAIL_PRO"></columnExists>
+            </not>
+        </preConditions>
+        <sql>
+            ALTER TABLE `artisans`
+            ADD COLUMN `EMAIL_PRO` VARCHAR(50) NOT NULL AFTER `ID_CONDITION_DE_REGLEMENT`;
+
+        </sql>
+        <comment>
+            Ajout de la colonne email_pro sur artisans
+        </comment>
+    </changeSet>
+
+    <changeSet id="202103172127" author="rvl">
+        <preConditions onFail="MARK_RAN">
+                <columnExists tableName="devis" columnName="STATUT"></columnExists>
+        </preConditions>
+        <sql>
+           delete from devis;
+            ALTER TABLE `devis`
+            CHANGE COLUMN `STATUT` `STATUT` ENUM('A_TRAITER','TRAITE','ACCEPTE','REFUSE','ABANDON') NOT NULL COLLATE 'utf8_general_ci' AFTER `MESSAGE`;
+
+        </sql>
+        <comment>
+            modification des statuts d'un devis
+        </comment>
+    </changeSet>
+
+
+
+
+
+
+
+    <changeSet id="202104022129" author="rvl">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="devis"></tableExists>
+        </preConditions>
+        <sql>
+            drop TABLE `devis`;
+        </sql>
+        <comment>
+            supprimer la table devis
+        </comment>
+    </changeSet>
+
+    <changeSet id="202104022150" author="rvl">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="devis"></tableExists>
+            </not>
+        </preConditions>
+        <sql>
+            CREATE TABLE `devis` (
+            `ID` VARCHAR(36) NOT NULL,
+            `NUMERO_DEVIS` VARCHAR(50) NOT NULL DEFAULT '',
+            `ID_ARTISAN` VARCHAR(36) NOT NULL,
+            `ID_CLIENT` VARCHAR(36),
+            `STATUT` ENUM('A_TRAITER','TRAITE','ACCEPTE','REFUSE','ABANDON') NOT NULL DEFAULT 'A_TRAITER',
+            `DATE_A_TRAITER` DATE NOT NULL,
+            `DATE_TRAITE` DATE NULL,
+            `DATE_ACCEPTE` DATE NULL,
+            `DATE_REFUSE` DATE NULL,
+            `DATE_ABANDON` DATE NULL,
+            `ARTISAN_LOGO` VARCHAR(50) NULL,
+            `ARTISAN_SIRET` VARCHAR(50) NULL,
+            `ARTISAN_SOCIETE` VARCHAR(50) NULL,
+            `ARTISAN_FONCTION` VARCHAR(50) NULL,
+            `ARTISAN_ADRESSE` VARCHAR(50) NULL,
+            `ARTISAN_VILLE` VARCHAR(50) NULL,
+            `ARTISAN_CODE_POSTAL` VARCHAR(50) NULL,
+            `ARTISAN_TELEPHONE` VARCHAR(50) NULL,
+            `ARTISAN_EMAIL` VARCHAR(50) NULL,
+            `ARTISAN_SIGNATURE` VARCHAR(256) NULL,
+            `CLIENT_NOM` VARCHAR(50) NULL,
+            `CLIENT_EMAIL` VARCHAR(50) NULL,
+            `CLIENT_PRENOM` VARCHAR(50) NULL,
+            `CLIENT_ADRESSE` VARCHAR(50) NULL,
+            `CLIENT_VILLE` VARCHAR(50) NULL,
+            `CLIENT_CODE_POSTAL` VARCHAR(50) NULL,
+            `CLIENT_TELEPHONE` VARCHAR(50) NULL,
+            `CLIENT_SIGNATURE` VARCHAR(256) NULL,
+            `CLIENT_SIRET` VARCHAR(50) NULL,
+            `CLIENT_SOCIETE` VARCHAR(50) NULL,
+            `CLIENT_FONCTION` VARCHAR(50) NULL,
+            `SUJET` VARCHAR(256) NULL DEFAULT '',
+            `LIEU` VARCHAR(50) NULL DEFAULT '',
+            `TOTAL_HT` DECIMAL(20,6) NOT NULL DEFAULT 0,
+            `TVA` DECIMAL(20,6) NULL DEFAULT 0,
+            `REMARQUE` VARCHAR(256) NULL DEFAULT NULL,
+            `CONDITION_DE_REGLEMENT` VARCHAR(256) NULL DEFAULT NULL,
+            `ORDRE` VARCHAR(50) NULL DEFAULT NULL,
+            `BANQUE` VARCHAR(50) NULL DEFAULT NULL,
+            `IBAN` VARCHAR(50) NULL DEFAULT NULL,
+            `RIB` VARCHAR(50) NULL DEFAULT NULL,
+            `PROVISION` DECIMAL(20,6) NULL DEFAULT NULL,
+            `VALIDITE_DEVIS_MOIS` INT NULL DEFAULT NULL,
+            PRIMARY KEY (`ID`),
+            INDEX `ID_ARTISAN` (`ID_ARTISAN`),
+            INDEX `ID_CLIENT` (`ID_CLIENT`),
+            UNIQUE INDEX `NUMERO_DEVIS` (`NUMERO_DEVIS`),
+            CONSTRAINT `FK__devis_artisans` FOREIGN KEY (`ID_ARTISAN`) REFERENCES `artisans` (`ID`) ON UPDATE CASCADE ON DELETE CASCADE,
+            CONSTRAINT `FK__devis_clients` FOREIGN KEY (`ID_CLIENT`) REFERENCES `clients` (`ID`)
+            )
+            COLLATE='utf8_general_ci'
+            ;
+        </sql>
+        <comment>
+            ajouter la table devis
+        </comment>
+    </changeSet>
+
+    <changeSet id="202104022220" author="rvl">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="devis_options"></tableExists>
+            </not>
+        </preConditions>
+        <sql>
+            CREATE TABLE `devis_options` (
+            `ID` VARCHAR(36) NOT NULL,
+            `ID_DEVIS` VARCHAR(36) NOT NULL,
+            `MODELE_OPTION` ENUM('TVA_SAISISSABLE_PAR_LIGNE','COLONNE_QUANTITE','COORDONNEES_BANQUAIRES') NOT NULL ,
+            `ACTIF` TINYINT NOT NULL DEFAULT 0,
+            PRIMARY KEY (`ID`),
+            INDEX `ID_DEVIS` (`ID_DEVIS`),
+            UNIQUE INDEX `unique_devis_modele_option` (`ID_DEVIS`, `MODELE_OPTION`),
+            CONSTRAINT `FK__do_devis` FOREIGN KEY (`ID_DEVIS`) REFERENCES `devis` (`ID`) ON UPDATE CASCADE ON DELETE CASCADE
+            )
+            COLLATE='utf8_general_ci'
+            ;
+
+        </sql>
+        <comment>
+            ajout de la table devis options
+        </comment>
+    </changeSet>
+
+    <changeSet id="202104100856" author="rvl">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="devis" columnName="DATE_DEVIS"></columnExists>
+            </not>
+        </preConditions>
+        <sql>
+            ALTER TABLE `devis`
+            ADD COLUMN `DATE_DEVIS` DATE NULL DEFAULT NULL AFTER `DATE_ABANDON`;
+        </sql>
+        <comment>
+            ajout de la colonne DATE_DEVIS dans la table devis
+        </comment>
+    </changeSet>
+
+
+    <changeSet id="202104111838" author="rvl">
+        <preConditions onFail="MARK_RAN">
+                <columnExists tableName="devis_options" columnName="MODELE_OPTION"></columnExists>
+        </preConditions>
+        <sql>
+            ALTER TABLE `devis_options`
+            CHANGE COLUMN `MODELE_OPTION` `MODELE_OPTION` ENUM('TVA_SAISISSABLE_PAR_LIGNE','COLONNE_QUANTITE','COORDONNEES_BANQUAIRES','PROVISION') NOT NULL COLLATE 'utf8_general_ci' AFTER `ID_DEVIS`;
+        </sql>
+        <comment>
+            ajout de la valeur PROVISION sur l'enum MODELE_OPTION de la table devis_options
+        </comment>
+    </changeSet>
+
+    <changeSet id="202104172216" author="rvl">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="personnes" columnName="NUMERO_TELEPHONE"></columnExists>
+        </preConditions>
+        <sql>
+            ALTER TABLE `personnes`
+            CHANGE COLUMN `NUMERO_TELEPHONE` `NUMERO_TELEPHONE` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8_general_ci' AFTER `EMAIL`;
+
+        </sql>
+        <comment>
+          Agrandir la taille du numéro de téléphone à 50 sur table personnes.
+        </comment>
+    </changeSet>
+
+    <changeSet id="202104172224" author="rvl">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="artisans"></tableExists>
+        </preConditions>
+        <sql>
+            ALTER TABLE `artisans`
+            CHANGE COLUMN `LOGO` `LOGO` VARCHAR(256) NULL COLLATE 'utf8_general_ci' AFTER `ID_CONDITION_DE_REGLEMENT`,
+            CHANGE COLUMN `EMAIL_PRO` `EMAIL_PRO` VARCHAR(50) NULL COLLATE 'utf8_general_ci' AFTER `LOGO`,
+            CHANGE COLUMN `SIGNATURE` `SIGNATURE` VARCHAR(50) NULL COLLATE 'utf8_general_ci' AFTER `EMAIL_PRO`,
+            CHANGE COLUMN `PROVISION` `PROVISION` DECIMAL(10,4) NULL COMMENT 'en euros' AFTER `SIGNATURE`,
+            CHANGE COLUMN `SIRET` `SIRET` VARCHAR(50) NULL COLLATE 'utf8_general_ci' AFTER `PROVISION`,
+            CHANGE COLUMN `VALIDITE_DEVIS_MOIS` `VALIDITE_DEVIS_MOIS` INT(10) NULL AFTER `SIRET`;
+
+        </sql>
+        <comment>
+            Rendre les champs nullable logo, email_pro, signature, provision, siret, validite_devis_mois sur la table artisans
+        </comment>
+    </changeSet>
+
+</databaseChangeLog>
