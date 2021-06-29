@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Builder
@@ -11,7 +12,7 @@ import java.util.Map;
 @Setter
 public class JdbcMapperML {
 
-    private String tableName;
-    private Map<String,String> columnsMapper;
+    private String tableName = "";
+    private Map<String, String> columnsMapper = new HashMap<>();
 
 }
