@@ -53,17 +53,20 @@ public class RepoJdbc<D extends Domain> implements RepoPT<D> {
     public List<D> findAll(DataProviderManager dpm, Class<D> domainClass) throws TechnicalException {
 
         Connection connection = (Connection) dpm.getManager();
-        final String sqlQuery = "select * from " + DomainJdbcMapping.getTable(domainClass.getSimpleName());
+        final String sqlQuery = DomainJdbcMapping.selectAll(domainClass.getSimpleName());
 
         List<D> domainList = new ArrayList<>();
 
         try (PreparedStatement pst = connection.prepareStatement(sqlQuery);
              ResultSet rs = pst.executeQuery();
         ) {
-            while(rs.next()){
+            while (rs.next()) {
                 try {
                     D instance = domainClass.newInstance();
 
+                    instance.setId(rs.getString("id"));
+
+                    domainList.add(instance);
 
                 } catch (InstantiationException | IllegalAccessException e) {
                     LOG.error(e.getMessage());

@@ -1,0 +1,8 @@
+export enum OPERATOR_BOOLEAN {
+
+
+  EQUALS='EQUALS',
+  NOT_EQUALS='NOT_EQUALS',
+
+
+}

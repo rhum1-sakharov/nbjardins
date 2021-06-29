@@ -7,6 +7,10 @@ import exceptions.TechnicalException;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
+import ports.localization.LocalizeServicePT;
 import repository.personne.PersonneJdbcRepo;
 import transaction.HikariTransactionManager;
 import transactions.DataProviderManager;
@@ -15,6 +19,7 @@ import util.TestUtil;
 import java.sql.Connection;
 import java.util.List;
 
+@RunWith(MockitoJUnitRunner.class)
 public class DataSourceTest {
 
     HikariTransactionManager htm;
@@ -22,12 +27,17 @@ public class DataSourceTest {
 
     PersonneJdbcRepo repo;
 
+    @Mock
+    LocalizeServicePT ls;
+
     @Before
     public void setUp() throws CleanException {
 
         TestUtil.initHikariConfigML();
         htm = new HikariTransactionManager();
         dpm = htm.createDataProviderManager(dpm);
+
+        repo = new PersonneJdbcRepo(ls);
 
     }
 
